@@ -1,20 +1,34 @@
 {
   "name": "eslint-plugin-vitest",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.2",
+  "description": "Eslint plugin for vitest",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin",
+    "vitest eslint plugin",
+    "vitest eslint"
+  ],
+  "author": ".",
+  "main": "dist/index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "unbuild --stub",
+    "lint": "eslint .",
+    "test": "mocha tests --recursive"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/veritem/eslint-plugin-vitest.git"
+  "devDependencies": {
+    "eslint": "^8.0.1",
+    "eslint-plugin-eslint-plugin": "^4.0.1",
+    "eslint-plugin-node": "^11.1.0",
+    "jiti": "^1.12.9",
+    "mocha": "^9.1.3",
+    "unbuild": "^0.6.7"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/veritem/eslint-plugin-vitest/issues"
+  "engines": {
+    "node": "14.x || >= 16"
   },
-  "homepage": "https://github.com/veritem/eslint-plugin-vitest#readme"
+  "peerDependencies": {
+    "eslint": ">=6"
+  },
+  "license": "MIT"
 }
