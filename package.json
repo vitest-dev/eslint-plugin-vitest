@@ -14,15 +14,17 @@
   "scripts": {
     "dev": "unbuild --stub",
     "lint": "eslint .",
-    "test": "mocha tests --recursive"
+    "test": "vitest --watch",
+    "format": "prettier --write --plugin-search-dir=. ."
   },
   "devDependencies": {
     "eslint": "^8.0.1",
     "eslint-plugin-eslint-plugin": "^4.0.1",
     "eslint-plugin-node": "^11.1.0",
     "jiti": "^1.12.9",
-    "mocha": "^9.1.3",
-    "unbuild": "^0.6.7"
+    "prettier": "^2.5.1",
+    "unbuild": "^0.6.7",
+    "vitest": "^0.0.139"
   },
   "engines": {
     "node": "14.x || >= 16"
@@ -30,5 +32,8 @@
   "peerDependencies": {
     "eslint": ">=6"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@typescript-eslint/experimental-utils": "^5.9.0"
+  }
 }

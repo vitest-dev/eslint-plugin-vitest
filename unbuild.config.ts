@@ -1,5 +1,3 @@
 export default {
-    entries: [
-        './src/index.ts'
-    ]
-}
+  entries: ["./src/index.ts"],
+};

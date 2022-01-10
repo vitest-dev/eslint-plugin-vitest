@@ -1,5 +1,3 @@
-import rules from "./rules/index"
+import rules from "./rules/index";
 
-export default {
-  rules
-}
+export { rules };

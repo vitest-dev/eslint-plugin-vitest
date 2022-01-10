@@ -1,13 +1,13 @@
 module.exports = {
-    meta: {
-        docs: {
-            description: "Disallow skipped tests",
-            url: ""
-        },
-        type: "problem",
-        schema: []
+  meta: {
+    docs: {
+      description: "Disallow skipped tests",
+      url: "",
     },
-    create(){
-        return {}
-    }
-}
+    type: "problem",
+    schema: [],
+  },
+  create() {
+    return {};
+  },
+};
