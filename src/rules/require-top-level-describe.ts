@@ -1,55 +1,40 @@
-function isDescribeCall(node) {}
+import { ESLintUtils } from "@typescript-eslint/experimental-utils";
 
-// export default createRule({
-//     name: __filename,
-//     meta: {
-//         docs: {
-//             category: "",
-//             description: "Require test cases and hooks to be inside a `describe` block",
-//             recommended: false
-//         },
-//         type: "suggestion",
-//         schema: [
-//             {
-//                 type: "object",
-//                 properties: {
-//                     maxNumberOfTopLevelDescribes: {
-//                         type: 'number',
-//                         minimum: 1
-//                     }
-//                 },
-//                 additionalProperties: false
-//             }
-//         ]
-//     },
-//     defaultOptions: [{}],
-//     create(context) {
-//         // const {maxNumberOfTopLevelDescribes = Infinity} = context.options[0] ?? {};
+const createRule = ESLintUtils.RuleCreator(
+    name => `https://github.com/veritem/vitest-eslint-plugin/blob/docs/rules/${name}.md`
+)
 
-//         let numberOfTopLevelDescribeBlocks  = 0;
-//         let numberOfDescribeBlocks = 0;
+export const rule = createRule({
+    create(context) {
+        return {
+            FunctionDeclaration(node) {
+                if (/^[a-z]/.test(node.id.name)) {
+                    context.report({
+                        messageId: 'uppercase',
+                        node: node.id,
+                    });
+                }
+            },
+        };
+    },
+    meta: {
+        docs: {
+            description: `Disallow lowercase test case name`,
+            recommended: false,
+            //@ts-ignore
+            url: "https://github.com/veritem/vitest-eslint-plugin/blob/docs/rules/no-lowercase-test-case-name.md",
+            suggestion: false,
+            requiresTypeChecking: false,
+            extendsBaseRule: true,
+        },
+        type: "suggestion",
+        messages: {
+            lowercase: "Use lowercase for function name.",
+            uppercase: "Use uppercase for function name.",
+        },
+        schema: [],
+    },
+})
 
-//         return {
-//             // CallExpression(node){
-//             //     if(isDescribeCall(node)){
-//             //     context.report({
-//             //         node,
-//             //         messageId: "tooManyDescribes",
-//             //         data: {
-//             //             max: maxNumberOfTopLevelDescribes,
-//             //             s: maxNumberOfTopLevelDescribes == 1 ? '' : 's'
-//             //         }
-//             //     })
-//             //     }
-//             //     return
-//             // }
 
-//             // if(numberOfDescribeBlocks == 0){
-//             //     if(){
-
-//             //     }
-//             // }
-
-//         }
-//     }
-// })
+export default rule;

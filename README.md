@@ -1,8 +1,11 @@
-# eslint-plugin-vitest
+## eslint-plugin-vitest
+
+![npm](https://img.shields.io/npm/v/eslint-plugin-vitest)
+
 
 Eslint plugin for vitest
 
-## Installation
+### Installation
 
 You'll first need to install [ESLint](https://eslint.org/):
 
@@ -16,7 +19,7 @@ Next, install `eslint-plugin-vitest`:
 npm install eslint-plugin-vitest --save-dev
 ```
 
-## Usage
+### Usage
 
 Add `vitest` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
 
@@ -36,6 +39,6 @@ Then configure the rules you want to use under the rules section.
 }
 ```
 
-## Supported Rules
+### Supported Rules
 
 - Fill in provided rules here

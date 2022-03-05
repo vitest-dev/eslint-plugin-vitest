@@ -12,19 +12,22 @@
   "author": ".",
   "main": "dist/index.mjs",
   "scripts": {
-    "dev": "unbuild --stub",
+    "stub": "unbuild --stub",
+    "build": "unbuild",
     "lint": "eslint .",
     "test": "vitest --watch",
     "format": "prettier --write --plugin-search-dir=. ."
   },
   "devDependencies": {
-    "eslint": "^8.0.1",
-    "eslint-plugin-eslint-plugin": "^4.0.1",
+    "@types/mocha": "^9.1.0",
+    "@typescript-eslint/parser": "^5.13.0",
+    "eslint": "^8.10.0",
+    "eslint-plugin-eslint-plugin": "^4.1.0",
     "eslint-plugin-node": "^11.1.0",
-    "jiti": "^1.12.9",
+    "jiti": "^1.13.0",
     "prettier": "^2.5.1",
-    "unbuild": "^0.6.7",
-    "vitest": "^0.0.139"
+    "unbuild": "^0.6.9",
+    "vitest": "^0.5.9"
   },
   "engines": {
     "node": "14.x || >= 16"
@@ -34,6 +37,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@typescript-eslint/experimental-utils": "^5.9.0"
+    "@typescript-eslint/experimental-utils": "^5.13.0"
   }
 }
