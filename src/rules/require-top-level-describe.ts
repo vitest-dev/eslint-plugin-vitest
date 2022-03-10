@@ -1,40 +1,37 @@
 import { ESLintUtils } from "@typescript-eslint/experimental-utils";
 
 const createRule = ESLintUtils.RuleCreator(
-    name => `https://github.com/veritem/vitest-eslint-plugin/blob/docs/rules/${name}.md`
-)
+  (name) =>
+    `https://github.com/veritem/vitest-eslint-plugin/blob/docs/rules/${name}.md`
+);
 
-export const rule = createRule({
-    create(context) {
-        return {
-            FunctionDeclaration(node) {
-                if (/^[a-z]/.test(node.id.name)) {
-                    context.report({
-                        messageId: 'uppercase',
-                        node: node.id,
-                    });
-                }
-            },
-        };
+export default createRule({
+  create(context) {
+    return {
+      FunctionDeclaration(node) {
+        if (/^[a-z]/.test(node.id.name)) {
+          context.report({
+            messageId: "unexpectedTestCase",
+            node: node.id,
+          });
+        }
+      },
+    };
+  },
+  meta: {
+    docs: {
+      description: `Disallow lowercase test case name`,
+      recommended: false,
+      //@ts-ignore
+      url: "https://github.com/veritem/vitest-eslint-plugin/blob/docs/rules/no-lowercase-test-case-name.md",
+      suggestion: false,
+      requiresTypeChecking: false,
+      extendsBaseRule: true,
     },
-    meta: {
-        docs: {
-            description: `Disallow lowercase test case name`,
-            recommended: false,
-            //@ts-ignore
-            url: "https://github.com/veritem/vitest-eslint-plugin/blob/docs/rules/no-lowercase-test-case-name.md",
-            suggestion: false,
-            requiresTypeChecking: false,
-            extendsBaseRule: true,
-        },
-        type: "suggestion",
-        messages: {
-            lowercase: "Use lowercase for function name.",
-            uppercase: "Use uppercase for function name.",
-        },
-        schema: [],
+    type: "suggestion",
+    messages: {
+      unexpectedTestCase: "Test case should be wrapped in describe()",
     },
-})
-
-
-export default rule;
+    schema: [],
+  },
+});

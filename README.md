@@ -2,7 +2,6 @@
 
 ![npm](https://img.shields.io/npm/v/eslint-plugin-vitest)
 
-
 Eslint plugin for vitest
 
 ### Installation
