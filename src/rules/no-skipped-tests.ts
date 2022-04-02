@@ -20,18 +20,64 @@ export default createEslintRule<Options, MessageIds>({
   },
   defaultOptions: [],
   create: (context) => {
+    let suiteDepth = 0;
+    let testDepth = 0;
+
     return {
+      'CallExpression[callee.name="describe"]'() {
+        suiteDepth++;
+      },
+      'CallExpression[callee.name=/^(it|test)$/]'() {
+        testDepth++;
+      },
+      'CallExpression[callee.name=/^(it|test)$/][arguments.length<2]'(node) {
+        context.report({ messageId: "noSkippedTests", node });
+      },
       CallExpression(node) {
-        if (node.callee.type === "MemberExpression" && node.callee.object.loc.end.line === node.callee.property.loc.start.line) {
-          context.report({
-            node: node.arguments[0],
-            messageId: 'noSkippedTests',
-            fix: (fixer) => {
-              return fixer.replaceText(node.arguments[0], 'test');
-            }
-          })
+
+
+        //@ts-ignore
+        const functionName = (node.callee.name || '').toLowerCase()
+
+        // prevent duplicate warnings for it.each()()
+        if (node.callee.type === 'CallExpression') {
+          return;
         }
-      }
+
+        //TODO test for skipped tests 
+
+        console.log(functionName)
+
+        switch (functionName) {
+          case 'describe.skip.each':
+          case 'xdescribe.each':
+          case 'describe.skip':
+            context.report({ messageId: "noSkippedTests", node });
+            break;
+          case 'it.skip':
+          case 'it.concurrent.skip':
+          case 'test.skip':
+          case 'test.concurrent.skip':
+          case 'it.skip.each':
+          case 'test.skip.each':
+          case 'xit.each':
+          case 'xtest.each':
+            context.report({ messageId: "noSkippedTests", node });
+            break;
+        }
+      },
+      'CallExpression[callee.name="xdescribe"]'(node) {
+        context.report({ messageId: "noSkippedTests", node });
+      },
+      'CallExpression[callee.name=/^(xit|xtest)$/]'(node) {
+        context.report({ messageId: "noSkippedTests", node });
+      },
+      'CallExpression[callee.name="describe"]:exit'() {
+        suiteDepth--;
+      },
+      'CallExpression[callee.name=/^(it|test)$/]:exit'() {
+        testDepth--;
+      },
     }
   }
 })

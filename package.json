@@ -1,6 +1,7 @@
 {
   "name": "eslint-plugin-vitest",
   "version": "0.0.2",
+  "license": "MIT",
   "description": "Eslint plugin for vitest",
   "keywords": [
     "eslint",
@@ -10,33 +11,47 @@
     "vitest eslint"
   ],
   "author": ".",
-  "main": "dist/index.mjs",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "stub": "unbuild --stub",
     "build": "unbuild",
     "lint": "eslint 'src/**/*.ts' --fix",
     "test": "vitest --watch",
-    "format": "prettier --write --plugin-search-dir=. ."
+    "format": "prettier --write --plugin-search-dir=. .",
+    "release": "bumpp package.json && pnpm publish"
   },
   "devDependencies": {
+    "@babel/types": "^7.17.0",
     "@types/mocha": "^9.1.0",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
-    "@typescript-eslint/parser": "^5.14.0",
-    "eslint": "^8.10.0",
+    "@typescript-eslint/parser": "^5.17.0",
+    "bumpp": "^7.1.1",
+    "eslint": "^8.12.0",
     "eslint-plugin-eslint-plugin": "^4.1.0",
     "eslint-plugin-node": "^11.1.0",
     "jiti": "^1.13.0",
-    "prettier": "^2.5.1",
-    "unbuild": "^0.7.0",
-    "vitest": "^0.6.0"
+    "prettier": "^2.6.2",
+    "unbuild": "^0.7.2",
+    "vitest": "^0.8.2"
   },
   "engines": {
     "node": "14.x || >= 16"
   },
   "peerDependencies": {
-    "eslint": ">=8"
+    "eslint": ">=8.0.0"
   },
-  "license": "MIT",
   "dependencies": {
     "@typescript-eslint/utils": "^5.17.0"
   }

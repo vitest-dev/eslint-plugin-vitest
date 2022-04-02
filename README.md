@@ -41,3 +41,8 @@ Then configure the rules you want to use under the rules section.
 ### Supported Rules
 
 - No Skipped tests 
+
+
+### Licence 
+
+[MIT](https://github.com/veritem/eslint-plugin-vitest/blob/main/LICENSE) Licence &copy; 2022 - present [veritem](https://github.com/veritem)
