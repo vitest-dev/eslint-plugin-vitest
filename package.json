@@ -14,12 +14,13 @@
   "scripts": {
     "stub": "unbuild --stub",
     "build": "unbuild",
-    "lint": "eslint .",
+    "lint": "eslint 'src/**/*.ts' --fix",
     "test": "vitest --watch",
     "format": "prettier --write --plugin-search-dir=. ."
   },
   "devDependencies": {
     "@types/mocha": "^9.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.14.0",
     "eslint": "^8.10.0",
     "eslint-plugin-eslint-plugin": "^4.1.0",
@@ -33,10 +34,10 @@
     "node": "14.x || >= 16"
   },
   "peerDependencies": {
-    "eslint": ">=6"
+    "eslint": ">=8"
   },
   "license": "MIT",
   "dependencies": {
-    "@typescript-eslint/experimental-utils": "^5.14.0"
+    "@typescript-eslint/utils": "^5.17.0"
   }
 }

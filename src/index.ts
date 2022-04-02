@@ -1,3 +1,9 @@
-import rules from "./rules/index";
+import noSkippedTests from "./rules/no-skipped-tests";
 
-export { rules };
+// export { rules };
+
+export default {
+    rules: {
+        'no-skip-test': noSkippedTests,
+    }
+}

@@ -1,15 +1,37 @@
-//TODO: fix the following rule
+import { createEslintRule } from "../utils";
 
-module.exports = {
+export type MessageIds = 'noSkippedTests';
+export const RULE_NAME = 'no-skipped-tests';
+export type Options = []
+
+export default createEslintRule<Options, MessageIds>({
+  name: RULE_NAME,
   meta: {
+    type: "problem",
     docs: {
       description: "Disallow skipped tests",
-      url: "",
+      recommended: "error",
     },
-    type: "problem",
+    fixable: 'code',
     schema: [],
+    messages: {
+      noSkippedTests: "Skipped tests are not allowed.",
+    }
   },
-  create() {
-    return {};
-  },
-};
+  defaultOptions: [],
+  create: (context) => {
+    return {
+      CallExpression(node) {
+        if (node.callee.type === "MemberExpression" && node.callee.object.loc.end.line === node.callee.property.loc.start.line) {
+          context.report({
+            node: node.arguments[0],
+            messageId: 'noSkippedTests',
+            fix: (fixer) => {
+              return fixer.replaceText(node.arguments[0], 'test');
+            }
+          })
+        }
+      }
+    }
+  }
+})

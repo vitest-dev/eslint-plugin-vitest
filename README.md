@@ -33,11 +33,11 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
   "rules": {
-    "vitest/rule-name": 2
+    "vitest/no-skipped-tests": 2
   }
 }
 ```
 
 ### Supported Rules
 
-- Fill in provided rules here
+- No Skipped tests 
