@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-vitest",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "description": "Eslint plugin for vitest",
   "keywords": [
@@ -30,7 +30,7 @@
     "lint": "eslint 'src/**/*.ts' --fix",
     "test": "vitest --watch",
     "format": "prettier --write --plugin-search-dir=. .",
-    "release": "bumpp package.json && pnpm publish"
+    "release": "bumpp package.json --commit --push --tag && pnpm publish"
   },
   "devDependencies": {
     "@babel/types": "^7.17.0",
