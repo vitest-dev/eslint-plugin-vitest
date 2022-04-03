@@ -10,7 +10,7 @@
     "vitest eslint plugin",
     "vitest eslint"
   ],
-  "author": ".",
+  "author": "Verite Mugabo Makuza <https://veritem.me/>",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
