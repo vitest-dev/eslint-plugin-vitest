@@ -11,7 +11,7 @@ const invalids = [
 ]
 
 
-it.skip(RULE_NAME, () => {
+it(RULE_NAME, () => {
     const ruleTester: RuleTester = new RuleTester({
         parser: require.resolve("@typescript-eslint/parser"),
     })
