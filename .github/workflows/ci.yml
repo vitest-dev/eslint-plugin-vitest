@@ -20,4 +20,4 @@ jobs:
     - name: install
       run: pnpm install
     - name: test 
-      run: pnpm test
+      run: pnpm test:ci 
