@@ -3,14 +3,14 @@ import { it } from "vitest"
 import rule, { RULE_NAME } from "./no-conditional-in-tests"
 
 const invalids = [
-    `describe('my tests', () => {
+  `describe('my tests', () => {
   if (true) {
     it('foo', () => {
       doTheThing();
     });
   }
 });`,
-    `beforeEach(() => {
+  `beforeEach(() => {
   switch (type) {
     case 'none':
       console.log('none')
@@ -23,10 +23,10 @@ const invalids = [
 ]
 
 const valids = [
-    `it('test', () => {
+  `it('test', () => {
     assert.equal(Math.sqrt(4), 2)
   })`,
-    `describe.skip('skipped suite', () => {
+  `describe.skip('skipped suite', () => {
   it('test', () => {
     assert.equal(Math.sqrt(4), 3)
   })
@@ -34,16 +34,16 @@ const valids = [
 ]
 
 
-it(RULE_NAME, () => {
-    const ruleTester: RuleTester = new RuleTester({
-        parser: require.resolve("@typescript-eslint/parser"),
-    })
-    ruleTester.run(RULE_NAME, rule, {
-        valid: valids,
-        invalid: invalids.map(i => ({
-            code: i,
-            output: i,
-            errors: [{ messageId: "noConditionalInTests" }],
-        })),
-    })
+it.skip(RULE_NAME, () => {
+  const ruleTester: RuleTester = new RuleTester({
+    parser: require.resolve("@typescript-eslint/parser"),
+  })
+  ruleTester.run(RULE_NAME, rule, {
+    valid: valids,
+    invalid: invalids.map(i => ({
+      code: i,
+      output: i,
+      errors: [{ messageId: "noConditionalInTests" }],
+    })),
+  })
 })

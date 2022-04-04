@@ -1,4 +1,3 @@
-import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { createEslintRule } from "../utils";
 
 
@@ -7,7 +6,10 @@ export type MessageIds = 'noConditionalInTests';
 export type Options = []
 
 
-/* This rule reports on any use of a conditional statement such as if, switch, and ternary expressions. */
+/**  
+TODO(WIP @veritem):This rule reports on any use of a conditional statement such as if
+switch, and ternary expressions.
+*/
 export default createEslintRule<Options, MessageIds>({
     name: RULE_NAME,
     meta: {
@@ -29,19 +31,19 @@ export default createEslintRule<Options, MessageIds>({
 
         return {
             ExpressionStatement(node) {
-                if (node.expression.type === "CallExpression") {
-                    const { callee, arguments: args } = node.expression
-                    if (callee.type === "Identifier") {
-                        args.forEach(arg => {
-                            if (arg.type === AST_NODE_TYPES.ConditionalExpression && arg.consequent.range) {
-                                context.report({
-                                    node,
-                                    messageId: 'noConditionalInTests',
-                                })
-                            }
-                        })
-                    }
-                }
+                // if (callee.type === "Identifier") {
+                //     args.forEach(arg => {
+                //         if (arg.type === AST_NODE_TYPES.ConditionalExpression && arg.consequent.range) { // if (node.expression.type === "CallExpression") {
+                //     const { callee, arguments: args } = node.expression
+                //     console.log({ callee })
+                //             context.report({
+                //                 node,
+                //                 messageId: 'noConditionalInTests',
+                //             })
+                //         }
+                //     })
+                // }
+                // }
             },
         }
     }
