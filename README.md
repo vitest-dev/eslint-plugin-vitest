@@ -1,5 +1,7 @@
 ## eslint-plugin-vitest
 
+> Disclaimer: This package is very experimental
+
 ![npm](https://img.shields.io/npm/v/eslint-plugin-vitest)
 
 Eslint plugin for vitest

@@ -1,9 +1,17 @@
-import lowerCaseTitle from "./rules/lower-case-title";
-import noSkippedTests from "./rules/no-skipped-tests";
+import { readdirSync } from "fs";
+import { dirname, join, parse } from "path";
+import { fileURLToPath } from "url";
 
-export default {
-    rules: {
-        'no-skip-test': noSkippedTests,
-        'lower-case-title': lowerCaseTitle
-    }
-}
+const rulesDir = dirname(fileURLToPath(import.meta.url));
+
+console.log({ rulesDir })
+
+const values = readdirSync(rulesDir)
+    .map(rule => parse(rule).name)
+    .reduce((allRules, ruleName) => ({
+        ...allRules,
+        [ruleName]: import(join(rulesDir, ruleName)),
+    }), {})
+
+
+console.log({ values })

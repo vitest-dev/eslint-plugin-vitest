@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/utils/dist/ts-eslint"
 import { it } from "vitest"
-import rule, { RULE_NAME } from "./no-conditional-in-tests"
+import rule, { RULE_NAME } from "../src/rules/no-conditional-in-tests"
 
 const invalids = [
   `describe('my tests', () => {
