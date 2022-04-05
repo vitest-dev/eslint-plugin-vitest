@@ -27,10 +27,12 @@
   "scripts": {
     "stub": "unbuild --stub",
     "build": "unbuild",
-    "lint": "eslint 'src/**/*.ts' --fix",
+    "lint": "eslint 'src/**/*.ts'",
+    "lint:fix": "eslint 'src/**/*.ts' --fix",
     "test": "vitest",
     "test:ci": "vitest run",
     "format": "prettier --write --plugin-search-dir=. .",
+    "format:check": "prettier --check --plugin-search-dir=. .",
     "release": "bumpp package.json --commit --push --tag && pnpm publish"
   },
   "devDependencies": {
