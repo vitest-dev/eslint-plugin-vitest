@@ -2,22 +2,54 @@ name: ci
 on:
   push:
 jobs:
-  build:
-    runs-on: ubuntu-20.04
+  test:
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 10
+
     strategy:
       matrix:
-        node-version: [17]
+        node-version: [14.x, 17.x]
+        os: [ubuntu-latest, windows-latest]
+
+      fail-fast: false
+
     steps:
-    - uses: actions/checkout@v2
-    - uses: pnpm/action-setup@v2.0.1
+    - uses: actions/checkout@v3
+    - uses: pnpm/action-setup@v2.2.1
       with:
         version: 7.0.0-rc.2
+
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'pnpm'
+
     - name: install
       run: pnpm install
+
     - name: test 
       run: pnpm test:ci 
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install pnpm
+      - uses: pnpm/action-setup@v2.2.1
+        with:
+          version: 7.0.0-rc.2
+
+      - name: Set node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 17.x
+          cache: 'pnpm'
+
+      - name: Install
+        run: pnpm i
+
+      - name: Lint
+        run: pnpm run lint
