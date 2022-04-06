@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/utils/dist/ts-eslint"
 import { it } from "vitest"
-import { RULE_NAME } from "../src/rules/assertion-type"
+import { RULE_NAME } from "./assertion-type"
 
 
 const valid = [`it.each()`]

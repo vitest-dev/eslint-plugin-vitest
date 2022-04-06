@@ -15,41 +15,22 @@ jobs:
       fail-fast: false
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: pnpm/action-setup@v2.2.1
-      with:
-        version: 7.0.0-rc.2
-
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'pnpm'
-
-    - name: install
-      run: pnpm install
-
-    - name: test 
-      run: pnpm test:ci 
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
       - uses: actions/checkout@v3
-
-      - name: Install pnpm
       - uses: pnpm/action-setup@v2.2.1
         with:
           version: 7.0.0-rc.2
 
-      - name: Set node
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: 17.x
-          cache: 'pnpm'
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
 
-      - name: Install
-        run: pnpm i
+      - name: install
+        run: pnpm install
 
-      - name: Lint
-        run: pnpm run lint
+      - name: lint
+        run: pnpm lint
+
+      - name: test
+        run: pnpm test:ci
