@@ -47,6 +47,19 @@ Then configure the rules you want to use under the rules section.
 
 - No Skipped tests 
 - Lower case title
+- Max number of nested describe blocks
+```json
+{
+  "rules": {
+    "vitest/max-nested-describe": [
+      "error",
+      {
+        "max": 3
+      }
+    ],
+  }
+}
+```
 
 
 ### Licence 
