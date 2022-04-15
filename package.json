@@ -33,7 +33,7 @@
     "test:ci": "vitest run",
     "format": "prettier --write --plugin-search-dir=. .",
     "format:check": "prettier --check --plugin-search-dir=. .",
-    "release": "bumpp package.json --commit --push --tag && pnpm publish"
+    "release": "pnpm build && bumpp package.json --commit --push --tag && pnpm publish"
   },
   "devDependencies": {
     "@babel/types": "^7.17.0",
