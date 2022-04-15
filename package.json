@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-vitest",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "license": "MIT",
   "description": "Eslint plugin for vitest",
   "keywords": [
