@@ -1,9 +1,7 @@
 ## eslint-plugin-vitest
 
-
 ![npm](https://img.shields.io/npm/v/eslint-plugin-vitest)
 [![ci](https://github.com/veritem/eslint-plugin-vitest/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/veritem/eslint-plugin-vitest/actions/workflows/ci.yml)
-
 
 > Disclaimer: This package is very experimental
 
@@ -45,9 +43,10 @@ Then configure the rules you want to use under the rules section.
 
 ### Supported Rules
 
-- No Skipped tests 
+- No Skipped tests
 - Lower case title
 - Max number of nested describe blocks
+
 ```json
 {
   "rules": {
@@ -56,12 +55,11 @@ Then configure the rules you want to use under the rules section.
       {
         "max": 3
       }
-    ],
+    ]
   }
 }
 ```
 
-
-### Licence 
+### Licence
 
 [MIT](https://github.com/veritem/eslint-plugin-vitest/blob/main/LICENSE) Licence &copy; 2022 - present [veritem](https://github.com/veritem)

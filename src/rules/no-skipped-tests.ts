@@ -1,8 +1,8 @@
 import { createEslintRule } from "../utils";
 
-export type MessageIds = 'noSkippedTests';
-export const RULE_NAME = 'no-skipped-tests';
-export type Options = []
+export type MessageIds = "noSkippedTests";
+export const RULE_NAME = "no-skipped-tests";
+export type Options = [];
 
 export default createEslintRule<Options, MessageIds>({
   name: RULE_NAME,
@@ -12,22 +12,28 @@ export default createEslintRule<Options, MessageIds>({
       description: "Disallow skipped tests",
       recommended: "error",
     },
-    fixable: 'code',
+    fixable: "code",
     schema: [],
     messages: {
       noSkippedTests: "Skipped tests are not allowed.",
-    }
+    },
   },
   defaultOptions: [],
   create: (context) => {
     return {
       ExpressionStatement(node) {
-        if (node.expression.type === 'CallExpression') {
+        if (node.expression.type === "CallExpression") {
           const { callee } = node.expression;
-          if (callee.type === 'MemberExpression' && callee.object.type === 'Identifier' && callee.object.name === 'it' && callee.property.type === 'Identifier' && callee.property.name === 'skip') {
+          if (
+            callee.type === "MemberExpression" &&
+            callee.object.type === "Identifier" &&
+            callee.object.name === "it" &&
+            callee.property.type === "Identifier" &&
+            callee.property.name === "skip"
+          ) {
             context.report({
               node,
-              messageId: 'noSkippedTests',
+              messageId: "noSkippedTests",
               //TODO: make this fix work
               // fix: (fixer) => {
               //   return fixer.removeRange([node.range[0], args[0].range[1]]);
@@ -35,7 +41,7 @@ export default createEslintRule<Options, MessageIds>({
             });
           }
         }
-      }
-    }
-  }
-})
+      },
+    };
+  },
+});

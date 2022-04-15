@@ -1,6 +1,6 @@
-import { RuleTester } from "@typescript-eslint/utils/dist/ts-eslint"
-import { it } from "vitest"
-import rule, { RULE_NAME } from "./no-conditional-in-tests"
+import { RuleTester } from "@typescript-eslint/utils/dist/ts-eslint";
+import { it } from "vitest";
+import rule, { RULE_NAME } from "./no-conditional-in-tests";
 
 const invalids = [
   `describe('my tests', () => {
@@ -19,8 +19,8 @@ const invalids = [
     case 'multiple':
      console.log('multiple')
 }
-});`
-]
+});`,
+];
 
 const valids = [
   `it('test', () => {
@@ -30,20 +30,19 @@ const valids = [
   it('test', () => {
     assert.equal(Math.sqrt(4), 3)
   })
-})`
-]
-
+})`,
+];
 
 it.skip(RULE_NAME, () => {
   const ruleTester: RuleTester = new RuleTester({
     parser: require.resolve("@typescript-eslint/parser"),
-  })
+  });
   ruleTester.run(RULE_NAME, rule, {
     valid: valids,
-    invalid: invalids.map(i => ({
+    invalid: invalids.map((i) => ({
       code: i,
       output: i,
       errors: [{ messageId: "noConditionalInTests" }],
     })),
-  })
-})
+  });
+});
