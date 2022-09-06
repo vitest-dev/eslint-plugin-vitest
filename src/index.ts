@@ -7,11 +7,11 @@ import noSkippedTests from "./rules/no-skipped-tests";
 
 export default {
   rules: {
-    "no-skip-test": noSkippedTests,
+    "no-skipped-tests": noSkippedTests,
     "lower-case-title": lowerCaseTitle,
     "assertion-type": assertionType,
     "max-nested-describe": maxNestedDescribe,
-    "no-idential-title": noIdenticalTitle,
+    "no-identical-title": noIdenticalTitle,
     "no-conditional-in-test": noConditionalInTest,
   },
 };
