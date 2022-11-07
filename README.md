@@ -3,8 +3,6 @@
 ![npm](https://img.shields.io/npm/v/eslint-plugin-vitest)
 [![ci](https://github.com/veritem/eslint-plugin-vitest/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/veritem/eslint-plugin-vitest/actions/workflows/ci.yml)
 
-> Disclaimer: This package is very experimental
-
 Eslint plugin for vitest
 
 ### Installation
