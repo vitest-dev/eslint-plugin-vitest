@@ -44,6 +44,7 @@ Then configure the rules you want to use under the rules section.
 ### Supported Rules
 
 - No Skipped tests
+- No Focused tests
 - Lower case title
 - Max number of nested describe blocks
 
