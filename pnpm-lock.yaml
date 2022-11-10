@@ -10,6 +10,7 @@ specifiers:
   eslint: ^8.27.0
   eslint-plugin-eslint-plugin: ^5.0.6
   eslint-plugin-node: ^11.1.0
+  eslint-plugin-vitest: ./dist
   jiti: ^1.16.0
   prettier: ^2.7.1
   unbuild: ^0.9.4
@@ -27,6 +28,7 @@ devDependencies:
   eslint: 8.27.0
   eslint-plugin-eslint-plugin: 5.0.6_eslint@8.27.0
   eslint-plugin-node: 11.1.0_eslint@8.27.0
+  eslint-plugin-vitest: link:dist
   jiti: 1.16.0
   prettier: 2.7.1
   unbuild: 0.9.4
