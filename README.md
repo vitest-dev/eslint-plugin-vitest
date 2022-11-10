@@ -59,6 +59,10 @@ Then configure the rules you want to use under the rules section.
 }
 ```
 
+#### Credits
+
+- [eslint-plugin-jest](https://github.com/jest-community/eslint-plugin-jest)
+
 ### Licence
 
 [MIT](https://github.com/veritem/eslint-plugin-vitest/blob/main/LICENSE) Licence &copy; 2022 - present [veritem](https://github.com/veritem)
