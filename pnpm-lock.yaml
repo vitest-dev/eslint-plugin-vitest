@@ -10,7 +10,6 @@ specifiers:
   eslint: ^8.27.0
   eslint-plugin-eslint-plugin: ^5.0.6
   eslint-plugin-node: ^11.1.0
-  eslint-plugin-vitest: ^0.0.13
   jiti: ^1.16.0
   prettier: ^2.7.1
   unbuild: ^0.9.4
@@ -18,7 +17,6 @@ specifiers:
 
 dependencies:
   '@typescript-eslint/utils': 5.42.1_eslint@8.27.0
-  eslint-plugin-vitest: 0.0.13_eslint@8.27.0
 
 devDependencies:
   '@babel/types': 7.20.2
@@ -1337,19 +1335,6 @@ packages:
       resolve: 1.21.0
       semver: 6.3.0
     dev: true
-
-  /eslint-plugin-vitest/0.0.13_eslint@8.27.0:
-    resolution: {integrity: sha512-hNDXyLLufReSfz+QAMMIGXrvnaI3atWps3MfyzTHcjM1gbun+/yL7z5pZQ9vDJ4DsC8zplv3C7bX3/CPOLqYXg==}
-    engines: {node: 14.x || >= 16}
-    peerDependencies:
-      eslint: '>=8.0.0'
-    dependencies:
-      '@typescript-eslint/utils': 5.42.1_eslint@8.27.0
-      eslint: 8.27.0
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-    dev: false
 
   /eslint-scope/5.1.1:
     resolution: {integrity: sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==}
