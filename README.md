@@ -25,7 +25,15 @@ Add `vitest` to the plugins section of your `.eslintrc` configuration file. You 
 
 ```json
 {
-  "plugins": ["vitest"]
+  "plugins": ["vitest"],
+  "rules": {
+    "vitest/max-nested-describe": [
+      "error",
+      {
+        "max": 3
+      }
+    ]
+  }
 }
 ```
 
@@ -39,25 +47,15 @@ Then configure the rules you want to use under the rules section.
 }
 ```
 
-### Supported Rules
+### List of supported rules
 
-- No Skipped tests
-- No Focused tests
-- Lower case title
-- Max number of nested describe blocks
-
-```json
-{
-  "rules": {
-    "vitest/max-nested-describe": [
-      "error",
-      {
-        "max": 3
-      }
-    ]
-  }
-}
-```
+| Name                                                    | Description                                       |
+|:--------------------------------------------------------|:--------------------------------------------------|
+| [lower-case-title](src/rules/lower-case-title.ts)       | Enforce lowercase test names                      |
+| [max-nested-describe](src/rules/max-nested-describe.ts) | Enforces a maximum depth to nested describe calls |
+| [no-focused-tests](src/rules/no-focused-tests.ts)       | Disallow focused tests                            |
+| [no-identical-title](src/rules/no-identical-title.ts)   | Disallow identical titles                         |
+| [no-skipped-tests](src/rules/no-skipped-tests.ts)       | Disallow skipped tests                            |
 
 #### Credits
 
