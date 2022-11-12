@@ -47,10 +47,7 @@ export default createEslintRule<[], MESSAGE_ID>({
 		}
 
 		return {
-			"CallExpression[callee.name='test']"(node: any) {
-				checkConditionalTest(node)
-			},
-			"CallExpression[callee.name='it']"(node: any) {
+			"CallExpression[callee.name=/^(it|test)$/]"(node: any) {
 				checkConditionalTest(node)
 			}
 		}

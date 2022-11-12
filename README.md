@@ -57,6 +57,7 @@ Then configure the rules you want to use under the rules section.
 | [no-identical-title](src/rules/no-identical-title.ts)     | Disallow identical titles                         |
 | [no-skipped-tests](src/rules/no-skipped-tests.ts)         | Disallow skipped tests                            |
 | [no-conditional-tests](src/rules/no-conditional-tests.ts) | Disallow conditional tests                        |
+| [expect-expect](src/rules/expect-expect.ts)               | Enforce assertion to be with expect               |
 
 #### Credits
 
