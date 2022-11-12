@@ -26,8 +26,9 @@ export default createEslintRule<[], MESSAGE_ID>({
 
 				// check if there is expect in test body
 				const hasExpect = args.some((arg: any) => {
-					if (arg.body.body)
-						return arg.body.body.expression.callee.name === "expect";
+					if (arg?.body?.body.length) {
+						return arg.body.body[0].expression?.callee.object.callee.name === "expect";
+					}
 				});
 
 				if (!hasExpect) {

@@ -10,34 +10,29 @@ it(RULE_NAME, () => {
 
 	ruleTester.run(RULE_NAME, rule, {
 		valid: [
-			`test("shows error", () => {});`,
-			`it("foo", function () {})`,
-			`it('foo', () => {}); function myTest() { if ('bar') {} }`,
+			`test("shows error", () => {
+				expect(true).toBe(false);
+			});`,
+			`it("foo", function () {
+				expect(true).toBe(false);
+			})`,
+			`it('foo', () => {
+				expect(true).toBe(false);
+			});
+			function myTest() { if ('bar') {} }`
 		],
 		invalid: [
 			{
-				code: `test("shows error", () => {
-					if (1 === 2) {
-					  expect(true).toBe(false);
-					}
-				  });`,
-				output: `test("shows error", () => {
-					if (1 === 2) {
-					  expect(true).toBe(false);
-					}
-				  });`,
+				code: `test("shows error", () => {});`,
+				output: `test("shows error", () => {});`,
 				errors: [{ messageId: "expected-expect" }],
 			},
 			{
 				code: `it("foo", function () {
-					if (1 === 2) {
-						expect(true).toBe(false);
-					}
+					if (1 === 2) {}
 				})`,
 				output: `it("foo", function () {
-					if (1 === 2) {
-						expect(true).toBe(false);
-					}
+					if (1 === 2) {}
 				})`,
 				errors: [{ messageId: "expected-expect" }],
 			}
