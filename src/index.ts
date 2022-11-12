@@ -3,6 +3,7 @@ import maxNestedDescribe, { RULE_NAME as maxNestedDescribeName } from "./rules/m
 import noIdenticalTitle, { RULE_NAME as noIdenticalTitleName } from "./rules/no-identical-title";
 import noSkippedTests, { RULE_NAME as noSkippedTestsName } from "./rules/no-skipped-tests";
 import noFocusedTests, { RULE_NAME as noFocusedTestsName } from "./rules/no-focused-tests";
+import noConditionalTest, { RULE_NAME as noConditionalTests } from "./rules/no-conditional-tests"
 
 export default {
 	rules: {
@@ -11,5 +12,6 @@ export default {
 		[maxNestedDescribeName]: maxNestedDescribe,
 		[noIdenticalTitleName]: noIdenticalTitle,
 		[noFocusedTestsName]: noFocusedTests,
+		[noConditionalTests]: noConditionalTest
 	},
 };
