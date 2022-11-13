@@ -3,6 +3,7 @@
   "version": "0.0.17",
   "license": "MIT",
   "description": "Eslint plugin for vitest",
+  "repository": "veritem/eslint-plugin-vitest",
   "keywords": [
     "eslint",
     "eslintplugin",
