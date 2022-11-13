@@ -1,14 +1,14 @@
 {
 	"extends": [
-		"eslint:recommended",
-		"plugin:@typescript-eslint/eslint-recommended",
-		"plugin:@typescript-eslint/recommended"
+		"@veritem/base",
+		"@veritem/ts"
 	],
 	"parser": "@typescript-eslint/parser",
 	"plugins": [
 		"@typescript-eslint"
 	],
 	"rules": {
-		"no-console": "off"
+		"no-console": "off",
+		"no-tabs": "off"
 	}
 }
