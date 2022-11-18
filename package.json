@@ -26,15 +26,17 @@
     "dist"
   ],
   "scripts": {
-    "stub": "unbuild --stub",
     "build": "unbuild",
-    "lint": "eslint 'src/**/*.ts'",
-    "lint:fix": "eslint 'src/**/*.ts' --fix",
-    "test": "vitest",
-    "test:ci": "vitest run",
-    "format": "prettier --write --plugin-search-dir=. .",
     "format:check": "prettier --check --plugin-search-dir=. .",
-    "release": "pnpm build && bumpp package.json --commit --push --tag && pnpm publish"
+    "format": "prettier --write --plugin-search-dir=. .",
+    "lint:eslint-docs": "pnpm eslint-doc-generator --check",
+    "lint:js": "eslint .",
+    "lint": "npm-run-all \"lint:*\"",
+    "release": "pnpm build && bumpp package.json --commit --push --tag && pnpm publish",
+    "stub": "unbuild --stub",
+    "test:ci": "vitest run",
+    "test": "vitest",
+    "update:eslint-docs": "pnpm run build && eslint-doc-generator"
   },
   "devDependencies": {
     "@babel/types": "^7.20.2",
@@ -43,9 +45,11 @@
     "@typescript-eslint/parser": "^5.42.1",
     "bumpp": "^8.2.1",
     "eslint": "^8.27.0",
+    "eslint-doc-generator": "^0.22.0",
     "eslint-plugin-eslint-plugin": "^5.0.6",
     "eslint-plugin-node": "^11.1.0",
     "jiti": "^1.16.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
     "unbuild": "^0.9.4",
     "vitest": "^0.25.0"
