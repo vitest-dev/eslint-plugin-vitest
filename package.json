@@ -29,14 +29,14 @@
     "build": "unbuild",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "lint:eslint-docs": "pnpm eslint-doc-generator --check",
+    "lint:eslint-docs": "pnpm build && eslint-doc-generator --check",
     "lint:js": "eslint --ignore-path .gitignore .",
     "lint": "npm-run-all \"lint:*\"",
     "release": "pnpm build && bumpp package.json --commit --push --tag && pnpm publish",
     "stub": "unbuild --stub",
     "test:ci": "vitest run",
     "test": "vitest",
-    "update:eslint-docs": "pnpm run build && eslint-doc-generator"
+    "update:eslint-docs": "pnpm build && eslint-doc-generator"
   },
   "devDependencies": {
     "@babel/types": "^7.20.2",
