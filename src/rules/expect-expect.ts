@@ -1,3 +1,4 @@
+import { TSESTree } from "@typescript-eslint/utils";
 import { createEslintRule } from "../utils";
 
 export const RULE_NAME = "expect-expect";
@@ -21,10 +22,11 @@ export default createEslintRule<[], MESSAGE_ID>({
 	defaultOptions: [],
 	create: (context) => {
 		return {
-			"CallExpression[callee.name=/^(it|test)$/]"(node: any) {
+			"CallExpression[callee.name=/^(it|test)$/]"(node: TSESTree.CallExpression) {
 				const { arguments: args } = node;
 
-				// check if there is expect in test body
+				// check if there is an expect statement in test body
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const hasExpect = args.some((arg: any) => {
 					if (arg?.body?.body.length) {
 						return arg.body.body[0].expression?.callee.object.callee.name === "expect";

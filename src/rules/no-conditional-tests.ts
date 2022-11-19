@@ -1,3 +1,4 @@
+import { TSESTree } from "@typescript-eslint/utils/dist/ts-estree";
 import { createEslintRule } from "../utils";
 
 export const RULE_NAME = "no-conditional-tests"
@@ -10,7 +11,6 @@ export default createEslintRule<[], MESSAGE_ID>({
 		docs: {
 			description: "Disallow conditional tests",
 			recommended: "error",
-
 		},
 		fixable: "code",
 		schema: [],
@@ -20,8 +20,14 @@ export default createEslintRule<[], MESSAGE_ID>({
 	},
 	defaultOptions: [],
 	create(context) {
-		function checkConditionalTest(node: any) {
-			if (node.arguments[1].body.body.find((n: any) => n.type === "IfStatement")) {
+		function checkConditionalTest(node: TSESTree.CallExpression) {
+			const expression = node.arguments[1];
+
+			if (!("body" in expression) || !("body" in expression.body) || !Array.isArray(expression.body.body)) {
+				return;
+			}
+
+			if (expression.body.body.some((n) => n.type === "IfStatement")) {
 				context.report({
 					node,
 					messageId: "noConditionalTests",
@@ -29,16 +35,15 @@ export default createEslintRule<[], MESSAGE_ID>({
 			}
 
 			// check if there is ternary operator in the test
-			if (node.arguments[1].body.body.find((n: any) => n.type === "ExpressionStatement" && n.expression.type === "CallExpression")) {
+			if (expression.body.body.some((n) => n.type === "ExpressionStatement" && n.expression.type === "CallExpression")) {
 				context.report({
 					node,
 					messageId: "noConditionalTests",
 				})
 			}
 
-
 			// check if there is a switch statement in the test
-			if (node.arguments[1].body.body.find((n: any) => n.type === "SwitchStatement")) {
+			if (expression.body.body.some((n) => n.type === "SwitchStatement")) {
 				context.report({
 					node,
 					messageId: "noConditionalTests",
@@ -47,7 +52,7 @@ export default createEslintRule<[], MESSAGE_ID>({
 		}
 
 		return {
-			"CallExpression[callee.name=/^(it|test)$/]"(node: any) {
+			"CallExpression[callee.name=/^(it|test)$/]"(node: TSESTree.CallExpression) {
 				checkConditionalTest(node)
 			}
 		}
