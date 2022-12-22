@@ -32,7 +32,7 @@ export default createEslintRule<Options, MessageIds>({
             callee.property.name === "only"
           ) {
             context.report({
-              node,
+              node: callee.property,
               messageId: "noFocusedTests",
             });
           }
