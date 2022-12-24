@@ -53,7 +53,6 @@
     "eslint-remote-tester-repositories": "^0.0.8",
     "jiti": "^1.16.0",
     "prettier": "^2.7.1",
-    "ts-node": "^10.9.1",
     "unbuild": "^0.9.4",
     "vitest": "^0.25.0"
   },
