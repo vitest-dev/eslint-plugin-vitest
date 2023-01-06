@@ -29,7 +29,7 @@ export default createEslintRule<[], MESSAGE_ID>({
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const hasExpect = args.some((arg: any) => {
 					if (arg?.body?.body.length) {
-						return arg.body.body[0].expression?.callee.object.callee.name === "expect";
+						return arg.body?.body[0].expression?.callee.object.callee?.name === "expect";
 					}
 				});
 
