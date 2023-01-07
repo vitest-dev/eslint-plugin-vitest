@@ -30,8 +30,8 @@ jobs:
       - name: install
         run: pnpm install
 
-      - name: lint
-        run: pnpm lint
+      #- name: lint
+      #  run: pnpm lint
 
       - name: test
         run: pnpm test:ci

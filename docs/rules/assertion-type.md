@@ -9,13 +9,13 @@
 Examples of **incorrect** code for this rule with the default options:
 
 ```js
-assert(2 + 2 !== "fish", "two plus two is not equal to fish");
+assert(2 + 2 !== 'fish', 'two plus two is not equal to fish')
 ```
 
 Examples of **correct** code for this rule with the default options:
 
 ```js
-expect(2 + 2).not.toEqual("fish");
+expect(2 + 2).not.toEqual('fish')
 ```
 
 ## Options
@@ -28,6 +28,6 @@ Whether to use Chai (`assert(...)`) or Jest (`expect(...)`) style assertions.
 
 ```js
 {
-  type: "chai" | "jest";
+	type: 'chai' | 'jest'
 }
 ```

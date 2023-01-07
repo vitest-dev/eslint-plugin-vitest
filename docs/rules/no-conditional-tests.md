@@ -9,23 +9,23 @@
 Examples of **incorrect** code for this rule:
 
 ```js
-describe("my tests", () => {
-  if (true) {
-    it("is awesome", () => {
-      doTheThing();
-    });
-  }
-});
+describe('my tests', () => {
+	if (true) {
+		it('is awesome', () => {
+			doTheThing()
+		})
+	}
+})
 ```
 
 Examples of **correct** code for this rule:
 
 ```js
-describe("my tests", () => {
-  if (Math.random() > 0.5) {
-    it("is awesome", () => {
-      doTheThing();
-    });
-  }
-});
+describe('my tests', () => {
+	if (Math.random() > 0.5) {
+		it('is awesome', () => {
+			doTheThing()
+		})
+	}
+})
 ```
