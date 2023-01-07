@@ -1,12 +1,11 @@
-import { RuleTester } from "@typescript-eslint/utils/dist/ts-eslint";
-import rule, { RULE_NAME } from "./expect-expect";
-import { it } from "vitest"
+import { RuleTester } from '@typescript-eslint/utils/dist/ts-eslint'
+import { it } from 'vitest'
+import rule, { RULE_NAME } from './expect-expect'
 
 it(RULE_NAME, () => {
-
 	const ruleTester = new RuleTester({
-		parser: require.resolve("@typescript-eslint/parser"),
-	});
+		parser: require.resolve('@typescript-eslint/parser')
+	})
 
 	ruleTester.run(RULE_NAME, rule, {
 		valid: [
@@ -23,9 +22,9 @@ it(RULE_NAME, () => {
 		],
 		invalid: [
 			{
-				code: `test("shows error", () => {});`,
-				output: `test("shows error", () => {});`,
-				errors: [{ messageId: "expected-expect" }],
+				code: 'test("shows error", () => {});',
+				output: 'test("shows error", () => {});',
+				errors: [{ messageId: 'expected-expect' }]
 			},
 			{
 				code: `it("foo", function () {
@@ -34,9 +33,8 @@ it(RULE_NAME, () => {
 				output: `it("foo", function () {
 					if (1 === 2) {}
 				})`,
-				errors: [{ messageId: "expected-expect" }],
+				errors: [{ messageId: 'expected-expect' }]
 			}
 		]
-	});
-
+	})
 })

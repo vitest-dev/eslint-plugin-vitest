@@ -9,23 +9,23 @@
 Examples of **incorrect** code for this rule:
 
 ```js
-it.only("test", () => {
-  // ...
-});
+it.only('test', () => {
+	// ...
+})
 
-test.only("it", () => {
-  // ...
-});
+test.only('it', () => {
+	// ...
+})
 ```
 
 Examples of **correct** code for this rule:
 
 ```js
-it("test", () => {
-  // ...
-});
+it('test', () => {
+	// ...
+})
 
-test("it", () => {
-  /* ... */
-});
+test('it', () => {
+	/* ... */
+})
 ```

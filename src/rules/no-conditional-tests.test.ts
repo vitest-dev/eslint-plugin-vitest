@@ -1,19 +1,18 @@
-import { RuleTester } from "@typescript-eslint/utils/dist/ts-eslint";
-import rule, { RULE_NAME } from "./no-conditional-tests";
-import { it, describe } from "vitest"
-
+import { RuleTester } from '@typescript-eslint/utils/dist/ts-eslint'
+import { it, describe } from 'vitest'
+import rule, { RULE_NAME } from './no-conditional-tests'
 
 describe(RULE_NAME, () => {
 	const ruleTester = new RuleTester({
-		parser: require.resolve("@typescript-eslint/parser"),
-	});
+		parser: require.resolve('@typescript-eslint/parser')
+	})
 
-	it("if statements", () => {
+	it('if statements', () => {
 		ruleTester.run(RULE_NAME, rule, {
 			valid: [
-				`test("shows error", () => {});`,
-				`it("foo", function () {})`,
-				`it('foo', () => {}); function myTest() { if ('bar') {} }`,
+				'test("shows error", () => {});',
+				'it("foo", function () {})',
+				'it(\'foo\', () => {}); function myTest() { if (\'bar\') {} }'
 			],
 			invalid: [
 				{
@@ -27,7 +26,7 @@ describe(RULE_NAME, () => {
 						  expect(true).toBe(false);
 						}
 					  });`,
-					errors: [{ messageId: "noConditionalTests" }],
+					errors: [{ messageId: 'noConditionalTests' }]
 				},
 				{
 					code: `it("foo", function () {
@@ -40,18 +39,18 @@ describe(RULE_NAME, () => {
 							expect(true).toBe(false);
 						}
 					})`,
-					errors: [{ messageId: "noConditionalTests" }],
+					errors: [{ messageId: 'noConditionalTests' }]
 				}
 			]
-		});
-	});
+		})
+	})
 
-	it("ternary statements", () => {
+	it('ternary statements', () => {
 		ruleTester.run(RULE_NAME, rule, {
 			valid: [
-				`test("shows error", () => {});`,
-				`it("foo", function () {})`,
-				`it('foo', () => {}); function myTest() { if ('bar') {} }`
+				'test("shows error", () => {});',
+				'it("foo", function () {})',
+				'it(\'foo\', () => {}); function myTest() { if (\'bar\') {} }'
 			],
 			invalid: [
 				{
@@ -63,7 +62,7 @@ describe(RULE_NAME, () => {
 						const foo = true ? 'foo' : 'bar';
 						expect(foo).toBe('foo');
 					  });`,
-					errors: [{ messageId: "noConditionalTests" }],
+					errors: [{ messageId: 'noConditionalTests' }]
 				},
 				{
 					code: `it("foo", function () {
@@ -74,17 +73,17 @@ describe(RULE_NAME, () => {
 						const foo = true ? 'foo' : 'bar';
 						expect(foo).toBe('foo');
 					})`,
-					errors: [{ messageId: "noConditionalTests" }],
+					errors: [{ messageId: 'noConditionalTests' }]
 				}
 			]
-		});
+		})
 
-		it("switch statements", () => {
+		it('switch statements', () => {
 			ruleTester.run(RULE_NAME, rule, {
 				valid: [
-					`test("shows error", () => {});`,
-					`it("foo", function () {})`,
-					`it('foo', () => {}); function myTest() { if ('bar') {} }`
+					'test("shows error", () => {});',
+					'it("foo", function () {})',
+					'it(\'foo\', () => {}); function myTest() { if (\'bar\') {} }'
 				],
 				invalid: [
 					{
@@ -106,7 +105,7 @@ describe(RULE_NAME, () => {
 									expect(true).toBe(false);
 							}
 						  });`,
-						errors: [{ messageId: "noConditionalTests" }],
+						errors: [{ messageId: 'noConditionalTests' }]
 					},
 					{
 						code: `it("foo", function () {
@@ -127,10 +126,10 @@ describe(RULE_NAME, () => {
 									expect(true).toBe(false);
 							}
 						})`,
-						errors: [{ messageId: "noConditionalTests" }],
+						errors: [{ messageId: 'noConditionalTests' }]
 					}
 				]
-			});
-		});
+			})
+		})
 	})
-});
+})

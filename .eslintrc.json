@@ -1,14 +1,12 @@
 {
 	"extends": [
-		"eslint:recommended",
-		"plugin:@typescript-eslint/eslint-recommended",
-		"plugin:@typescript-eslint/recommended"
-	],
-	"parser": "@typescript-eslint/parser",
-	"plugins": [
-		"@typescript-eslint"
+		"@veritem"
 	],
 	"rules": {
-		"no-console": "off"
+		"indent": [
+			2,
+			"tab"
+		],
+		"no-tabs": 0
 	}
 }

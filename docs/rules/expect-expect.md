@@ -9,16 +9,16 @@
 Examples of **incorrect** code for this rule:
 
 ```js
-test("myLogic", () => {
-  const actual = myLogic();
-});
+test('myLogic', () => {
+	const actual = myLogic()
+})
 ```
 
 Examples of **correct** code for this rule:
 
 ```js
-test("myLogic", () => {
-  const actual = myLogic();
-  expect(actual).toBe(true);
-});
+test('myLogic', () => {
+	const actual = myLogic()
+	expect(actual).toBe(true)
+})
 ```

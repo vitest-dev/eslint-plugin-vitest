@@ -9,15 +9,15 @@
 Examples of **incorrect** code for this rule:
 
 ```js
-test("IT WORKS", () => {
-  // ...
-});
+test('IT WORKS', () => {
+	// ...
+})
 ```
 
 Examples of **correct** code for this rule:
 
 ```js
-test("it works", () => {
-  // ...
-});
+test('it works', () => {
+	// ...
+})
 ```

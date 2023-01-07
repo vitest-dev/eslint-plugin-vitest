@@ -9,23 +9,23 @@
 Examples of **incorrect** code for this rule:
 
 ```js
-it.skip("test", () => {
-  /* ... */
-});
+it.skip('test', () => {
+	/* ... */
+})
 
-test.skip("it", () => {
-  /* ... */
-});
+test.skip('it', () => {
+	/* ... */
+})
 ```
 
 Examples of **correct** code for this rule:
 
 ```js
-it("test", () => {
-  /* ... */
-});
+it('test', () => {
+	/* ... */
+})
 
-test("it", () => {
-  /* ... */
-});
+test('it', () => {
+	/* ... */
+})
 ```
