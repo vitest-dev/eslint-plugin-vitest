@@ -27,7 +27,7 @@ export default createEslintRule<Options, MessageIds>({
 					if (
 						callee.type === 'MemberExpression' &&
 						callee.object.type === 'Identifier' &&
-						callee.object.name === 'it' &&
+						(callee.object.name === 'it' || callee.object.name === 'describe') &&
 						callee.property.type === 'Identifier' &&
 						callee.property.name === 'skip'
 					) {
