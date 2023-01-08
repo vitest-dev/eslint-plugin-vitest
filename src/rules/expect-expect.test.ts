@@ -18,7 +18,16 @@ it(RULE_NAME, () => {
 			`it('foo', () => {
 				expect(true).toBe(false);
 			});
-			function myTest() { if ('bar') {} }`
+			function myTest() { if ('bar') {} }`,
+			`
+			function myTest(param) {}
+			describe('my test', () => {
+				it('should do something', () => {
+					myTest("num");
+					expect(1).toEqual(1);
+				});
+			});
+			`
 		],
 		invalid: [
 			{
