@@ -27,8 +27,13 @@ export default createEslintRule<[], MESSAGE_ID>({
 				// check if there is an expect statement in test body
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any, array-callback-return
 				const hasExpect = args.some((arg: any) => {
-					if (arg?.body?.body.length)
-						return arg.body?.body[0].expression?.callee.object.callee?.name === 'expect'
+					if (arg?.body?.body.length) {
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any, array-callback-return
+						return arg.body.body.some((body: any) => {
+							if (body?.expression?.callee?.object?.callee?.name === 'expect')
+								return true
+						})
+					}
 				})
 
 				if (!hasExpect) {
