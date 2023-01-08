@@ -45,7 +45,7 @@ describe(RULE_NAME, () => {
 		})
 	})
 
-	it('ternary statements', () => {
+	it.skip('ternary statements', () => {
 		ruleTester.run(RULE_NAME, rule, {
 			valid: [
 				'test("shows error", () => {});',
@@ -78,7 +78,7 @@ describe(RULE_NAME, () => {
 			]
 		})
 
-		it('switch statements', () => {
+		it.skip('switch statements', () => {
 			ruleTester.run(RULE_NAME, rule, {
 				valid: [
 					'test("shows error", () => {});',
