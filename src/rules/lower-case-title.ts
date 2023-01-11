@@ -11,7 +11,7 @@ export default createEslintRule<Options, MessageIds>({
 		type: 'problem',
 		docs: {
 			description: 'Enforce lowercase titles',
-			recommended: 'error'
+			recommended: 'strict'
 		},
 		fixable: 'code',
 		schema: [],

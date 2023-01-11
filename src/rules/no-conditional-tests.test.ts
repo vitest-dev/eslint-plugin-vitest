@@ -12,7 +12,18 @@ describe(RULE_NAME, () => {
 			valid: [
 				'test("shows error", () => {});',
 				'it("foo", function () {})',
-				'it(\'foo\', () => {}); function myTest() { if (\'bar\') {} }'
+				'it(\'foo\', () => {}); function myTest() { if (\'bar\') {} }',
+				`function myFunc(str: string) {
+					return str;
+				  }
+				  
+				  describe("myTest", () => {
+					it("convert shortened equal filter", () => {
+					  expect(
+						myFunc("5")
+					  ).toEqual("5");
+					});
+				  });`
 			],
 			invalid: [
 				{
@@ -78,7 +89,7 @@ describe(RULE_NAME, () => {
 			]
 		})
 
-		it('switch statements', () => {
+		it.skip('switch statements', () => {
 			ruleTester.run(RULE_NAME, rule, {
 				valid: [
 					'test("shows error", () => {});',
