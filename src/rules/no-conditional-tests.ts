@@ -25,7 +25,7 @@ export default createEslintRule<[], MESSAGE_ID>({
 
 		// check if it's called inside a test
 		function checkIfItsUnderTestOrItBlock(node: TSESTree.Node) {
-			if (node.type === 'CallExpression' && node.callee.type === 'Identifier' && (node.callee.name === 'describe' || node.callee.name === 'it' || node.callee.name === 'test'))
+			if (node.type === 'CallExpression' && node.callee.type === 'Identifier' && (node.callee.name === 'it' || node.callee.name === 'test'))
 				return true
 		}
 
