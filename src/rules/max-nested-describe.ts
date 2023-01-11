@@ -16,7 +16,6 @@ export default createEslintRule<Options, MESSAGE_ID>({
 			description: 'Disallow nested describes',
 			recommended: 'error'
 		},
-		fixable: 'code',
 		schema: [
 			{
 				type: 'object',

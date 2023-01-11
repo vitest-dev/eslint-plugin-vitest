@@ -1,3 +1,5 @@
+// Got inspirations from https://github.com/shokai/eslint-plugin-if-in-test
+
 import { TSESTree } from '@typescript-eslint/utils/dist/ts-estree'
 import { createEslintRule } from '../utils'
 
@@ -10,39 +12,25 @@ export default createEslintRule<[], MESSAGE_ID>({
 		type: 'problem',
 		docs: {
 			description: 'Disallow conditional tests',
-			recommended: 'error'
+			recommended: false
 		},
-		fixable: 'code',
 		schema: [],
 		messages: {
-			noConditionalTests: 'Conditional tests are not allowed.'
+			noConditionalTests: 'Avoid using conditionals in a test.'
 		}
 	},
 	defaultOptions: [],
 	create(context) {
-		function checkConditionalTest(node: TSESTree.CallExpression) {
-			const expression = node.arguments[1]
+		let isInTestBlock = false
 
-			if (!('body' in expression) || !('body' in expression.body) || !Array.isArray(expression.body.body))
-				return
+		// check if it's called inside a test
+		function checkIfItsUnderTestOrItBlock(node: TSESTree.Node) {
+			if (node.type === 'CallExpression' && node.callee.type === 'Identifier' && (node.callee.name === 'it' || node.callee.name === 'test'))
+				return true
+		}
 
-			if (expression.body.body.some((n) => n.type === 'IfStatement')) {
-				context.report({
-					node,
-					messageId: 'noConditionalTests'
-				})
-			}
-
-			// check if there is ternary operator in the test
-			if (expression.body.body.some((n) => n.type === 'ExpressionStatement' && n.expression.type === 'CallExpression')) {
-				context.report({
-					node,
-					messageId: 'noConditionalTests'
-				})
-			}
-
-			// check if there is a switch statement in the test
-			if (expression.body.body.some((n) => n.type === 'SwitchStatement')) {
+		function reportConditional(node: TSESTree.Node) {
+			if (isInTestBlock) {
 				context.report({
 					node,
 					messageId: 'noConditionalTests'
@@ -51,9 +39,18 @@ export default createEslintRule<[], MESSAGE_ID>({
 		}
 
 		return {
-			'CallExpression[callee.name=/^(it|test)$/]'(node: TSESTree.CallExpression) {
-				checkConditionalTest(node)
-			}
+			CallExpression: function (node: TSESTree.CallExpression) {
+				if (checkIfItsUnderTestOrItBlock(node))
+					isInTestBlock = true
+			},
+			'CallExpression:exit': function (node: TSESTree.CallExpression) {
+				if (checkIfItsUnderTestOrItBlock(node))
+					isInTestBlock = false
+			},
+			IfStatement: reportConditional,
+			SwitchStatement: reportConditional,
+			LogicalExpression: reportConditional,
+			ConditionalExpression: reportConditional
 		}
 	}
 })

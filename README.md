@@ -54,8 +54,8 @@ Then configure the rules you want to use under the rules section.
 | :--------------------------------------------------------- | :-------------------------------------- | :- |
 | [expect-expect](docs/rules/expect-expect.md)               | Enforce having expectation in test body | 🔧 |
 | [lower-case-title](docs/rules/lower-case-title.md)         | Enforce lowercase titles                | 🔧 |
-| [max-nested-describe](docs/rules/max-nested-describe.md)   | Disallow nested describes               | 🔧 |
-| [no-conditional-tests](docs/rules/no-conditional-tests.md) | Disallow conditional tests              | 🔧 |
+| [max-nested-describe](docs/rules/max-nested-describe.md)   | Disallow nested describes               |    |
+| [no-conditional-tests](docs/rules/no-conditional-tests.md) | Disallow conditional tests              |    |
 | [no-focused-tests](docs/rules/no-focused-tests.md)         | Disallow focused tests                  | 🔧 |
 | [no-identical-title](docs/rules/no-identical-title.md)     | Disallow identical titles               | 🔧 |
 | [no-skipped-tests](docs/rules/no-skipped-tests.md)         | Disallow skipped tests                  | 🔧 |

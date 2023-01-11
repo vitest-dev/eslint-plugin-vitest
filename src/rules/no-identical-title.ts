@@ -15,7 +15,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 		type: 'problem',
 		docs: {
 			description: 'Disallow identical titles',
-			recommended: 'error'
+			recommended: 'strict'
 		},
 		fixable: 'code',
 		schema: [],
@@ -25,7 +25,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 	},
 	defaultOptions: [],
 	create(context) {
-		const stack = []
+		const stack: string[] = []
 		return {
 			ExpressionStatement(node) {
 				if (
@@ -52,7 +52,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
 									if (args.length > 0) {
 										if (args[0].type === 'Literal') {
-											const title = args[0].value
+											const title = args[0].value as string
 											if (stack.includes(title)) {
 												context.report({
 													node,
