@@ -1,3 +1,4 @@
+import { TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 
 export const RULE_NAME = 'max-nested-describe'
@@ -13,7 +14,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 	meta: {
 		type: 'problem',
 		docs: {
-			description: 'Disallow nested describes',
+			description: 'Nested describe block should be less than set max value or default value',
 			recommended: 'error'
 		},
 		schema: [
@@ -28,7 +29,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 			}
 		],
 		messages: {
-			maxNestedDescribe: 'Nested describes are not allowed.'
+			maxNestedDescribe: 'Nested describe block should be less than set max value.'
 		}
 	},
 	defaultOptions: [
@@ -37,17 +38,33 @@ export default createEslintRule<Options, MESSAGE_ID>({
 		}
 	],
 	create(context, [{ max }]) {
-		const stack = []
-		return {
-			'CallExpression[callee.name=\'describe\']'(node) {
-				if (stack.length >= max) {
-					context.report({
-						node,
-						messageId: 'maxNestedDescribe'
-					})
-				}
-				stack.push(node)
+		const stack: number[] = []
+
+		function pushStack(node: TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression) {
+			if (node.parent?.type !== 'CallExpression') return
+			if (node.parent.callee.type !== 'Identifier' || node.parent.callee.name !== 'describe') return
+
+			stack.push(0)
+
+			if (stack.length > max) {
+				context.report({
+					node,
+					messageId: 'maxNestedDescribe'
+				})
 			}
+		}
+		function popStack(node: TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression) {
+			if (node.parent?.type !== 'CallExpression') return
+			if (node.parent.callee.type !== 'Identifier' || node.parent.callee.name !== 'describe') return
+
+			stack.pop()
+		}
+
+		return {
+			FunctionExpression: pushStack,
+			'FunctionExpression:exit': popStack,
+			ArrowFunctionExpression: pushStack,
+			'ArrowFunctionExpression:exit': popStack
 		}
 	}
 })

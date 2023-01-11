@@ -1,4 +1,4 @@
-# Disallow nested describes (`vitest/max-nested-describe`)
+# Nested describe block should be less than set max value or default value (`vitest/max-nested-describe`)
 
 <!-- end auto-generated rule header -->
 
