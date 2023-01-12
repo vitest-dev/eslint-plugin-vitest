@@ -26,15 +26,14 @@ export default createEslintRule<[], MESSAGE_ID>({
 			) {
 				const { arguments: args } = node
 
-				// check if there is an expect statement in test body
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any, array-callback-return
 				// TODO: Types this
 				const hasExpect = args.some((arg: any) => {
 					if (arg?.body?.body.length) {
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any, array-callback-return
-						return arg.body.body.some((body: any) => {
+						return arg.body.body.some((body) => {
 							if (body?.expression?.callee?.object?.callee?.name === 'expect')
 								return true
+							else
+								return false
 						})
 					}
 					return false
