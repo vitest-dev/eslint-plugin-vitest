@@ -1,54 +1,55 @@
+// Got inspirations from https://github.com/shokai/eslint-plugin-if-in-test
+
+import { TSESTree } from '@typescript-eslint/utils/dist/ts-estree'
 import { createEslintRule } from '../utils'
 
 export const RULE_NAME = 'no-conditional-tests'
 export type MESSAGE_ID = 'noConditionalTests'
 
 export default createEslintRule<[], MESSAGE_ID>({
-    name: RULE_NAME,
-    meta: {
-        type: 'problem',
-        docs: {
-            description: 'Disallow conditional tests',
-            recommended: 'error'
+	name: RULE_NAME,
+	meta: {
+		type: 'problem',
+		docs: {
+			description: 'Disallow conditional tests',
+			recommended: false
+		},
+		schema: [],
+		messages: {
+			noConditionalTests: 'Avoid using conditionals in a test.'
+		}
+	},
+	defaultOptions: [],
+	create(context) {
+		let isInTestBlock = false
 
-        },
-        fixable: 'code',
-        schema: [],
-        messages: {
-            noConditionalTests: 'Conditional tests are not allowed.'
-        }
-    },
-    defaultOptions: [],
-    create(context) {
-        function checkConditionalTest(node) {
-            if (node.arguments[1].body.body.find((n) => n.type === 'IfStatement')) {
-                context.report({
-                    node,
-                    messageId: 'noConditionalTests'
-                })
-            }
+		function checkIfItsUnderTestOrItBlock(node: TSESTree.Node) {
+			if (node.type === 'CallExpression' && node.callee.type === 'Identifier' && (node.callee.name === 'it' || node.callee.name === 'test'))
+				return true
+		}
 
-            // check if there is ternary operator in the test
-            if (node.arguments[1].body.body.find((n) => n.type === 'ExpressionStatement' && n.expression.type === 'CallExpression')) {
-                context.report({
-                    node,
-                    messageId: 'noConditionalTests'
-                })
-            }
+		function reportConditional(node: TSESTree.Node) {
+			if (isInTestBlock) {
+				context.report({
+					node,
+					messageId: 'noConditionalTests'
+				})
+			}
+		}
 
-            // check if there is a switch statement in the test
-            if (node.arguments[1].body.body.find((n) => n.type === 'SwitchStatement')) {
-                context.report({
-                    node,
-                    messageId: 'noConditionalTests'
-                })
-            }
-        }
-
-        return {
-            'CallExpression[callee.name=/^(it|test)$/]'(node) {
-                checkConditionalTest(node)
-            }
-        }
-    }
+		return {
+			CallExpression: function (node: TSESTree.CallExpression) {
+				if (checkIfItsUnderTestOrItBlock(node))
+					isInTestBlock = true
+			},
+			'CallExpression:exit': function (node: TSESTree.CallExpression) {
+				if (checkIfItsUnderTestOrItBlock(node))
+					isInTestBlock = false
+			},
+			IfStatement: reportConditional,
+			SwitchStatement: reportConditional,
+			LogicalExpression: reportConditional,
+			ConditionalExpression: reportConditional
+		}
+	}
 })

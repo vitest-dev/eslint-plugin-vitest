@@ -1,5 +1,6 @@
 {
 	"extends": [
+<<<<<<< HEAD
 		"@veritem/base",
 		"@veritem/ts"
 	],
@@ -10,5 +11,15 @@
 	"rules": {
 		"no-console": "off",
 		"no-tabs": "off"
+=======
+		"@veritem"
+	],
+	"rules": {
+		"indent": [
+			2,
+			"tab"
+		],
+		"no-tabs": 0
+>>>>>>> origin
 	}
 }

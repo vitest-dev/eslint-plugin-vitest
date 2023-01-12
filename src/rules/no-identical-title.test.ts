@@ -3,12 +3,12 @@ import { it } from 'vitest'
 import rule, { RULE_NAME } from './no-identical-title'
 
 const valids = [
-    `describe('foo', function () {
+	`describe('foo', function () {
     it('should do foo', function() {});
     it('should do bar', function() {});
 });
 `,
-    `
+	`
 describe('test', function () {
     describe('foo', function () {
     it('should do bar', function() {});
@@ -21,11 +21,11 @@ describe('test', function () {
 ]
 
 const invalids = [
-    `describe('foo', function () {
+	`describe('foo', function () {
     it('should do bar', function() {});
     it('should do bar', function() {}); 
 });`,
-    `
+	`
   describe('test', function () {
     describe('foo', function () {
     it('should do bar', function() {});
@@ -38,16 +38,16 @@ const invalids = [
 ]
 
 it('no identical title', () => {
-    const ruleTester = new RuleTester({
-        parser: require.resolve('@typescript-eslint/parser')
-    })
+	const ruleTester = new RuleTester({
+		parser: require.resolve('@typescript-eslint/parser')
+	})
 
-    ruleTester.run(RULE_NAME, rule, {
-        valid: valids,
-        invalid: invalids.map((i) => ({
-            code: i,
-            output: i,
-            errors: [{ messageId: 'noIdenticalTitle' }]
-        }))
-    })
+	ruleTester.run(RULE_NAME, rule, {
+		valid: valids,
+		invalid: invalids.map((i) => ({
+			code: i,
+			output: i,
+			errors: [{ messageId: 'noIdenticalTitle' }]
+		}))
+	})
 })

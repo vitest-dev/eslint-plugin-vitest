@@ -7,13 +7,13 @@ import noConditionalTest, { RULE_NAME as noConditionalTests } from './rules/no-c
 import expectExpect, { RULE_NAME as expectedExpect } from './rules/expect-expect'
 
 export default {
-    rules: {
-        [noSkippedTestsName]: noSkippedTests,
-        [lowerCaseTitleName]: lowerCaseTitle,
-        [maxNestedDescribeName]: maxNestedDescribe,
-        [noIdenticalTitleName]: noIdenticalTitle,
-        [noFocusedTestsName]: noFocusedTests,
-        [noConditionalTests]: noConditionalTest,
-        [expectedExpect]: expectExpect
-    }
+	rules: {
+		[noSkippedTestsName]: noSkippedTests,
+		[lowerCaseTitleName]: lowerCaseTitle,
+		[maxNestedDescribeName]: maxNestedDescribe,
+		[noIdenticalTitleName]: noIdenticalTitle,
+		[noFocusedTestsName]: noFocusedTests,
+		[noConditionalTests]: noConditionalTest,
+		[expectedExpect]: expectExpect
+	}
 }

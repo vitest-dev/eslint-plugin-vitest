@@ -3,7 +3,7 @@ import { it } from 'vitest'
 import rule, { RULE_NAME } from './max-nested-describe'
 
 const valids = [
-    `describe('another suite', () => {
+	`describe('another suite', () => {
  describe('another suite', () => {
    it('skipped test', () => {
       // Test skipped, as tests are running in Only mode
@@ -16,7 +16,7 @@ const valids = [
     })
   })
 })`,
-    `describe('another suite', () => {
+	`describe('another suite', () => {
  describe('another suite', () => {
     describe('another suite', () => {
        describe('another suite', () => {
@@ -28,7 +28,7 @@ const valids = [
 ]
 
 const invalids = [
-    `describe('another suite', () => {
+	`describe('another suite', () => {
  describe('another suite', () => {
     describe('another suite', () => {
        describe('another suite', () => {
@@ -41,7 +41,7 @@ const invalids = [
     })
   })
 })`,
-    `describe('another suite', () => {
+	`describe('another suite', () => {
  describe('another suite', () => {
     describe('another suite', () => {
        describe('another suite', () => {
@@ -65,15 +65,15 @@ const invalids = [
 ]
 
 it('max-nested-describe', () => {
-    const ruleTester: RuleTester = new RuleTester({
-        parser: require.resolve('@typescript-eslint/parser')
-    })
-    ruleTester.run(RULE_NAME, rule, {
-        valid: valids,
-        invalid: invalids.map((i) => ({
-            code: i,
-            output: i,
-            errors: [{ messageId: 'maxNestedDescribe' }]
-        }))
-    })
+	const ruleTester: RuleTester = new RuleTester({
+		parser: require.resolve('@typescript-eslint/parser')
+	})
+	ruleTester.run(RULE_NAME, rule, {
+		valid: valids,
+		invalid: invalids.map((i) => ({
+			code: i,
+			output: i,
+			errors: [{ messageId: 'maxNestedDescribe' }]
+		}))
+	})
 })
