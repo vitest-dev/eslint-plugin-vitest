@@ -21,32 +21,40 @@ it(RULE_NAME, () => {
 			{
 				code: 'it(\'Foo MM mm\', function () {})',
 				output: 'it(\'foo MM mm\', function () {})',
-				errors: [{
-					messageId: 'lowerCaseTitle',
-					column: 1,
-					line: 1
-				}]
+				errors: [
+					{
+						messageId: 'lowerCaseTitle',
+						column: 1,
+						line: 1
+					}
+				]
 			},
 			{
 				code: 'describe(\'Foo mmm mm\', function () {})',
 				output: 'describe(\'foo mmm mm\', function () {})',
-				errors: [{
-					messageId: 'lowerCaseTitle'
-				}]
+				errors: [
+					{
+						messageId: 'lowerCaseTitle'
+					}
+				]
 			},
 			{
 				code: 'describe(`Some longer description`, function () {})',
 				output: 'describe(`some longer description`, function () {})',
-				errors: [{
-					messageId: 'lowerCaseTitle'
-				}]
+				errors: [
+					{
+						messageId: 'lowerCaseTitle'
+					}
+				]
 			},
 			{
 				code: 'it(`userAuth`, function () {})',
 				output: 'it(`user auth`, function () {})',
-				errors: [{
-					messageId: 'lowerCaseTitle'
-				}]
+				errors: [
+					{
+						messageId: 'lowerCaseTitle'
+					}
+				]
 			}
 		]
 	})

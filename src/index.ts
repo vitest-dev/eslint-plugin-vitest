@@ -5,6 +5,7 @@ import noSkippedTests, { RULE_NAME as noSkippedTestsName } from './rules/no-skip
 import noFocusedTests, { RULE_NAME as noFocusedTestsName } from './rules/no-focused-tests'
 import noConditionalTest, { RULE_NAME as noConditionalTests } from './rules/no-conditional-tests'
 import expectExpect, { RULE_NAME as expectedExpect } from './rules/expect-expect'
+import consistentTestIt, { RULE_NAME as useConsistentTestIt } from './rules/consistent-test-it'
 
 export default {
 	rules: {
@@ -14,6 +15,7 @@ export default {
 		[noIdenticalTitleName]: noIdenticalTitle,
 		[noFocusedTestsName]: noFocusedTests,
 		[noConditionalTests]: noConditionalTest,
-		[expectedExpect]: expectExpect
+		[expectedExpect]: expectExpect,
+		[useConsistentTestIt]: consistentTestIt
 	}
 }

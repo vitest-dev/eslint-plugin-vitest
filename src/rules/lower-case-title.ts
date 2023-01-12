@@ -31,7 +31,11 @@ export default createEslintRule<Options, MessageIds>({
 		function toLowerCaseFromPascalCase(str: string) {
 			return str
 				.split(' ')
-				.map(word => (word.match(/([A-Z])/g) && word.length > 3) ? word.replace(/([A-Z])/g, ' $1').toLowerCase() : word)
+				.map((word) =>
+					word.match(/([A-Z])/g) && word.length > 3
+						? word.replace(/([A-Z])/g, ' $1').toLowerCase()
+						: word
+				)
 				.join(' ')
 		}
 
@@ -39,14 +43,16 @@ export default createEslintRule<Options, MessageIds>({
 			ExpressionStatement(node) {
 				if (
 					node.expression.type === 'CallExpression' &&
-					node.expression.callee.type === 'Identifier'
+          node.expression.callee.type === 'Identifier'
 				) {
 					if (reserved.includes(node.expression.callee.name)) {
 						const { arguments: args } = node.expression
 
-						if (args[0].type === 'TemplateLiteral' &&
-							typeof args[0].quasis[0].value.raw === 'string' &&
-							!isLowerCase(args[0].quasis[0].value.raw)) {
+						if (
+							args[0].type === 'TemplateLiteral' &&
+              typeof args[0].quasis[0].value.raw === 'string' &&
+              !isLowerCase(args[0].quasis[0].value.raw)
+						) {
 							const value = args[0].quasis[0].value.raw
 
 							context.report({
@@ -54,7 +60,8 @@ export default createEslintRule<Options, MessageIds>({
 								messageId: 'lowerCaseTitle',
 								loc: args[0].loc,
 								fix: (fixer) => {
-									const newText = value.substring(0, 1).toLowerCase() + value.substring(1)
+									const newText =
+                    value.substring(0, 1).toLowerCase() + value.substring(1)
 
 									return fixer.replaceTextRange(
 										[args[0].range[0] + 1, args[0].range[1] - 1],
@@ -66,8 +73,8 @@ export default createEslintRule<Options, MessageIds>({
 
 						if (
 							args[0].type === 'Literal' &&
-							typeof args[0].value === 'string' &&
-							!isLowerCase(args[0].value)
+              typeof args[0].value === 'string' &&
+              !isLowerCase(args[0].value)
 						) {
 							const { value, range } = args[0]
 
@@ -81,9 +88,13 @@ export default createEslintRule<Options, MessageIds>({
 										range[1] - 1
 									]
 
-									const desc = value.substring(0, 1).toLowerCase() + value.substring(1)
+									const desc =
+                    value.substring(0, 1).toLowerCase() + value.substring(1)
 
-									return fixer.replaceTextRange(rangeIgnoringQuotes, toLowerCaseFromPascalCase(desc))
+									return fixer.replaceTextRange(
+										rangeIgnoringQuotes,
+										toLowerCaseFromPascalCase(desc)
+									)
 								}
 							})
 						}

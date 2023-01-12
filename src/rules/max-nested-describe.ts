@@ -14,7 +14,8 @@ export default createEslintRule<Options, MESSAGE_ID>({
 	meta: {
 		type: 'problem',
 		docs: {
-			description: 'Nested describe block should be less than set max value or default value',
+			description:
+				'Nested describe block should be less than set max value or default value',
 			recommended: 'error'
 		},
 		schema: [
@@ -29,7 +30,8 @@ export default createEslintRule<Options, MESSAGE_ID>({
 			}
 		],
 		messages: {
-			maxNestedDescribe: 'Nested describe block should be less than set max value.'
+			maxNestedDescribe:
+				'Nested describe block should be less than set max value.'
 		}
 	},
 	defaultOptions: [
@@ -42,20 +44,22 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
 		function pushStack(node: TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression) {
 			if (node.parent?.type !== 'CallExpression') return
-			if (node.parent.callee.type !== 'Identifier' || node.parent.callee.name !== 'describe') return
+			if (node.parent.callee.type !== 'Identifier' || node.parent.callee.name !== 'describe')
+				return
 
 			stack.push(0)
 
 			if (stack.length > max) {
 				context.report({
-					node,
+					node: node.parent,
 					messageId: 'maxNestedDescribe'
 				})
 			}
 		}
 		function popStack(node: TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression) {
 			if (node.parent?.type !== 'CallExpression') return
-			if (node.parent.callee.type !== 'Identifier' || node.parent.callee.name !== 'describe') return
+			if (node.parent.callee.type !== 'Identifier' || node.parent.callee.name !== 'describe')
+				return
 
 			stack.pop()
 		}

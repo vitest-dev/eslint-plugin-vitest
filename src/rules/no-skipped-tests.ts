@@ -12,7 +12,6 @@ export default createEslintRule<Options, MessageIds>({
 			description: 'Disallow skipped tests',
 			recommended: 'error'
 		},
-		fixable: 'code',
 		schema: [],
 		messages: {
 			noSkippedTests: 'Skipped tests are not allowed.'
@@ -26,17 +25,18 @@ export default createEslintRule<Options, MessageIds>({
 					const { callee } = node.expression
 					if (
 						callee.type === 'MemberExpression' &&
-						callee.object.type === 'Identifier' &&
-						(callee.object.name === 'it' || callee.object.name === 'describe') &&
-						callee.property.type === 'Identifier' &&
-						callee.property.name === 'skip'
+            callee.object.type === 'Identifier' &&
+            (callee.object.name === 'it' ||
+              callee.object.name === 'describe') &&
+            callee.property.type === 'Identifier' &&
+            callee.property.name === 'skip'
 					) {
 						context.report({
 							node,
 							messageId: 'noSkippedTests'
 							// TODO: make this fix work
 							// fix: (fixer) => {
-							//   return fixer.removeRange([node.range[0], args[0].range[1]]);
+							//	return fixer.removeRange([node.range[0], args[0].range[1]]);
 							// }
 						})
 					}

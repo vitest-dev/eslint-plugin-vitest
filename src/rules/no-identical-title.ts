@@ -4,11 +4,6 @@ export const RULE_NAME = 'no-identical-title'
 export type MESSAGE_ID = 'noIdenticalTitle';
 export type Options = [];
 
-/**
- *  This rule allows to prevent having two idential titles in the same describe.
- *
- */
-
 export default createEslintRule<Options, MESSAGE_ID>({
 	name: RULE_NAME,
 	meta: {
