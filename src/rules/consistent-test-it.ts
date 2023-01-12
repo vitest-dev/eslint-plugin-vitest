@@ -55,6 +55,7 @@ export default createEslintRule<
 					)
 						return
 				}
+
 				if (options.fn === name)
 					return
 

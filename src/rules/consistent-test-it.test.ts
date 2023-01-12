@@ -34,7 +34,6 @@ describe(RULE_NAME, () => {
 				{
 					code: 'test("shows error", () => {});',
 					options: [{ fn: 'it' }],
-					output: 'test("shows error", () => {});',
 					errors: [{ messageId: 'consistentTestIt' }]
 				},
 				{
@@ -44,10 +43,6 @@ describe(RULE_NAME, () => {
 						test('bar', () => {});
 					});
 					`,
-					output: `describe('foo', () => {
-						it('bar', () => {});
-						test('bar', () => {});
-					});`,
 					options: [{ fn: 'it' }],
 					errors: [{ messageId: 'consistentTestIt' }]
 				}
@@ -55,7 +50,7 @@ describe(RULE_NAME, () => {
 		})
 	})
 
-	it.skip(`${RULE_NAME} - fn=test`, () => {
+	it(`${RULE_NAME} - fn=test`, () => {
 		ruleTester.run(RULE_NAME, rule, {
 			valid: [
 				{
@@ -81,7 +76,6 @@ describe(RULE_NAME, () => {
 			invalid: [
 				{
 					code: 'it("shows error", () => {});',
-					output: 'it("shows error", () => {});',
 					options: [{ fn: 'test' }],
 					errors: [{ messageId: 'consistentTestIt' }]
 				},
@@ -93,10 +87,6 @@ describe(RULE_NAME, () => {
 					});
 					`,
 					options: [{ fn: 'test' }],
-					output: `describe('foo', () => {
-						it('bar', () => {});
-						test('bar', () => {});
-					});`,
 					errors: [{ messageId: 'consistentTestIt' }]
 				}
 			]
