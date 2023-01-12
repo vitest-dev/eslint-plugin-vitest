@@ -1,17 +1,5 @@
 {
 	"extends": [
-<<<<<<< HEAD
-		"@veritem/base",
-		"@veritem/ts"
-	],
-	"parser": "@typescript-eslint/parser",
-	"plugins": [
-		"@typescript-eslint"
-	],
-	"rules": {
-		"no-console": "off",
-		"no-tabs": "off"
-=======
 		"@veritem"
 	],
 	"rules": {
@@ -19,7 +7,6 @@
 			2,
 			"tab"
 		],
-		"no-tabs": 0
->>>>>>> origin
+		"no-tabs": "off"
 	}
 }

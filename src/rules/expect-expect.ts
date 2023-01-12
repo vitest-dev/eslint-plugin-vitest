@@ -7,10 +7,10 @@ export type MESSAGE_ID = 'expected-expect';
 export default createEslintRule<[], MESSAGE_ID>({
 	name: RULE_NAME,
 	meta: {
-		type: 'problem',
+		type: 'suggestion',
 		docs: {
 			description: 'Enforce having expectation in test body',
-			recommended: 'error'
+			recommended: 'warn'
 		},
 		fixable: 'code',
 		schema: [],
@@ -21,11 +21,14 @@ export default createEslintRule<[], MESSAGE_ID>({
 	defaultOptions: [],
 	create: (context) => {
 		return {
-			'CallExpression[callee.name=/^(it|test)$/]'(node: TSESTree.CallExpression) {
+			'CallExpression[callee.name=/^(it|test)$/]'(
+				node: TSESTree.CallExpression
+			) {
 				const { arguments: args } = node
 
 				// check if there is an expect statement in test body
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any, array-callback-return
+				// TODO: Types this
 				const hasExpect = args.some((arg: any) => {
 					if (arg?.body?.body.length) {
 						// eslint-disable-next-line @typescript-eslint/no-explicit-any, array-callback-return
@@ -34,6 +37,7 @@ export default createEslintRule<[], MESSAGE_ID>({
 								return true
 						})
 					}
+					return false
 				})
 
 				if (!hasExpect) {

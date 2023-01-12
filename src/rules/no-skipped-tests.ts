@@ -25,18 +25,19 @@ export default createEslintRule<Options, MessageIds>({
 					const { callee } = node.expression
 					if (
 						callee.type === 'MemberExpression' &&
-						callee.object.type === 'Identifier' &&
-						(callee.object.name === 'it' || callee.object.name === 'describe') &&
-						callee.property.type === 'Identifier' &&
-						callee.property.name === 'skip'
+            callee.object.type === 'Identifier' &&
+            (callee.object.name === 'it' ||
+              callee.object.name === 'describe') &&
+            callee.property.type === 'Identifier' &&
+            callee.property.name === 'skip'
 					) {
 						context.report({
 							node,
-							messageId: 'noSkippedTests',
+							messageId: 'noSkippedTests'
 							// TODO: make this fix work
-							//fix: (fixer) => {
+							// fix: (fixer) => {
 							//	return fixer.removeRange([node.range[0], args[0].range[1]]);
-							//}
+							// }
 						})
 					}
 				}

@@ -30,7 +30,7 @@
     "format:check": "prettier --check .",
     "format": "prettier --write .",
     "lint:eslint-docs": "pnpm build && eslint-doc-generator --check",
-    "lint:js": "eslint --ignore-path .gitignore . --fix",
+    "lint:js": "eslint . --fix",
     "lint": "concurrently --prefixColors auto \"pnpm:lint:*\"",
     "release": "pnpm build && bumpp package.json --commit --push --tag && pnpm publish",
     "stub": "unbuild --stub",
@@ -39,24 +39,24 @@
     "update:eslint-docs": "pnpm build && eslint-doc-generator"
   },
   "devDependencies": {
-    "@babel/types": "^7.20.2",
-    "@types/mocha": "^10.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.42.1",
-    "@typescript-eslint/parser": "^5.42.1",
-    "@veritem/eslint-config": "^0.0.4",
+    "@babel/types": "^7.20.7",
+    "@types/mocha": "^10.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
+    "@veritem/eslint-config": "^0.0.6",
     "bumpp": "^8.2.1",
-    "concurrently": "^7.5.0",
-    "eslint": "^8.27.0",
-    "eslint-doc-generator": "^0.22.0",
-    "eslint-plugin-eslint-plugin": "^5.0.6",
+    "concurrently": "^7.6.0",
+    "eslint": "^8.31.0",
+    "eslint-doc-generator": "^1.4.2",
+    "eslint-plugin-eslint-plugin": "^5.0.7",
     "eslint-plugin-node": "^11.1.0",
     "eslint-remote-tester": "^3.0.0",
-    "eslint-remote-tester-repositories": "^0.0.8",
-    "jiti": "^1.16.0",
-    "prettier": "^2.7.1",
+    "eslint-remote-tester-repositories": "^1.0.0",
+    "jiti": "^1.16.2",
+    "prettier": "^2.8.2",
     "ts-node": "^10.9.1",
-    "unbuild": "^0.9.4",
-    "vitest": "^0.25.0"
+    "unbuild": "^1.0.2",
+    "vitest": "^0.27.1"
   },
   "engines": {
     "node": "14.x || >= 16"
@@ -65,6 +65,6 @@
     "eslint": ">=8.0.0"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^5.42.1"
+    "@typescript-eslint/utils": "^5.48.1"
   }
 }
