@@ -1,8 +1,7 @@
-import { TSESTree } from '@typescript-eslint/utils'
-import { createEslintRule } from '../utils'
+import { createEslintRule, getNodeName } from '../utils'
 
 export const RULE_NAME = 'expect-expect'
-export type MESSAGE_ID = 'expected-expect';
+export type MESSAGE_ID = 'expectedExpect';
 
 export default createEslintRule<[], MESSAGE_ID>({
 	name: RULE_NAME,
@@ -10,40 +9,25 @@ export default createEslintRule<[], MESSAGE_ID>({
 		type: 'suggestion',
 		docs: {
 			description: 'Enforce having expectation in test body',
-			recommended: 'warn'
+			recommended: 'strict'
 		},
-		fixable: 'code',
 		schema: [],
 		messages: {
-			'expected-expect': 'Use \'expect\' in test body'
+			expectedExpect: 'Use \'expect\' in test body'
 		}
 	},
 	defaultOptions: [],
 	create: (context) => {
+		const hasExpect = 0
 		return {
-			'CallExpression[callee.name=/^(it|test)$/]'(
-				node: TSESTree.CallExpression
-			) {
-				const { arguments: args } = node
-
-				// check if there is an expect statement in test body
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any, array-callback-return
-				// TODO: Types this
-				const hasExpect = args.some((arg: any) => {
-					if (arg?.body?.body.length) {
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any, array-callback-return
-						return arg.body.body.some((body: any) => {
-							if (body?.expression?.callee?.object?.callee?.name === 'expect')
-								return true
-						})
-					}
-					return false
-				})
-
+			CallExpression(node) {
+				const name = getNodeName(node) ?? ''
+			},
+			'Program:exit'(node) {
 				if (!hasExpect) {
 					context.report({
 						node,
-						messageId: 'expected-expect'
+						messageId: 'expectedExpect'
 					})
 				}
 			}

@@ -40,7 +40,7 @@ export default createEslintRule<
 		}
 	],
 	create(context) {
-		const options = context.options[0]
+		const fn = context.options[0]?.fn ?? 'test'
 		return {
 			'CallExpression[callee.name=/^(it|test)$/]'(node: TSESTree.CallExpression) {
 				const { name } = node.callee as TSESTree.Identifier
@@ -56,7 +56,7 @@ export default createEslintRule<
 						return
 				}
 
-				if (options.fn === name)
+				if (fn === name)
 					return
 
 				context.report({

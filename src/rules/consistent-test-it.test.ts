@@ -56,8 +56,8 @@ describe(RULE_NAME, () => {
 				{
 					code: `test("shows error", () => {
 						expect(true).toBe(false);
-					});`,
-					options: [{ fn: 'test' }]
+					});`
+					// options: [{ fn: 'test' }]
 				},
 				{
 					code: `test("foo", function () {
