@@ -40,7 +40,12 @@ it(RULE_NAME, () => {
 				  expect(obj1).not.toEqual(obj2);
 				})
 			  })`,
-			'it("should pass", () => expect(true).toBeDefined())'
+			'it("should pass", () => expect(true).toBeDefined())',
+			`const myFunc = () => {};
+			it("works", () => expect(myFunc()).toBe(undefined));`,
+			`const myFunc = () => {};
+
+			it("works", () => expect(myFunc()).toBe(undefined));`
 		],
 		invalid: [
 			{
