@@ -50,16 +50,16 @@ Then configure the rules you want to use under the rules section.
 
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).
 
-| Name                                                       | Description                                                              | 🔧 |
-| :--------------------------------------------------------- | :----------------------------------------------------------------------- | :- |
-| [consistent-test-it](docs/rules/consistent-test-it.md)     | Prefer test or it but not both                                           |    |
-| [expect-expect](docs/rules/expect-expect.md)               | Enforce having expectation in test body                                  |    |
-| [lower-case-title](docs/rules/lower-case-title.md)         | Enforce lowercase titles                                                 | 🔧 |
-| [max-nested-describe](docs/rules/max-nested-describe.md)   | Nested describe block should be less than set max value or default value |    |
-| [no-conditional-tests](docs/rules/no-conditional-tests.md) | Disallow conditional tests                                               |    |
-| [no-focused-tests](docs/rules/no-focused-tests.md)         | Disallow focused tests                                                   | 🔧 |
-| [no-identical-title](docs/rules/no-identical-title.md)     | Disallow identical titles                                                | 🔧 |
-| [no-skipped-tests](docs/rules/no-skipped-tests.md)         | Disallow skipped tests                                                   |    |
+| Name                                                           | Description                                                              | 🔧 |
+| :------------------------------------------------------------- | :----------------------------------------------------------------------- | :- |
+| [consistent-test-it](docs/rules/consistent-test-it.md)         | Prefer test or it but not both                                           | 🔧 |
+| [expect-expect](docs/rules/expect-expect.md)                   | Enforce having expectation in test body                                  |    |
+| [max-nested-describe](docs/rules/max-nested-describe.md)       | Nested describe block should be less than set max value or default value |    |
+| [no-conditional-tests](docs/rules/no-conditional-tests.md)     | Disallow conditional tests                                               |    |
+| [no-focused-tests](docs/rules/no-focused-tests.md)             | Disallow focused tests                                                   | 🔧 |
+| [no-identical-title](docs/rules/no-identical-title.md)         | Disallow identical titles                                                | 🔧 |
+| [no-skipped-tests](docs/rules/no-skipped-tests.md)             | Disallow skipped tests                                                   |    |
+| [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md) | Enforce lowercase titles                                                 | 🔧 |
 
 <!-- end auto-generated rules list -->
 

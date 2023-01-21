@@ -1,4 +1,4 @@
-import lowerCaseTitle, { RULE_NAME as lowerCaseTitleName } from './rules/lower-case-title'
+import lowerCaseTitle, { RULE_NAME as lowerCaseTitleName } from './rules/prefer-lowercase-title'
 import maxNestedDescribe, { RULE_NAME as maxNestedDescribeName } from './rules/max-nested-describe'
 import noIdenticalTitle, { RULE_NAME as noIdenticalTitleName } from './rules/no-identical-title'
 import noSkippedTests, { RULE_NAME as noSkippedTestsName } from './rules/no-skipped-tests'
