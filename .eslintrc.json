@@ -4,9 +4,10 @@
 	],
 	"rules": {
 		"indent": [
-			2,
+			0,
 			"tab"
 		],
+		"no-case-declarations": 0,
 		"no-tabs": "off"
 	}
 }
