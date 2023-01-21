@@ -27,7 +27,19 @@ it(RULE_NAME, () => {
 				});
 			});`,
 			`const myFunc = () => {};
-			it("works", () => expect(myFunc()).toBe(undefined));`
+			it("works", () => expect(myFunc()).toBe(undefined));`,
+			`describe('title', () => {
+				it('test is not ok', () => {
+				  [1, 2, 3, 4, 5, 6].forEach((n) => {
+					expect(n).toBe(1);
+				  });
+				});
+			  });`,
+			`desctibe('title', () => {
+				test('some test', () => {
+				  expect(obj1).not.toEqual(obj2);
+				})
+			  })`
 		],
 		invalid: [
 			{

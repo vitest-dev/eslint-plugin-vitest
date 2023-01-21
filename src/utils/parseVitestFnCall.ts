@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
-import { DescribeAlias, TestCaseName } from './types'
+import { DescribeAlias, ModifierName, TestCaseName } from './types'
 import { AccessorNode, getAccessorValue, getStringValue, isIdentifier, isStringNode, isSupportedAccessor } from '.'
 
 const ValidVitestFnCallChains = [
@@ -120,7 +120,7 @@ export const isTypeOfVitestFnCall = (
 	types: VitestFnType[]
 ) => {
 	const vitestFnCall = parseVitestFnCall(node, context)
-	return vitestFnCall !== null && types.includes(vitestFnCall)
+	return vitestFnCall !== null && types.includes(vitestFnCall.type)
 }
 
 export const parseVitestFnCall = (
@@ -137,21 +137,21 @@ export const parseVitestFnCall = (
 
 const parseVitestFnCallCache = new WeakMap<
 	TSESTree.CallExpression,
-	ParsedVitestFnCall | string
+	ParsedVitestFnCall | string | null
 >()
 
 export const parseVitestFnCallWithReason = (
 	node: TSESTree.CallExpression,
 	context: TSESLint.RuleContext<string, unknown[]>
 ) => {
-	const parsedVistestFnCall = parseVitestFnCallCache.get(node)
+	let parsedVistestFnCall = parseVitestFnCallCache.get(node)
 
-	if (parseVitestFnCall)
-		return parseVitestFnCall
+	if (parsedVistestFnCall)
+		return parsedVistestFnCall
 
-	parseVitestFnCall = parseVistestFnCallWithReasonInner(node, context)
+	parsedVistestFnCall = parseVistestFnCallWithReasonInner(node, context)
 
-	parseVitestFnCallCache.set(node, parseVitestFnCall)
+	parseVitestFnCallCache.set(node, parsedVistestFnCall)
 
 	return parsedVistestFnCall
 }
@@ -169,6 +169,94 @@ const determineVitestFnType = (name: string): VitestFnType => {
 		return 'test'
 
 	return 'unknown'
+}
+
+const findModifiersAndMatcher = (
+	members: KnownMemberExpressionProperty[]
+): ModifiersAndMatcher | string => {
+	const modifiers: KnownMemberExpressionProperty[] = []
+
+	for (const member of members) {
+		// check if the member is being called, which means it is the matcher
+		// (and also the end of the entire "expect" call chain)
+		if (
+			member.parent?.type === AST_NODE_TYPES.MemberExpression &&
+			member.parent.parent?.type === AST_NODE_TYPES.CallExpression
+		) {
+			return {
+				matcher: member,
+				args: member.parent.parent.arguments,
+				modifiers
+			}
+		}
+
+		// otherwise, it should be a modifier
+		const name = getAccessorValue(member)
+
+		if (modifiers.length === 0) {
+			// the first modifier can be any of the three modifiers
+			// eslint-disable-next-line no-prototype-builtins
+			if (!ModifierName.hasOwnProperty(name))
+				return 'modifier-unknown'
+		} else if (modifiers.length === 1) {
+			// the second modifier can only be "not"
+			if (name !== ModifierName.not)
+				return 'modifier-unknown'
+
+			const firstModifier = getAccessorValue(modifiers[0])
+
+			// and the first modifier has to be either "resolves" or "rejects"
+			if (
+				firstModifier !== ModifierName.resolves &&
+				firstModifier !== ModifierName.rejects
+			)
+				return 'modifier-unknown'
+		} else {
+			return 'modifier-unknown'
+		}
+
+		modifiers.push(member)
+	}
+
+	// this will only really happen if there are no members
+	return 'matcher-not-found'
+}
+
+const parseVitestExpectCall = (typelessParsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'>): ParsedExpectVitestFnCall | string => {
+	const modifiersMatcher = findModifiersAndMatcher(typelessParsedVitestFnCall.members)
+
+	if (typeof modifiersMatcher === 'string')
+		return modifiersMatcher
+
+	return {
+		...typelessParsedVitestFnCall,
+		type: 'expect',
+		...modifiersMatcher
+	}
+}
+
+export const findTopMostCallExpression = (
+	node: TSESTree.CallExpression
+): TSESTree.CallExpression => {
+	let topMostCallExpression = node
+	let { parent } = node
+
+	while (parent) {
+		if (parent.type === AST_NODE_TYPES.CallExpression) {
+			topMostCallExpression = parent
+
+			parent = parent.parent
+
+			continue
+		}
+
+		if (parent.type !== AST_NODE_TYPES.MemberExpression)
+			break
+
+		parent = parent.parent
+	}
+
+	return topMostCallExpression
 }
 
 const parseVistestFnCallWithReasonInner = (
@@ -216,7 +304,27 @@ const parseVistestFnCallWithReasonInner = (
 
 	if (type === 'expect') {
 		const result = parseVitestExpectCall(parsedVitestFnCall)
+
+		if (typeof result === 'string' && findTopMostCallExpression(node) !== node)
+			return null
+
+		if (result === 'matcher-not-found') {
+			if (node.parent?.type === AST_NODE_TYPES.MemberExpression)
+				return 'matcher-not-called'
+		}
+		return result
 	}
+
+	if (chain
+		.slice(0, chain.length - 1)
+		.some(node => node.parent?.type !== AST_NODE_TYPES.MemberExpression))
+		return null
+
+	if (node.parent?.type === AST_NODE_TYPES.CallExpression ||
+		node.parent?.type === AST_NODE_TYPES.MemberExpression)
+		return null
+
+	return { ...parsedVitestFnCall, type }
 }
 
 const joinChains = (
@@ -391,4 +499,23 @@ const describeVariableDefAsImport = (
 		imported: getAccessorValue(def.name.parent.key),
 		local: def.name.name
 	}
+}
+
+export const getTestCallExpressionsFromDeclaredVariables = (
+	declaredVariables: readonly TSESLint.Scope.Variable[],
+	context: TSESLint.RuleContext<string, unknown[]>
+): TSESTree.CallExpression[] => {
+	return declaredVariables.reduce<TSESTree.CallExpression[]>(
+		(acc, { references }) =>
+			acc.concat(
+				references
+					.map(({ identifier }) => identifier.parent)
+					.filter(
+						(node): node is TSESTree.CallExpression =>
+							node?.type === AST_NODE_TYPES.CallExpression &&
+							isTypeOfVitestFnCall(node, context, ['test'])
+					)
+			),
+		[]
+	)
 }

@@ -18,3 +18,9 @@ export enum HookName {
 	'afterAll' = 'afterAll',
 	'afterEach' = 'afterEach',
 }
+
+export enum ModifierName {
+	not = 'not',
+	rejects = 'rejects',
+	resolves = 'resolves',
+}
