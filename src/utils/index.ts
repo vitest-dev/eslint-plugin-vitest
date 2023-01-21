@@ -1,4 +1,5 @@
 // Imported from https://github.com/jest-community/eslint-plugin-jest/blob/main/src/rules/utils/accessors.ts#L6
+import { TSESLint } from '@typescript-eslint/utils'
 import { AST_NODE_TYPES, ESLintUtils, TSESTree } from '@typescript-eslint/utils'
 
 export const createEslintRule = ESLintUtils.RuleCreator((ruleName) => `https://github.com/veritem/eslint-plugin-vitest/blob/main/docs/rules/${ruleName}.md`)
@@ -84,3 +85,32 @@ export const getStringValue =
 		node.type === AST_NODE_TYPES.TemplateLiteral
 			? node.quasis[0].value.raw
 			: node.value
+
+export const replaceAccessorFixer = (
+	fixer: TSESLint.RuleFixer,
+	node: AccessorNode,
+	text: string
+) => {
+	return fixer.replaceText(
+		node,
+		node.type === AST_NODE_TYPES.Identifier ? text : `'${text}'`
+	)
+}
+
+export const removeExtraArgumentsFixer = (
+	fixer: TSESLint.RuleFixer,
+	context: TSESLint.RuleContext<string, unknown[]>,
+	func: TSESTree.CallExpression,
+	from: number
+): TSESLint.RuleFix => {
+	const firstArg = func.arguments[from]
+	const lastArg = func.arguments[func.arguments.length - 1]
+
+	const sourceCode = context.getSourceCode()
+	let tokenAfterLastParam = sourceCode.getTokenAfter(lastArg)!
+
+	if (tokenAfterLastParam.value === ',')
+		tokenAfterLastParam = sourceCode.getTokenAfter(tokenAfterLastParam)!
+
+	return fixer.removeRange([firstArg.range[0], tokenAfterLastParam.range[0]])
+}
