@@ -1,3 +1,4 @@
 node_modules/
 dist/
 eslint-remote-tester-results/
+fixtures/
