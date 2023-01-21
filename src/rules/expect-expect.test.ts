@@ -39,7 +39,8 @@ it(RULE_NAME, () => {
 				test('some test', () => {
 				  expect(obj1).not.toEqual(obj2);
 				})
-			  })`
+			  })`,
+			'it("should pass", () => expect(true).toBeDefined())'
 		],
 		invalid: [
 			{
@@ -50,6 +51,10 @@ it(RULE_NAME, () => {
 				code: `it("foo", function () {
 					if (1 === 2) {}
 				})`,
+				errors: [{ messageId: 'expectedExpect' }]
+			},
+			{
+				code: 'it("should also fail",() => expectSaga(mySaga).returns());',
 				errors: [{ messageId: 'expectedExpect' }]
 			}
 		]
