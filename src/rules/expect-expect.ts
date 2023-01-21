@@ -79,7 +79,7 @@ export default createEslintRule<[], MESSAGE_ID>({
 					checkCallExpressionUsed(context.getAncestors())
 				}
 			},
-			'Program:exit'(node) {
+			'Program:exit'() {
 				unchecked.forEach(node => context.report({ node, messageId: 'expectedExpect' }))
 			}
 		}

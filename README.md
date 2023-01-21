@@ -53,7 +53,7 @@ Then configure the rules you want to use under the rules section.
 | Name                                                       | Description                                                              | 🔧 |
 | :--------------------------------------------------------- | :----------------------------------------------------------------------- | :- |
 | [consistent-test-it](docs/rules/consistent-test-it.md)     | Prefer test or it but not both                                           |    |
-| [expect-expect](docs/rules/expect-expect.md)               | Enforce having expectation in test body                                  | 🔧 |
+| [expect-expect](docs/rules/expect-expect.md)               | Enforce having expectation in test body                                  |    |
 | [lower-case-title](docs/rules/lower-case-title.md)         | Enforce lowercase titles                                                 | 🔧 |
 | [max-nested-describe](docs/rules/max-nested-describe.md)   | Nested describe block should be less than set max value or default value |    |
 | [no-conditional-tests](docs/rules/no-conditional-tests.md) | Disallow conditional tests                                               |    |
