@@ -74,7 +74,6 @@ export default createEslintRule<[], MESSAGE_ID>({
 					if (node.callee.type === AST_NODE_TYPES.MemberExpression &&
 						isSupportedAccessor(node.callee.property, 'todo')) return
 					unchecked.push(node)
-					// TODO: move second param into settings
 				} else if (matchesAssertFunctionName(name, ['expect'])) {
 					checkCallExpressionUsed(context.getAncestors())
 				}
