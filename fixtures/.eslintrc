@@ -1,0 +1,23 @@
+{
+	"plugins": [
+		"vitest"
+	],
+	"rules": {
+		"vitest/consistent-test-it": [
+			"error",
+			{
+				"fn": "test"
+			}
+		],
+		"vitest/max-nested-describe": [
+			"error",
+			{
+				"max": 3
+			}
+		],
+		"vitest/no-conditional-tests": "error",
+		"vitest/no-focused-tests": "warn",
+		"vitest/prefer-lowercase-title": "warn",
+		"vitest/no-skipped-tests": "warn"
+	}
+}
