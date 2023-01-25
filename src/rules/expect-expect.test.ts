@@ -44,7 +44,6 @@ it(RULE_NAME, () => {
 			`const myFunc = () => {};
 			it("works", () => expect(myFunc()).toBe(undefined));`,
 			`const myFunc = () => {};
-
 			it("works", () => expect(myFunc()).toBe(undefined));`
 		],
 		invalid: [
@@ -56,6 +55,15 @@ it(RULE_NAME, () => {
 				code: `it("foo", function () {
 					if (1 === 2) {}
 				})`,
+				errors: [{ messageId: 'expectedExpect' }]
+			},
+			{
+				code: `import { it } from 'vitest';
+				describe('Button with increment', () => {
+					it('should show name props', () => {
+						console.log('test with missing expect');
+					});
+				});`,
 				errors: [{ messageId: 'expectedExpect' }]
 			},
 			{

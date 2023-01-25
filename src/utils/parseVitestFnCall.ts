@@ -364,13 +364,13 @@ const resolveVitestFn = (
 		return null
 
 	if (maybeImport) {
-		// TODO: @veritem check if source is vitest global
-		// console.log(maybeImport.source)
-		// return {
-		//	original: maybeImport.imported,
-		//	local: maybeImport.local,
-		//	type: 'import'
-		// }
+		if (maybeImport.source === 'vitest') {
+      return {
+        original: maybeImport.imported,
+        local: maybeImport.local,
+        type: 'import',
+      };
+    }
 		return null
 	}
 

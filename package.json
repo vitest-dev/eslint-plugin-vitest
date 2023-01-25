@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-vitest",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "license": "MIT",
   "description": "Eslint plugin for vitest",
   "repository": "veritem/eslint-plugin-vitest",
@@ -35,7 +35,7 @@
     "release": "pnpm build && bumpp package.json --commit --push --tag && pnpm publish",
     "stub": "unbuild --stub",
     "test:ci": "vitest run",
-    "test": "vitest",
+    "test": "vitest src/**/*.test.ts",
     "update:eslint-docs": "pnpm build && eslint-doc-generator"
   },
   "devDependencies": {
