@@ -365,12 +365,12 @@ const resolveVitestFn = (
 
 	if (maybeImport) {
 		if (maybeImport.source === 'vitest') {
-      return {
-        original: maybeImport.imported,
-        local: maybeImport.local,
-        type: 'import',
-      };
-    }
+			return {
+				original: maybeImport.imported,
+				local: maybeImport.local,
+				type: 'import'
+			}
+		}
 		return null
 	}
 

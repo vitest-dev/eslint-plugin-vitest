@@ -108,9 +108,7 @@ export default createEslintRule<[], MessageId>({
 				}
 
 				// eslint-disable-next-line no-prototype-builtins
-				if (EqualityMatcher.hasOwnProperty(matcherName) ||
-					vitestFnCall.args.length === 0
-				)
+				if (!EqualityMatcher.hasOwnProperty(matcherName) || vitestFnCall.args.length === 0)
 					return
 
 				if (isNullEqualityMatcher(vitestFnCall)) {
@@ -120,7 +118,6 @@ export default createEslintRule<[], MessageId>({
 
 				if (isFirstArgumentIdentifier(vitestFnCall, 'undefined')) {
 					const name = notModifier ? 'Defined' : 'Undefined'
-
 					reportPreferToBe(context, name, vitestFnCall, node)
 					return
 				}
