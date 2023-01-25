@@ -6,6 +6,7 @@ import noFocusedTests, { RULE_NAME as noFocusedTestsName } from './rules/no-focu
 import noConditionalTest, { RULE_NAME as noConditionalTests } from './rules/no-conditional-tests'
 import expectExpect, { RULE_NAME as expectedExpect } from './rules/expect-expect'
 import consistentTestIt, { RULE_NAME as useConsistentTestIt } from './rules/consistent-test-it'
+import preferToBe, { RULE_NAME as usePreferTobe } from './rules/prefer-to-be'
 
 export default {
 	rules: {
@@ -16,6 +17,7 @@ export default {
 		[noFocusedTestsName]: noFocusedTests,
 		[noConditionalTests]: noConditionalTest,
 		[expectedExpect]: expectExpect,
-		[useConsistentTestIt]: consistentTestIt
+		[useConsistentTestIt]: consistentTestIt,
+		[usePreferTobe]: preferToBe
 	}
 }
