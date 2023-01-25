@@ -1,3 +1,5 @@
 .eslintrc.json
 **/*.md
 docs/*.md 
+dist/
+node_modules/

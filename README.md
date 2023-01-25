@@ -60,6 +60,7 @@ Then configure the rules you want to use under the rules section.
 | [no-identical-title](docs/rules/no-identical-title.md)         | Disallow identical titles                                                | 🔧 |
 | [no-skipped-tests](docs/rules/no-skipped-tests.md)             | Disallow skipped tests                                                   |    |
 | [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md) | Enforce lowercase titles                                                 | 🔧 |
+| [prefer-to-be](docs/rules/prefer-to-be.md)                     | Suggest using toBe()                                                     | 🔧 |
 
 <!-- end auto-generated rules list -->
 

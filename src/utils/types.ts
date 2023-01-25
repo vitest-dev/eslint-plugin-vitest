@@ -35,3 +35,9 @@ export interface CallExpressionWithSingleArgument<
 > extends TSESTree.CallExpression {
 	arguments: [Argument];
 }
+
+export enum EqualityMatcher {
+	toBe = 'toBe',
+	toEqual = 'toEqual',
+	toStrictEqual = 'toStrictEqual',
+}
