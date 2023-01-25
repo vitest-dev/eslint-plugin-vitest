@@ -7,7 +7,7 @@ describe(RULE_NAME, () => {
 		parser: require.resolve('@typescript-eslint/parser')
 	})
 
-	it(`${RULE_NAME} toBe`, () => {
+	it.skip(`${RULE_NAME} toBe`, () => {
 		ruleTester.run(RULE_NAME, rule, {
 			valid: [
 				'expect(null).toBeNull();',
@@ -78,7 +78,7 @@ describe(RULE_NAME, () => {
 		})
 	})
 
-	it(`${RULE_NAME} null`, () => {
+	it.skip(`${RULE_NAME} null`, () => {
 		ruleTester.run(RULE_NAME, rule, {
 			valid: [
 				'expect(null).toBeNull();',

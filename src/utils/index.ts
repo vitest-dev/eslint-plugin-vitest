@@ -51,7 +51,7 @@ export const isSupportedAccessor = <V extends string>(node: TSESTree.Node, value
 export const isIdentifier = <v extends string>(
 	node: TSESTree.Node,
 	name?: v
-): node is StringLiteral<v> => {
+): node is KnownIdentifier<v> => {
 	return node.type === AST_NODE_TYPES.Identifier &&
 		(name === undefined || node.name === name)
 }
@@ -59,20 +59,30 @@ export const isIdentifier = <v extends string>(
 const isTemplateLiteral = <V extends string>(
 	node: TSESTree.Node,
 	value?: V
-): node is StringLiteral<V> => {
-	return node.type === AST_NODE_TYPES.TemplateLiteral &&
-		node.quasis.length === 1 &&
-		(value === undefined ||
-			node.quasis[0].value.raw === value)
-}
+): node is TemplateLiteral<V> =>
+	node.type === AST_NODE_TYPES.TemplateLiteral &&
+	node.quasis.length === 1 && // bail out if not simple
+	(value === undefined || node.quasis[0].value.raw === value)
 
+const isStringLiteral = <V extends string>(
+	node: TSESTree.Node,
+	value?: V
+): node is StringLiteral<V> =>
+	node.type === AST_NODE_TYPES.Literal &&
+	typeof node.value === 'string' &&
+	(value === undefined || node.value === value)
+
+/**
+ *
+ * @param node
+ * @param specifics
+ * @returns {node is StringNode}
+ */
 export const isStringNode = <V extends string>(
 	node: TSESTree.Node,
 	specifics?: V
-): node is StringLiteral<V> => {
-	return isIdentifier(node, specifics) ||
-		isTemplateLiteral(node, specifics)
-}
+): node is StringLiteral<V> =>
+	isStringLiteral(node, specifics) || isTemplateLiteral(node, specifics)
 
 export const getAccessorValue =
 	<S extends string = string>(accessor: AccessorNode<S>): S =>
