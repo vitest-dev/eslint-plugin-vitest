@@ -41,6 +41,7 @@
   "devDependencies": {
     "@babel/types": "^7.20.7",
     "@types/mocha": "^10.0.1",
+    "@types/node": "^18.13.0",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
     "@veritem/eslint-config": "^0.0.6",
