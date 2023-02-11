@@ -4,6 +4,6 @@ test('foo', () => {
 	expect(true).toBe(true)
 })
 
-test('bAR', () => {
+test('foo', () => {
 	expect(true).toBe(true)
 })
