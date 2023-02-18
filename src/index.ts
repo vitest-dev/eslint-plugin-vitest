@@ -9,9 +9,11 @@ import consistentTestIt, { RULE_NAME as useConsistentTestIt } from './rules/cons
 import preferToBe, { RULE_NAME as usePreferTobe } from './rules/prefer-to-be'
 import noHooks, { RULE_NAME as noHooksName } from './rules/no-hooks'
 
-const createConfig = (rules) => ({
+const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
-	rules: rules.map((rule) => `vitest/${rule}`)
+	rules: Object.keys(rules).map((rule) => ({
+		[`vitest/${rule}`]: rules[rule]
+	}))
 })
 
 const allRules = {
@@ -29,6 +31,8 @@ const recommended = {
 	[noIdenticalTitleName]: 'warn',
 	[usePreferTobe]: 'warn'
 }
+
+console.log(createConfig(recommended))
 
 export default {
 	rules: {
