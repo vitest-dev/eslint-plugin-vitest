@@ -11,7 +11,7 @@ import noHooks, { RULE_NAME as noHooksName } from './rules/no-hooks'
 
 const createConfig = (rules) => ({
 	plugins: ['vitest'],
-	rules
+	rules: rules.map((rule) => `vitest/${rule}`)
 })
 
 const allRules = {

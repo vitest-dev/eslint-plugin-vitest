@@ -2,11 +2,11 @@ lockfileVersion: 5.4
 
 specifiers:
   eslint: ^8.34.0
-  eslint-plugin-vitest: ^0.0.35
+  eslint-plugin-vitest: ^0.0.36
   vitest: ^0.28.5
 
 dependencies:
-  eslint-plugin-vitest: 0.0.35_eslint@8.34.0
+  eslint-plugin-vitest: 0.0.36_eslint@8.34.0
   vitest: 0.28.5
 
 devDependencies:
@@ -602,8 +602,8 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
-  /eslint-plugin-vitest/0.0.35_eslint@8.34.0:
-    resolution: {integrity: sha512-JKZDBhdqFTSJ32k+vF03zTgT0k2diqOgCFZvJjYCfQ8BxT/1Yvf/BdGxRwVvZfY61g7m6AfGMbKuCekxI4od0g==}
+  /eslint-plugin-vitest/0.0.36_eslint@8.34.0:
+    resolution: {integrity: sha512-icHDrOJNAosgMS/pL8SDLx+CTqpfymN495zbSWOckalbLhhPD0uIzSI2fpTLSjAmCnWmZNhg3l8wLWqyfDLWfA==}
     engines: {node: 14.x || >= 16}
     peerDependencies:
       eslint: '>=8.0.0'
