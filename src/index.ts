@@ -11,9 +11,12 @@ import noHooks, { RULE_NAME as noHooksName } from './rules/no-hooks'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
-	rules: Object.keys(rules).map((rule) => ({
-		[`vitest/${rule}`]: rules[rule]
-	}))
+	rules: Object.keys(rules).reduce((acc, ruleName) => {
+		return {
+			...acc,
+			[`vitest/${ruleName}`]: rules[ruleName]
+		}
+	}, {})
 })
 
 const allRules = {
@@ -31,8 +34,6 @@ const recommended = {
 	[noIdenticalTitleName]: 'warn',
 	[usePreferTobe]: 'warn'
 }
-
-console.log(createConfig(recommended))
 
 export default {
 	rules: {
