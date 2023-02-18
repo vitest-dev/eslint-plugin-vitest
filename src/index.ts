@@ -9,6 +9,7 @@ import noConditionalTest, { RULE_NAME as noConditionalTests } from './rules/no-c
 import expectExpect, { RULE_NAME as expectedExpect } from './rules/expect-expect'
 import consistentTestIt, { RULE_NAME as useConsistentTestIt } from './rules/consistent-test-it'
 import preferToBe, { RULE_NAME as usePreferTobe } from './rules/prefer-to-be'
+import noHooks, { RULE_NAME as noHooksName } from './rules/no-hooks'
 
 // const rulesDir = join(__dirname, 'rules')
 
@@ -50,7 +51,8 @@ export default {
 		[noConditionalTests]: noConditionalTest,
 		[expectedExpect]: expectExpect,
 		[useConsistentTestIt]: consistentTestIt,
-		[usePreferTobe]: preferToBe
+		[usePreferTobe]: preferToBe,
+		[noHooksName]: noHooks
 	}
 	// configs: {
 	//	all: createConfig(allRules),
