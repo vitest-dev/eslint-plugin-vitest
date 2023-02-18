@@ -1,5 +1,3 @@
-// import { readdirSync } from 'fs'
-// import { join } from 'path'
 import lowerCaseTitle, { RULE_NAME as lowerCaseTitleName } from './rules/prefer-lowercase-title'
 import maxNestedDescribe, { RULE_NAME as maxNestedDescribeName } from './rules/max-nested-describe'
 import noIdenticalTitle, { RULE_NAME as noIdenticalTitleName } from './rules/no-identical-title'
@@ -11,35 +9,26 @@ import consistentTestIt, { RULE_NAME as useConsistentTestIt } from './rules/cons
 import preferToBe, { RULE_NAME as usePreferTobe } from './rules/prefer-to-be'
 import noHooks, { RULE_NAME as noHooksName } from './rules/no-hooks'
 
-// const rulesDir = join(__dirname, 'rules')
+const createConfig = (rules) => ({
+	plugins: ['vitest'],
+	rules
+})
 
-// const rules = readdirSync(rulesDir)
-//	.filter((file) => !file.includes('.test.ts') && file !== 'index.ts')
-//	.reduce((acc, curr) => ({
-//		...acc,
-//		// eslint-disable-next-line @typescript-eslint/no-var-requires
-//		[curr]: require(join(rulesDir, curr)).default
-//	}), {})
+const allRules = {
+	[noSkippedTestsName]: 'error',
+	[lowerCaseTitleName]: 'error',
+	[maxNestedDescribeName]: 'error',
+	[noFocusedTestsName]: 'error',
+	[noConditionalTests]: 'error',
+	[useConsistentTestIt]: 'error',
+	[noHooksName]: 'error'
+}
 
-// const allRules = Object.keys(rules)
-//	.map(rule => rule.replace(/\.ts$/, ''))
-//	.reduce((acc, curr) => ({
-//		...acc,
-//		[`vitest/${curr}`]: 'error'
-//	}), {})
-
-// const recommended = Object.keys(rules)
-//	.filter((rule) => rules[rule].meta.docs.recommended === 'strict')
-//	.map(rule => rule.replace(/\.ts$/, ''))
-//	.reduce((acc, curr) => ({
-//		...acc,
-//		[`vitest/${curr}`]: 'error'
-//	}), {})
-
-// const createConfig = (rules) => ({
-//	plugins: ['vitest'],
-//	rules
-// })
+const recommended = {
+	[expectedExpect]: 'error',
+	[noIdenticalTitleName]: 'error',
+	[usePreferTobe]: 'error'
+}
 
 export default {
 	rules: {
@@ -53,9 +42,9 @@ export default {
 		[useConsistentTestIt]: consistentTestIt,
 		[usePreferTobe]: preferToBe,
 		[noHooksName]: noHooks
+	},
+	configs: {
+		all: createConfig(allRules),
+		recommended: createConfig(recommended)
 	}
-	// configs: {
-	//	all: createConfig(allRules),
-	//	recommended: createConfig(recommended)
-	// }
 }

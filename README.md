@@ -44,6 +44,28 @@ Then configure the rules you want to use under the rules section.
 }
 ```
 
+#### Recommended 
+
+To use the recommended configuration, extend it in your `.eslintrc` file:
+
+```json
+{
+  "extends": ["plugin:vitest/recommended"]
+}
+```
+
+
+#### all
+
+To use the all configuration, extend it in your `.eslintrc` file:
+
+```json
+{
+  "extends": ["plugin:vitest/all"]
+}
+```
+
+
 ### Rules
 
 <!-- begin auto-generated rules list -->
