@@ -14,7 +14,6 @@ specifiers:
   eslint-doc-generator: ^1.4.2
   eslint-plugin-eslint-plugin: ^5.0.7
   eslint-plugin-node: ^11.1.0
-  eslint-plugin-vitest: ^0.0.39
   eslint-remote-tester: ^3.0.0
   eslint-remote-tester-repositories: ^1.0.0
   jiti: ^1.16.2
@@ -25,7 +24,6 @@ specifiers:
 
 dependencies:
   '@typescript-eslint/utils': 5.48.1_eslint@8.31.0
-  eslint-plugin-vitest: 0.0.39_eslint@8.31.0
 
 devDependencies:
   '@babel/types': 7.20.7
@@ -2266,19 +2264,6 @@ packages:
       eslint: 8.31.0
       eslint-rule-composer: 0.3.0
     dev: true
-
-  /eslint-plugin-vitest/0.0.39_eslint@8.31.0:
-    resolution: {integrity: sha512-YOUsaQgWXYAZt5Ucd56B8+MrAFfqQo7ATA1wi754tjHYjODXr//VKPyco4DfYsxm7OAOV49MZ0ktKZxL4JomNw==}
-    engines: {node: 14.x || >= 16}
-    peerDependencies:
-      eslint: '>=8.0.0'
-    dependencies:
-      '@typescript-eslint/utils': 5.48.1_eslint@8.31.0
-      eslint: 8.31.0
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-    dev: false
 
   /eslint-remote-tester-repositories/1.0.0:
     resolution: {integrity: sha512-2tngPTc/zT/nyUZKZYkNCLCgSIvAsWDaaC3ce9zlYLijlmPd9ka70Logxiazu9NwS4cIaXTzTLGupr2u7m7+cw==}
