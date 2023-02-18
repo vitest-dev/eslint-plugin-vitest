@@ -15,19 +15,19 @@ const createConfig = (rules) => ({
 })
 
 const allRules = {
-	[noSkippedTestsName]: 'error',
-	[lowerCaseTitleName]: 'error',
-	[maxNestedDescribeName]: 'error',
-	[noFocusedTestsName]: 'error',
-	[noConditionalTests]: 'error',
-	[useConsistentTestIt]: 'error',
-	[noHooksName]: 'error'
+	[noSkippedTestsName]: 'warn',
+	[lowerCaseTitleName]: 'warn',
+	[maxNestedDescribeName]: 'warn',
+	[noFocusedTestsName]: 'warn',
+	[noConditionalTests]: 'warn',
+	[useConsistentTestIt]: 'warn',
+	[noHooksName]: 'warn'
 }
 
 const recommended = {
-	[expectedExpect]: 'error',
-	[noIdenticalTitleName]: 'error',
-	[usePreferTobe]: 'error'
+	[expectedExpect]: 'warn',
+	[noIdenticalTitleName]: 'warn',
+	[usePreferTobe]: 'warn'
 }
 
 export default {

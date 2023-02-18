@@ -2,5 +2,7 @@
 	"plugins": [
 		"vitest"
 	],
-	"rules": {}
+	"extends": [
+		"plugin:vitest/recommended"
+	]
 }
