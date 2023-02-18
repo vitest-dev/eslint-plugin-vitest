@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
-import { DescribeAlias, ModifierName, TestCaseName } from './types'
+import { DescribeAlias, HookName, ModifierName, TestCaseName } from './types'
 import { AccessorNode, getAccessorValue, getStringValue, isIdentifier, isStringNode, isSupportedAccessor } from '.'
 
 const ValidVitestFnCallChains = [
@@ -62,6 +62,7 @@ export type VitestFnType =
 	| 'describe'
 	| 'expect'
 	| 'unknown'
+	| 'hook'
 
 interface ResolvedVitestFn {
 	original: string | null,
@@ -167,6 +168,10 @@ const determineVitestFnType = (name: string): VitestFnType => {
 	// eslint-disable-next-line no-prototype-builtins
 	if (TestCaseName.hasOwnProperty(name))
 		return 'test'
+
+	// eslint-disable-next-line no-prototype-builtins
+	if (HookName.hasOwnProperty(name))
+		return 'hook'
 
 	return 'unknown'
 }
