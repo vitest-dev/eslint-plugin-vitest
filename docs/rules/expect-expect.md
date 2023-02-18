@@ -1,5 +1,7 @@
 # Enforce having expectation in test body (`vitest/expect-expect`)
 
+⚠️ This rule _warns_ in the ✅ `recommended` config.
+
 <!-- end auto-generated rule header -->
 
 ## Rule Details

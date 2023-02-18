@@ -1,5 +1,7 @@
 # Disallow skipped tests (`vitest/no-skipped-tests`)
 
+⚠️ This rule _warns_ in the 🌐 `all` config.
+
 <!-- end auto-generated rule header -->
 
 ## Rule Details
