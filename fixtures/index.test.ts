@@ -1,9 +1,11 @@
-import { expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 
-test('foo', () => {
-	expect(true).toBe(true)
-})
+describe('foo', () => {
+	test('foo', () => {
+		expect(true).toBe(true)
+	})
 
-test('foo', () => {
-	expect(true).toBe(true)
+	test('foo', () => {
+		expect(true).toBe(true)
+	})
 })

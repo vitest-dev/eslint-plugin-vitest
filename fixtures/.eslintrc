@@ -2,7 +2,7 @@
 	"plugins": [
 		"vitest"
 	],
-	"extends": [
-		"plugin:vitest/recommended"
-	]
+	"rules": {
+		"vitest/expect-expect": "error",
+	}
 }
