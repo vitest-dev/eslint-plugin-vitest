@@ -12,10 +12,18 @@ import noHooks, { RULE_NAME as noHooksName } from './rules/no-hooks'
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
 	env: {
-		node: true,
-		browser: true,
-		commonjs: true,
-		es6: true
+		suite: true,
+		test: true,
+		describe: true,
+		it: true,
+		expect: true,
+		assert: true,
+		vitest: true,
+		vi: true,
+		beforeAll: true,
+		afterAll: true,
+		beforeEach: true,
+		afterEach: true
 	},
 	rules: Object.keys(rules).reduce((acc, ruleName) => {
 		return {
