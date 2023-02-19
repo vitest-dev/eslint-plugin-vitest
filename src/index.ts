@@ -8,6 +8,7 @@ import expectExpect, { RULE_NAME as expectedExpect } from './rules/expect-expect
 import consistentTestIt, { RULE_NAME as useConsistentTestIt } from './rules/consistent-test-it'
 import preferToBe, { RULE_NAME as usePreferTobe } from './rules/prefer-to-be'
 import noHooks, { RULE_NAME as noHooksName } from './rules/no-hooks'
+import noRestrictedViMethods, { RULE_NAME as noRestrictedViMethodsName } from './rules/no-restricted-vi-methods'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -26,7 +27,8 @@ const allRules = {
 	[noFocusedTestsName]: 'warn',
 	[noConditionalTests]: 'warn',
 	[useConsistentTestIt]: 'warn',
-	[noHooksName]: 'warn'
+	[noHooksName]: 'warn',
+	[noRestrictedViMethodsName]: 'warn'
 }
 
 const recommended = {
@@ -46,7 +48,8 @@ export default {
 		[expectedExpect]: expectExpect,
 		[useConsistentTestIt]: consistentTestIt,
 		[usePreferTobe]: preferToBe,
-		[noHooksName]: noHooks
+		[noHooksName]: noHooks,
+		[noRestrictedViMethodsName]: noRestrictedViMethods
 	},
 	configs: {
 		all: createConfig(allRules),
