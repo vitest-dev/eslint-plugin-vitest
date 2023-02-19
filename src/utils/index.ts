@@ -1,6 +1,5 @@
 // Imported from https://github.com/jest-community/eslint-plugin-jest/blob/main/src/rules/utils/accessors.ts#L6
-import { TSESLint } from '@typescript-eslint/utils'
-import { AST_NODE_TYPES, ESLintUtils, TSESTree } from '@typescript-eslint/utils'
+import { TSESLint, AST_NODE_TYPES, ESLintUtils, TSESTree } from '@typescript-eslint/utils'
 
 export const createEslintRule = ESLintUtils.RuleCreator((ruleName) => `https://github.com/veritem/eslint-plugin-vitest/blob/main/docs/rules/${ruleName}.md`)
 
@@ -88,7 +87,7 @@ const isTemplateLiteral = <V extends string>(
 const isStringLiteral = <V extends string>(
 	node: TSESTree.Node,
 	value?: V
-  ): node is StringLiteral<V> =>
+): node is StringLiteral<V> =>
 	node.type === AST_NODE_TYPES.Literal &&
 	typeof node.value === 'string' &&
 	(value === undefined || node.value === value)
@@ -145,6 +144,7 @@ export const removeExtraArgumentsFixer = (
 	const lastArg = func.arguments[func.arguments.length - 1]
 
 	const sourceCode = context.getSourceCode()
+
 	let tokenAfterLastParam = sourceCode.getTokenAfter(lastArg)!
 
 	if (tokenAfterLastParam.value === ',')
