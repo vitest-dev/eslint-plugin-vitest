@@ -19,6 +19,9 @@ export type StringNode<S extends string = string> =
 	| StringLiteral<S>
 	| TemplateLiteral<S>;
 
+/**
+ * An `Identifier` with a known `name` value - i.e `expect`.
+ */
 interface KnownIdentifier<Name extends string> extends TSESTree.Identifier {
 	name: Name;
 }
@@ -42,44 +45,79 @@ export function getNodeName(node: TSESTree.Node): string | null {
 export type AccessorNode<Specifics extends string = string> = StringNode<Specifics> | KnownIdentifier<Specifics>
 
 export const isSupportedAccessor = <V extends string>(node: TSESTree.Node, value?: V): node is AccessorNode<V> => {
-	return isIdentifier(node, value) && isStringNode(node, value)
+	return isIdentifier(node, value) || isStringNode(node, value)
 }
 
 /**
- * A `Literal` with a `value` of type `string`.
+ * Checks if the given `node` is an `Identifier`.
+ *
+ * If a `name` is provided, & the `node` is an `Identifier`,
+ * the `name` will be compared to that of the `identifier`.
  */
-export const isIdentifier = <v extends string>(
+export const isIdentifier = <V extends string>(
 	node: TSESTree.Node,
-	name?: v
-): node is StringLiteral<v> => {
+	name?: V
+): node is KnownIdentifier<V> => {
 	return node.type === AST_NODE_TYPES.Identifier &&
 		(name === undefined || node.name === name)
 }
 
+/**
+ * Checks if the given `node` is a `TemplateLiteral`.
+ *
+ * Complex `TemplateLiteral`s are not considered specific, and so will return `false`.
+ *
+ * If a `value` is provided & the `node` is a `TemplateLiteral`,
+ * the `value` will be compared to that of the `TemplateLiteral`.
+ */
 const isTemplateLiteral = <V extends string>(
 	node: TSESTree.Node,
 	value?: V
 ): node is StringLiteral<V> => {
 	return node.type === AST_NODE_TYPES.TemplateLiteral &&
 		node.quasis.length === 1 &&
-		(value === undefined ||
-			node.quasis[0].value.raw === value)
+		(value === undefined || node.quasis[0].value.raw === value)
 }
 
+/**
+ * Checks if the given `node` is a `StringLiteral`.
+ *
+ * If a `value` is provided & the `node` is a `StringLiteral`,
+ * the `value` will be compared to that of the `StringLiteral`.
+ */
+const isStringLiteral = <V extends string>(
+	node: TSESTree.Node,
+	value?: V
+  ): node is StringLiteral<V> =>
+	node.type === AST_NODE_TYPES.Literal &&
+	typeof node.value === 'string' &&
+	(value === undefined || node.value === value)
+
+/**
+ * Checks if the given `node` is a {@link StringNode}.
+ */
 export const isStringNode = <V extends string>(
 	node: TSESTree.Node,
 	specifics?: V
-): node is StringLiteral<V> => {
-	return isIdentifier(node, specifics) ||
-		isTemplateLiteral(node, specifics)
-}
+): node is StringNode<V> =>
+	isStringLiteral(node, specifics) || isTemplateLiteral(node, specifics)
 
+/**
+ * Gets the value of the given `AccessorNode`,
+ * account for the different node types.
+ */
 export const getAccessorValue =
 	<S extends string = string>(accessor: AccessorNode<S>): S =>
 		accessor.type === AST_NODE_TYPES.Identifier
 			? accessor.name
 			: getStringValue(accessor)
 
+/**
+ * Gets the value of the given `StringNode`.
+ *
+ * If the `node` is a `TemplateLiteral`, the `raw` value is used;
+ * otherwise, `value` is returned instead.
+ */
 export const getStringValue =
 	<S extends string>(node: StringNode<S>): S =>
 		node.type === AST_NODE_TYPES.TemplateLiteral
