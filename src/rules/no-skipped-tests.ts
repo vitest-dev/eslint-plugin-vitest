@@ -25,11 +25,11 @@ export default createEslintRule<Options, MessageIds>({
 					const { callee } = node.expression
 					if (
 						callee.type === 'MemberExpression' &&
-            callee.object.type === 'Identifier' &&
-            (callee.object.name === 'it' ||
-              callee.object.name === 'describe') &&
-            callee.property.type === 'Identifier' &&
-            callee.property.name === 'skip'
+						callee.object.type === 'Identifier' &&
+						(callee.object.name === 'it' ||
+							callee.object.name === 'describe' || callee.object.name === 'test') &&
+						callee.property.type === 'Identifier' &&
+						callee.property.name === 'skip'
 					) {
 						context.report({
 							node,
