@@ -2,9 +2,10 @@ import { RuleTester } from '@typescript-eslint/utils/dist/ts-eslint'
 import { it } from 'vitest'
 import rule, { RULE_NAME } from './no-skipped-tests'
 
-const valids = ['it("test", () => {});']
+const valids = ['it("test", () => {});', 'test("test", () => {})']
 
 const invalids = [
+	'test.skip("test", () => {});',
 	'it.skip("test", () => {});',
 	`describe.skip("math", () => {
 		it("works", () => {
