@@ -3,7 +3,7 @@ import { describe, it } from 'vitest'
 import { TestCaseName } from '../utils/types'
 import rule, { RULE_NAME } from './consistent-test-it'
 
-describe.skip(RULE_NAME, () => {
+describe(RULE_NAME, () => {
 	const ruleTester = new RuleTester({
 		parser: require.resolve('@typescript-eslint/parser')
 	})

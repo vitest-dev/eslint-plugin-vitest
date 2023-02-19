@@ -89,7 +89,7 @@ describe(RULE_NAME, () => {
 			]
 		})
 
-		it.skip('switch statements', () => {
+		it('switch statements', () => {
 			ruleTester.run(RULE_NAME, rule, {
 				valid: [
 					'test("shows error", () => {});',

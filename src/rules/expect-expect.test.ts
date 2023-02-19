@@ -2,7 +2,7 @@ import { RuleTester } from '@typescript-eslint/utils/dist/ts-eslint'
 import { describe, it } from 'vitest'
 import rule, { RULE_NAME } from './expect-expect'
 
-describe.skip(RULE_NAME, () => {
+describe(RULE_NAME, () => {
 	it(RULE_NAME, () => {
 		const ruleTester = new RuleTester({
 			parser: require.resolve('@typescript-eslint/parser')

@@ -3,7 +3,7 @@ import { describe, it } from 'vitest'
 import { TestCaseName } from '../utils/types'
 import rule, { RULE_NAME } from './prefer-lowercase-title'
 
-describe.skip(RULE_NAME, () => {
+describe(RULE_NAME, () => {
 	it(RULE_NAME, () => {
 		const ruleTester: RuleTester = new RuleTester({
 			parser: require.resolve('@typescript-eslint/parser')
