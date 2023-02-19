@@ -65,6 +65,19 @@ it(RULE_NAME, () => {
 					column: 9,
 					line: 3
 				}]
+			},
+			{
+				code: 'vi["fn"]()',
+				options: [{ fn: null }],
+				errors: [{
+					messageId: 'restrictedViMethod',
+					data: {
+						message: null,
+						restriction: 'fn'
+					},
+					column: 4,
+					line: 1
+				}]
 			}
 		]
 	})
