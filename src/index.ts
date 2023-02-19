@@ -12,12 +12,6 @@ import noRestrictedViMethods, { RULE_NAME as noRestrictedViMethodsName } from '.
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
-	env: {
-		node: true,
-		browser: true,
-		commonjs: true,
-		es6: true
-	},
 	rules: Object.keys(rules).reduce((acc, ruleName) => {
 		return {
 			...acc,
@@ -60,5 +54,23 @@ export default {
 	configs: {
 		all: createConfig(allRules),
 		recommended: createConfig(recommended)
+	},
+	environments: {
+		env: {
+			globals: {
+				suite: true,
+				test: true,
+				describe: true,
+				it: true,
+				expect: true,
+				assert: true,
+				vitest: true,
+				vi: true,
+				beforeAll: true,
+				afterAll: true,
+				beforeEach: true,
+				afterEach: true
+			}
+		}
 	}
 }
