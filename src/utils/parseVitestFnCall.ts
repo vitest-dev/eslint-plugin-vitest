@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
-import { DescribeAlias, ModifierName, TestCaseName } from './types'
+import { DescribeAlias, HookName, ModifierName, TestCaseName } from './types'
 import { AccessorNode, getAccessorValue, getStringValue, isIdentifier, isStringNode, isSupportedAccessor } from '.'
 
 const ValidVitestFnCallChains = [
@@ -62,6 +62,8 @@ export type VitestFnType =
 	| 'describe'
 	| 'expect'
 	| 'unknown'
+	| 'hook'
+	| 'vi'
 
 interface ResolvedVitestFn {
 	original: string | null,
@@ -160,6 +162,9 @@ const determineVitestFnType = (name: string): VitestFnType => {
 	if (name === 'expect')
 		return 'expect'
 
+	if (name === 'vi')
+		return 'vi'
+
 	// eslint-disable-next-line no-prototype-builtins
 	if (DescribeAlias.hasOwnProperty(name))
 		return 'describe'
@@ -167,6 +172,10 @@ const determineVitestFnType = (name: string): VitestFnType => {
 	// eslint-disable-next-line no-prototype-builtins
 	if (TestCaseName.hasOwnProperty(name))
 		return 'test'
+
+	// eslint-disable-next-line no-prototype-builtins
+	if (HookName.hasOwnProperty(name))
+		return 'hook'
 
 	return 'unknown'
 }
@@ -291,7 +300,7 @@ const parseVistestFnCallWithReasonInner = (
 
 	const links = [name, ...rest.map(getAccessorValue)]
 
-	if (name !== 'expect' && !ValidVitestFnCallChains.includes(links.join('.')))
+	if (name !== 'vi' && name !== 'expect' && !ValidVitestFnCallChains.includes(links.join('.')))
 		return null
 
 	const parsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'> = {
