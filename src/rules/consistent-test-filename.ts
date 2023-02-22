@@ -24,7 +24,7 @@ export default createEslintRule({
         additionalProperties: false,
         properties: {
           pattern: {
-            format: 'regex',
+            format: 'regex'
           },
           allTestPattern: {
             format: 'regex',
