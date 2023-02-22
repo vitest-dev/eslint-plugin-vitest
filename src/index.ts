@@ -30,7 +30,6 @@ const allRules = {
 	[useConsistentTestIt]: 'warn',
 	[noHooksName]: 'warn',
 	[noRestrictedViMethodsName]: 'warn',
-	[noRestrictedViMethodsName]: 'warn'
 }
 
 const recommended = {
