@@ -44,7 +44,7 @@ Then configure the rules you want to use under the rules section.
 }
 ```
 
-#### Recommended 
+#### Recommended
 
 To use the recommended configuration, extend it in your `.eslintrc` file:
 
@@ -53,7 +53,6 @@ To use the recommended configuration, extend it in your `.eslintrc` file:
   "extends": ["plugin:vitest/recommended"]
 }
 ```
-
 
 #### all
 
@@ -65,7 +64,6 @@ To use the all configuration, extend it in your `.eslintrc` file:
 }
 ```
 
-
 ### Rules
 
 <!-- begin auto-generated rules list -->
@@ -75,19 +73,20 @@ To use the all configuration, extend it in your `.eslintrc` file:
 ✅ Set in the `recommended` configuration.\
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).
 
-| Name                                                               | Description                                                              | ⚠️ | 🔧 |
-| :----------------------------------------------------------------- | :----------------------------------------------------------------------- | :- | :- |
-| [consistent-test-it](docs/rules/consistent-test-it.md)             | Prefer test or it but not both                                           | 🌐 | 🔧 |
-| [expect-expect](docs/rules/expect-expect.md)                       | Enforce having expectation in test body                                  | ✅  |    |
-| [max-nested-describe](docs/rules/max-nested-describe.md)           | Nested describe block should be less than set max value or default value | 🌐 |    |
-| [no-conditional-tests](docs/rules/no-conditional-tests.md)         | Disallow conditional tests                                               | 🌐 |    |
-| [no-focused-tests](docs/rules/no-focused-tests.md)                 | Disallow focused tests                                                   | 🌐 | 🔧 |
-| [no-hooks](docs/rules/no-hooks.md)                                 | Disallow setup and teardown hooks                                        | 🌐 |    |
-| [no-identical-title](docs/rules/no-identical-title.md)             | Disallow identical titles                                                | ✅  | 🔧 |
-| [no-restricted-vi-methods](docs/rules/no-restricted-vi-methods.md) | Disallow specific `vi.` methods                                          | 🌐 |    |
-| [no-skipped-tests](docs/rules/no-skipped-tests.md)                 | Disallow skipped tests                                                   | 🌐 |    |
-| [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md)     | Enforce lowercase titles                                                 | 🌐 | 🔧 |
-| [prefer-to-be](docs/rules/prefer-to-be.md)                         | Suggest using toBe()                                                     | ✅  | 🔧 |
+| Name                                                               | Description                                                              | ⚠️  | 🔧  |
+| :----------------------------------------------------------------- | :----------------------------------------------------------------------- | :-- | :-- |
+| [consistent-test-it](docs/rules/consistent-test-it.md)             | Prefer test or it but not both                                           | 🌐  | 🔧  |
+| [consistent-test-filename](docs/rules/consistent-test-filename.md) | Prefer test name pattern                                                 | 🌐  | 🔧  |
+| [expect-expect](docs/rules/expect-expect.md)                       | Enforce having expectation in test body                                  | ✅  |     |
+| [max-nested-describe](docs/rules/max-nested-describe.md)           | Nested describe block should be less than set max value or default value | 🌐  |     |
+| [no-conditional-tests](docs/rules/no-conditional-tests.md)         | Disallow conditional tests                                               | 🌐  |     |
+| [no-focused-tests](docs/rules/no-focused-tests.md)                 | Disallow focused tests                                                   | 🌐  | 🔧  |
+| [no-hooks](docs/rules/no-hooks.md)                                 | Disallow setup and teardown hooks                                        | 🌐  |     |
+| [no-identical-title](docs/rules/no-identical-title.md)             | Disallow identical titles                                                | ✅  | 🔧  |
+| [no-restricted-vi-methods](docs/rules/no-restricted-vi-methods.md) | Disallow specific `vi.` methods                                          | 🌐  |     |
+| [no-skipped-tests](docs/rules/no-skipped-tests.md)                 | Disallow skipped tests                                                   | 🌐  |     |
+| [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md)     | Enforce lowercase titles                                                 | 🌐  | 🔧  |
+| [prefer-to-be](docs/rules/prefer-to-be.md)                         | Suggest using toBe()                                                     | ✅  | 🔧  |
 
 <!-- end auto-generated rules list -->
 
