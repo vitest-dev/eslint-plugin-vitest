@@ -1,4 +1,6 @@
-# Prefer test file pattern (`vitest/consistent-test-filename`)
+# Forbidden .spec test file pattern (`vitest/consistent-test-filename`)
+
+⚠️ This rule _warns_ in the 🌐 `all` config.
 
 <!-- end auto-generated rule header -->
 
@@ -12,7 +14,8 @@
   "additionalProperties": false,
   "properties": {
     "pattern": {
-      "format": "regex"
+      "format": "regex",
+      "default": ".*\\.test\\.[tj]sx?$"
     },
     "allTestPattern": {
       "format": "",
@@ -29,8 +32,6 @@ regex pattern for all tests files
 Decides whether a file is a testing file.
 
 ##### `pattern`
-
-**required**
 
 required testing pattern
 

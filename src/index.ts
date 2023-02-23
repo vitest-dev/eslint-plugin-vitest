@@ -29,7 +29,8 @@ const allRules = {
 	[noConditionalTests]: 'warn',
 	[useConsistentTestIt]: 'warn',
 	[noHooksName]: 'warn',
-	[noRestrictedViMethodsName]: 'warn'
+	[noRestrictedViMethodsName]: 'warn',
+	[useConsistentTestFilename]: 'warn'
 }
 
 const recommended = {
@@ -51,8 +52,8 @@ export default {
 		[usePreferTobe]: preferToBe,
 		[noHooksName]: noHooks,
 		[noRestrictedViMethodsName]: noRestrictedViMethods,
-    [useConsistentTestFilename]: consistentTestFilename
-  },
+		[useConsistentTestFilename]: consistentTestFilename
+	},
 	configs: {
 		all: createConfig(allRules),
 		recommended: createConfig(recommended)
