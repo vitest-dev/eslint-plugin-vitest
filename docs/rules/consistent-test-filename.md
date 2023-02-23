@@ -12,7 +12,8 @@
   "additionalProperties": false,
   "properties": {
     "pattern": {
-      "format": "regex"
+      "format": "regex",
+      "default": ".*\\.test\\.[tj]sx?$"
     },
     "allTestPattern": {
       "format": "",
@@ -29,8 +30,6 @@ regex pattern for all tests files
 Decides whether a file is a testing file.
 
 ##### `pattern`
-
-**required**
 
 required testing pattern
 

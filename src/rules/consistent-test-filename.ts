@@ -6,7 +6,15 @@ export const RULE_NAME = 'consistent-test-filename'
 const defaultPattern = /.*\.test\.[tj]sx?$/
 const defaultTestsPattern = /.*\.(test|spec)\.[tj]sx?$/
 
-export default createEslintRule({
+export default createEslintRule<
+  [
+    Partial<{
+      pattern: string;
+      allTestPattern: string;
+    }>
+  ],
+  'msg'
+>({
   name: RULE_NAME,
   meta: {
     type: 'problem',
@@ -24,7 +32,8 @@ export default createEslintRule({
         additionalProperties: false,
         properties: {
           pattern: {
-            format: 'regex'
+            format: 'regex',
+            default: defaultPattern.source
           },
           allTestPattern: {
             format: 'regex',
@@ -34,7 +43,7 @@ export default createEslintRule({
       }
     ]
   },
-  defaultOptions: [],
+  defaultOptions: [{ pattern: defaultTestsPattern.source, allTestPattern: defaultTestsPattern.source }],
 
   create: (context) => {
     const config = context.options[0] ?? {}
