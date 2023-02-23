@@ -76,7 +76,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | Name                                                               | Description                                                              | ⚠️  | 🔧  |
 | :----------------------------------------------------------------- | :----------------------------------------------------------------------- | :-- | :-- |
 | [consistent-test-it](docs/rules/consistent-test-it.md)             | Prefer test or it but not both                                           | 🌐  | 🔧  |
-| [consistent-test-filename](docs/rules/consistent-test-filename.md) | Prefer test name pattern                                                 |     | 🔧  |
+| [consistent-test-filename](docs/rules/consistent-test-filename.md) | Prefer test name pattern                                                 |     |     |
 | [expect-expect](docs/rules/expect-expect.md)                       | Enforce having expectation in test body                                  | ✅  |     |
 | [max-nested-describe](docs/rules/max-nested-describe.md)           | Nested describe block should be less than set max value or default value | 🌐  |     |
 | [no-conditional-tests](docs/rules/no-conditional-tests.md)         | Disallow conditional tests                                               | 🌐  |     |
