@@ -1,4 +1,6 @@
-# Prefer test file pattern (`vitest/consistent-test-filename`)
+# Forbidden .spec test file pattern (`vitest/consistent-test-filename`)
+
+⚠️ This rule _warns_ in the 🌐 `all` config.
 
 <!-- end auto-generated rule header -->
 
