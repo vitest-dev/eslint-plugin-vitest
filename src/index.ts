@@ -9,6 +9,7 @@ import consistentTestIt, { RULE_NAME as useConsistentTestIt } from './rules/cons
 import preferToBe, { RULE_NAME as usePreferTobe } from './rules/prefer-to-be'
 import noHooks, { RULE_NAME as noHooksName } from './rules/no-hooks'
 import noRestrictedViMethods, { RULE_NAME as noRestrictedViMethodsName } from './rules/no-restricted-vi-methods'
+import consistentTestFilename, { RULE_NAME as useConsistentTestFilename } from './rules/consistent-test-filename'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -49,8 +50,9 @@ export default {
 		[useConsistentTestIt]: consistentTestIt,
 		[usePreferTobe]: preferToBe,
 		[noHooksName]: noHooks,
-		[noRestrictedViMethodsName]: noRestrictedViMethods
-	},
+		[noRestrictedViMethodsName]: noRestrictedViMethods,
+    [useConsistentTestFilename]: consistentTestFilename
+  },
 	configs: {
 		all: createConfig(allRules),
 		recommended: createConfig(recommended)
