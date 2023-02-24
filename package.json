@@ -39,25 +39,25 @@
 		"update:eslint-docs": "pnpm build && eslint-doc-generator"
 	},
 	"devDependencies": {
-		"@babel/types": "^7.20.7",
+		"@babel/types": "^7.21.2",
 		"@types/mocha": "^10.0.1",
-		"@types/node": "^18.13.0",
-		"@typescript-eslint/eslint-plugin": "^5.48.1",
-		"@typescript-eslint/parser": "^5.48.1",
+		"@types/node": "^18.14.1",
+		"@typescript-eslint/eslint-plugin": "^5.53.0",
+		"@typescript-eslint/parser": "^5.53.0",
 		"@veritem/eslint-config": "^0.0.6",
-		"bumpp": "^8.2.1",
+		"bumpp": "^9.0.0",
 		"concurrently": "^7.6.0",
-		"eslint": "^8.31.0",
-		"eslint-doc-generator": "^1.4.2",
-		"eslint-plugin-eslint-plugin": "^5.0.7",
+		"eslint": "^8.34.0",
+		"eslint-doc-generator": "^1.4.3",
+		"eslint-plugin-eslint-plugin": "^5.0.8",
 		"eslint-plugin-node": "^11.1.0",
 		"eslint-remote-tester": "^3.0.0",
 		"eslint-remote-tester-repositories": "^1.0.0",
-		"jiti": "^1.16.2",
-		"prettier": "^2.8.2",
+		"jiti": "^1.17.1",
+		"prettier": "^2.8.4",
 		"ts-node": "^10.9.1",
-		"unbuild": "^1.0.2",
-		"vitest": "^0.28.3"
+		"unbuild": "^1.1.2",
+		"vitest": "^0.28.5"
 	},
 	"engines": {
 		"node": "14.x || >= 16"
@@ -66,6 +66,6 @@
 		"eslint": ">=8.0.0"
 	},
 	"dependencies": {
-		"@typescript-eslint/utils": "^5.48.1"
+		"@typescript-eslint/utils": "^5.53.0"
 	}
 }
