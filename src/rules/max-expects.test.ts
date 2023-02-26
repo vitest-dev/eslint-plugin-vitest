@@ -1,6 +1,6 @@
 import { RuleTester } from '@typescript-eslint/utils/dist/ts-eslint'
 import { describe, it } from 'vitest'
-import rule, { RULE_NAME } from './max-expect'
+import rule, { RULE_NAME } from './max-expects'
 
 describe(RULE_NAME, () => {
 	it(RULE_NAME, () => {

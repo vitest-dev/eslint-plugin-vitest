@@ -2,7 +2,7 @@ import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule, FunctionExpression } from '../utils'
 import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parseVitestFnCall'
 
-export const RULE_NAME = 'max-expect'
+export const RULE_NAME = 'max-expects'
 export type MESSAGE_ID = 'maxExpect';
 export type Options = [
 	{
