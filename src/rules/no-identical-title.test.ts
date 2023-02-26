@@ -19,6 +19,13 @@ it('no identical title', () => {
 					it('works', () => {});
 				  });`,
 				errors: [{ messageId: 'multipleTestTitle' }]
+			},
+			{
+				code: `xdescribe('foo', () => {
+					it('works', () => {});
+					it('works', () => {});
+				});`,
+				errors: [{ messageId: 'multipleTestTitle' }]
 			}
 		]
 	})
