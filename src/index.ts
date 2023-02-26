@@ -10,7 +10,7 @@ import preferToBe, { RULE_NAME as usePreferTobe } from './rules/prefer-to-be'
 import noHooks, { RULE_NAME as noHooksName } from './rules/no-hooks'
 import noRestrictedViMethods, { RULE_NAME as noRestrictedViMethodsName } from './rules/no-restricted-vi-methods'
 import consistentTestFilename, { RULE_NAME as useConsistentTestFilename } from './rules/consistent-test-filename'
-import maxExpect, { RULE_NAME as maxExpectName } from './rules/max-expect'
+import maxExpect, { RULE_NAME as maxExpectName } from './rules/max-expects'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
