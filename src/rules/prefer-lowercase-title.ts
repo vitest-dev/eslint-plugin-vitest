@@ -96,12 +96,12 @@ export default createEslintRule<[
 
 				if (!vitestFnCall || !hasStringAsFirstArgument) return
 
-				if (vitestFnCall.type === 'describe') {
+				if (vitestFnCall?.type === 'describe') {
 					numberOfDescribeBlocks++
 
 					if (ignoreTopLevelDescribe && numberOfDescribeBlocks === 1)
 						return
-				} else if (vitestFnCall.type !== 'test') {
+				} else if (vitestFnCall?.type !== 'test') {
 					return
 				}
 

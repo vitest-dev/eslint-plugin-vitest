@@ -69,13 +69,13 @@ export default createEslintRule<Options, MESSAGE_ID>({
 				if (vitestFnCall.type !== 'describe')
 					return
 
-				if (currentStack.describeTitles.includes(title)) {
+				if (currentStack?.describeTitles.includes(title)) {
 					context.report({
 						node,
 						messageId: 'multipleDescribeTitle'
 					})
 				}
-				currentStack.describeTitles.push(title)
+				currentStack?.describeTitles.push(title)
 			},
 			'CallExpression:exit'(node) {
 				if (isTypeOfVitestFnCall(node, context, ['describe']))
