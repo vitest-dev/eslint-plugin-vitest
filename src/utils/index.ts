@@ -18,6 +18,10 @@ export type StringNode<S extends string = string> =
 	| StringLiteral<S>
 	| TemplateLiteral<S>;
 
+export type FunctionExpression =
+	| TSESTree.ArrowFunctionExpression
+	| TSESTree.FunctionExpression;
+
 /**
  * An `Identifier` with a known `name` value - i.e `expect`.
  */
