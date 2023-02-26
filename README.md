@@ -82,6 +82,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [max-nested-describe](docs/rules/max-nested-describe.md)           | Nested describe block should be less than set max value or default value | 🌐 |    |
 | [no-alias-methods](docs/rules/no-alias-methods.md)                 | Disallow alias methods                                                   | 🌐 | 🔧 |
 | [no-commented-out-tests](docs/rules/no-commented-out-tests.md)     | Disallow commented out tests                                             | ✅  |    |
+| [no-conditional-expect](docs/rules/no-conditional-expect.md)       | Disallow conditional expects                                             | 🌐 |    |
 | [no-conditional-tests](docs/rules/no-conditional-tests.md)         | Disallow conditional tests                                               | 🌐 |    |
 | [no-focused-tests](docs/rules/no-focused-tests.md)                 | Disallow focused tests                                                   | 🌐 | 🔧 |
 | [no-hooks](docs/rules/no-hooks.md)                                 | Disallow setup and teardown hooks                                        | 🌐 |    |

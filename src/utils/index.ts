@@ -1,5 +1,8 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable no-use-before-define */
 // Imported from https://github.com/jest-community/eslint-plugin-jest/blob/main/src/rules/utils/accessors.ts#L6
 import { TSESLint, AST_NODE_TYPES, ESLintUtils, TSESTree } from '@typescript-eslint/utils'
+import { KnownMemberExpression } from './parseVitestFnCall'
 
 export const createEslintRule = ESLintUtils.RuleCreator((ruleName) => `https://github.com/veritem/eslint-plugin-vitest/blob/main/docs/rules/${ruleName}.md`)
 
@@ -155,4 +158,14 @@ export const removeExtraArgumentsFixer = (
 		tokenAfterLastParam = sourceCode.getTokenAfter(tokenAfterLastParam)!
 
 	return fixer.removeRange([firstArg.range[0], tokenAfterLastParam.range[0]])
+}
+
+interface CalledKnownMemberExpression<Name extends string = string>
+	extends KnownMemberExpression<Name> {
+	parent: KnownCallExpression<Name>;
+}
+
+export interface KnownCallExpression<Name extends string = string>
+	extends TSESTree.CallExpression {
+	callee: CalledKnownMemberExpression<Name>;
 }

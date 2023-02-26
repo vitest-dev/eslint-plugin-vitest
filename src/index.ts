@@ -13,6 +13,7 @@ import consistentTestFilename, { RULE_NAME as useConsistentTestFilename } from '
 import maxExpect, { RULE_NAME as maxExpectName } from './rules/max-expects'
 import noAliasMethod, { RULE_NAME as noAliasMethodName } from './rules/no-alias-methods'
 import noCommentedOutTests, { RULE_NAME as noCommentedOutTestsName } from './rules/no-commented-out-tests'
+import noConditonalExpect, { RULE_NAME as noConditonalExpectName } from './rules/no-conditional-expect'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -35,7 +36,8 @@ const allRules = {
 	[noRestrictedViMethodsName]: 'warn',
 	[useConsistentTestFilename]: 'warn',
 	[maxExpectName]: 'warn',
-	[noAliasMethodName]: 'warn'
+	[noAliasMethodName]: 'warn',
+	[noConditonalExpectName]: 'warn'
 }
 
 const recommended = {
@@ -61,7 +63,8 @@ export default {
 		[useConsistentTestFilename]: consistentTestFilename,
 		[maxExpectName]: maxExpect,
 		[noAliasMethodName]: noAliasMethod,
-		[noCommentedOutTestsName]: noCommentedOutTests
+		[noCommentedOutTestsName]: noCommentedOutTests,
+		[noConditonalExpectName]: noConditonalExpect
 	},
 	configs: {
 		all: createConfig(allRules),
