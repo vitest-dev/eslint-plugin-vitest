@@ -78,6 +78,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [consistent-test-filename](docs/rules/consistent-test-filename.md) | forbidden .spec test file pattern                                        | 🌐 |    |
 | [consistent-test-it](docs/rules/consistent-test-it.md)             | Prefer test or it but not both                                           | 🌐 | 🔧 |
 | [expect-expect](docs/rules/expect-expect.md)                       | Enforce having expectation in test body                                  | ✅  |    |
+| [max-expect](docs/rules/max-expect.md)                             | Enforce a maximum number of expect per test                              | 🌐 |    |
 | [max-nested-describe](docs/rules/max-nested-describe.md)           | Nested describe block should be less than set max value or default value | 🌐 |    |
 | [no-conditional-tests](docs/rules/no-conditional-tests.md)         | Disallow conditional tests                                               | 🌐 |    |
 | [no-focused-tests](docs/rules/no-focused-tests.md)                 | Disallow focused tests                                                   | 🌐 | 🔧 |
