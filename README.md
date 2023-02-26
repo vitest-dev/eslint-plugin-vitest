@@ -80,6 +80,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [expect-expect](docs/rules/expect-expect.md)                       | Enforce having expectation in test body                                  | ✅  |    |
 | [max-expects](docs/rules/max-expects.md)                           | Enforce a maximum number of expect per test                              | 🌐 |    |
 | [max-nested-describe](docs/rules/max-nested-describe.md)           | Nested describe block should be less than set max value or default value | 🌐 |    |
+| [no-alias-methods](docs/rules/no-alias-methods.md)                 | Disallow alias methods                                                   | 🌐 | 🔧 |
 | [no-conditional-tests](docs/rules/no-conditional-tests.md)         | Disallow conditional tests                                               | 🌐 |    |
 | [no-focused-tests](docs/rules/no-focused-tests.md)                 | Disallow focused tests                                                   | 🌐 | 🔧 |
 | [no-hooks](docs/rules/no-hooks.md)                                 | Disallow setup and teardown hooks                                        | 🌐 |    |
