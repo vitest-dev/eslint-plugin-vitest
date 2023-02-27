@@ -83,6 +83,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [no-alias-methods](docs/rules/no-alias-methods.md)                 | Disallow alias methods                                                   | 🌐 | 🔧 |
 | [no-commented-out-tests](docs/rules/no-commented-out-tests.md)     | Disallow commented out tests                                             | ✅  |    |
 | [no-conditional-expect](docs/rules/no-conditional-expect.md)       | Disallow conditional expects                                             | 🌐 |    |
+| [no-conditional-in-test](docs/rules/no-conditional-in-test.md)     | Disallow conditional tests                                               | 🌐 |    |
 | [no-conditional-tests](docs/rules/no-conditional-tests.md)         | Disallow conditional tests                                               | 🌐 |    |
 | [no-focused-tests](docs/rules/no-focused-tests.md)                 | Disallow focused tests                                                   | 🌐 | 🔧 |
 | [no-hooks](docs/rules/no-hooks.md)                                 | Disallow setup and teardown hooks                                        | 🌐 |    |
