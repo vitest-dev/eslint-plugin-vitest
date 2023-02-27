@@ -25,6 +25,10 @@ export type FunctionExpression =
 	| TSESTree.ArrowFunctionExpression
 	| TSESTree.FunctionExpression;
 
+export const isFunction = (node: TSESTree.Node): node is FunctionExpression =>
+	node.type === AST_NODE_TYPES.FunctionExpression ||
+	node.type === AST_NODE_TYPES.ArrowFunctionExpression
+
 /**
  * An `Identifier` with a known `name` value - i.e `expect`.
  */
