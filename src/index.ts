@@ -17,6 +17,7 @@ import noConditonalExpect, { RULE_NAME as noConditonalExpectName } from './rules
 import noConditionalInTest, { RULE_NAME as noConditionalInTestName } from './rules/no-conditional-in-test'
 import noDisabledTests, { RULE_NAME as noDisabledTestsName } from './rules/no-disabled-tests'
 import noDoneCallback, { RULE_NAME as noDoneCallbackName } from './rules/no-done-callback'
+import noDuplicateHooks, { RULE_NAME as noDuplicateHooksName } from './rules/no-duplicate-hooks'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -43,7 +44,8 @@ const allRules = {
 	[noConditonalExpectName]: 'warn',
 	[noConditionalInTestName]: 'warn',
 	[noDisabledTestsName]: 'warn',
-	[noDoneCallbackName]: 'warn'
+	[noDoneCallbackName]: 'warn',
+	[noDuplicateHooksName]: 'warn'
 }
 
 const recommended = {
@@ -73,7 +75,8 @@ export default {
 		[noConditonalExpectName]: noConditonalExpect,
 		[noConditionalInTestName]: noConditionalInTest,
 		[noDisabledTestsName]: noDisabledTests,
-		[noDoneCallbackName]: noDoneCallback
+		[noDoneCallbackName]: noDoneCallback,
+		[noDuplicateHooksName]: noDuplicateHooks
 	},
 	configs: {
 		all: createConfig(allRules),
