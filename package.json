@@ -41,13 +41,13 @@
 	"devDependencies": {
 		"@babel/types": "^7.21.2",
 		"@types/mocha": "^10.0.1",
-		"@types/node": "^18.14.1",
+		"@types/node": "^18.14.2",
 		"@typescript-eslint/eslint-plugin": "^5.53.0",
 		"@typescript-eslint/parser": "^5.53.0",
 		"@veritem/eslint-config": "^0.0.6",
 		"bumpp": "^9.0.0",
 		"concurrently": "^7.6.0",
-		"eslint": "^8.34.0",
+		"eslint": "^8.35.0",
 		"eslint-doc-generator": "^1.4.3",
 		"eslint-plugin-eslint-plugin": "^5.0.8",
 		"eslint-plugin-node": "^11.1.0",
@@ -57,7 +57,7 @@
 		"prettier": "^2.8.4",
 		"ts-node": "^10.9.1",
 		"unbuild": "^1.1.2",
-		"vitest": "^0.28.5"
+		"vitest": "^0.29.1"
 	},
 	"engines": {
 		"node": "14.x || >= 16"
