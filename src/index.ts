@@ -15,6 +15,7 @@ import noAliasMethod, { RULE_NAME as noAliasMethodName } from './rules/no-alias-
 import noCommentedOutTests, { RULE_NAME as noCommentedOutTestsName } from './rules/no-commented-out-tests'
 import noConditonalExpect, { RULE_NAME as noConditonalExpectName } from './rules/no-conditional-expect'
 import noConditionalInTest, { RULE_NAME as noConditionalInTestName } from './rules/no-conditional-in-test'
+import noDisabledTests, { RULE_NAME as noDisabledTestsName } from './rules/no-disabled-tests'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -39,7 +40,8 @@ const allRules = {
 	[maxExpectName]: 'warn',
 	[noAliasMethodName]: 'warn',
 	[noConditonalExpectName]: 'warn',
-	[noConditionalInTestName]: 'warn'
+	[noConditionalInTestName]: 'warn',
+	[noDisabledTestsName]: 'warn'
 }
 
 const recommended = {
@@ -67,7 +69,8 @@ export default {
 		[noAliasMethodName]: noAliasMethod,
 		[noCommentedOutTestsName]: noCommentedOutTests,
 		[noConditonalExpectName]: noConditonalExpect,
-		[noConditionalInTestName]: noConditionalInTest
+		[noConditionalInTestName]: noConditionalInTest,
+		[noDisabledTestsName]: noDisabledTests
 	},
 	configs: {
 		all: createConfig(allRules),

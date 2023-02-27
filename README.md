@@ -85,6 +85,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [no-conditional-expect](docs/rules/no-conditional-expect.md)       | Disallow conditional expects                                             | 🌐 |    |
 | [no-conditional-in-test](docs/rules/no-conditional-in-test.md)     | Disallow conditional tests                                               | 🌐 |    |
 | [no-conditional-tests](docs/rules/no-conditional-tests.md)         | Disallow conditional tests                                               | 🌐 |    |
+| [no-disabled-tests](docs/rules/no-disabled-tests.md)               | Disallow disabled tests                                                  | 🌐 |    |
 | [no-focused-tests](docs/rules/no-focused-tests.md)                 | Disallow focused tests                                                   | 🌐 | 🔧 |
 | [no-hooks](docs/rules/no-hooks.md)                                 | Disallow setup and teardown hooks                                        | 🌐 |    |
 | [no-identical-title](docs/rules/no-identical-title.md)             | Disallow identical titles                                                | ✅  | 🔧 |
