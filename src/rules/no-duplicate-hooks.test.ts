@@ -2,11 +2,14 @@ import { RuleTester } from '@typescript-eslint/utils/dist/ts-eslint'
 import { describe, it } from 'vitest'
 import rule, { RULE_NAME } from './no-duplicate-hooks'
 
-describe(RULE_NAME, () => {
-	const ruleTester = new RuleTester({
-		parser: require.resolve('@typescript-eslint/parser')
-	})
+const ruleTester = new RuleTester({
+	parser: require.resolve('@typescript-eslint/parser'),
+	parserOptions: {
+		ecmaVersion: 'latest'
+	}
+})
 
+describe(RULE_NAME, () => {
 	it(`${RULE_NAME} - single describe block`, () => {
 		ruleTester.run(RULE_NAME, rule, {
 			valid: [
