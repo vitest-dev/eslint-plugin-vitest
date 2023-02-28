@@ -16,8 +16,13 @@ const isFirstArgumentIdentifier = (
 	name: string
 ) => isIdentifier(getFirstMatcherArg(expectFnCall), name)
 
+const isFloat = v => Math.floor(v) !== Math.ceil(v)
+
 const shouldUseToBe = (expectFnCall: ParsedExpectVitestFnCall): boolean => {
 	let firstArg = getFirstMatcherArg(expectFnCall)
+
+	if (firstArg.type === AST_NODE_TYPES.Literal && typeof firstArg.value === 'number' && isFloat(firstArg.value))
+		return false
 
 	if (
 		firstArg.type === AST_NODE_TYPES.UnaryExpression &&
