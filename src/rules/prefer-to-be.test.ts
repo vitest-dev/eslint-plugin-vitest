@@ -14,7 +14,7 @@ describe(RULE_NAME, () => {
 				'expect(null).not.toBeNull();',
 				'expect(null).toBe(1);',
 				'expect(null).toBe(-1);',
-				'expect(null).toBe(...1);',
+				'expect(null).toBe(1);',
 				'expect(obj).toStrictEqual([ x, 1 ]);',
 				'expect(obj).toStrictEqual({ x: 1 });',
 				'expect(obj).not.toStrictEqual({ x: 1 });',
@@ -22,7 +22,8 @@ describe(RULE_NAME, () => {
 				'expect(catchError()).toStrictEqual({ message: \'oh noes!\' })',
 				'expect("something");',
 				'expect(token).toStrictEqual(/[abc]+/g);',
-				'expect(token).toStrictEqual(new RegExp(\'[abc]+\', \'g\'));'
+				'expect(token).toStrictEqual(new RegExp(\'[abc]+\', \'g\'));',
+				'expect(0.1 + 0.2).toEqual(0.3);'
 			],
 			invalid: [
 				{
