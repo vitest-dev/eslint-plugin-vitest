@@ -5,7 +5,7 @@ import rule, { RULE_NAME } from './no-duplicate-hooks'
 const ruleTester = new RuleTester({
 	parser: require.resolve('@typescript-eslint/parser'),
 	parserOptions: {
-		ecmaVersion: 'latest'
+		ecmaVersion: 2015
 	}
 })
 
