@@ -1,9 +1,12 @@
+import { createRequire } from 'module'
 import { RuleTester } from '@typescript-eslint/utils/dist/ts-eslint'
 import { describe, it } from 'vitest'
 import rule, { RULE_NAME } from './no-duplicate-hooks'
 
+const eslintRequire = createRequire(require.resolve('eslint'))
+
 const ruleTester = new RuleTester({
-	parser: require.resolve('@typescript-eslint/parser'),
+	parser: eslintRequire.resolve('espree'),
 	parserOptions: {
 		ecmaVersion: 2015
 	}
