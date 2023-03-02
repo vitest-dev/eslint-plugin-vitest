@@ -92,6 +92,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [no-focused-tests](docs/rules/no-focused-tests.md)                 | Disallow focused tests                                                   | 🌐 | 🔧 |    |
 | [no-hooks](docs/rules/no-hooks.md)                                 | Disallow setup and teardown hooks                                        | 🌐 |    |    |
 | [no-identical-title](docs/rules/no-identical-title.md)             | Disallow identical titles                                                | ✅  | 🔧 |    |
+| [no-large-snapshots](docs/rules/no-large-snapshots.md)             | Disallow large snapshots                                                 | 🌐 |    |    |
 | [no-restricted-vi-methods](docs/rules/no-restricted-vi-methods.md) | Disallow specific `vi.` methods                                          | 🌐 |    |    |
 | [no-skipped-tests](docs/rules/no-skipped-tests.md)                 | Disallow skipped tests                                                   | 🌐 |    |    |
 | [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md)     | Enforce lowercase titles                                                 | 🌐 | 🔧 |    |
