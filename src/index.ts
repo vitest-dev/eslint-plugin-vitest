@@ -23,6 +23,7 @@ import nonInterpolationInSnapShots, { RULE_NAME as noInterpolationInSnapshotsNam
 import noMocksImport, { RULE_NAME as noMocksImportName } from './rules/no-mocks-import'
 import noRestrictedMatchers, { RULE_NAME as noRestrictedMatchersName } from './rules/no-restricted-matchers'
 import noStandaloneExpect, { RULE_NAME as noStandaloneExpectName } from './rules/no-standalone-expect'
+import noTestPrefixes, { RULE_NAME as noTestPrefixesName } from './rules/no-test-prefixes'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -55,7 +56,8 @@ const allRules = {
 	[noInterpolationInSnapshotsName]: 'warn',
 	[noMocksImportName]: 'warn',
 	[noRestrictedMatchersName]: 'warn',
-	[noStandaloneExpectName]: 'warn'
+	[noStandaloneExpectName]: 'warn',
+	[noTestPrefixesName]: 'warn'
 }
 
 const recommended = {
@@ -91,7 +93,8 @@ export default {
 		[noInterpolationInSnapshotsName]: nonInterpolationInSnapShots,
 		[noMocksImportName]: noMocksImport,
 		[noRestrictedMatchersName]: noRestrictedMatchers,
-		[noStandaloneExpectName]: noStandaloneExpect
+		[noStandaloneExpectName]: noStandaloneExpect,
+		[noTestPrefixesName]: noTestPrefixes
 	},
 	configs: {
 		all: createConfig(allRules),
