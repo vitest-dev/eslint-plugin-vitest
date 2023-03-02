@@ -95,6 +95,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [no-interpolation-in-snapshots](docs/rules/no-interpolation-in-snapshots.md) | Disallow string interpolation in snapshots                               | 🌐 | 🔧 |    |
 | [no-large-snapshots](docs/rules/no-large-snapshots.md)                       | Disallow large snapshots                                                 | 🌐 |    |    |
 | [no-mocks-import](docs/rules/no-mocks-import.md)                             | Disallow importing from __mocks__ directory                              | 🌐 |    |    |
+| [no-restricted-matchers](docs/rules/no-restricted-matchers.md)               | Disallow the use of certain matchers                                     | 🌐 |    |    |
 | [no-restricted-vi-methods](docs/rules/no-restricted-vi-methods.md)           | Disallow specific `vi.` methods                                          | 🌐 |    |    |
 | [no-skipped-tests](docs/rules/no-skipped-tests.md)                           | Disallow skipped tests                                                   | 🌐 |    |    |
 | [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md)               | Enforce lowercase titles                                                 | 🌐 | 🔧 |    |
