@@ -19,6 +19,7 @@ import noDisabledTests, { RULE_NAME as noDisabledTestsName } from './rules/no-di
 import noDoneCallback, { RULE_NAME as noDoneCallbackName } from './rules/no-done-callback'
 import noDuplicateHooks, { RULE_NAME as noDuplicateHooksName } from './rules/no-duplicate-hooks'
 import noLargeSnapshots, { RULE_NAME as noLargeSnapShotsName } from './rules/no-large-snapshots'
+import nonInterpolationInSnapShots, { RULE_NAME as noInterpolationInSnapshotsName } from './rules/no-interpolation-in-snapshots'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -47,7 +48,8 @@ const allRules = {
 	[noDisabledTestsName]: 'warn',
 	[noDoneCallbackName]: 'warn',
 	[noDuplicateHooksName]: 'warn',
-	[noLargeSnapShotsName]: 'warn'
+	[noLargeSnapShotsName]: 'warn',
+	[noInterpolationInSnapshotsName]: 'warn'
 }
 
 const recommended = {
@@ -79,7 +81,8 @@ export default {
 		[noDisabledTestsName]: noDisabledTests,
 		[noDoneCallbackName]: noDoneCallback,
 		[noDuplicateHooksName]: noDuplicateHooks,
-		[noLargeSnapShotsName]: noLargeSnapshots
+		[noLargeSnapShotsName]: noLargeSnapshots,
+		[noInterpolationInSnapshotsName]: nonInterpolationInSnapShots
 	},
 	configs: {
 		all: createConfig(allRules),
