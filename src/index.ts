@@ -20,6 +20,7 @@ import noDoneCallback, { RULE_NAME as noDoneCallbackName } from './rules/no-done
 import noDuplicateHooks, { RULE_NAME as noDuplicateHooksName } from './rules/no-duplicate-hooks'
 import noLargeSnapshots, { RULE_NAME as noLargeSnapShotsName } from './rules/no-large-snapshots'
 import nonInterpolationInSnapShots, { RULE_NAME as noInterpolationInSnapshotsName } from './rules/no-interpolation-in-snapshots'
+import noMocksImport, { RULE_NAME as noMocksImportName } from './rules/no-mocks-import'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -49,7 +50,8 @@ const allRules = {
 	[noDoneCallbackName]: 'warn',
 	[noDuplicateHooksName]: 'warn',
 	[noLargeSnapShotsName]: 'warn',
-	[noInterpolationInSnapshotsName]: 'warn'
+	[noInterpolationInSnapshotsName]: 'warn',
+	[noMocksImportName]: 'warn'
 }
 
 const recommended = {
@@ -82,7 +84,8 @@ export default {
 		[noDoneCallbackName]: noDoneCallback,
 		[noDuplicateHooksName]: noDuplicateHooks,
 		[noLargeSnapShotsName]: noLargeSnapshots,
-		[noInterpolationInSnapshotsName]: nonInterpolationInSnapShots
+		[noInterpolationInSnapshotsName]: nonInterpolationInSnapShots,
+		[noMocksImportName]: noMocksImport
 	},
 	configs: {
 		all: createConfig(allRules),
