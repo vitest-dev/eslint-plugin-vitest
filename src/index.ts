@@ -22,6 +22,7 @@ import noLargeSnapshots, { RULE_NAME as noLargeSnapShotsName } from './rules/no-
 import nonInterpolationInSnapShots, { RULE_NAME as noInterpolationInSnapshotsName } from './rules/no-interpolation-in-snapshots'
 import noMocksImport, { RULE_NAME as noMocksImportName } from './rules/no-mocks-import'
 import noRestrictedMatchers, { RULE_NAME as noRestrictedMatchersName } from './rules/no-restricted-matchers'
+import noStandaloneExpect, { RULE_NAME as noStandaloneExpectName } from './rules/no-standalone-expect'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -53,7 +54,8 @@ const allRules = {
 	[noLargeSnapShotsName]: 'warn',
 	[noInterpolationInSnapshotsName]: 'warn',
 	[noMocksImportName]: 'warn',
-	[noRestrictedMatchersName]: 'warn'
+	[noRestrictedMatchersName]: 'warn',
+	[noStandaloneExpectName]: 'warn'
 }
 
 const recommended = {
@@ -88,7 +90,8 @@ export default {
 		[noLargeSnapShotsName]: noLargeSnapshots,
 		[noInterpolationInSnapshotsName]: nonInterpolationInSnapShots,
 		[noMocksImportName]: noMocksImport,
-		[noRestrictedMatchersName]: noRestrictedMatchers
+		[noRestrictedMatchersName]: noRestrictedMatchers,
+		[noStandaloneExpectName]: noStandaloneExpect
 	},
 	configs: {
 		all: createConfig(allRules),

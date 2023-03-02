@@ -98,6 +98,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [no-restricted-matchers](docs/rules/no-restricted-matchers.md)               | Disallow the use of certain matchers                                     | 🌐 |    |    |
 | [no-restricted-vi-methods](docs/rules/no-restricted-vi-methods.md)           | Disallow specific `vi.` methods                                          | 🌐 |    |    |
 | [no-skipped-tests](docs/rules/no-skipped-tests.md)                           | Disallow skipped tests                                                   | 🌐 |    |    |
+| [no-standalone-expect](docs/rules/no-standalone-expect.md)                   | Disallow using `expect` outside of `it` or `test` blocks                 | 🌐 |    |    |
 | [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md)               | Enforce lowercase titles                                                 | 🌐 | 🔧 |    |
 | [prefer-to-be](docs/rules/prefer-to-be.md)                                   | Suggest using toBe()                                                     | ✅  | 🔧 |    |
 
