@@ -104,6 +104,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [prefer-called-with](docs/rules/prefer-called-with.md)                       | Suggest using `toBeCalledWith()` or `toHaveBeenCalledWith()`             | 🌐 |    |    |
 | [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md)               | Enforce lowercase titles                                                 | 🌐 | 🔧 |    |
 | [prefer-to-be](docs/rules/prefer-to-be.md)                                   | Suggest using toBe()                                                     | ✅  | 🔧 |    |
+| [valid-title](docs/rules/valid-title.md)                                     | Enforce valid titles                                                     | ✅  | 🔧 |    |
 
 <!-- end auto-generated rules list -->
 
