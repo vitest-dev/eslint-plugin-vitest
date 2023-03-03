@@ -25,6 +25,7 @@ import noRestrictedMatchers, { RULE_NAME as noRestrictedMatchersName } from './r
 import noStandaloneExpect, { RULE_NAME as noStandaloneExpectName } from './rules/no-standalone-expect'
 import noTestPrefixes, { RULE_NAME as noTestPrefixesName } from './rules/no-test-prefixes'
 import noTestReturnStatement, { RULE_NAME as noTestReturnStatementName } from './rules/no-test-return-statement'
+import preferCalledWith, { RULE_NAME as preferCalledWithName } from './rules/prefer-called-with'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -59,7 +60,8 @@ const allRules = {
 	[noRestrictedMatchersName]: 'warn',
 	[noStandaloneExpectName]: 'warn',
 	[noTestPrefixesName]: 'warn',
-	[noTestReturnStatementName]: 'warn'
+	[noTestReturnStatementName]: 'warn',
+	[preferCalledWithName]: 'warn'
 }
 
 const recommended = {
@@ -97,7 +99,8 @@ export default {
 		[noRestrictedMatchersName]: noRestrictedMatchers,
 		[noStandaloneExpectName]: noStandaloneExpect,
 		[noTestPrefixesName]: noTestPrefixes,
-		[noTestReturnStatementName]: noTestReturnStatement
+		[noTestReturnStatementName]: noTestReturnStatement,
+		[preferCalledWithName]: preferCalledWith
 	},
 	configs: {
 		all: createConfig(allRules),

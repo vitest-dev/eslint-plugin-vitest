@@ -4,8 +4,6 @@ import {
 	getRepositories
 } from 'eslint-remote-tester-repositories'
 
-import plugin from 'eslint-plugin-vitest'
-
 const config: Config = {
 	repositories: getRepositories(),
 	pathIgnorePattern: getPathIgnorePattern(),
@@ -29,12 +27,7 @@ const config: Config = {
 				parser: '@typescript-eslint/parser'
 			}
 		],
-
-		plugins: ['vitest'],
-		rules: Object.keys(plugin.rules).reduce(
-			(all, rule) => ({ ...all, [`vitest/${rule}`]: 'error' }),
-			{}
-		)
+		extends: ['plugin:vitest/all']
 	}
 }
 
