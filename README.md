@@ -100,6 +100,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [no-skipped-tests](docs/rules/no-skipped-tests.md)                           | Disallow skipped tests                                                   | 🌐 |    |    |
 | [no-standalone-expect](docs/rules/no-standalone-expect.md)                   | Disallow using `expect` outside of `it` or `test` blocks                 | 🌐 |    |    |
 | [no-test-prefixes](docs/rules/no-test-prefixes.md)                           | Disallow using `test` as a prefix                                        | 🌐 | 🔧 |    |
+| [no-test-return-statement](docs/rules/no-test-return-statement.md)           | Disallow return statements in tests                                      | 🌐 |    |    |
 | [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md)               | Enforce lowercase titles                                                 | 🌐 | 🔧 |    |
 | [prefer-to-be](docs/rules/prefer-to-be.md)                                   | Suggest using toBe()                                                     | ✅  | 🔧 |    |
 

@@ -24,6 +24,7 @@ import noMocksImport, { RULE_NAME as noMocksImportName } from './rules/no-mocks-
 import noRestrictedMatchers, { RULE_NAME as noRestrictedMatchersName } from './rules/no-restricted-matchers'
 import noStandaloneExpect, { RULE_NAME as noStandaloneExpectName } from './rules/no-standalone-expect'
 import noTestPrefixes, { RULE_NAME as noTestPrefixesName } from './rules/no-test-prefixes'
+import noTestReturnStatement, { RULE_NAME as noTestReturnStatementName } from './rules/no-test-return-statement'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -57,7 +58,8 @@ const allRules = {
 	[noMocksImportName]: 'warn',
 	[noRestrictedMatchersName]: 'warn',
 	[noStandaloneExpectName]: 'warn',
-	[noTestPrefixesName]: 'warn'
+	[noTestPrefixesName]: 'warn',
+	[noTestReturnStatementName]: 'warn'
 }
 
 const recommended = {
@@ -94,7 +96,8 @@ export default {
 		[noMocksImportName]: noMocksImport,
 		[noRestrictedMatchersName]: noRestrictedMatchers,
 		[noStandaloneExpectName]: noStandaloneExpect,
-		[noTestPrefixesName]: noTestPrefixes
+		[noTestPrefixesName]: noTestPrefixes,
+		[noTestReturnStatementName]: noTestReturnStatement
 	},
 	configs: {
 		all: createConfig(allRules),
