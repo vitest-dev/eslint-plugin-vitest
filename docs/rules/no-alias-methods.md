@@ -9,7 +9,7 @@
 
 ## Rule Details
 
-This rule disallows alias methods and orces the use of the original method.
+This rule disallows alias methods and forces the use of the original method.
 
 Examples of **incorrect** code for this rule:
 
