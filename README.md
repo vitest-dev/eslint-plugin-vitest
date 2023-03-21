@@ -111,6 +111,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 #### Credits
 
 - [eslint-plugin-jest](https://github.com/jest-community/eslint-plugin-jest)
+	Most the rules are basically a port of jest plugin rules with small modifications 
 
 ### Licence
 
