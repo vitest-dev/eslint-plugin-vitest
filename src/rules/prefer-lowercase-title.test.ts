@@ -12,6 +12,7 @@ describe(RULE_NAME, () => {
 			valid: [
 				'it.each()',
 				'it.each()(1)',
+				'it.todo();',
 				'describe("oo", function () {})',
 				'test("foo", function () {})',
 				'test(`123`, function () {})'
