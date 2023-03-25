@@ -27,6 +27,7 @@ import noTestPrefixes, { RULE_NAME as noTestPrefixesName } from './rules/no-test
 import noTestReturnStatement, { RULE_NAME as noTestReturnStatementName } from './rules/no-test-return-statement'
 import preferCalledWith, { RULE_NAME as preferCalledWithName } from './rules/prefer-called-with'
 import validTitle, { RULE_NAME as validTitleName } from './rules/valid-title'
+import validExpect, { RULE_NAME as validExpectName } from './rules/valid-expect'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -70,7 +71,8 @@ const recommended = {
 	[noIdenticalTitleName]: 'warn',
 	[usePreferTobe]: 'warn',
 	[noCommentedOutTestsName]: 'warn',
-	[validTitleName]: 'warn'
+	[validTitleName]: 'warn',
+	[validExpectName]: 'warn'
 }
 
 export default {
@@ -103,7 +105,8 @@ export default {
 		[noTestPrefixesName]: noTestPrefixes,
 		[noTestReturnStatementName]: noTestReturnStatement,
 		[preferCalledWithName]: preferCalledWith,
-		[validTitleName]: validTitle
+		[validTitleName]: validTitle,
+		[validExpectName]: validExpect
 	},
 	configs: {
 		all: createConfig(allRules),
