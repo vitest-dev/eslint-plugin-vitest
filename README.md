@@ -97,7 +97,6 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [no-mocks-import](docs/rules/no-mocks-import.md)                             | Disallow importing from __mocks__ directory                              | 🌐 |    |    |
 | [no-restricted-matchers](docs/rules/no-restricted-matchers.md)               | Disallow the use of certain matchers                                     | 🌐 |    |    |
 | [no-restricted-vi-methods](docs/rules/no-restricted-vi-methods.md)           | Disallow specific `vi.` methods                                          | 🌐 |    |    |
-| [no-skipped-tests](docs/rules/no-skipped-tests.md)                           | Disallow skipped tests                                                   | 🌐 |    |    |
 | [no-standalone-expect](docs/rules/no-standalone-expect.md)                   | Disallow using `expect` outside of `it` or `test` blocks                 | 🌐 |    |    |
 | [no-test-prefixes](docs/rules/no-test-prefixes.md)                           | Disallow using `test` as a prefix                                        | 🌐 | 🔧 |    |
 | [no-test-return-statement](docs/rules/no-test-return-statement.md)           | Disallow return statements in tests                                      | 🌐 |    |    |
