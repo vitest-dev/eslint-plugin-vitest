@@ -130,9 +130,9 @@ export const getAccessorValue =
  */
 export const getStringValue =
 	<S extends string>(node: StringNode<S>): S =>
-		node.type === AST_NODE_TYPES.TemplateLiteral
+		node?.type === AST_NODE_TYPES.TemplateLiteral
 			? node.quasis[0].value.raw
-			: node.value
+			: node?.value
 
 export const replaceAccessorFixer = (
 	fixer: TSESLint.RuleFixer,
