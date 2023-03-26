@@ -102,6 +102,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [no-test-return-statement](docs/rules/no-test-return-statement.md)           | Disallow return statements in tests                                      | 🌐 |    |    |
 | [prefer-called-with](docs/rules/prefer-called-with.md)                       | Suggest using `toBeCalledWith()` or `toHaveBeenCalledWith()`             | 🌐 |    |    |
 | [prefer-equality-matcher](docs/rules/prefer-equality-matcher.md)             | Suggest using the built-in quality matchers                              | 🌐 |    | 💡 |
+| [prefer-expect-resolves](docs/rules/prefer-expect-resolves.md)               | Suggest using `expect().resolves` over `expect(await ...)` syntax        | 🌐 | 🔧 |    |
 | [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md)               | Enforce lowercase titles                                                 | 🌐 | 🔧 |    |
 | [prefer-strict-equal](docs/rules/prefer-strict-equal.md)                     | Prefer strict equal over equal                                           | 🌐 |    | 💡 |
 | [prefer-to-be](docs/rules/prefer-to-be.md)                                   | Suggest using toBe()                                                     | ✅  | 🔧 |    |
