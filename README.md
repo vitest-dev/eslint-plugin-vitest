@@ -106,6 +106,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [prefer-to-be-falsy](docs/rules/prefer-to-be-falsy.md)                       | Suggest using toBeFalsy()                                                | 🌐 | 🔧 |    |
 | [prefer-to-be-object](docs/rules/prefer-to-be-object.md)                     | Prefer toBeObject()                                                      | 🌐 | 🔧 |    |
 | [prefer-to-be-truthy](docs/rules/prefer-to-be-truthy.md)                     | Suggest using `toBeTruthy`                                               | 🌐 | 🔧 |    |
+| [prefer-to-have-length](docs/rules/prefer-to-have-length.md)                 | Suggest using toHaveLength()                                             | 🌐 | 🔧 |    |
 | [valid-expect](docs/rules/valid-expect.md)                                   | Enforce valid `expect()` usage                                           | ✅  |    |    |
 | [valid-title](docs/rules/valid-title.md)                                     | Enforce valid titles                                                     | ✅  | 🔧 |    |
 

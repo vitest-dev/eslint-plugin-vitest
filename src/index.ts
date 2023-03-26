@@ -30,6 +30,7 @@ import validExpect, { RULE_NAME as validExpectName } from './rules/valid-expect'
 import preferToBeObject, { RULE_NAME as preferToBeObjectName } from './rules/prefer-to-be-object'
 import preferToBeTruthy, { RULE_NAME as preferToBeTruthyName } from './rules/prefer-to-be-truthy'
 import preferToBeFalsy, { RULE_NAME as preferToBeFalsyName } from './rules/prefer-to-be-falsy'
+import preferToHaveLength, { RULE_NAME as preferToHaveLengthName } from './rules/prefer-to-have-length'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -67,7 +68,8 @@ const allRules = {
 	[preferCalledWithName]: 'warn',
 	[preferToBeFalsyName]: 'warn',
 	[preferToBeObjectName]: 'warn',
-	[preferToBeTruthyName]: 'warn'
+	[preferToBeTruthyName]: 'warn',
+	[preferToHaveLengthName]: 'warn'
 }
 
 const recommended = {
@@ -112,7 +114,8 @@ export default {
 		[validExpectName]: validExpect,
 		[preferToBeFalsyName]: preferToBeFalsy,
 		[preferToBeObjectName]: preferToBeObject,
-		[preferToBeTruthyName]: preferToBeTruthy
+		[preferToBeTruthyName]: preferToBeTruthy,
+		[preferToHaveLengthName]: preferToHaveLength
 	},
 	configs: {
 		all: createConfig(allRules),
