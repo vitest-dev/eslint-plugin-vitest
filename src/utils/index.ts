@@ -2,7 +2,7 @@
 /* eslint-disable no-use-before-define */
 // Imported from https://github.com/jest-community/eslint-plugin-jest/blob/main/src/rules/utils/accessors.ts#L6
 import { TSESLint, AST_NODE_TYPES, ESLintUtils, TSESTree } from '@typescript-eslint/utils'
-import { KnownMemberExpression } from './parseVitestFnCall'
+import { KnownMemberExpression, ParsedExpectVitestFnCall } from './parseVitestFnCall'
 
 export const createEslintRule = ESLintUtils.RuleCreator((ruleName) => `https://github.com/veritem/eslint-plugin-vitest/blob/main/docs/rules/${ruleName}.md`)
 
@@ -156,9 +156,11 @@ export const removeExtraArgumentsFixer = (
 
 	const sourceCode = context.getSourceCode()
 
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	let tokenAfterLastParam = sourceCode.getTokenAfter(lastArg)!
 
 	if (tokenAfterLastParam.value === ',')
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		tokenAfterLastParam = sourceCode.getTokenAfter(tokenAfterLastParam)!
 
 	return fixer.removeRange([firstArg.range[0], tokenAfterLastParam.range[0]])
@@ -172,4 +174,15 @@ interface CalledKnownMemberExpression<Name extends string = string>
 export interface KnownCallExpression<Name extends string = string>
 	extends TSESTree.CallExpression {
 	callee: CalledKnownMemberExpression<Name>;
+}
+
+export const isParsedInstanceOfMatcherCall = (
+	expectFnCall: ParsedExpectVitestFnCall,
+	classArg?: string
+) => {
+	return (
+		getAccessorValue(expectFnCall.matcher) === 'toBeInstanceOf' &&
+		expectFnCall.args.length === 1 &&
+		isSupportedAccessor(expectFnCall.args[0], classArg)
+	)
 }

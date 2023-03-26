@@ -1,10 +1,6 @@
-import { TSESLint } from '@typescript-eslint/utils'
 import { describe, it } from 'vitest'
+import ruleTester from '../utils/tester'
 import rule, { RULE_NAME } from './valid-title'
-
-const ruleTester = new TSESLint.RuleTester({
-	parser: require.resolve('@typescript-eslint/parser')
-})
 
 describe(RULE_NAME, () => {
 	it(`${RULE_NAME} - disallowed option`, () => {

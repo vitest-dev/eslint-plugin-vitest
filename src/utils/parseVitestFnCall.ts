@@ -64,6 +64,7 @@ export type VitestFnType =
 	| 'unknown'
 	| 'hook'
 	| 'vi'
+	| 'expectTypeOf'
 
 interface ResolvedVitestFn {
 	original: string | null,
@@ -95,7 +96,7 @@ interface ModifiersAndMatcher {
 	args: TSESTree.CallExpression['arguments'];
 }
 
-interface BaseParsedJestFnCall {
+interface BaseParsedVitestFnCall {
 	/**
 	 * The name of the underlying Vitest function that is being called.
 	 * This is the result of `(head.original ?? head.local)`.
@@ -106,12 +107,12 @@ interface BaseParsedJestFnCall {
 	members: KnownMemberExpressionProperty[];
 }
 
-interface ParsedGeneralVitestFnCall extends BaseParsedJestFnCall {
-	type: Exclude<VitestFnType, 'expect'>
+interface ParsedGeneralVitestFnCall extends BaseParsedVitestFnCall {
+	type: Exclude<VitestFnType, 'expect'> & Exclude<VitestFnType, 'expectTypeOf'>
 }
 
-export interface ParsedExpectVitestFnCall extends BaseParsedJestFnCall, ModifiersAndMatcher {
-	type: 'expect'
+export interface ParsedExpectVitestFnCall extends BaseParsedVitestFnCall, ModifiersAndMatcher {
+	type: 'expect' | 'expectTypeOf'
 }
 
 export type ParsedVitestFnCall = ParsedGeneralVitestFnCall | ParsedExpectVitestFnCall
@@ -128,7 +129,7 @@ export const isTypeOfVitestFnCall = (
 export const parseVitestFnCall = (
 	node: TSESTree.CallExpression,
 	context: TSESLint.RuleContext<string, unknown[]>
-) => {
+): ParsedVitestFnCall | null => {
 	const vitestFnCall = parseVitestFnCallWithReason(node, context)
 
 	if (typeof vitestFnCall === 'string')
@@ -145,7 +146,7 @@ const parseVitestFnCallCache = new WeakMap<
 export const parseVitestFnCallWithReason = (
 	node: TSESTree.CallExpression,
 	context: TSESLint.RuleContext<string, unknown[]>
-) => {
+): ParsedVitestFnCall | string | null => {
 	let parsedVistestFnCall = parseVitestFnCallCache.get(node)
 
 	if (parsedVistestFnCall)
@@ -161,6 +162,9 @@ export const parseVitestFnCallWithReason = (
 const determineVitestFnType = (name: string): VitestFnType => {
 	if (name === 'expect')
 		return 'expect'
+
+	if (name === 'expectTypeOf')
+		return 'expectTypeOf'
 
 	if (name === 'vi')
 		return 'vi'
@@ -231,7 +235,7 @@ const findModifiersAndMatcher = (
 	return 'matcher-not-found'
 }
 
-const parseVitestExpectCall = (typelessParsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'>): ParsedExpectVitestFnCall | string => {
+const parseVitestExpectCall = (typelessParsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'>, type: 'expect' | 'expectTypeOf'): ParsedExpectVitestFnCall | string => {
 	const modifiersMatcher = findModifiersAndMatcher(typelessParsedVitestFnCall.members)
 
 	if (typeof modifiersMatcher === 'string')
@@ -239,7 +243,7 @@ const parseVitestExpectCall = (typelessParsedVitestFnCall: Omit<ParsedVitestFnCa
 
 	return {
 		...typelessParsedVitestFnCall,
-		type: 'expect',
+		type,
 		...modifiersMatcher
 	}
 }
@@ -300,7 +304,7 @@ const parseVistestFnCallWithReasonInner = (
 
 	const links = [name, ...rest.map(getAccessorValue)]
 
-	if (name !== 'vi' && name !== 'expect' && !ValidVitestFnCallChains.includes(links.join('.')))
+	if (name !== 'vi' && name !== 'expect' && name !== 'expectTypeOf' && !ValidVitestFnCallChains.includes(links.join('.')))
 		return null
 
 	const parsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'> = {
@@ -311,8 +315,8 @@ const parseVistestFnCallWithReasonInner = (
 
 	const type = determineVitestFnType(name)
 
-	if (type === 'expect') {
-		const result = parseVitestExpectCall(parsedVitestFnCall)
+	if (type === 'expect' || type === 'expectTypeOf') {
+		const result = parseVitestExpectCall(parsedVitestFnCall, type)
 
 		if (typeof result === 'string' && findTopMostCallExpression(node) !== node)
 			return null
