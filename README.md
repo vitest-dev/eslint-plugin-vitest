@@ -104,6 +104,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md)               | Enforce lowercase titles                                                 | 🌐 | 🔧 |    |
 | [prefer-to-be](docs/rules/prefer-to-be.md)                                   | Suggest using toBe()                                                     | ✅  | 🔧 |    |
 | [prefer-to-be-false](docs/rules/prefer-to-be-false.md)                       | Suggest using toBeFalsy()                                                | 🌐 | 🔧 |    |
+| [prefer-to-be-object](docs/rules/prefer-to-be-object.md)                     | Prefer toBeObject()                                                      | 🌐 | 🔧 |    |
 | [valid-expect](docs/rules/valid-expect.md)                                   | Enforce valid `expect()` usage                                           | ✅  |    |    |
 | [valid-title](docs/rules/valid-title.md)                                     | Enforce valid titles                                                     | ✅  | 🔧 |    |
 
