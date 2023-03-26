@@ -105,6 +105,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [prefer-to-be](docs/rules/prefer-to-be.md)                                   | Suggest using toBe()                                                     | ✅  | 🔧 |    |
 | [prefer-to-be-false](docs/rules/prefer-to-be-false.md)                       | Suggest using toBeFalsy()                                                | 🌐 | 🔧 |    |
 | [prefer-to-be-object](docs/rules/prefer-to-be-object.md)                     | Prefer toBeObject()                                                      | 🌐 | 🔧 |    |
+| [prefer-to-be-truthy](docs/rules/prefer-to-be-truthy.md)                     | Suggest using `toBeTruthy`                                               | 🌐 | 🔧 |    |
 | [valid-expect](docs/rules/valid-expect.md)                                   | Enforce valid `expect()` usage                                           | ✅  |    |    |
 | [valid-title](docs/rules/valid-title.md)                                     | Enforce valid titles                                                     | ✅  | 🔧 |    |
 

@@ -29,6 +29,7 @@ import validTitle, { RULE_NAME as validTitleName } from './rules/valid-title'
 import validExpect, { RULE_NAME as validExpectName } from './rules/valid-expect'
 import preferToBeFalse, { RULE_NAME as preferToBeFalseName } from './rules/prefer-to-be-false'
 import preferToBeObject, { RULE_NAME as preferToBeObjectName } from './rules/prefer-to-be-object'
+import preferToBeTruthy, { RULE_NAME as preferToBeTruthyName } from './rules/prefer-to-be-truthy'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -65,7 +66,8 @@ const allRules = {
 	[noTestReturnStatementName]: 'warn',
 	[preferCalledWithName]: 'warn',
 	[preferToBeFalseName]: 'warn',
-	[preferToBeObjectName]: 'warn'
+	[preferToBeObjectName]: 'warn',
+	[preferToBeTruthyName]: 'warn'
 }
 
 const recommended = {
@@ -109,7 +111,8 @@ export default {
 		[validTitleName]: validTitle,
 		[validExpectName]: validExpect,
 		[preferToBeFalseName]: preferToBeFalse,
-		[preferToBeObjectName]: preferToBeObject
+		[preferToBeObjectName]: preferToBeObject,
+		[preferToBeTruthyName]: preferToBeTruthy
 	},
 	configs: {
 		all: createConfig(allRules),
