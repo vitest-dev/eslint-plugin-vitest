@@ -1,31 +1,32 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
-import { createEslintRule, getAccessorValue } from '../utils/index'
+import { createEslintRule, getAccessorValue } from '../utils'
 import { getFirstMatcherArg, parseVitestFnCall } from '../utils/parseVitestFnCall'
 import { EqualityMatcher } from '../utils/types'
 
-export const RULE_NAME = 'prefer-to-be-false'
-export type MESSAGE_ID = 'preferToBeFalse';
-export type Options = []
+export type MESSAGE_IDS = 'preferToBeFalsy';
+export const RULE_NAME = 'prefer-to-be-falsy'
+type Options = []
 
 interface FalseLiteral extends TSESTree.BooleanLiteral {
 	value: false;
 }
 
-const isFalseLiteral = (node: TSESTree.Node): node is FalseLiteral => node.type === AST_NODE_TYPES.Literal && node.value === false
+const isFalseLiteral = (node: TSESTree.Node): node is FalseLiteral =>
+	node.type === AST_NODE_TYPES.Literal && node.value === false
 
-export default createEslintRule<Options, MESSAGE_ID>({
+export default createEslintRule<Options, MESSAGE_IDS>({
 	name: RULE_NAME,
 	meta: {
 		type: 'suggestion',
 		docs: {
 			description: 'Suggest using toBeFalsy()',
-			recommended: false
-		},
-		messages: {
-			preferToBeFalse: 'Prefer toBe(false) over toBeFalsy()'
+			recommended: 'warn'
 		},
 		fixable: 'code',
-		schema: []
+		schema: [],
+		messages: {
+			preferToBeFalsy: 'Prefer using toBeFalsy()'
+		}
 	},
 	defaultOptions: [],
 	create(context) {
@@ -33,7 +34,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 			CallExpression(node) {
 				const vitestFnCall = parseVitestFnCall(node, context)
 
-				if (vitestFnCall?.type !== 'expect') return
+				if (!(vitestFnCall?.type === 'expect' || vitestFnCall?.type === 'expectTypeOf')) return
 
 				if (vitestFnCall.args.length === 1 &&
 					isFalseLiteral(getFirstMatcherArg(vitestFnCall)) &&
@@ -41,7 +42,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 					EqualityMatcher.hasOwnProperty(getAccessorValue(vitestFnCall.matcher))) {
 					context.report({
 						node: vitestFnCall.matcher,
-						messageId: 'preferToBeFalse',
+						messageId: 'preferToBeFalsy',
 						fix: fixer => [
 							fixer.replaceText(vitestFnCall.matcher, 'toBeFalsy'),
 							fixer.remove(vitestFnCall.args[0])

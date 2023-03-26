@@ -1,4 +1,4 @@
-# Suggest using toBeFalsy() (`vitest/prefer-to-be-false`)
+# Suggest using toBeFalsy() (`vitest/prefer-to-be-falsy`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
@@ -14,11 +14,13 @@ Examples of **incorrect** code for this rule:
 
 ```js
 expect(foo).toBe(false)
+expectTypeOf(foo).toBe(false)
 ```
 
 Examples of **correct** code for this rule:
 
 ```js
 expect(foo).toBeFalsy()
+expectTypeOf(foo).toBeFalsy()
 ```
 
