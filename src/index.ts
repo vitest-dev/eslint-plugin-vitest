@@ -34,6 +34,7 @@ import preferToHaveLength, { RULE_NAME as preferToHaveLengthName } from './rules
 import preferEqualityMatcher, { RULE_NAME as preferEqualityMatcherName } from './rules/prefer-equality-matcher'
 import preferStrictEqual, { RULE_NAME as preferStrictEqualName } from './rules/prefer-strict-equal'
 import preferExpectResolves, { RULE_NAME as preferExpectResolvesName } from './rules/prefer-expect-resolves'
+import preferEach, { RULE_NAME as preferEachName } from './rules/prefer-each'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -75,7 +76,8 @@ const allRules = {
 	[preferToHaveLengthName]: 'warn',
 	[preferEqualityMatcherName]: 'warn',
 	[preferStrictEqualName]: 'warn',
-	[preferExpectResolvesName]: 'warn'
+	[preferExpectResolvesName]: 'warn',
+	[preferEachName]: 'warn'
 }
 
 const recommended = {
@@ -124,7 +126,8 @@ export default {
 		[preferToHaveLengthName]: preferToHaveLength,
 		[preferEqualityMatcherName]: preferEqualityMatcher,
 		[preferStrictEqualName]: preferStrictEqual,
-		[preferExpectResolvesName]: preferExpectResolves
+		[preferExpectResolvesName]: preferExpectResolves,
+		[preferEachName]: preferEach
 	},
 	configs: {
 		all: createConfig(allRules),
