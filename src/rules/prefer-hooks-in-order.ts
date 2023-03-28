@@ -12,7 +12,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 	meta: {
 		type: 'suggestion',
 		docs: {
-			description: 'Prefer hooks in consistent order',
+			description: 'Prefer having hooks in consistent order',
 			recommended: 'warn'
 		},
 		messages: {
@@ -27,7 +27,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
 		return {
 			CallExpression(node) {
-				console.log('here', inHook)
 				if (inHook) return
 
 				const vitestFnCall = parseVitestFnCall(node, context)
@@ -58,7 +57,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 			},
 			'CallExpression:exit'(node) {
 				if (isTypeOfVitestFnCall(node, context, ['hook'])) {
-					inHook = true
+					inHook = false
 					return
 				}
 
