@@ -11,10 +11,10 @@
 	"author": "Makuza Mugabo Verite <mugaboverite@gmail.com> (https://veritem.me/)",
 	"license": "MIT",
 	"dependencies": {
-		"eslint-plugin-vitest": "^0.0.48",
-		"vitest": "^0.29.1"
+		"eslint-plugin-vitest": "^0.0.57",
+		"vitest": "^0.29.8"
 	},
 	"devDependencies": {
-		"eslint": "^8.35.0"
+		"eslint": "^8.37.0"
 	}
 }
