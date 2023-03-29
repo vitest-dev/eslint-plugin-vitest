@@ -104,7 +104,11 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [prefer-each](docs/rules/prefer-each.md)                                     | Prefer `each` rather than manual loops                                   | 🌐 |    |    |
 | [prefer-equality-matcher](docs/rules/prefer-equality-matcher.md)             | Suggest using the built-in quality matchers                              | 🌐 |    | 💡 |
 | [prefer-expect-resolves](docs/rules/prefer-expect-resolves.md)               | Suggest using `expect().resolves` over `expect(await ...)` syntax        | 🌐 | 🔧 |    |
+<<<<<<< HEAD
 | [prefer-hooks-on-top](docs/rules/prefer-hooks-on-top.md)                     | Suggest having hooks before any test cases                               | 🌐 |    |    |
+=======
+| [prefer-hooks-in-order](docs/rules/prefer-hooks-in-order.md)                 | Prefer having hooks in consistent order                                  | 🌐 |    |    |
+>>>>>>> origin
 | [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md)               | Enforce lowercase titles                                                 | 🌐 | 🔧 |    |
 | [prefer-strict-equal](docs/rules/prefer-strict-equal.md)                     | Prefer strict equal over equal                                           | 🌐 |    | 💡 |
 | [prefer-to-be](docs/rules/prefer-to-be.md)                                   | Suggest using toBe()                                                     | ✅  | 🔧 |    |

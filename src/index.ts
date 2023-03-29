@@ -36,6 +36,7 @@ import preferStrictEqual, { RULE_NAME as preferStrictEqualName } from './rules/p
 import preferExpectResolves, { RULE_NAME as preferExpectResolvesName } from './rules/prefer-expect-resolves'
 import preferEach, { RULE_NAME as preferEachName } from './rules/prefer-each'
 import preferHooksOnTop, { RULE_NAME as preferHooksOnTopName } from './rules/prefer-hooks-on-top'
+import preferHooksInOrder, { RULE_NAME as preferHooksInOrderName } from './rules/prefer-hooks-in-order'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -79,7 +80,8 @@ const allRules = {
 	[preferStrictEqualName]: 'warn',
 	[preferExpectResolvesName]: 'warn',
 	[preferEachName]: 'warn',
-	[preferHooksOnTopName]: 'warn'
+	[preferHooksOnTopName]: 'warn',
+	[preferHooksInOrderName]: 'warn'
 }
 
 const recommended = {
@@ -130,7 +132,8 @@ export default {
 		[preferStrictEqualName]: preferStrictEqual,
 		[preferExpectResolvesName]: preferExpectResolves,
 		[preferEachName]: preferEach,
-		[preferHooksOnTopName]: preferHooksOnTop
+		[preferHooksOnTopName]: preferHooksOnTop,
+		[preferHooksInOrderName]: preferHooksInOrder
 	},
 	configs: {
 		all: createConfig(allRules),
