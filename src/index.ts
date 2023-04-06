@@ -41,6 +41,7 @@ import preferMockPromiseShorthand, { RULE_NAME as preferMockPromiseShortHandName
 import preferSnapshotHint, { RULE_NAME as preferSnapshotHintName } from './rules/prefer-snapshot-hint'
 import validDescribeCallback, { RULE_NAME as validDescribeCallbackName } from './rules/valid-describe-callback'
 import requireTopLevelDescribe, { RULE_NAME as requireTopLevelDescribeName } from './rules/require-top-level-describe'
+import requireToThrowMessage, { RULE_NAME as requireToThrowMessageName } from './rules/require-to-throw-message'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -88,7 +89,8 @@ const allRules = {
 	[preferHooksInOrderName]: 'warn',
 	[preferMockPromiseShortHandName]: 'warn',
 	[preferSnapshotHintName]: 'warn',
-	[requireTopLevelDescribeName]: 'warn'
+	[requireTopLevelDescribeName]: 'warn',
+	[requireToThrowMessageName]: 'warn'
 }
 
 const recommended = {
@@ -145,7 +147,8 @@ export default {
 		[preferMockPromiseShortHandName]: preferMockPromiseShorthand,
 		[preferSnapshotHintName]: preferSnapshotHint,
 		[validDescribeCallbackName]: validDescribeCallback,
-		[requireTopLevelDescribeName]: requireTopLevelDescribe
+		[requireTopLevelDescribeName]: requireTopLevelDescribe,
+		[requireToThrowMessageName]: requireToThrowMessage
 	},
 	configs: {
 		all: createConfig(allRules),

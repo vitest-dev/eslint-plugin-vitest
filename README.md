@@ -115,6 +115,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [prefer-to-be-truthy](docs/rules/prefer-to-be-truthy.md)                     | Suggest using `toBeTruthy`                                               | 🌐 | 🔧 |    |
 | [prefer-to-have-length](docs/rules/prefer-to-have-length.md)                 | Suggest using toHaveLength()                                             | 🌐 | 🔧 |    |
 | [preferMockPromiseShorthand](docs/rules/preferMockPromiseShorthand.md)       | Prefer mock resolved/rejected shorthands for promises                    | 🌐 | 🔧 |    |
+| [require-to-throw-message](docs/rules/require-to-throw-message.md)           | Require toThrow() to be called with an error message                     | 🌐 |    |    |
 | [require-top-level-describe](docs/rules/require-top-level-describe.md)       | Enforce that all tests are in a top-level describe                       | 🌐 |    |    |
 | [valid-describe-callback](docs/rules/valid-describe-callback.md)             | Enforce valid describe callback                                          | ✅  |    |    |
 | [valid-expect](docs/rules/valid-expect.md)                                   | Enforce valid `expect()` usage                                           | ✅  |    |    |
