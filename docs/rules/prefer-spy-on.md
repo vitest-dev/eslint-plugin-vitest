@@ -11,13 +11,13 @@
 This rule triggers a warning if an object's property is overwritten with a vitest mock.
 
 ```ts
-Date.now = vitest.fn();
-Date.now = vitest.fn(() => 10);
+Date.now = vi.fn();
+Date.now = vi.fn(() => 10);
 ```
 
 These patterns would not be considered warnings:
 
 ```ts
-vitest.spyOn(Date, 'now');
-vitest.spyOn(Date, 'now').mockImplementation(() => 10);
+vi.spyOn(Date, 'now');
+vi.spyOn(Date, 'now').mockImplementation(() => 10);
 ```
