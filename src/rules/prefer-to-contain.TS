@@ -61,8 +61,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 					!isFixableIncludesCallExpression(includesCall))
 					return
 
-				console.log(vitestFnCall)
-
 				const hasNot = vitestFnCall.modifiers.some(nod => getAccessorValue(nod) === 'not')
 
 				context.report({
