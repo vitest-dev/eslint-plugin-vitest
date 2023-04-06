@@ -44,6 +44,7 @@ import requireTopLevelDescribe, { RULE_NAME as requireTopLevelDescribeName } fro
 import requireToThrowMessage, { RULE_NAME as requireToThrowMessageName } from './rules/require-to-throw-message'
 import requireHook, { RULE_NAME as requireHookName } from './rules/require-hook'
 import preferSpyOn, { RULE_NAME as preferSpyOnName } from './rules/prefer-spy-on'
+import preferTodo, { RULE_NAME as preferTodoName } from './rules/prefer-todo'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -94,7 +95,8 @@ const allRules = {
 	[requireTopLevelDescribeName]: 'warn',
 	[requireToThrowMessageName]: 'warn',
 	[requireHookName]: 'warn',
-	[preferSpyOnName]: 'warn'
+	[preferSpyOnName]: 'warn',
+	[preferTodoName]: 'warn'
 }
 
 const recommended = {
@@ -154,7 +156,8 @@ export default {
 		[requireTopLevelDescribeName]: requireTopLevelDescribe,
 		[requireToThrowMessageName]: requireToThrowMessage,
 		[requireHookName]: requireHook,
-		[preferSpyOnName]: preferSpyOn
+		[preferSpyOnName]: preferSpyOn,
+		[preferTodoName]: preferTodo
 	},
 	configs: {
 		all: createConfig(allRules),
