@@ -34,3 +34,13 @@ export const isInstanceOfBinaryExpression = (
 	node.type === AST_NODE_TYPES.BinaryExpression &&
 	node.operator === 'instanceof' &&
 	isSupportedAccessor(node.right, className)
+
+export interface CallExpressionWithSingleArgument<
+	Argument extends TSESTree.CallExpression['arguments'][number] = TSESTree.CallExpression['arguments'][number],
+> extends TSESTree.CallExpression {
+	arguments: [Argument];
+}
+
+export const hasOnlyOneArgument = (
+	call: TSESTree.CallExpression
+): call is CallExpressionWithSingleArgument => call.arguments.length === 1

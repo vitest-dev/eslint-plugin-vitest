@@ -114,6 +114,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [prefer-to-be-object](docs/rules/prefer-to-be-object.md)                     | Prefer toBeObject()                                                      | 🌐 | 🔧 |    |
 | [prefer-to-be-truthy](docs/rules/prefer-to-be-truthy.md)                     | Suggest using `toBeTruthy`                                               | 🌐 | 🔧 |    |
 | [prefer-to-have-length](docs/rules/prefer-to-have-length.md)                 | Suggest using toHaveLength()                                             | 🌐 | 🔧 |    |
+| [prefer-todo](docs/rules/prefer-todo.md)                                     | Suggest using `test.todo`                                                | 🌐 | 🔧 |    |
 | [preferMockPromiseShorthand](docs/rules/preferMockPromiseShorthand.md)       | Prefer mock resolved/rejected shorthands for promises                    | 🌐 | 🔧 |    |
 | [require-hook](docs/rules/require-hook.md)                                   | Require setup and teardown to be within a hook                           | 🌐 |    |    |
 | [require-to-throw-message](docs/rules/require-to-throw-message.md)           | Require toThrow() to be called with an error message                     | 🌐 |    |    |
