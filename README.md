@@ -108,6 +108,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [prefer-hooks-on-top](docs/rules/prefer-hooks-on-top.md)                     | Suggest having hooks before any test cases                               | 🌐 |    |    |
 | [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md)               | Enforce lowercase titles                                                 | 🌐 | 🔧 |    |
 | [prefer-snapshot-hint](docs/rules/prefer-snapshot-hint.md)                   | Prefer including a hint with external snapshots                          | 🌐 |    |    |
+| [prefer-spy-on](docs/rules/prefer-spy-on.md)                                 | Suggest using `vi.spyOn`                                                 | 🌐 | 🔧 |    |
 | [prefer-strict-equal](docs/rules/prefer-strict-equal.md)                     | Prefer strict equal over equal                                           | 🌐 |    | 💡 |
 | [prefer-to-be](docs/rules/prefer-to-be.md)                                   | Suggest using toBe()                                                     | ✅  | 🔧 |    |
 | [prefer-to-be-falsy](docs/rules/prefer-to-be-falsy.md)                       | Suggest using toBeFalsy()                                                | 🌐 | 🔧 |    |

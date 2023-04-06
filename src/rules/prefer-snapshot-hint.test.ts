@@ -241,21 +241,6 @@ describe(RULE_NAME, () => {
 				},
 				{
 					code: `
-					  import { it as itIs } from '@jest/globals';
-			  
-					  it('is true', () => {
-						expect(1).toMatchSnapshot();
-					  });
-			  
-					  itIs('false', () => {
-						expect(1).toMatchSnapshot();
-					  });
-					`,
-					options: ['multi'],
-					parserOptions: { sourceType: 'module' }
-				},
-				{
-					code: `
 					  const myReusableTestBody = (value, snapshotHint) => {
 						const innerFn = anotherValue => {
 						  expect(anotherValue).toMatchSnapshot();

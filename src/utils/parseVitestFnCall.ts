@@ -296,7 +296,6 @@ const parseVistestFnCallWithReasonInner = (
 
 	const resolved = resolveVitestFn(context, getAccessorValue(first))
 
-	// this is not a jest function
 	if (!resolved)
 		return null
 
