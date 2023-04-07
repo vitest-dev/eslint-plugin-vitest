@@ -22,7 +22,8 @@ describe(RULE_NAME, () => {
 		        await expect(Promise.reject(new Error('oh noes!'))).rejects.toThrowError(
 		          'oh noes!',
 		        );
-		     });`
+		     });`,
+				'expect().nothing();'
 			],
 			invalid: [
 				{

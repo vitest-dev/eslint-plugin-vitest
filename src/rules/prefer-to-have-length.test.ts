@@ -17,7 +17,8 @@ describe(RULE_NAME, () => {
 				'expect(result).toBe(true);',
 				'expect(user.getUserName(5)).resolves.toEqual(\'Paul\')',
 				'expect(user.getUserName(5)).rejects.toEqual(\'Paul\')',
-				'expect(a);'
+				'expect(a);',
+				'expect().toBe();'
 			],
 			invalid: [
 				{
