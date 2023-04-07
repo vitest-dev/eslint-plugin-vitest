@@ -1,6 +1,8 @@
+// MIT License
+// Copyright (c) 2018 Jonathan Kim
+// Imported from https://github.com/jest-community/eslint-plugin-jest/blob/main/src/rules/utils/accessors.ts#L6
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable no-use-before-define */
-// Imported from https://github.com/jest-community/eslint-plugin-jest/blob/main/src/rules/utils/accessors.ts#L6
 import { TSESLint, AST_NODE_TYPES, ESLintUtils, TSESTree } from '@typescript-eslint/utils'
 import { KnownMemberExpression, ParsedExpectVitestFnCall } from './parseVitestFnCall'
 
