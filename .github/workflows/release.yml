@@ -16,9 +16,8 @@ jobs:
         with:
           node-version: "18"
           registry-url: https://registry.npmjs.org/
-      - run: npm i -g pnpm @antfu/ni
-      - run: nci
-      - run: nr test --if-present
+      - run: npm install
+      - run: npm run test --if-present
       - run: npx conventional-github-releaser -p angular
         env:
           CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
