@@ -115,6 +115,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [prefer-to-be-falsy](docs/rules/prefer-to-be-falsy.md)                       | Suggest using toBeFalsy()                                                | 🌐 | 🔧 |    |
 | [prefer-to-be-object](docs/rules/prefer-to-be-object.md)                     | Prefer toBeObject()                                                      | 🌐 | 🔧 |    |
 | [prefer-to-be-truthy](docs/rules/prefer-to-be-truthy.md)                     | Suggest using `toBeTruthy`                                               | 🌐 | 🔧 |    |
+| [prefer-to-contain](docs/rules/prefer-to-contain.md)                         | Prefer using toContain()                                                 | 🌐 | 🔧 |    |
 | [prefer-to-have-length](docs/rules/prefer-to-have-length.md)                 | Suggest using toHaveLength()                                             | 🌐 | 🔧 |    |
 | [prefer-todo](docs/rules/prefer-todo.md)                                     | Suggest using `test.todo`                                                | 🌐 | 🔧 |    |
 | [preferMockPromiseShorthand](docs/rules/preferMockPromiseShorthand.md)       | Prefer mock resolved/rejected shorthands for promises                    | 🌐 | 🔧 |    |

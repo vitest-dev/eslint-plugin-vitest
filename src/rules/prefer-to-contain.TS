@@ -53,11 +53,12 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 				const { matcher } = vitestFnCall
 				const matcherArg = getFirstMatcherArg(vitestFnCall)
 
-				if (!includesCall ||
+				if (
+					!includesCall ||
 					matcherArg.type === AST_NODE_TYPES.SpreadElement ||
 					// eslint-disable-next-line no-prototype-builtins
 					!EqualityMatcher.hasOwnProperty(getAccessorValue(matcher)) ||
-					!isBooleanLiteral(includesCall) ||
+					!isBooleanLiteral(matcherArg) ||
 					!isFixableIncludesCallExpression(includesCall))
 					return
 

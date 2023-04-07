@@ -46,6 +46,7 @@ import requireHook, { RULE_NAME as requireHookName } from './rules/require-hook'
 import preferTodo, { RULE_NAME as preferTodoName } from './rules/prefer-todo'
 import preferSpyOn, { RULE_NAME as preferSpyOnName } from './rules/prefer-spy-on'
 import preferComparisonMatcher, { RULE_NAME as preferComparisonMatcherName } from './rules/prefer-comparison-matcher'
+import preferToContain, { RULE_NAME as preferToContainName } from './rules/prefer-to-contain'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -99,7 +100,8 @@ const allRules = {
 	[preferTodoName]: 'warn',
 	[preferSpyOnName]: 'warn',
 	[preferTodoName]: 'warn',
-	[preferComparisonMatcherName]: 'warn'
+	[preferComparisonMatcherName]: 'warn',
+	[preferToContainName]: 'warn'
 }
 
 const recommended = {
@@ -162,7 +164,8 @@ export default {
 		[preferTodoName]: preferTodo,
 		[preferSpyOnName]: preferSpyOn,
 		[preferTodoName]: preferTodo,
-		[preferComparisonMatcherName]: preferComparisonMatcher
+		[preferComparisonMatcherName]: preferComparisonMatcher,
+		[preferToContainName]: preferToContain
 	},
 	configs: {
 		all: createConfig(allRules),
