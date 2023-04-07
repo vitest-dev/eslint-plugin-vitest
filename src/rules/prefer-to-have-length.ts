@@ -40,7 +40,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
 				// eslint-disable-next-line no-prototype-builtins
 				if (!EqualityMatcher.hasOwnProperty(getAccessorValue(matcher)) ||
-					argument.type !== AST_NODE_TYPES.MemberExpression ||
+					argument?.type !== AST_NODE_TYPES.MemberExpression ||
 					!isSupportedAccessor(argument.property, 'length'))
 					return
 
