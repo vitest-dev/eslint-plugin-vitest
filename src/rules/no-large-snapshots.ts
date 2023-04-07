@@ -69,7 +69,7 @@ export default createEslintRule<[RuleOptions], MESSAGE_IDS>({
 		},
 		messages: {
 			noSnapShot: '`{{ lineCount }}`s should begin with lowercase',
-			tooLongSnapShot: 'Expected Jest snapshot to be smaller than {{ lineLimit }} lines but was {{ lineCount }} lines long'
+			tooLongSnapShot: 'Expected vitest snapshot to be smaller than {{ lineLimit }} lines but was {{ lineCount }} lines long'
 		},
 		type: 'suggestion',
 		schema: [

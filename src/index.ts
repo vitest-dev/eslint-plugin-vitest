@@ -44,6 +44,8 @@ import requireTopLevelDescribe, { RULE_NAME as requireTopLevelDescribeName } fro
 import requireToThrowMessage, { RULE_NAME as requireToThrowMessageName } from './rules/require-to-throw-message'
 import requireHook, { RULE_NAME as requireHookName } from './rules/require-hook'
 import preferTodo, { RULE_NAME as preferTodoName } from './rules/prefer-todo'
+import preferSpyOn, { RULE_NAME as preferSpyOnName } from './rules/prefer-spy-on'
+import preferComparisonMatcher, { RULE_NAME as preferComparisonMatcherName } from './rules/prefer-comparison-matcher'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -94,7 +96,10 @@ const allRules = {
 	[requireTopLevelDescribeName]: 'warn',
 	[requireToThrowMessageName]: 'warn',
 	[requireHookName]: 'warn',
-	[preferTodoName]: 'warn'
+	[preferTodoName]: 'warn',
+	[preferSpyOnName]: 'warn',
+	[preferTodoName]: 'warn',
+	[preferComparisonMatcherName]: 'warn'
 }
 
 const recommended = {
@@ -154,7 +159,10 @@ export default {
 		[requireTopLevelDescribeName]: requireTopLevelDescribe,
 		[requireToThrowMessageName]: requireToThrowMessage,
 		[requireHookName]: requireHook,
-		[preferTodoName]: preferTodo
+		[preferTodoName]: preferTodo,
+		[preferSpyOnName]: preferSpyOn,
+		[preferTodoName]: preferTodo,
+		[preferComparisonMatcherName]: preferComparisonMatcher
 	},
 	configs: {
 		all: createConfig(allRules),

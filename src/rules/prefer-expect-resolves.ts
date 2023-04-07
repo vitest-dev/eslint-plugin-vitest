@@ -34,7 +34,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
 			const [awaitNode] = parent.arguments
 
-			if (awaitNode.type === AST_NODE_TYPES.AwaitExpression) {
+			if (awaitNode?.type === AST_NODE_TYPES.AwaitExpression) {
 				context.report({
 					node: awaitNode,
 					messageId: 'expectResolves',

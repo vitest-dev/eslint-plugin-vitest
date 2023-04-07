@@ -101,6 +101,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [no-test-prefixes](docs/rules/no-test-prefixes.md)                           | Disallow using `test` as a prefix                                        | 🌐 | 🔧 |    |
 | [no-test-return-statement](docs/rules/no-test-return-statement.md)           | Disallow return statements in tests                                      | 🌐 |    |    |
 | [prefer-called-with](docs/rules/prefer-called-with.md)                       | Suggest using `toBeCalledWith()` or `toHaveBeenCalledWith()`             | 🌐 |    |    |
+| [prefer-comparison-matcher](docs/rules/prefer-comparison-matcher.md)         | Suggest using the built-in comparison matchers                           | 🌐 | 🔧 |    |
 | [prefer-each](docs/rules/prefer-each.md)                                     | Prefer `each` rather than manual loops                                   | 🌐 |    |    |
 | [prefer-equality-matcher](docs/rules/prefer-equality-matcher.md)             | Suggest using the built-in quality matchers                              | 🌐 |    | 💡 |
 | [prefer-expect-resolves](docs/rules/prefer-expect-resolves.md)               | Suggest using `expect().resolves` over `expect(await ...)` syntax        | 🌐 | 🔧 |    |
@@ -108,6 +109,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [prefer-hooks-on-top](docs/rules/prefer-hooks-on-top.md)                     | Suggest having hooks before any test cases                               | 🌐 |    |    |
 | [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md)               | Enforce lowercase titles                                                 | 🌐 | 🔧 |    |
 | [prefer-snapshot-hint](docs/rules/prefer-snapshot-hint.md)                   | Prefer including a hint with external snapshots                          | 🌐 |    |    |
+| [prefer-spy-on](docs/rules/prefer-spy-on.md)                                 | Suggest using `vi.spyOn`                                                 | 🌐 | 🔧 |    |
 | [prefer-strict-equal](docs/rules/prefer-strict-equal.md)                     | Prefer strict equal over equal                                           | 🌐 |    | 💡 |
 | [prefer-to-be](docs/rules/prefer-to-be.md)                                   | Suggest using toBe()                                                     | ✅  | 🔧 |    |
 | [prefer-to-be-falsy](docs/rules/prefer-to-be-falsy.md)                       | Suggest using toBeFalsy()                                                | 🌐 | 🔧 |    |
