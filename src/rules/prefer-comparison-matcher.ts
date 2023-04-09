@@ -9,7 +9,7 @@ type MESSAGE_IDS = 'useToBeComparison';
 type Options = []
 
 const isString = (node: TSESTree.Node) => {
-	return isStringNode(node) || node.type === AST_NODE_TYPES.TemplateLiteral
+	return isStringNode(node) || node?.type === AST_NODE_TYPES.TemplateLiteral
 }
 
 const isComparingToString = (expression: TSESTree.BinaryExpression) => {
@@ -82,7 +82,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 				const { matcher } = vitestFnCall
 				const matcherArg = getFirstMatcherArg(vitestFnCall)
 
-				if (comparison.type !== AST_NODE_TYPES.BinaryExpression ||
+				if (comparison?.type !== AST_NODE_TYPES.BinaryExpression ||
 					isComparingToString(comparison) ||
 					// eslint-disable-next-line no-prototype-builtins
 					!EqualityMatcher.hasOwnProperty(getAccessorValue(matcher)) ||

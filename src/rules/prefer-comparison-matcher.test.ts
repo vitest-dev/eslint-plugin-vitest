@@ -18,7 +18,8 @@ describe(RULE_NAME, () => {
 				'expect(a !== "string").toStrictEqual(true)',
 				'expect(5 != a).toBe(true)',
 				'expect(a == "string").toBe(true)',
-				'expect(a == "string").not.toBe(true)'
+				'expect(a == "string").not.toBe(true)',
+				'expect().fail(\'Should not succeed a HTTPS proxy request.\');'
 			],
 			invalid: [
 				{
