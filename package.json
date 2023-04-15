@@ -44,7 +44,7 @@
 		"@types/node": "^18.15.11",
 		"@typescript-eslint/eslint-plugin": "^5.58.0",
 		"@typescript-eslint/parser": "^5.58.0",
-		"@veritem/eslint-config": "^0.0.6",
+		"@veritem/eslint-config": "^0.0.7",
 		"bumpp": "^9.1.0",
 		"concurrently": "^8.0.1",
 		"eslint": "^8.38.0",
@@ -56,7 +56,7 @@
 		"jiti": "^1.18.2",
 		"prettier": "^2.8.7",
 		"ts-node": "^10.9.1",
-		"unbuild": "^1.2.0",
+		"unbuild": "^1.2.1",
 		"vitest": "^0.30.1"
 	},
 	"engines": {
