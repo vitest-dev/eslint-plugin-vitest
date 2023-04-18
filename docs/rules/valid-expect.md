@@ -3,6 +3,9 @@
 ⚠️ This rule _warns_ in the ✅ `recommended` config.
 
 <!-- end auto-generated rule header -->
+
+This rule triggers a warning if `expect` is called with no argument or with more than one argument. You change that behavior by setting the `minArgs` and `maxArgs` options.
+
 ### Options
 
 1. `alwaysAwait`
