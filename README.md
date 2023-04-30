@@ -87,7 +87,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [no-conditional-in-test](docs/rules/no-conditional-in-test.md)               | Disallow conditional tests                                               | 🌐 |    |    |
 | [no-conditional-tests](docs/rules/no-conditional-tests.md)                   | Disallow conditional tests                                               | 🌐 |    |    |
 | [no-disabled-tests](docs/rules/no-disabled-tests.md)                         | Disallow disabled tests                                                  | 🌐 |    |    |
-| [no-done-callback](docs/rules/no-done-callback.md)                           | Disallow using a callback in asynchrounous tests and hooks               | 🌐 |    | 💡 |
+| [no-done-callback](docs/rules/no-done-callback.md)                           | Disallow using a callback in asynchronous tests and hooks                | 🌐 |    | 💡 |
 | [no-duplicate-hooks](docs/rules/no-duplicate-hooks.md)                       | Disallow duplicate hooks and teardown hooks                              | 🌐 |    |    |
 | [no-focused-tests](docs/rules/no-focused-tests.md)                           | Disallow focused tests                                                   | 🌐 | 🔧 |    |
 | [no-hooks](docs/rules/no-hooks.md)                                           | Disallow setup and teardown hooks                                        | 🌐 |    |    |
