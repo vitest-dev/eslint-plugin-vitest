@@ -26,7 +26,7 @@ export default createEslintRule<Options, MessageIds>({
 	meta: {
 		type: 'suggestion',
 		docs: {
-			description: 'Disallow using a callback in asynchrounous tests and hooks',
+			description: 'Disallow using a callback in asynchronous tests and hooks',
 			recommended: 'error'
 		},
 		schema: [],
