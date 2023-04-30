@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { AccessorNode, createEslintRule, FunctionExpression, getAccessorValue, getNodeName, isFunction, isSupportedAccessor } from '../utils'
 
-export const RULE_NAME = 'preferMockPromiseShorthand'
+export const RULE_NAME = 'prefer-mock-promise-shorthand'
 type MESSAGE_IDS = 'useMockShorthand';
 type Options = [];
 

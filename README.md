@@ -108,6 +108,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [prefer-hooks-in-order](docs/rules/prefer-hooks-in-order.md)                 | Prefer having hooks in consistent order                                  | 🌐 |    |    |
 | [prefer-hooks-on-top](docs/rules/prefer-hooks-on-top.md)                     | Suggest having hooks before any test cases                               | 🌐 |    |    |
 | [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md)               | Enforce lowercase titles                                                 | 🌐 | 🔧 |    |
+| [prefer-mock-promise-shorthand](docs/rules/prefer-mock-promise-shorthand.md) | Prefer mock resolved/rejected shorthands for promises                    | 🌐 | 🔧 |    |
 | [prefer-snapshot-hint](docs/rules/prefer-snapshot-hint.md)                   | Prefer including a hint with external snapshots                          | 🌐 |    |    |
 | [prefer-spy-on](docs/rules/prefer-spy-on.md)                                 | Suggest using `vi.spyOn`                                                 | 🌐 | 🔧 |    |
 | [prefer-strict-equal](docs/rules/prefer-strict-equal.md)                     | Prefer strict equal over equal                                           | 🌐 |    | 💡 |
@@ -118,7 +119,6 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [prefer-to-contain](docs/rules/prefer-to-contain.md)                         | Prefer using toContain()                                                 | 🌐 | 🔧 |    |
 | [prefer-to-have-length](docs/rules/prefer-to-have-length.md)                 | Suggest using toHaveLength()                                             | 🌐 | 🔧 |    |
 | [prefer-todo](docs/rules/prefer-todo.md)                                     | Suggest using `test.todo`                                                | 🌐 | 🔧 |    |
-| [preferMockPromiseShorthand](docs/rules/preferMockPromiseShorthand.md)       | Prefer mock resolved/rejected shorthands for promises                    | 🌐 | 🔧 |    |
 | [require-hook](docs/rules/require-hook.md)                                   | Require setup and teardown to be within a hook                           | 🌐 |    |    |
 | [require-to-throw-message](docs/rules/require-to-throw-message.md)           | Require toThrow() to be called with an error message                     | 🌐 |    |    |
 | [require-top-level-describe](docs/rules/require-top-level-describe.md)       | Enforce that all tests are in a top-level describe                       | 🌐 |    |    |
