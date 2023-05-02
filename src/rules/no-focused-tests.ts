@@ -1,8 +1,17 @@
 import { createEslintRule } from '../utils'
+import { TSESTree } from '@typescript-eslint/utils'
 
 export type MessageIds = 'noFocusedTests'
 export const RULE_NAME = 'no-focused-tests'
 export type Options = [];
+
+const isTestOrDescribe = (node: TSESTree.Expression) => {
+  return node.type === 'Identifier' && ['it', 'test', 'describe'].includes(node.name)
+}
+
+const isOnly = (node: TSESTree.Expression|TSESTree.PrivateIdentifier) => {
+  return node.type === 'Identifier' && node.name === 'only'
+}
 
 export default createEslintRule<Options, MessageIds>({
   name: RULE_NAME,
@@ -26,11 +35,8 @@ export default createEslintRule<Options, MessageIds>({
           const { callee } = node.expression
           if (
             callee.type === 'MemberExpression' &&
-            callee.object.type === 'Identifier' &&
-            (callee.object.name === 'it' ||
-              callee.object.name === 'describe') &&
-            callee.property.type === 'Identifier' &&
-            callee.property.name === 'only'
+            isTestOrDescribe(callee.object) &&
+            isOnly(callee.property)
           ) {
             context.report({
               node: callee.property,
@@ -45,11 +51,8 @@ export default createEslintRule<Options, MessageIds>({
           if (
             subCallee.type === 'MemberExpression' &&
             subCallee.object.type === 'MemberExpression' &&
-            subCallee.object.object.type === 'Identifier' &&
-            (subCallee.object.object.name === 'it' ||
-              subCallee.object.object.name === 'describe') &&
-            subCallee.object.property.type === 'Identifier' &&
-            subCallee.object.property.name === 'only' &&
+            isTestOrDescribe(subCallee.object.object) &&
+            isOnly(subCallee.object.property) &&
             subCallee.property.type === 'Identifier' &&
             subCallee.property.name === 'each'
           ) {

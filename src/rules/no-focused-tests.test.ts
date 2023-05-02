@@ -5,7 +5,7 @@ import rule, { RULE_NAME } from './no-focused-tests'
 it(RULE_NAME, () => {
   const ruleTester: RuleTester = new RuleTester({
     parser: require.resolve('@typescript-eslint/parser')
-  })
+  });
 
   ruleTester.run(RULE_NAME, rule, {
     valid: ['it("test", () => {});', 'describe("test group", () => {});'],
@@ -36,6 +36,19 @@ it(RULE_NAME, () => {
           }
         ],
         output: 'describe.only("test", () => {});'
+      },
+      {
+        code: 'test.only("test", () => {});',
+        errors: [
+          {
+            column: 6,
+            endColumn: 10,
+            endLine: 1,
+            line: 1,
+            messageId: 'noFocusedTests'
+          }
+        ],
+        output: 'test.only("test", () => {});',
       },
       {
         code: 'it.only.each([])("test", () => {});',
