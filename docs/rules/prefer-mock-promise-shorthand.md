@@ -1,4 +1,4 @@
-# Prefer mock resolved/rejected shorthands for promises (`vitest/preferMockPromiseShorthand`)
+# Prefer mock resolved/rejected shorthands for promises (`vitest/prefer-mock-promise-shorthand`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
@@ -6,7 +6,7 @@
 
 <!-- end auto-generated rule header -->
 ```ts
-// bad 
+// bad
 vi.fn().mockReturnValue(Promise.reject(42))
 vi.fn().mockImplementation(() => Promise.resolve(42))
 
