@@ -43,21 +43,22 @@ export default createEslintRule<Options, MessageIds>({
               messageId: 'noFocusedTests'
             })
           }
-
-          if (callee.type !== 'CallExpression') return;
-
-          const subCallee = callee.callee
+        }
+      },
+      CallExpression(node) {
+        if (node.callee.type === "CallExpression") {
+          const { callee } = node.callee;
 
           if (
-            subCallee.type === 'MemberExpression' &&
-            subCallee.object.type === 'MemberExpression' &&
-            isTestOrDescribe(subCallee.object.object) &&
-            isOnly(subCallee.object.property) &&
-            subCallee.property.type === 'Identifier' &&
-            subCallee.property.name === 'each'
+            callee.type === 'MemberExpression' &&
+            callee.object.type === 'MemberExpression' &&
+            isTestOrDescribe(callee.object.object) &&
+            isOnly(callee.object.property) &&
+            callee.property.type === 'Identifier' &&
+            callee.property.name === 'each'
           ) {
             context.report({
-              node: subCallee.object.property,
+              node: callee.object.property,
               messageId: 'noFocusedTests'
             })
           }
