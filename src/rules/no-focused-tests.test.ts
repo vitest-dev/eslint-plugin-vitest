@@ -36,6 +36,32 @@ it(RULE_NAME, () => {
 					}
 				],
 				output: 'describe.only("test", () => {});'
+			},
+			{
+				code: 'test.only("test", () => {});',
+				errors: [
+					{
+						column: 6,
+						endColumn: 10,
+						endLine: 1,
+						line: 1,
+						messageId: 'noFocusedTests'
+					}
+				],
+				output: 'test.only("test", () => {});',
+			},
+			{
+				code: 'it.only.each([])("test", () => {});',
+				errors: [
+					{
+						column: 4,
+						endColumn: 8,
+						endLine: 1,
+						line: 1,
+						messageId: 'noFocusedTests',
+					},
+				],
+				output: 'it.only.each([])("test", () => {});',
 			}
 		]
 	})
