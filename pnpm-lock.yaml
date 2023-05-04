@@ -7,7 +7,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.59.2
   '@typescript-eslint/parser': ^5.59.2
   '@typescript-eslint/utils': ^5.59.2
-  '@veritem/eslint-config': ^0.0.9
+  '@veritem/eslint-config': ^0.0.10
   bumpp: ^9.1.0
   concurrently: ^8.0.1
   eslint: ^8.39.0
@@ -30,7 +30,7 @@ devDependencies:
   '@types/node': 18.16.3
   '@typescript-eslint/eslint-plugin': 5.59.2_5ctvjuzrzl5cflzanmsf6ac2ae
   '@typescript-eslint/parser': 5.59.2_eslint@8.39.0
-  '@veritem/eslint-config': 0.0.9_eslint@8.39.0
+  '@veritem/eslint-config': 0.0.10_eslint@8.39.0
   bumpp: 9.1.0
   concurrently: 8.0.1
   eslint: 8.39.0
@@ -919,8 +919,8 @@ packages:
       '@typescript-eslint/types': 5.59.2
       eslint-visitor-keys: 3.4.0
 
-  /@veritem/eslint-config-base/0.0.9_fuc7usqkxyvv7xufzddarmm234:
-    resolution: {integrity: sha512-J2maJgeO0t1U6oTvAo4byta8QUFOAthtYWvyM3PtilIOaYuxRtJUnsht7prOZc9+13TnZuCuNFnuhLhUeBI/PQ==}
+  /@veritem/eslint-config-base/0.0.10_fuc7usqkxyvv7xufzddarmm234:
+    resolution: {integrity: sha512-5OwWjNz5DIyhFQCYRWsep8QZp6y0ZK93PEK2kYjJSiX6D7LSIrShigXMlb2QBcnmsCNSRFEbS5iL1EeNjtzt1Q==}
     peerDependencies:
       typescript: '>=4.x'
     dependencies:
@@ -940,12 +940,12 @@ packages:
       - supports-color
     dev: true
 
-  /@veritem/eslint-config-react/0.0.9_eslint@8.39.0:
-    resolution: {integrity: sha512-RCYLaEZiYnZgE46MugkiZiWMCPtnliz3I/saBmZh9G8zVe0bZ/zhWPaBR/r6achiwvTvuZFG2N8ocThp1BLzvw==}
+  /@veritem/eslint-config-react/0.0.10_eslint@8.39.0:
+    resolution: {integrity: sha512-GgZxft4DeFZfNt4oxD5624iagZ6F18LTWnyO6yMyxhQCcILsxz5CVmiWZUqcJzGoeQTAgJJeYuH0y0LPVktJcg==}
     peerDependencies:
       eslint: '>=8.0.0'
     dependencies:
-      '@veritem/eslint-config-ts': 0.0.9_eslint@8.39.0
+      '@veritem/eslint-config-ts': 0.0.10_eslint@8.39.0
       eslint: 8.39.0
       eslint-plugin-jsx-a11y: 6.7.1_eslint@8.39.0
       eslint-plugin-react: 7.32.2_eslint@8.39.0
@@ -957,14 +957,14 @@ packages:
       - typescript
     dev: true
 
-  /@veritem/eslint-config-ts/0.0.9_eslint@8.39.0:
-    resolution: {integrity: sha512-z4HFejn76TLcg52ejqSBuYYe4AWCXD3hT18QMn3MBaE2PWBE5+qKOCUxYAmljQNrjkKrt0MLiWG8CoR/MtkdiA==}
+  /@veritem/eslint-config-ts/0.0.10_eslint@8.39.0:
+    resolution: {integrity: sha512-i7++8zzw8uYT7PmTbggOgVEUv9/FnepJBoFj+46TVxcFI9nIRDbnxcf4vEvpi1eWdk2sufPOqrpPfMmgKHVpVg==}
     peerDependencies:
       eslint: '>=8.0.0'
     dependencies:
       '@typescript-eslint/eslint-plugin': 5.59.2_5ctvjuzrzl5cflzanmsf6ac2ae
       '@typescript-eslint/parser': 5.59.2_eslint@8.39.0
-      '@veritem/eslint-config-base': 0.0.9_fuc7usqkxyvv7xufzddarmm234
+      '@veritem/eslint-config-base': 0.0.10_fuc7usqkxyvv7xufzddarmm234
       eslint: 8.39.0
       eslint-plugin-n: 15.7.0_eslint@8.39.0
     transitivePeerDependencies:
@@ -974,10 +974,10 @@ packages:
       - typescript
     dev: true
 
-  /@veritem/eslint-config/0.0.9_eslint@8.39.0:
-    resolution: {integrity: sha512-9WbNWgGqejYnkDMjPe7nDqb46meGQ/ZXIhLySa5wlyOD7iB/foxkq5419tuz/DQS5fnQ/8JLTh/V9OvuSHoEaQ==}
+  /@veritem/eslint-config/0.0.10_eslint@8.39.0:
+    resolution: {integrity: sha512-yyb6gdmLLHZplkhdEViDU3xi1TYFvj8yXN4vWJn5jKtNCCjcOAo38rqupG2v6CS/ja4xEEFDK3ixnojUgk6aeg==}
     dependencies:
-      '@veritem/eslint-config-react': 0.0.9_eslint@8.39.0
+      '@veritem/eslint-config-react': 0.0.10_eslint@8.39.0
     transitivePeerDependencies:
       - eslint
       - eslint-import-resolver-typescript

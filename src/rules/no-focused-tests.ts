@@ -1,5 +1,5 @@
-import { createEslintRule } from '../utils'
 import { TSESTree } from '@typescript-eslint/utils'
+import { createEslintRule } from '../utils'
 
 export type MessageIds = 'noFocusedTests';
 export const RULE_NAME = 'no-focused-tests'
@@ -46,8 +46,8 @@ export default createEslintRule<Options, MessageIds>({
 				}
 			},
 			CallExpression(node) {
-				if (node.callee.type === "CallExpression") {
-					const { callee } = node.callee;
+				if (node.callee.type === 'CallExpression') {
+					const { callee } = node.callee
 
 					if (
 						callee.type === 'MemberExpression' &&

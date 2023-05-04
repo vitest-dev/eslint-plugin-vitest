@@ -48,7 +48,7 @@ it(RULE_NAME, () => {
 						messageId: 'noFocusedTests'
 					}
 				],
-				output: 'test.only("test", () => {});',
+				output: 'test.only("test", () => {});'
 			},
 			{
 				code: 'it.only.each([])("test", () => {});',
@@ -58,10 +58,10 @@ it(RULE_NAME, () => {
 						endColumn: 8,
 						endLine: 1,
 						line: 1,
-						messageId: 'noFocusedTests',
-					},
+						messageId: 'noFocusedTests'
+					}
 				],
-				output: 'it.only.each([])("test", () => {});',
+				output: 'it.only.each([])("test", () => {});'
 			}
 		]
 	})
