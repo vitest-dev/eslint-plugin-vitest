@@ -105,13 +105,13 @@ const allRules = {
 }
 
 const recommended = {
-	[expectedExpect]: 'warn',
-	[noIdenticalTitleName]: 'warn',
-	[usePreferTobe]: 'warn',
-	[noCommentedOutTestsName]: 'warn',
-	[validTitleName]: 'warn',
-	[validExpectName]: 'warn',
-	[validDescribeCallbackName]: 'warn'
+	[expectedExpect]: 'error',
+	[noIdenticalTitleName]: 'error',
+	[usePreferTobe]: 'error',
+	[noCommentedOutTestsName]: 'error',
+	[validTitleName]: 'error',
+	[validExpectName]: 'error',
+	[validDescribeCallbackName]: 'error'
 }
 
 export default {
