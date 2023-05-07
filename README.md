@@ -54,6 +54,8 @@ To use the recommended configuration, extend it in your `.eslintrc` file:
 }
 ```
 
+All recommend rules will be set to error by default. You can however disable some rules by setting them to `off` in your `.eslintrc` file or by setting them to `warn` in your `.eslintrc` file.
+
 #### all
 
 To use the all configuration, extend it in your `.eslintrc` file:
