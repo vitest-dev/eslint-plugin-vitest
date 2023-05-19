@@ -34,35 +34,91 @@ describe(RULE_NAME, () => {
 					code: '// describe(\'foo\', function () {})\'',
 					errors: [
 						{
-							messageId: 'noCommentedOutTests'
+							messageId: 'noCommentedOutTests',
+							column: 1,
+							line: 1,
+							suggestions: [
+								{ messageId: 'addSkip', output: 'describe.skip(\'foo\', function () {})\'' }
+							]
 						}
 					]
 				},
 				{
 					code: '// test.concurrent("foo", function () {})',
-					errors: [{ messageId: 'noCommentedOutTests', column: 1, line: 1 }]
+					errors: [
+						{
+							messageId: 'noCommentedOutTests',
+							column: 1,
+							line: 1,
+							suggestions: [
+								{ messageId: 'addSkip', output: 'test.skip.concurrent("foo", function () {})' }
+							]
+						}
+					]
 				},
 				{
 					code: '// test["skip"]("foo", function () {})',
-					errors: [{ messageId: 'noCommentedOutTests', column: 1, line: 1 }]
+					errors: [
+						{
+							messageId: 'noCommentedOutTests',
+							column: 1,
+							line: 1,
+							suggestions: [
+								{ messageId: 'addSkip', output: 'test.skip["skip"]("foo", function () {})' }
+							]
+						}
+					]
 				},
 				{
 					code: '// xdescribe("foo", function () {})',
-					errors: [{ messageId: 'noCommentedOutTests', column: 1, line: 1 }]
+					errors: [
+						{
+							messageId: 'noCommentedOutTests',
+							column: 1,
+							line: 1,
+							suggestions: [
+								{ messageId: 'addSkip', output: 'xdescribe.skip("foo", function () {})' }
+							]
+						}
+					]
 				},
 				{
 					code: '// xit("foo", function () {})',
-					errors: [{ messageId: 'noCommentedOutTests', column: 1, line: 1 }]
+					errors: [
+						{
+							messageId: 'noCommentedOutTests',
+							column: 1,
+							line: 1,
+							suggestions: [
+								{ messageId: 'addSkip', output: 'xit.skip("foo", function () {})' }
+							]
+						}
+					]
 				},
 				{
 					code: '// fit("foo", function () {})',
-					errors: [{ messageId: 'noCommentedOutTests', column: 1, line: 1 }]
+					errors: [
+						{
+							messageId: 'noCommentedOutTests',
+							column: 1,
+							line: 1,
+							suggestions: [
+								{ messageId: 'addSkip', output: 'fit.skip("foo", function () {})' }
+							]
+						}
+					]
 				},
 				{
 					code: ` // test(
 						//   "foo", function () {}
 						// )`,
-					errors: [{ messageId: 'noCommentedOutTests', column: 2, line: 1 }]
+					errors: [
+						{
+							messageId: 'noCommentedOutTests',
+							column: 2,
+							line: 1
+						}
+					]
 				}
 			]
 		})
