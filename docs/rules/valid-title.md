@@ -19,7 +19,8 @@ This rule has an object option:
   "vitest/valid-title": [
 	"error",
    { 
-	"ignoreTypeOfDescribeName": false, 
+	"ignoreTypeOfDescribeName": false,
+  "allowArguments": false,
 	"disallowedWords": ["skip", "only"],
 	"mustNotMatch": ["^\\s+$", "^\\s*\\d+\\s*$"],
 	"mustMatch": ["^\\s*\\w+\\s*$"]
@@ -50,6 +51,22 @@ describe('1', () => {
 	expect(1).toBeNumber()
   })
 })
+```
+
+### `allowArguments`
+
+If `true`, the rule ignores the arguments of `describe` function.
+
+Examples of **correct** code for this rule with the `{ "allowArguments": false }` option:
+
+```js
+describe('name', () => {})
+```
+
+Examples of **correct** code for this rule with the `{ "allowArguments": true }` option:
+
+```js
+describe(foo, () => {})
 ```
 
 ### `disallowedWords`
