@@ -22,7 +22,7 @@ describe(RULE_NAME, () => {
 				'expect(fn).resolves.not.toHaveBeenCalledWith();',
 				'expect(fn).toBeCalledTimes(0);',
 				'expect(fn).toHaveBeenCalledTimes(0);',
-				'expect(fn);',
+				'expect(fn);'
 			],
 			invalid: [
 				{
