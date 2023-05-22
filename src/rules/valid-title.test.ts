@@ -99,6 +99,51 @@ describe(RULE_NAME, () => {
 		})
 	})
 
+	it(`${RULE_NAME} - support passing an argument as title`, () => {
+		ruleTester.run(RULE_NAME, rule, {
+			valid: [
+				{
+					code: 'it(foo, () => {});',
+					options: [
+						{
+							allowArguments: true
+						}
+					]
+				},
+				{
+					code: 'describe(bar, () => {});',
+					options: [
+						{
+							allowArguments: true
+						}
+					]
+				},
+				{
+					code: 'test(baz, () => {});',
+					options: [
+						{
+							allowArguments: true
+						}
+					]
+				}
+			],
+			invalid: [
+				{
+					code: 'test(bar, () => {});',
+					options: [{ allowArguments: false }],
+					errors: [
+						{
+							messageId: 'titleMustBeString',
+							data: { word: 'correct' },
+							column: 6,
+							line: 1
+						}
+					]
+				}
+			]
+		})
+	})
+
 	it(`${RULE_NAME} - mustMatch & mustNotMatch options`, () => {
 		ruleTester.run(RULE_NAME, rule, {
 			valid: [

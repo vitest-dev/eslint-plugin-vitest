@@ -39,6 +39,7 @@ const MatcherAndMessageSchema: JSONSchema.JSONSchema7 = {
 
 type Options = {
 	ignoreTypeOfDescribeName?: boolean;
+	allowArguments?: boolean;
 	disallowedWords?: string[];
 	mustNotMatch?:
 	| Partial<Record<MatcherGroups, string | MatcherAndMessage>>
@@ -119,6 +120,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 						type: 'boolean',
 						default: false
 					},
+					allowArguments: {
+						type: 'boolean',
+						default: false
+					},
 					disallowedWords: {
 						type: 'array',
 						items: { type: 'string' }
@@ -144,10 +149,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 		],
 		fixable: 'code'
 	},
-	defaultOptions: [{ ignoreTypeOfDescribeName: false, disallowedWords: [] }],
+	defaultOptions: [{ ignoreTypeOfDescribeName: false, allowArguments: false, disallowedWords: [] }],
 	create(context, [
 		{
 			ignoreTypeOfDescribeName,
+			allowArguments,
 			disallowedWords = [],
 			mustNotMatch,
 			mustMatch
@@ -166,7 +172,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
 				const [argument] = node.arguments
 
-				if (!argument) return
+				if (!argument || (allowArguments && argument.type === AST_NODE_TYPES.Identifier)) return
 
 				if (!isStringNode(argument)) {
 					if (argument.type === AST_NODE_TYPES.BinaryExpression &&
