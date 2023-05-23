@@ -41,6 +41,7 @@ export default createEslintRule<[
 		ignore: string[];
 		allowedPrefixes: string[];
 		ignoreTopLevelDescribe: boolean;
+		lowercaseFirstCharacterOnly: boolean;
 	}>
 ], MessageIds>({
 	name: RULE_NAME,
@@ -77,6 +78,10 @@ export default createEslintRule<[
 					ignoreTopLevelDescribe: {
 						type: 'boolean',
 						default: false
+					},
+					lowercaseFirstCharacterOnly: {
+						type: 'boolean',
+						default: true
 					}
 				},
 				additionalProperties: false
@@ -84,9 +89,9 @@ export default createEslintRule<[
 		]
 	},
 	defaultOptions: [
-		{ ignore: [], allowedPrefixes: [], ignoreTopLevelDescribe: false }
+		{ ignore: [], allowedPrefixes: [], ignoreTopLevelDescribe: false, lowercaseFirstCharacterOnly: true }
 	],
-	create: (context, [{ ignore = [], allowedPrefixes = [], ignoreTopLevelDescribe = [] }]) => {
+	create: (context, [{ ignore = [], allowedPrefixes = [], ignoreTopLevelDescribe = false, lowercaseFirstCharacterOnly = false }]) => {
 		const ignores = populateIgnores(ignore)
 		let numberOfDescribeBlocks = 0
 
@@ -117,10 +122,11 @@ export default createEslintRule<[
 
 				const firstCharacter = description.charAt(0)
 
-				if (!firstCharacter ||
-					firstCharacter === firstCharacter.toLowerCase() ||
-					ignores.includes(vitestFnCall.name as IgnorableFunctionExpressions))
-					return
+				if (
+					ignores.includes(vitestFnCall.name as IgnorableFunctionExpressions) ||
+					(lowercaseFirstCharacterOnly && (!firstCharacter || firstCharacter === firstCharacter.toLowerCase())) ||
+					(!lowercaseFirstCharacterOnly && description === description.toLowerCase())
+				)	return
 
 				context.report({
 					messageId: 'lowerCaseTitle',
@@ -138,7 +144,9 @@ export default createEslintRule<[
 							firstArgument.range[1] - 1
 						]
 
-						const newDescription = description.substring(0, 1).toLowerCase() + description.substring(1)
+						const newDescription = lowercaseFirstCharacterOnly
+							? description.substring(0, 1).toLowerCase() + description.substring(1)
+							: description.toLowerCase()
 
 						return [fixer.replaceTextRange(rangeIgnoreQuotes, newDescription)]
 					}

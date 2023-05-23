@@ -41,6 +41,21 @@ describe(RULE_NAME, () => {
 							}
 						}
 					]
+				},
+				{
+					code: 'test(`SFC Compile`, function () {})',
+					output: 'test(`sfc compile`, function () {})',
+					errors: [
+						{
+							messageId: 'lowerCaseTitle',
+							data: {
+								method: TestCaseName.test
+							}
+						}
+					],
+					options: [{
+						lowercaseFirstCharacterOnly: false
+					}]
 				}
 			]
 		})
