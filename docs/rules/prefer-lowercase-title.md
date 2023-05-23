@@ -11,7 +11,7 @@
 Examples of **incorrect** code for this rule:
 
 ```js
-test('IT WORKS', () => {
+test('It works', () => {
 	// ...
 })
 ```
@@ -52,6 +52,10 @@ test('it works', () => {
       "ignoreTopLevelDescribe":{
          "type":"boolean",
          "default":false
+      },
+      "lowercaseFirstCharacterOnly":{
+         "type":"boolean",
+         "default":true
       }
    },
    "additionalProperties":false
