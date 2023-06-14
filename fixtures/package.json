@@ -11,7 +11,7 @@
 	"author": "Makuza Mugabo Verite <mugaboverite@gmail.com> (https://veritem.me/)",
 	"license": "MIT",
 	"dependencies": {
-		"eslint-plugin-vitest": "^0.2.5",
+		"eslint-plugin-vitest": "^0.2.6",
 		"vitest": "^0.32.0"
 	},
 	"devDependencies": {

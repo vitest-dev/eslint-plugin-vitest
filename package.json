@@ -39,9 +39,9 @@
 	"devDependencies": {
 		"@babel/types": "^7.22.5",
 		"@types/mocha": "^10.0.1",
-		"@types/node": "^20.2.5",
-		"@typescript-eslint/eslint-plugin": "^5.59.9",
-		"@typescript-eslint/parser": "^5.59.9",
+		"@types/node": "^20.3.1",
+		"@typescript-eslint/eslint-plugin": "^5.59.11",
+		"@typescript-eslint/parser": "^5.59.11",
 		"@veritem/eslint-config": "^0.0.11",
 		"bumpp": "^9.1.1",
 		"concurrently": "^8.2.0",
@@ -63,6 +63,6 @@
 		"eslint": ">=8.0.0"
 	},
 	"dependencies": {
-		"@typescript-eslint/utils": "^5.59.9"
+		"@typescript-eslint/utils": "^5.59.11"
 	}
 }
