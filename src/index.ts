@@ -47,6 +47,7 @@ import preferTodo, { RULE_NAME as preferTodoName } from './rules/prefer-todo'
 import preferSpyOn, { RULE_NAME as preferSpyOnName } from './rules/prefer-spy-on'
 import preferComparisonMatcher, { RULE_NAME as preferComparisonMatcherName } from './rules/prefer-comparison-matcher'
 import preferToContain, { RULE_NAME as preferToContainName } from './rules/prefer-to-contain'
+import unboundMethod, { RULE_NAME as unboundMethodName } from './rules/unbound-method'
 
 const createConfig = (rules: Record<string, string>) => ({
 	plugins: ['vitest'],
@@ -100,7 +101,8 @@ const allRules = {
 	[preferTodoName]: 'warn',
 	[preferSpyOnName]: 'warn',
 	[preferComparisonMatcherName]: 'warn',
-	[preferToContainName]: 'warn'
+	[preferToContainName]: 'warn',
+	[unboundMethodName]: 'warn'
 }
 
 const recommended = {
@@ -163,7 +165,8 @@ export default {
 		[preferTodoName]: preferTodo,
 		[preferSpyOnName]: preferSpyOn,
 		[preferComparisonMatcherName]: preferComparisonMatcher,
-		[preferToContainName]: preferToContain
+		[preferToContainName]: preferToContain,
+		[unboundMethodName]: unboundMethod
 	},
 	configs: {
 		all: createConfig(allRules),
