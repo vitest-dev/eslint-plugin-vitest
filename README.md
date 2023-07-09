@@ -103,7 +103,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 | [no-standalone-expect](docs/rules/no-standalone-expect.md)                   | Disallow using `expect` outside of `it` or `test` blocks                 |    | 🌐 |    |    |
 | [no-test-prefixes](docs/rules/no-test-prefixes.md)                           | Disallow using `test` as a prefix                                        |    | 🌐 | 🔧 |    |
 | [no-test-return-statement](docs/rules/no-test-return-statement.md)           | Disallow return statements in tests                                      |    | 🌐 |    |    |
-| [prefer-called-with](docs/rules/prefer-called-with.md)                       | Suggest using `toBeCalledWith()` or `toHaveBeenCalledWith()`             |    | 🌐 |    |    |
+| [prefer-called-with](docs/rules/prefer-called-with.md)                       | Suggest using `toBeCalledWith()` or `toHaveBeenCalledWith()`             |    | 🌐 | 🔧 |    |
 | [prefer-comparison-matcher](docs/rules/prefer-comparison-matcher.md)         | Suggest using the built-in comparison matchers                           |    | 🌐 | 🔧 |    |
 | [prefer-each](docs/rules/prefer-each.md)                                     | Prefer `each` rather than manual loops                                   |    | 🌐 |    |    |
 | [prefer-equality-matcher](docs/rules/prefer-equality-matcher.md)             | Suggest using the built-in quality matchers                              |    | 🌐 |    | 💡 |

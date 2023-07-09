@@ -34,7 +34,8 @@ describe(RULE_NAME, () => {
 							column: 12,
 							line: 1
 						}
-					]
+					],
+					output: 'expect(fn).toBeCalledWith();'
 				},
 				{
 					code: 'expect(fn).resolves.toBeCalled();',
@@ -45,7 +46,8 @@ describe(RULE_NAME, () => {
 							column: 21,
 							line: 1
 						}
-					]
+					],
+					output: 'expect(fn).resolves.toBeCalledWith();'
 				},
 				{
 					code: 'expect(fn).toHaveBeenCalled();',
@@ -56,21 +58,20 @@ describe(RULE_NAME, () => {
 							column: 12,
 							line: 1
 						}
-					]
+					],
+					output: 'expect(fn).toHaveBeenCalledWith();'
 				},
 				{
-					code: `it("some test", () => {
-						// I expect the suggestion (prefer toHaveBeenCalledOnceWith)
-						expect(mockApi).toHaveBeenCalledOnce(); 
-					  });`,
+					code: 'it("some test", () => {expect(mockApi).toHaveBeenCalledOnce();});',
 					errors: [
 						{
 							messageId: 'preferCalledWith',
 							data: { matcherName: 'toHaveBeenCalledOnce' },
-							column: 23,
-							line: 3
+							column: 40,
+							line: 1
 						}
-					]
+					],
+					output: 'it("some test", () => {expect(mockApi).toHaveBeenCalledOnceWith();});'
 				}
 			]
 		})
