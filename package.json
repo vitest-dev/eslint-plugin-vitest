@@ -68,8 +68,11 @@
 		"vitest": "*"
 	},
 	"peerDependenciesMeta": {
-		"vite": {
+		"@typescript-eslint/eslint-plugin": {
 			"optional": true
+		},
+		"vitest": {
+			"vitest": "*"
 		}
 	},
 	"dependencies": {
