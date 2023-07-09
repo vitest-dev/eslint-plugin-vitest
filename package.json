@@ -39,22 +39,22 @@
 	"devDependencies": {
 		"@babel/types": "^7.22.5",
 		"@types/mocha": "^10.0.1",
-		"@types/node": "^20.3.1",
-		"@typescript-eslint/eslint-plugin": "^5.60.0",
-		"@typescript-eslint/parser": "^5.60.0",
+		"@types/node": "^20.4.1",
+		"@typescript-eslint/eslint-plugin": "^5.61.0",
+		"@typescript-eslint/parser": "^5.61.0",
 		"@veritem/eslint-config": "^0.0.11",
 		"bumpp": "^9.1.1",
 		"concurrently": "^8.2.0",
-		"eslint": "^8.43.0",
+		"eslint": "^8.44.0",
 		"eslint-doc-generator": "^1.4.3",
 		"eslint-plugin-eslint-plugin": "^5.1.0",
 		"eslint-plugin-node": "^11.1.0",
 		"eslint-remote-tester": "^3.0.0",
 		"eslint-remote-tester-repositories": "^1.0.1",
-		"jiti": "^1.18.2",
+		"jiti": "^1.19.1",
 		"ts-node": "^10.9.1",
 		"unbuild": "^1.2.1",
-		"vitest": "^0.32.2"
+		"vitest": "^0.33.0"
 	},
 	"engines": {
 		"node": "14.x || >= 16"
@@ -63,6 +63,6 @@
 		"eslint": ">=8.0.0"
 	},
 	"dependencies": {
-		"@typescript-eslint/utils": "^5.60.0"
+		"@typescript-eslint/utils": "^5.61.0"
 	}
 }
