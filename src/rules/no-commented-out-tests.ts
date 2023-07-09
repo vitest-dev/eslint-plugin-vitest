@@ -6,9 +6,7 @@ export type MESSAGE_IDS = 'noCommentedOutTests';
 export type Options = [];
 
 function hasTests(node: TSESTree.Comment) {
-	return /^\s*[xf]?(test|it|describe)(\.\w+|\[['"]\w+['"]\])?\s*\(/mu.test(
-		node.value
-	)
+	return /^\s*[xf]?(test|it|describe)(\.\w+|\[['"]\w+['"]\])?\s*\(/mu.test(node.value)
 }
 
 export default createEslintRule<Options, MESSAGE_IDS>({
@@ -20,7 +18,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 			recommended: 'warn'
 		},
 		messages: {
-			noCommentedOutTests: 'Remove commented out tests'
+			noCommentedOutTests: 'Remove commented out tests. You may want to use `skip` or `only` instead.'
 		},
 		schema: [],
 		type: 'suggestion'
