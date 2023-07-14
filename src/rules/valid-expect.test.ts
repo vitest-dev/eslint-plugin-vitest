@@ -2,8 +2,8 @@ import { describe, test } from 'vitest'
 import { ruleTester } from '../utils/test'
 import rule, { RULE_NAME } from './valid-expect'
 
-describe(RULE_NAME, () => {
-  test(RULE_NAME + ' in promise', () => {
+//describe(RULE_NAME, () => {
+//  test(RULE_NAME + ' in promise', () => {
     ruleTester.run(RULE_NAME, rule, {
       valid: [
         'expect.hasAssertions',
@@ -849,5 +849,5 @@ describe(RULE_NAME, () => {
         }
       ]
     })
-  })
-})
+//  })
+//})
