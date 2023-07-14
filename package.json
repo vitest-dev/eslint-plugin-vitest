@@ -11,8 +11,7 @@
 		"vitest eslint plugin",
 		"vitest eslint"
 	],
-	"type": "commonjs",
-	"author": "Verite Mugabo Makuza <https://veritem.me/>",
+	"author": "Verite Mugabo Makuza <https://veritemugabo.com/>",
 	"main": "./dist/index.cjs",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",

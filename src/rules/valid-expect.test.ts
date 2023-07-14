@@ -1,8 +1,7 @@
-import { describe, test } from 'vitest'
 import { ruleTester } from '../utils/test'
 import rule, { RULE_NAME } from './valid-expect'
 
-//describe(RULE_NAME, () => {
+// describe(RULE_NAME, () => {
 //  test(RULE_NAME + ' in promise', () => {
     ruleTester.run(RULE_NAME, rule, {
       valid: [
@@ -850,4 +849,4 @@ import rule, { RULE_NAME } from './valid-expect'
       ]
     })
 //  })
-//})
+// })
