@@ -39,9 +39,10 @@
 	"devDependencies": {
 		"@babel/types": "^7.22.5",
 		"@types/mocha": "^10.0.1",
-		"@types/node": "^20.4.1",
-		"@typescript-eslint/eslint-plugin": "^5.61.0",
-		"@typescript-eslint/parser": "^5.61.0",
+		"@types/node": "^20.4.2",
+		"@typescript-eslint/eslint-plugin": "^6.0.0",
+		"@typescript-eslint/parser": "^6.0.0",
+		"@typescript-eslint/rule-tester": "^6.0.0",
 		"@veritem/eslint-config": "^0.0.11",
 		"bumpp": "^9.1.1",
 		"concurrently": "^8.2.0",
@@ -60,9 +61,15 @@
 		"node": "14.x || >= 16"
 	},
 	"peerDependencies": {
-		"eslint": ">=8.0.0"
+		"eslint": ">=8.0.0",
+		"vitest": "*"
+	},
+	"peerDependenciesMeta": {
+		"vite": {
+			"optional": true
+		}
 	},
 	"dependencies": {
-		"@typescript-eslint/utils": "^5.61.0"
+		"@typescript-eslint/utils": "^6.0.0"
 	}
 }
