@@ -68,11 +68,32 @@
 		"vitest": "*"
 	},
 	"peerDependenciesMeta": {
+<<<<<<< HEAD
 		"@typescript-eslint/eslint-plugin": {
 			"optional": true
 		},
 		"vitest": {
 			"vitest": "*"
+=======
+		"vite": {
+			"@typescript-eslint/eslint-plugin": ">=5.0.0 || >=6.0.0"
+		},
+		"peerDependenciesMeta": {
+			"@typescript-eslint/eslint-plugin": {
+				"optional": true
+			},
+			"vitest": {
+				"vitest": "*"
+			},
+			"peerDependenciesMeta": {
+				"vite": {
+					"optional": true
+				}
+			},
+			"dependencies": {
+				"@typescript-eslint/utils": "^6.4.0"
+			}
+>>>>>>> 827449e (chore: merge things)
 		}
 	}
 }
