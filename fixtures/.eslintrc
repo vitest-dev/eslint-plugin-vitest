@@ -3,6 +3,6 @@
 		"vitest"
 	],
 	"rules": {
-		"vitest/expect-expect": "error",
+		"vitest/expect-expect": "error"
 	}
 }

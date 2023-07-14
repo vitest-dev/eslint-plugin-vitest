@@ -1,12 +1,8 @@
-import { RuleTester } from '@typescript-eslint/utils/dist/ts-eslint'
 import { describe, it } from 'vitest'
+import { ruleTester } from '../utils/test'
 import rule, { RULE_NAME } from './consistent-test-filename'
 
 describe(RULE_NAME, () => {
-  const ruleTester = new RuleTester({
-    parser: require.resolve('@typescript-eslint/parser')
-  })
-
   it(`${RULE_NAME}`, () => {
     ruleTester.run(RULE_NAME, rule, {
       valid: [

@@ -1,32 +1,27 @@
-import { RuleTester } from '@typescript-eslint/utils/dist/ts-eslint'
-import { it } from 'vitest'
+import { describe, it } from 'vitest'
+import { ruleTester } from '../utils/test'
 import rule, { RULE_NAME } from './no-identical-title'
 
-it('no identical title', () => {
-	const ruleTester = new RuleTester({
-		parser: require.resolve('@typescript-eslint/parser')
-	})
-
-	ruleTester.run(RULE_NAME, rule, {
-		valid: [
-			'it(); it();',
-			'test("two", () => {});'
-		],
-		invalid: [
+describe(RULE_NAME, () => {
+	it('no identical title', () => {
+		ruleTester.run(RULE_NAME, rule, {
+			valid: ['it(); it();', 'test("two", () => {});'],
+			invalid: [
 			{
 				code: `describe('foo', () => {
-					it('works', () => {});
-					it('works', () => {});
-				  });`,
+						  it('works', () => {});
+						  it('works', () => {});
+						});`,
 				errors: [{ messageId: 'multipleTestTitle' }]
 			},
 			{
 				code: `xdescribe('foo', () => {
-					it('works', () => {});
-					it('works', () => {});
-				});`,
+						  it('works', () => {});
+						  it('works', () => {});
+					  });`,
 				errors: [{ messageId: 'multipleTestTitle' }]
 			}
 		]
+		})
 	})
 })

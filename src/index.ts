@@ -99,7 +99,6 @@ const allRules = {
 	[requireHookName]: 'warn',
 	[preferTodoName]: 'warn',
 	[preferSpyOnName]: 'warn',
-	[preferTodoName]: 'warn',
 	[preferComparisonMatcherName]: 'warn',
 	[preferToContainName]: 'warn'
 }
@@ -163,7 +162,6 @@ export default {
 		[requireHookName]: requireHook,
 		[preferTodoName]: preferTodo,
 		[preferSpyOnName]: preferSpyOn,
-		[preferTodoName]: preferTodo,
 		[preferComparisonMatcherName]: preferComparisonMatcher,
 		[preferToContainName]: preferToContain
 	},
