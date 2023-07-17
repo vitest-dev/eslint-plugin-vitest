@@ -1,15 +1,24 @@
-import { ESLintUtils } from "@typescript-eslint/utils";
-import unboundMethod from "./unbound-method";
+import path from 'node:path'
+import { RuleTester } from '@typescript-eslint/rule-tester'
+import { afterAll, describe, it } from 'vitest'
+import unboundMethod from './unbound-method'
 
-const ruleTester = new ESLintUtils.RuleTester({
-  parser: "@typescript-eslint/parser",
+RuleTester.afterAll = afterAll
+RuleTester.describe = describe
+RuleTester.it = it
+
+const rootPath = path.join(__dirname, 'fixtures')
+
+const ruleTester = new RuleTester({
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    sourceType: "module",
-    project: "./tsconfig.json",
-  },
-});
+	tsconfigRootDir: rootPath,
+	project: './tsconfig.json',
+	sourceType: 'module'
+  }
+})
 
-ruleTester.run("unbound-method", unboundMethod, {
+ruleTester.run('unbound-method', unboundMethod, {
   valid: [
     `class MyClass {
 		public logArrowBound = (): void => {
@@ -26,7 +35,7 @@ ruleTester.run("unbound-method", unboundMethod, {
 	const logManualBind = instance.logManualBind.bind(instance);
 	
 	logArrowBound();
-	logManualBind();`,
+	logManualBind();`
   ],
-  invalid: [],
-});
+  invalid: []
+})

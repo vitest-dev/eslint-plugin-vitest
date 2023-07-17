@@ -65,11 +65,7 @@
 	},
 	"peerDependencies": {
 		"eslint": ">=8.0.0",
-<<<<<<< HEAD
 		"vitest": "*"
-=======
-		"@typescript-eslint/eslint-plugin": ">=5.0.0 || >=6.0.0"
->>>>>>> 44b3623 (chore: merge things)
 	},
 	"peerDependenciesMeta": {
 		"vite": {
