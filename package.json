@@ -35,6 +35,7 @@
 		"stub": "unbuild --stub",
 		"test:ci": "vitest run",
 		"test": "vitest",
+		"generate": "tsx scripts/generate.ts",
 		"update:eslint-docs": "pnpm build && eslint-doc-generator"
 	},
 	"devDependencies": {
@@ -55,6 +56,7 @@
 		"eslint-remote-tester-repositories": "^1.0.1",
 		"jiti": "^1.19.1",
 		"ts-node": "^10.9.1",
+		"tsx": "^3.12.7",
 		"unbuild": "^1.2.1",
 		"vitest": "^0.33.0"
 	},
