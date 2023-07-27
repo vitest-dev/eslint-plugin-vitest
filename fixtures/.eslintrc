@@ -1,8 +1,0 @@
-{
-	"plugins": [
-		"vitest"
-	],
-	"rules": {
-		"vitest/expect-expect": "error"
-	}
-}

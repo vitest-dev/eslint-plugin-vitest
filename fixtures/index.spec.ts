@@ -1,8 +1,7 @@
 import { describe, expect, test } from 'vitest'
 
 describe('foo', () => {
-	test('foo', () => {
-		expect(true).toBe(true)
+	test('mdmdms', () => {
 	})
 
 	test('foo', () => {

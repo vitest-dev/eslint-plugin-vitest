@@ -12,7 +12,7 @@ import consistentTestFilename, { RULE_NAME as useConsistentTestFilename } from '
 import maxExpect, { RULE_NAME as maxExpectName } from './rules/max-expects'
 import noAliasMethod, { RULE_NAME as noAliasMethodName } from './rules/no-alias-methods'
 import noCommentedOutTests, { RULE_NAME as noCommentedOutTestsName } from './rules/no-commented-out-tests'
-import noConditonalExpect, { RULE_NAME as noConditonalExpectName } from './rules/no-conditional-expect'
+import noConditonalExpect, { RULE_NAME as noConditionalExpectName } from './rules/no-conditional-expect'
 import noConditionalInTest, { RULE_NAME as noConditionalInTestName } from './rules/no-conditional-in-test'
 import noDisabledTests, { RULE_NAME as noDisabledTestsName } from './rules/no-disabled-tests'
 import noDoneCallback, { RULE_NAME as noDoneCallbackName } from './rules/no-done-callback'
@@ -48,15 +48,13 @@ import preferSpyOn, { RULE_NAME as preferSpyOnName } from './rules/prefer-spy-on
 import preferComparisonMatcher, { RULE_NAME as preferComparisonMatcherName } from './rules/prefer-comparison-matcher'
 import preferToContain, { RULE_NAME as preferToContainName } from './rules/prefer-to-contain'
 
-const createConfig = (rules: Record<string, string>) => ({
-	plugins: ['vitest'],
-	rules: Object.keys(rules).reduce((acc, ruleName) => {
+const createConfig = (rules: Record<string, string>) =>
+	Object.keys(rules).reduce((acc, ruleName) => {
 		return {
 			...acc,
 			[`vitest/${ruleName}`]: rules[ruleName]
 		}
 	}, {})
-})
 
 const allRules = {
 	[lowerCaseTitleName]: 'warn',
@@ -69,7 +67,7 @@ const allRules = {
 	[useConsistentTestFilename]: 'warn',
 	[maxExpectName]: 'warn',
 	[noAliasMethodName]: 'warn',
-	[noConditonalExpectName]: 'warn',
+	[noConditionalExpectName]: 'warn',
 	[noConditionalInTestName]: 'warn',
 	[noDisabledTestsName]: 'warn',
 	[noDoneCallbackName]: 'warn',
@@ -113,61 +111,73 @@ const recommended = {
 	[validDescribeCallbackName]: 'error'
 }
 
+const rules = {
+	[lowerCaseTitleName]: lowerCaseTitle,
+	[maxNestedDescribeName]: maxNestedDescribe,
+	[noIdenticalTitleName]: noIdenticalTitle,
+	[noFocusedTestsName]: noFocusedTests,
+	[noConditionalTests]: noConditionalTest,
+	[expectedExpect]: expectExpect,
+	[useConsistentTestIt]: consistentTestIt,
+	[usePreferTobe]: preferToBe,
+	[noHooksName]: noHooks,
+	[noRestrictedViMethodsName]: noRestrictedViMethods,
+	[useConsistentTestFilename]: consistentTestFilename,
+	[maxExpectName]: maxExpect,
+	[noAliasMethodName]: noAliasMethod,
+	[noCommentedOutTestsName]: noCommentedOutTests,
+	[noConditionalExpectName]: noConditonalExpect,
+	[noConditionalInTestName]: noConditionalInTest,
+	[noDisabledTestsName]: noDisabledTests,
+	[noDoneCallbackName]: noDoneCallback,
+	[noDuplicateHooksName]: noDuplicateHooks,
+	[noLargeSnapShotsName]: noLargeSnapshots,
+	[noInterpolationInSnapshotsName]: nonInterpolationInSnapShots,
+	[noMocksImportName]: noMocksImport,
+	[noRestrictedMatchersName]: noRestrictedMatchers,
+	[noStandaloneExpectName]: noStandaloneExpect,
+	[noTestPrefixesName]: noTestPrefixes,
+	[noTestReturnStatementName]: noTestReturnStatement,
+	[preferCalledWithName]: preferCalledWith,
+	[validTitleName]: validTitle,
+	[validExpectName]: validExpect,
+	[preferToBeFalsyName]: preferToBeFalsy,
+	[preferToBeObjectName]: preferToBeObject,
+	[preferToBeTruthyName]: preferToBeTruthy,
+	[preferToHaveLengthName]: preferToHaveLength,
+	[preferEqualityMatcherName]: preferEqualityMatcher,
+	[preferStrictEqualName]: preferStrictEqual,
+	[preferExpectResolvesName]: preferExpectResolves,
+	[preferEachName]: preferEach,
+	[preferHooksOnTopName]: preferHooksOnTop,
+	[preferHooksInOrderName]: preferHooksInOrder,
+	[preferMockPromiseShortHandName]: preferMockPromiseShorthand,
+	[preferSnapshotHintName]: preferSnapshotHint,
+	[validDescribeCallbackName]: validDescribeCallback,
+	[requireTopLevelDescribeName]: requireTopLevelDescribe,
+	[requireToThrowMessageName]: requireToThrowMessage,
+	[requireHookName]: requireHook,
+	[preferTodoName]: preferTodo,
+	[preferSpyOnName]: preferSpyOn,
+	[preferComparisonMatcherName]: preferComparisonMatcher,
+	[preferToContainName]: preferToContain
+}
+
 export default {
-	rules: {
-		[lowerCaseTitleName]: lowerCaseTitle,
-		[maxNestedDescribeName]: maxNestedDescribe,
-		[noIdenticalTitleName]: noIdenticalTitle,
-		[noFocusedTestsName]: noFocusedTests,
-		[noConditionalTests]: noConditionalTest,
-		[expectedExpect]: expectExpect,
-		[useConsistentTestIt]: consistentTestIt,
-		[usePreferTobe]: preferToBe,
-		[noHooksName]: noHooks,
-		[noRestrictedViMethodsName]: noRestrictedViMethods,
-		[useConsistentTestFilename]: consistentTestFilename,
-		[maxExpectName]: maxExpect,
-		[noAliasMethodName]: noAliasMethod,
-		[noCommentedOutTestsName]: noCommentedOutTests,
-		[noConditonalExpectName]: noConditonalExpect,
-		[noConditionalInTestName]: noConditionalInTest,
-		[noDisabledTestsName]: noDisabledTests,
-		[noDoneCallbackName]: noDoneCallback,
-		[noDuplicateHooksName]: noDuplicateHooks,
-		[noLargeSnapShotsName]: noLargeSnapshots,
-		[noInterpolationInSnapshotsName]: nonInterpolationInSnapShots,
-		[noMocksImportName]: noMocksImport,
-		[noRestrictedMatchersName]: noRestrictedMatchers,
-		[noStandaloneExpectName]: noStandaloneExpect,
-		[noTestPrefixesName]: noTestPrefixes,
-		[noTestReturnStatementName]: noTestReturnStatement,
-		[preferCalledWithName]: preferCalledWith,
-		[validTitleName]: validTitle,
-		[validExpectName]: validExpect,
-		[preferToBeFalsyName]: preferToBeFalsy,
-		[preferToBeObjectName]: preferToBeObject,
-		[preferToBeTruthyName]: preferToBeTruthy,
-		[preferToHaveLengthName]: preferToHaveLength,
-		[preferEqualityMatcherName]: preferEqualityMatcher,
-		[preferStrictEqualName]: preferStrictEqual,
-		[preferExpectResolvesName]: preferExpectResolves,
-		[preferEachName]: preferEach,
-		[preferHooksOnTopName]: preferHooksOnTop,
-		[preferHooksInOrderName]: preferHooksInOrder,
-		[preferMockPromiseShortHandName]: preferMockPromiseShorthand,
-		[preferSnapshotHintName]: preferSnapshotHint,
-		[validDescribeCallbackName]: validDescribeCallback,
-		[requireTopLevelDescribeName]: requireTopLevelDescribe,
-		[requireToThrowMessageName]: requireToThrowMessage,
-		[requireHookName]: requireHook,
-		[preferTodoName]: preferTodo,
-		[preferSpyOnName]: preferSpyOn,
-		[preferComparisonMatcherName]: preferComparisonMatcher,
-		[preferToContainName]: preferToContain
-	},
+	rules,
 	configs: {
-		all: createConfig(allRules),
-		recommended: createConfig(recommended)
+		all: {
+			plugins: {
+				vitest: createConfig(allRules)
+			},
+			...createConfig(allRules)
+		},
+		recommended: {
+			plugins: {
+				vitest: createConfig(recommended)
+			},
+			...createConfig(recommended)
+		}
 	},
 	environments: {
 		env: {
