@@ -1,11 +1,6 @@
 import { describe, test } from 'vitest'
-<<<<<<< HEAD:tests/prefer-todo.test.ts
 import rule, { RULE_NAME } from '../src/rules/prefer-todo'
 import { ruleTester } from './ruleTester'
-=======
-import { ruleTester } from '../utils/test'
-import rule, { RULE_NAME } from './prefer-todo'
->>>>>>> 0b9528e (chore: update):src/rules/prefer-todo.test.ts
 
 describe(RULE_NAME, () => {
 	test(RULE_NAME, () => {

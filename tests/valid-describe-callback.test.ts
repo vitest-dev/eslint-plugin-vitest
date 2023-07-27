@@ -1,11 +1,6 @@
 import { describe, it } from 'vitest'
-<<<<<<< HEAD:tests/valid-describe-callback.test.ts
 import rule, { RULE_NAME } from '../src/rules/valid-describe-callback'
 import { ruleTester } from './ruleTester'
-=======
-import { ruleTester } from '../utils/test'
-import rule, { RULE_NAME } from './valid-describe-callback'
->>>>>>> 0b9528e (chore: update):src/rules/valid-describe-callback.test.ts
 
 describe(RULE_NAME, () => {
 	it(RULE_NAME, () => {

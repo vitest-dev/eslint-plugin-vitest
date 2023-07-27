@@ -41,10 +41,10 @@
 	"devDependencies": {
 		"@babel/types": "^7.22.10",
 		"@types/mocha": "^10.0.1",
-		"@types/node": "^20.4.5",
-		"@typescript-eslint/rule-tester": "^6.2.0",
-		"@typescript-eslint/eslint-plugin": "^6.0.0",
-		"@typescript-eslint/parser": "^6.0.0",
+		"@types/node": "^20.4.4",
+		"@typescript-eslint/eslint-plugin": "^6.1.0",
+		"@typescript-eslint/parser": "^6.1.0",
+		"@typescript-eslint/rule-tester": "^6.1.0",
 		"@veritem/eslint-config": "^0.0.11",
 		"bumpp": "^9.2.0",
 		"concurrently": "^8.2.0",
@@ -68,32 +68,14 @@
 		"vitest": "*"
 	},
 	"peerDependenciesMeta": {
-<<<<<<< HEAD
 		"@typescript-eslint/eslint-plugin": {
 			"optional": true
 		},
 		"vitest": {
 			"vitest": "*"
-=======
-		"vite": {
-			"@typescript-eslint/eslint-plugin": ">=5.0.0 || >=6.0.0"
-		},
-		"peerDependenciesMeta": {
-			"@typescript-eslint/eslint-plugin": {
-				"optional": true
-			},
-			"vitest": {
-				"vitest": "*"
-			},
-			"peerDependenciesMeta": {
-				"vite": {
-					"optional": true
-				}
-			},
-			"dependencies": {
-				"@typescript-eslint/utils": "^6.4.0"
-			}
->>>>>>> 827449e (chore: merge things)
 		}
+	},
+	"dependencies": {
+		"@typescript-eslint/utils": "^6.2.0"
 	}
 }

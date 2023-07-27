@@ -1,11 +1,6 @@
 import { describe, test } from 'vitest'
-<<<<<<< HEAD:tests/require-hook.test.ts
 import rule, { RULE_NAME } from '../src/rules/require-hook'
 import { ruleTester } from './ruleTester'
-=======
-import { ruleTester } from '../utils/test'
-import rule, { RULE_NAME } from './require-hook'
->>>>>>> 0b9528e (chore: update):src/rules/require-hook.test.ts
 
 describe(RULE_NAME, () => {
 	test(RULE_NAME, () => {

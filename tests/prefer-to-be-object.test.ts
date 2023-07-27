@@ -1,11 +1,6 @@
 import { test, describe } from 'vitest'
-<<<<<<< HEAD:tests/prefer-to-be-object.test.ts
 import rule, { RULE_NAME } from '../src/rules/prefer-to-be-object'
 import { ruleTester } from './ruleTester'
-=======
-import { ruleTester } from '../utils/test'
-import rule, { RULE_NAME } from './prefer-to-be-object'
->>>>>>> 0b9528e (chore: update):src/rules/prefer-to-be-object.test.ts
 
 const messageId = 'preferToBeObject'
 

@@ -1,11 +1,6 @@
 import { describe, it } from 'vitest'
-<<<<<<< HEAD:tests/prefer-snapshot-hint.test.ts
 import rule, { RULE_NAME } from '../src/rules/prefer-snapshot-hint'
 import { ruleTester } from './ruleTester'
-=======
-import { ruleTester } from '../utils/test'
-import rule, { RULE_NAME } from './prefer-snapshot-hint'
->>>>>>> 0b9528e (chore: update):src/rules/prefer-snapshot-hint.test.ts
 
 describe(RULE_NAME, () => {
 	it(`${RULE_NAME} (always)`, () => {

@@ -1,11 +1,6 @@
 import { describe, test } from 'vitest'
-<<<<<<< HEAD:tests/prefer-hooks-on-top.test.ts
 import rule, { RULE_NAME } from '../src/rules/prefer-hooks-on-top'
 import { ruleTester } from './ruleTester'
-=======
-import { ruleTester } from '../utils/test'
-import rule, { RULE_NAME } from './prefer-hooks-on-top'
->>>>>>> 0b9528e (chore: update):src/rules/prefer-hooks-on-top.test.ts
 
 describe(RULE_NAME, () => {
 	test(RULE_NAME, () => {

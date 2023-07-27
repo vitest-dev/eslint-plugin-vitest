@@ -1,11 +1,6 @@
 import { test, describe } from 'vitest'
-<<<<<<< HEAD:tests/prefer-to-have-length.test.ts
 import rule, { RULE_NAME } from '../src/rules/prefer-to-have-length'
 import { ruleTester } from './ruleTester'
-=======
-import { ruleTester } from '../utils/test'
-import rule, { RULE_NAME } from './prefer-to-have-length'
->>>>>>> 0b9528e (chore: update):src/rules/prefer-to-have-length.test.ts
 
 const messageId = 'preferToHaveLength'
 

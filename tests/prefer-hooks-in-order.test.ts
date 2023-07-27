@@ -1,11 +1,6 @@
 import { describe, it } from 'vitest'
-<<<<<<< HEAD:tests/prefer-hooks-in-order.test.ts
 import rule, { RULE_NAME } from '../src/rules/prefer-hooks-in-order'
 import { ruleTester } from './ruleTester'
-=======
-import { ruleTester } from '../utils/test'
-import rule, { RULE_NAME } from './prefer-hooks-in-order'
->>>>>>> 0b9528e (chore: update):src/rules/prefer-hooks-in-order.test.ts
 
 describe(RULE_NAME, () => {
 	it(RULE_NAME, () => {

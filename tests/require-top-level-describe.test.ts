@@ -1,11 +1,6 @@
 import { describe, test } from 'vitest'
-<<<<<<< HEAD:tests/require-top-level-describe.test.ts
 import rule, { RULE_NAME } from '../src/rules/require-top-level-describe'
 import { ruleTester } from './ruleTester'
-=======
-import { ruleTester } from '../utils/test'
-import rule, { RULE_NAME } from './require-top-level-describe'
->>>>>>> 0b9528e (chore: update):src/rules/require-top-level-describe.test.ts
 
 describe(RULE_NAME, () => {
 	test(RULE_NAME, () => {
