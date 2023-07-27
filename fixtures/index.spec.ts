@@ -8,5 +8,3 @@ describe('foo', () => {
 		expect(true).toBe(true)
 	})
 })
-
-describe('foo', () => {})

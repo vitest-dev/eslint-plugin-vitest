@@ -9,7 +9,8 @@
 		"eslintplugin",
 		"eslint-plugin",
 		"vitest eslint plugin",
-		"vitest eslint"
+		"vitest",
+		"eslint plugin"
 	],
 	"author": "Verite Mugabo Makuza <https://veritemugabo.com/>",
 	"main": "./dist/index.cjs",
