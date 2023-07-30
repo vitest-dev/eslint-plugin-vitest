@@ -8,7 +8,7 @@
 
 ## Rule Details
 
-This rule aims to enforce the use of `toBeFalsy()` over `toBeFalsy()`.
+This rule aims to enforce the use of `toBeFalsy()` over `toBe(false)`
 
 Examples of **incorrect** code for this rule:
 
