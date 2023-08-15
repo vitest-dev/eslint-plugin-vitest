@@ -35,6 +35,7 @@ devDependencies:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     specifier: ^20.4.5
     version: 20.5.0
   '@typescript-eslint/eslint-plugin':
@@ -79,8 +80,14 @@ devDependencies:
     version: 0.0.11(eslint@8.45.0)(typescript@5.0.4)
 >>>>>>> 9ee255e (feat: updated)
 =======
+=======
+>>>>>>> 31fd73e (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
     specifier: ^20.5.1
     version: 20.5.1
+=======
+    specifier: ^20.4.5
+    version: 20.5.0
+>>>>>>> 96d3a23 (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.4.0
     version: 6.4.0(@typescript-eslint/parser@6.4.0)(eslint@8.47.0)(typescript@5.1.6)
@@ -154,10 +161,17 @@ devDependencies:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     version: 10.9.1(@types/node@20.5.0)(typescript@5.1.6)
 =======
     version: 10.9.1(@types/node@20.5.1)(typescript@5.1.6)
 >>>>>>> d896af9 (chore: updated packages)
+=======
+    version: 10.9.1(@types/node@20.5.1)(typescript@5.1.6)
+=======
+    version: 10.9.1(@types/node@20.5.0)(typescript@5.1.6)
+>>>>>>> 96d3a23 (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
+>>>>>>> 31fd73e (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
   tsx:
     specifier: ^3.12.7
     version: 3.12.7
@@ -1167,6 +1181,7 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@types/node@20.5.0:
     resolution: {integrity: sha512-Mgq7eCtoTjT89FqNoTzzXg2XvCi5VMhRV6+I2aYanc6kQCBImeNaAYRs/DyoVqk1YEUJK5gN9VO7HRIdz4Wo3Q==}
 =======
@@ -1181,6 +1196,14 @@ packages:
   /@types/node@20.5.1:
     resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
 >>>>>>> d896af9 (chore: updated packages)
+=======
+  /@types/node@20.5.1:
+    resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
+=======
+  /@types/node@20.5.0:
+    resolution: {integrity: sha512-Mgq7eCtoTjT89FqNoTzzXg2XvCi5VMhRV6+I2aYanc6kQCBImeNaAYRs/DyoVqk1YEUJK5gN9VO7HRIdz4Wo3Q==}
+>>>>>>> 96d3a23 (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
+>>>>>>> 31fd73e (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
     dev: true
 
   /@types/normalize-package-data@2.4.1:
@@ -3835,6 +3858,7 @@ packages:
 <<<<<<< HEAD
       simple-git: 3.19.1
 <<<<<<< HEAD
+<<<<<<< HEAD
       ts-node: 10.9.1(@types/node@20.5.0)(typescript@5.1.6)
 =======
       simple-git: 3.15.1
@@ -3847,6 +3871,12 @@ packages:
 =======
       ts-node: 10.9.1(@types/node@20.5.1)(typescript@5.1.6)
 >>>>>>> d896af9 (chore: updated packages)
+=======
+      ts-node: 10.9.1(@types/node@20.5.1)(typescript@5.1.6)
+=======
+      ts-node: 10.9.1(@types/node@20.5.0)(typescript@5.1.6)
+>>>>>>> 96d3a23 (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
+>>>>>>> 31fd73e (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
     transitivePeerDependencies:
       - '@types/react'
       - bufferutil
@@ -5879,6 +5909,7 @@ packages:
       typescript: 5.1.6
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /ts-node@10.9.1(@types/node@20.5.0)(typescript@5.1.6):
 =======
       typescript: 5.0.4
@@ -5892,6 +5923,12 @@ packages:
 =======
   /ts-node@10.9.1(@types/node@20.5.1)(typescript@5.1.6):
 >>>>>>> d896af9 (chore: updated packages)
+=======
+  /ts-node@10.9.1(@types/node@20.5.1)(typescript@5.1.6):
+=======
+  /ts-node@10.9.1(@types/node@20.5.0)(typescript@5.1.6):
+>>>>>>> 96d3a23 (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
+>>>>>>> 31fd73e (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -5912,10 +5949,17 @@ packages:
 <<<<<<< HEAD
       '@tsconfig/node16': 1.0.4
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 20.5.0
 =======
       '@types/node': 20.5.1
 >>>>>>> d896af9 (chore: updated packages)
+=======
+      '@types/node': 20.5.1
+=======
+      '@types/node': 20.5.0
+>>>>>>> 96d3a23 (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
+>>>>>>> 31fd73e (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
       acorn: 8.10.0
 =======
       '@tsconfig/node16': 1.0.3
@@ -6173,6 +6217,7 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   /vite-node@0.34.1(@types/node@20.5.0):
     resolution: {integrity: sha512-odAZAL9xFMuAg8aWd7nSPT+hU8u2r9gU3LRm9QKjxBEF2rRdWpMuqkrkjvyVQEdNFiBctqr2Gg4uJYizm5Le6w==}
 =======
@@ -6187,10 +6232,15 @@ packages:
     resolution: {integrity: sha512-JtW249Zm3FB+F7pQfH56uWSdlltCo1IOkZW5oHBzeQo0iX4jtC7o1t9aILMGd9kVekXBP2lfJBEQt9rBh07ebA==}
 >>>>>>> d896af9 (chore: updated packages)
 =======
+=======
+>>>>>>> 31fd73e (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
   /vite-node@0.34.2(@types/node@20.5.1):
     resolution: {integrity: sha512-JtW249Zm3FB+F7pQfH56uWSdlltCo1IOkZW5oHBzeQo0iX4jtC7o1t9aILMGd9kVekXBP2lfJBEQt9rBh07ebA==}
 =======
   /vite-node@0.34.1(@types/node@20.4.5):
+=======
+  /vite-node@0.34.1(@types/node@20.5.0):
+>>>>>>> 96d3a23 (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
     resolution: {integrity: sha512-odAZAL9xFMuAg8aWd7nSPT+hU8u2r9gU3LRm9QKjxBEF2rRdWpMuqkrkjvyVQEdNFiBctqr2Gg4uJYizm5Le6w==}
 >>>>>>> fe65bf4 (chore(deps-dev): bump vitest from 0.33.0 to 0.34.1 (#227))
 >>>>>>> 46dadd4 (chore(deps-dev): bump vitest from 0.33.0 to 0.34.1 (#227))
@@ -6202,6 +6252,7 @@ packages:
       mlly: 1.4.0
       pathe: 1.1.1
       picocolors: 1.0.0
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -6219,6 +6270,12 @@ packages:
 =======
       vite: 4.4.9(@types/node@20.5.1)
 >>>>>>> d896af9 (chore: updated packages)
+=======
+      vite: 4.4.9(@types/node@20.5.1)
+=======
+      vite: 4.4.4(@types/node@20.5.0)
+>>>>>>> 96d3a23 (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
+>>>>>>> 31fd73e (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -6230,6 +6287,7 @@ packages:
       - terser
     dev: true
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -6246,10 +6304,19 @@ packages:
 =======
   /vite@4.4.9(@types/node@20.4.5):
 =======
+=======
+>>>>>>> 31fd73e (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
   /vite@4.4.9(@types/node@20.5.1):
 >>>>>>> d896af9 (chore: updated packages)
     resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
+<<<<<<< HEAD
 >>>>>>> 923e81f (chore: updated docs)
+=======
+=======
+  /vite@4.4.4(@types/node@20.5.0):
+    resolution: {integrity: sha512-4mvsTxjkveWrKDJI70QmelfVqTm+ihFAb6+xf4sjEU2TmUCTlVX87tmg/QooPEMQb/lM9qGHT99ebqPziEd3wg==}
+>>>>>>> 96d3a23 (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
+>>>>>>> 31fd73e (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -6280,6 +6347,7 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 20.5.0
       esbuild: 0.18.12
       postcss: 8.4.26
@@ -6297,12 +6365,23 @@ packages:
 =======
       '@types/node': 20.4.5
 =======
+=======
+>>>>>>> 31fd73e (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
       '@types/node': 20.5.1
 >>>>>>> d896af9 (chore: updated packages)
       esbuild: 0.18.20
       postcss: 8.4.28
       rollup: 3.28.0
+<<<<<<< HEAD
 >>>>>>> 923e81f (chore: updated docs)
+=======
+=======
+      '@types/node': 20.5.0
+      esbuild: 0.18.12
+      postcss: 8.4.26
+      rollup: 3.26.2
+>>>>>>> 96d3a23 (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
+>>>>>>> 31fd73e (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -6358,6 +6437,7 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 20.5.0
       '@vitest/expect': 0.34.1
       '@vitest/runner': 0.34.1
@@ -6378,6 +6458,8 @@ packages:
 =======
 =======
 >>>>>>> 46dadd4 (chore(deps-dev): bump vitest from 0.33.0 to 0.34.1 (#227))
+=======
+>>>>>>> 31fd73e (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
       '@types/node': 20.5.1
       '@vitest/expect': 0.34.2
       '@vitest/runner': 0.34.2
@@ -6389,6 +6471,9 @@ packages:
 =======
 =======
       '@types/node': 20.4.5
+=======
+      '@types/node': 20.5.0
+>>>>>>> 96d3a23 (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
       '@vitest/expect': 0.34.1
       '@vitest/runner': 0.34.1
       '@vitest/snapshot': 0.34.1
@@ -6431,6 +6516,7 @@ packages:
 =======
       tinypool: 0.7.0
 <<<<<<< HEAD
+<<<<<<< HEAD
       vite: 4.4.9(@types/node@20.5.1)
       vite-node: 0.34.2(@types/node@20.5.1)
 <<<<<<< HEAD
@@ -6440,7 +6526,14 @@ packages:
       vite: 4.4.4(@types/node@20.4.5)
       vite-node: 0.34.1(@types/node@20.4.5)
 >>>>>>> fe65bf4 (chore(deps-dev): bump vitest from 0.33.0 to 0.34.1 (#227))
+<<<<<<< HEAD
 >>>>>>> 46dadd4 (chore(deps-dev): bump vitest from 0.33.0 to 0.34.1 (#227))
+=======
+=======
+      vite: 4.4.4(@types/node@20.5.0)
+      vite-node: 0.34.1(@types/node@20.5.0)
+>>>>>>> 96d3a23 (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
+>>>>>>> 31fd73e (chore(deps-dev): bump @types/node from 20.4.5 to 20.5.0 (#226))
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
