@@ -100,7 +100,11 @@ devDependencies:
     specifier: ^6.4.0
     version: 6.4.0(eslint@8.47.0)(typescript@5.1.6)
   '@typescript-eslint/rule-tester':
+<<<<<<< HEAD
     specifier: ^6.4.0
+=======
+    specifier: ^6.2.0
+>>>>>>> e148a7a (chore(deps-dev): bump @typescript-eslint/rule-tester from 6.3.0 to 6.4.0 (#228))
     version: 6.4.0(@eslint/eslintrc@2.1.2)(eslint@8.47.0)(typescript@5.1.6)
   '@veritem/eslint-config':
     specifier: ^0.0.11
@@ -1593,8 +1597,21 @@ packages:
     resolution: {integrity: sha512-TUS7vaKkPWDVvl7GDNHFQMsMruD+zhkd3SdVW0d7b+7Zo+bd/hXJQ8nsiUZMi1jloWo6c9qt3B7Sqo+flC1nig==}
     engines: {node: ^16.0.0 || >=18.0.0}
     dependencies:
+<<<<<<< HEAD
       '@typescript-eslint/types': 6.4.0
       '@typescript-eslint/visitor-keys': 6.4.0
+=======
+      '@typescript-eslint/types': 6.2.0
+      '@typescript-eslint/visitor-keys': 6.2.0
+
+  /@typescript-eslint/scope-manager@6.4.0:
+    resolution: {integrity: sha512-TUS7vaKkPWDVvl7GDNHFQMsMruD+zhkd3SdVW0d7b+7Zo+bd/hXJQ8nsiUZMi1jloWo6c9qt3B7Sqo+flC1nig==}
+    engines: {node: ^16.0.0 || >=18.0.0}
+    dependencies:
+      '@typescript-eslint/types': 6.4.0
+      '@typescript-eslint/visitor-keys': 6.4.0
+    dev: true
+>>>>>>> e148a7a (chore(deps-dev): bump @typescript-eslint/rule-tester from 6.3.0 to 6.4.0 (#228))
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1740,14 +1757,24 @@ packages:
     engines: {node: ^16.0.0 || >=18.0.0}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@typescript-eslint/types@6.4.0:
     resolution: {integrity: sha512-+FV9kVFrS7w78YtzkIsNSoYsnOtrYVnKWSTVXoL1761CsCRv5wpDOINgsXpxD67YCLZtVQekDDyaxfjVWUJmmg==}
 =======
+=======
+>>>>>>> e1a8ff5 (chore(deps-dev): bump @typescript-eslint/rule-tester from 6.3.0 to 6.4.0 (#228))
 <<<<<<< HEAD
 =======
   /@typescript-eslint/types@6.3.0:
     resolution: {integrity: sha512-K6TZOvfVyc7MO9j60MkRNWyFSf86IbOatTKGrpTQnzarDZPYPVy0oe3myTMq7VjhfsUAbNUW8I5s+2lZvtx1gg==}
+<<<<<<< HEAD
 >>>>>>> 657fea6 (chore(deps-dev): bump @typescript-eslint/eslint-plugin (#229))
+=======
+=======
+  /@typescript-eslint/types@6.4.0:
+    resolution: {integrity: sha512-+FV9kVFrS7w78YtzkIsNSoYsnOtrYVnKWSTVXoL1761CsCRv5wpDOINgsXpxD67YCLZtVQekDDyaxfjVWUJmmg==}
+>>>>>>> e148a7a (chore(deps-dev): bump @typescript-eslint/rule-tester from 6.3.0 to 6.4.0 (#228))
+>>>>>>> e1a8ff5 (chore(deps-dev): bump @typescript-eslint/rule-tester from 6.3.0 to 6.4.0 (#228))
     engines: {node: ^16.0.0 || >=18.0.0}
     dev: true
 
@@ -1830,6 +1857,7 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@typescript-eslint/typescript-estree@6.4.0(typescript@5.1.6):
     resolution: {integrity: sha512-iDPJArf/K2sxvjOR6skeUCNgHR/tCQXBsa+ee1/clRKr3olZjZ/dSkXPZjG6YkPtnW6p5D1egeEPMCW6Gn4yLA==}
     engines: {node: ^16.0.0 || >=18.0.0}
@@ -1876,8 +1904,14 @@ packages:
 >>>>>>> d896af9 (chore: updated packages)
 =======
 =======
+>>>>>>> e1a8ff5 (chore(deps-dev): bump @typescript-eslint/rule-tester from 6.3.0 to 6.4.0 (#228))
+=======
   /@typescript-eslint/typescript-estree@6.3.0(typescript@5.1.6):
     resolution: {integrity: sha512-Xh4NVDaC4eYKY4O3QGPuQNp5NxBAlEvNQYOqJquR2MePNxO11E5K3t5x4M4Mx53IZvtpW+mBxIT0s274fLUocg==}
+=======
+  /@typescript-eslint/typescript-estree@6.4.0(typescript@5.1.6):
+    resolution: {integrity: sha512-iDPJArf/K2sxvjOR6skeUCNgHR/tCQXBsa+ee1/clRKr3olZjZ/dSkXPZjG6YkPtnW6p5D1egeEPMCW6Gn4yLA==}
+>>>>>>> e148a7a (chore(deps-dev): bump @typescript-eslint/rule-tester from 6.3.0 to 6.4.0 (#228))
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
       typescript: '*'
@@ -1885,8 +1919,8 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/types': 6.3.0
-      '@typescript-eslint/visitor-keys': 6.3.0
+      '@typescript-eslint/types': 6.4.0
+      '@typescript-eslint/visitor-keys': 6.4.0
       debug: 4.3.4
       globby: 11.1.0
       is-glob: 4.0.3
@@ -2055,9 +2089,14 @@ packages:
 >>>>>>> 657fea6 (chore(deps-dev): bump @typescript-eslint/eslint-plugin (#229))
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   /@typescript-eslint/utils@6.3.0(eslint@8.47.0)(typescript@5.1.6):
     resolution: {integrity: sha512-hLLg3BZE07XHnpzglNBG8P/IXq/ZVXraEbgY7FM0Cnc1ehM8RMdn9mat3LubJ3KBeYXXPxV1nugWbQPjGeJk6Q==}
+=======
+  /@typescript-eslint/utils@6.4.0(eslint@8.47.0)(typescript@5.1.6):
+    resolution: {integrity: sha512-BvvwryBQpECPGo8PwF/y/q+yacg8Hn/2XS+DqL/oRsOPK+RPt29h5Ui5dqOKHDlbXrAeHUTnyG3wZA0KTDxRZw==}
+>>>>>>> e148a7a (chore(deps-dev): bump @typescript-eslint/rule-tester from 6.3.0 to 6.4.0 (#228))
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0
@@ -2065,9 +2104,9 @@ packages:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.47.0)
       '@types/json-schema': 7.0.12
       '@types/semver': 7.5.0
-      '@typescript-eslint/scope-manager': 6.3.0
-      '@typescript-eslint/types': 6.3.0
-      '@typescript-eslint/typescript-estree': 6.3.0(typescript@5.1.6)
+      '@typescript-eslint/scope-manager': 6.4.0
+      '@typescript-eslint/types': 6.4.0
+      '@typescript-eslint/typescript-estree': 6.4.0(typescript@5.1.6)
       eslint: 8.47.0
       semver: 7.5.4
     transitivePeerDependencies:
@@ -2150,12 +2189,17 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   /@typescript-eslint/visitor-keys@6.3.0:
     resolution: {integrity: sha512-kEhRRj7HnvaSjux1J9+7dBen15CdWmDnwrpyiHsFX6Qx2iW5LOBUgNefOFeh2PjWPlNwN8TOn6+4eBU3J/gupw==}
+=======
+  /@typescript-eslint/visitor-keys@6.4.0:
+    resolution: {integrity: sha512-yJSfyT+uJm+JRDWYRYdCm2i+pmvXJSMtPR9Cq5/XQs4QIgNoLcoRtDdzsLbLsFM/c6um6ohQkg/MLxWvoIndJA==}
+>>>>>>> e148a7a (chore(deps-dev): bump @typescript-eslint/rule-tester from 6.3.0 to 6.4.0 (#228))
     engines: {node: ^16.0.0 || >=18.0.0}
     dependencies:
-      '@typescript-eslint/types': 6.3.0
+      '@typescript-eslint/types': 6.4.0
       eslint-visitor-keys: 3.4.3
     dev: true
 
