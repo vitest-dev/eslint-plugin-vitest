@@ -66,7 +66,7 @@ Decides whether to prefer `test` or `it`.
 Decides whether to prefer `test` or `it` when used within a `describe` block.
 
 ```js
-/*eslint jest/consistent-test-it: ["error", {"fn": "test"}]*/
+/*eslint vitest/consistent-test-it: ["error", {"fn": "test"}]*/
 
 test('it works', () => { // <-- Valid
 	// ...
