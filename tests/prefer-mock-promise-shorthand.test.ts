@@ -1,6 +1,11 @@
 import { describe, test } from 'vitest'
+<<<<<<< HEAD:tests/prefer-mock-promise-shorthand.test.ts
 import rule, { RULE_NAME } from '../src/rules/prefer-mock-promise-shorthand'
 import { ruleTester } from './ruleTester'
+=======
+import { ruleTester } from '../utils/test'
+import rule, { RULE_NAME } from './prefer-mock-promise-shorthand'
+>>>>>>> 0b9528e (chore: update):src/rules/prefer-mock-promise-shorthand.test.ts
 
 describe(RULE_NAME, () => {
 	test(RULE_NAME, () => {

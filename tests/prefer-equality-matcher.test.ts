@@ -1,7 +1,12 @@
 import { TSESLint } from '@typescript-eslint/utils'
 import { test, describe } from 'vitest'
+<<<<<<< HEAD:tests/prefer-equality-matcher.test.ts
 import rule, { RULE_NAME } from '../src/rules/prefer-equality-matcher'
 import { ruleTester } from './ruleTester'
+=======
+import { ruleTester } from '../utils/test'
+import rule, { RULE_NAME } from './prefer-equality-matcher'
+>>>>>>> 0b9528e (chore: update):src/rules/prefer-equality-matcher.test.ts
 
 type RuleMessages<TRuleModule extends TSESLint.RuleModule<string, unknown[]>> =
 	TRuleModule extends TSESLint.RuleModule<infer TMessageIds, unknown[]>

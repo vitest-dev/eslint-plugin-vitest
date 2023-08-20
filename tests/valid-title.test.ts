@@ -1,6 +1,11 @@
 import { describe, it } from 'vitest'
+<<<<<<< HEAD:tests/valid-title.test.ts
 import rule, { RULE_NAME } from '../src/rules/valid-title'
 import { ruleTester } from './ruleTester'
+=======
+import { ruleTester } from '../utils/test'
+import rule, { RULE_NAME } from './valid-title'
+>>>>>>> 0b9528e (chore: update):src/rules/valid-title.test.ts
 
 describe(RULE_NAME, () => {
 	it(`${RULE_NAME} - disallowed option`, () => {

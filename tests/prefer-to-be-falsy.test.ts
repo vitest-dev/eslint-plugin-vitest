@@ -1,6 +1,11 @@
 import { describe, it } from 'vitest'
+<<<<<<< HEAD:tests/prefer-to-be-falsy.test.ts
 import rule, { RULE_NAME } from '../src/rules/prefer-to-be-falsy'
 import { ruleTester } from './ruleTester'
+=======
+import { ruleTester } from '../utils/test'
+import rule, { RULE_NAME } from './prefer-to-be-falsy'
+>>>>>>> 0b9528e (chore: update):src/rules/prefer-to-be-falsy.test.ts
 
 const messageId = 'preferToBeFalsy'
 

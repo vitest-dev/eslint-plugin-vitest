@@ -1,6 +1,11 @@
 import { describe, test } from 'vitest'
+<<<<<<< HEAD:tests/require-to-throw-message.test.ts
 import rule, { RULE_NAME } from '../src/rules/require-to-throw-message'
 import { ruleTester } from './ruleTester'
+=======
+import { ruleTester } from '../utils/test'
+import rule, { RULE_NAME } from './require-to-throw-message'
+>>>>>>> 0b9528e (chore: update):src/rules/require-to-throw-message.test.ts
 
 describe(RULE_NAME, () => {
 	test(RULE_NAME, () => {

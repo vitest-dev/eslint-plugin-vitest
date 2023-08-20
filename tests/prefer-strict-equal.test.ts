@@ -1,6 +1,11 @@
 import { describe, it } from 'vitest'
+<<<<<<< HEAD:tests/prefer-strict-equal.test.ts
 import rule, { RULE_NAME } from '../src/rules/prefer-strict-equal'
 import { ruleTester } from './ruleTester'
+=======
+import { ruleTester } from '../utils/test'
+import rule, { RULE_NAME } from './prefer-strict-equal'
+>>>>>>> 0b9528e (chore: update):src/rules/prefer-strict-equal.test.ts
 
 describe(RULE_NAME, () => {
 	it(RULE_NAME, () => {

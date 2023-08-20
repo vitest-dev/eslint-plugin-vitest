@@ -1,7 +1,12 @@
 import { describe, test } from 'vitest'
 import { AST_NODE_TYPES } from '@typescript-eslint/utils'
+<<<<<<< HEAD:tests/prefer-spy-on.test.ts
 import rule, { RULE_NAME } from '../src/rules/prefer-spy-on'
 import { ruleTester } from './ruleTester'
+=======
+import { ruleTester } from '../utils/test'
+import rule, { RULE_NAME } from './prefer-spy-on'
+>>>>>>> 0b9528e (chore: update):src/rules/prefer-spy-on.test.ts
 
 describe(RULE_NAME, () => {
 	test(RULE_NAME, () => {
