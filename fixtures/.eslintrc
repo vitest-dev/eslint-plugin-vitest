@@ -1,5 +1,8 @@
 {
 	"extends": [
 		"plugin:vitest/all"
-	]
+	],
+	"rules": {
+		"vitest/unbound-method": "off"
+	}
 }
