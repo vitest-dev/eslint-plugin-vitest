@@ -1,20 +1,21 @@
 import path from 'node:path'
 import { RuleTester } from '@typescript-eslint/rule-tester'
-import { afterAll, describe, it } from 'vitest'
-import unboundMethod from './unbound-method'
+import { afterAll, it, describe } from 'vitest'
+import unboundMethod from '../src/rules/unbound-method'
+
+const rootPath = path.join(__dirname, './fixtures')
 
 RuleTester.afterAll = afterAll
-RuleTester.describe = describe
 RuleTester.it = it
-
-const rootPath = path.join(__dirname, 'fixtures')
+RuleTester.itOnly = it.only
+RuleTester.describe = describe
 
 const ruleTester = new RuleTester({
   parser: '@typescript-eslint/parser',
   parserOptions: {
-	tsconfigRootDir: rootPath,
-	project: './tsconfig.json',
-	sourceType: 'module'
+    tsconfigRootDir: rootPath,
+    project: './tsconfig.json',
+    sourceType: 'module'
   }
 })
 
@@ -37,5 +38,25 @@ ruleTester.run('unbound-method', unboundMethod, {
 	logArrowBound();
 	logManualBind();`
   ],
-  invalid: []
+  invalid: [
+    {
+      code: `
+		class Console {
+		  log(str) {
+			process.stdout.write(str);
+		  }
+		}
+		
+		const console = new Console();
+		
+		Promise.resolve().then(console.log);
+			  `,
+      errors: [
+        {
+          line: 10,
+          messageId: 'unboundWithoutThisAnnotation'
+        }
+      ]
+    }
+  ]
 })
