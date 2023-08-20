@@ -8,6 +8,7 @@
 			"tab"
 		],
 		"no-case-declarations": 0,
-		"no-tabs": "off"
+		"no-tabs": "off",
+		"vitest/unbound-method": "off"
 	}
 }
