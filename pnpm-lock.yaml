@@ -143,7 +143,11 @@ devDependencies:
     specifier: ^6.4.0
 =======
     specifier: ^6.2.0
+<<<<<<< HEAD
 >>>>>>> e148a7a (chore(deps-dev): bump @typescript-eslint/rule-tester from 6.3.0 to 6.4.0 (#228))
+=======
+<<<<<<< HEAD
+>>>>>>> 0c36b95 (chore: updated docs)
     version: 6.4.0(@eslint/eslintrc@2.1.2)(eslint@8.47.0)(typescript@5.1.6)
 =======
     specifier: ^20.4.2
@@ -160,6 +164,9 @@ devDependencies:
     specifier: ^6.0.0
     version: 6.0.0(eslint@8.44.0)(typescript@5.0.4)
 >>>>>>> 952238a (feat: update to latest version)
+=======
+    version: 6.2.0(@eslint/eslintrc@2.1.2)(eslint@8.45.0)(typescript@5.1.6)
+>>>>>>> 923e81f (chore: updated docs)
   '@veritem/eslint-config':
     specifier: ^0.0.11
     version: 0.0.11(eslint@8.47.0)(typescript@5.1.6)
@@ -505,7 +512,11 @@ packages:
     dependencies:
       '@babel/code-frame': 7.22.10
       '@babel/parser': 7.22.10
+<<<<<<< HEAD
       '@babel/types': 7.22.10
+=======
+      '@babel/types': 7.22.5
+>>>>>>> 0c36b95 (chore: updated docs)
     dev: true
 
   /@babel/traverse@7.22.10:
@@ -528,6 +539,18 @@ packages:
 
   /@babel/types@7.22.10:
     resolution: {integrity: sha512-obaoigiLrlDZ7TUQln/8m4mSqIW2QFeOrCQc9r+xsaHGNoplVNYlRVpsfE8Vj35GEm2ZH4ZhrNYogs/3fj85kg==}
+<<<<<<< HEAD
+=======
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@babel/helper-string-parser': 7.22.5
+      '@babel/helper-validator-identifier': 7.22.5
+      to-fast-properties: 2.0.0
+    dev: true
+
+  /@babel/types@7.22.5:
+    resolution: {integrity: sha512-zo3MIHGOkPOfoRXitsgHLjEXmlDaD/5KU1Uzuc9GNiZPhSqVxVRtxuPaSBZDsYZ9qV88AjtMtWW7ww98loJ9KA==}
+>>>>>>> 0c36b95 (chore: updated docs)
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/helper-string-parser': 7.22.5
@@ -953,6 +976,7 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@esbuild/win32-x64@0.18.12:
     resolution: {integrity: sha512-O0UYQVkvfM/jO8a4OwoV0mAKSJw+mjWTAd1MJd/1FCX6uiMdLmMRPK/w6e9OQ0ob2WGxzIm9va/KG0Ja4zIOgg==}
 =======
@@ -960,6 +984,8 @@ packages:
     resolution: {integrity: sha512-kTdfRcSiDfQca/y9QIkng02avJ+NCaQvrMejlsB3RRv5sE9rRoeBPISaZpKxHELzRxZyLvNts1P27W3wV+8geQ==}
 >>>>>>> 923e81f (chore: updated docs)
 =======
+=======
+>>>>>>> 9335e21 (chore: updated docs)
   /@esbuild/win32-x64@0.18.20:
     resolution: {integrity: sha512-kTdfRcSiDfQca/y9QIkng02avJ+NCaQvrMejlsB3RRv5sE9rRoeBPISaZpKxHELzRxZyLvNts1P27W3wV+8geQ==}
 =======
@@ -967,7 +993,19 @@ packages:
   /@esbuild/win32-x64@0.18.12:
     resolution: {integrity: sha512-O0UYQVkvfM/jO8a4OwoV0mAKSJw+mjWTAd1MJd/1FCX6uiMdLmMRPK/w6e9OQ0ob2WGxzIm9va/KG0Ja4zIOgg==}
 >>>>>>> ef10dd3 (feat: updated)
+<<<<<<< HEAD
 >>>>>>> 313de50 (feat: updated)
+=======
+=======
+<<<<<<< HEAD
+  /@esbuild/win32-x64@0.18.12:
+    resolution: {integrity: sha512-O0UYQVkvfM/jO8a4OwoV0mAKSJw+mjWTAd1MJd/1FCX6uiMdLmMRPK/w6e9OQ0ob2WGxzIm9va/KG0Ja4zIOgg==}
+=======
+  /@esbuild/win32-x64@0.18.20:
+    resolution: {integrity: sha512-kTdfRcSiDfQca/y9QIkng02avJ+NCaQvrMejlsB3RRv5sE9rRoeBPISaZpKxHELzRxZyLvNts1P27W3wV+8geQ==}
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 0c36b95 (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
     engines: {node: '>=12'}
     cpu: [x64]
     os: [win32]
@@ -1006,8 +1044,11 @@ packages:
       eslint: 8.45.0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 313de50 (feat: updated)
+=======
+>>>>>>> 9335e21 (chore: updated docs)
       eslint-visitor-keys: 3.4.1
 >>>>>>> 9ee255e (feat: updated)
 
@@ -1022,12 +1063,16 @@ packages:
   /@eslint-community/regexpp@4.5.1:
     resolution: {integrity: sha512-Z5ba73P98O1KUYCCJTUeVpja9RcGoMdncZ6T49FCUl2lN38JtCJ+3WgIDBv0AuY4WChU5PmtJmOCTlN6FZTFKQ==}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9335e21 (chore: updated docs)
 =======
       eslint-visitor-keys: 3.4.3
 
   /@eslint-community/regexpp@4.6.2:
     resolution: {integrity: sha512-pPTNuaAG3QMH+buKyBIGJs3g/S5y0caxw0ygM3YyE6yJFySwiGGSzA+mM3KJ8QQvzeLh3blwgSonkFjgQdxzMw==}
 >>>>>>> 923e81f (chore: updated docs)
+<<<<<<< HEAD
     engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
     dev: true
 
@@ -1040,17 +1085,28 @@ packages:
     resolution: {integrity: sha512-+wvgpDsrB1YqAMdEUCcnTlpfVBH7Vqn6A/NT3D8WVXFIaKMlErPIZT3oCIAVCOtarRpMtelZLqJeU3t7WY6X6g==}
 >>>>>>> 923e81f (chore: updated docs)
 =======
+=======
+>>>>>>> 9335e21 (chore: updated docs)
     engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
     dev: true
 
+<<<<<<< HEAD
   /@eslint/eslintrc@2.1.0:
     resolution: {integrity: sha512-Lj7DECXqIVCqnqjjHMPna4vn6GJcMgul/wuS0je9OZ9gsL0zzDpKPVtcG1HaDVc+9y+qgXneTeUMbCqXJNpH1A==}
 >>>>>>> 9ee255e (feat: updated)
+<<<<<<< HEAD
 >>>>>>> 313de50 (feat: updated)
+=======
+=======
+  /@eslint/eslintrc@2.1.2:
+    resolution: {integrity: sha512-+wvgpDsrB1YqAMdEUCcnTlpfVBH7Vqn6A/NT3D8WVXFIaKMlErPIZT3oCIAVCOtarRpMtelZLqJeU3t7WY6X6g==}
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
       ajv: 6.12.6
       debug: 4.3.4
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1063,6 +1119,8 @@ packages:
 =======
 =======
 >>>>>>> 313de50 (feat: updated)
+=======
+>>>>>>> 9335e21 (chore: updated docs)
       espree: 9.6.1
 <<<<<<< HEAD
       globals: 13.21.0
@@ -1075,8 +1133,18 @@ packages:
       espree: 9.6.0
       globals: 13.19.0
 >>>>>>> 9ee255e (feat: updated)
+<<<<<<< HEAD
 >>>>>>> ef10dd3 (feat: updated)
+<<<<<<< HEAD
 >>>>>>> 313de50 (feat: updated)
+=======
+=======
+=======
+      espree: 9.6.1
+      globals: 13.21.0
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 0c36b95 (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
       ignore: 5.2.4
       import-fresh: 3.3.0
       js-yaml: 4.1.0
@@ -1447,13 +1515,19 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 313de50 (feat: updated)
+=======
+>>>>>>> 9335e21 (chore: updated docs)
       '@eslint-community/regexpp': 4.6.2
       '@typescript-eslint/parser': 5.62.0(eslint@8.47.0)(typescript@5.1.6)
 =======
       '@eslint-community/regexpp': 4.6.2
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9335e21 (chore: updated docs)
       '@typescript-eslint/parser': 5.62.0(eslint@8.45.0)(typescript@5.1.6)
 >>>>>>> 923e81f (chore: updated docs)
       '@typescript-eslint/scope-manager': 5.62.0
@@ -1566,10 +1640,13 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 790404e (feat: update to latest version)
 =======
 >>>>>>> 313de50 (feat: updated)
+=======
+>>>>>>> 9335e21 (chore: updated docs)
       '@eslint-community/regexpp': 4.6.2
 <<<<<<< HEAD
       '@typescript-eslint/parser': 6.2.0(eslint@8.47.0)(typescript@5.1.6)
@@ -1654,6 +1731,14 @@ packages:
       '@typescript-eslint/utils': 6.1.0(eslint@8.45.0)(typescript@5.0.4)
       '@typescript-eslint/visitor-keys': 6.1.0
 >>>>>>> 9ee255e (feat: updated)
+=======
+      '@eslint-community/regexpp': 4.6.2
+      '@typescript-eslint/parser': 6.2.0(eslint@8.45.0)(typescript@5.1.6)
+      '@typescript-eslint/scope-manager': 6.2.0
+      '@typescript-eslint/type-utils': 6.2.0(eslint@8.45.0)(typescript@5.1.6)
+      '@typescript-eslint/utils': 6.2.0(eslint@8.45.0)(typescript@5.1.6)
+      '@typescript-eslint/visitor-keys': 6.2.0
+>>>>>>> 923e81f (chore: updated docs)
       debug: 4.3.4
       eslint: 8.45.0
       graphemer: 1.4.0
@@ -1661,10 +1746,18 @@ packages:
       natural-compare: 1.4.0
       natural-compare-lite: 1.4.0
       semver: 7.5.4
+<<<<<<< HEAD
       ts-api-utils: 1.0.1(typescript@5.0.4)
       typescript: 5.0.4
 >>>>>>> 952238a (feat: update to latest version)
+<<<<<<< HEAD
 >>>>>>> 790404e (feat: update to latest version)
+=======
+=======
+      ts-api-utils: 1.0.2(typescript@5.1.6)
+      typescript: 5.1.6
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1853,10 +1946,13 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 790404e (feat: update to latest version)
 =======
 >>>>>>> 313de50 (feat: updated)
+=======
+>>>>>>> 9335e21 (chore: updated docs)
   /@typescript-eslint/rule-tester@6.4.0(@eslint/eslintrc@2.1.2)(eslint@8.47.0)(typescript@5.1.6):
     resolution: {integrity: sha512-lC94WS0eju/rJ/H/B0W56atIE1jqVqkqa3M56ZcBBon7K73lO2jBTodsV3Khc8lB1l4EdOxWTsmdIcksccfNJw==}
 =======
@@ -1864,16 +1960,22 @@ packages:
     resolution: {integrity: sha512-3zQn/z+hTyiYOWDh+9aOsU/ODDiMpj3t3mXO8OhAh9xFGgXfVgCC93PC2SGB5tyTwYmp6W1/k1LGgF8yaxt+bQ==}
 >>>>>>> 9ee255e (feat: updated)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9335e21 (chore: updated docs)
 =======
   /@typescript-eslint/rule-tester@6.2.0(@eslint/eslintrc@2.1.2)(eslint@8.45.0)(typescript@5.1.6):
     resolution: {integrity: sha512-jSwHgX2eqjVPK1jdDuo2LEhIAi9gMvKAUaAaYLSguNct6Zu0ajt8gvAU469I78Aeb+p7zLkUjuIlsHr6i+sRNw==}
 >>>>>>> 923e81f (chore: updated docs)
+<<<<<<< HEAD
 =======
   /@typescript-eslint/rule-tester@6.4.0(@eslint/eslintrc@2.1.2)(eslint@8.47.0)(typescript@5.1.6):
     resolution: {integrity: sha512-lC94WS0eju/rJ/H/B0W56atIE1jqVqkqa3M56ZcBBon7K73lO2jBTodsV3Khc8lB1l4EdOxWTsmdIcksccfNJw==}
 >>>>>>> d896af9 (chore: updated packages)
 =======
 >>>>>>> 313de50 (feat: updated)
+=======
+>>>>>>> 9335e21 (chore: updated docs)
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
       '@eslint/eslintrc': '>=2'
@@ -1882,8 +1984,11 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 313de50 (feat: updated)
+=======
+>>>>>>> 9335e21 (chore: updated docs)
       '@eslint/eslintrc': 2.1.2
       '@typescript-eslint/typescript-estree': 6.4.0(typescript@5.1.6)
       '@typescript-eslint/utils': 6.4.0(eslint@8.47.0)(typescript@5.1.6)
@@ -1894,9 +1999,14 @@ packages:
       '@typescript-eslint/typescript-estree': 6.1.0(typescript@5.0.4)
       '@typescript-eslint/utils': 6.1.0(eslint@8.45.0)(typescript@5.0.4)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       '@eslint/eslintrc': 2.1.2
 <<<<<<< HEAD
+=======
+=======
+      '@eslint/eslintrc': 2.1.2
+>>>>>>> 9335e21 (chore: updated docs)
       '@typescript-eslint/typescript-estree': 6.2.0(typescript@5.1.6)
       '@typescript-eslint/utils': 6.2.0(eslint@8.45.0)(typescript@5.1.6)
 >>>>>>> 923e81f (chore: updated docs)
@@ -2103,10 +2213,23 @@ packages:
       '@typescript-eslint/typescript-estree': 6.4.0(typescript@5.1.6)
       '@typescript-eslint/utils': 6.4.0(eslint@8.47.0)(typescript@5.1.6)
       debug: 4.3.4
+<<<<<<< HEAD
       eslint: 8.47.0
+<<<<<<< HEAD
 >>>>>>> d896af9 (chore: updated packages)
       ts-api-utils: 1.0.2(typescript@5.1.6)
 >>>>>>> 923e81f (chore: updated docs)
+=======
+<<<<<<< HEAD
+      ts-api-utils: 1.0.2(typescript@5.1.6)
+=======
+      ts-api-utils: 1.0.1(typescript@5.1.6)
+=======
+      eslint: 8.45.0
+      ts-api-utils: 1.0.2(typescript@5.1.6)
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 0c36b95 (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
       typescript: 5.1.6
     transitivePeerDependencies:
       - supports-color
@@ -2628,6 +2751,7 @@ packages:
       '@typescript-eslint/types': 5.62.0
       eslint-visitor-keys: 3.4.3
 <<<<<<< HEAD
+<<<<<<< HEAD
     dev: true
 =======
       '@typescript-eslint/types': 5.61.0
@@ -2664,10 +2788,14 @@ packages:
     dependencies:
       '@typescript-eslint/types': 6.4.0
       eslint-visitor-keys: 3.4.3
+=======
+>>>>>>> 9335e21 (chore: updated docs)
     dev: true
 =======
       '@typescript-eslint/types': 5.61.0
       eslint-visitor-keys: 3.4.1
+=======
+>>>>>>> 923e81f (chore: updated docs)
     dev: true
 
   /@typescript-eslint/visitor-keys@6.1.0:
@@ -2778,8 +2906,13 @@ packages:
 =======
       eslint-plugin-eslint-comments: 3.2.0(eslint@8.45.0)
       eslint-plugin-html: 7.1.0
+<<<<<<< HEAD
       eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.61.0)(eslint@8.45.0)
       eslint-plugin-markdown: 3.0.0(eslint@8.45.0)
+=======
+      eslint-plugin-import: 2.28.1(@typescript-eslint/parser@5.62.0)(eslint@8.45.0)
+      eslint-plugin-markdown: 3.0.1(eslint@8.45.0)
+>>>>>>> 923e81f (chore: updated docs)
       eslint-plugin-promise: 6.1.1(eslint@8.45.0)
       eslint-plugin-unicorn: 46.0.0(eslint@8.45.0)
       eslint-plugin-unused-imports: 2.0.0(@typescript-eslint/eslint-plugin@5.61.0)(eslint@8.45.0)
@@ -2844,7 +2977,7 @@ packages:
       '@veritem/eslint-config-ts': 0.0.11(eslint@8.45.0)(typescript@5.0.4)
       eslint: 8.45.0
       eslint-plugin-jsx-a11y: 6.7.1(eslint@8.45.0)
-      eslint-plugin-react: 7.32.2(eslint@8.45.0)
+      eslint-plugin-react: 7.33.2(eslint@8.45.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.45.0)
 >>>>>>> 9ee255e (feat: updated)
 >>>>>>> 313de50 (feat: updated)
@@ -3972,6 +4105,7 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       eslint: 8.47.0
       jest-diff: 29.6.1
 =======
@@ -3986,6 +4120,8 @@ packages:
       jest-diff: 29.6.2
 >>>>>>> 923e81f (chore: updated docs)
 =======
+=======
+>>>>>>> 9335e21 (chore: updated docs)
       eslint: 8.47.0
 <<<<<<< HEAD
       jest-diff: 29.6.2
@@ -3995,8 +4131,18 @@ packages:
       eslint: 8.45.0
       jest-diff: 29.3.1
 >>>>>>> 9ee255e (feat: updated)
+<<<<<<< HEAD
 >>>>>>> ef10dd3 (feat: updated)
+<<<<<<< HEAD
 >>>>>>> 313de50 (feat: updated)
+=======
+=======
+=======
+      eslint: 8.45.0
+      jest-diff: 29.6.2
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 0c36b95 (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
       json-schema-traverse: 1.0.0
       markdown-table: 3.0.3
       no-case: 3.0.4
@@ -4020,6 +4166,7 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   /eslint-module-utils@2.8.0(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.7)(eslint@8.47.0):
 =======
   /eslint-module-utils@2.8.0(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.9)(eslint@8.45.0):
@@ -4028,12 +4175,24 @@ packages:
   /eslint-module-utils@2.8.0(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.9)(eslint@8.47.0):
 >>>>>>> d896af9 (chore: updated packages)
 =======
+=======
+>>>>>>> 9335e21 (chore: updated docs)
   /eslint-module-utils@2.8.0(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.9)(eslint@8.47.0):
 =======
 <<<<<<< HEAD
   /eslint-module-utils@2.8.0(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.7)(eslint@8.47.0):
 >>>>>>> ef10dd3 (feat: updated)
+<<<<<<< HEAD
 >>>>>>> 313de50 (feat: updated)
+=======
+=======
+<<<<<<< HEAD
+  /eslint-module-utils@2.8.0(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.7)(eslint@8.47.0):
+=======
+  /eslint-module-utils@2.8.0(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.9)(eslint@8.45.0):
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 0c36b95 (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
     resolution: {integrity: sha512-aWajIYfsqCKRDgUfjEXNN/JlrzauMuSEy5sbd7WXbtW3EH6A6MpwEh42c7qD+MqQo9QMJ6fWLAeIJynx0g6OAw==}
 =======
   /eslint-module-utils@2.7.4(@typescript-eslint/parser@5.61.0)(eslint-import-resolver-node@0.3.7)(eslint@8.45.0):
@@ -4090,10 +4249,20 @@ packages:
       '@typescript-eslint/parser': 5.61.0(eslint@8.45.0)(typescript@5.0.4)
       debug: 3.2.7
       eslint: 8.45.0
+<<<<<<< HEAD
 >>>>>>> 9ee255e (feat: updated)
       eslint-import-resolver-node: 0.3.7
+<<<<<<< HEAD
 >>>>>>> ef10dd3 (feat: updated)
+<<<<<<< HEAD
 >>>>>>> 313de50 (feat: updated)
+=======
+=======
+=======
+      eslint-import-resolver-node: 0.3.9
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 0c36b95 (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4270,6 +4439,7 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   /eslint-plugin-import@2.27.5(@typescript-eslint/parser@5.62.0)(eslint@8.47.0):
 =======
   /eslint-plugin-import@2.27.5(@typescript-eslint/parser@5.61.0)(eslint@8.45.0):
@@ -4280,6 +4450,8 @@ packages:
 =======
 =======
 >>>>>>> 313de50 (feat: updated)
+=======
+>>>>>>> 9335e21 (chore: updated docs)
   /eslint-plugin-import@2.28.1(@typescript-eslint/parser@5.62.0)(eslint@8.47.0):
 >>>>>>> d896af9 (chore: updated packages)
     resolution: {integrity: sha512-9I9hFlITvOV55alzoKBI+K9q74kv0iKMeY6av5+umsNwayt59fz692daGyjR+oStBQgx6nwR9rXldDev3Clw+A==}
@@ -4287,14 +4459,26 @@ packages:
 >>>>>>> 923e81f (chore: updated docs)
 =======
 =======
+=======
+>>>>>>> 0c36b95 (chore: updated docs)
 <<<<<<< HEAD
   /eslint-plugin-import@2.27.5(@typescript-eslint/parser@5.62.0)(eslint@8.47.0):
 =======
   /eslint-plugin-import@2.27.5(@typescript-eslint/parser@5.61.0)(eslint@8.45.0):
 >>>>>>> 9ee255e (feat: updated)
     resolution: {integrity: sha512-LmEt3GVofgiGuiE+ORpnvP+kAm3h6MLZJ4Q5HCyHADofsb4VzXFsRiWj3c0OFiV+3DWFh0qg3v9gcPlfc3zRow==}
+<<<<<<< HEAD
 >>>>>>> ef10dd3 (feat: updated)
+<<<<<<< HEAD
 >>>>>>> 313de50 (feat: updated)
+=======
+=======
+=======
+  /eslint-plugin-import@2.28.1(@typescript-eslint/parser@5.62.0)(eslint@8.45.0):
+    resolution: {integrity: sha512-9I9hFlITvOV55alzoKBI+K9q74kv0iKMeY6av5+umsNwayt59fz692daGyjR+oStBQgx6nwR9rXldDev3Clw+A==}
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 0c36b95 (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
     engines: {node: '>=4'}
     peerDependencies:
       '@typescript-eslint/parser': '*'
@@ -4355,11 +4539,22 @@ packages:
       eslint-module-utils: 2.8.0(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.7)(eslint@8.47.0)
 =======
       eslint: 8.45.0
+<<<<<<< HEAD
       eslint-import-resolver-node: 0.3.7
       eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.61.0)(eslint-import-resolver-node@0.3.7)(eslint@8.45.0)
 >>>>>>> 9ee255e (feat: updated)
+<<<<<<< HEAD
 >>>>>>> ef10dd3 (feat: updated)
+<<<<<<< HEAD
 >>>>>>> 313de50 (feat: updated)
+=======
+=======
+=======
+      eslint-import-resolver-node: 0.3.9
+      eslint-module-utils: 2.8.0(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.9)(eslint@8.45.0)
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 0c36b95 (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
       has: 1.0.3
       is-core-module: 2.13.0
       is-glob: 4.0.3
@@ -4432,6 +4627,7 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   /eslint-plugin-markdown@3.0.0(eslint@8.47.0):
 =======
   /eslint-plugin-markdown@3.0.0(eslint@8.45.0):
@@ -4442,6 +4638,8 @@ packages:
 =======
 =======
 >>>>>>> 313de50 (feat: updated)
+=======
+>>>>>>> 9335e21 (chore: updated docs)
   /eslint-plugin-markdown@3.0.1(eslint@8.47.0):
 >>>>>>> d896af9 (chore: updated packages)
     resolution: {integrity: sha512-8rqoc148DWdGdmYF6WSQFT3uQ6PO7zXYgeBpHAOAakX/zpq+NvFYbDA/H7PYzHajwtmaOzAwfxyl++x0g1/N9A==}
@@ -4449,14 +4647,26 @@ packages:
 >>>>>>> 923e81f (chore: updated docs)
 =======
 =======
+=======
+>>>>>>> 0c36b95 (chore: updated docs)
 <<<<<<< HEAD
   /eslint-plugin-markdown@3.0.0(eslint@8.47.0):
 =======
   /eslint-plugin-markdown@3.0.0(eslint@8.45.0):
 >>>>>>> 9ee255e (feat: updated)
     resolution: {integrity: sha512-hRs5RUJGbeHDLfS7ELanT0e29Ocyssf/7kBM+p7KluY5AwngGkDf8Oyu4658/NZSGTTq05FZeWbkxXtbVyHPwg==}
+<<<<<<< HEAD
 >>>>>>> ef10dd3 (feat: updated)
+<<<<<<< HEAD
 >>>>>>> 313de50 (feat: updated)
+=======
+=======
+=======
+  /eslint-plugin-markdown@3.0.1(eslint@8.45.0):
+    resolution: {integrity: sha512-8rqoc148DWdGdmYF6WSQFT3uQ6PO7zXYgeBpHAOAakX/zpq+NvFYbDA/H7PYzHajwtmaOzAwfxyl++x0g1/N9A==}
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 0c36b95 (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
@@ -4555,6 +4765,7 @@ packages:
       eslint-utils: 3.0.0(eslint@8.45.0)
 >>>>>>> 9ee255e (feat: updated)
       ignore: 5.2.4
+<<<<<<< HEAD
       is-core-module: 2.11.0
 >>>>>>> 952238a (feat: update to latest version)
 >>>>>>> 98cbe6e (feat: update to latest version)
@@ -4567,8 +4778,19 @@ packages:
 =======
 <<<<<<< HEAD
       resolve: 1.22.2
+<<<<<<< HEAD
 >>>>>>> ef10dd3 (feat: updated)
+<<<<<<< HEAD
 >>>>>>> 313de50 (feat: updated)
+=======
+=======
+=======
+      is-core-module: 2.13.0
+      minimatch: 3.1.2
+      resolve: 1.22.4
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 0c36b95 (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
       semver: 7.5.4
     dev: true
 
@@ -4704,11 +4926,22 @@ packages:
       eslint: 8.45.0
     dev: true
 
+<<<<<<< HEAD
   /eslint-plugin-react@7.32.2(eslint@8.45.0):
 >>>>>>> 9ee255e (feat: updated)
     resolution: {integrity: sha512-t2fBMa+XzonrrNkyVirzKlvn5RXzzPwRHtMvLAtVZrt8oxgnTQaYbU6SXTOO1mwQgp1y5+toMSKInnzGr0Knqg==}
+<<<<<<< HEAD
 >>>>>>> ef10dd3 (feat: updated)
+<<<<<<< HEAD
 >>>>>>> 313de50 (feat: updated)
+=======
+=======
+=======
+  /eslint-plugin-react@7.33.2(eslint@8.45.0):
+    resolution: {integrity: sha512-73QQMKALArI8/7xGLNI/3LylrEYrlKZSb5C9+q3OtOewTnMQi5cT+aE9E41sLCmli3I9PGGmD1yiZydyo4FEPw==}
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 0c36b95 (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
@@ -4717,6 +4950,7 @@ packages:
       array.prototype.flatmap: 1.3.1
       array.prototype.tosorted: 1.1.1
       doctrine: 2.1.0
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -4732,12 +4966,20 @@ packages:
       eslint: 8.47.0
 >>>>>>> d896af9 (chore: updated packages)
 =======
+=======
+>>>>>>> 9335e21 (chore: updated docs)
       es-iterator-helpers: 1.0.13
 =======
 <<<<<<< HEAD
 >>>>>>> ef10dd3 (feat: updated)
+=======
+<<<<<<< HEAD
+>>>>>>> 0c36b95 (chore: updated docs)
       eslint: 8.47.0
 =======
+=======
+      es-iterator-helpers: 1.0.13
+>>>>>>> 923e81f (chore: updated docs)
       eslint: 8.45.0
 >>>>>>> 9ee255e (feat: updated)
 >>>>>>> 313de50 (feat: updated)
@@ -5050,6 +5292,7 @@ packages:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.45.0)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@eslint-community/regexpp': 4.5.0
       '@eslint/eslintrc': 2.1.0
 =======
@@ -5070,8 +5313,14 @@ packages:
       '@eslint/js': 8.47.0
 >>>>>>> d896af9 (chore: updated packages)
 =======
+=======
+>>>>>>> 9335e21 (chore: updated docs)
       '@eslint-community/regexpp': 4.5.0
       '@eslint/eslintrc': 2.1.0
+=======
+      '@eslint-community/regexpp': 4.6.2
+      '@eslint/eslintrc': 2.1.2
+>>>>>>> 923e81f (chore: updated docs)
       '@eslint/js': 8.44.0
 >>>>>>> 9ee255e (feat: updated)
 >>>>>>> 313de50 (feat: updated)
@@ -5377,6 +5626,7 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       fast-glob: 3.3.0
 =======
       fast-glob: 3.2.12
@@ -5385,15 +5635,28 @@ packages:
       fast-glob: 3.3.1
 >>>>>>> 923e81f (chore: updated docs)
 =======
+=======
+>>>>>>> 9335e21 (chore: updated docs)
       fast-glob: 3.3.1
 =======
+=======
+>>>>>>> 0c36b95 (chore: updated docs)
 <<<<<<< HEAD
       fast-glob: 3.3.0
 =======
       fast-glob: 3.2.12
 >>>>>>> 9ee255e (feat: updated)
+<<<<<<< HEAD
 >>>>>>> ef10dd3 (feat: updated)
+<<<<<<< HEAD
 >>>>>>> 313de50 (feat: updated)
+=======
+=======
+=======
+      fast-glob: 3.3.1
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 0c36b95 (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
       ignore: 5.2.4
       merge2: 1.4.1
       slash: 3.0.0
@@ -6997,6 +7260,7 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   /ts-api-utils@1.0.1(typescript@5.1.6):
 =======
   /ts-api-utils@1.0.1(typescript@5.0.4):
@@ -7007,17 +7271,31 @@ packages:
     resolution: {integrity: sha512-Cbu4nIqnEdd+THNEsBdkolnOXhg0I8XteoHaEKgvsxpsbWda4IsUut2c187HxywQCvveojow0Dgw/amxtSKVkQ==}
 >>>>>>> 923e81f (chore: updated docs)
 =======
+=======
+>>>>>>> 9335e21 (chore: updated docs)
   /ts-api-utils@1.0.2(typescript@5.1.6):
     resolution: {integrity: sha512-Cbu4nIqnEdd+THNEsBdkolnOXhg0I8XteoHaEKgvsxpsbWda4IsUut2c187HxywQCvveojow0Dgw/amxtSKVkQ==}
 =======
+=======
+>>>>>>> 0c36b95 (chore: updated docs)
 <<<<<<< HEAD
   /ts-api-utils@1.0.1(typescript@5.1.6):
 =======
   /ts-api-utils@1.0.1(typescript@5.0.4):
 >>>>>>> 952238a (feat: update to latest version)
     resolution: {integrity: sha512-lC/RGlPmwdrIBFTX59wwNzqh7aR2otPNPR/5brHZm/XKFYKsfqxihXUe9pU3JI+3vGkl+vyCoNNnPhJn3aLK1A==}
+<<<<<<< HEAD
 >>>>>>> 98cbe6e (feat: update to latest version)
+<<<<<<< HEAD
 >>>>>>> 790404e (feat: update to latest version)
+=======
+=======
+=======
+  /ts-api-utils@1.0.2(typescript@5.1.6):
+    resolution: {integrity: sha512-Cbu4nIqnEdd+THNEsBdkolnOXhg0I8XteoHaEKgvsxpsbWda4IsUut2c187HxywQCvveojow0Dgw/amxtSKVkQ==}
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 0c36b95 (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
     engines: {node: '>=16.13.0'}
     peerDependencies:
       typescript: '>=4.2.0'
@@ -7288,7 +7566,11 @@ packages:
       esbuild: 0.17.19
       globby: 13.2.2
       hookable: 5.5.3
+<<<<<<< HEAD
       jiti: 1.19.3
+=======
+      jiti: 1.19.1
+>>>>>>> 0c36b95 (chore: updated docs)
       magic-string: 0.30.2
       mkdist: 1.3.0(typescript@5.1.6)
       mlly: 1.4.0
@@ -7323,7 +7605,11 @@ packages:
     dependencies:
       '@babel/core': 7.22.10
       '@babel/standalone': 7.22.10
+<<<<<<< HEAD
       '@babel/types': 7.22.10
+=======
+      '@babel/types': 7.22.5
+>>>>>>> 0c36b95 (chore: updated docs)
       defu: 6.1.2
       jiti: 1.19.3
       mri: 1.2.0
@@ -7428,6 +7714,7 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       vite: 4.4.4(@types/node@20.5.0)
 =======
       vite: 3.2.3(@types/node@20.4.2)
@@ -7446,6 +7733,8 @@ packages:
 >>>>>>> 790404e (feat: update to latest version)
 =======
 >>>>>>> 313de50 (feat: updated)
+=======
+>>>>>>> 9335e21 (chore: updated docs)
       vite: 4.4.9(@types/node@20.5.1)
 =======
       vite: 4.4.4(@types/node@20.5.0)
@@ -7456,6 +7745,8 @@ packages:
 =======
 =======
 >>>>>>> ef10dd3 (feat: updated)
+=======
+>>>>>>> 0c36b95 (chore: updated docs)
       vite: 4.4.4(@types/node@20.5.0)
 =======
       vite: 3.2.3(@types/node@20.4.2)
@@ -7469,8 +7760,17 @@ packages:
 =======
       vite: 3.2.3(@types/node@20.4.4)
 >>>>>>> 9ee255e (feat: updated)
+<<<<<<< HEAD
 >>>>>>> ef10dd3 (feat: updated)
+<<<<<<< HEAD
 >>>>>>> 313de50 (feat: updated)
+=======
+=======
+=======
+      vite: 4.4.9(@types/node@20.4.5)
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 0c36b95 (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -7482,6 +7782,7 @@ packages:
       - terser
     dev: true
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -7507,6 +7808,8 @@ packages:
 >>>>>>> 790404e (feat: update to latest version)
 =======
 >>>>>>> 313de50 (feat: updated)
+=======
+>>>>>>> 9335e21 (chore: updated docs)
   /vite@4.4.9(@types/node@20.5.1):
 >>>>>>> d896af9 (chore: updated packages)
     resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
@@ -7523,6 +7826,8 @@ packages:
 =======
 =======
 >>>>>>> ef10dd3 (feat: updated)
+=======
+>>>>>>> 0c36b95 (chore: updated docs)
   /vite@4.4.4(@types/node@20.5.0):
     resolution: {integrity: sha512-4mvsTxjkveWrKDJI70QmelfVqTm+ihFAb6+xf4sjEU2TmUCTlVX87tmg/QooPEMQb/lM9qGHT99ebqPziEd3wg==}
 =======
@@ -7532,8 +7837,18 @@ packages:
 >>>>>>> 9ee255e (feat: updated)
     resolution: {integrity: sha512-h8jl1TZ76eGs3o2dIBSsvXDLb1m/Ec1iej8ZMdz+PsaFUsftZeWe2CZOI3qogEsMNaywc17gu0q6cQDzh/weCQ==}
 >>>>>>> 952238a (feat: update to latest version)
+<<<<<<< HEAD
 >>>>>>> 98cbe6e (feat: update to latest version)
+<<<<<<< HEAD
 >>>>>>> 790404e (feat: update to latest version)
+=======
+=======
+=======
+  /vite@4.4.9(@types/node@20.4.5):
+    resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 0c36b95 (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -7567,6 +7882,7 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       '@types/node': 20.5.0
       esbuild: 0.18.12
       postcss: 8.4.26
@@ -7590,6 +7906,8 @@ packages:
 >>>>>>> 790404e (feat: update to latest version)
 =======
 >>>>>>> 313de50 (feat: updated)
+=======
+>>>>>>> 9335e21 (chore: updated docs)
       '@types/node': 20.5.1
 >>>>>>> d896af9 (chore: updated packages)
       esbuild: 0.18.20
@@ -7603,6 +7921,8 @@ packages:
 >>>>>>> 98cbe6e (feat: update to latest version)
 =======
 >>>>>>> ef10dd3 (feat: updated)
+=======
+>>>>>>> 0c36b95 (chore: updated docs)
       '@types/node': 20.5.0
       esbuild: 0.18.12
       postcss: 8.4.26
@@ -7623,8 +7943,20 @@ packages:
       resolve: 1.22.1
       rollup: 2.79.1
 >>>>>>> 952238a (feat: update to latest version)
+<<<<<<< HEAD
 >>>>>>> 98cbe6e (feat: update to latest version)
+<<<<<<< HEAD
 >>>>>>> 790404e (feat: update to latest version)
+=======
+=======
+=======
+      '@types/node': 20.4.5
+      esbuild: 0.18.20
+      postcss: 8.4.28
+      rollup: 3.28.0
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 0c36b95 (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -7814,6 +8146,7 @@ packages:
 =======
       tinypool: 0.6.0
 <<<<<<< HEAD
+<<<<<<< HEAD
       vite: 3.2.3(@types/node@20.4.2)
       vite-node: 0.33.0(@types/node@20.4.2)
 >>>>>>> 952238a (feat: update to latest version)
@@ -7827,8 +8160,18 @@ packages:
       vite: 3.2.3(@types/node@20.4.4)
       vite-node: 0.33.0(@types/node@20.4.4)
 >>>>>>> 9ee255e (feat: updated)
+<<<<<<< HEAD
 >>>>>>> ef10dd3 (feat: updated)
+<<<<<<< HEAD
 >>>>>>> 313de50 (feat: updated)
+=======
+=======
+=======
+      vite: 4.4.9(@types/node@20.4.5)
+      vite-node: 0.33.0(@types/node@20.4.5)
+>>>>>>> 923e81f (chore: updated docs)
+>>>>>>> 0c36b95 (chore: updated docs)
+>>>>>>> 9335e21 (chore: updated docs)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
