@@ -61,36 +61,18 @@
 		"vitest": "^0.34.2"
 	},
 	"engines": {
-<<<<<<< HEAD
 		"node": "14.x || >= 16"
 	},
 	"peerDependencies": {
 		"eslint": ">=8.0.0",
 		"vitest": "*"
-=======
-		"node": ">= 16"
->>>>>>> 0233210 (chore: updated packages)
 	},
 	"peerDependenciesMeta": {
 		"@typescript-eslint/eslint-plugin": {
 			"optional": true
-<<<<<<< HEAD
 		},
 		"vitest": {
 			"vitest": "*"
-=======
-		},
-		"vitest": {
-			"vitest": "*"
-		},
-		"peerDependenciesMeta": {
-			"vite": {
-				"optional": true
-			}
-		},
-		"dependencies": {
-			"@typescript-eslint/utils": "^6.4.0"
->>>>>>> 0233210 (chore: updated packages)
 		}
 	},
 	"dependencies": {
