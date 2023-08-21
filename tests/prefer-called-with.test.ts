@@ -56,18 +56,6 @@ describe(RULE_NAME, () => {
 						}
 					],
 					output: 'expect(fn).toHaveBeenCalledWith();'
-				},
-				{
-					code: 'it("some test", () => {expect(mockApi).toHaveBeenCalledOnce();});',
-					errors: [
-						{
-							messageId: 'preferCalledWith',
-							data: { matcherName: 'toHaveBeenCalledOnce' },
-							column: 40,
-							line: 1
-						}
-					],
-					output: 'it("some test", () => {expect(mockApi).toHaveBeenCalledOnceWith();});'
 				}
 			]
 		})

@@ -38,7 +38,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         const { matcher } = vitestFnCall
         const matcherName = getAccessorValue(matcher)
 
-        if (['toBeCalled', 'toHaveBeenCalled', 'toHaveBeenCalledOnce'].includes(matcherName)) {
+        if (['toBeCalled', 'toHaveBeenCalled'].includes(matcherName)) {
           context.report({
             data: { matcherName },
             messageId: 'preferCalledWith',
