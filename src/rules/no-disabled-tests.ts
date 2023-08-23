@@ -1,5 +1,5 @@
 import { createEslintRule, getAccessorValue } from '../utils'
-import { parseVitestFnCall, resolveScope } from '../utils/parseVitestFnCall'
+import { parseVitestFnCall, resolveScope } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'no-disabled-tests'
 export type MESSAGE_ID = 'missingFunction' | 'pending' | 'pendingSuite' | 'pendingTest' | 'disabledSuite' | 'disabledTest';

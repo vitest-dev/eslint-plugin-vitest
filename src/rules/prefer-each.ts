@@ -1,6 +1,6 @@
 import { TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
-import { parseVitestFnCall, VitestFnType } from '../utils/parseVitestFnCall'
+import { parseVitestFnCall, VitestFnType } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'prefer-each'
 export type MESSAGE_IDS = 'preferEach';

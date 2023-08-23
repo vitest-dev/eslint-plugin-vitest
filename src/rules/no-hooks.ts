@@ -1,6 +1,6 @@
 import { HookName } from '../utils/types'
 import { createEslintRule } from '../utils'
-import { parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'no-hooks'
 export type MESSAGE_ID = 'unexpectedHook';

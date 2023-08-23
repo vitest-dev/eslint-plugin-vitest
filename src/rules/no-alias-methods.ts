@@ -1,5 +1,5 @@
 import { createEslintRule, getAccessorValue, replaceAccessorFixer } from '../utils'
-import { parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'no-alias-methods'
 export type MESSAGE_ID = 'noAliasMethods'

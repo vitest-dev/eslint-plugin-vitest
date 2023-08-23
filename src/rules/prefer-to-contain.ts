@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { KnownCallExpression, createEslintRule, getAccessorValue, isSupportedAccessor } from '../utils'
 import { hasOnlyOneArgument, isBooleanLiteral } from '../utils/msc'
-import { getFirstMatcherArg, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { getFirstMatcherArg, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { CallExpressionWithSingleArgument, EqualityMatcher, ModifierName } from '../utils/types'
 
 export const RULE_NAME = 'prefer-to-contain'

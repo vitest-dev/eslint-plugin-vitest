@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue } from '../utils'
-import { findTopMostCallExpression, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { findTopMostCallExpression, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'unbound-method'
 

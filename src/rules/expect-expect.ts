@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getNodeName, isSupportedAccessor } from '../utils'
-import { getTestCallExpressionsFromDeclaredVariables, isTypeOfVitestFnCall } from '../utils/parseVitestFnCall'
+import { getTestCallExpressionsFromDeclaredVariables, isTypeOfVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'expect-expect'
 export type MESSAGE_ID = 'expectedExpect';

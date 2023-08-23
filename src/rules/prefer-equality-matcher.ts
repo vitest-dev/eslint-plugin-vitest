@@ -1,6 +1,6 @@
 import { TSESLint, AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue } from '../utils'
-import { getFirstMatcherArg, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { getFirstMatcherArg, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { EqualityMatcher, ModifierName } from '../utils/types'
 import { isBooleanLiteral } from '../utils/msc'
 

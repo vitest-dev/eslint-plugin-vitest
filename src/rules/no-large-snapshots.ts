@@ -1,7 +1,7 @@
 import { isAbsolute } from 'node:path'
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue, isSupportedAccessor } from '../utils'
-import { parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'no-large-snapshots'
 type MESSAGE_IDS = 'noSnapShot' | 'tooLongSnapShot';

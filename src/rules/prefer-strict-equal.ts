@@ -1,5 +1,5 @@
 import { createEslintRule, isSupportedAccessor, replaceAccessorFixer } from '../utils'
-import { parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { EqualityMatcher } from '../utils/types'
 
 export const RULE_NAME = 'prefer-strict-equal'

@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
-import { getFirstMatcherArg, ParsedExpectVitestFnCall } from './parseVitestFnCall'
+import { getFirstMatcherArg, ParsedExpectVitestFnCall } from './parse-vitest-fn-call'
 import { EqualityMatcher } from './types'
 import { getAccessorValue, isSupportedAccessor } from '.'
 

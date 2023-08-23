@@ -1,5 +1,5 @@
 import { createEslintRule } from '../utils/index'
-import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'prefer-hooks-in-order'
 type MESSAGE_IDS = 'reorderHooks';

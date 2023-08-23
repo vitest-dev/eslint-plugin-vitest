@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, isSupportedAccessor, KnownCallExpression } from '../utils'
-import { getTestCallExpressionsFromDeclaredVariables, isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { getTestCallExpressionsFromDeclaredVariables, isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'no-conditional-expect'
 export type MESSAGE_ID = 'noConditionalExpect';

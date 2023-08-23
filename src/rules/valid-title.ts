@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, JSONSchema, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getStringValue, isStringNode, StringNode } from '../utils'
-import { parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { DescribeAlias, TestCaseName } from '../utils/types'
 
 export const RULE_NAME = 'valid-title'

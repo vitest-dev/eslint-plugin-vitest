@@ -1,5 +1,5 @@
 import { createEslintRule } from '../utils'
-import { isTypeOfVitestFnCall } from '../utils/parseVitestFnCall'
+import { isTypeOfVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'prefer-hooks-on-top'
 type MessageIds = 'noHookOnTop';

@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue, isFunction, isStringNode, replaceAccessorFixer } from '../utils'
-import { ParsedVitestFnCall, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { ParsedVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { hasOnlyOneArgument } from '../utils/msc'
 
 export const RULE_NAME = 'prefer-todo'

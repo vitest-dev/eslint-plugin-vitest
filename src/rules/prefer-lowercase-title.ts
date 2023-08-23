@@ -1,6 +1,6 @@
 import { TSESTree, TSESLint } from '@typescript-eslint/utils'
 import { createEslintRule, getStringValue, isStringNode, StringNode } from '../utils'
-import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { CallExpressionWithSingleArgument, DescribeAlias, TestCaseName } from '../utils/types'
 
 export const RULE_NAME = 'prefer-lowercase-title'

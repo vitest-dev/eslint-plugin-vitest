@@ -1,6 +1,6 @@
 import { TSESLint, AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { AccessorNode, createEslintRule, getAccessorValue, isIdentifier, removeExtraArgumentsFixer, replaceAccessorFixer } from '../utils'
-import { getFirstMatcherArg, ParsedExpectVitestFnCall, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { getFirstMatcherArg, ParsedExpectVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { EqualityMatcher } from '../utils/types'
 
 export const RULE_NAME = 'prefer-to-be'

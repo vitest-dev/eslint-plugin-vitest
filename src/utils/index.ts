@@ -12,7 +12,7 @@ import {
 import {
   KnownMemberExpression,
   ParsedExpectVitestFnCall
-} from './parseVitestFnCall'
+} from './parse-vitest-fn-call'
 
 export const createEslintRule = ESLintUtils.RuleCreator(
   (ruleName) =>
