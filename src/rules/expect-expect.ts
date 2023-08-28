@@ -4,6 +4,7 @@ import { getTestCallExpressionsFromDeclaredVariables, isTypeOfVitestFnCall } fro
 
 export const RULE_NAME = 'expect-expect'
 export type MESSAGE_ID = 'expectedExpect';
+type Options = [{'custom-expressions': string[]}]
 
 /**
  * Checks if node names returned by getNodeName matches any of the given star patterns
@@ -12,26 +13,29 @@ export type MESSAGE_ID = 'expectedExpect';
  *   request.**.expect
  *   request.**.expect*
  */
+function buildRegularExpression(pattern: string) {
+	return new RegExp(
+		`^${pattern
+			.split('.')
+			.map(x => {
+				if (x === '**') return '[a-z\\d\\.]*'
+
+				return x.replace(/\*/gu, '[a-z\\d]*')
+			})
+			.join('\\.')}(\\.|$)`,
+		'ui')
+}
+
 function matchesAssertFunctionName(
 	nodeName: string,
 	patterns: readonly string[]
 ): boolean {
-	return patterns.some(p =>
-		new RegExp(
-			`^${p
-				.split('.')
-				.map(x => {
-					if (x === '**') return '[a-z\\d\\.]*'
-
-					return x.replace(/\*/gu, '[a-z\\d]*')
-				})
-				.join('\\.')}(\\.|$)`,
-			'ui'
-		).test(nodeName)
+	return patterns.some(pattern =>
+		buildRegularExpression(pattern).test(nodeName)
 	)
 }
 
-export default createEslintRule<[], MESSAGE_ID>({
+export default createEslintRule<Options, MESSAGE_ID>({
 	name: RULE_NAME,
 	meta: {
 		type: 'suggestion',
@@ -39,16 +43,27 @@ export default createEslintRule<[], MESSAGE_ID>({
 			description: 'Enforce having expectation in test body',
 			recommended: 'strict'
 		},
-		schema: [],
+		schema: [
+			{
+				type: 'object',
+				properties: {
+					'custom-expressions': {
+						type: 'array'
+					}
+				},
+				additionalProperties: false
+			}
+		],
 		messages: {
 			expectedExpect: 'Use \'expect\' in test body'
 		}
 	},
-	defaultOptions: [],
+	defaultOptions: [{ 'custom-expressions': ['expect'] }],
 	create: (context) => {
 		const unchecked: TSESTree.CallExpression[] = []
+		const customExpressions = context.options.map(option => option['custom-expressions']).flat()
 
-		function checkCallExpressionUsed(nodes: TSESTree.Node[]) {
+		function checkCallExpressionUsed(nodes: TSESTree.Node[], unchecked: TSESTree.CallExpression[], ancestors: unknown) {
 			for (const node of nodes) {
 				const index = node.type === AST_NODE_TYPES.CallExpression
 					? unchecked.indexOf(node)
@@ -57,7 +72,7 @@ export default createEslintRule<[], MESSAGE_ID>({
 				if (node.type === AST_NODE_TYPES.FunctionDeclaration) {
 					const declaredVariables = context.getDeclaredVariables(node)
 					const textCallExpression = getTestCallExpressionsFromDeclaredVariables(declaredVariables, context)
-					checkCallExpressionUsed(textCallExpression)
+					checkCallExpressionUsed(textCallExpression, unchecked, context.getAncestors())
 				}
 				if (index !== -1) {
 					unchecked.splice(index, 1)
@@ -74,8 +89,8 @@ export default createEslintRule<[], MESSAGE_ID>({
 					if (node.callee.type === AST_NODE_TYPES.MemberExpression &&
 						isSupportedAccessor(node.callee.property, 'todo')) return
 					unchecked.push(node)
-				} else if (matchesAssertFunctionName(name, ['expect'])) {
-					checkCallExpressionUsed(context.getAncestors())
+				} else if (matchesAssertFunctionName(name, ['expect'].concat(customExpressions))) {
+					checkCallExpressionUsed(context, unchecked, context.getAncestors())
 				}
 			},
 			'Program:exit'() {
