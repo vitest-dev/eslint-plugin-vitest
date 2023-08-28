@@ -61,9 +61,9 @@ export default createEslintRule<Options, MESSAGE_ID>({
 	defaultOptions: [{ 'custom-expressions': ['expect'] }],
 	create: (context) => {
 		const unchecked: TSESTree.CallExpression[] = []
-		const validExpressions = context.options.map(option => option['custom-expressions']).flat()
+		const customExpressions = context.options.map(option => option['custom-expressions']).flat()
 
-		function checkCallExpressionUsed(nodes: TSESTree.Node[], unchecked: TSESTree.CallExpression[]) {
+		function checkCallExpressionUsed(nodes: TSESTree.Node[], unchecked: TSESTree.CallExpression[], ancestors: unknown) {
 			for (const node of nodes) {
 				const index = node.type === AST_NODE_TYPES.CallExpression
 					? unchecked.indexOf(node)
@@ -72,7 +72,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 				if (node.type === AST_NODE_TYPES.FunctionDeclaration) {
 					const declaredVariables = context.getDeclaredVariables(node)
 					const textCallExpression = getTestCallExpressionsFromDeclaredVariables(declaredVariables, context)
-					checkCallExpressionUsed(textCallExpression, unchecked)
+					checkCallExpressionUsed(textCallExpression, unchecked, context.getAncestors())
 				}
 				if (index !== -1) {
 					unchecked.splice(index, 1)
@@ -87,13 +87,12 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
 				if (isTypeOfVitestFnCall(node, context, ['test'])) {
 					if (node.callee.type === AST_NODE_TYPES.MemberExpression &&
-						isSupportedAccessor(node.callee.property, 'todo')) {
+						isSupportedAccessor(node.callee.property, 'todo'))
 						return
-					}
 
 					unchecked.push(node)
-				} else if (matchesAssertFunctionName(name, validExpressions)) {
-					checkCallExpressionUsed(context, unchecked)
+				} else if (matchesAssertFunctionName(name, ['expect'].concat(customExpressions))) {
+					checkCallExpressionUsed(context, unchecked, context.getAncestors())
 				}
 			},
 			'Program:exit'() {
