@@ -4,7 +4,9 @@ import { getTestCallExpressionsFromDeclaredVariables, isTypeOfVitestFnCall } fro
 
 export const RULE_NAME = 'expect-expect'
 export type MESSAGE_ID = 'expectedExpect';
-type Options = [{'custom-expressions': string[]}]
+type Options = [
+	{'custom-expressions': string[]}
+]
 
 /**
  * Checks if node names returned by getNodeName matches any of the given star patterns
