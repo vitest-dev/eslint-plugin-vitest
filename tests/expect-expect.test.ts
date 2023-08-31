@@ -5,25 +5,24 @@ import { ruleTester } from './ruleTester'
 describe(RULE_NAME, () => {
   it(`${RULE_NAME} with custom expressions`, () => {
     ruleTester.run(RULE_NAME, rule, {
-    valid: [{
-      code: 'test("shows success", () => {expectValue(true).toBe(false);});',
+      valid: [{
+        code: 'test("shows success", () => {expectValue(true).toBe(false);});',
         options: [{ 'custom-expressions': ['expectValue'] }]
-    },
-    {
-      code: 'test("shows success", () => {' +
-        'mySecondExpression(true).toBe(true);});',
-      options: [
-        { 'custom-expressions': ['expectValue', 'mySecondExpression'] }
+      },
+        {
+          code: 'test("shows success", () => {' +
+            'mySecondExpression(true).toBe(true);});',
+          options: [
+            { 'custom-expressions': ['expectValue', 'mySecondExpression'] }
+          ]
+        }],
+      invalid: [
+        {
+          code: 'test("shows error", () => {});',
+          errors: [{ messageId: 'expectedExpect' }]
+        }
       ]
-    }
-    ],
-    invalid: [
-      {
-        code: 'test("shows error", () => {});',
-        errors: [{ messageId: 'expectedExpect' }]
-      }
-    ]
-  })
+    })
   })
   it(`${RULE_NAME} without custom expressions`, () => {
     ruleTester.run(RULE_NAME, rule, {
