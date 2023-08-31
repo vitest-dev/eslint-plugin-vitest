@@ -1,6 +1,7 @@
 {
 	"extends": [
-		"@veritem"
+		"@veritem",
+		"vitest"
 	],
 	"rules": {
 		"indent": [
