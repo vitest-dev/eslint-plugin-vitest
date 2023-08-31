@@ -52,6 +52,7 @@
 		"eslint-doc-generator": "^1.4.3",
 		"eslint-plugin-eslint-plugin": "^5.1.1",
 		"eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-vitest": "^0.2.8",
 		"eslint-remote-tester": "^3.0.0",
 		"eslint-remote-tester-repositories": "^1.0.1",
 		"jiti": "^1.19.3",
