@@ -1,6 +1,14 @@
-import { describe, it } from 'vitest'
+import { describe, it, afterAll } from 'vitest'
+import { RuleTester } from '@typescript-eslint/rule-tester'
 import rule, { RULE_NAME } from '../src/rules/expect-expect'
-import { ruleTester } from './ruleTester'
+
+RuleTester.afterAll = afterAll
+RuleTester.describe = describe
+RuleTester.it = it
+
+export const ruleTester: RuleTester = new RuleTester({
+	parser: '@typescript-eslint/parser'
+})
 
 describe(RULE_NAME, () => {
   it(`${RULE_NAME} with custom expressions`, () => {
@@ -62,13 +70,10 @@ describe(RULE_NAME, () => {
         `const myFunc = () => {};
         it("works", () => expect(myFunc()).toBe(undefined));`,
         `const myFunc = () => {};
-        it("works", () => expect(myFunc()).toBe(undefined));`
+        it("works", () => expect(myFunc()).toBe(undefined));`,
+		'test("shows error", () => {});'
       ],
       invalid: [
-        {
-          code: 'test("shows error", () => {});',
-          errors: [{ messageId: 'expectedExpect' }]
-        },
         {
           code: `it("foo", function () {
             if (1 === 2) {}

@@ -36,7 +36,8 @@
 		"test:ci": "vitest run",
 		"test": "vitest",
 		"generate": "tsx scripts/generate.ts",
-		"update:eslint-docs": "pnpm build && eslint-doc-generator"
+		"update:eslint-docs": "pnpm build && eslint-doc-generator",
+		"tsc": "tsc --noEmit"
 	},
 	"devDependencies": {
 		"@babel/types": "^7.22.11",
@@ -57,6 +58,7 @@
 		"jiti": "^1.19.3",
 		"ts-node": "^10.9.1",
 		"tsx": "^3.12.7",
+		"typescript": "^5.2.2",
 		"unbuild": "^2.0.0",
 		"vitest": "^0.34.3"
 	},
