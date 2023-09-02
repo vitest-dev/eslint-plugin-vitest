@@ -66,6 +66,49 @@ To use the all configuration, extend it in your `.eslintrc` file:
 }
 ```
 
+#### Running on test files only
+
+This plugin assumes that you're running it on tests files only by default which is sometimes not the case. To that it can only run on specific files you have to use the following configuration.
+
+If you're using `.eslintrc`
+
+```json 
+{
+	"extends": ["eslint:recommended"],
+	"overrides": [
+		{
+			"files": ["tests/**"], // or any other pattern
+			"plugins": ["vitest"],
+			"extends": ["plugin:vitest/recommended"]
+		}
+	]
+}
+```
+
+If you're using `.eslintrc.js`
+
+```js
+import vitest from "eslint-plugin-vitest";
+
+export default [
+  {
+    files: ["tests/**"], // or any other pattern
+    plugins: {
+      vitest,
+    },
+    rules: {
+      ...vitest.configs.recommended.rules,
+    },
+    languageOptions: {
+      globals: {
+        ...vitest.environments.env.globals,
+      },
+    },
+  },
+];
+```
+
+
 ### Rules
 
 <!-- begin auto-generated rules list -->
