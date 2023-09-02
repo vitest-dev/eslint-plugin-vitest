@@ -1,14 +1,8 @@
 import path from 'node:path'
 import { RuleTester } from '@typescript-eslint/rule-tester'
-import { afterAll, it, describe } from 'vitest'
 import unboundMethod from '../src/rules/unbound-method'
 
 const rootPath = path.join(__dirname, './fixtures')
-
-RuleTester.afterAll = afterAll
-RuleTester.it = it
-RuleTester.itOnly = it.only
-RuleTester.describe = describe
 
 const ruleTester = new RuleTester({
   parser: '@typescript-eslint/parser',

@@ -78,7 +78,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 						if (!toThrowMatchers.includes(getAccessorValue(matcher))) return
 					}
 				}
-				baseSelectors?.MemberExpression?.(node)
+				if (baseSelectors.MemberExpression)
+					baseSelectors.MemberExpression?.(node)
 			}
 		}
 	}
