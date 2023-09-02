@@ -1,10 +1,6 @@
-import { describe, it, afterAll } from 'vitest'
+import { describe, it } from 'vitest'
 import { RuleTester } from '@typescript-eslint/rule-tester'
 import rule, { RULE_NAME } from '../src/rules/expect-expect'
-
-RuleTester.afterAll = afterAll
-RuleTester.describe = describe
-RuleTester.it = it
 
 export const ruleTester: RuleTester = new RuleTester({
 	parser: '@typescript-eslint/parser'
