@@ -31,7 +31,7 @@ Array of custom expression strings that are converted into a regular expression.
 
 ```json
 {
-  "custom-expressions": [
+  "customExpressions": [
     "expectValue",
     "mySecondExpression"
   ]
