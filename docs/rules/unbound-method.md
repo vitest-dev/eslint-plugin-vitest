@@ -42,8 +42,4 @@ This rule is enabled in the `all` config.
 
 ### Options 
 
-<<<<<<< HEAD
 Checkout [@typescript-eslint/unbound-method](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/unbound-method.md)  options. including  `ignoreStatic`
-=======
-Checkout [@typescript-eslint/unbound-method](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/unbound-method.md)  options. including  `ignoreStatic`
->>>>>>> 0c36b95 (chore: updated docs)

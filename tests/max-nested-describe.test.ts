@@ -1,9 +1,8 @@
-import { it } from 'vitest'
 import rule, { RULE_NAME } from '../src/rules/max-nested-describe'
 import { ruleTester } from './ruleTester'
 
 const valid = [
-	`describe('another suite', () => {
+  `describe('another suite', () => {
  describe('another suite', () => {
    it('skipped test', () => {
       // Test skipped, as tests are running in Only mode
@@ -16,7 +15,7 @@ const valid = [
     })
   })
 })`,
-	`describe('another suite', () => {
+  `describe('another suite', () => {
  describe('another suite', () => {
     describe('another suite', () => {
        describe('another suite', () => {
@@ -28,7 +27,7 @@ const valid = [
 ]
 
 const invalid = [
-	`describe('another suite', () => {
+  `describe('another suite', () => {
  describe('another suite', () => {
     describe('another suite', () => {
        describe('another suite', () => {
@@ -41,7 +40,7 @@ const invalid = [
     })
   })
 })`,
-	`describe('another suite', () => {
+  `describe('another suite', () => {
  describe('another suite', () => {
     describe('another suite', () => {
        describe('another suite', () => {
@@ -64,13 +63,11 @@ const invalid = [
 }) `
 ]
 
-it('max-nested-describe', () => {
-	ruleTester.run(RULE_NAME, rule, {
-		valid,
-		invalid: invalid.map((i) => ({
-			code: i,
-			output: i,
-			errors: [{ messageId: 'maxNestedDescribe' }]
-		}))
-	})
+ruleTester.run(RULE_NAME, rule, {
+  valid,
+  invalid: invalid.map((i) => ({
+    code: i,
+    output: i,
+    errors: [{ messageId: 'maxNestedDescribe' }]
+  }))
 })

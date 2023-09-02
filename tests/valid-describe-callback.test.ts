@@ -1,9 +1,6 @@
-import { describe, it } from 'vitest'
 import rule, { RULE_NAME } from '../src/rules/valid-describe-callback'
 import { ruleTester } from './ruleTester'
 
-describe(RULE_NAME, () => {
-	it(RULE_NAME, () => {
 		ruleTester.run(RULE_NAME, rule, {
 			valid: [
 				'describe.each([1, 2, 3])("%s", (a, b) => {});',
@@ -222,5 +219,3 @@ describe(RULE_NAME, () => {
 				}
 			]
 		})
-	})
-})

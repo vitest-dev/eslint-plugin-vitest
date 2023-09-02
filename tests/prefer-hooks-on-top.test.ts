@@ -1,12 +1,9 @@
-import { describe, test } from 'vitest'
 import rule, { RULE_NAME } from '../src/rules/prefer-hooks-on-top'
 import { ruleTester } from './ruleTester'
 
-describe(RULE_NAME, () => {
-	test(RULE_NAME, () => {
-		ruleTester.run(RULE_NAME, rule, {
-			valid: [
-				`
+ruleTester.run(RULE_NAME, rule, {
+  valid: [
+    `
 				describe('foo', () => {
 				  beforeEach(() => {});
 				  someSetupFn();
@@ -17,7 +14,7 @@ describe(RULE_NAME, () => {
 				  });
 				});
 			  `,
-				`
+    `
 				describe('foo', () => {
 				  someSetupFn();
 				  beforeEach(() => {});
@@ -28,10 +25,10 @@ describe(RULE_NAME, () => {
 				  });
 				});
 			  `
-			],
-			invalid: [
-				{
-					code: `
+  ],
+  invalid: [
+    {
+      code: `
 					  describe('foo', () => {
 						beforeEach(() => {});
 						test('bar', () => {
@@ -44,16 +41,16 @@ describe(RULE_NAME, () => {
 						});
 					  });
 					`,
-					errors: [
-						{
-							messageId: 'noHookOnTop',
-							column: 7,
-							line: 8
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'noHookOnTop',
+          column: 7,
+          line: 8
+        }
+      ]
+    },
+    {
+      code: `
 					  describe('foo', () => {
 						beforeEach(() => {});
 						test.each\`\`('bar', () => {
@@ -66,16 +63,16 @@ describe(RULE_NAME, () => {
 						});
 					  });
 					`,
-					errors: [
-						{
-							messageId: 'noHookOnTop',
-							column: 7,
-							line: 8
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'noHookOnTop',
+          column: 7,
+          line: 8
+        }
+      ]
+    },
+    {
+      code: `
 					  describe('foo', () => {
 						beforeEach(() => {});
 						test.only.each\`\`('bar', () => {
@@ -88,22 +85,20 @@ describe(RULE_NAME, () => {
 						});
 					  });
 					`,
-					errors: [
-						{
-							messageId: 'noHookOnTop',
-							column: 7,
-							line: 8
-						}
-					]
-				}
-			]
-		})
-	})
+      errors: [
+        {
+          messageId: 'noHookOnTop',
+          column: 7,
+          line: 8
+        }
+      ]
+    }
+  ]
+})
 
-	test(`${RULE_NAME} - multiple test blocks`, () => {
-		ruleTester.run(RULE_NAME, rule, {
-			valid: [
-				`
+ruleTester.run(RULE_NAME, rule, {
+  valid: [
+    `
 				  describe.skip('foo', () => {
 					beforeEach(() => {});
 					beforeAll(() => {});
@@ -121,10 +116,10 @@ describe(RULE_NAME, () => {
 					});
 				  });
 				`
-			],
-			invalid: [
-				{
-					code: `
+  ],
+  invalid: [
+    {
+      code: `
 					describe.skip('foo', () => {
 					  beforeEach(() => {});
 					  test('bar', () => {
@@ -156,37 +151,35 @@ describe(RULE_NAME, () => {
 					  beforeAll(() => {});
 					});
 				  `,
-					errors: [
-						{
-							messageId: 'noHookOnTop',
-							column: 8,
-							line: 8
-						},
-						{
-							messageId: 'noHookOnTop',
-							column: 8,
-							line: 28
-						},
-						{
-							messageId: 'noHookOnTop',
-							column: 8,
-							line: 29
-						},
-						{
-							messageId: 'noHookOnTop',
-							column: 8,
-							line: 30
-						}
-					]
-				}
-			]
-		})
-	})
+      errors: [
+        {
+          messageId: 'noHookOnTop',
+          column: 8,
+          line: 8
+        },
+        {
+          messageId: 'noHookOnTop',
+          column: 8,
+          line: 28
+        },
+        {
+          messageId: 'noHookOnTop',
+          column: 8,
+          line: 29
+        },
+        {
+          messageId: 'noHookOnTop',
+          column: 8,
+          line: 30
+        }
+      ]
+    }
+  ]
+})
 
-	test(`${RULE_NAME} - nested describe blocks`, () => {
-		ruleTester.run('nested describe blocks', rule, {
-			valid: [
-				`
+ruleTester.run('nested describe blocks', rule, {
+  valid: [
+    `
 				describe('foo', () => {
 				  beforeEach(() => {});
 				  test('bar', () => {
@@ -201,10 +194,10 @@ describe(RULE_NAME, () => {
 				  });
 				});
 			  `
-			],
-			invalid: [
-				{
-					code: `
+  ],
+  invalid: [
+    {
+      code: `
 				  describe('foo', () => {
 					beforeAll(() => {});
 					test('bar', () => {
@@ -229,20 +222,18 @@ describe(RULE_NAME, () => {
 					});
 				  });
 				`,
-					errors: [
-						{
-							messageId: 'noHookOnTop',
-							column: 8,
-							line: 18
-						},
-						{
-							messageId: 'noHookOnTop',
-							column: 8,
-							line: 19
-						}
-					]
-				}
-			]
-		})
-	})
+      errors: [
+        {
+          messageId: 'noHookOnTop',
+          column: 8,
+          line: 18
+        },
+        {
+          messageId: 'noHookOnTop',
+          column: 8,
+          line: 19
+        }
+      ]
+    }
+  ]
 })

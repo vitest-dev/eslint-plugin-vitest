@@ -1,22 +1,19 @@
-import { describe, it } from 'vitest'
 import rule, { RULE_NAME } from '../src/rules/no-duplicate-hooks'
 import { ruleTester } from './ruleTester'
 
-describe(RULE_NAME, () => {
-	it(`${RULE_NAME} - single describe block`, () => {
-		ruleTester.run(RULE_NAME, rule, {
-			valid: [
-				`describe("foo", () => {
+ruleTester.run(RULE_NAME, rule, {
+  valid: [
+    `describe("foo", () => {
 				beforeEach(() => {})
 				test("bar", () => {
 				  someFn();
 				})
 			  })`,
-				`beforeEach(() => {})
+    `beforeEach(() => {})
 			  test("bar", () => {
 				someFn();
 			  })`,
-				`describe("foo", () => {
+    `describe("foo", () => {
 				beforeAll(() => {}),
 				beforeEach(() => {})
 				afterEach(() => {})
@@ -26,27 +23,27 @@ describe(RULE_NAME, () => {
 				  someFn();
 				})
 			  })`
-			],
-			invalid: [
-				{
-					code: `describe("foo", () => {
+  ],
+  invalid: [
+    {
+      code: `describe("foo", () => {
 						beforeEach(() => {}),
 						beforeEach(() => {}),
 						test("bar", () => {
 						  someFn();
 						})
 					  })`,
-					errors: [
-						{
-							messageId: 'noDuplicateHooks',
-							data: { hook: 'beforeEach' },
-							column: 7,
-							line: 3
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'noDuplicateHooks',
+          data: { hook: 'beforeEach' },
+          column: 7,
+          line: 3
+        }
+      ]
+    },
+    {
+      code: `
 					  describe.skip("foo", () => {
 						afterEach(() => {}),
 						afterEach(() => {}),
@@ -55,23 +52,21 @@ describe(RULE_NAME, () => {
 						})
 					  })
 					`,
-					errors: [
-						{
-							messageId: 'noDuplicateHooks',
-							data: { hook: 'afterEach' },
-							column: 7,
-							line: 4
-						}
-					]
-				}
-			]
-		})
-	})
+      errors: [
+        {
+          messageId: 'noDuplicateHooks',
+          data: { hook: 'afterEach' },
+          column: 7,
+          line: 4
+        }
+      ]
+    }
+  ]
+})
 
-	it(`${RULE_NAME} - multiple describe blocks`, () => {
-		ruleTester.run(RULE_NAME, rule, {
-			valid: [
-				`describe.skip("foo", () => {
+ruleTester.run(RULE_NAME, rule, {
+  valid: [
+    `describe.skip("foo", () => {
         beforeEach(() => {}),
         beforeAll(() => {}),
         test("bar", () => {
@@ -85,10 +80,10 @@ describe(RULE_NAME, () => {
           someFn();
         })
       })`
-			],
-			invalid: [
-				{
-					code: `describe.skip("foo", () => {
+  ],
+  invalid: [
+    {
+      code: `describe.skip("foo", () => {
 						beforeEach(() => {}),
 						beforeAll(() => {}),
 						test("bar", () => {
@@ -103,23 +98,21 @@ describe(RULE_NAME, () => {
 						  someFn();
 						})
 					  })`,
-					errors: [
-						{
-							messageId: 'noDuplicateHooks',
-							data: { hook: 'beforeEach' },
-							column: 7,
-							line: 10
-						}
-					]
-				}
-			]
-		})
-	})
+      errors: [
+        {
+          messageId: 'noDuplicateHooks',
+          data: { hook: 'beforeEach' },
+          column: 7,
+          line: 10
+        }
+      ]
+    }
+  ]
+})
 
-	it(`${RULE_NAME} - nested describe blocks`, () => {
-		ruleTester.run(RULE_NAME, rule, {
-			valid: [
-				` describe("foo", () => {
+ruleTester.run(RULE_NAME, rule, {
+  valid: [
+    ` describe("foo", () => {
 					beforeEach(() => {}),
 					test("bar", () => {
 					  someFn();
@@ -131,10 +124,10 @@ describe(RULE_NAME, () => {
 					  })
 					})
 				  })`
-			],
-			invalid: [
-				{
-					code: `describe.skip("foo", () => {
+  ],
+  invalid: [
+    {
+      code: `describe.skip("foo", () => {
 						beforeEach(() => {}),
 						beforeAll(() => {}),
 						test("bar", () => {
@@ -149,52 +142,50 @@ describe(RULE_NAME, () => {
 						  someFn();
 						})
 					  })`,
-					errors: [
-						{
-							messageId: 'noDuplicateHooks',
-							data: { hook: 'beforeEach' },
-							column: 7,
-							line: 10
-						}
-					]
-				}
-			]
-		})
-	})
+      errors: [
+        {
+          messageId: 'noDuplicateHooks',
+          data: { hook: 'beforeEach' },
+          column: 7,
+          line: 10
+        }
+      ]
+    }
+  ]
+})
 
-	it(`${RULE_NAME} - describe.each blocks`, () => {
-		ruleTester.run(RULE_NAME, rule, {
-			valid: [
-				` describe.each(['hello'])('%s', () => {
+ruleTester.run(RULE_NAME, rule, {
+  valid: [
+    ` describe.each(['hello'])('%s', () => {
 					beforeEach(() => {});
 			
 					it('is fine', () => {});
 				  });`,
-				`describe.each(['hello'])('%s', () => {
+    `describe.each(['hello'])('%s', () => {
 					beforeEach(() => {});
 			
 					it('is fine', () => {});
 				  });`
-			],
-			invalid: [
-				{
-					code: `describe.each(['hello'])('%s', () => {
+  ],
+  invalid: [
+    {
+      code: `describe.each(['hello'])('%s', () => {
 						beforeEach(() => {});
 						beforeEach(() => {});
 				
 						it('is not fine', () => {});
 					  });`,
-					errors: [
-						{
-							messageId: 'noDuplicateHooks',
-							data: { hook: 'beforeEach' },
-							column: 7,
-							line: 3
-						}
-					]
-				},
-				{
-					code: ` describe('something', () => {
+      errors: [
+        {
+          messageId: 'noDuplicateHooks',
+          data: { hook: 'beforeEach' },
+          column: 7,
+          line: 3
+        }
+      ]
+    },
+    {
+      code: ` describe('something', () => {
 						describe.each(['hello'])('%s', () => {
 						  beforeEach(() => {});
 				
@@ -208,16 +199,14 @@ describe(RULE_NAME, () => {
 						  it('is not fine', () => {});
 						});
 					  });`,
-					errors: [
-						{
-							messageId: 'noDuplicateHooks',
-							data: { hook: 'beforeEach' },
-							column: 9,
-							line: 10
-						}
-					]
-				}
-			]
-		})
-	})
+      errors: [
+        {
+          messageId: 'noDuplicateHooks',
+          data: { hook: 'beforeEach' },
+          column: 9,
+          line: 10
+        }
+      ]
+    }
+  ]
 })

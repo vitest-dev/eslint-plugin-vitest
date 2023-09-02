@@ -1,21 +1,18 @@
-import { describe, it } from 'vitest'
 import rule, { RULE_NAME } from '../src/rules/prefer-hooks-in-order'
 import { ruleTester } from './ruleTester'
 
-describe(RULE_NAME, () => {
-	it(RULE_NAME, () => {
-		ruleTester.run(RULE_NAME, rule, {
-			valid: [
-				'beforeAll(() => {})',
-				'beforeEach(() => {})',
-				'afterEach(() => {})',
-				'afterAll(() => {})',
-				'describe(() => {})',
-				`beforeAll(() => {});
+ruleTester.run(RULE_NAME, rule, {
+  valid: [
+    'beforeAll(() => {})',
+    'beforeEach(() => {})',
+    'afterEach(() => {})',
+    'afterAll(() => {})',
+    'describe(() => {})',
+    `beforeAll(() => {});
 							beforeEach(() => {});
 							afterEach(() => {});
 							afterAll(() => {});`,
-				`describe('foo', () => {
+    `describe('foo', () => {
 								someSetupFn();
 								beforeEach(() => {});
 								afterEach(() => {});
@@ -24,37 +21,37 @@ describe(RULE_NAME, () => {
 								  someFn();
 								});
 							  });`,
-				`
+    `
 				  beforeAll(() => {});
 				  afterAll(() => {});
 				 `,
-				`
+    `
 				  beforeEach(() => {});
 				  afterEach(() => {});
 				 `,
-				`
+    `
 				  beforeAll(() => {});
 				  afterEach(() => {});
 				 `,
-				`
+    `
 				  beforeAll(() => {});
 				  beforeEach(() => {});
 				 `,
-				`
+    `
 				  afterEach(() => {});
 				  afterAll(() => {});
 				 `,
-				`
+    `
 				  beforeAll(() => {});
 				  beforeAll(() => {});
 				 `,
-				`
+    `
 				  describe('my test', () => {
 				    afterEach(() => {});
 				    afterAll(() => {});
 				  });
 				 `,
-				`
+    `
 				  describe('my test', () => {
 				    afterEach(() => {});
 				    afterAll(() => {});
@@ -65,7 +62,7 @@ describe(RULE_NAME, () => {
 				    beforeEach(() => {});
 				  });
 				 `,
-				`
+    `
 				  describe('my test', () => {
 				    afterEach(() => {});
 				    afterAll(() => {});
@@ -76,7 +73,7 @@ describe(RULE_NAME, () => {
 				    beforeEach(() => {});
 				  });
 				 `,
-				`
+    `
 				  describe('my test', () => {
 				    afterAll(() => {});
 
@@ -86,7 +83,7 @@ describe(RULE_NAME, () => {
 				    });
 				  });
 				 `,
-				`
+    `
 				  describe('my test', () => {
 				    afterAll(() => {});
 
@@ -120,7 +117,7 @@ describe(RULE_NAME, () => {
 				    beforeEach(() => {});
 				  });
 				 `,
-				`
+    `
 				  const withDatabase = () => {
 				    beforeAll(() => {
 				      createMyDatabase();
@@ -167,7 +164,7 @@ describe(RULE_NAME, () => {
 				    beforeEach(() => {});
 				  });
 				 `,
-				`
+    `
 				  describe('foo', () => {
 				    beforeAll(() => {
 				      createMyDatabase();
@@ -218,7 +215,7 @@ describe(RULE_NAME, () => {
 				    });
 				  });
 				 `,
-				`
+    `
 				  describe('A file with a lot of test', () => {
 				    beforeAll(() => {
 				      setupTheDatabase();
@@ -261,10 +258,10 @@ describe(RULE_NAME, () => {
 				    });
 				  });
 				 `
-			],
-			invalid: [
-				{
-					code: `
+  ],
+  invalid: [
+    {
+      code: `
 					  const withDatabase = () => {
 						afterAll(() => {
 						  removeMyDatabase();
@@ -274,17 +271,17 @@ describe(RULE_NAME, () => {
 						});
 					  };
 					`,
-					errors: [
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'beforeAll', previousHook: 'afterAll' },
-							column: 7,
-							line: 6
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'beforeAll', previousHook: 'afterAll' },
+          column: 7,
+          line: 6
+        }
+      ]
+    },
+    {
+      code: `
 					  afterAll(() => {
 						removeMyDatabase();
 					  });
@@ -292,135 +289,135 @@ describe(RULE_NAME, () => {
 						createMyDatabase();
 					  });
 					`,
-					errors: [
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'beforeAll', previousHook: 'afterAll' },
-							column: 8,
-							line: 5
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'beforeAll', previousHook: 'afterAll' },
+          column: 8,
+          line: 5
+        }
+      ]
+    },
+    {
+      code: `
 					  afterAll(() => {});
 					  beforeAll(() => {});
 					`,
-					errors: [
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'beforeAll', previousHook: 'afterAll' },
-							column: 8,
-							line: 3
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'beforeAll', previousHook: 'afterAll' },
+          column: 8,
+          line: 3
+        }
+      ]
+    },
+    {
+      code: `
 					  afterEach(() => {});
 					  beforeEach(() => {});
 					`,
-					errors: [
-						{
-							// 'beforeEach' hooks should be before any 'afterEach' hooks
-							messageId: 'reorderHooks',
-							data: { currentHook: 'beforeEach', previousHook: 'afterEach' },
-							column: 8,
-							line: 3
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          // 'beforeEach' hooks should be before any 'afterEach' hooks
+          messageId: 'reorderHooks',
+          data: { currentHook: 'beforeEach', previousHook: 'afterEach' },
+          column: 8,
+          line: 3
+        }
+      ]
+    },
+    {
+      code: `
 					  afterEach(() => {});
 					  beforeAll(() => {});
 					`,
-					errors: [
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'beforeAll', previousHook: 'afterEach' },
-							column: 8,
-							line: 3
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'beforeAll', previousHook: 'afterEach' },
+          column: 8,
+          line: 3
+        }
+      ]
+    },
+    {
+      code: `
 					  beforeEach(() => {});
 					  beforeAll(() => {});
 					`,
-					errors: [
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
-							column: 8,
-							line: 3
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
+          column: 8,
+          line: 3
+        }
+      ]
+    },
+    {
+      code: `
 					  afterAll(() => {});
 					  afterEach(() => {});
 					`,
-					errors: [
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'afterEach', previousHook: 'afterAll' },
-							column: 8,
-							line: 3
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'afterEach', previousHook: 'afterAll' },
+          column: 8,
+          line: 3
+        }
+      ]
+    },
+    {
+      code: `
 					  afterAll(() => {});
 					  // The afterEach should do this
 					  // This comment does not matter for the order
 					  afterEach(() => {});
 					`,
-					errors: [
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'afterEach', previousHook: 'afterAll' },
-							column: 8,
-							line: 5
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'afterEach', previousHook: 'afterAll' },
+          column: 8,
+          line: 5
+        }
+      ]
+    },
+    {
+      code: `
 					  afterAll(() => {});
 					  afterAll(() => {});
 					  afterEach(() => {});
 					`,
-					errors: [
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'afterEach', previousHook: 'afterAll' },
-							column: 8,
-							line: 4
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'afterEach', previousHook: 'afterAll' },
+          column: 8,
+          line: 4
+        }
+      ]
+    },
+    {
+      code: `
 					  describe('my test', () => {
 						afterAll(() => {});
 						afterEach(() => {});
 					  });
 					`,
-					errors: [
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'afterEach', previousHook: 'afterAll' },
-							column: 7,
-							line: 4
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'afterEach', previousHook: 'afterAll' },
+          column: 7,
+          line: 4
+        }
+      ]
+    },
+    {
+      code: `
 					  describe('my test', () => {
 						afterAll(() => {});
 						afterEach(() => {});
@@ -431,23 +428,23 @@ describe(RULE_NAME, () => {
 						beforeAll(() => {});
 					  });
 					`,
-					errors: [
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'afterEach', previousHook: 'afterAll' },
-							column: 7,
-							line: 4
-						},
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
-							column: 7,
-							line: 9
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'afterEach', previousHook: 'afterAll' },
+          column: 7,
+          line: 4
+        },
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
+          column: 7,
+          line: 9
+        }
+      ]
+    },
+    {
+      code: `
 					  describe('my test', () => {
 						afterAll(() => {});
 						afterEach(() => {});
@@ -458,23 +455,23 @@ describe(RULE_NAME, () => {
 						beforeAll(() => {});
 					  });
 					`,
-					errors: [
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'afterEach', previousHook: 'afterAll' },
-							column: 7,
-							line: 4
-						},
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
-							column: 7,
-							line: 9
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'afterEach', previousHook: 'afterAll' },
+          column: 7,
+          line: 4
+        },
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
+          column: 7,
+          line: 9
+        }
+      ]
+    },
+    {
+      code: `
 					  describe('my test', () => {
 						afterAll(() => {});
 			  
@@ -484,17 +481,17 @@ describe(RULE_NAME, () => {
 						});
 					  });
 					`,
-					errors: [
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
-							column: 9,
-							line: 7
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
+          column: 9,
+          line: 7
+        }
+      ]
+    },
+    {
+      code: `
 					  describe('my test', () => {
 						beforeAll(() => {});
 						afterAll(() => {});
@@ -508,23 +505,23 @@ describe(RULE_NAME, () => {
 						});
 					  });
 					`,
-					errors: [
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'beforeAll', previousHook: 'afterAll' },
-							column: 7,
-							line: 5
-						},
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'beforeEach', previousHook: 'afterEach' },
-							column: 9,
-							line: 10
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'beforeAll', previousHook: 'afterAll' },
+          column: 7,
+          line: 5
+        },
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'beforeEach', previousHook: 'afterEach' },
+          column: 9,
+          line: 10
+        }
+      ]
+    },
+    {
+      code: `
 					  describe('my test', () => {
 						beforeAll(() => {});
 						beforeAll(() => {});
@@ -557,17 +554,17 @@ describe(RULE_NAME, () => {
 						});
 					  });
 					`,
-					errors: [
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'afterEach', previousHook: 'afterAll' },
-							column: 8,
-							line: 23
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'afterEach', previousHook: 'afterAll' },
+          column: 8,
+          line: 23
+        }
+      ]
+    },
+    {
+      code: `
 					  describe('my test', () => {
 						const setupDatabase = () => {
 						  beforeEach(() => {
@@ -593,23 +590,23 @@ describe(RULE_NAME, () => {
 						});
 					  });
 					`,
-					errors: [
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
-							column: 9,
-							line: 8
-						},
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'afterEach', previousHook: 'afterAll' },
-							column: 9,
-							line: 19
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
+          column: 9,
+          line: 8
+        },
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'afterEach', previousHook: 'afterAll' },
+          column: 9,
+          line: 19
+        }
+      ]
+    },
+    {
+      code: `
 					  describe('foo', () => {
 						beforeEach(() => {
 						  seedMyDatabase();
@@ -660,22 +657,20 @@ describe(RULE_NAME, () => {
 						});
 					  });
 					`,
-					errors: [
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
-							column: 7,
-							line: 7
-						},
-						{
-							messageId: 'reorderHooks',
-							data: { currentHook: 'beforeEach', previousHook: 'afterEach' },
-							column: 9,
-							line: 38
-						}
-					]
-				}
-			]
-		})
-	})
+      errors: [
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
+          column: 7,
+          line: 7
+        },
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'beforeEach', previousHook: 'afterEach' },
+          column: 9,
+          line: 38
+        }
+      ]
+    }
+  ]
 })
