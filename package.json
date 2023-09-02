@@ -58,7 +58,6 @@
 		"jiti": "^1.19.3",
 		"ts-node": "^10.9.1",
 		"tsx": "^3.12.8",
-		"typescript": "^5.2.0",
 		"unbuild": "^2.0.0",
 		"vitest": "^0.34.3"
 	},
@@ -78,6 +77,7 @@
 		}
 	},
 	"dependencies": {
-		"@typescript-eslint/utils": "^6.5.0"
+		"@typescript-eslint/utils": "^6.5.0",
+		"typescript": "^5.2.2"
 	}
 }
