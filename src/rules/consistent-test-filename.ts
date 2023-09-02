@@ -13,7 +13,7 @@ export default createEslintRule<
 			allTestPattern: string;
 		}>
 	],
-	'msg'
+	'consistentTestFilename'
 >({
 	name: RULE_NAME,
 	meta: {
@@ -24,7 +24,7 @@ export default createEslintRule<
 			description: 'forbidden .spec test file pattern'
 		},
 		messages: {
-			msg: 'use test file name pattern {{pattern}}'
+			consistentTestFilename: 'use test file name pattern {{pattern}}'
 		},
 		schema: [
 			{
@@ -60,7 +60,7 @@ export default createEslintRule<
 				if (!pattern.test(filename)) {
 					context.report({
 						node: p,
-						messageId: 'msg',
+						messageId: 'consistentTestFilename',
 						data: {
 							pattern: pattern.source
 						}

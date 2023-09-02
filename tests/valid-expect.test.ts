@@ -1,8 +1,6 @@
 import rule, { RULE_NAME } from '../src/rules/valid-expect'
 import { ruleTester } from './ruleTester'
 
-// describe(RULE_NAME, () => {
-//  test(RULE_NAME + ' in promise', () => {
 ruleTester.run(RULE_NAME, rule, {
 	valid: [
 		'expect.hasAssertions',
@@ -848,5 +846,3 @@ ruleTester.run(RULE_NAME, rule, {
 		}
 	]
 })
-//  })
-// })

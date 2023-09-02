@@ -4,7 +4,7 @@ import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parseVitestFnC
 
 export const RULE_NAME = 'max-expect'
 export type MESSAGE_ID = 'maxExpect';
-export type Options = [
+type Options = [
 	{
 		max: number
 	}

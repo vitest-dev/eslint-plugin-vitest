@@ -4,9 +4,7 @@ import { getTestCallExpressionsFromDeclaredVariables, isTypeOfVitestFnCall } fro
 
 export const RULE_NAME = 'expect-expect'
 export type MESSAGE_ID = 'expectedExpect';
-type Options = [
-	{'custom-expressions': string[]}
-]
+type Options = [{customExpressions: string[]}]
 
 /**
  * Checks if node names returned by getNodeName matches any of the given star patterns
@@ -49,7 +47,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 			{
 				type: 'object',
 				properties: {
-					'custom-expressions': {
+					customExpressions: {
 						type: 'array'
 					}
 				},
@@ -57,15 +55,14 @@ export default createEslintRule<Options, MESSAGE_ID>({
 			}
 		],
 		messages: {
-			expectedExpect: 'Use \'expect\' in test body'
+			expectedExpect: 'Use {{ expected }} in test body'
 		}
 	},
-	defaultOptions: [{ 'custom-expressions': ['expect'] }],
-	create: (context) => {
+	defaultOptions: [{ customExpressions: ['expect'] }],
+	create(context, [{ customExpressions }]) {
 		const unchecked: TSESTree.CallExpression[] = []
-		const validExpressions = context.options.map(option => option['custom-expressions']).flat()
 
-		function checkCallExpressionUsed(nodes: TSESTree.Node[], unchecked: TSESTree.CallExpression[]) {
+		function checkCallExpressionUsed(nodes: TSESTree.Node[]) {
 			for (const node of nodes) {
 				const index = node.type === AST_NODE_TYPES.CallExpression
 					? unchecked.indexOf(node)
@@ -74,7 +71,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 				if (node.type === AST_NODE_TYPES.FunctionDeclaration) {
 					const declaredVariables = context.getDeclaredVariables(node)
 					const textCallExpression = getTestCallExpressionsFromDeclaredVariables(declaredVariables, context)
-					checkCallExpressionUsed(textCallExpression, unchecked)
+					checkCallExpressionUsed(textCallExpression)
 				}
 				if (index !== -1) {
 					unchecked.splice(index, 1)
@@ -89,16 +86,16 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
 				if (isTypeOfVitestFnCall(node, context, ['test'])) {
 					if (node.callee.type === AST_NODE_TYPES.MemberExpression &&
-						isSupportedAccessor(node.callee.property, 'todo'))
+						(isSupportedAccessor(node.callee.property, 'todo') || isSupportedAccessor(node.callee.property, 'skip')))
 						return
 
 					unchecked.push(node)
-				} else if (matchesAssertFunctionName(name, validExpressions)) {
-					checkCallExpressionUsed(context, unchecked)
+				} else if (matchesAssertFunctionName(name, customExpressions)) {
+					checkCallExpressionUsed(context.getAncestors())
 				}
 			},
 			'Program:exit'() {
-				unchecked.forEach(node => context.report({ node, messageId: 'expectedExpect' }))
+				unchecked.forEach(node => context.report({ node, messageId: 'expectedExpect', data: { expected: customExpressions.join(' or ') } }))
 			}
 		}
 	}

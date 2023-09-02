@@ -1,28 +1,25 @@
-import { describe, test } from 'vitest'
 import rule, { RULE_NAME } from '../src/rules/require-hook'
 import { ruleTester } from './ruleTester'
 
-describe(RULE_NAME, () => {
-	test(RULE_NAME, () => {
-		ruleTester.run(RULE_NAME, rule, {
-			valid: [
-				'describe()',
-				'describe("just a title")',
-				`describe('a test', () =>
+ruleTester.run(RULE_NAME, rule, {
+  valid: [
+    'describe()',
+    'describe("just a title")',
+    `describe('a test', () =>
 			        test('something', () => {
 			          expect(true).toBe(true);
 			    }));`,
-				{
-					code: `
+    {
+      code: `
 					  import { myFn } from '../functions';
 			  
 					  test('myFn', () => {
 						expect(myFn()).toBe(1);
 					  });
 					`,
-					parserOptions: { sourceType: 'module' }
-				},
-				`
+      parserOptions: { sourceType: 'module' }
+    },
+    `
 					class MockLogger {
 					  log() {}
 					}
@@ -31,7 +28,7 @@ describe(RULE_NAME, () => {
 					  expect(myFn()).toBe(1);
 					});
 				  `,
-				`
+    `
 					const { myFn } = require('../functions');
 			  
 					describe('myFn', () => {
@@ -40,14 +37,14 @@ describe(RULE_NAME, () => {
 					  });
 					});
 				  `,
-				`
+    `
 					describe('some tests', () => {
 					  it('is true', () => {
 						expect(true).toBe(true);
 					  });
 					});
 				  `,
-				`
+    `
 					describe('some tests', () => {
 					  it('is true', () => {
 						expect(true).toBe(true);
@@ -60,7 +57,7 @@ describe(RULE_NAME, () => {
 					  });
 					});
 				  `,
-				`
+    `
 					describe('some tests', () => {
 					  let consoleLogSpy;
 			  
@@ -75,28 +72,28 @@ describe(RULE_NAME, () => {
 					  });
 					});
 				  `,
-				`
+    `
 					let consoleErrorSpy = null; 
 			  
 					beforeEach(() => {
 					  consoleErrorSpy = vi.spyOn(console, 'error');
 					});
 				  `,
-				`
+    `
 					let consoleErrorSpy = undefined; 
 			  
 					beforeEach(() => {
 					  consoleErrorSpy = vi.spyOn(console, 'error');
 					});
 				  `,
-				`
+    `
 					describe('some tests', () => {
 					  beforeEach(() => {
 						setup();
 					  });
 					});
 				  `,
-				`
+    `
 					beforeEach(() => {
 					  initializeCityDatabase();
 					});
@@ -113,7 +110,7 @@ describe(RULE_NAME, () => {
 					  expect(isCity('San Juan')).toBeTruthy();
 					});
 				  `,
-				`
+    `
 					describe('cities', () => {
 					  beforeEach(() => {
 						initializeCityDatabase();
@@ -132,8 +129,8 @@ describe(RULE_NAME, () => {
 					  });
 					});
 				  `,
-				{
-					code: `
+    {
+      code: `
 					  enableAutoDestroy(afterEach);
 					  
 					  describe('some tests', () => {
@@ -142,58 +139,57 @@ describe(RULE_NAME, () => {
 						});
 					  });
 					`,
-					options: [{ allowedFunctionCalls: ['enableAutoDestroy'] }]
-				}
-
-			],
-			invalid: [
-				{
-					code: 'setup();',
-					errors: [
-						{
-							messageId: 'useHook',
-							line: 1,
-							column: 1
-						}
-					]
-				},
-				{
-					code: `
+      options: [{ allowedFunctionCalls: ['enableAutoDestroy'] }]
+    }
+  ],
+  invalid: [
+    {
+      code: 'setup();',
+      errors: [
+        {
+          messageId: 'useHook',
+          line: 1,
+          column: 1
+        }
+      ]
+    },
+    {
+      code: `
 					  describe('some tests', () => {
 						setup();
 					  });
 					`,
-					errors: [
-						{
-							messageId: 'useHook',
-							line: 3,
-							column: 7
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'useHook',
+          line: 3,
+          column: 7
+        }
+      ]
+    },
+    {
+      code: `
 					  let { setup } = require('./test-utils');
 			  
 					  describe('some tests', () => {
 						setup();
 					  });
 					`,
-					errors: [
-						{
-							messageId: 'useHook',
-							line: 2,
-							column: 8
-						},
-						{
-							messageId: 'useHook',
-							line: 5,
-							column: 7
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'useHook',
+          line: 2,
+          column: 8
+        },
+        {
+          messageId: 'useHook',
+          line: 5,
+          column: 7
+        }
+      ]
+    },
+    {
+      code: `
 					describe('some tests', () => {
 					  setup();
 			
@@ -210,88 +206,88 @@ describe(RULE_NAME, () => {
 					  });
 					});
 				  `,
-					errors: [
-						{
-							messageId: 'useHook',
-							line: 3,
-							column: 8
-						},
-						{
-							messageId: 'useHook',
-							line: 10,
-							column: 7
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'useHook',
+          line: 3,
+          column: 8
+        },
+        {
+          messageId: 'useHook',
+          line: 10,
+          column: 7
+        }
+      ]
+    },
+    {
+      code: `
 					  let consoleErrorSpy = vi.spyOn(console, 'error');
 			  
 					  describe('when loading cities from the api', () => {
 						let consoleWarnSpy = vi.spyOn(console, 'warn');
 					  });
 					`,
-					errors: [
-						{
-							messageId: 'useHook',
-							line: 2,
-							column: 8
-						},
-						{
-							messageId: 'useHook',
-							line: 5,
-							column: 7
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'useHook',
+          line: 2,
+          column: 8
+        },
+        {
+          messageId: 'useHook',
+          line: 5,
+          column: 7
+        }
+      ]
+    },
+    {
+      code: `
 					  let consoleErrorSpy = null;
 			  
 					  describe('when loading cities from the api', () => {
 						let consoleWarnSpy = vi.spyOn(console, 'warn');
 					  });
 					`,
-					errors: [
-						{
-							messageId: 'useHook',
-							line: 5,
-							column: 7
-						}
-					]
-				},
-				{
-					code: 'let value = 1',
-					errors: [
-						{
-							messageId: 'useHook',
-							line: 1,
-							column: 1
-						}
-					]
-				},
-				{
-					code: 'let consoleErrorSpy, consoleWarnSpy = vi.spyOn(console, \'error\');',
-					errors: [
-						{
-							messageId: 'useHook',
-							line: 1,
-							column: 1
-						}
-					]
-				},
-				{
-					code: 'let consoleErrorSpy = vi.spyOn(console, \'error\'), consoleWarnSpy;',
-					errors: [
-						{
-							messageId: 'useHook',
-							line: 1,
-							column: 1
-						}
-					]
-				},
-				{
-					code: `
+      errors: [
+        {
+          messageId: 'useHook',
+          line: 5,
+          column: 7
+        }
+      ]
+    },
+    {
+      code: 'let value = 1',
+      errors: [
+        {
+          messageId: 'useHook',
+          line: 1,
+          column: 1
+        }
+      ]
+    },
+    {
+      code: 'let consoleErrorSpy, consoleWarnSpy = vi.spyOn(console, \'error\');',
+      errors: [
+        {
+          messageId: 'useHook',
+          line: 1,
+          column: 1
+        }
+      ]
+    },
+    {
+      code: 'let consoleErrorSpy = vi.spyOn(console, \'error\'), consoleWarnSpy;',
+      errors: [
+        {
+          messageId: 'useHook',
+          line: 1,
+          column: 1
+        }
+      ]
+    },
+    {
+      code: `
 					  import { database, isCity } from '../database';
 					  import { loadCities } from '../api';
 			  
@@ -343,32 +339,32 @@ describe(RULE_NAME, () => {
 			  
 					  clearCityDatabase();
 					`,
-					parserOptions: { sourceType: 'module' },
-					errors: [
-						{
-							messageId: 'useHook',
-							line: 17,
-							column: 8
-						},
-						{
-							messageId: 'useHook',
-							line: 32,
-							column: 7
-						},
-						{
-							messageId: 'useHook',
-							line: 34,
-							column: 7
-						},
-						{
-							messageId: 'useHook',
-							line: 51,
-							column: 8
-						}
-					]
-				},
-				{
-					code: `
+      parserOptions: { sourceType: 'module' },
+      errors: [
+        {
+          messageId: 'useHook',
+          line: 17,
+          column: 8
+        },
+        {
+          messageId: 'useHook',
+          line: 32,
+          column: 7
+        },
+        {
+          messageId: 'useHook',
+          line: 34,
+          column: 7
+        },
+        {
+          messageId: 'useHook',
+          line: 51,
+          column: 8
+        }
+      ]
+    },
+    {
+      code: `
 					  enableAutoDestroy(afterEach);
 					  
 					  describe('some tests', () => {
@@ -377,16 +373,14 @@ describe(RULE_NAME, () => {
 						});
 					  });
 					`,
-					options: [{ allowedFunctionCalls: ['someOtherName'] }],
-					errors: [
-						{
-							messageId: 'useHook',
-							line: 2,
-							column: 8
-						}
-					]
-				}
-			]
-		})
-	})
+      options: [{ allowedFunctionCalls: ['someOtherName'] }],
+      errors: [
+        {
+          messageId: 'useHook',
+          line: 2,
+          column: 8
+        }
+      ]
+    }
+  ]
 })
