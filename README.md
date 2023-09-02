@@ -68,7 +68,7 @@ To use the all configuration, extend it in your `.eslintrc` file:
 
 #### Running on test files only
 
-This plugin assumes that you're running it on tests files only by default which is sometimes not the case. To that it can only run on specific files you have to use the following configuration.
+This plugin assumes that you're running it on tests files only by default which sometimes is not the case. You'll need to configure it to run on test files only. Your configuration will look like this:
 
 If you're using `.eslintrc`
 
