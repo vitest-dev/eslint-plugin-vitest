@@ -1,1 +1,4 @@
-export class Function {}
+export class Function {
+	update() {}
+	get() {}
+}
