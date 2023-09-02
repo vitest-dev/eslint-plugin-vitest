@@ -79,7 +79,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 					}
 				}
 				if (baseSelectors.MemberExpression)
-					baseSelectors.MemberExpression?.(node)
+					baseSelectors?.MemberExpression?.(node)
 			}
 		}
 	}
