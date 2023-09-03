@@ -7,9 +7,9 @@ const rootPath = path.join(__dirname, './fixtures')
 const ruleTester = new RuleTester({
   parser: '@typescript-eslint/parser',
   parserOptions: {
+    sourceType: 'module',
     tsconfigRootDir: rootPath,
-    project: './tsconfig.json',
-    sourceType: 'module'
+    project: './tsconfig.json'
   }
 })
 
@@ -31,8 +31,7 @@ ruleTester.run('unbound-method', unboundMethod, {
 		const logManualBind = instance.logManualBind.bind(instance);
 		
 		logArrowBound();
-		logManualBind();`,
-      skip: true
+		logManualBind();`
     }
   ],
   invalid: [
@@ -48,10 +47,27 @@ ruleTester.run('unbound-method', unboundMethod, {
 		
 		Promise.resolve().then(console.log);
 			  `,
-      skip: true,
       errors: [
         {
           line: 10,
+          messageId: 'unboundWithoutThisAnnotation'
+        }
+      ]
+    },
+    {
+      code: `
+  const values = {
+	a() {},
+	b: () => {},
+  };
+  
+  const { b, a } = values;
+		`,
+      errors: [
+        {
+          line: 7,
+          column: 14,
+          endColumn: 15,
           messageId: 'unboundWithoutThisAnnotation'
         }
       ]
