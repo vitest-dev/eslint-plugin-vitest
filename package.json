@@ -40,26 +40,25 @@
 		"tsc": "tsc --noEmit"
 	},
 	"devDependencies": {
-		"@babel/types": "^7.22.11",
+		"@babel/types": "^7.22.17",
 		"@types/mocha": "^10.0.1",
-		"@types/node": "^20.5.8",
-		"@typescript-eslint/eslint-plugin": "^6.5.0",
-		"@typescript-eslint/rule-tester": "^6.5.0",
+		"@types/node": "^20.6.0",
+		"@typescript-eslint/eslint-plugin": "^6.6.0",
+		"@typescript-eslint/rule-tester": "^6.6.0",
 		"@veritem/eslint-config": "^0.0.11",
 		"bumpp": "^9.2.0",
 		"concurrently": "^8.2.1",
-		"eslint": "^8.48.0",
+		"eslint": "^8.49.0",
 		"eslint-doc-generator": "^1.4.3",
 		"eslint-plugin-eslint-plugin": "^5.1.1",
 		"eslint-plugin-node": "^11.1.0",
-		"eslint-plugin-vitest": "^0.2.8",
+		"eslint-plugin-vitest": "^0.3.1",
 		"eslint-remote-tester": "^3.0.0",
 		"eslint-remote-tester-repositories": "^1.0.1",
-		"jiti": "^1.19.3",
 		"ts-node": "^10.9.1",
 		"tsx": "^3.12.8",
 		"unbuild": "^2.0.0",
-		"vitest": "^0.34.3"
+		"vitest": "^0.34.4"
 	},
 	"engines": {
 		"node": "14.x || >= 16"
@@ -77,7 +76,7 @@
 		}
 	},
 	"dependencies": {
-		"@typescript-eslint/utils": "^6.5.0",
+		"@typescript-eslint/utils": "^6.6.0",
 		"typescript": "^5.2.2"
 	}
 }

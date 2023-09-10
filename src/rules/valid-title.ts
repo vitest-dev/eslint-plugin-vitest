@@ -5,7 +5,7 @@ import { DescribeAlias, TestCaseName } from '../utils/types'
 
 export const RULE_NAME = 'valid-title'
 
-const trimFXprefix = (word: string) =>
+const trimFXPrefix = (word: string) =>
 	['f', 'x'].includes(word.charAt(0)) ? word.substring(1) : word
 
 const quoteStringValue = (node: StringNode): string =>
@@ -234,10 +234,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 					})
 				}
 
-				const unprefixedName = trimFXprefix(vitestFnCall.name)
-				const [firstword] = title.split(' ')
+				const unPrefixedName = trimFXPrefix(vitestFnCall.name)
+				const [firstWord] = title.split(' ')
 
-				if (firstword.toLowerCase() === unprefixedName) {
+				if (firstWord.toLowerCase() === unPrefixedName) {
 					context.report({
 						messageId: 'duplicatePrefix',
 						node: argument,
@@ -250,7 +250,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 					})
 				}
 
-				const vitestFnName = unprefixedName
+				const vitestFnName = unPrefixedName
 
 				const [mustNotMatchPattern, mustNotMatchMessage] = mustNotMatchPatterns[vitestFnName] ?? []
 

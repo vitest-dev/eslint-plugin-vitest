@@ -12,9 +12,9 @@
 	"license": "MIT",
 	"dependencies": {
 		"eslint-plugin-vitest": "link:../",
-		"vitest": "^0.34.3"
+		"vitest": "^0.34.4"
 	},
 	"devDependencies": {
-		"eslint": "^8.48.0"
+		"eslint": "^8.49.0"
 	}
 }
