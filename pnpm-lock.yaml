@@ -1805,7 +1805,7 @@ packages:
       defu: 6.1.2
       dotenv: 16.3.1
       giget: 1.1.2
-      jiti: 1.19.3
+      jiti: 1.20.0
       mlly: 1.4.0
       ohash: 1.1.3
       pathe: 1.1.1
@@ -3827,8 +3827,8 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dev: true
 
-  /jiti@1.19.3:
-    resolution: {integrity: sha512-5eEbBDQT/jF1xg6l36P+mWGGoH9Spuy0PCdSr2dtWRDGC6ph/w9ZCL4lmESW8f8F7MwT3XKescfP0wnZWAKL9w==}
+  /jiti@1.20.0:
+    resolution: {integrity: sha512-3TV69ZbrvV6U5DfQimop50jE9Dl6J8O1ja1dvBbMba/sZ3YBEQqJ2VZRoQPVnhlzjNtU1vaXRZVrVjU4qtm8yA==}
     hasBin: true
     dev: true
 
@@ -4126,7 +4126,7 @@ packages:
       esbuild: 0.18.20
       fs-extra: 11.1.1
       globby: 13.2.2
-      jiti: 1.19.3
+      jiti: 1.20.0
       mlly: 1.4.0
       mri: 1.2.0
       pathe: 1.1.1
@@ -5244,7 +5244,7 @@ packages:
       esbuild: 0.19.2
       globby: 13.2.2
       hookable: 5.5.3
-      jiti: 1.19.3
+      jiti: 1.20.0
       magic-string: 0.30.3
       mkdist: 1.3.0(typescript@5.2.2)
       mlly: 1.4.0
@@ -5280,7 +5280,7 @@ packages:
       '@babel/standalone': 7.22.10
       '@babel/types': 7.22.17
       defu: 6.1.2
-      jiti: 1.19.3
+      jiti: 1.20.0
       mri: 1.2.0
       scule: 1.0.0
     transitivePeerDependencies:
