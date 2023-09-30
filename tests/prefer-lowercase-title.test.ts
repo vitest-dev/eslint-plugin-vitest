@@ -52,6 +52,18 @@ ruleTester.run(RULE_NAME, rule, {
           lowercaseFirstCharacterOnly: false
         }
       ]
-    }
+    },
+    {
+      code: 'bench(`Foo MM mm`, function () {})',
+      output: 'bench(`foo MM mm`, function () {})',
+      errors: [
+        {
+          messageId: 'lowerCaseTitle',
+          data: {
+            method: TestCaseName.bench
+          }
+        }
+      ]
+    },
   ]
 })
