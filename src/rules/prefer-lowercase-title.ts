@@ -9,6 +9,7 @@ export type MessageIds = 'lowerCaseTitle';
 type IgnorableFunctionExpressions =
 	| TestCaseName.it
 	| TestCaseName.test
+	| TestCaseName.bench
 	| DescribeAlias.describe;
 
 const hasStringAsFirstArgument = (
