@@ -56,6 +56,7 @@
 		"eslint-remote-tester": "^3.0.0",
 		"eslint-remote-tester-repositories": "^1.0.1",
 		"ts-node": "^10.9.1",
+		"typescript": "^5.2.2",
 		"tsx": "^3.12.8",
 		"unbuild": "^2.0.0",
 		"vitest": "^0.34.4"
@@ -76,7 +77,6 @@
 		}
 	},
 	"dependencies": {
-		"@typescript-eslint/utils": "^6.6.0",
-		"typescript": "^5.2.2"
+		"@typescript-eslint/utils": "^6.6.0"
 	}
 }
