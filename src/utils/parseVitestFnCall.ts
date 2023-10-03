@@ -7,6 +7,7 @@ const ValidVitestFnCallChains = [
 	'afterEach',
 	'beforeAll',
 	'beforeEach',
+	'bench',
 	'describe',
 	'describe.each',
 	'describe.only',

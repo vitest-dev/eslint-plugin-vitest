@@ -12,6 +12,7 @@ export enum TestCaseName {
 	'test' = 'test',
 	'xit' = 'xit',
 	'xtest' = 'xtest',
+	'bench' = 'bench',
 }
 
 export enum HookName {
