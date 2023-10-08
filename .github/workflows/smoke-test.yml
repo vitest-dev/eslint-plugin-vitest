@@ -27,7 +27,7 @@ jobs:
           pnpm link .
           pnpm link eslint-plugin-vitest
 
-      - uses: AriPerkkio/eslint-remote-tester-run-action@v3
+      - uses: AriPerkkio/eslint-remote-tester-run-action@v4
         with:
           issue-title: "Results of weekly scheduled smoke test"
           eslint-remote-tester-config: eslint-remote-tester.config.ts
