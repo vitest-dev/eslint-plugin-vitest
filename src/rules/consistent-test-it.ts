@@ -84,10 +84,36 @@ export default createEslintRule<
 		const config = context.options[0] ?? {}
 		const testFnKeyWork = config.fn || TestCaseName.test
 		const testKeywordWithinDescribe = config?.withinDescribe || config?.fn || TestCaseName?.it
+		const testFnDisabled = testFnKeyWork === testKeywordWithinDescribe ? testFnKeyWork : undefined
 
 		let describeNestingLevel = 0
 
 		return {
+			ImportDeclaration(node: TSESTree.ImportDeclaration) {
+				if (testFnDisabled == null)
+					return
+				if (node.source.type !== 'Literal' || node.source.value !== 'vitest')
+					return
+
+				const oppositeTestKeyword = getOppositeTestKeyword(testFnDisabled)
+				for (const specifier of node.specifiers) {
+					if (specifier.type !== 'ImportSpecifier')
+						continue
+					if (specifier.local.name !== specifier.imported.name)
+						continue
+					if (specifier.local.name === oppositeTestKeyword) {
+						context.report({
+							node: specifier,
+							data: { testFnKeyWork, oppositeTestKeyword },
+							messageId: 'consistentMethod',
+							fix: (fixer) => fixer.replaceText(
+								specifier.local,
+								testFnDisabled
+							)
+						})
+					}
+				}
+			},
 			CallExpression(node: TSESTree.CallExpression) {
 				const vitestFnCall = parseVitestFnCall(node, context)
 

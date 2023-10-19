@@ -72,6 +72,12 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       ]
+    },
+    {
+      code: 'import { test } from "vitest"\ntest("shows error", () => {});',
+      options: [{ fn: TestCaseName.it }],
+      output: 'import { it } from "vitest"\nit("shows error", () => {});',
+      errors: [{ messageId: 'consistentMethod' }, { messageId: 'consistentMethod' }]
     }
   ]
 })
@@ -259,6 +265,29 @@ ruleTester.run(RULE_NAME, rule, {
       output: 'test("foo")',
       options: [{ withinDescribe: TestCaseName.test }],
       errors: [
+        {
+          messageId: 'consistentMethod',
+          data: {
+            testFnKeyWork: TestCaseName.test,
+            oppositeTestKeyword: TestCaseName.it
+          }
+        }
+      ]
+    },
+    {
+      code: 'import { it } from "vitest"\nit("foo")',
+      output: 'import { test } from "vitest"\ntest("foo")',
+      options: [
+        { withinDescribe: TestCaseName.test }
+      ],
+      errors: [
+        {
+          messageId: 'consistentMethod',
+          data: {
+            testFnKeyWork: TestCaseName.test,
+            oppositeTestKeyword: TestCaseName.it
+          }
+        },
         {
           messageId: 'consistentMethod',
           data: {
