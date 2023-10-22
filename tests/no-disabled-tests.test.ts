@@ -37,45 +37,121 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'describe.skip("foo", function () {})',
       errors: [
         {
+          column: 10,
+          endColumn: 14,
+          endLine: 1,
+          line: 1,
           messageId: 'disabledSuite'
         }
       ]
     },
     {
       code: 'it("contains a call to pending", function () { pending() })',
-      errors: [{ messageId: 'pendingTest', column: 48, line: 1 }]
+      errors: [
+        {
+          column: 48,
+          endColumn: 57,
+          endLine: 1,
+          line: 1,
+          messageId: 'pendingTest'
+        }
+      ]
     },
     {
       code: 'xtest("foo", function () {})',
-      errors: [{ messageId: 'disabledTest', column: 1, line: 1 }]
+      errors: [
+        {
+          column: 1,
+          endColumn: 6,
+          endLine: 1,
+          line: 1,
+          messageId: 'disabledTest'
+        }
+      ]
     },
     {
       code: 'xit.each``("foo", function () {})',
-      errors: [{ messageId: 'disabledTest', column: 1, line: 1 }]
+      errors: [
+        {
+          column: 1,
+          endColumn: 4,
+          endLine: 1,
+          line: 1,
+          messageId: 'disabledTest'
+        }
+      ]
     },
     {
       code: 'xtest.each``("foo", function () {})',
-      errors: [{ messageId: 'disabledTest', column: 1, line: 1 }]
+      errors: [
+        {
+          column: 1,
+          endColumn: 6,
+          endLine: 1,
+          line: 1,
+          messageId: 'disabledTest'
+        }
+      ]
     },
     {
       code: 'xit.each([])("foo", function () {})',
-      errors: [{ messageId: 'disabledTest', column: 1, line: 1 }]
+      errors: [
+        {
+          column: 1,
+          endColumn: 4,
+          endLine: 1,
+          line: 1,
+          messageId: 'disabledTest'
+        }
+      ]
     },
     {
       code: 'it("has title but no callback")',
-      errors: [{ messageId: 'missingFunction', column: 1, line: 1 }]
+      errors: [
+        {
+          column: 1,
+          endColumn: 32,
+          endLine: 1,
+          line: 1,
+          messageId: 'missingFunction'
+        }
+      ]
     },
     {
       code: 'test("has title but no callback")',
-      errors: [{ messageId: 'missingFunction', column: 1, line: 1 }]
+      errors: [
+        {
+          column: 1,
+          endColumn: 34,
+          endLine: 1,
+          line: 1,
+          messageId: 'missingFunction'
+        }
+      ]
     },
     {
       code: 'it("contains a call to pending", function () { pending() })',
-      errors: [{ messageId: 'pendingTest', column: 48, line: 1 }]
+      errors: [
+        {
+          column: 48,
+          endColumn: 57,
+          endLine: 1,
+          line: 1,
+          messageId: 'pendingTest'
+        }
+      ]
     },
     {
       code: 'pending();',
-      errors: [{ messageId: 'pending', column: 1, line: 1 }]
+      errors: [
+        {
+          column: 1,
+          endColumn: 10,
+          endLine: 1,
+          line: 1,
+          messageId: 'pending'
+        }
+      ]
     }
   ]
 })
