@@ -48,10 +48,11 @@ export default createEslintRule<Options, MESSAGE_ID>({
 					}
 				}
 
-				if (vitestFnCall.name.startsWith('x') || vitestFnCall.members.some(s => getAccessorValue(s) === 'skip')) {
+				const skipMember = vitestFnCall.members.find(s => getAccessorValue(s) === 'skip')
+				if (vitestFnCall.name.startsWith('x') || skipMember !== undefined) {
 					context.report({
 						messageId: vitestFnCall.type === 'describe' ? 'disabledSuite' : 'disabledTest',
-						node
+						node: skipMember ?? vitestFnCall.head.node
 					})
 				}
 			},
