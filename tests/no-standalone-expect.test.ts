@@ -3,6 +3,7 @@ import { ruleTester } from './ruleTester'
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
+    'beforeEach(() => { doSomething(); });',
     'expect.any(String)',
     'expect.extend({})',
     'describe("a test", () => { it("an it", () => {expect(1).toBe(1); }); });',
@@ -10,7 +11,15 @@ ruleTester.run(RULE_NAME, rule, {
     'describe("a test", () => { const func = () => { expect(1).toBe(1); }; });',
     'describe("a test", () => { function func() { expect(1).toBe(1); }; });',
     'describe("a test", () => { const func = function(){ expect(1).toBe(1); }; });',
+    'describe.only.concurrent.todo("a test", () => { const func = function(){ expect(1).toBe(1); }; });',
+    'bench("a bench", () => expect(1).toBe(1))',
     'it("an it", () => expect(1).toBe(1))',
+    'it.only("an it", () => expect(1).toBe(1))',
+    'it.concurrent("an it", () => expect(1).toBe(1))',
+    'it.extend.skip("an it", ()  => expect(1).toBe(1))',
+    'test("a test", () => expect(1).toBe(1))',
+    'test.skip("a skipped test", () => expect(1).toBe(1))',
+    'test.fails("a failing test", () => expect(1).toBe(1))',
     'const func = function(){ expect(1).toBe(1); };',
     'const func = () => expect(1).toBe(1);',
     '{}',

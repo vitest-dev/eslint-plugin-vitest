@@ -1,66 +1,13 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { DescribeAlias, HookName, ModifierName, TestCaseName } from './types'
+import { ValidVitestFnCallChains } from './validVitestFnCallChains'
 import { AccessorNode, getAccessorValue, getStringValue, isIdentifier, isStringNode, isSupportedAccessor } from '.'
-
-const ValidVitestFnCallChains = [
-	'afterAll',
-	'afterEach',
-	'beforeAll',
-	'beforeEach',
-	'bench',
-	'describe',
-	'describe.each',
-	'describe.only',
-	'describe.only.each',
-	'describe.skip',
-	'describe.skip.each',
-	'fdescribe',
-	'fdescribe.each',
-	'xdescribe',
-	'xdescribe.each',
-	'it',
-	'it.concurrent',
-	'it.concurrent.each',
-	'it.concurrent.only.each',
-	'it.concurrent.skip.each',
-	'it.each',
-	'it.failing',
-	'it.only',
-	'it.only.each',
-	'it.only.failing',
-	'it.skip',
-	'it.skip.each',
-	'it.skip.failing',
-	'it.todo',
-	'fit',
-	'fit.each',
-	'fit.failing',
-	'xit',
-	'xit.each',
-	'xit.failing',
-	'test',
-	'test.concurrent',
-	'test.concurrent.each',
-	'test.concurrent.only.each',
-	'test.concurrent.skip.each',
-	'test.each',
-	'test.failing',
-	'test.only',
-	'test.only.each',
-	'test.only.failing',
-	'test.skip',
-	'test.skip.each',
-	'test.skip.failing',
-	'test.todo',
-	'xtest',
-	'xtest.each',
-	'xtest.failing'
-]
 
 export type VitestFnType =
 	| 'test'
 	| 'it'
 	| 'describe'
+	| 'bench'
 	| 'expect'
 	| 'unknown'
 	| 'hook'
