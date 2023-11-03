@@ -73,7 +73,7 @@
 			"optional": true
 		},
 		"vitest": {
-			"vitest": "*"
+			"optional": true
 		}
 	},
 	"dependencies": {
