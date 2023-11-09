@@ -170,9 +170,26 @@ export default [
 | [require-top-level-describe](docs/rules/require-top-level-describe.md)       | Enforce that all tests are in a top-level describe                       |    | 🌐 |    |    |
 | [valid-describe-callback](docs/rules/valid-describe-callback.md)             | Enforce valid describe callback                                          | ✅  |    |    |    |
 | [valid-expect](docs/rules/valid-expect.md)                                   | Enforce valid `expect()` usage                                           | ✅  |    |    |    |
-| [valid-title](docs/rules/valid-title.md)                                     | Enforce valid titles                                                     | ✅  |    | 🔧 |    |
+
+#### Requires Type Checking
+
+| Name                                           | Description                                                  | 💼  | ⚠️  | 🔧  | 💡  | ❌  |
+| :--------------------------------------------- | :----------------------------------------------------------- | :-- | :-- | :-- | :-- | :-- |
+| [unbound-method](docs/rules/unbound-method.md) | Enforce unbound methods are called with their expected scope |     |     |     |     |     |
 
 <!-- end auto-generated rules list -->
+
+In order to use the rules powered by TypeScript type-checking, you must be using
+`@typescript-eslint/parser` & adjust your eslint config as outlined
+[here](https://typescript-eslint.io/linting/typed-linting).
+
+Note that unlike the type-checking rules in `@typescript-eslint/eslint-plugin`,
+the rules here will fallback to doing nothing if type information is not
+available, meaning it's safe to include them in shared configs that could be
+used on JavaScript and TypeScript projects.
+
+Also note that `unbound-method` depends on `@typescript-eslint/eslint-plugin`,
+as it extends the original `unbound-method` rule from that plugin.
 
 #### Credits
 
