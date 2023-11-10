@@ -6,7 +6,7 @@
 
 <!-- end auto-generated rule header -->
 
-This rule extends the base [`@typescript-eslint/unbound-method`][original-rule]
+This rule extends the base [`@typescript-eslint/unbound-method`][https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/unbound-method.md]
 rule, meaning you must depend on `@typescript-eslint/eslint-plugin` for it to
 work. It adds support for understanding when it's ok to pass an unbound method
 to `expect` calls.
