@@ -32,7 +32,7 @@ ruleTester.run('unbound-method', unboundMethod, {
 		
 		logArrowBound();
 		logManualBind();`,
-      skip: true
+      skip: false
     }
   ],
   invalid: [
@@ -48,7 +48,7 @@ ruleTester.run('unbound-method', unboundMethod, {
 		
 		Promise.resolve().then(console.log);
 			  `,
-      skip: true,
+      skip: false,
       errors: [
         {
           line: 10,
