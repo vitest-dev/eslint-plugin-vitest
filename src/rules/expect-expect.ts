@@ -95,7 +95,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 				}
 			},
 			'Program:exit'() {
-				unchecked.forEach(node => context.report({ node, messageId: 'expectedExpect', data: { expected: customExpressions.join(' or ') } }))
+				unchecked.forEach(node => context.report({ node: node.callee, messageId: 'expectedExpect', data: { expected: customExpressions.join(' or ') } }))
 			}
 		}
 	}
