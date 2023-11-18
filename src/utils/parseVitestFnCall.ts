@@ -95,16 +95,16 @@ export const parseVitestFnCallWithReason = (
 	node: TSESTree.CallExpression,
 	context: TSESLint.RuleContext<string, unknown[]>
 ): ParsedVitestFnCall | string | null => {
-	let parsedVistestFnCall = parseVitestFnCallCache.get(node)
+	let parsedVitestFnCall = parseVitestFnCallCache.get(node)
 
-	if (parsedVistestFnCall)
-		return parsedVistestFnCall
+	if (parsedVitestFnCall)
+		return parsedVitestFnCall
 
-	parsedVistestFnCall = parseVistestFnCallWithReasonInner(node, context)
+	parsedVitestFnCall = parseVitestFnCallWithReasonInner(node, context)
 
-	parseVitestFnCallCache.set(node, parsedVistestFnCall)
+	parseVitestFnCallCache.set(node, parsedVitestFnCall)
 
-	return parsedVistestFnCall
+	return parsedVitestFnCall
 }
 
 const determineVitestFnType = (name: string): VitestFnType => {
@@ -220,7 +220,7 @@ export const findTopMostCallExpression = (
 	return topMostCallExpression
 }
 
-const parseVistestFnCallWithReasonInner = (
+const parseVitestFnCallWithReasonInner = (
 	node: TSESTree.CallExpression,
 	context: TSESLint.RuleContext<string, unknown[]>
 ): ParsedVitestFnCall | string | null => {
