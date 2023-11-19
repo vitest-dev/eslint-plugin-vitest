@@ -95,16 +95,16 @@ export const parseVitestFnCallWithReason = (
 	node: TSESTree.CallExpression,
 	context: TSESLint.RuleContext<string, unknown[]>
 ): ParsedVitestFnCall | string | null => {
-	let parsedVistestFnCall = parseVitestFnCallCache.get(node)
+	let parsedVitestFnCall = parseVitestFnCallCache.get(node)
 
-	if (parsedVistestFnCall)
-		return parsedVistestFnCall
+	if (parsedVitestFnCall)
+		return parsedVitestFnCall
 
-	parsedVistestFnCall = parseVistestFnCallWithReasonInner(node, context)
+	parsedVitestFnCall = parseVitestFnCallWithReasonInner(node, context)
 
-	parseVitestFnCallCache.set(node, parsedVistestFnCall)
+	parseVitestFnCallCache.set(node, parsedVitestFnCall)
 
-	return parsedVistestFnCall
+	return parsedVitestFnCall
 }
 
 const determineVitestFnType = (name: string): VitestFnType => {
@@ -220,7 +220,7 @@ export const findTopMostCallExpression = (
 	return topMostCallExpression
 }
 
-const parseVistestFnCallWithReasonInner = (
+const parseVitestFnCallWithReasonInner = (
 	node: TSESTree.CallExpression,
 	context: TSESLint.RuleContext<string, unknown[]>
 ): ParsedVitestFnCall | string | null => {
@@ -251,7 +251,7 @@ const parseVistestFnCallWithReasonInner = (
 
 	const links = [name, ...rest.map(getAccessorValue)]
 
-	if (name !== 'vi' && name !== 'expect' && name !== 'expectTypeOf' && !ValidVitestFnCallChains.includes(links.join('.')))
+	if (name !== 'vi' && name !== 'expect' && name !== 'expectTypeOf' && !ValidVitestFnCallChains.has(links.join('.')))
 		return null
 
 	const parsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'> = {
