@@ -1007,6 +1007,7 @@ export const ValidVitestFnCallChains = new Set([
 	'describe.runIf.todo.each',
 
 	// Call chains that are not supported by Vitest, but were in the original list
+	// TODO(@veritem): Remove the use of these call chains in the test suite
 	'xtest',
 	'xtest.each',
 	'xit',

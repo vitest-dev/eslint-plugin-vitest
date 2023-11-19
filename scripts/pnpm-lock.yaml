@@ -1,0 +1,16 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+devDependencies:
+  percom:
+    specifier: ^1.1.3
+    version: 1.1.3
+
+packages:
+
+  /percom@1.1.3:
+    resolution: {integrity: sha512-AJS/mzZh/xes9p2796DI9Kz40Nd6oZCa1an8uONCI+aaziYcexSwiQBwJOTO9GX4Tyn/gWDqZHiAxQR0e5LKrw==}
+    dev: true
