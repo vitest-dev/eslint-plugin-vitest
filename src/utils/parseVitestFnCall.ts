@@ -251,7 +251,7 @@ const parseVitestFnCallWithReasonInner = (
 
 	const links = [name, ...rest.map(getAccessorValue)]
 
-	if (name !== 'vi' && name !== 'expect' && name !== 'expectTypeOf' && !ValidVitestFnCallChains.includes(links.join('.')))
+	if (name !== 'vi' && name !== 'expect' && name !== 'expectTypeOf' && !ValidVitestFnCallChains.has(links.join('.')))
 		return null
 
 	const parsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'> = {
