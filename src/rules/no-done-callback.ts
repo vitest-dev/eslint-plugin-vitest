@@ -41,7 +41,7 @@ export default createEslintRule<Options, MessageIds>({
 	create(context) {
 		return {
 			CallExpression(node) {
-				const isVitestEach = getNodeName(node.callee)?.endsWith('.each') ?? false
+				const isVitestEach = /\.each$|\.concurrent$/.test(getNodeName(node.callee) ?? '')
 
 				if (isVitestEach && node.callee.type !== AST_NODE_TYPES.TaggedTemplateExpression)
 					return
