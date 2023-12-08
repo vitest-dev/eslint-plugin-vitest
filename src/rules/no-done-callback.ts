@@ -46,6 +46,9 @@ export default createEslintRule<Options, MessageIds>({
 				if (isVitestEach && node.callee.type !== AST_NODE_TYPES.TaggedTemplateExpression)
 					return
 
+				const isVitestConcurrent = getNodeName(node.callee)?.endsWith('.concurrent') ?? false;
+				if (isVitestConcurrent) return
+
 				const callback = findCallbackArg(node, isVitestEach, context)
 				const callbackArgIndex = Number(isVitestEach)
 
