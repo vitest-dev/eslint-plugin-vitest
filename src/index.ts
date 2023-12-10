@@ -43,6 +43,7 @@ import validDescribeCallback, { RULE_NAME as validDescribeCallbackName } from '.
 import requireTopLevelDescribe, { RULE_NAME as requireTopLevelDescribeName } from './rules/require-top-level-describe'
 import requireToThrowMessage, { RULE_NAME as requireToThrowMessageName } from './rules/require-to-throw-message'
 import requireHook, { RULE_NAME as requireHookName } from './rules/require-hook'
+import requireLocalTestContextForConcurrentSnapshots, { RULE_NAME as requireLocalTestContextForConcurrentSnapshotsName } from './rules/require-local-test-context-for-concurrent-snapshots'
 import preferTodo, { RULE_NAME as preferTodoName } from './rules/prefer-todo'
 import preferSpyOn, { RULE_NAME as preferSpyOnName } from './rules/prefer-spy-on'
 import preferComparisonMatcher, { RULE_NAME as preferComparisonMatcherName } from './rules/prefer-comparison-matcher'
@@ -98,6 +99,7 @@ const allRules = {
 	[requireTopLevelDescribeName]: 'warn',
 	[requireToThrowMessageName]: 'warn',
 	[requireHookName]: 'warn',
+	[requireLocalTestContextForConcurrentSnapshotsName]: 'warn',
 	[preferTodoName]: 'warn',
 	[preferSpyOnName]: 'warn',
 	[preferComparisonMatcherName]: 'warn',
@@ -112,7 +114,8 @@ const recommended = {
 	[noCommentedOutTestsName]: 'error',
 	[validTitleName]: 'error',
 	[validExpectName]: 'error',
-	[validDescribeCallbackName]: 'error'
+	[validDescribeCallbackName]: 'error',
+	[requireLocalTestContextForConcurrentSnapshotsName]: 'error',
 }
 
 export default {
@@ -156,6 +159,7 @@ export default {
 		[preferEachName]: preferEach,
 		[preferHooksOnTopName]: preferHooksOnTop,
 		[preferHooksInOrderName]: preferHooksInOrder,
+		[requireLocalTestContextForConcurrentSnapshotsName]: requireLocalTestContextForConcurrentSnapshots,
 		[preferMockPromiseShortHandName]: preferMockPromiseShorthand,
 		[preferSnapshotHintName]: preferSnapshotHint,
 		[validDescribeCallbackName]: validDescribeCallback,
