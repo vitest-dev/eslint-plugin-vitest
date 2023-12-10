@@ -138,6 +138,7 @@ export default [
 | [no-focused-tests](docs/rules/no-focused-tests.md)                                                                       | Disallow focused tests                                                   |    | 🌐 | 🔧 |    |
 | [no-hooks](docs/rules/no-hooks.md)                                                                                       | Disallow setup and teardown hooks                                        |    | 🌐 |    |    |
 | [no-identical-title](docs/rules/no-identical-title.md)                                                                   | Disallow identical titles                                                | ✅  |    | 🔧 |    |
+| [no-import-node-test](docs/rules/no-import-node-test.md)                                                                 | Disallow importing `node:test`                                           |    | 🌐 | 🔧 |    |
 | [no-interpolation-in-snapshots](docs/rules/no-interpolation-in-snapshots.md)                                             | Disallow string interpolation in snapshots                               |    | 🌐 | 🔧 |    |
 | [no-large-snapshots](docs/rules/no-large-snapshots.md)                                                                   | Disallow large snapshots                                                 |    | 🌐 |    |    |
 | [no-mocks-import](docs/rules/no-mocks-import.md)                                                                         | Disallow importing from __mocks__ directory                              |    | 🌐 |    |    |

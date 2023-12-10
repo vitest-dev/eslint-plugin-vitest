@@ -8,7 +8,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 	name: RULE_NAME,
 	meta: {
 		docs: {
-			description: 'Disallow importing from `node:test`, fix to `vitest` automatically',
+			description: 'Disallow importing `node:test`',
 			recommended: 'warn'
 		},
 		type: 'suggestion',
