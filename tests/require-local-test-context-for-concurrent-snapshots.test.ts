@@ -1,5 +1,5 @@
 import rule, { RULE_NAME } from '../src/rules/require-local-test-context-for-concurrent-snapshots'
-import { ruleTester } from "./ruleTester";
+import { ruleTester } from './ruleTester'
 
 ruleTester.run(RULE_NAME, rule, {
     valid: [
@@ -15,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
         'describe("something", () => { it("something", (context) => { expect(1).toMatchInlineSnapshot() }) })',
         'describe("something", () => { it("something", (context) => { context.expect(1).toMatchInlineSnapshot() }) })',
         'describe("something", () => { it("something", (context) => { expect(1).toMatchInlineSnapshot() }) })',
-        'it.concurrent("something", (context) => { context.expect(1).toMatchSnapshot() })',
+        'it.concurrent("something", (context) => { context.expect(1).toMatchSnapshot() })'
     ],
     invalid: [
         {
@@ -53,6 +53,6 @@ ruleTester.run(RULE_NAME, rule, {
                  expect(true).toMatchSnapshot();
             })`,
             errors: [{ messageId: 'requireLocalTestContext' }]
-        },
-    ],
+        }
+    ]
 })

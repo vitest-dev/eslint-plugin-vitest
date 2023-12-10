@@ -115,7 +115,7 @@ const recommended = {
 	[validTitleName]: 'error',
 	[validExpectName]: 'error',
 	[validDescribeCallbackName]: 'error',
-	[requireLocalTestContextForConcurrentSnapshotsName]: 'error',
+	[requireLocalTestContextForConcurrentSnapshotsName]: 'error'
 }
 
 export default {
