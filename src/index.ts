@@ -12,7 +12,8 @@ import consistentTestFilename, { RULE_NAME as useConsistentTestFilename } from '
 import maxExpect, { RULE_NAME as maxExpectName } from './rules/max-expects'
 import noAliasMethod, { RULE_NAME as noAliasMethodName } from './rules/no-alias-methods'
 import noCommentedOutTests, { RULE_NAME as noCommentedOutTestsName } from './rules/no-commented-out-tests'
-import noConditonalExpect, { RULE_NAME as noConditonalExpectName } from './rules/no-conditional-expect'
+import noConditionalExpect, { RULE_NAME as noConditionalExpectName } from './rules/no-conditional-expect'
+import noImportNodeTest, { RULE_NAME as noImportNodeTestName } from './rules/no-import-node-test'
 import noConditionalInTest, { RULE_NAME as noConditionalInTestName } from './rules/no-conditional-in-test'
 import noDisabledTests, { RULE_NAME as noDisabledTestsName } from './rules/no-disabled-tests'
 import noDoneCallback, { RULE_NAME as noDoneCallbackName } from './rules/no-done-callback'
@@ -71,7 +72,7 @@ const allRules = {
 	[useConsistentTestFilename]: 'warn',
 	[maxExpectName]: 'warn',
 	[noAliasMethodName]: 'warn',
-	[noConditonalExpectName]: 'warn',
+	[noConditionalExpectName]: 'warn',
 	[noConditionalInTestName]: 'warn',
 	[noDisabledTestsName]: 'warn',
 	[noDoneCallbackName]: 'warn',
@@ -83,6 +84,7 @@ const allRules = {
 	[noStandaloneExpectName]: 'warn',
 	[noTestPrefixesName]: 'warn',
 	[noTestReturnStatementName]: 'warn',
+	[noImportNodeTestName]: 'warn',
 	[preferCalledWithName]: 'warn',
 	[preferToBeFalsyName]: 'warn',
 	[preferToBeObjectName]: 'warn',
@@ -134,7 +136,7 @@ export default {
 		[maxExpectName]: maxExpect,
 		[noAliasMethodName]: noAliasMethod,
 		[noCommentedOutTestsName]: noCommentedOutTests,
-		[noConditonalExpectName]: noConditonalExpect,
+		[noConditionalExpectName]: noConditionalExpect,
 		[noConditionalInTestName]: noConditionalInTest,
 		[noDisabledTestsName]: noDisabledTests,
 		[noDoneCallbackName]: noDoneCallback,
@@ -146,6 +148,7 @@ export default {
 		[noStandaloneExpectName]: noStandaloneExpect,
 		[noTestPrefixesName]: noTestPrefixes,
 		[noTestReturnStatementName]: noTestReturnStatement,
+		[noImportNodeTestName]: noImportNodeTest,
 		[preferCalledWithName]: preferCalledWith,
 		[validTitleName]: validTitle,
 		[validExpectName]: validExpect,
