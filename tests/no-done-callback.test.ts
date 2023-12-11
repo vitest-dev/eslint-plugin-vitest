@@ -21,7 +21,9 @@ ruleTester.run(RULE_NAME, rule, {
     'beforeAll(async () => {})',
     'afterAll(() => {})',
     'afterAll(async function () {})',
-    'afterAll(async function () {}, 5)'
+    'afterAll(async function () {}, 5)',
+    'describe.concurrent("something", () => { it("something", ({ expect }) => { }) })',
+    'describe.concurrent("something", () => { it("something", context => { }) })'
   ],
   invalid: [
     {

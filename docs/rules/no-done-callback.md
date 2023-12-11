@@ -56,4 +56,18 @@ test('foo', async () => {
 	resolve()
   }, 1000))
 })
+
+test.concurrent('foo', ({ expect }) => {
+  expect(1).toMatchSnapshot();
+});
+
+test.concurrent('foo', (context) => {
+  context.expect(1).toBe(1);
+});
+
+describe.concurrent('foo', () => {
+  test('foo', ({ expect }) => {
+    expect(1).toBe(1);
+  });
+});
 ```

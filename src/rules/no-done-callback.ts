@@ -1,6 +1,6 @@
 import { TSESLint, AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
-import { createEslintRule, getNodeName, isFunction } from '../utils'
-import { parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { createEslintRule, getNodeName, isFunction, isSupportedAccessor } from '../utils'
+import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parseVitestFnCall'
 
 export const RULE_NAME = 'no-done-callback'
 export type MessageIds = 'noDoneCallback' | 'suggestWrappingInPromise' | 'useAwaitInsteadOfCallback';
@@ -46,8 +46,20 @@ export default createEslintRule<Options, MessageIds>({
 				if (isVitestEach && node.callee.type !== AST_NODE_TYPES.TaggedTemplateExpression)
 					return
 
-				const isVitestConcurrent = getNodeName(node.callee)?.endsWith('.concurrent') ?? false
-				if (isVitestConcurrent) return
+				const isInsideConcurrentTestOrDescribe = context.getAncestors().some((ancestor) => {
+					if (ancestor.type !== AST_NODE_TYPES.CallExpression) return false
+			
+					const isNotInsideDescribeOrTest = !isTypeOfVitestFnCall(ancestor, context, ['describe', 'test'])
+					if (isNotInsideDescribeOrTest) return false
+			
+					const isTestRunningConcurrently =
+						ancestor.callee.type === AST_NODE_TYPES.MemberExpression &&
+						isSupportedAccessor(ancestor.callee.property, 'concurrent')
+			
+					return isTestRunningConcurrently
+				})
+
+				if (isInsideConcurrentTestOrDescribe) return;
 
 				const callback = findCallbackArg(node, isVitestEach, context)
 				const callbackArgIndex = Number(isVitestEach)
