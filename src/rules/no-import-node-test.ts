@@ -9,7 +9,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 	meta: {
 		docs: {
 			description: 'Disallow importing `node:test`',
-			recommended: 'warn'
+			recommended: 'strict'
 		},
 		type: 'suggestion',
 		messages: {
