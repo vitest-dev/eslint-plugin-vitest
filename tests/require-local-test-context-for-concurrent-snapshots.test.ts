@@ -53,6 +53,18 @@ ruleTester.run(RULE_NAME, rule, {
                  expect(true).toMatchSnapshot();
             })`,
             errors: [{ messageId: 'requireLocalTestContext' }]
-        }
+        },
+        {
+            code: 'it.concurrent("should fail", () => { expect(true).toMatchFileSnapshot("./test/basic.output.html") })',
+            errors: [{ messageId: 'requireLocalTestContext' }]
+        },
+        {
+            code: 'it.concurrent("should fail", () => { expect(foo()).toThrowErrorMatchingSnapshot() })',
+            errors: [{ messageId: 'requireLocalTestContext' }]
+        },
+        {
+            code: 'it.concurrent("should fail", () => { expect(foo()).toThrowErrorMatchingInlineSnapshot("bar") })',
+            errors: [{ messageId: 'requireLocalTestContext' }]
+        },
     ]
 })
