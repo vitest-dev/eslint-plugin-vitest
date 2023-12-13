@@ -65,6 +65,6 @@ ruleTester.run(RULE_NAME, rule, {
         {
             code: 'it.concurrent("should fail", () => { expect(foo()).toThrowErrorMatchingInlineSnapshot("bar") })',
             errors: [{ messageId: 'requireLocalTestContext' }]
-        },
+        }
     ]
 })

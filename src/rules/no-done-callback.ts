@@ -48,18 +48,18 @@ export default createEslintRule<Options, MessageIds>({
 
 				const isInsideConcurrentTestOrDescribe = context.getAncestors().some((ancestor) => {
 					if (ancestor.type !== AST_NODE_TYPES.CallExpression) return false
-			
+
 					const isNotInsideDescribeOrTest = !isTypeOfVitestFnCall(ancestor, context, ['describe', 'test'])
 					if (isNotInsideDescribeOrTest) return false
-			
+
 					const isTestRunningConcurrently =
 						ancestor.callee.type === AST_NODE_TYPES.MemberExpression &&
 						isSupportedAccessor(ancestor.callee.property, 'concurrent')
-			
+
 					return isTestRunningConcurrently
 				})
 
-				if (isInsideConcurrentTestOrDescribe) return;
+				if (isInsideConcurrentTestOrDescribe) return
 
 				const callback = findCallbackArg(node, isVitestEach, context)
 				const callbackArgIndex = Number(isVitestEach)
