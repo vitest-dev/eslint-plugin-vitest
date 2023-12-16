@@ -57,13 +57,13 @@ export default createEslintRule<Options, MESSAGE_ID>({
 				const title = getStringValue(argument)
 
 				if (vitestFnCall.type === 'test') {
-					if (currentStack.testTitles.includes(title)) {
+					if (currentStack?.testTitles.includes(title)) {
 						context.report({
 							node,
 							messageId: 'multipleTestTitle'
 						})
 					}
-					currentStack.testTitles.push(title)
+					currentStack?.testTitles.push(title)
 				}
 
 				if (vitestFnCall.type !== 'describe')
