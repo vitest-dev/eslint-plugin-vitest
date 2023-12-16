@@ -49,6 +49,7 @@ import preferTodo, { RULE_NAME as preferTodoName } from './rules/prefer-todo'
 import preferSpyOn, { RULE_NAME as preferSpyOnName } from './rules/prefer-spy-on'
 import preferComparisonMatcher, { RULE_NAME as preferComparisonMatcherName } from './rules/prefer-comparison-matcher'
 import preferToContain, { RULE_NAME as preferToContainName } from './rules/prefer-to-contain'
+import preferCalledExactlyOnceWith, {RULE_NAME as preferCalledExactlyOnceWithName} from './rules/prefer-called-exactly-once-with'
 // import unboundMethod, { RULE_NAME as unboundMethodName } from './rules/unbound-method'
 
 const createConfig = (rules: Record<string, string>) => ({
@@ -103,7 +104,8 @@ const allRules = {
 	[preferTodoName]: 'warn',
 	[preferSpyOnName]: 'warn',
 	[preferComparisonMatcherName]: 'warn',
-	[preferToContainName]: 'warn'
+	[preferToContainName]: 'warn',
+	[preferCalledExactlyOnceWithName]: 'warn'
 	// [unboundMethodName]: 'warn'
 }
 
@@ -171,7 +173,8 @@ export default {
 		[preferTodoName]: preferTodo,
 		[preferSpyOnName]: preferSpyOn,
 		[preferComparisonMatcherName]: preferComparisonMatcher,
-		[preferToContainName]: preferToContain
+		[preferToContainName]: preferToContain,
+		[preferCalledExactlyOnceWithName]: preferCalledExactlyOnceWith
 		// [unboundMethodName]: unboundMethod
 	},
 	configs: {
