@@ -7,40 +7,40 @@ export type MESSAGE_ID = 'noInterpolationInSnapshots'
 export type Options = []
 
 export default createEslintRule<Options, MESSAGE_ID>({
-	name: RULE_NAME,
-	meta: {
-		type: 'problem',
-		docs: {
-			description: 'Disallow string interpolation in snapshots',
-			recommended: 'error'
-		},
-		fixable: 'code',
-		schema: [],
-		messages: {
-			noInterpolationInSnapshots: 'Do not use string interpolation in snapshots'
-		}
-	},
-	defaultOptions: [],
-	create(context) {
-		return {
-			CallExpression(node) {
-				const vitestFnCall = parseVitestFnCall(node, context)
+    name: RULE_NAME,
+    meta: {
+        type: 'problem',
+        docs: {
+            description: 'Disallow string interpolation in snapshots',
+            recommended: 'error'
+        },
+        fixable: 'code',
+        schema: [],
+        messages: {
+            noInterpolationInSnapshots: 'Do not use string interpolation in snapshots'
+        }
+    },
+    defaultOptions: [],
+    create(context) {
+        return {
+            CallExpression(node) {
+                const vitestFnCall = parseVitestFnCall(node, context)
 
-				if (vitestFnCall?.type !== 'expect')
-					return
+                if (vitestFnCall?.type !== 'expect')
+                    return
 
-				if (['toMatchInlineSnapshot',
-					'toThrowErrorMatchingInlineSnapshot'].includes(getAccessorValue(vitestFnCall.matcher))) {
-					vitestFnCall.args.forEach(argument => {
-						if (argument.type === AST_NODE_TYPES.TemplateLiteral && argument.expressions.length > 0) {
-							context.report({
-								messageId: 'noInterpolationInSnapshots',
-								node: argument
-							})
-						}
-					})
-				}
-			}
-		}
-	}
+                if (['toMatchInlineSnapshot',
+                    'toThrowErrorMatchingInlineSnapshot'].includes(getAccessorValue(vitestFnCall.matcher))) {
+                    vitestFnCall.args.forEach(argument => {
+                        if (argument.type === AST_NODE_TYPES.TemplateLiteral && argument.expressions.length > 0) {
+                            context.report({
+                                messageId: 'noInterpolationInSnapshots',
+                                node: argument
+                            })
+                        }
+                    })
+                }
+            }
+        }
+    }
 })

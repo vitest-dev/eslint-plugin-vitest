@@ -6,81 +6,81 @@ export type MESSAGE_ID = 'multipleTestTitle' | 'multipleDescribeTitle';
 export type Options = [];
 
 interface DescribeContext {
-	describeTitles: string[];
-	testTitles: string[];
+    describeTitles: string[];
+    testTitles: string[];
 }
 
 const newDescribeContext = (): DescribeContext => ({
-	describeTitles: [],
-	testTitles: []
+    describeTitles: [],
+    testTitles: []
 })
 
 export default createEslintRule<Options, MESSAGE_ID>({
-	name: RULE_NAME,
-	meta: {
-		type: 'problem',
-		docs: {
-			description: 'Disallow identical titles',
-			recommended: 'strict'
-		},
-		fixable: 'code',
-		schema: [],
-		messages: {
-			multipleTestTitle: 'Test is used multiple times in the same describe block',
-			multipleDescribeTitle: 'Describe is used multiple times in the same describe block'
-		}
-	},
-	defaultOptions: [],
-	create(context) {
-		const stack = [newDescribeContext()]
+    name: RULE_NAME,
+    meta: {
+        type: 'problem',
+        docs: {
+            description: 'Disallow identical titles',
+            recommended: 'strict'
+        },
+        fixable: 'code',
+        schema: [],
+        messages: {
+            multipleTestTitle: 'Test is used multiple times in the same describe block',
+            multipleDescribeTitle: 'Describe is used multiple times in the same describe block'
+        }
+    },
+    defaultOptions: [],
+    create(context) {
+        const stack = [newDescribeContext()]
 
-		return {
-			CallExpression(node) {
-				const currentStack = stack[stack.length - 1]
+        return {
+            CallExpression(node) {
+                const currentStack = stack[stack.length - 1]
 
-				const vitestFnCall = parseVitestFnCall(node, context)
+                const vitestFnCall = parseVitestFnCall(node, context)
 
-				if (!vitestFnCall)
-					return
+                if (!vitestFnCall)
+                    return
 
-				if (vitestFnCall.name === 'describe')
-					stack.push(newDescribeContext())
+                if (vitestFnCall.name === 'describe')
+                    stack.push(newDescribeContext())
 
-				if (vitestFnCall.members.find(s => isSupportedAccessor(s, 'each')))
-					return
+                if (vitestFnCall.members.find(s => isSupportedAccessor(s, 'each')))
+                    return
 
-				const [argument] = node.arguments
+                const [argument] = node.arguments
 
-				if (!argument || !isStringNode(argument))
-					return
+                if (!argument || !isStringNode(argument))
+                    return
 
-				const title = getStringValue(argument)
+                const title = getStringValue(argument)
 
-				if (vitestFnCall.type === 'test') {
-					if (currentStack?.testTitles.includes(title)) {
-						context.report({
-							node,
-							messageId: 'multipleTestTitle'
-						})
-					}
-					currentStack?.testTitles.push(title)
-				}
+                if (vitestFnCall.type === 'test') {
+                    if (currentStack?.testTitles.includes(title)) {
+                        context.report({
+                            node,
+                            messageId: 'multipleTestTitle'
+                        })
+                    }
+                    currentStack?.testTitles.push(title)
+                }
 
-				if (vitestFnCall.type !== 'describe')
-					return
+                if (vitestFnCall.type !== 'describe')
+                    return
 
-				if (currentStack?.describeTitles.includes(title)) {
-					context.report({
-						node,
-						messageId: 'multipleDescribeTitle'
-					})
-				}
-				currentStack?.describeTitles.push(title)
-			},
-			'CallExpression:exit'(node) {
-				if (isTypeOfVitestFnCall(node, context, ['describe']))
-					stack.pop()
-			}
-		}
-	}
+                if (currentStack?.describeTitles.includes(title)) {
+                    context.report({
+                        node,
+                        messageId: 'multipleDescribeTitle'
+                    })
+                }
+                currentStack?.describeTitles.push(title)
+            },
+            'CallExpression:exit'(node) {
+                if (isTypeOfVitestFnCall(node, context, ['describe']))
+                    stack.pop()
+            }
+        }
+    }
 })

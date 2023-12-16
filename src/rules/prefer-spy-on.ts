@@ -6,109 +6,109 @@ type MESSAGE_IDS = 'useViSpayOn'
 type Options = []
 
 const findNodeObject = (
-	node: TSESTree.CallExpression | TSESTree.MemberExpression
+    node: TSESTree.CallExpression | TSESTree.MemberExpression
 ): TSESTree.Expression | null => {
-	if ('object' in node)
-		return node.object
+    if ('object' in node)
+        return node.object
 
-	if (node.callee.type === AST_NODE_TYPES.MemberExpression)
-		return node.callee.object
+    if (node.callee.type === AST_NODE_TYPES.MemberExpression)
+        return node.callee.object
 
-	return null
+    return null
 }
 
 const getVitestFnCall = (node: TSESTree.Node): TSESTree.CallExpression | null => {
-	if (
-		node.type !== AST_NODE_TYPES.CallExpression &&
-		node.type !== AST_NODE_TYPES.MemberExpression
-	)
-		return null
+    if (
+        node.type !== AST_NODE_TYPES.CallExpression &&
+        node.type !== AST_NODE_TYPES.MemberExpression
+    )
+        return null
 
-	const obj = findNodeObject(node)
+    const obj = findNodeObject(node)
 
-	if (!obj)
-		return null
+    if (!obj)
+        return null
 
-	if (obj.type === AST_NODE_TYPES.Identifier) {
-		return node.type === AST_NODE_TYPES.CallExpression &&
-			getNodeName(node.callee) === 'vi.fn'
-			? node
-			: null
-	}
+    if (obj.type === AST_NODE_TYPES.Identifier) {
+        return node.type === AST_NODE_TYPES.CallExpression &&
+            getNodeName(node.callee) === 'vi.fn'
+            ? node
+            : null
+    }
 
-	return getVitestFnCall(obj)
+    return getVitestFnCall(obj)
 }
 
 const getAutoFixMockImplementation = (
-	vitestFnCall: TSESTree.CallExpression,
-	context: TSESLint.RuleContext<MESSAGE_IDS, unknown[]>
+    vitestFnCall: TSESTree.CallExpression,
+    context: TSESLint.RuleContext<MESSAGE_IDS, unknown[]>
 ): string => {
-	const hasMockImplementationAlready =
-		vitestFnCall.parent?.type === AST_NODE_TYPES.MemberExpression &&
-		vitestFnCall.parent.property.type === AST_NODE_TYPES.Identifier &&
-		vitestFnCall.parent.property.name === 'mockImplementation'
+    const hasMockImplementationAlready =
+        vitestFnCall.parent?.type === AST_NODE_TYPES.MemberExpression &&
+        vitestFnCall.parent.property.type === AST_NODE_TYPES.Identifier &&
+        vitestFnCall.parent.property.name === 'mockImplementation'
 
-	if (hasMockImplementationAlready)
-		return ''
+    if (hasMockImplementationAlready)
+        return ''
 
-	const [arg] = vitestFnCall.arguments
-	const argSource = arg && context.getSourceCode().getText(arg)
+    const [arg] = vitestFnCall.arguments
+    const argSource = arg && context.getSourceCode().getText(arg)
 
-	return argSource
-		? `.mockImplementation(${argSource})`
-		: '.mockImplementation()'
+    return argSource
+        ? `.mockImplementation(${argSource})`
+        : '.mockImplementation()'
 }
 
 export default createEslintRule<Options, MESSAGE_IDS>({
-	name: RULE_NAME,
-	meta: {
-		type: 'suggestion',
-		docs: {
-			description: 'Suggest using `vi.spyOn`',
-			recommended: 'warn'
-		},
-		messages: {
-			useViSpayOn: 'Use `vi.spyOn` instead'
-		},
-		fixable: 'code',
-		schema: []
-	},
-	defaultOptions: [],
-	create(context) {
-		return {
-			AssignmentExpression(node) {
-				const { left, right } = node
+    name: RULE_NAME,
+    meta: {
+        type: 'suggestion',
+        docs: {
+            description: 'Suggest using `vi.spyOn`',
+            recommended: 'warn'
+        },
+        messages: {
+            useViSpayOn: 'Use `vi.spyOn` instead'
+        },
+        fixable: 'code',
+        schema: []
+    },
+    defaultOptions: [],
+    create(context) {
+        return {
+            AssignmentExpression(node) {
+                const { left, right } = node
 
-				if (left.type !== AST_NODE_TYPES.MemberExpression) return
+                if (left.type !== AST_NODE_TYPES.MemberExpression) return
 
-				const vitestFnCall = getVitestFnCall(right)
+                const vitestFnCall = getVitestFnCall(right)
 
-				if (!vitestFnCall) return
+                if (!vitestFnCall) return
 
-				context.report({
-					node,
-					messageId: 'useViSpayOn',
-					fix(fixer) {
-						const lefPropQuote = left.property.type === AST_NODE_TYPES.Identifier && !left.computed
-							? '\''
-							: ''
+                context.report({
+                    node,
+                    messageId: 'useViSpayOn',
+                    fix(fixer) {
+                        const lefPropQuote = left.property.type === AST_NODE_TYPES.Identifier && !left.computed
+                            ? '\''
+                            : ''
 
-						const mockImplementation = getAutoFixMockImplementation(vitestFnCall, context)
+                        const mockImplementation = getAutoFixMockImplementation(vitestFnCall, context)
 
-						return [
-							fixer.insertTextBefore(left, 'vi.spyOn('),
-							fixer.replaceTextRange(
-								[left.object.range[1], left.property.range[0]],
-								`, ${lefPropQuote}`
-							),
-							fixer.replaceTextRange(
-								[left.property.range[1], vitestFnCall.range[1]],
-								`${lefPropQuote})${mockImplementation}`
-							)
-						]
-					}
-				})
-			}
-		}
-	}
+                        return [
+                            fixer.insertTextBefore(left, 'vi.spyOn('),
+                            fixer.replaceTextRange(
+                                [left.object.range[1], left.property.range[0]],
+                                `, ${lefPropQuote}`
+                            ),
+                            fixer.replaceTextRange(
+                                [left.property.range[1], vitestFnCall.range[1]],
+                                `${lefPropQuote})${mockImplementation}`
+                            )
+                        ]
+                    }
+                })
+            }
+        }
+    }
 })

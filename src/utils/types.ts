@@ -1,44 +1,44 @@
 import { TSESTree } from '@typescript-eslint/utils'
 
 export enum DescribeAlias {
-	'describe' = 'describe',
-	'fdescribe' = 'fdescribe',
-	'xdescribe' = 'xdescribe',
+    'describe' = 'describe',
+    'fdescribe' = 'fdescribe',
+    'xdescribe' = 'xdescribe',
 }
 
 export enum TestCaseName {
-	'fit' = 'fit',
-	'it' = 'it',
-	'test' = 'test',
-	'xit' = 'xit',
-	'xtest' = 'xtest',
-	'bench' = 'bench',
+    'fit' = 'fit',
+    'it' = 'it',
+    'test' = 'test',
+    'xit' = 'xit',
+    'xtest' = 'xtest',
+    'bench' = 'bench',
 }
 
 export enum HookName {
-	'beforeAll' = 'beforeAll',
-	'beforeEach' = 'beforeEach',
-	'afterAll' = 'afterAll',
-	'afterEach' = 'afterEach',
+    'beforeAll' = 'beforeAll',
+    'beforeEach' = 'beforeEach',
+    'afterAll' = 'afterAll',
+    'afterEach' = 'afterEach',
 }
 
 export enum ModifierName {
-	not = 'not',
-	rejects = 'rejects',
-	resolves = 'resolves',
+    not = 'not',
+    rejects = 'rejects',
+    resolves = 'resolves',
 }
 
 /**
  * Represents a `CallExpression` with a single argument.
  */
 export interface CallExpressionWithSingleArgument<
-	Argument extends TSESTree.CallExpression['arguments'][number] = TSESTree.CallExpression['arguments'][number],
+    Argument extends TSESTree.CallExpression['arguments'][number] = TSESTree.CallExpression['arguments'][number],
 > extends TSESTree.CallExpression {
-	arguments: [Argument];
+    arguments: [Argument];
 }
 
 export enum EqualityMatcher {
-	toBe = 'toBe',
-	toEqual = 'toEqual',
-	toStrictEqual = 'toStrictEqual',
+    toBe = 'toBe',
+    toEqual = 'toEqual',
+    toStrictEqual = 'toStrictEqual',
 }
