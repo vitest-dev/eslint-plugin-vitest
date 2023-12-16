@@ -6,40 +6,40 @@ type MESSAGE_IDS = 'addErrorMessage'
 type Options = []
 
 export default createEslintRule<Options, MESSAGE_IDS>({
-	name: RULE_NAME,
-	meta: {
-		type: 'suggestion',
-		docs: {
-			description: 'Require toThrow() to be called with an error message',
-			recommended: 'warn'
-		},
-		schema: [],
-		messages: {
-			addErrorMessage: 'Add an error message to {{ matcherName }}()'
-		}
-	},
-	defaultOptions: [],
-	create(context) {
-		return {
-			CallExpression(node) {
-				const vitestFnCall = parseVitestFnCall(node, context)
+    name: RULE_NAME,
+    meta: {
+        type: 'suggestion',
+        docs: {
+            description: 'Require toThrow() to be called with an error message',
+            recommended: 'warn'
+        },
+        schema: [],
+        messages: {
+            addErrorMessage: 'Add an error message to {{ matcherName }}()'
+        }
+    },
+    defaultOptions: [],
+    create(context) {
+        return {
+            CallExpression(node) {
+                const vitestFnCall = parseVitestFnCall(node, context)
 
-				if (vitestFnCall?.type !== 'expect') return
+                if (vitestFnCall?.type !== 'expect') return
 
-				const { matcher } = vitestFnCall
-				const matcherName = getAccessorValue(matcher)
+                const { matcher } = vitestFnCall
+                const matcherName = getAccessorValue(matcher)
 
-				if (vitestFnCall.args.length === 0 &&
-					['toThrow', 'toThrowError'].includes(matcherName) &&
-					!vitestFnCall.modifiers.some(nod => getAccessorValue(nod) === 'not')
-				) {
-					context.report({
-						messageId: 'addErrorMessage',
-						data: { matcherName },
-						node: matcher
-					})
-				}
-			}
-		}
-	}
+                if (vitestFnCall.args.length === 0 &&
+                    ['toThrow', 'toThrowError'].includes(matcherName) &&
+                    !vitestFnCall.modifiers.some(nod => getAccessorValue(nod) === 'not')
+                ) {
+                    context.report({
+                        messageId: 'addErrorMessage',
+                        data: { matcherName },
+                        node: matcher
+                    })
+                }
+            }
+        }
+    }
 })

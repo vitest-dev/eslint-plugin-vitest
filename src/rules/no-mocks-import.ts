@@ -13,31 +13,31 @@ type MESSAGE_IDS = 'noMocksImport';
 type Options = []
 
 export default createEslintRule<Options, MESSAGE_IDS>({
-	name: RULE_NAME,
-	meta: {
-		type: 'problem',
-		docs: {
-			description: 'Disallow importing from __mocks__ directory',
-			recommended: 'error'
-		},
-		messages: {
-			noMocksImport: `Mocks should not be manually imported from a ${mocksDirName} directory. Instead use \`jest.mock\` and import from the original module path.`
-		},
-		schema: []
-	},
-	defaultOptions: [],
-	create(context) {
-		return {
-			ImportDeclaration(node: TSESTree.ImportDeclaration) {
-				if (isMockImportLiteral(node.source))
-					context.report({ node, messageId: 'noMocksImport' })
-			},
-			'CallExpression[callee.name="require"]'(node: TSESTree.CallExpression) {
-				const [args] = node.arguments
+    name: RULE_NAME,
+    meta: {
+        type: 'problem',
+        docs: {
+            description: 'Disallow importing from __mocks__ directory',
+            recommended: 'error'
+        },
+        messages: {
+            noMocksImport: `Mocks should not be manually imported from a ${mocksDirName} directory. Instead use \`jest.mock\` and import from the original module path.`
+        },
+        schema: []
+    },
+    defaultOptions: [],
+    create(context) {
+        return {
+            ImportDeclaration(node: TSESTree.ImportDeclaration) {
+                if (isMockImportLiteral(node.source))
+                    context.report({ node, messageId: 'noMocksImport' })
+            },
+            'CallExpression[callee.name="require"]'(node: TSESTree.CallExpression) {
+                const [args] = node.arguments
 
-				if (args && isMockImportLiteral(args))
-					context.report({ node: args, messageId: 'noMocksImport' })
-			}
-		}
-	}
+                if (args && isMockImportLiteral(args))
+                    context.report({ node: args, messageId: 'noMocksImport' })
+            }
+        }
+    }
 })

@@ -17,7 +17,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       preferCalledWith: 'Prefer {{ matcherName }}With(/* expected args */)'
     },
     type: 'suggestion',
-	fixable: 'code',
+    fixable: 'code',
     schema: []
   },
   defaultOptions: [],
@@ -43,7 +43,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             data: { matcherName },
             messageId: 'preferCalledWith',
             node: matcher,
-			fix: (fixer) => [fixer.replaceText(matcher, `${matcherName}With`)]
+            fix: (fixer) => [fixer.replaceText(matcher, `${matcherName}With`)]
           })
         }
       }

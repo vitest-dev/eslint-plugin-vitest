@@ -14,89 +14,89 @@ type Options = [{customExpressions: string[]}]
  *   request.**.expect*
  */
 function buildRegularExpression(pattern: string) {
-	return new RegExp(
-		`^${pattern
-			.split('.')
-			.map(x => {
-				if (x === '**') return '[a-z\\d\\.]*'
+    return new RegExp(
+        `^${pattern
+            .split('.')
+            .map(x => {
+                if (x === '**') return '[a-z\\d\\.]*'
 
-				return x.replace(/\*/gu, '[a-z\\d]*')
-			})
-			.join('\\.')}(\\.|$)`,
-		'ui')
+                return x.replace(/\*/gu, '[a-z\\d]*')
+            })
+            .join('\\.')}(\\.|$)`,
+        'ui')
 }
 
 function matchesAssertFunctionName(
-	nodeName: string,
-	patterns: readonly string[]
+    nodeName: string,
+    patterns: readonly string[]
 ): boolean {
-	return patterns.some(pattern =>
-		buildRegularExpression(pattern).test(nodeName)
-	)
+    return patterns.some(pattern =>
+        buildRegularExpression(pattern).test(nodeName)
+    )
 }
 
 export default createEslintRule<Options, MESSAGE_ID>({
-	name: RULE_NAME,
-	meta: {
-		type: 'suggestion',
-		docs: {
-			description: 'Enforce having expectation in test body',
-			recommended: 'strict'
-		},
-		schema: [
-			{
-				type: 'object',
-				properties: {
-					customExpressions: {
-						type: 'array'
-					}
-				},
-				additionalProperties: false
-			}
-		],
-		messages: {
-			expectedExpect: 'Use {{ expected }} in test body'
-		}
-	},
-	defaultOptions: [{ customExpressions: ['expect'] }],
-	create(context, [{ customExpressions }]) {
-		const unchecked: TSESTree.CallExpression[] = []
+    name: RULE_NAME,
+    meta: {
+        type: 'suggestion',
+        docs: {
+            description: 'Enforce having expectation in test body',
+            recommended: 'strict'
+        },
+        schema: [
+            {
+                type: 'object',
+                properties: {
+                    customExpressions: {
+                        type: 'array'
+                    }
+                },
+                additionalProperties: false
+            }
+        ],
+        messages: {
+            expectedExpect: 'Use {{ expected }} in test body'
+        }
+    },
+    defaultOptions: [{ customExpressions: ['expect'] }],
+    create(context, [{ customExpressions }]) {
+        const unchecked: TSESTree.CallExpression[] = []
 
-		function checkCallExpressionUsed(nodes: TSESTree.Node[]) {
-			for (const node of nodes) {
-				const index = node.type === AST_NODE_TYPES.CallExpression
-					? unchecked.indexOf(node)
-					: -1
+        function checkCallExpressionUsed(nodes: TSESTree.Node[]) {
+            for (const node of nodes) {
+                const index = node.type === AST_NODE_TYPES.CallExpression
+                    ? unchecked.indexOf(node)
+                    : -1
 
-				if (node.type === AST_NODE_TYPES.FunctionDeclaration) {
-					const declaredVariables = context.getDeclaredVariables(node)
-					const textCallExpression = getTestCallExpressionsFromDeclaredVariables(declaredVariables, context)
-					checkCallExpressionUsed(textCallExpression)
-				}
-				if (index !== -1) {
-					unchecked.splice(index, 1)
-					break
-				}
-			}
-		}
+                if (node.type === AST_NODE_TYPES.FunctionDeclaration) {
+                    const declaredVariables = context.getDeclaredVariables(node)
+                    const textCallExpression = getTestCallExpressionsFromDeclaredVariables(declaredVariables, context)
+                    checkCallExpressionUsed(textCallExpression)
+                }
+                if (index !== -1) {
+                    unchecked.splice(index, 1)
+                    break
+                }
+            }
+        }
 
-		return {
-			CallExpression(node) {
-				const name = getNodeName(node) ?? ''
+        return {
+            CallExpression(node) {
+                const name = getNodeName(node) ?? ''
 
-				if (isTypeOfVitestFnCall(node, context, ['test'])) {
-					if (node.callee.type === AST_NODE_TYPES.MemberExpression &&
-						(isSupportedAccessor(node.callee.property, 'todo') || isSupportedAccessor(node.callee.property, 'skip')))
-						return
+                if (isTypeOfVitestFnCall(node, context, ['test'])) {
+                    if (node.callee.type === AST_NODE_TYPES.MemberExpression &&
+                        (isSupportedAccessor(node.callee.property, 'todo') || isSupportedAccessor(node.callee.property, 'skip')))
+                        return
 
-					unchecked.push(node)
-				} else if (matchesAssertFunctionName(name, customExpressions)) {
-					checkCallExpressionUsed(context.getAncestors())
-				}
-			},
-			'Program:exit'() {
-				unchecked.forEach(node => context.report({ node: node.callee, messageId: 'expectedExpect', data: { expected: customExpressions.join(' or ') } }))
-			}
-		}
-	}
+                    unchecked.push(node)
+                } else if (matchesAssertFunctionName(name, customExpressions)) {
+                    checkCallExpressionUsed(context.getAncestors())
+                }
+            },
+            'Program:exit'() {
+                unchecked.forEach(node => context.report({ node: node.callee, messageId: 'expectedExpect', data: { expected: customExpressions.join(' or ') } }))
+            }
+        }
+    }
 })

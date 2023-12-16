@@ -7,51 +7,51 @@ export type MESSAGE_IDS = 'usePreferredName'
 export type Options = []
 
 export default createEslintRule<Options, MESSAGE_IDS>({
-	name: RULE_NAME,
-	meta: {
-		docs: {
-			description: 'Disallow using `test` as a prefix',
-			recommended: 'warn'
-		},
-		type: 'suggestion',
-		messages: {
-			usePreferredName: 'Use "{{preferredNodeName}}" instead'
-		},
-		fixable: 'code',
-		schema: []
-	},
-	defaultOptions: [],
-	create(context) {
-		return {
-			CallExpression(node) {
-				const vitestFnCall = parseVitestFnCall(node, context)
+    name: RULE_NAME,
+    meta: {
+        docs: {
+            description: 'Disallow using `test` as a prefix',
+            recommended: 'warn'
+        },
+        type: 'suggestion',
+        messages: {
+            usePreferredName: 'Use "{{preferredNodeName}}" instead'
+        },
+        fixable: 'code',
+        schema: []
+    },
+    defaultOptions: [],
+    create(context) {
+        return {
+            CallExpression(node) {
+                const vitestFnCall = parseVitestFnCall(node, context)
 
-				if (vitestFnCall?.type !== 'describe' && vitestFnCall?.type !== 'test')
-					return
+                if (vitestFnCall?.type !== 'describe' && vitestFnCall?.type !== 'test')
+                    return
 
-				if (vitestFnCall.name[0] !== 'f' && vitestFnCall.name[0] !== 'x')
-					return
+                if (vitestFnCall.name[0] !== 'f' && vitestFnCall.name[0] !== 'x')
+                    return
 
-				const preferredNodeName = [
-					vitestFnCall.name.slice(1),
-					vitestFnCall.name[0] === 'f' ? 'only' : 'skip',
-					...vitestFnCall.members.map(m => getAccessorValue(m))
-				].join('.')
+                const preferredNodeName = [
+                    vitestFnCall.name.slice(1),
+                    vitestFnCall.name[0] === 'f' ? 'only' : 'skip',
+                    ...vitestFnCall.members.map(m => getAccessorValue(m))
+                ].join('.')
 
-				const funcNode =
-					node.callee.type === AST_NODE_TYPES.TaggedTemplateExpression
-						? node.callee.tag
-						: node.callee.type === AST_NODE_TYPES.CallExpression
-							? node.callee.callee
-							: node.callee
+                const funcNode =
+                    node.callee.type === AST_NODE_TYPES.TaggedTemplateExpression
+                        ? node.callee.tag
+                        : node.callee.type === AST_NODE_TYPES.CallExpression
+                            ? node.callee.callee
+                            : node.callee
 
-				context.report({
-					messageId: 'usePreferredName',
-					node: node.callee,
-					data: { preferredNodeName },
-					fix: fixer => [fixer.replaceText(funcNode, preferredNodeName)]
-				})
-			}
-		}
-	}
+                context.report({
+                    messageId: 'usePreferredName',
+                    node: node.callee,
+                    data: { preferredNodeName },
+                    fix: fixer => [fixer.replaceText(funcNode, preferredNodeName)]
+                })
+            }
+        }
+    }
 })
