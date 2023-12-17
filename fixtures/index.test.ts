@@ -6,9 +6,4 @@ describe('foo', () => {
 	it('foo', () => {
 		expect(true).toBeTruthy()
 	})
-
-	it('bar', () => {
-		const fooBar = { foo: 'bar' }
-		expect(fooBar).to.deep.eq({ foo: 'bar' })
-	})
 })
