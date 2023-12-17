@@ -260,10 +260,10 @@ ruleTester.run(RULE_NAME, rule, {
 			  });`,
 			  options: [{ onlyFunctionsWithExpectInLoop: true }],
 			  errors: [
-				{ 
+				{
 				messageId: 'haveExpectAssertions',
 				column: 6,
-				line: 9,
+				line: 9
 			    }
 			  ]
 		},
@@ -285,14 +285,14 @@ ruleTester.run(RULE_NAME, rule, {
 			{
 			  messageId: 'haveExpectAssertions',
 			  column: 1,
-			  line: 1,
+			  line: 1
 			},
 			{
 			  messageId: 'haveExpectAssertions',
 			  column: 4,
-			  line: 7,
-			},
-		  ],
-		},
+			  line: 7
+			}
+		  ]
+		}
 	]
 })

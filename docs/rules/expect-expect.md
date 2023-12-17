@@ -4,14 +4,19 @@
 
 <!-- end auto-generated rule header -->
 
+
 ## Rule Details
+
+This rule aims to enforce having at least one expectation in test body to ensure that the test is actually testing something.
 
 Examples of **incorrect** code for this rule:
 
 ```js
 test('myLogic', () => {
-	const actual = myLogic()
+	console.log('myLogic')
 })
+
+test('myLogic', () => {})
 ```
 
 Examples of **correct** code for this rule:
@@ -25,15 +30,58 @@ test('myLogic', () => {
 
 ## Options
 
-> Default: `expect`
-
-Array of custom expression strings that are converted into a regular expression.
+### `assertFunctionNames`
 
 ```json
 {
-  "customExpressions": [
-    "expectValue",
-    "mySecondExpression"
+  "vitest/expect-expect": [
+    "error",
+    {
+      "assertFunctionNames": ["expect"],
+      "additionalTestBlockFunctions": []
+    }
   ]
 }
 ```
+
+An array of strings that are the names of the functions that are used for assertions. Function names can also be wildcard patterns like `expect*`,`function.**.expect` or `expect.anything`.
+
+
+The following is an example of correct code for this rule with the option `assertFunctionNames`:
+
+```js
+import CheckForMe from 'check-for-me'
+test('myLogic', () => {
+ expect("myLogic").toBe("myOutput")
+})
+```
+
+
+### `additionalTestBlockFunctions`
+
+
+```json
+{
+  "rules": {
+    "vitest/expect-expect": [
+      "error",
+      { "additionalTestBlockFunctions": ["checkForMe"] }
+    ]
+  }
+}
+```
+
+An array of strings that are the names of the functions that are used for test blocks. Function names can also be wildcard patterns like `describe*`,`function.**.describe` or `describe.anything`.
+
+The following is an example of correct code for this rule with the option `additionalTestBlockFunctions`:
+
+```js
+import CheckForMe from 'check-for-me'
+checkForMe('myLogic', () => {
+  checkForMe('myLogic', () => {
+	const actual = myLogic()
+	expect(actual).toBe(true)
+  })
+})
+```
+
