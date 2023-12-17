@@ -7,6 +7,13 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'test("shows success", () => {expectValue(true).toBe(false);});',
       options: [{ customExpressions: ['expectValue'] }]
     },
+	{
+		code: `test("shows success", () => {
+		  expect(true);
+		  expect.assertions(1);
+		});`,
+		options: [{ customExpressions: ['expect','expect.*'] }]
+	},
     {
       code: `test("shows success", () => {
         mySecondExpression(true).toBe(true);});`,
