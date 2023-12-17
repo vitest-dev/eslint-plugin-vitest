@@ -50,6 +50,7 @@ import preferSpyOn, { RULE_NAME as preferSpyOnName } from './rules/prefer-spy-on
 import preferComparisonMatcher, { RULE_NAME as preferComparisonMatcherName } from './rules/prefer-comparison-matcher'
 import preferToContain, { RULE_NAME as preferToContainName } from './rules/prefer-to-contain'
 import preferCalledExactlyOnceWith, { RULE_NAME as preferCalledExactlyOnceWithName } from './rules/prefer-called-exactly-once-with'
+import preferExpectAssertions, {RULE_NAME as preferExpectAssertionsName} from './rules/prefer-expect-assertions'
 // import unboundMethod, { RULE_NAME as unboundMethodName } from './rules/unbound-method'
 
 const createConfig = (rules: Record<string, string>) => ({
@@ -105,7 +106,8 @@ const allRules = {
     [preferSpyOnName]: 'warn',
     [preferComparisonMatcherName]: 'warn',
     [preferToContainName]: 'warn',
-    [preferCalledExactlyOnceWithName]: 'warn'
+    [preferCalledExactlyOnceWithName]: 'warn',
+	[preferExpectAssertionsName]: 'warn'
     // [unboundMethodName]: 'warn'
 }
 
@@ -174,7 +176,8 @@ export default {
         [preferSpyOnName]: preferSpyOn,
         [preferComparisonMatcherName]: preferComparisonMatcher,
         [preferToContainName]: preferToContain,
-        [preferCalledExactlyOnceWithName]: preferCalledExactlyOnceWith
+        [preferCalledExactlyOnceWithName]: preferCalledExactlyOnceWith,
+		[preferExpectAssertionsName]: preferExpectAssertions
         // [unboundMethodName]: unboundMethod
     },
     configs: {
