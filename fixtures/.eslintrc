@@ -3,14 +3,6 @@
 		"plugin:vitest/recommended"
 	],
 	"rules": {
-		"vitest/expect-expect": [
-			"error",
-			{
-				"customExpressions": [
-					"expect.*"
-				]
-			}
-		],
 		"vitest/unbound-method": "off"
 	}
 }
