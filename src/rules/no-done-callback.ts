@@ -29,6 +29,7 @@ export default createEslintRule<Options, MessageIds>({
             description: 'Disallow using a callback in asynchronous tests and hooks',
             recommended: 'error'
         },
+		deprecated: true,
         schema: [],
         messages: {
             noDoneCallback: 'Return a promise instead of relying on callback parameter',
