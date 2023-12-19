@@ -107,14 +107,13 @@ const allRules = {
     [preferComparisonMatcherName]: 'warn',
     [preferToContainName]: 'warn',
     [preferCalledExactlyOnceWithName]: 'warn',
-	[preferExpectAssertionsName]: 'warn'
-    // [unboundMethodName]: 'warn'
+	[preferExpectAssertionsName]: 'warn',
+	[usePreferTobe]: 'warn'
 }
 
 const recommended = {
     [expectedExpect]: 'error',
     [noIdenticalTitleName]: 'error',
-    [usePreferTobe]: 'error',
     [noCommentedOutTestsName]: 'error',
     [validTitleName]: 'error',
     [validExpectName]: 'error',
