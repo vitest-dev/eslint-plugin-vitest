@@ -11,6 +11,7 @@ import { ruleTester } from './ruleTester'
 				'fdescribe("foo", () => {})',
 				'describe.only("foo", () => {})',
 				'describe.skip("foo", () => {})',
+				`describe.todo("runPrettierFormat");`,
 				`
       describe('foo', () => {
         it('bar', () => {
