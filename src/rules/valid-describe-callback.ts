@@ -47,6 +47,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
                 if (vitestFnCall?.type !== 'describe') return
 
+				if (vitestFnCall?.members[0]?.type === AST_NODE_TYPES.Identifier && vitestFnCall.members[0].name === 'todo')
+					return
+
                 if (node.arguments.length < 1) {
                     return context.report({
                         messageId: 'nameAndCallback',
