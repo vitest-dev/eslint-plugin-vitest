@@ -8,7 +8,7 @@
 
 # Rule Details
 
-This rule aims to enforce valid titles for tests.
+This rule aims to enforce valid titles for `describe`, `it` and `test` titles.
 
 ## Options
 
@@ -19,11 +19,11 @@ This rule has an object option:
   "vitest/valid-title": [
 	"error",
    { 
-	"ignoreTypeOfDescribeName": false,
-  "allowArguments": false,
-	"disallowedWords": ["skip", "only"],
-	"mustNotMatch": ["^\\s+$", "^\\s*\\d+\\s*$"],
-	"mustMatch": ["^\\s*\\w+\\s*$"]
+    "ignoreTypeOfDescribeName": false,
+    "allowArguments": false,
+    "disallowedWords": ["skip", "only"],
+    "mustNotMatch": ["^\\s+$", "^\\s*\\d+\\s*$"],
+    "mustMatch": ["^\\s*\\w+\\s*$"]
     }
   ]
 }
@@ -122,6 +122,14 @@ describe('foo', () => {
 
 An array of regex strings that are required in the test title.
 
+If you specify an array of regex strings, the check is performed on `describe`, `test` and `it` titles.
+
+For more granular control, you can specify an object with the following properties :
+
+- `describe`: an array of regex strings that are required in the `describe` title.
+- `test`: an array of regex strings that are required in the `test` title.
+- `it`: an array of regex strings that are required in the `it` title.
+
 Examples of **incorrect** code for this rule with the `{ "mustMatch": ["^\\s*\\w+\\s*$"] }` option:
 
 ```js
@@ -139,6 +147,30 @@ Examples of **correct** code for this rule with the `{ "mustMatch": ["^\\s*\\w+\
 describe('foo', () => {
   it('should be a number', () => {
 	expect(1).toBeNumber()
+  })
+})
+```
+
+Examples of **incorrect** code for this rule with the `{ "mustMatch": { "it": ["^should .+\.$"] } }` option:
+
+```js
+// The describe title is checked with the default regex, so it's valid 
+describe('foo', () => {
+  // This check fails because the title does not match the regex  
+  it('Should be a number', () => {
+    expect(1).toBeNumber()
+  })
+})
+```
+
+Examples of **correct** code for this rule with the `{ "mustMatch": { "describe": ["^\\s*\\w+\\s*$"] } }` option:
+
+```js
+// The describe title is checked with the default regex, so it's valid
+describe('foo', () => {
+  // This check succeeds because the title matches the regex  
+  it('should be a number.', () => {
+    expect(1).toBeNumber()
   })
 })
 ```
