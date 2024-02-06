@@ -24,10 +24,10 @@ const isFirstStatement = (node: TSESTree.CallExpression): boolean => {
 
 	while (parent) {
 		if (parent.parent?.type === AST_NODE_TYPES.BlockStatement)
-		return parent.parent.body[0] === parent
+			return parent.parent.body[0] === parent
 
 		if (parent.parent?.type === AST_NODE_TYPES.ArrowFunctionExpression)
-		return true
+			return true
 
 		parent = parent.parent
 	}
@@ -51,15 +51,15 @@ export default createEslintRule<Options[], MessageIds>({
 		},
 		messages: {
 			hasAssertionsTakesNoArguments:
-			'`expect.hasAssertions` expects no arguments',
+				'`expect.hasAssertions` expects no arguments',
 			assertionsRequiresOneArgument:
-			'`expect.assertions` excepts a single argument of type number',
+				'`expect.assertions` excepts a single argument of type number',
 			assertionsRequiresNumberArgument: 'This argument should be a number',
 			haveExpectAssertions:
-			'Every test should have either `expect.assertions(<number of assertions>)` or `expect.hasAssertions()` as its first expression',
+				'Every test should have either `expect.assertions(<number of assertions>)` or `expect.hasAssertions()` as its first expression',
 			suggestAddingHasAssertions: 'Add `expect.hasAssertions()`',
 			suggestAddingAssertions:
-			'Add `expect.assertions(<number of assertions>)`',
+				'Add `expect.assertions(<number of assertions>)`',
 			suggestRemovingExtraArguments: 'Remove extra arguments'
 		},
 		type: 'suggestion',
@@ -178,7 +178,7 @@ export default createEslintRule<Options[], MessageIds>({
 
 				if (vitestFnCall?.type === 'expect' && inTestCaseCall) {
 					if (expressionDepth === 1 && isFirstStatement(node) && vitestFnCall.head.node.parent?.type === AST_NODE_TYPES.MemberExpression && vitestFnCall.members.length === 1 &&
-					['assertions', 'hasAssertions'].includes(getAccessorValue(vitestFnCall.members[0]))) {
+						['assertions', 'hasAssertions'].includes(getAccessorValue(vitestFnCall.members[0]))) {
 						checkExpectHasAssertions(vitestFnCall, node)
 						hasExpectAssertAsFirstStatement = true
 					}
@@ -188,22 +188,22 @@ export default createEslintRule<Options[], MessageIds>({
 
 					if (expressionDepth > 1)
 						hasExpectInCallBack = true
-					}
-				},
+				}
+			},
 
 			'CallExpression:exit'(node: TSESTree.CallExpression) {
 				if (!isTypeOfVitestFnCall(node, context, ['test']))
-				return
+					return
 
 				inTestCaseCall = false
 
 				if (node.arguments.length < 2)
-				return
+					return
 
 				const [, secondArg] = node.arguments
 
 				if (!isFunction(secondArg) || !shouldCheckFunction(secondArg))
-				return
+					return
 
 				hasExpectInLoop = false
 				hasExpectInCallBack = false
@@ -211,29 +211,29 @@ export default createEslintRule<Options[], MessageIds>({
 				if (hasExpectAssertAsFirstStatement) {
 					hasExpectAssertAsFirstStatement = false
 
-				return
+					return
 				}
 
 				const suggestions: Array<[MessageIds, string]> = []
 
 				if (secondArg.body.type === AST_NODE_TYPES.BlockStatement) {
 					suggestions.push(['suggestAddingHasAssertions', 'expect.hasAssertions();'],
-					['suggestAddingAssertions', 'expect.assertions();'])
+						['suggestAddingAssertions', 'expect.assertions();'])
 				}
 
-				context.report({
-					messageId: 'haveExpectAssertions',
-					node,
-					suggest: suggestions.map(([messageId, text]) => ({
-						messageId,
-						fix: fixer =>
-							fixer.insertTextBeforeRange(
-								[secondArg.body.range[0] + 1, secondArg.body.range[1]],
-								text
+					context.report({
+						messageId: 'haveExpectAssertions',
+						node,
+						suggest: suggestions.map(([messageId, text]) => ({
+							messageId,
+							fix: fixer =>
+								fixer.insertTextBeforeRange(
+									[secondArg.body.range[0] + 1, secondArg.body.range[1]],
+									text
 								)
-							}))
-						})
-					}
+						}))
+					})
+			}
 		}
 	}
 })

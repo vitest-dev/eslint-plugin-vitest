@@ -39,11 +39,10 @@ ruleTester.run(RULE_NAME, rule, {
 		{
 			code: `it("returns things that are less than ten", function () {
 				expect.hasAssertions();
-	  
 				for (const thing in things) {
-				  expect(thing).toBeLessThan(10);
+					expect(thing).toBeLessThan(10);
 				}
-			  });`,
+			});`,
 			options: [{ onlyFunctionsWithExpectInLoop: true }]
 		}
 	],

@@ -50,7 +50,6 @@ import preferSpyOn, { RULE_NAME as preferSpyOnName } from './rules/prefer-spy-on
 import preferComparisonMatcher, { RULE_NAME as preferComparisonMatcherName } from './rules/prefer-comparison-matcher'
 import preferToContain, { RULE_NAME as preferToContainName } from './rules/prefer-to-contain'
 import preferExpectAssertions, { RULE_NAME as preferExpectAssertionsName } from './rules/prefer-expect-assertions'
-// import unboundMethod, { RULE_NAME as unboundMethodName } from './rules/unbound-method'
 
 const createConfig = (rules: Record<string, string>) => ({
     plugins: ['vitest'],
@@ -174,7 +173,6 @@ export default {
         [preferComparisonMatcherName]: preferComparisonMatcher,
         [preferToContainName]: preferToContain,
 		[preferExpectAssertionsName]: preferExpectAssertions
-        // [unboundMethodName]: unboundMethod
     },
     configs: {
         all: createConfig(allRules),
