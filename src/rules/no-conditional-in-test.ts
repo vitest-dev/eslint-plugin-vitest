@@ -24,7 +24,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     create(context) {
         let inTestCase = false
 
-        const reportCondional = (node: TSESTree.Node) => {
+        const reportConditional = (node: TSESTree.Node) => {
             if (inTestCase)
                 context.report({ messageId: 'noConditionalInTest', node })
         }
@@ -38,10 +38,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
                 if (isTypeOfVitestFnCall(node, context, ['test']))
                     inTestCase = false
             },
-            IfStatement: reportCondional,
-            SwitchStatement: reportCondional,
-            ConditionalExpression: reportCondional,
-            LogicalExpression: reportCondional
+            IfStatement: reportConditional,
+            SwitchStatement: reportConditional,
+            ConditionalExpression: reportConditional,
+            LogicalExpression: reportConditional
         }
     }
 })

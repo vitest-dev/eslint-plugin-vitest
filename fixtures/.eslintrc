@@ -1,8 +1,9 @@
 {
 	"extends": [
-		"plugin:vitest/recommended"
+		"plugin:vitest/all"
 	],
 	"rules": {
-		"vitest/unbound-method": "off"
+		"vitest/unbound-method": "off",
+		"vitest/prefer-expect-assertions": "off"
 	}
 }
