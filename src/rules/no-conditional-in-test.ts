@@ -1,4 +1,3 @@
-import { TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 import { isTypeOfVitestFnCall } from '../utils/parseVitestFnCall'
 
@@ -22,26 +21,12 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     },
     defaultOptions: [],
     create(context) {
-        let inTestCase = false
-
-        const reportConditional = (node: TSESTree.Node) => {
-            if (inTestCase)
-                context.report({ messageId: 'noConditionalInTest', node })
-        }
-
         return {
-            CallExpression(node) {
-                if (isTypeOfVitestFnCall(node, context, ['test']))
-                    inTestCase = true
-            },
-            'CallExpression:exit'(node) {
-                if (isTypeOfVitestFnCall(node, context, ['test']))
-                    inTestCase = false
-            },
-            IfStatement: reportConditional,
-            SwitchStatement: reportConditional,
-            ConditionalExpression: reportConditional,
-            LogicalExpression: reportConditional
+			IfStatement(node) {
+				if(node.parent?.parent?.parent?.type === "CallExpression" && isTypeOfVitestFnCall(node.parent?.parent?.parent, context, ['test','it'])) {
+					context.report({ messageId: 'noConditionalInTest', node })
+				}
+			},
         }
     }
 })
