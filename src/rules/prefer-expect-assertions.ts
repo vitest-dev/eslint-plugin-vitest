@@ -221,7 +221,6 @@ export default createEslintRule<Options[], MessageIds>({
 						['suggestAddingAssertions', 'expect.assertions();'])
 				}
 
-				if (suggestions.length) {
 					context.report({
 						messageId: 'haveExpectAssertions',
 						node,
@@ -234,7 +233,6 @@ export default createEslintRule<Options[], MessageIds>({
 								)
 						}))
 					})
-				}
 			}
 		}
 	}
