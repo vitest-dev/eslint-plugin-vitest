@@ -51,6 +51,8 @@ import preferComparisonMatcher, { RULE_NAME as preferComparisonMatcherName } fro
 import preferToContain, { RULE_NAME as preferToContainName } from './rules/prefer-to-contain'
 import preferExpectAssertions, { RULE_NAME as preferExpectAssertionsName } from './rules/prefer-expect-assertions'
 
+console.log("hello world")
+
 const createConfig = (rules: Record<string, string>) => ({
     plugins: ['vitest'],
     rules: Object.keys(rules).reduce((acc, ruleName) => {
