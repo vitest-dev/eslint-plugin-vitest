@@ -42,7 +42,7 @@ devDependencies:
     version: 1.6.2(eslint@8.57.0)(typescript@5.3.3)
   eslint-plugin-eslint-plugin:
     specifier: ^5.3.0
-    version: 5.3.0(eslint@8.57.0)
+    version: 5.4.0(eslint@8.57.0)
   eslint-plugin-node:
     specifier: ^11.1.0
     version: 11.1.0(eslint@8.57.0)
@@ -2822,8 +2822,8 @@ packages:
       ignore: 5.2.4
     dev: true
 
-  /eslint-plugin-eslint-plugin@5.3.0(eslint@8.57.0):
-    resolution: {integrity: sha512-mRMH3WwewpZjbdOFbE0Vr0EJ4Q6oIXLRGkFQyRM+HWhpNIhYWy/3solQ+blVS8noSkD2/jq7iW3Ke3N0viUJ/w==}
+  /eslint-plugin-eslint-plugin@5.4.0(eslint@8.57.0):
+    resolution: {integrity: sha512-79izqWfmWmvGEWse5rZQlrcqPp34g07ZE1AyzbB8qnS8dnxJvc4vltGT6xuYIPvpQoQECzW5bGeD4BvOxUYvBA==}
     engines: {node: ^14.17.0 || ^16.0.0 || >= 18.0.0}
     peerDependencies:
       eslint: '>=7.0.0'
