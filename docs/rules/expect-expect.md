@@ -28,6 +28,10 @@ test('myLogic', () => {
 })
 ```
 
+## Type-testing
+
+If you're using Vitest's [type-testing feature](https://vitest.dev/guide/testing-types) and have tests that only contain `expectTypeOf`, you will need to enable `typecheck` in this plugin's settings: [Enabling type-testing](../../README.md#enabling-with-type-testing).
+
 ## Options
 
 ### `assertFunctionNames`

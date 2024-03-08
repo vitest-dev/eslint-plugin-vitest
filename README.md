@@ -108,6 +108,22 @@ export default [
 ];
 ```
 
+#### Enabling with type-testing
+
+Vitest ships with an optional [type-testing feature](https://vitest.dev/guide/testing-types), which is disabled by default.
+
+If you're using this feature, you should also enabled `typecheck` in the settings for this plugin. This ensures that rules like [expect-expect](docs/rules/expect-expect.md) account for type-related assertions in tests.
+
+```json
+{
+  "extends": ["plugin:vitest/recommended"],
+  "settings" :{
+    "vitest": {
+      "typecheck": true,
+    }
+  }
+}
+```
 
 ### Rules
 
