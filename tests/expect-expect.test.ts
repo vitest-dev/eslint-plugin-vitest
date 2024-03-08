@@ -155,6 +155,14 @@ ruleTester.run(RULE_NAME, rule, {
 			`,
 			options: [{ assertFunctionNames: ['tester.foo.bar.expect'] }],
 			parserOptions: { sourceType: 'module' }
+		 },
+		 {
+			code: `
+			it("should pass with 'typecheck' enabled", () => {
+				expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: number }>()
+			});
+			`,
+			settings: { vitest: { typecheck: true } }
 		 }
 	],
 	invalid: [
@@ -303,6 +311,19 @@ ruleTester.run(RULE_NAME, rule, {
 				messageId: 'noAssertions',
 				type: AST_NODE_TYPES.Identifier
 			}
+			]
+		 },
+		 {
+			code: `
+			it("should fail without 'typecheck' enabled", () => {
+				expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: number }>()
+			});
+			`,
+			errors: [
+				{
+					messageId: 'noAssertions',
+					type: AST_NODE_TYPES.Identifier
+				}
 			]
 		 }
 	]

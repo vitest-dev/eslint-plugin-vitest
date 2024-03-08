@@ -1,5 +1,6 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getNodeName, isSupportedAccessor } from '../utils'
+import { parsePluginSettings } from '../utils/parsePluginSettings'
 import { getTestCallExpressionsFromDeclaredVariables, isTypeOfVitestFnCall } from '../utils/parseVitestFnCall'
 
 export const RULE_NAME = 'expect-expect'
@@ -62,6 +63,9 @@ export default createEslintRule<Options, MESSAGE_ID>({
     defaultOptions: [{ assertFunctionNames: ['expect'], additionalTestBlockFunctions: [] }],
     create(context, [{ assertFunctionNames = ['expect'], additionalTestBlockFunctions = [] }]) {
 		const unchecked: TSESTree.CallExpression[] = []
+		const settings = parsePluginSettings(context.settings)
+
+		if (settings.typecheck) assertFunctionNames.push('expectTypeOf')
 
 		function checkCallExpression(nodes: TSESTree.Node[]) {
 			for (const node of nodes) {
@@ -82,12 +86,11 @@ export default createEslintRule<Options, MESSAGE_ID>({
 		}
 
         return {
-			CallExpression(node) {		
-				if (node?.callee?.type === AST_NODE_TYPES.MemberExpression && node.callee.property.type === AST_NODE_TYPES.Identifier && node.callee.property.name === 'skip') 
+			CallExpression(node) {
+				if (node?.callee?.type === AST_NODE_TYPES.MemberExpression && node.callee.property.type === AST_NODE_TYPES.Identifier && node.callee.property.name === 'skip')
 					return
-    
-					const name = getNodeName(node) ?? ''
 
+					const name = getNodeName(node) ?? ''
 
 				if (isTypeOfVitestFnCall(node, context, ['test']) || additionalTestBlockFunctions.includes(name)) {
 					if (node.callee.type === AST_NODE_TYPES.MemberExpression && isSupportedAccessor(node.callee.property, 'todo')) return
