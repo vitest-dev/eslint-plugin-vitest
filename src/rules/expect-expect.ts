@@ -87,10 +87,13 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
         return {
 			CallExpression(node) {
+				if (node.callee.type === AST_NODE_TYPES.Identifier && node.callee.name === 'bench')
+				    return
+
 				if (node?.callee?.type === AST_NODE_TYPES.MemberExpression && node.callee.property.type === AST_NODE_TYPES.Identifier && node.callee.property.name === 'skip')
 					return
 
-					const name = getNodeName(node) ?? ''
+				const name = getNodeName(node) ?? ''
 
 				if (isTypeOfVitestFnCall(node, context, ['test']) || additionalTestBlockFunctions.includes(name)) {
 					if (node.callee.type === AST_NODE_TYPES.MemberExpression && isSupportedAccessor(node.callee.property, 'todo')) return
