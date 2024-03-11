@@ -52,7 +52,7 @@
 		"eslint-doc-generator": "^1.7.0",
 		"eslint-plugin-eslint-plugin": "^5.4.0",
 		"eslint-plugin-node": "^11.1.0",
-		"eslint-plugin-vitest": "^0.3.22",
+		"eslint-plugin-vitest": "^0.3.24",
 		"eslint-remote-tester": "^3.0.1",
 		"eslint-remote-tester-repositories": "^1.0.1",
 		"ts-node": "^10.9.2",

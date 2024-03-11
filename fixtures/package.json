@@ -8,10 +8,11 @@
 		"lint": "eslint . --fix"
 	},
 	"keywords": [],
-	"author": "Makuza Mugabo Verite <mugaboverite@gmail.com> (https://veritem.me/)",
+	"author": "Makuza Mugabo Verite <mugaboverite@gmail.com> (https://veritemugabo.com/)",
 	"license": "MIT",
 	"dependencies": {
-		"eslint-plugin-vitest": "link:../",
+		"eslint-plugin-json": "^3.1.0",
+		"eslint-plugin-vitest": "^0.3.24",
 		"vitest": "^1.1.0"
 	},
 	"devDependencies": {

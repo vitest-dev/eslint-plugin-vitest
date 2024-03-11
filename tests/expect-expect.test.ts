@@ -1,8 +1,8 @@
-import { AST_NODE_TYPES } from '@typescript-eslint/utils'
-import rule, { RULE_NAME } from '../src/rules/expect-expect'
-import { ruleTester } from './ruleTester'
+ import { AST_NODE_TYPES } from '@typescript-eslint/utils'
+ import rule, { RULE_NAME } from '../src/rules/expect-expect'
+ import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ ruleTester.run(RULE_NAME, rule, {
 	valid: [
 		'test.skip("skipped test", () => {})',
 		 'it.todo("will test something eventually")',
@@ -20,6 +20,18 @@ ruleTester.run(RULE_NAME, rule, {
 			});
 			`,
 			options: [{ assertFunctionNames: ['expect', 'foo'] }]
+		 },
+		 {
+			code: `
+			import { bench } from 'vitest'
+
+			bench('normal sorting', () => {
+				const x = [1, 5, 4, 2, 3]
+				x.sort((a, b) => {
+					return a - b
+				})
+			  }, { time: 1000 })
+			`
 		 },
 		 {
 			code: 'it("should return undefined",() => expectSaga(mySaga).returns());',
@@ -327,4 +339,4 @@ ruleTester.run(RULE_NAME, rule, {
 			]
 		 }
 	]
-})
+ })
