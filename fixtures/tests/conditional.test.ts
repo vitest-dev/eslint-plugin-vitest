@@ -6,13 +6,6 @@ describe('conditionals', () => {
 	})
 
 	it('should error one errors only', () => {
-		if (true) {
-			function foo() {
-				console.log('foo')
-			}
-			foo()
-		}
-
 		expect(true).toBeTruthy()
 	})
 })
