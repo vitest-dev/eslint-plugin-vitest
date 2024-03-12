@@ -2,6 +2,7 @@ import { AST_NODE_TYPES, JSONSchema, TSESTree, EslintUtils } from '@typescript-e
 import { createEslintRule, getStringValue, isStringNode, StringNode } from '../utils'
 import { parseVitestFnCall } from '../utils/parseVitestFnCall'
 import { DescribeAlias, TestCaseName } from '../utils/types'
+import { parsePluginSettings } from '../utils/parsePluginSettings'
 
 export const RULE_NAME = 'valid-title'
 
@@ -176,6 +177,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         const mustNotMatchPatterns = compileMatcherPatterns(mustNotMatch ?? {})
         const mustMatchPatterns = compileMatcherPatterns(mustMatch ?? {})
+        const settings = parsePluginSettings(context.settings)
 
         return {
             CallExpression(node: TSESTree.CallExpression) {
@@ -187,13 +189,15 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
                 if (!argument || (allowArguments && argument.type === AST_NODE_TYPES.Identifier)) return
 
+                if (settings.typecheck) {
+                    // const services = EslintUtils.getParserServices(context)
+                    // const type = services.getTypeAtLocation(argument)
+                }
+
                 if (!isStringNode(argument)) {
                     if (argument.type === AST_NODE_TYPES.BinaryExpression &&
                         doesBinaryExpressionContainStringNode(argument))
                         return
-
-                    // const services = EslintUtils.getParserServices(context)
-                    // const type = services.getTypeAtLocation(argument)
 
                     if (argument.type !== AST_NODE_TYPES.TemplateLiteral &&
                         !(ignoreTypeOfDescribeName && vitestFnCall.type === 'describe')) {
