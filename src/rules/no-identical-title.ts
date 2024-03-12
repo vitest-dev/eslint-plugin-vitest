@@ -33,7 +33,6 @@ export default createEslintRule<Options, MESSAGE_ID>({
     defaultOptions: [],
     create(context) {
         const stack = [newDescribeContext()]
-
         return {
             CallExpression(node) {
                 const currentStack = stack[stack.length - 1]
@@ -43,7 +42,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
                 if (!vitestFnCall)
                     return
 
-                if (vitestFnCall.name === 'describe')
+                if (vitestFnCall.name === 'describe' || vitestFnCall.name === 'suite')
                     stack.push(newDescribeContext())
 
                 if (vitestFnCall.members.find(s => isSupportedAccessor(s, 'each')))
