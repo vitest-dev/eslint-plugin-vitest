@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES, JSONSchema, TSESTree } from '@typescript-eslint/utils'
+import { AST_NODE_TYPES, JSONSchema, TSESTree, EslintUtils } from '@typescript-eslint/utils'
 import { createEslintRule, getStringValue, isStringNode, StringNode } from '../utils'
 import { parseVitestFnCall } from '../utils/parseVitestFnCall'
 import { DescribeAlias, TestCaseName } from '../utils/types'
@@ -29,7 +29,7 @@ type MatcherGroups = 'describe' | 'test' | 'it';
 
 type MatcherAndMessage = [matcher: string, message?: string];
 
-const MatcherAndMessageSchema: JSONSchema.JSONSchema7 = {
+const MatcherAndMessageSchema: JSONSchema.JSONSchema4 = {
     type: 'array',
     items: { type: 'string' },
     minItems: 1,
@@ -98,7 +98,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     meta: {
         docs: {
             description: 'Enforce valid titles',
-            recommended: 'error'
+            recommended: 'stylistic'
         },
         messages: {
             titleMustBeString: 'Test title must be a string',
@@ -136,12 +136,25 @@ export default createEslintRule<Options, MESSAGE_IDS>({
                             MatcherAndMessageSchema,
                             {
                                 type: 'object',
-                                propertyNames: { enum: ['describe', 'test', 'it'] },
+                                // properties: { enum: [] },
                                 additionalProperties: {
                                     oneOf: [{ type: 'string' }, MatcherAndMessageSchema]
                                 }
                             }
                         ]
+                        /*
+                         oneOf: [
+                            { type: 'string' },
+                            MatcherAndMessageSchema,
+                            {
+                                type: 'object',
+                                properties: { enum: ['describe', 'test', 'it'] },
+                                additionalProperties: {
+                                    oneOf: [{ type: 'string' }, MatcherAndMessageSchema]
+                                }
+                            }
+                        ]
+                        */
                     }
                 },
                 additionalProperties: false
@@ -178,6 +191,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
                     if (argument.type === AST_NODE_TYPES.BinaryExpression &&
                         doesBinaryExpressionContainStringNode(argument))
                         return
+
+                    // const services = EslintUtils.getParserServices(context)
+                    // const type = services.getTypeAtLocation(argument)
 
                     if (argument.type !== AST_NODE_TYPES.TemplateLiteral &&
                         !(ignoreTypeOfDescribeName && vitestFnCall.type === 'describe')) {
