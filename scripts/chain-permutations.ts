@@ -113,7 +113,9 @@ data.forEach((q) => {
   })
 })
 
-const output = `export const ValidVitestFnCallChains = new Set([${allPermutations.map(item => `'${item}'`)}])`
+const extra_rules = ['xtest', 'xtest.each', 'xit', 'xit.each', 'fit', 'xdescribe', 'xdescribe.each', 'fdescribe']
+
+const output = `export const ValidVitestFnCallChains = new Set([${allPermutations.concat(extra_rules).map(item => `'${item}'`)}])`
 
 const new_path = path.resolve(__dirname, '../src/utils/validVitestFnCallChains.ts')
 

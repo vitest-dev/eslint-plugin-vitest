@@ -4,10 +4,10 @@
 	"description": "",
 	"main": "chain-permutations.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"chains": "npx tsx chain-permutations.ts"
 	},
 	"keywords": [],
-	"author": "Verite Mugabo <mugaboverite@gmail.com> (https://veritemugabo.com/)",
+	"author": "Verite Mugabo <git@veritemugabo.com> (https://veritemugabo.com/)",
 	"license": "MIT",
 	"devDependencies": {
 		"percom": "^1.1.3"
