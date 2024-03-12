@@ -4,21 +4,13 @@ import { ruleTester } from './ruleTester'
 ruleTester.run(RULE_NAME, rule, {
 	valid: [
 		`suite('parent', () => {
-	    suite('child 1', () => {
-		test('grand child 1', () => {})
-	    })
-	    suite('child 2', () => {
-	test('grand child 1', () => {})
-	})
-	})
-      `
-	],
-	invalid: []
-})
-
-/*
-ruleTester.run(RULE_NAME, rule, {
-	valid: [	
+	           suite('child 1', () => {
+		   test('grand child 1', () => {})
+	        })
+	        suite('child 2', () => {
+	           test('grand child 1', () => {})
+	        })
+	       })`,
 		'it(); it();',
 		'test("two", () => {});',
 		`fdescribe('a describe', () => {
@@ -31,17 +23,16 @@ ruleTester.run(RULE_NAME, rule, {
 			expect(true).toBe(true);
 		});
 		});`,
-					`
-				 suite('parent', () => {
-							suite('child 1', () => {
-							test('grand child 1', () => {})
-				 })
-
-				 suite('child 2', () => {
-					 test('grand child 1', () => {})
-					})
-				 })
-				 `
+		`
+		suite('parent', () => {
+			suite('child 1', () => {
+			      test('grand child 1', () => {})
+			}) 
+			suite('child 2', () => {
+				test('grand child 1', () => {})
+			})
+		})
+		`
 	],
 	invalid: [
 		{
@@ -60,4 +51,3 @@ ruleTester.run(RULE_NAME, rule, {
 		}
 	]
 })
-*/
