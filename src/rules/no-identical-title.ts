@@ -26,14 +26,13 @@ export default createEslintRule<Options, MESSAGE_ID>({
         fixable: 'code',
         schema: [],
         messages: {
-            multipleTestTitle: 'Test is used multiple times in the same describe block',
-            multipleDescribeTitle: 'Describe is used multiple times in the same describe block'
+            multipleTestTitle: 'Test is used multiple times in the same describe(suite) block',
+            multipleDescribeTitle: 'Describe is used multiple times in the same describe(suite) block'
         }
     },
     defaultOptions: [],
     create(context) {
         const stack = [newDescribeContext()]
-
         return {
             CallExpression(node) {
                 const currentStack = stack[stack.length - 1]
@@ -43,7 +42,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
                 if (!vitestFnCall)
                     return
 
-                if (vitestFnCall.name === 'describe')
+                if (vitestFnCall.name === 'describe' || vitestFnCall.name === 'suite')
                     stack.push(newDescribeContext())
 
                 if (vitestFnCall.members.find(s => isSupportedAccessor(s, 'each')))
