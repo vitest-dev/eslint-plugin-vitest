@@ -1,6 +1,8 @@
 // imported from https://github.com/veritem/eslint-plugin-vitest/pull/293
 // This script generates all possible permutations for vitest methods
 import { per } from 'percom'
+import fs from 'node:fs'
+import path from 'node:path'
 
 const data = [
   {
@@ -26,6 +28,13 @@ const data = [
   },
   {
     names: ['describe'],
+    first: [],
+    conditions: ['skipIf', 'runIf'],
+    methods: ['skip', 'only', 'concurrent', 'sequential', 'shuffle', 'todo'],
+    last: ['each']
+  },
+  {
+    names: ['suite'],
     first: [],
     conditions: ['skipIf', 'runIf'],
     methods: ['skip', 'only', 'concurrent', 'sequential', 'shuffle', 'todo'],
@@ -57,46 +66,46 @@ data.forEach((q) => {
       ),
       ...(i > 0
         ? q.first.flatMap((first) =>
-            q.conditions.flatMap((condition) =>
-              (per(q.methods, i - 1) || ['']).map((p) => [
-                first,
-                condition,
-                ...p
-              ])
-            )
+          q.conditions.flatMap((condition) =>
+            (per(q.methods, i - 1) || ['']).map((p) => [
+              first,
+              condition,
+              ...p
+            ])
           )
+        )
         : []),
       ...(i > 0
         ? q.first.flatMap((first) =>
-            q.last.flatMap((last) =>
-              (per(q.methods, i - 1) || ['']).map((p) => [first, ...p, last])
-            )
+          q.last.flatMap((last) =>
+            (per(q.methods, i - 1) || ['']).map((p) => [first, ...p, last])
           )
+        )
         : []),
       ...(i > 0
         ? q.conditions.flatMap((condition) =>
+          q.last.flatMap((last) =>
+            (per(q.methods, i - 1) || ['']).map((p) => [
+              condition,
+              ...p,
+              last
+            ])
+          )
+        )
+        : []),
+      ...(i > 1
+        ? q.first.flatMap((first) =>
+          q.conditions.flatMap((condition) =>
             q.last.flatMap((last) =>
-              (per(q.methods, i - 1) || ['']).map((p) => [
+              (per(q.methods, i - 2) || ['']).map((p) => [
+                first,
                 condition,
                 ...p,
                 last
               ])
             )
           )
-        : []),
-      ...(i > 1
-        ? q.first.flatMap((first) =>
-            q.conditions.flatMap((condition) =>
-              q.last.flatMap((last) =>
-                (per(q.methods, i - 2) || ['']).map((p) => [
-                  first,
-                  condition,
-                  ...p,
-                  last
-                ])
-              )
-            )
-          )
+        )
         : [])
     ])
     const allPerms = methodPerms.map((p) => [name, ...p].join('.'))
@@ -104,4 +113,13 @@ data.forEach((q) => {
   })
 })
 
-console.log(allPermutations)
+const output = `export const ValidVitestFnCallChains = new Set([${allPermutations.map(item => `'${item}'`)}])`
+
+const new_path = path.resolve(__dirname, '../src/utils/validVitestFnCallChains.ts')
+
+try {
+  fs.writeFileSync(new_path, output)
+  console.log(`done writing to ${new_path.split('/')[new_path.split('/').length - 1]}`)
+} catch (err) {
+  console.log(`err: ${err.message}`)
+}

@@ -26,8 +26,8 @@ export default createEslintRule<Options, MESSAGE_ID>({
         fixable: 'code',
         schema: [],
         messages: {
-            multipleTestTitle: 'Test is used multiple times in the same describe block',
-            multipleDescribeTitle: 'Describe is used multiple times in the same describe block'
+            multipleTestTitle: 'Test is used multiple times in the same describe(suite) block',
+            multipleDescribeTitle: 'Describe is used multiple times in the same describe(suite) block'
         }
     },
     defaultOptions: [],
