@@ -1,8 +1,8 @@
-import { AST_NODE_TYPES, JSONSchema, TSESTree, EslintUtils } from '@typescript-eslint/utils'
+import { AST_NODE_TYPES, JSONSchema, TSESTree, ESLintUtils } from '@typescript-eslint/utils'
 import { createEslintRule, getStringValue, isStringNode, StringNode } from '../utils'
 import { parseVitestFnCall } from '../utils/parseVitestFnCall'
 import { DescribeAlias, TestCaseName } from '../utils/types'
-import { parsePluginSettings } from '../utils/parsePluginSettings'
+// import { parsePluginSettings } from '../utils/parsePluginSettings'
 
 export const RULE_NAME = 'valid-title'
 
@@ -99,7 +99,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     meta: {
         docs: {
             description: 'Enforce valid titles',
-            recommended: 'stylistic'
+            recommended: 'stylistic',
+            requiresTypeChecking: true
         },
         messages: {
             titleMustBeString: 'Test title must be a string',
@@ -177,22 +178,30 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         const mustNotMatchPatterns = compileMatcherPatterns(mustNotMatch ?? {})
         const mustMatchPatterns = compileMatcherPatterns(mustMatch ?? {})
-        const settings = parsePluginSettings(context.settings)
-
+        // const settings = parsePluginSettings(context.settings)
+        const services = ESLintUtils.getParserServices(context)
+        const checker = services.program.getTypeChecker()
         return {
             CallExpression(node: TSESTree.CallExpression) {
                 const vitestFnCall = parseVitestFnCall(node, context)
 
-                if (vitestFnCall?.type !== 'describe' && vitestFnCall?.type !== 'test') return
+                if (vitestFnCall?.type !== 'describe' &&
+                    vitestFnCall?.type !== 'suite' &&
+                    vitestFnCall?.type !== 'test') return
 
                 const [argument] = node.arguments
 
                 if (!argument || (allowArguments && argument.type === AST_NODE_TYPES.Identifier)) return
 
-                if (settings.typecheck) {
-                    // const services = EslintUtils.getParserServices(context)
-                    // const type = services.getTypeAtLocation(argument)
-                }
+                // if (settings.typecheck) {
+                //     const parserServices = EslintUtils.getParserServices(context)
+                //     const checker = parserServices.program.getTypeChecker()
+                //     const orginalNode = checker.esTreeNodeToTSNodeMap.get(node)
+                //
+                //     const type = EslintUtils.getConstrainedTypeAtLocation(checker, orginalNode.expression)
+                //     //  FIXME: Make type checker recognize that I'd like to use it
+                //     console.log('type info: ', type)
+                // }
 
                 if (!isStringNode(argument)) {
                     if (argument.type === AST_NODE_TYPES.BinaryExpression &&

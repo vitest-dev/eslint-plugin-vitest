@@ -12,6 +12,7 @@ export type VitestFnType =
     | 'unknown'
     | 'hook'
     | 'vi'
+    | 'suite'
     | 'expectTypeOf'
 
 interface ResolvedVitestFn {
@@ -116,6 +117,9 @@ const determineVitestFnType = (name: string): VitestFnType => {
 
     if (name === 'vi')
         return 'vi'
+
+    if (name === 'suite')
+        return 'suite'
 
     // eslint-disable-next-line no-prototype-builtins
     if (DescribeAlias.hasOwnProperty(name))
