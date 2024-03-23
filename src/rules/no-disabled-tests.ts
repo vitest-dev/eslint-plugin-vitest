@@ -69,7 +69,11 @@ export default createEslintRule<Options, MESSAGE_ID>({
                     testDepth--
             },
             'CallExpression[callee.name="pending"]'(node) {
-                if (resolveScope(context.getScope(), 'pending'))
+                const scope = context.sourceCode.getScope
+                    ? context.sourceCode.getScope(node)
+                    : context.getScope()
+
+                if (resolveScope(scope, 'pending'))
                     return
 
                 if (testDepth > 0)
