@@ -12,7 +12,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         type: 'suggestion',
         docs: {
             description: 'Prefer strict equal over equal',
-            recommended: 'stylistic'
+            recommended: 'strict'
         },
         messages: {
             useToStrictEqual: 'Use `toStrictEqual()` instead',

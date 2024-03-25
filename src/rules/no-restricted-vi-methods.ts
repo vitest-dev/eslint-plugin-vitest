@@ -11,7 +11,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
         type: 'suggestion',
         docs: {
             description: 'Disallow specific `vi.` methods',
-            recommended: 'stylistic'
+            recommended: 'strict'
         },
         schema: [{
             type: 'object',

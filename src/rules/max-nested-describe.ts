@@ -16,7 +16,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
         docs: {
             description:
                 'Nested describe block should be less than set max value or default value',
-            recommended: 'stylistic'
+            recommended: 'strict'
         },
         schema: [
             {

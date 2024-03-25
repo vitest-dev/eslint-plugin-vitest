@@ -9,5 +9,5 @@
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
   },
-  "include": [ "**/*", "./tests/valid-title.test.ts" ]
+  "include": [ "**/*.ts" ]
 }
