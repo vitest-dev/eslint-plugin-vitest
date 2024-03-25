@@ -242,7 +242,7 @@ const parseVitestFnCallWithReasonInner = (
     if (node.callee.type === AST_NODE_TYPES.TaggedTemplateExpression && lastLink !== 'each')
         return null
 
-    const resolved = resolveVitestFn(context, getAccessorValue(first))
+    const resolved = resolveVitestFn(context, node, getAccessorValue(first))
 
     if (!resolved)
         return null
@@ -316,9 +316,13 @@ interface ResolvedVitestFnType {
 
 const resolveVitestFn = (
     context: TSESLint.RuleContext<string, unknown[]>,
+    node: TSESTree.Node,
     identifier: string
 ): ResolvedVitestFnType | null => {
-    const maybeImport = resolveScope(context.getScope(), identifier)
+    const scope = context.sourceCode.getScope
+        ? context.sourceCode.getScope(node)
+        : context.getScope()
+    const maybeImport = resolveScope(scope, identifier)
 
     if (maybeImport === 'local')
         return null
