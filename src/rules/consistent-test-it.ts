@@ -56,7 +56,7 @@ export default createEslintRule<
         fixable: 'code',
         docs: {
             description: 'Prefer test or it but not both',
-            recommended: 'warn'
+            recommended: 'strict'
         },
         messages: {
             consistentMethod:
@@ -69,9 +69,11 @@ export default createEslintRule<
                 type: 'object',
                 properties: {
                     fn: {
+                        type: 'string',
                         enum: [TestCaseName.test, TestCaseName.it]
                     },
                     withinDescribe: {
+                        type: 'string',
                         enum: [TestCaseName.test, TestCaseName.it]
                     }
                 },
