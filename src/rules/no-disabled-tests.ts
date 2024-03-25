@@ -11,7 +11,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
         type: 'suggestion',
         docs: {
             description: 'Disallow disabled tests',
-            recommended: false
+            recommended: 'strict'
         },
         messages: {
             missingFunction: 'Test is missing function argument',

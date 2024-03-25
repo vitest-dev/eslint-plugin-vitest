@@ -6,21 +6,21 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     {
       code: `it("shows error", () => {
-						expect(true).toBe(false);
-					});`,
+		expect(true).toBe(false);
+        });`,
       options: [{ fn: TestCaseName.it }]
     },
     {
       code: `it("foo", function () {
-						expect(true).toBe(false);
-					})`,
+	        expect(true).toBe(false);
+	    })`,
       options: [{ fn: TestCaseName.it }]
     },
     {
       code: `	it('foo', () => {
-						expect(true).toBe(false);
-					});
-					function myTest() { if ('bar') {} }`,
+		    expect(true).toBe(false);
+		});
+		function myTest() { if ('bar') {} }`,
       options: [{ fn: TestCaseName.it }]
     }
   ],
