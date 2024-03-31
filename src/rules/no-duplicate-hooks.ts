@@ -1,5 +1,5 @@
 import { createEslintRule } from '../utils'
-import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'no-duplicate-hooks'
 export type MESSAGE_IDS = 'noDuplicateHooks';
@@ -9,7 +9,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     name: RULE_NAME,
     meta: {
         docs: {
-            recommended: 'error',
+            recommended: 'strict',
             description: 'Disallow duplicate hooks and teardown hooks',
             requiresTypeChecking: false
         },

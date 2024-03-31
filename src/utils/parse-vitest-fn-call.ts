@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { DescribeAlias, HookName, ModifierName, TestCaseName } from './types'
-import { ValidVitestFnCallChains } from './validVitestFnCallChains'
+import { ValidVitestFnCallChains } from './valid-vitest-fn-call-chains'
 import { AccessorNode, getAccessorValue, getStringValue, isIdentifier, isStringNode, isSupportedAccessor } from '.'
 
 export type VitestFnType =

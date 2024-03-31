@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue } from '../utils'
-import { findTopMostCallExpression, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { findTopMostCallExpression, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'unbound-method'
 
@@ -9,7 +9,7 @@ const toThrowMatchers = [
     'toThrowError',
     'toThrowErrorMatchingSnapshot',
     'toThrowErrorMatchingInlineSnapshot'
-  ]
+]
 
 type MESSAGE_IDS = 'unbound' | 'unboundWithoutThisAnnotation'
 
@@ -26,17 +26,17 @@ const baseRule = (() => {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         const TSESLintPlugin = require('@typescript-eslint/eslint-plugin')
 
-    return TSESLintPlugin.rules['unbound-method'] as TSESLint.RuleModule<
-        MESSAGE_IDS,
-        Options
+        return TSESLintPlugin.rules['unbound-method'] as TSESLint.RuleModule<
+            MESSAGE_IDS,
+            Options
         >
     } catch (e: unknown) {
-    const error = e as { code: string }
+        const error = e as { code: string }
 
-    if (error.code === 'MODULE_NOT_FOUND')
-        return null
+        if (error.code === 'MODULE_NOT_FOUND')
+            return null
 
-    throw error
+        throw error
     }
 })()
 
@@ -78,7 +78,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
                         if (!toThrowMatchers.includes(getAccessorValue(matcher))) return
                     }
                 }
-                    baseSelectors?.MemberExpression?.(node)
+                baseSelectors?.MemberExpression?.(node)
             }
         }
     }

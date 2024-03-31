@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getNodeName, isSupportedAccessor } from '../utils'
-import { parsePluginSettings } from '../utils/parsePluginSettings'
-import { getTestCallExpressionsFromDeclaredVariables, isTypeOfVitestFnCall } from '../utils/parseVitestFnCall'
+import { parsePluginSettings } from '../utils/parse-plugin-settings'
+import { getTestCallExpressionsFromDeclaredVariables, isTypeOfVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'expect-expect'
 export type MESSAGE_ID = 'noAssertions';
@@ -13,55 +13,55 @@ type Options = [
 ]
 
 function matchesAssertFunctionName(
-    nodeName: string,
-    patterns: readonly string[]
+	nodeName: string,
+	patterns: readonly string[]
 ): boolean {
 	return patterns.some(p =>
 		new RegExp(
 			`^${p
-			.split('.')
-			.map(x => {
-				if (x === '**')
-				return '[a-z\\d\\.]*'
+				.split('.')
+				.map(x => {
+					if (x === '**')
+						return '[a-z\\d\\.]*'
 
-			return x.replace(/\*/gu, '[a-z\\d]*')
-			})
-			.join('\\.')}(\\.|$)`,
+					return x.replace(/\*/gu, '[a-z\\d]*')
+				})
+				.join('\\.')}(\\.|$)`,
 			'ui'
 		).test(nodeName)
-		)
+	)
 }
 
 export default createEslintRule<Options, MESSAGE_ID>({
-    name: RULE_NAME,
-    meta: {
-        type: 'suggestion',
-        docs: {
-            description: 'Enforce having expectation in test body',
-            recommended: 'strict'
-        },
-        schema: [
+	name: RULE_NAME,
+	meta: {
+		type: 'suggestion',
+		docs: {
+			description: 'Enforce having expectation in test body',
+			recommended: 'strict'
+		},
+		schema: [
 			{
 				type: 'object',
 				properties: {
-				assertFunctionNames: {
-					type: 'array',
-					items: [{ type: 'string' }]
+					assertFunctionNames: {
+						type: 'array',
+						items: [{ type: 'string' }]
+					},
+					additionalTestBlockFunctions: {
+						type: 'array',
+						items: { type: 'string' }
+					}
 				},
-				additionalTestBlockFunctions: {
-					type: 'array',
-					items: { type: 'string' }
-				}
-			},
-			additionalProperties: false
+				additionalProperties: false
 			}
 		],
-        messages: {
-            noAssertions: 'Test has no assertions'
-        }
-    },
-    defaultOptions: [{ assertFunctionNames: ['expect'], additionalTestBlockFunctions: [] }],
-    create(context, [{ assertFunctionNames = ['expect'], additionalTestBlockFunctions = [] }]) {
+		messages: {
+			noAssertions: 'Test has no assertions'
+		}
+	},
+	defaultOptions: [{ assertFunctionNames: ['expect'], additionalTestBlockFunctions: [] }],
+	create(context, [{ assertFunctionNames = ['expect'], additionalTestBlockFunctions = [] }]) {
 		const unchecked: TSESTree.CallExpression[] = []
 		const settings = parsePluginSettings(context.settings)
 
@@ -85,10 +85,10 @@ export default createEslintRule<Options, MESSAGE_ID>({
 			}
 		}
 
-        return {
+		return {
 			CallExpression(node) {
 				if (node.callee.type === AST_NODE_TYPES.Identifier && node.callee.name === 'bench')
-				    return
+					return
 
 				if (node?.callee?.type === AST_NODE_TYPES.MemberExpression && node.callee.property.type === AST_NODE_TYPES.Identifier && node.callee.property.name === 'skip')
 					return
@@ -102,7 +102,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 				} else if (matchesAssertFunctionName(name, assertFunctionNames)) {
 					checkCallExpression(context.getAncestors())
 				}
-            },
+			},
 			'Program:exit'() {
 				unchecked.forEach(node => {
 					context.report({
@@ -111,6 +111,6 @@ export default createEslintRule<Options, MESSAGE_ID>({
 					})
 				})
 			}
-        }
-    }
+		}
+	}
 })

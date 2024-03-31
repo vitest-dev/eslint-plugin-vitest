@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule, FunctionExpression } from '../utils'
-import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'max-expect'
 export type MESSAGE_ID = 'maxExpect';
@@ -15,7 +15,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     meta: {
         docs: {
             requiresTypeChecking: false,
-            recommended: 'error',
+            recommended: 'strict',
             description: 'Enforce a maximum number of expect per test'
         },
         messages: {

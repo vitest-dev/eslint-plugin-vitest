@@ -1,5 +1,5 @@
 import { createEslintRule, getAccessorValue } from '../utils'
-import { parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { ModifierName } from '../utils/types'
 
 export const RULE_NAME = 'no-restricted-matchers'
@@ -19,7 +19,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     meta: {
         docs: {
             description: 'Disallow the use of certain matchers',
-            recommended: 'error'
+            recommended: 'strict'
         },
         type: 'suggestion',
         schema: [

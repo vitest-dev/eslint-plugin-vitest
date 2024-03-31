@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue, isParsedInstanceOfMatcherCall } from '../utils'
 import { isBooleanEqualityMatcher, isInstanceOfBinaryExpression } from '../utils/msc'
-import { followTypeAssertionChain, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { followTypeAssertionChain, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'prefer-to-be-object'
 export type MESSAGE_IDS = 'preferToBeObject';
@@ -13,7 +13,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         type: 'suggestion',
         docs: {
             description: 'Prefer toBeObject()',
-            recommended: 'error'
+            recommended: 'strict'
         },
         fixable: 'code',
         messages: {

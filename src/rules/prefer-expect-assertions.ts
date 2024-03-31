@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, type TSESLint, type TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue, isFunction, removeExtraArgumentsFixer } from '../utils'
-import { ParsedExpectVitestFnCall, isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { ParsedExpectVitestFnCall, isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 type Options = {
 	onlyFunctionsWithAsyncKeyword?: boolean;
@@ -221,18 +221,18 @@ export default createEslintRule<Options[], MessageIds>({
 						['suggestAddingAssertions', 'expect.assertions();'])
 				}
 
-					context.report({
-						messageId: 'haveExpectAssertions',
-						node,
-						suggest: suggestions.map(([messageId, text]) => ({
-							messageId,
-							fix: fixer =>
-								fixer.insertTextBeforeRange(
-									[secondArg.body.range[0] + 1, secondArg.body.range[1]],
-									text
-								)
-						}))
-					})
+				context.report({
+					messageId: 'haveExpectAssertions',
+					node,
+					suggest: suggestions.map(([messageId, text]) => ({
+						messageId,
+						fix: fixer =>
+							fixer.insertTextBeforeRange(
+								[secondArg.body.range[0] + 1, secondArg.body.range[1]],
+								text
+							)
+					}))
+				})
 			}
 		}
 	}

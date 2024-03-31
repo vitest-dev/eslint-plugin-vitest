@@ -1,6 +1,6 @@
 import { TSESLint, AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue } from '../utils'
-import { getFirstMatcherArg, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { getFirstMatcherArg, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { EqualityMatcher, ModifierName } from '../utils/types'
 import { isBooleanLiteral } from '../utils/msc'
 
@@ -14,7 +14,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         type: 'suggestion',
         docs: {
             description: 'Suggest using the built-in quality matchers',
-            recommended: 'warn'
+            recommended: 'strict'
         },
         messages: {
             useEqualityMatcher: 'Prefer using one of the equality matchers instead',
