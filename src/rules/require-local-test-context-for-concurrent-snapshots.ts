@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule, isSupportedAccessor } from '../utils'
-import { isTypeOfVitestFnCall } from '../utils/parseVitestFnCall'
+import { isTypeOfVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'require-local-test-context-for-concurrent-snapshots'
 
@@ -9,7 +9,7 @@ export default createEslintRule({
   meta: {
     docs: {
       description: 'Require local Test Context for concurrent snapshot tests',
-      recommended: 'error'
+      recommended: 'strict'
     },
     messages: {
       requireLocalTestContext: 'Use local Test Context instead'
@@ -30,7 +30,7 @@ export default createEslintRule({
           'toMatchFileSnapshot',
           'toThrowErrorMatchingSnapshot',
           'toThrowErrorMatchingInlineSnapshot'
-        ].includes(node.callee.property.name)
+        ].includes(node.callee?.property.name)
 
         if (isNotASnapshotAssertion) return
 

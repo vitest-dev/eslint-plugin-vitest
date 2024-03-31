@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue, isFunction } from '../utils'
-import { parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'valid-describe-callback'
 type MESSAGE_IDS =
@@ -47,8 +47,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
                 if (vitestFnCall?.type !== 'describe') return
 
-				if (vitestFnCall?.members[0]?.type === AST_NODE_TYPES.Identifier && vitestFnCall.members[0].name === 'todo')
-					return
+                if (vitestFnCall?.members[0]?.type === AST_NODE_TYPES.Identifier && vitestFnCall.members[0].name === 'todo')
+                    return
 
                 if (node.arguments.length < 1) {
                     return context.report({

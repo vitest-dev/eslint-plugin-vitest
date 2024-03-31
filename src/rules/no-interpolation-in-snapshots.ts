@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue } from '../utils'
-import { parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'no-interpolation-in-snapshots'
 export type MESSAGE_ID = 'noInterpolationInSnapshots'
@@ -12,7 +12,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
         type: 'problem',
         docs: {
             description: 'Disallow string interpolation in snapshots',
-            recommended: 'error'
+            recommended: 'strict'
         },
         fixable: 'code',
         schema: [],

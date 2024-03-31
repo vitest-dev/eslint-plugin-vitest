@@ -1,5 +1,5 @@
 import { createEslintRule } from '../utils'
-import { isTypeOfVitestFnCall } from '../utils/parseVitestFnCall'
+import { isTypeOfVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'prefer-hooks-on-top'
 type MessageIds = 'noHookOnTop';
@@ -11,7 +11,7 @@ export default createEslintRule<Options, MessageIds>({
         type: 'suggestion',
         docs: {
             description: 'Suggest having hooks before any test cases',
-            recommended: 'error'
+            recommended: 'strict'
         },
         messages: {
             noHookOnTop: 'Hooks should come before test cases'

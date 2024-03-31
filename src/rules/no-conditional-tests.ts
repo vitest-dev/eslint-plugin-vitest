@@ -1,4 +1,4 @@
-import { TSESTree } from '@typescript-eslint/utils/dist/ts-estree'
+import { TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 
 export const RULE_NAME = 'no-conditional-tests'
@@ -10,7 +10,7 @@ export default createEslintRule<[], MESSAGE_ID>({
         type: 'problem',
         docs: {
             description: 'Disallow conditional tests',
-            recommended: false
+            recommended: 'strict'
         },
         schema: [],
         messages: {
@@ -20,15 +20,16 @@ export default createEslintRule<[], MESSAGE_ID>({
     defaultOptions: [],
     create(context) {
         return {
-			Identifier: function (node: TSESTree.Identifier) {
-				if(["test","it","describe"].includes(node.name))
-					if(node.parent?.parent?.parent?.parent?.type === "IfStatement") {
-						context.report({
-							node,
-							messageId: 'noConditionalTests'
-						})
-					} 
-			},
+            Identifier: function(node: TSESTree.Identifier) {
+                if (['test', 'it', 'describe'].includes(node.name))
+
+                    if (node.parent?.parent?.parent?.parent?.type === 'IfStatement') {
+                        context.report({
+                            node,
+                            messageId: 'noConditionalTests'
+                        })
+                    }
+            },
         }
     }
 })

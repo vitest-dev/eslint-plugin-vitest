@@ -1,5 +1,5 @@
 import { createEslintRule, getAccessorValue, replaceAccessorFixer } from '../utils'
-import { parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'no-alias-methods'
 export type MESSAGE_ID = 'noAliasMethods'
@@ -11,7 +11,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
         docs: {
             description: 'Disallow alias methods',
             requiresTypeChecking: false,
-            recommended: 'error'
+            recommended: 'strict'
         },
         messages: {
             noAliasMethods: 'Replace {{ alias }}() with its canonical name {{ canonical }}()'

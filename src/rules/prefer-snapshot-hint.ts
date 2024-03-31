@@ -1,5 +1,5 @@
 import { createEslintRule, getAccessorValue, isStringNode, isSupportedAccessor } from '../utils'
-import { isTypeOfVitestFnCall, ParsedExpectVitestFnCall, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { isTypeOfVitestFnCall, ParsedExpectVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'prefer-snapshot-hint'
 type MESSAGE_IDS = 'missingHint'

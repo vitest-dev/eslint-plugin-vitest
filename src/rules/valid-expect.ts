@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue, isSupportedAccessor } from '../utils'
-import { parseVitestFnCallWithReason } from '../utils/parseVitestFnCall'
+import { parseVitestFnCallWithReason } from '../utils/parse-vitest-fn-call'
 import { ModifierName } from '../utils/types'
 
 export const RULE_NAME = 'valid-expect'

@@ -1,5 +1,5 @@
 import { createEslintRule, getStringValue, isStringNode, isSupportedAccessor } from '../utils'
-import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'no-identical-title'
 export type MESSAGE_ID = 'multipleTestTitle' | 'multipleDescribeTitle';

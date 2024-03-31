@@ -1,5 +1,5 @@
 import { createEslintRule, getAccessorValue } from '../utils'
-import { parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'require-to-throw-message'
 type MESSAGE_IDS = 'addErrorMessage'
@@ -11,7 +11,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         type: 'suggestion',
         docs: {
             description: 'Require toThrow() to be called with an error message',
-            recommended: 'warn'
+            recommended: 'strict'
         },
         schema: [],
         messages: {

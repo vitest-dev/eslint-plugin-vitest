@@ -1,5 +1,5 @@
 import { createEslintRule, getAccessorValue } from '../utils'
-import { parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'prefer-called-with'
 type MESSAGE_IDS = 'preferCalledWith';
@@ -11,7 +11,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     docs: {
       description:
         'Suggest using `toBeCalledWith()` or `toHaveBeenCalledWith()`',
-      recommended: 'warn'
+      recommended: 'strict'
     },
     messages: {
       preferCalledWith: 'Prefer {{ matcherName }}With(/* expected args */)'

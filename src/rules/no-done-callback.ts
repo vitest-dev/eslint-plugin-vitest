@@ -1,6 +1,6 @@
 import { TSESLint, AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getNodeName, isFunction, isSupportedAccessor } from '../utils'
-import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'no-done-callback'
 export type MessageIds = 'noDoneCallback' | 'suggestWrappingInPromise' | 'useAwaitInsteadOfCallback';

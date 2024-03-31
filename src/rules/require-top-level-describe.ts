@@ -1,5 +1,5 @@
 import { createEslintRule } from '../utils'
-import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parseVitestFnCall'
+import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'require-top-level-describe'
 
@@ -15,7 +15,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     meta: {
         docs: {
             description: 'Enforce that all tests are in a top-level describe',
-            recommended: 'warn'
+            recommended: 'strict'
         },
         messages: {
             tooManyDescribes:
