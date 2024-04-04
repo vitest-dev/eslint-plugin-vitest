@@ -104,8 +104,8 @@ const allRules = {
     [preferSpyOnName]: 'warn',
     [preferComparisonMatcherName]: 'warn',
     [preferToContainName]: 'warn',
-	[preferExpectAssertionsName]: 'warn',
-	[usePreferTobe]: 'warn'
+    [preferExpectAssertionsName]: 'warn',
+    [usePreferTobe]: 'warn'
 }
 
 const recommended = {
@@ -119,7 +119,11 @@ const recommended = {
     [noImportNodeTestName]: 'error'
 }
 
-export default {
+const plugin = {
+    meta: {
+        name: 'eslint-plugin-vitest',
+        version: '0.4.2'
+    },
     rules: {
         [lowerCaseTitleName]: lowerCaseTitle,
         [maxNestedDescribeName]: maxNestedDescribe,
@@ -172,12 +176,9 @@ export default {
         [preferSpyOnName]: preferSpyOn,
         [preferComparisonMatcherName]: preferComparisonMatcher,
         [preferToContainName]: preferToContain,
-		[preferExpectAssertionsName]: preferExpectAssertions
+        [preferExpectAssertionsName]: preferExpectAssertions
     },
-    configs: {
-        all: createConfig(allRules),
-        recommended: createConfig(recommended)
-    },
+    configs: {},
     environments: {
         env: {
             globals: {
@@ -197,3 +198,45 @@ export default {
         }
     }
 }
+
+Object.assign(plugin.configs, {
+    recommended: {
+        plugins: {
+            vitest: plugin
+        },
+        rules: createConfig(recommended)
+    }
+})
+
+Object.assign(plugin.configs, {
+    all: {
+        plugins: {
+            vitest: plugin
+        },
+        rules: createConfig(allRules)
+    }
+})
+
+Object.assign(plugin.configs, {
+    env: {
+        languageOptions: {
+            globals: {
+                suite: 'writeable',
+                test: 'writeable',
+                describe: 'writeable',
+                it: 'writeable',
+                expect: 'writeable',
+                assert: 'writeable',
+                vitest: 'writeable',
+                vi: 'writeable',
+                beforeAll: 'writeable',
+                afterAll: 'writeable',
+                beforeEach: 'writeable',
+                afterEach: 'writeable'
+            }
+
+        }
+    }
+})
+
+export default plugin
