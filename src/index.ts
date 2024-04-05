@@ -205,12 +205,14 @@ const plugin = {
 
 Object.assign(plugin.configs, {
     recommended: {
+        plugins: ['vitest'],
         rules: createConfig(recommended)
     }
 })
 
 Object.assign(plugin.configs, {
     all: {
+        plugins: ['vitest'],
         rules: createConfig(allRules)
     }
 })
