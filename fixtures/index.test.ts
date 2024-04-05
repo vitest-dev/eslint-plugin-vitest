@@ -5,4 +5,4 @@ bench('normal sorting', () => {
 	x.sort((a, b) => {
 		return a - b
 	})
-  }, { time: 1000 })
+}, { time: 1000 })

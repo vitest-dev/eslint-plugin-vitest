@@ -1,4 +1,5 @@
-import fs from 'node:fs'
+import { readFileSync } from 'node:fs'
+import type { ESLint } from 'eslint'
 import lowerCaseTitle, { RULE_NAME as lowerCaseTitleName } from './rules/prefer-lowercase-title'
 import maxNestedDescribe, { RULE_NAME as maxNestedDescribeName } from './rules/max-nested-describe'
 import noIdenticalTitle, { RULE_NAME as noIdenticalTitleName } from './rules/no-identical-title'
@@ -120,12 +121,12 @@ const recommended = {
     [noImportNodeTestName]: 'error'
 }
 
-const data = JSON.parse(fs.readFileSync('./package.json', 'utf8'))
+const pkgData = JSON.parse(readFileSync('./package.json', 'utf8'))
 
 const plugin = {
     meta: {
-        name: data.name,
-        version: data.version
+        name: pkgData.name as string,
+        version: pkgData.version as string
     },
     rules: {
         [lowerCaseTitleName]: lowerCaseTitle,
@@ -181,10 +182,7 @@ const plugin = {
         [preferToContainName]: preferToContain,
         [preferExpectAssertionsName]: preferExpectAssertions
     },
-    configs: {
-        'all-legacy': createConfig(allRules),
-        'recommended-legacy': createConfig(recommended)
-    },
+    configs: {},
     environments: {
         env: {
             globals: {
@@ -203,22 +201,16 @@ const plugin = {
             }
         }
     }
-}
+} satisfies ESLint.Plugin
 
 Object.assign(plugin.configs, {
     recommended: {
-        plugins: {
-            vitest: plugin
-        },
         rules: createConfig(recommended)
     }
 })
 
 Object.assign(plugin.configs, {
     all: {
-        plugins: {
-            vitest: plugin
-        },
         rules: createConfig(allRules)
     }
 })

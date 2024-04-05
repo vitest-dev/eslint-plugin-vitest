@@ -3,6 +3,7 @@
 // Imported from https://github.com/jest-community/eslint-plugin-jest/blob/main/src/rules/utils/accessors.ts#L6
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable no-use-before-define */
+import type { Rule } from 'eslint'
 import {
   TSESLint,
   AST_NODE_TYPES,
@@ -12,12 +13,16 @@ import {
 import {
   KnownMemberExpression,
   ParsedExpectVitestFnCall
-} from './parseVitestFnCall'
+} from './parse-vitest-fn-call'
 
-export const createEslintRule = ESLintUtils.RuleCreator(
-  (ruleName) =>
-    `https://github.com/veritem/eslint-plugin-vitest/blob/main/docs/rules/${ruleName}.md`
-)
+export function createEslintRule<TOptions extends readonly unknown[], TMessageIds extends string>(rule: Readonly<ESLintUtils.RuleWithMetaAndName<TOptions, TMessageIds>>) {
+  const createRule = ESLintUtils.RuleCreator(
+    (ruleName) =>
+      `https://github.com/veritem/eslint-plugin-vitest/blob/main/docs/rules/${ruleName}.md`
+  )
+
+  return createRule(rule) as unknown as Rule.RuleModule
+}
 
 export const joinNames = (a: string | null, b: string | null): string | null =>
   a && b ? `${a}.${b}` : null
