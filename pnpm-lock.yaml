@@ -13,6 +13,9 @@ devDependencies:
   '@babel/types':
     specifier: ^7.24.0
     version: 7.24.0
+  '@types/eslint':
+    specifier: ^8.56.7
+    version: 8.56.7
   '@types/mocha':
     specifier: ^10.0.6
     version: 10.0.6
@@ -1264,6 +1267,13 @@ packages:
 
   /@tsconfig/node16@1.0.3:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
+    dev: true
+
+  /@types/eslint@8.56.7:
+    resolution: {integrity: sha512-SjDvI/x3zsZnOkYZ3lCt9lOZWZLB2jIlNKz+LBgCtDurK0JZcwucxYHn1w2BJkD34dgX9Tjnak0txtq4WTggEA==}
+    dependencies:
+      '@types/estree': 1.0.0
+      '@types/json-schema': 7.0.12
     dev: true
 
   /@types/estree@1.0.0:

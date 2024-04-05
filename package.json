@@ -3,6 +3,7 @@
 	"version": "0.4.2-beta.1",
 	"license": "MIT",
 	"description": "Eslint plugin for vitest",
+	"type": "module",
 	"repository": "veritem/eslint-plugin-vitest",
 	"keywords": [
 		"eslint",
@@ -41,6 +42,7 @@
 	},
 	"devDependencies": {
 		"@babel/types": "^7.24.0",
+		"@types/eslint": "^8.56.7",
 		"@types/mocha": "^10.0.6",
 		"@types/node": "^20.12.4",
 		"@typescript-eslint/eslint-plugin": "^7.5.0",
