@@ -28,7 +28,7 @@ ruleTester.run(`${RULE_NAME}-conditional expressions`, rule, {
 	]
 })
 
-//ruleTester.run(`${RULE_NAME}-switch statements`, rule, {
+// ruleTester.run(`${RULE_NAME}-switch statements`, rule, {
 //	valid: [
 //		'it(\'foo\', () => {})',
 //		`const values = something.map(thing => {
@@ -39,7 +39,7 @@ ruleTester.run(`${RULE_NAME}-conditional expressions`, rule, {
 //						return thing.bar;
 //					}
 //				  });
-			
+
 //				  it('valid', () => {
 //					expect(values).toStrictEqual(['foo']);
 //	});`
@@ -55,7 +55,7 @@ ruleTester.run(`${RULE_NAME}-conditional expressions`, rule, {
 //							  return thing.bar;
 //						  }
 //						});
-			  
+
 //						expect(values).toStrictEqual(['foo']);
 //					  });`,
 //			errors: [
@@ -120,7 +120,7 @@ ruleTester.run(`${RULE_NAME}-conditional expressions`, rule, {
 //								  return thing.bar;
 //							  }
 //							});
-				
+
 //							switch('invalid') {
 //							  case true:
 //								expect(values).toStrictEqual(['foo']);
@@ -142,7 +142,7 @@ ruleTester.run(`${RULE_NAME}-conditional expressions`, rule, {
 //			]
 //		}
 //	]
-//})
+// })
 
 ruleTester.run(`${RULE_NAME}-if statements`, rule, {
 	valid: [

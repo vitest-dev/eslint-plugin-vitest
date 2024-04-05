@@ -1,3 +1,4 @@
+import fs from 'node:fs'
 import lowerCaseTitle, { RULE_NAME as lowerCaseTitleName } from './rules/prefer-lowercase-title'
 import maxNestedDescribe, { RULE_NAME as maxNestedDescribeName } from './rules/max-nested-describe'
 import noIdenticalTitle, { RULE_NAME as noIdenticalTitleName } from './rules/no-identical-title'
@@ -119,10 +120,12 @@ const recommended = {
     [noImportNodeTestName]: 'error'
 }
 
+const data = JSON.parse(fs.readFileSync('./package.json', 'utf8'))
+
 const plugin = {
     meta: {
-        name: 'eslint-plugin-vitest',
-        version: '0.4.2'
+        name: data.name,
+        version: data.version
     },
     rules: {
         [lowerCaseTitleName]: lowerCaseTitle,

@@ -1,7 +1,5 @@
 # Enforce that all tests are in a top-level describe (`vitest/require-top-level-describe`)
 
-⚠️ This rule _warns_ in the 🌐 `all` config.
-
 <!-- end auto-generated rule header -->
 
 This rule triggers warning if a test case (`test` and `it`) or a hook (`beforeAll`, `beforeEach`, `afterEach`, `afterAll`) is not located in a top-level `describe` block.
