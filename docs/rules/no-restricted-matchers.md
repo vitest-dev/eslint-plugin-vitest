@@ -1,5 +1,7 @@
 # Disallow the use of certain matchers (`vitest/no-restricted-matchers`)
 
+⚠️ This rule _warns_ in the `all-legacy` config.
+
 <!-- end auto-generated rule header -->
 
 ### Rule Details

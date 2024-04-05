@@ -1,5 +1,7 @@
 # Disallow conditional tests (`vitest/no-conditional-in-test`)
 
+⚠️ This rule _warns_ in the `all-legacy` config.
+
 <!-- end auto-generated rule header -->
 ### Rule Details
 

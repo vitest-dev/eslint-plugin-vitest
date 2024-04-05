@@ -1,5 +1,7 @@
 # Disallow commented out tests (`vitest/no-commented-out-tests`)
 
+💼 This rule is enabled in the `recommended-legacy` config.
+
 <!-- end auto-generated rule header -->
 
 ## Rule Details

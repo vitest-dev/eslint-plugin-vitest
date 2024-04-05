@@ -181,7 +181,10 @@ const plugin = {
         [preferToContainName]: preferToContain,
         [preferExpectAssertionsName]: preferExpectAssertions
     },
-    configs: {},
+    configs: {
+        'all-legacy': createConfig(allRules),
+        'recommended-legacy': createConfig(recommended)
+    },
     environments: {
         env: {
             globals: {
