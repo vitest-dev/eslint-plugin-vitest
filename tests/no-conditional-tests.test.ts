@@ -21,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
 						myFunc();
 					}
 					expect(true).toBe(false);
-				});`,
+				});`
 	],
 	invalid: [
 		{

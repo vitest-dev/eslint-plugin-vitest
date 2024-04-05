@@ -1,6 +1,6 @@
 # Prefer `each` rather than manual loops (`vitest/prefer-each`)
 
-⚠️ This rule _warns_ in the 🌐 `all` config.
+⚠️ This rule _warns_ in the `all-legacy` config.
 
 <!-- end auto-generated rule header -->
 

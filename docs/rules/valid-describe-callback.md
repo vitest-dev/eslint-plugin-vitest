@@ -1,6 +1,6 @@
 # Enforce valid describe callback (`vitest/valid-describe-callback`)
 
-💼 This rule is enabled in the ✅ `recommended` config.
+💼 This rule is enabled in the `recommended-legacy` config.
 
 <!-- end auto-generated rule header -->
 

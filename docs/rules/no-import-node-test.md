@@ -1,6 +1,6 @@
 # Disallow importing `node:test` (`vitest/no-import-node-test`)
 
-💼 This rule is enabled in the ✅ `recommended` config.
+💼 This rule is enabled in the `recommended-legacy` config.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

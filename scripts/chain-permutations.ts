@@ -1,8 +1,8 @@
 // imported from https://github.com/veritem/eslint-plugin-vitest/pull/293
 // This script generates all possible permutations for vitest methods
-import { per } from 'percom'
 import fs from 'node:fs'
 import path from 'node:path'
+import { per } from 'percom'
 
 const data = [
   {

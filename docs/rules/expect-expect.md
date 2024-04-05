@@ -1,6 +1,6 @@
 # Enforce having expectation in test body (`vitest/expect-expect`)
 
-💼 This rule is enabled in the ✅ `recommended` config.
+💼 This rule is enabled in the `recommended-legacy` config.
 
 <!-- end auto-generated rule header -->
 

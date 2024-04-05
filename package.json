@@ -42,22 +42,22 @@
 	"devDependencies": {
 		"@babel/types": "^7.24.0",
 		"@types/mocha": "^10.0.6",
-		"@types/node": "^20.12.2",
-		"@typescript-eslint/eslint-plugin": "^7.4.0",
-		"@typescript-eslint/rule-tester": "^7.4.0",
+		"@types/node": "^20.12.4",
+		"@typescript-eslint/eslint-plugin": "^7.5.0",
+		"@typescript-eslint/rule-tester": "^7.5.0",
 		"@veritem/eslint-config": "^0.0.11",
 		"bumpp": "^9.4.0",
 		"concurrently": "^8.2.2",
 		"eslint": "^8.57.0",
 		"eslint-doc-generator": "^1.7.0",
-		"eslint-plugin-eslint-plugin": "^5.4.1",
+		"eslint-plugin-eslint-plugin": "^5.5.0",
 		"eslint-plugin-node": "^11.1.0",
 		"eslint-plugin-vitest": "^0.3.26",
 		"eslint-remote-tester": "^3.0.1",
 		"eslint-remote-tester-repositories": "^1.0.1",
 		"ts-node": "^10.9.2",
-		"tsx": "^4.7.1",
-		"typescript": "^5.4.3",
+		"tsx": "^4.7.2",
+		"typescript": "^5.4.4",
 		"unbuild": "^2.0.0",
 		"vitest": "^1.4.0"
 	},
@@ -77,6 +77,6 @@
 		}
 	},
 	"dependencies": {
-		"@typescript-eslint/utils": "^7.4.0"
+		"@typescript-eslint/utils": "^7.5.0"
 	}
 }

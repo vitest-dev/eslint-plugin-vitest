@@ -35,4 +35,3 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         }
     }
 })
-

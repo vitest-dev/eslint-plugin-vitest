@@ -20,16 +20,16 @@ export default createEslintRule<[], MESSAGE_ID>({
     defaultOptions: [],
     create(context) {
         return {
-            Identifier: function(node: TSESTree.Identifier) {
-                if (['test', 'it', 'describe'].includes(node.name))
-
-                    if (node.parent?.parent?.parent?.parent?.type === 'IfStatement') {
+            Identifier: function (node: TSESTree.Identifier) {
+                if (['test', 'it', 'describe'].includes(node.name)) {
+ if (node.parent?.parent?.parent?.parent?.type === 'IfStatement') {
                         context.report({
                             node,
                             messageId: 'noConditionalTests'
                         })
                     }
-            },
+}
+            }
         }
     }
 })

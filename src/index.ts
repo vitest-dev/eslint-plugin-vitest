@@ -1,3 +1,4 @@
+import fs from 'node:fs'
 import lowerCaseTitle, { RULE_NAME as lowerCaseTitleName } from './rules/prefer-lowercase-title'
 import maxNestedDescribe, { RULE_NAME as maxNestedDescribeName } from './rules/max-nested-describe'
 import noIdenticalTitle, { RULE_NAME as noIdenticalTitleName } from './rules/no-identical-title'
@@ -104,8 +105,8 @@ const allRules = {
     [preferSpyOnName]: 'warn',
     [preferComparisonMatcherName]: 'warn',
     [preferToContainName]: 'warn',
-	[preferExpectAssertionsName]: 'warn',
-	[usePreferTobe]: 'warn'
+    [preferExpectAssertionsName]: 'warn',
+    [usePreferTobe]: 'warn'
 }
 
 const recommended = {
@@ -119,7 +120,13 @@ const recommended = {
     [noImportNodeTestName]: 'error'
 }
 
-export default {
+const data = JSON.parse(fs.readFileSync('./package.json', 'utf8'))
+
+const plugin = {
+    meta: {
+        name: data.name,
+        version: data.version
+    },
     rules: {
         [lowerCaseTitleName]: lowerCaseTitle,
         [maxNestedDescribeName]: maxNestedDescribe,
@@ -172,11 +179,11 @@ export default {
         [preferSpyOnName]: preferSpyOn,
         [preferComparisonMatcherName]: preferComparisonMatcher,
         [preferToContainName]: preferToContain,
-		[preferExpectAssertionsName]: preferExpectAssertions
+        [preferExpectAssertionsName]: preferExpectAssertions
     },
     configs: {
-        all: createConfig(allRules),
-        recommended: createConfig(recommended)
+        'all-legacy': createConfig(allRules),
+        'recommended-legacy': createConfig(recommended)
     },
     environments: {
         env: {
@@ -197,3 +204,45 @@ export default {
         }
     }
 }
+
+Object.assign(plugin.configs, {
+    recommended: {
+        plugins: {
+            vitest: plugin
+        },
+        rules: createConfig(recommended)
+    }
+})
+
+Object.assign(plugin.configs, {
+    all: {
+        plugins: {
+            vitest: plugin
+        },
+        rules: createConfig(allRules)
+    }
+})
+
+Object.assign(plugin.configs, {
+    env: {
+        languageOptions: {
+            globals: {
+                suite: 'writeable',
+                test: 'writeable',
+                describe: 'writeable',
+                it: 'writeable',
+                expect: 'writeable',
+                assert: 'writeable',
+                vitest: 'writeable',
+                vi: 'writeable',
+                beforeAll: 'writeable',
+                afterAll: 'writeable',
+                beforeEach: 'writeable',
+                afterEach: 'writeable'
+            }
+
+        }
+    }
+})
+
+export default plugin
