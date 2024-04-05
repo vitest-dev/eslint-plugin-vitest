@@ -1,7 +1,5 @@
 # Require setup and teardown to be within a hook (`vitest/require-hook`)
 
-⚠️ This rule _warns_ in the `all-legacy` config.
-
 <!-- end auto-generated rule header -->
 
 It's common when writing tests to need to perform a particular setup work before and after a test suite run.  Because Vitest executes all `describe` handlers in a test file _before_ it executes any of the actual tests, it's important to ensure setup and teardown work is done inside `before*` and `after*` handlers respectively, rather than inside the `describe` blocks.
