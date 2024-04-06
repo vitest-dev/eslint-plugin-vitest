@@ -1,10 +1,7 @@
 # Disallow commented out tests (`vitest/no-commented-out-tests`)
 
-<<<<<<< HEAD
 💼 This rule is enabled in the ✅ `recommended` config.
 
-=======
->>>>>>> d24de5b (fix plugin key (#409))
 <!-- end auto-generated rule header -->
 
 ## Rule Details

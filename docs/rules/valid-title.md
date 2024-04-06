@@ -1,10 +1,7 @@
 # Enforce valid titles (`vitest/valid-title`)
 
-<<<<<<< HEAD
 💼 This rule is enabled in the ✅ `recommended` config.
 
-=======
->>>>>>> d24de5b (fix plugin key (#409))
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
 <!-- end auto-generated rule header -->

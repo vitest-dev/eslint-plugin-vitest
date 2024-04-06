@@ -1,10 +1,7 @@
 # Require toThrow() to be called with an error message (`vitest/require-to-throw-message`)
 
-<<<<<<< HEAD
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
-=======
->>>>>>> d24de5b (fix plugin key (#409))
 <!-- end auto-generated rule header -->
 
 This rule triggers a warning if `toThrow()` or `toThrowError()` is used without

@@ -1,10 +1,7 @@
 # Disallow using `expect` outside of `it` or `test` blocks (`vitest/no-standalone-expect`)
 
-<<<<<<< HEAD
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
-=======
->>>>>>> d24de5b (fix plugin key (#409))
 <!-- end auto-generated rule header -->
 
 ## Rule Details
