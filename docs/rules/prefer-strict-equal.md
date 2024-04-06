@@ -1,7 +1,5 @@
 # Prefer strict equal over equal (`vitest/prefer-strict-equal`)
 
-⚠️ This rule _warns_ in the `all-legacy` config.
-
 💡 This rule is manually fixable by [editor suggestions](https://eslint.org/docs/latest/use/core-concepts#rule-suggestions).
 
 <!-- end auto-generated rule header -->
