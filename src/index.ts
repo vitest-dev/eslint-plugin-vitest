@@ -1,5 +1,5 @@
-import { readFileSync } from 'node:fs'
 import type { ESLint } from 'eslint'
+import { version } from '../package.json'
 import lowerCaseTitle, { RULE_NAME as lowerCaseTitleName } from './rules/prefer-lowercase-title'
 import maxNestedDescribe, { RULE_NAME as maxNestedDescribeName } from './rules/max-nested-describe'
 import noIdenticalTitle, { RULE_NAME as noIdenticalTitleName } from './rules/no-identical-title'
@@ -53,15 +53,13 @@ import preferComparisonMatcher, { RULE_NAME as preferComparisonMatcherName } fro
 import preferToContain, { RULE_NAME as preferToContainName } from './rules/prefer-to-contain'
 import preferExpectAssertions, { RULE_NAME as preferExpectAssertionsName } from './rules/prefer-expect-assertions'
 
-const createConfig = (rules: Record<string, string>) => ({
-    plugins: ['vitest'],
-    rules: Object.keys(rules).reduce((acc, ruleName) => {
+const createConfig = (rules: Record<string, string>) => (
+    Object.keys(rules).reduce((acc, ruleName) => {
         return {
             ...acc,
             [`vitest/${ruleName}`]: rules[ruleName]
         }
-    }, {})
-})
+    }, {}))
 
 const allRules = {
     [lowerCaseTitleName]: 'warn',
@@ -121,12 +119,10 @@ const recommended = {
     [noImportNodeTestName]: 'error'
 }
 
-const pkgData = JSON.parse(readFileSync('./package.json', 'utf8'))
-
 const plugin = {
     meta: {
-        name: pkgData.name as string,
-        version: pkgData.version as string
+        name: 'vitest',
+        version
     },
     rules: {
         [lowerCaseTitleName]: lowerCaseTitle,
