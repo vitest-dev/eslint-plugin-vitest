@@ -1,7 +1,10 @@
 # Disallow return statements in tests (`vitest/no-test-return-statement`)
 
+<<<<<<< HEAD
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
+=======
+>>>>>>> d24de5b (fix plugin key (#409))
 <!-- end auto-generated rule header -->
 
 ### Rule Details

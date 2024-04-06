@@ -1,7 +1,10 @@
 # Prefer including a hint with external snapshots (`vitest/prefer-snapshot-hint`)
 
+<<<<<<< HEAD
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
+=======
+>>>>>>> d24de5b (fix plugin key (#409))
 <!-- end auto-generated rule header -->
 
 When working with external snapshot matchers it's considered best practice to

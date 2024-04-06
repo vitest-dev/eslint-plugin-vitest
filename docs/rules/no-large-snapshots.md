@@ -1,7 +1,10 @@
 # Disallow large snapshots (`vitest/no-large-snapshots`)
 
+<<<<<<< HEAD
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
+=======
+>>>>>>> d24de5b (fix plugin key (#409))
 <!-- end auto-generated rule header -->
 
 ## Rule Details

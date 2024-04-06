@@ -1,7 +1,10 @@
 # Require local Test Context for concurrent snapshot tests (`vitest/require-local-test-context-for-concurrent-snapshots`)
 
+<<<<<<< HEAD
 💼 This rule is enabled in the ✅ `recommended` config.
 
+=======
+>>>>>>> d24de5b (fix plugin key (#409))
 <!-- end auto-generated rule header -->
 
 ## Rule details
