@@ -85,7 +85,7 @@ If you're using `.eslintrc`
 }
 ```
 
-If you're using `.eslintrc.js`
+If you're using `eslint.config.js`
 
 ```js
 import vitest from "eslint-plugin-vitest";
