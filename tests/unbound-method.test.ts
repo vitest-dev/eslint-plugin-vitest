@@ -17,37 +17,37 @@ ruleTester.run('unbound-method', unboundMethod, {
   valid: [
     {
       code: `class MyClass {
-			public logArrowBound = (): void => {
-				console.log(bound);
-			};
-		
-			public logManualBind(): void {
-				console.log(this);
-			}
-		}
-		
-		const instance = new MyClass();
-		const logArrowBound = instance.logArrowBound;
-		const logManualBind = instance.logManualBind.bind(instance);
-		
-		logArrowBound();
-		logManualBind();`,
+   public logArrowBound = (): void => {
+    console.log(bound);
+   };
+  
+   public logManualBind(): void {
+    console.log(this);
+   }
+  }
+  
+  const instance = new MyClass();
+  const logArrowBound = instance.logArrowBound;
+  const logManualBind = instance.logManualBind.bind(instance);
+  
+  logArrowBound();
+  logManualBind();`,
       skip: true
     }
   ],
   invalid: [
     {
       code: `
-		class Console {
-		  log(str) {
-			process.stdout.write(str);
-		  }
-		}
-		
-		const console = new Console();
-		
-		Promise.resolve().then(console.log);
-			  `,
+  class Console {
+    log(str) {
+   process.stdout.write(str);
+    }
+  }
+  
+  const console = new Console();
+  
+  Promise.resolve().then(console.log);
+     `,
       skip: true,
       errors: [
         {

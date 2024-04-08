@@ -4,42 +4,42 @@ import { ruleTester } from './ruleTester'
 ruleTester.run(`${RULE_NAME}-logical conditions`, rule, {
   valid: [
     `it('foo', () => {
-					process.env.FAIL && setNum(1);
-			
-					expect(num).toBe(2);
-				  });`,
+     process.env.FAIL && setNum(1);
+   
+     expect(num).toBe(2);
+      });`,
     `
-				  function getValue() {
-					let num = 2;
-			
-					process.env.FAIL && setNum(1);
-			
-					return num;
-				  }
-			
-				  it('foo', () => {
-					expect(getValue()).toBe(2);
-				  });
-				`,
+      function getValue() {
+     let num = 2;
+   
+     process.env.FAIL && setNum(1);
+   
+     return num;
+      }
+   
+      it('foo', () => {
+     expect(getValue()).toBe(2);
+      });
+    `,
     `
-				function getValue() {
-				  let num = 2;
-		  
-				  process.env.FAIL || setNum(1);
-		  
-				  return num;
-				}
-		  
-				it('foo', () => {
-				  expect(getValue()).toBe(2);
-				});
-			  `
+    function getValue() {
+      let num = 2;
+    
+      process.env.FAIL || setNum(1);
+    
+      return num;
+    }
+    
+    it('foo', () => {
+      expect(getValue()).toBe(2);
+    });
+     `
   ],
   invalid: [
     {
       code: ` it('foo', () => {
-						something && expect(something).toHaveBeenCalled();
-					  })`,
+      something && expect(something).toHaveBeenCalled();
+       })`,
       errors: [
         {
           messageId: 'noConditionalExpect'
@@ -48,8 +48,8 @@ ruleTester.run(`${RULE_NAME}-logical conditions`, rule, {
     },
     {
       code: ` it('foo', () => {
-						a || (b && expect(something).toHaveBeenCalled());
-					  })`,
+      a || (b && expect(something).toHaveBeenCalled());
+       })`,
       errors: [
         {
           messageId: 'noConditionalExpect'
@@ -58,28 +58,28 @@ ruleTester.run(`${RULE_NAME}-logical conditions`, rule, {
     },
     {
       code: `
-					  it.each\`\`('foo', () => {
-						something || expect(something).toHaveBeenCalled();
-					  })
-					`,
+       it.each\`\`('foo', () => {
+      something || expect(something).toHaveBeenCalled();
+       })
+     `,
       errors: [{ messageId: 'noConditionalExpect' }]
     },
     {
       code: `
-					  it.each()('foo', () => {
-						something || expect(something).toHaveBeenCalled();
-					  })
-					`,
+       it.each()('foo', () => {
+      something || expect(something).toHaveBeenCalled();
+       })
+     `,
       errors: [{ messageId: 'noConditionalExpect' }]
     },
     {
       code: `
-					  function getValue() {
-						something || expect(something).toHaveBeenCalled(); 
-					  }
-			  
-					  it('foo', getValue);
-					`,
+       function getValue() {
+      something || expect(something).toHaveBeenCalled(); 
+       }
+     
+       it('foo', getValue);
+     `,
       errors: [{ messageId: 'noConditionalExpect' }]
     }
   ]
@@ -107,28 +107,28 @@ ruleTester.run(`${RULE_NAME}-conditional conditions`, rule, {
   invalid: [
     {
       code: `
-					  it('foo', () => {
-						something ? expect(something).toHaveBeenCalled() : noop();
-					  })
-					`,
+       it('foo', () => {
+      something ? expect(something).toHaveBeenCalled() : noop();
+       })
+     `,
       errors: [{ messageId: 'noConditionalExpect' }]
     },
     {
       code: `
-					  function getValue() {
-						something ? expect(something).toHaveBeenCalled() : noop();
-					  }
-			  
-					  it('foo', getValue);
-					`,
+       function getValue() {
+      something ? expect(something).toHaveBeenCalled() : noop();
+       }
+     
+       it('foo', getValue);
+     `,
       errors: [{ messageId: 'noConditionalExpect' }]
     },
     {
       code: `
-					  it('foo', () => {
-						something ? noop() : expect(something).toHaveBeenCalled();
-					  })
-					`,
+       it('foo', () => {
+      something ? noop() : expect(something).toHaveBeenCalled();
+       })
+     `,
       errors: [{ messageId: 'noConditionalExpect' }]
     }
   ]

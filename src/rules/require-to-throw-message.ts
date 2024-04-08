@@ -6,40 +6,40 @@ type MESSAGE_IDS = 'addErrorMessage'
 type Options = []
 
 export default createEslintRule<Options, MESSAGE_IDS>({
-    name: RULE_NAME,
-    meta: {
-        type: 'suggestion',
-        docs: {
-            description: 'Require toThrow() to be called with an error message',
-            recommended: 'strict'
-        },
-        schema: [],
-        messages: {
-            addErrorMessage: 'Add an error message to {{ matcherName }}()'
-        }
+  name: RULE_NAME,
+  meta: {
+    type: 'suggestion',
+    docs: {
+      description: 'require toThrow() to be called with an error message',
+      recommended: 'strict'
     },
-    defaultOptions: [],
-    create(context) {
-        return {
-            CallExpression(node) {
-                const vitestFnCall = parseVitestFnCall(node, context)
-
-                if (vitestFnCall?.type !== 'expect') return
-
-                const { matcher } = vitestFnCall
-                const matcherName = getAccessorValue(matcher)
-
-                if (vitestFnCall.args.length === 0 &&
-                    ['toThrow', 'toThrowError'].includes(matcherName) &&
-                    !vitestFnCall.modifiers.some(nod => getAccessorValue(nod) === 'not')
-                ) {
-                    context.report({
-                        messageId: 'addErrorMessage',
-                        data: { matcherName },
-                        node: matcher
-                    })
-                }
-            }
-        }
+    schema: [],
+    messages: {
+      addErrorMessage: 'Add an error message to {{ matcherName }}()'
     }
+  },
+  defaultOptions: [],
+  create(context) {
+    return {
+      CallExpression(node) {
+        const vitestFnCall = parseVitestFnCall(node, context)
+
+        if (vitestFnCall?.type !== 'expect') return
+
+        const { matcher } = vitestFnCall
+        const matcherName = getAccessorValue(matcher)
+
+        if (vitestFnCall.args.length === 0
+          && ['toThrow', 'toThrowError'].includes(matcherName)
+          && !vitestFnCall.modifiers.some(nod => getAccessorValue(nod) === 'not')
+        ) {
+          context.report({
+            messageId: 'addErrorMessage',
+            data: { matcherName },
+            node: matcher
+          })
+        }
+      }
+    }
+  }
 })

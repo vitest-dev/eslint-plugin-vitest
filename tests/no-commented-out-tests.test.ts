@@ -53,8 +53,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: ` // test(
-						//   "foo", function () {}
-						// )`,
+      //   "foo", function () {}
+      // )`,
       errors: [{ messageId: 'noCommentedOutTests', column: 2, line: 1 }]
     }
   ]

@@ -46,46 +46,7 @@ Then configure the rules you want to use under the rules section.
 
 #### Recommended
 
-To use the recommended configuration, extend it in your `.eslintrc` file:
-
-```json
-{
-  "extends": ["plugin:vitest/recommended"]
-}
-```
-
-All recommend rules will be set to error by default. You can however disable some rules by setting turning them `off` in your `.eslintrc` file or by setting them to `warn` in your `.eslintrc`.
-
-#### all
-
-To use the all configuration, extend it in your `.eslintrc` file:
-
-```json
-{
-  "extends": ["plugin:vitest/all"]
-}
-```
-
-#### Running on test files only
-
-This plugin assumes that you're running it on tests files only by default which sometimes is not the case. If you can to run it on test files only. Your configuration will look like this:
-
-If you're using `.eslintrc`
-
-```json 
-{
-	"extends": ["eslint:recommended"],
-	"overrides": [
-		{
-			"files": ["tests/**"], // or any other pattern
-			"plugins": ["vitest"],
-			"extends": ["plugin:vitest/recommended"]
-		}
-	]
-}
-```
-
-If you're using `eslint.config.js`
+Make sure you're running eslint `v9.0.0` or heigher `eslint.config.js`
 
 ```js
 import vitest from "eslint-plugin-vitest";

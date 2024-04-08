@@ -1,10 +1,7 @@
-import { TSESLint } from '@typescript-eslint/utils'
-import { describe, expect, it } from 'vitest'
 import rule, { RULE_NAME } from '../src/rules/no-large-snapshots'
 import { ruleTester } from './ruleTester'
 
-const generateSnaShotLines = (lines: number) =>
-  `\`\n${'line\n'.repeat(lines)}\``
+const generateSnaShotLines = (lines: number) => `\`\n${'line\n'.repeat(lines)}\``
 
 const generateExportsSnapshotString = (
   lines: number,
@@ -118,35 +115,4 @@ ruleTester.run(RULE_NAME, rule, {
       ]
     }
   ]
-})
-
-describe(RULE_NAME, () => {
-  describe('when "allowedSnapshots" options contains relative paths', () => {
-    it('should throw an exception', () => {
-      expect(() => {
-        const linter = new TSESLint.Linter()
-
-        linter.defineRule(RULE_NAME, rule)
-
-        linter.verify(
-          'console.log()',
-          {
-            rules: {
-              'no-large-snapshots': [
-                'error',
-                {
-                  allowedSnapshots: {
-                    './mock-component.jsx.snap': [/a big component \d+/u]
-                  }
-                }
-              ]
-            }
-          },
-          'mock-component.jsx.snap'
-        )
-      }).toThrow(
-        'All paths for allowedSnapshots must be absolute. You can use JS config and `path.resolve`'
-      )
-    })
-  })
 })

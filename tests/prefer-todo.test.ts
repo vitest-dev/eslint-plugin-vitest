@@ -15,10 +15,10 @@ ruleTester.run(RULE_NAME, rule, {
     'test("stub", () => expect(1).toBe(1));',
     'test.concurrent("stub", () => expect(1).toBe(1));',
     `
-				  supportsDone && params.length < test.length
-					? done => test(...params, done)
-					: () => test(...params);
-				`
+      supportsDone && params.length < test.length
+     ? done => test(...params, done)
+     : () => test(...params);
+    `
   ],
   invalid: [
     {

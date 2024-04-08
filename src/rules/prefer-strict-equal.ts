@@ -7,45 +7,45 @@ export type MESSAGE_IDS = 'useToStrictEqual' | 'suggestReplaceWithStrictEqual'
 type Options = []
 
 export default createEslintRule<Options, MESSAGE_IDS>({
-    name: RULE_NAME,
-    meta: {
-        type: 'suggestion',
-        docs: {
-            description: 'Prefer strict equal over equal',
-            recommended: 'strict'
-        },
-        messages: {
-            useToStrictEqual: 'Use `toStrictEqual()` instead',
-            suggestReplaceWithStrictEqual: 'Replace with `toStrictEqual()`'
-        },
-        schema: [],
-        hasSuggestions: true
+  name: RULE_NAME,
+  meta: {
+    type: 'suggestion',
+    docs: {
+      description: 'enforce strict equal over equal',
+      recommended: 'strict'
     },
-    defaultOptions: [],
-    create(context) {
-        return {
-            CallExpression(node) {
-                const vitestFnCall = parseVitestFnCall(node, context)
+    messages: {
+      useToStrictEqual: 'Use `toStrictEqual()` instead',
+      suggestReplaceWithStrictEqual: 'Replace with `toStrictEqual()`'
+    },
+    schema: [],
+    hasSuggestions: true
+  },
+  defaultOptions: [],
+  create(context) {
+    return {
+      CallExpression(node) {
+        const vitestFnCall = parseVitestFnCall(node, context)
 
-                if (vitestFnCall?.type !== 'expect') return
+        if (vitestFnCall?.type !== 'expect') return
 
-                const { matcher } = vitestFnCall
+        const { matcher } = vitestFnCall
 
-                if (isSupportedAccessor(matcher, 'toEqual')) {
-                    context.report({
-                        messageId: 'useToStrictEqual',
-                        node: matcher,
-                        suggest: [
-                            {
-                                messageId: 'suggestReplaceWithStrictEqual',
-                                fix: fixer => [
-                                    replaceAccessorFixer(fixer, matcher, EqualityMatcher.toStrictEqual)
-                                ]
-                            }
-                        ]
-                    })
-                }
-            }
+        if (isSupportedAccessor(matcher, 'toEqual')) {
+          context.report({
+            messageId: 'useToStrictEqual',
+            node: matcher,
+            suggest: [
+              {
+                messageId: 'suggestReplaceWithStrictEqual',
+                fix: fixer => [
+                  replaceAccessorFixer(fixer, matcher, EqualityMatcher.toStrictEqual)
+                ]
+              }
+            ]
+          })
         }
+      }
     }
+  }
 })

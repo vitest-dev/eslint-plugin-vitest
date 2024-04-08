@@ -6,5 +6,5 @@ RuleTester.describe = describe
 RuleTester.it = it
 
 export const ruleTester: RuleTester = new RuleTester({
-    parser: '@typescript-eslint/parser'
+  parser: '@typescript-eslint/parser'
 })

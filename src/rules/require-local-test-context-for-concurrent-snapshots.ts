@@ -8,7 +8,7 @@ export default createEslintRule({
   name: RULE_NAME,
   meta: {
     docs: {
-      description: 'Require local Test Context for concurrent snapshot tests',
+      description: 'require local Test Context for concurrent snapshot tests',
       recommended: 'strict'
     },
     messages: {
@@ -40,9 +40,9 @@ export default createEslintRule({
           const isNotInsideDescribeOrTest = !isTypeOfVitestFnCall(ancestor, context, ['describe', 'test'])
           if (isNotInsideDescribeOrTest) return false
 
-          const isTestRunningConcurrently =
-            ancestor.callee.type === AST_NODE_TYPES.MemberExpression &&
-            isSupportedAccessor(ancestor.callee.property, 'concurrent')
+          const isTestRunningConcurrently
+            = ancestor.callee.type === AST_NODE_TYPES.MemberExpression
+            && isSupportedAccessor(ancestor.callee.property, 'concurrent')
 
           return isTestRunningConcurrently
         })

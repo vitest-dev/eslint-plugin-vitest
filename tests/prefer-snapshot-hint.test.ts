@@ -33,161 +33,161 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  it('is true', () => {
-						expect(1).toMatchSnapshot();
-					  });
-					`,
+       it('is true', () => {
+      expect(1).toMatchSnapshot();
+       });
+     `,
       options: ['multi']
     },
     {
       code: `
-					  it('is true', () => {
-						expect(1).toMatchSnapshot(undefined, 'my first snapshot');
-					  });
-					`,
+       it('is true', () => {
+      expect(1).toMatchSnapshot(undefined, 'my first snapshot');
+       });
+     `,
       options: ['multi']
     },
     {
       code: `
-					  describe('my tests', () => {
-						it('is true', () => {
-						  expect(1).toMatchSnapshot('this is a hint, all by itself');
-						});
-			  
-						it('is false', () => {
-						  expect(2).toMatchSnapshot('this is a hint');
-						  expect(2).toMatchSnapshot('and so is this');
-						});
-					  });
-					`,
+       describe('my tests', () => {
+      it('is true', () => {
+        expect(1).toMatchSnapshot('this is a hint, all by itself');
+      });
+     
+      it('is false', () => {
+        expect(2).toMatchSnapshot('this is a hint');
+        expect(2).toMatchSnapshot('and so is this');
+      });
+       });
+     `,
       options: ['multi']
     },
     {
       code: `
-					  it('is true', () => {
-						expect(1).toMatchSnapshot();
-					  });
-			  
-					  it('is false', () => {
-						expect(2).toMatchSnapshot('this is a hint');
-						expect(2).toMatchSnapshot('and so is this');
-					  });
-					`,
+       it('is true', () => {
+      expect(1).toMatchSnapshot();
+       });
+     
+       it('is false', () => {
+      expect(2).toMatchSnapshot('this is a hint');
+      expect(2).toMatchSnapshot('and so is this');
+       });
+     `,
       options: ['multi']
     },
     {
       code: `
-					  it('is true', () => {
-						expect(1).toMatchSnapshot();
-					  });
-			  
-					  it('is false', () => {
-						expect(2).toThrowErrorMatchingSnapshot();
-					  });
-					`,
+       it('is true', () => {
+      expect(1).toMatchSnapshot();
+       });
+     
+       it('is false', () => {
+      expect(2).toThrowErrorMatchingSnapshot();
+       });
+     `,
       options: ['multi']
     },
     {
       code: `
-					  it('is true', () => {
-						expect(1).toStrictEqual(1);
-						expect(1).toStrictEqual(2);
-						expect(1).toMatchSnapshot();
-					  });
-			  
-					  it('is false', () => {
-						expect(1).toStrictEqual(1);
-						expect(1).toStrictEqual(2);
-						expect(2).toThrowErrorMatchingSnapshot();
-					  });
-					`,
+       it('is true', () => {
+      expect(1).toStrictEqual(1);
+      expect(1).toStrictEqual(2);
+      expect(1).toMatchSnapshot();
+       });
+     
+       it('is false', () => {
+      expect(1).toStrictEqual(1);
+      expect(1).toStrictEqual(2);
+      expect(2).toThrowErrorMatchingSnapshot();
+       });
+     `,
       options: ['multi']
     },
     {
       code: `
-					  it('is true', () => {
-						expect(1).toMatchInlineSnapshot();
-					  });
-			  
-					  it('is false', () => {
-						expect(1).toMatchInlineSnapshot();
-						expect(1).toMatchInlineSnapshot();
-						expect(1).toThrowErrorMatchingInlineSnapshot();
-					  });
-					`,
+       it('is true', () => {
+      expect(1).toMatchInlineSnapshot();
+       });
+     
+       it('is false', () => {
+      expect(1).toMatchInlineSnapshot();
+      expect(1).toMatchInlineSnapshot();
+      expect(1).toThrowErrorMatchingInlineSnapshot();
+       });
+     `,
       options: ['multi']
     },
     {
       code: `
-					  it('is true', () => {
-						expect(1).toMatchSnapshot();
-					  });
-			  
-					  it('is false', () => {
-						expect(1).toMatchSnapshot();
-					  });
-					`,
+       it('is true', () => {
+      expect(1).toMatchSnapshot();
+       });
+     
+       it('is false', () => {
+      expect(1).toMatchSnapshot();
+       });
+     `,
       options: ['multi']
     },
     {
       code: `
-					  const myReusableTestBody = (value, snapshotHint) => {
-						const innerFn = anotherValue => {
-						  expect(anotherValue).toMatchSnapshot();
-			  
-						  expect(value).toBe(1);
-						};
-			  
-						expect(value).toBe(1);
-					  };
-			  
-					  it('my test', () => {
-						expect(1).toMatchSnapshot();
-					  });
-					`,
+       const myReusableTestBody = (value, snapshotHint) => {
+      const innerFn = anotherValue => {
+        expect(anotherValue).toMatchSnapshot();
+     
+        expect(value).toBe(1);
+      };
+     
+      expect(value).toBe(1);
+       };
+     
+       it('my test', () => {
+      expect(1).toMatchSnapshot();
+       });
+     `,
       options: ['multi']
     },
     {
       code: `
-					  const myReusableTestBody = (value, snapshotHint) => {
-						const innerFn = anotherValue => {
-						  expect(value).toBe(1);
-						};
-			  
-						expect(value).toBe(1);
-						expect(anotherValue).toMatchSnapshot();
-					  };
-			  
-					  it('my test', () => {
-						expect(1).toMatchSnapshot();
-					  });
-					`,
+       const myReusableTestBody = (value, snapshotHint) => {
+      const innerFn = anotherValue => {
+        expect(value).toBe(1);
+      };
+     
+      expect(value).toBe(1);
+      expect(anotherValue).toMatchSnapshot();
+       };
+     
+       it('my test', () => {
+      expect(1).toMatchSnapshot();
+       });
+     `,
       options: ['multi']
     },
     {
       code: `
-					  const myReusableTestBody = (value, snapshotHint) => {
-						const innerFn = anotherValue => {
-						  expect(anotherValue).toMatchSnapshot();
-			  
-						  expect(value).toBe(1);
-						};
-			  
-						expect(value).toBe(1);
-					  };
-			  
-					  expect(1).toMatchSnapshot();
-					`,
+       const myReusableTestBody = (value, snapshotHint) => {
+      const innerFn = anotherValue => {
+        expect(anotherValue).toMatchSnapshot();
+     
+        expect(value).toBe(1);
+      };
+     
+      expect(value).toBe(1);
+       };
+     
+       expect(1).toMatchSnapshot();
+     `,
       options: ['multi']
     }
   ],
   invalid: [
     {
       code: `it('is true', () => {
-						expect(1).toMatchSnapshot();
-						expect(2).toMatchSnapshot();
-					  });
-					`,
+      expect(1).toMatchSnapshot();
+      expect(2).toMatchSnapshot();
+       });
+     `,
       options: ['multi'],
       errors: [
         {
@@ -204,10 +204,10 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `it('is true', () => {
-						  expect(1).toMatchSnapshot();
-						  expect(2).toThrowErrorMatchingSnapshot();
-						});
-					  `,
+        expect(1).toMatchSnapshot();
+        expect(2).toThrowErrorMatchingSnapshot();
+      });
+       `,
       options: ['multi'],
       errors: [
         {
@@ -224,10 +224,10 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `it('is true', () => {
-						  expect(1).toThrowErrorMatchingSnapshot();
-						  expect(2).toMatchSnapshot();
-						});
-					  `,
+        expect(1).toThrowErrorMatchingSnapshot();
+        expect(2).toMatchSnapshot();
+      });
+       `,
       options: ['multi'],
       errors: [
         {
@@ -244,10 +244,10 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `it('is true', () => {
-						  expect(1).toMatchSnapshot({});
-						  expect(2).toMatchSnapshot({});
-						});
-					  `,
+        expect(1).toMatchSnapshot({});
+        expect(2).toMatchSnapshot({});
+      });
+       `,
       options: ['multi'],
       errors: [
         {
@@ -264,12 +264,12 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `it('is true', () => {
-					  expect(1).toMatchSnapshot({});
-					  {
-						expect(2).toMatchSnapshot({});
-					  }
-					});
-				  `,
+       expect(1).toMatchSnapshot({});
+       {
+      expect(2).toMatchSnapshot({});
+       }
+     });
+      `,
       options: ['multi'],
       errors: [
         {
@@ -286,10 +286,10 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `it('is true', () => {
-					  { expect(1).toMatchSnapshot(); }
-					  { expect(2).toMatchSnapshot(); }
-					});
-				  `,
+       { expect(1).toMatchSnapshot(); }
+       { expect(2).toMatchSnapshot(); }
+     });
+      `,
       options: ['multi'],
       errors: [
         {
@@ -306,10 +306,10 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `it('is true', () => {
-						  expect(1).toMatchSnapshot();
-						  expect(2).toMatchSnapshot(undefined, 'my second snapshot');
-						});
-					  `,
+        expect(1).toMatchSnapshot();
+        expect(2).toMatchSnapshot(undefined, 'my second snapshot');
+      });
+       `,
       options: ['multi'],
       errors: [
         {
@@ -321,9 +321,9 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `it('is true', () => {
-						  expect(1).toMatchSnapshot({});
-						  expect(2).toMatchSnapshot(undefined, 'my second snapshot');
-						});`,
+        expect(1).toMatchSnapshot({});
+        expect(2).toMatchSnapshot(undefined, 'my second snapshot');
+      });`,
       options: ['multi'],
       errors: [
         {
@@ -335,10 +335,10 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `it('is true', () => {
-						  expect(1).toMatchSnapshot({}, 'my first snapshot');
-						  expect(2).toMatchSnapshot(undefined);
-						});
-					  `,
+        expect(1).toMatchSnapshot({}, 'my first snapshot');
+        expect(2).toMatchSnapshot(undefined);
+      });
+       `,
       options: ['multi'],
       errors: [
         {
@@ -350,11 +350,11 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `it('is true', () => {
-						  expect(1).toMatchSnapshot({}, 'my first snapshot');
-						  expect(2).toMatchSnapshot(undefined);
-						  expect(2).toMatchSnapshot();
-						});
-					  `,
+        expect(1).toMatchSnapshot({}, 'my first snapshot');
+        expect(2).toMatchSnapshot(undefined);
+        expect(2).toMatchSnapshot();
+      });
+       `,
       options: ['multi'],
       errors: [
         {
@@ -371,11 +371,11 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `it('is true', () => {
-						  expect(2).toMatchSnapshot();
-						  expect(1).toMatchSnapshot({}, 'my second snapshot');
-						  expect(2).toMatchSnapshot();
-						});
-					  `,
+        expect(2).toMatchSnapshot();
+        expect(1).toMatchSnapshot({}, 'my second snapshot');
+        expect(2).toMatchSnapshot();
+      });
+       `,
       options: ['multi'],
       errors: [
         {
@@ -392,11 +392,11 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `it('is true', () => {
-						  expect(2).toMatchSnapshot(undefined);
-						  expect(2).toMatchSnapshot();
-						  expect(1).toMatchSnapshot(null, 'my third snapshot');
-						});
-					  `,
+        expect(2).toMatchSnapshot(undefined);
+        expect(2).toMatchSnapshot();
+        expect(1).toMatchSnapshot(null, 'my third snapshot');
+      });
+       `,
       options: ['multi'],
       errors: [
         {
@@ -413,16 +413,16 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `describe('my tests', () => {
-						  it('is true', () => {
-							expect(1).toMatchSnapshot();
-						  });
-	
-						  it('is false', () => {
-							expect(2).toMatchSnapshot();
-							expect(2).toMatchSnapshot();
-						  });
-						});
-					  `,
+        it('is true', () => {
+       expect(1).toMatchSnapshot();
+        });
+ 
+        it('is false', () => {
+       expect(2).toMatchSnapshot();
+       expect(2).toMatchSnapshot();
+        });
+      });
+       `,
       options: ['multi'],
       errors: [
         {
@@ -439,16 +439,16 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `describe('my tests', () => {
-						  it('is true', () => {
-							expect(1).toMatchSnapshot();
-						  });
-	
-						  it('is false', () => {
-							expect(2).toMatchSnapshot();
-							expect(2).toMatchSnapshot('hello world');
-						  });
-						});
-					  `,
+        it('is true', () => {
+       expect(1).toMatchSnapshot();
+        });
+ 
+        it('is false', () => {
+       expect(2).toMatchSnapshot();
+       expect(2).toMatchSnapshot('hello world');
+        });
+      });
+       `,
       options: ['multi'],
       errors: [
         {
@@ -460,18 +460,18 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `describe('my tests', () => {
-						  describe('more tests', () => {
-							it('is true', () => {
-							  expect(1).toMatchSnapshot();
-							});
-						  });
-	
-						  it('is false', () => {
-							expect(2).toMatchSnapshot();
-							expect(2).toMatchSnapshot('hello world');
-						  });
-						});
-					  `,
+        describe('more tests', () => {
+       it('is true', () => {
+         expect(1).toMatchSnapshot();
+       });
+        });
+ 
+        it('is false', () => {
+       expect(2).toMatchSnapshot();
+       expect(2).toMatchSnapshot('hello world');
+        });
+      });
+       `,
       options: ['multi'],
       errors: [
         {

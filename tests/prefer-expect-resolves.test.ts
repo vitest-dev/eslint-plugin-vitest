@@ -7,19 +7,19 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     'expect.hasAssertions()',
     `it('passes', async () => {
-					await expect(someValue()).resolves.toBe(true);
-				  });`,
+     await expect(someValue()).resolves.toBe(true);
+      });`,
     `it('is true', async () => {
-		        const myPromise = Promise.resolve(true);
+          const myPromise = Promise.resolve(true);
 
-		        await expect(myPromise).resolves.toBe(true);
-		      });
-		    `,
+          await expect(myPromise).resolves.toBe(true);
+        });
+      `,
     `it('errors', async () => {
-		        await expect(Promise.reject(new Error('oh noes!'))).rejects.toThrowError(
-		          'oh noes!',
-		        );
-		     });`,
+          await expect(Promise.reject(new Error('oh noes!'))).rejects.toThrowError(
+            'oh noes!',
+          );
+       });`,
     'expect().nothing();'
   ],
   invalid: [

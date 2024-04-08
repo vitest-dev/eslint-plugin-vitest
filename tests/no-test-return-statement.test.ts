@@ -8,23 +8,23 @@ ruleTester.run(RULE_NAME, rule, {
     'test("one", () => expect(1).toBe(1));',
     'test("empty")',
     `it("one", myTest);
-				function myTest() {
-				  expect(1).toBe(1);
-				}`,
+    function myTest() {
+      expect(1).toBe(1);
+    }`,
     `it("one", myTest);
-				function myTest() {
-				  expect(1).toBe(1);
-				}`,
+    function myTest() {
+      expect(1).toBe(1);
+    }`,
     `
-			      it("one", () => expect(1).toBe(1));
-			      function myHelper() {}
-			    `
+         it("one", () => expect(1).toBe(1));
+         function myHelper() {}
+       `
   ],
   invalid: [
     {
       code: `test("one", () => {
-						return expect(1).toBe(1);
-					  });`,
+      return expect(1).toBe(1);
+       });`,
       errors: [
         {
           messageId: 'noTestReturnStatement',
@@ -35,8 +35,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `it("one", function () {
-						return expect(1).toBe(1);
-					  });`,
+      return expect(1).toBe(1);
+       });`,
       errors: [
         {
           messageId: 'noTestReturnStatement',
@@ -47,8 +47,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `it.skip("one", function () {
-						return expect(1).toBe(1);
-					  });`,
+      return expect(1).toBe(1);
+       });`,
       errors: [
         {
           messageId: 'noTestReturnStatement',
@@ -59,9 +59,9 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `it("one", myTest);
-					function myTest () {
-					  return expect(1).toBe(1);
-					}`,
+     function myTest () {
+       return expect(1).toBe(1);
+     }`,
       errors: [
         {
           messageId: 'noTestReturnStatement',
