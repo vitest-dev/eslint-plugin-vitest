@@ -52,7 +52,7 @@ const getAutoFixMockImplementation = (
         return ''
 
     const [arg] = vitestFnCall.arguments
-    const argSource = arg && context.getSourceCode().getText(arg)
+    const argSource = arg && context.sourceCode.getText(arg)
 
     return argSource
         ? `.mockImplementation(${argSource})`

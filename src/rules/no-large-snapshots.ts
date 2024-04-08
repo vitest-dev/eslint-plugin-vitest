@@ -33,7 +33,7 @@ const reportOnViolation = (
         node.expression.left.type === AST_NODE_TYPES.MemberExpression &&
         isSupportedAccessor(node.expression.left.property)
     ) {
-        const fileName = context.getFilename()
+        const fileName = context.filename
         const allowedSnapshotsInFile = allowedSnapshots[fileName]
 
         if (allowedSnapshotsInFile) {
@@ -93,7 +93,7 @@ export default createEslintRule<[RuleOptions], MESSAGE_IDS>({
     },
     defaultOptions: [{}],
     create(context, [options]) {
-        if (context.getFilename().endsWith('.snap')) {
+        if (context.filename.endsWith('.snap')) {
             return {
                 ExpressionStatement(node) {
                     reportOnViolation(context, node, options)

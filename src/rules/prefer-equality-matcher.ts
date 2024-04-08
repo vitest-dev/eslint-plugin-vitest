@@ -66,7 +66,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
                 const addNotModifier = (comparison.operator === '!==' ? !matcherValue : matcherValue) === hasNot
 
                 const buildFixer = (equalityMatcher: string): TSESLint.ReportFixFunction => fixer => {
-                    const sourceCode = context.getSourceCode()
+                    const { sourceCode } = context
 
                     let modifierText = modifier && getAccessorValue(modifier) !== 'not' ? `.${getAccessorValue(modifier)}` : ''
 

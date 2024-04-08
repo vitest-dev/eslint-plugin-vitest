@@ -98,7 +98,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
                 context.report({
                     fix(fixer) {
-                        const sourceCode = context.getSourceCode()
+                        const { sourceCode } = context
 
                         const modifierText =
                             modifier && getAccessorValue(modifier) !== 'not'

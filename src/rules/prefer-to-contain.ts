@@ -66,7 +66,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
                 context.report({
                     fix(fixer) {
-                        const sourceCode = context.getSourceCode()
+                        const { sourceCode } = context
 
                         const addNotModifier = matcherArg.value === hasNot
 

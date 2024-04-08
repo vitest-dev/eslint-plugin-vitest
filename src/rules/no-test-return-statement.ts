@@ -42,7 +42,7 @@ export default createEslintRule<Options, MessageIds>({
                 context.report({ messageId: 'noTestReturnStatement', node: returnStmt })
             },
             FunctionDeclaration(node) {
-                const declaredVariables = context.getDeclaredVariables(node)
+                const declaredVariables = context.sourceCode.getDeclaredVariables(node)
                 const testCallExpressions = getTestCallExpressionsFromDeclaredVariables(declaredVariables, context)
 
                 if (testCallExpressions.length === 0) return
