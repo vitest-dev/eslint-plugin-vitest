@@ -1,4 +1,4 @@
-# Suggest using expect assertions instead of callbacks (`vitest/prefer-expect-assertions`)
+# Enforce using expect assertions instead of callbacks (`vitest/prefer-expect-assertions`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
