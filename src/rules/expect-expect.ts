@@ -72,7 +72,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 				const index = node.type === AST_NODE_TYPES.CallExpression ? unchecked.indexOf(node) : -1
 
 				if (node.type === AST_NODE_TYPES.FunctionDeclaration) {
-					const declaredVariables = context.getDeclaredVariables(node)
+					const declaredVariables = context.sourceCode.getDeclaredVariables(node)
 					const testCallExpressions = getTestCallExpressionsFromDeclaredVariables(declaredVariables, context)
 
 					checkCallExpression(testCallExpressions)
@@ -100,7 +100,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
 					unchecked.push(node)
 				} else if (matchesAssertFunctionName(name, assertFunctionNames)) {
-					checkCallExpression(context.getAncestors())
+					checkCallExpression(context.sourceCode.getAncestors(node))
 				}
 			},
 			'Program:exit'() {

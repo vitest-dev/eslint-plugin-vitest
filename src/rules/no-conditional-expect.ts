@@ -37,7 +37,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
         return {
             FunctionDeclaration(node) {
-                const declaredVariables = context.getDeclaredVariables(node)
+                const declaredVariables = context.sourceCode.getDeclaredVariables(node)
                 const testCallExpressions = getTestCallExpressionsFromDeclaredVariables(declaredVariables, context)
 
                 if (testCallExpressions.length > 0)

@@ -57,7 +57,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
                 messageId: 'useMockShorthand',
                 data: { replacement },
                 fix(fixer) {
-                    const sourceCode = context.getSourceCode()
+                    const { sourceCode } = context
 
                     if (innerArgNode.arguments.length > 1)
                         return null

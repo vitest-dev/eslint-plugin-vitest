@@ -181,7 +181,7 @@ export const removeExtraArgumentsFixer = (
   const firstArg = func.arguments[from]
   const lastArg = func.arguments[func.arguments.length - 1]
 
-  const sourceCode = context.getSourceCode()
+  const { sourceCode } = context
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   let tokenAfterLastParam = sourceCode.getTokenAfter(lastArg)!

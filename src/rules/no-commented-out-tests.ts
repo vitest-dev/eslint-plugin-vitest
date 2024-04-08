@@ -25,7 +25,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     },
     defaultOptions: [],
     create(context) {
-        const sourceCode = context.getSourceCode()
+        const { sourceCode } = context
 
         function checkNodeForCommentedOutTests(node: TSESTree.Comment) {
             if (!hasTests(node))

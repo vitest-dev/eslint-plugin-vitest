@@ -47,7 +47,7 @@ export default createEslintRule<Options, MessageIds>({
                 if (isVitestEach && node.callee.type !== AST_NODE_TYPES.TaggedTemplateExpression)
                     return
 
-                const isInsideConcurrentTestOrDescribe = context.getAncestors().some((ancestor) => {
+                const isInsideConcurrentTestOrDescribe = context.sourceCode.getAncestors(node).some((ancestor) => {
                     if (ancestor.type !== AST_NODE_TYPES.CallExpression) return false
 
                     const isNotInsideDescribeOrTest = !isTypeOfVitestFnCall(ancestor, context, ['describe', 'test'])
@@ -97,7 +97,7 @@ export default createEslintRule<Options, MessageIds>({
                             fix(fixer) {
                                 const { body, params } = callback
 
-                                const sourceCode = context.getSourceCode()
+                                const { sourceCode } = context
                                 const firstBodyToken = sourceCode.getFirstToken(body)
                                 const lastBodyToken = sourceCode.getLastToken(body)
 
@@ -114,7 +114,7 @@ export default createEslintRule<Options, MessageIds>({
                                     !lastBodyToken ||
                                     !tokenBeforeFirstParam ||
                                     !tokenAfterLastParam)
-                                    throw new Error(`Unexpected null when attempting to fix ${context.getFilename()} - please file an issue at https://github/veritem/eslint-plugin-vitest`)
+                                    throw new Error(`Unexpected null when attempting to fix ${context.filename} - please file an issue at https://github/veritem/eslint-plugin-vitest`)
 
                                 let argumentFix = fixer.replaceText(firstParam, '()')
 

@@ -34,7 +34,7 @@ export default createEslintRule({
 
         if (isNotASnapshotAssertion) return
 
-        const isInsideSequentialDescribeOrTest = !context.getAncestors().some((ancestor) => {
+        const isInsideSequentialDescribeOrTest = !context.sourceCode.getAncestors(node).some((ancestor) => {
           if (ancestor.type !== AST_NODE_TYPES.CallExpression) return false
 
           const isNotInsideDescribeOrTest = !isTypeOfVitestFnCall(ancestor, context, ['describe', 'test'])
