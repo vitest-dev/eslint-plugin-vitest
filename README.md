@@ -75,15 +75,30 @@ Vitest ships with an optional [type-testing feature](https://vitest.dev/guide/te
 
 If you're using this feature, you should also enabled `typecheck` in the settings for this plugin. This ensures that rules like [expect-expect](docs/rules/expect-expect.md) account for type-related assertions in tests.
 
-```json
-{
-  "extends": ["plugin:vitest/recommended"],
-  "settings" :{
-    "vitest": {
-      "typecheck": true,
-    }
-  }
-}
+```js
+import vitest from "eslint-plugin-vitest";
+
+export default [
+  {
+    files: ["tests/**"], // or any other pattern
+    plugins: {
+      vitest,
+    },
+    rules: {
+      ...vitest.configs.recommended.rules,
+    },
+   settings: {
+      vitest: {
+        typecheck: true
+      }
+    },
+    languageOptions: {
+      globals: {
+        ...vitest.environments.env.globals,
+      },
+    },
+  },
+]
 ```
 
 ### Rules
