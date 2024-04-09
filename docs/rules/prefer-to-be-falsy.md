@@ -1,4 +1,4 @@
-# Suggest using toBeFalsy() (`vitest/prefer-to-be-falsy`)
+# Enforce using toBeFalsy() (`vitest/prefer-to-be-falsy`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

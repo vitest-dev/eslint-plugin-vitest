@@ -6,8 +6,8 @@ ruleTester.run(RULE_NAME, rule, {
     'beforeEach(() => { doSomething(); });',
     'expect.any(String)',
     'expect.extend({})',
-	'bench("a bench", () => {})',
-	'describe("a test", () => { it("an it", () => {expect(1).toBe(1); }); });',
+    'bench("a bench", () => {})',
+    'describe("a test", () => { it("an it", () => {expect(1).toBe(1); }); });',
     'describe("a test", () => { it("an it", () => { const func = () => { expect(1).toBe(1); }; }); });',
     'describe("a test", () => { const func = () => { expect(1).toBe(1); }; });',
     'describe("a test", () => { function func() { expect(1).toBe(1); }; });',
@@ -37,18 +37,18 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  describe('scenario', () => {
-						const t = Math.random() ? it.only : it;
-						t('testing', () => expect(true).toBe(false));
-					  });
-					`,
+       describe('scenario', () => {
+      const t = Math.random() ? it.only : it;
+      t('testing', () => expect(true).toBe(false));
+       });
+     `,
       errors: [{ endColumn: 50, column: 26, messageId: 'noStandaloneExpect' }]
     },
     {
       code: `describe('scenario', () => {
-						const t = Math.random() ? it.only : it;
-						t('testing', () => expect(true).toBe(false));
-					  });`,
+      const t = Math.random() ? it.only : it;
+      t('testing', () => expect(true).toBe(false));
+       });`,
       errors: [{ endColumn: 50, column: 26, messageId: 'noStandaloneExpect' }]
     },
     {
@@ -77,13 +77,13 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					each([
-					  [1, 1, 2],
-					  [1, 2, 3],
-					  [2, 1, 3],
-					]).test('returns the result of adding %d to %d', (a, b, expected) => {
-					  expect(a + b).toBe(expected);
-					});`,
+     each([
+       [1, 1, 2],
+       [1, 2, 3],
+       [2, 1, 3],
+     ]).test('returns the result of adding %d to %d', (a, b, expected) => {
+       expect(a + b).toBe(expected);
+     });`,
       options: [{ additionalTestBlockFunctions: ['test'] }],
       errors: [{ endColumn: 36, column: 8, messageId: 'noStandaloneExpect' }]
     }

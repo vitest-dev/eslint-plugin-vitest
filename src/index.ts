@@ -54,189 +54,189 @@ import preferToContain, { RULE_NAME as preferToContainName } from './rules/prefe
 import preferExpectAssertions, { RULE_NAME as preferExpectAssertionsName } from './rules/prefer-expect-assertions'
 
 const createConfig = (rules: Record<string, string>) => (
-    Object.keys(rules).reduce((acc, ruleName) => {
-        return {
-            ...acc,
-            [`vitest/${ruleName}`]: rules[ruleName]
-        }
-    }, {}))
+  Object.keys(rules).reduce((acc, ruleName) => {
+    return {
+      ...acc,
+      [`vitest/${ruleName}`]: rules[ruleName]
+    }
+  }, {}))
 
 const allRules = {
-    [lowerCaseTitleName]: 'warn',
-    [maxNestedDescribeName]: 'warn',
-    [noFocusedTestsName]: 'warn',
-    [noConditionalTests]: 'warn',
-    [useConsistentTestIt]: 'warn',
-    [noHooksName]: 'warn',
-    [noRestrictedViMethodsName]: 'warn',
-    [useConsistentTestFilename]: 'warn',
-    [maxExpectName]: 'warn',
-    [noAliasMethodName]: 'warn',
-    [noConditionalExpectName]: 'warn',
-    [noConditionalInTestName]: 'warn',
-    [noDisabledTestsName]: 'warn',
-    [noDoneCallbackName]: 'warn',
-    [noDuplicateHooksName]: 'warn',
-    [noLargeSnapShotsName]: 'warn',
-    [noInterpolationInSnapshotsName]: 'warn',
-    [noMocksImportName]: 'warn',
-    [noRestrictedMatchersName]: 'warn',
-    [noStandaloneExpectName]: 'warn',
-    [noTestPrefixesName]: 'warn',
-    [noTestReturnStatementName]: 'warn',
-    [preferCalledWithName]: 'warn',
-    [preferToBeFalsyName]: 'warn',
-    [preferToBeObjectName]: 'warn',
-    [preferToBeTruthyName]: 'warn',
-    [preferToHaveLengthName]: 'warn',
-    [preferEqualityMatcherName]: 'warn',
-    [preferStrictEqualName]: 'warn',
-    [preferExpectResolvesName]: 'warn',
-    [preferEachName]: 'warn',
-    [preferHooksOnTopName]: 'warn',
-    [preferHooksInOrderName]: 'warn',
-    [preferMockPromiseShortHandName]: 'warn',
-    [preferSnapshotHintName]: 'warn',
-    [requireTopLevelDescribeName]: 'warn',
-    [requireToThrowMessageName]: 'warn',
-    [requireHookName]: 'warn',
-    [preferTodoName]: 'warn',
-    [preferSpyOnName]: 'warn',
-    [preferComparisonMatcherName]: 'warn',
-    [preferToContainName]: 'warn',
-    [preferExpectAssertionsName]: 'warn',
-    [usePreferTobe]: 'warn'
+  [lowerCaseTitleName]: 'warn',
+  [maxNestedDescribeName]: 'warn',
+  [noFocusedTestsName]: 'warn',
+  [noConditionalTests]: 'warn',
+  [useConsistentTestIt]: 'warn',
+  [noHooksName]: 'warn',
+  [noRestrictedViMethodsName]: 'warn',
+  [useConsistentTestFilename]: 'warn',
+  [maxExpectName]: 'warn',
+  [noAliasMethodName]: 'warn',
+  [noConditionalExpectName]: 'warn',
+  [noConditionalInTestName]: 'warn',
+  [noDisabledTestsName]: 'warn',
+  [noDoneCallbackName]: 'warn',
+  [noDuplicateHooksName]: 'warn',
+  [noLargeSnapShotsName]: 'warn',
+  [noInterpolationInSnapshotsName]: 'warn',
+  [noMocksImportName]: 'warn',
+  [noRestrictedMatchersName]: 'warn',
+  [noStandaloneExpectName]: 'warn',
+  [noTestPrefixesName]: 'warn',
+  [noTestReturnStatementName]: 'warn',
+  [preferCalledWithName]: 'warn',
+  [preferToBeFalsyName]: 'warn',
+  [preferToBeObjectName]: 'warn',
+  [preferToBeTruthyName]: 'warn',
+  [preferToHaveLengthName]: 'warn',
+  [preferEqualityMatcherName]: 'warn',
+  [preferStrictEqualName]: 'warn',
+  [preferExpectResolvesName]: 'warn',
+  [preferEachName]: 'warn',
+  [preferHooksOnTopName]: 'warn',
+  [preferHooksInOrderName]: 'warn',
+  [preferMockPromiseShortHandName]: 'warn',
+  [preferSnapshotHintName]: 'warn',
+  [requireTopLevelDescribeName]: 'warn',
+  [requireToThrowMessageName]: 'warn',
+  [requireHookName]: 'warn',
+  [preferTodoName]: 'warn',
+  [preferSpyOnName]: 'warn',
+  [preferComparisonMatcherName]: 'warn',
+  [preferToContainName]: 'warn',
+  [preferExpectAssertionsName]: 'warn',
+  [usePreferTobe]: 'warn'
 }
 
 const recommended = {
-    [expectedExpect]: 'error',
-    [noIdenticalTitleName]: 'error',
-    [noCommentedOutTestsName]: 'error',
-    [validTitleName]: 'error',
-    [validExpectName]: 'error',
-    [validDescribeCallbackName]: 'error',
-    [requireLocalTestContextForConcurrentSnapshotsName]: 'error',
-    [noImportNodeTestName]: 'error'
+  [expectedExpect]: 'error',
+  [noIdenticalTitleName]: 'error',
+  [noCommentedOutTestsName]: 'error',
+  [validTitleName]: 'error',
+  [validExpectName]: 'error',
+  [validDescribeCallbackName]: 'error',
+  [requireLocalTestContextForConcurrentSnapshotsName]: 'error',
+  [noImportNodeTestName]: 'error'
 }
 
 const plugin = {
-    meta: {
-        name: 'vitest',
-        version
-    },
-    rules: {
-        [lowerCaseTitleName]: lowerCaseTitle,
-        [maxNestedDescribeName]: maxNestedDescribe,
-        [noIdenticalTitleName]: noIdenticalTitle,
-        [noFocusedTestsName]: noFocusedTests,
-        [noConditionalTests]: noConditionalTest,
-        [expectedExpect]: expectExpect,
-        [useConsistentTestIt]: consistentTestIt,
-        [usePreferTobe]: preferToBe,
-        [noHooksName]: noHooks,
-        [noRestrictedViMethodsName]: noRestrictedViMethods,
-        [useConsistentTestFilename]: consistentTestFilename,
-        [maxExpectName]: maxExpect,
-        [noAliasMethodName]: noAliasMethod,
-        [noCommentedOutTestsName]: noCommentedOutTests,
-        [noConditionalExpectName]: noConditionalExpect,
-        [noConditionalInTestName]: noConditionalInTest,
-        [noDisabledTestsName]: noDisabledTests,
-        [noDoneCallbackName]: noDoneCallback,
-        [noDuplicateHooksName]: noDuplicateHooks,
-        [noLargeSnapShotsName]: noLargeSnapshots,
-        [noInterpolationInSnapshotsName]: nonInterpolationInSnapShots,
-        [noMocksImportName]: noMocksImport,
-        [noRestrictedMatchersName]: noRestrictedMatchers,
-        [noStandaloneExpectName]: noStandaloneExpect,
-        [noTestPrefixesName]: noTestPrefixes,
-        [noTestReturnStatementName]: noTestReturnStatement,
-        [noImportNodeTestName]: noImportNodeTest,
-        [preferCalledWithName]: preferCalledWith,
-        [validTitleName]: validTitle,
-        [validExpectName]: validExpect,
-        [preferToBeFalsyName]: preferToBeFalsy,
-        [preferToBeObjectName]: preferToBeObject,
-        [preferToBeTruthyName]: preferToBeTruthy,
-        [preferToHaveLengthName]: preferToHaveLength,
-        [preferEqualityMatcherName]: preferEqualityMatcher,
-        [preferStrictEqualName]: preferStrictEqual,
-        [preferExpectResolvesName]: preferExpectResolves,
-        [preferEachName]: preferEach,
-        [preferHooksOnTopName]: preferHooksOnTop,
-        [preferHooksInOrderName]: preferHooksInOrder,
-        [requireLocalTestContextForConcurrentSnapshotsName]: requireLocalTestContextForConcurrentSnapshots,
-        [preferMockPromiseShortHandName]: preferMockPromiseShorthand,
-        [preferSnapshotHintName]: preferSnapshotHint,
-        [validDescribeCallbackName]: validDescribeCallback,
-        [requireTopLevelDescribeName]: requireTopLevelDescribe,
-        [requireToThrowMessageName]: requireToThrowMessage,
-        [requireHookName]: requireHook,
-        [preferTodoName]: preferTodo,
-        [preferSpyOnName]: preferSpyOn,
-        [preferComparisonMatcherName]: preferComparisonMatcher,
-        [preferToContainName]: preferToContain,
-        [preferExpectAssertionsName]: preferExpectAssertions
-    },
-    configs: {},
-    environments: {
-        env: {
-            globals: {
-                suite: true,
-                test: true,
-                describe: true,
-                it: true,
-                expect: true,
-                assert: true,
-                vitest: true,
-                vi: true,
-                beforeAll: true,
-                afterAll: true,
-                beforeEach: true,
-                afterEach: true
-            }
-        }
+  meta: {
+    name: 'vitest',
+    version
+  },
+  rules: {
+    [lowerCaseTitleName]: lowerCaseTitle,
+    [maxNestedDescribeName]: maxNestedDescribe,
+    [noIdenticalTitleName]: noIdenticalTitle,
+    [noFocusedTestsName]: noFocusedTests,
+    [noConditionalTests]: noConditionalTest,
+    [expectedExpect]: expectExpect,
+    [useConsistentTestIt]: consistentTestIt,
+    [usePreferTobe]: preferToBe,
+    [noHooksName]: noHooks,
+    [noRestrictedViMethodsName]: noRestrictedViMethods,
+    [useConsistentTestFilename]: consistentTestFilename,
+    [maxExpectName]: maxExpect,
+    [noAliasMethodName]: noAliasMethod,
+    [noCommentedOutTestsName]: noCommentedOutTests,
+    [noConditionalExpectName]: noConditionalExpect,
+    [noConditionalInTestName]: noConditionalInTest,
+    [noDisabledTestsName]: noDisabledTests,
+    [noDoneCallbackName]: noDoneCallback,
+    [noDuplicateHooksName]: noDuplicateHooks,
+    [noLargeSnapShotsName]: noLargeSnapshots,
+    [noInterpolationInSnapshotsName]: nonInterpolationInSnapShots,
+    [noMocksImportName]: noMocksImport,
+    [noRestrictedMatchersName]: noRestrictedMatchers,
+    [noStandaloneExpectName]: noStandaloneExpect,
+    [noTestPrefixesName]: noTestPrefixes,
+    [noTestReturnStatementName]: noTestReturnStatement,
+    [noImportNodeTestName]: noImportNodeTest,
+    [preferCalledWithName]: preferCalledWith,
+    [validTitleName]: validTitle,
+    [validExpectName]: validExpect,
+    [preferToBeFalsyName]: preferToBeFalsy,
+    [preferToBeObjectName]: preferToBeObject,
+    [preferToBeTruthyName]: preferToBeTruthy,
+    [preferToHaveLengthName]: preferToHaveLength,
+    [preferEqualityMatcherName]: preferEqualityMatcher,
+    [preferStrictEqualName]: preferStrictEqual,
+    [preferExpectResolvesName]: preferExpectResolves,
+    [preferEachName]: preferEach,
+    [preferHooksOnTopName]: preferHooksOnTop,
+    [preferHooksInOrderName]: preferHooksInOrder,
+    [requireLocalTestContextForConcurrentSnapshotsName]: requireLocalTestContextForConcurrentSnapshots,
+    [preferMockPromiseShortHandName]: preferMockPromiseShorthand,
+    [preferSnapshotHintName]: preferSnapshotHint,
+    [validDescribeCallbackName]: validDescribeCallback,
+    [requireTopLevelDescribeName]: requireTopLevelDescribe,
+    [requireToThrowMessageName]: requireToThrowMessage,
+    [requireHookName]: requireHook,
+    [preferTodoName]: preferTodo,
+    [preferSpyOnName]: preferSpyOn,
+    [preferComparisonMatcherName]: preferComparisonMatcher,
+    [preferToContainName]: preferToContain,
+    [preferExpectAssertionsName]: preferExpectAssertions
+  },
+  configs: {},
+  environments: {
+    env: {
+      globals: {
+        suite: true,
+        test: true,
+        describe: true,
+        it: true,
+        expect: true,
+        assert: true,
+        vitest: true,
+        vi: true,
+        beforeAll: true,
+        afterAll: true,
+        beforeEach: true,
+        afterEach: true
+      }
     }
+  }
 } satisfies ESLint.Plugin
 
 Object.assign(plugin.configs, {
-    recommended: {
-        plugins: {
-            vitest: plugin
-        },
-        rules: createConfig(recommended)
-    }
+  recommended: {
+    plugins: {
+      vitest: plugin
+    },
+    rules: createConfig(recommended)
+  }
 })
 
 Object.assign(plugin.configs, {
-    all: {
-        plugins: {
-            vitest: plugin
-        },
-        rules: createConfig(allRules)
-    }
+  all: {
+    plugins: {
+      vitest: plugin
+    },
+    rules: createConfig(allRules)
+  }
 })
 
 Object.assign(plugin.configs, {
-    env: {
-        languageOptions: {
-            globals: {
-                suite: 'writeable',
-                test: 'writeable',
-                describe: 'writeable',
-                it: 'writeable',
-                expect: 'writeable',
-                assert: 'writeable',
-                vitest: 'writeable',
-                vi: 'writeable',
-                beforeAll: 'writeable',
-                afterAll: 'writeable',
-                beforeEach: 'writeable',
-                afterEach: 'writeable'
-            }
+  env: {
+    languageOptions: {
+      globals: {
+        suite: 'writeable',
+        test: 'writeable',
+        describe: 'writeable',
+        it: 'writeable',
+        expect: 'writeable',
+        assert: 'writeable',
+        vitest: 'writeable',
+        vi: 'writeable',
+        beforeAll: 'writeable',
+        afterAll: 'writeable',
+        beforeEach: 'writeable',
+        afterEach: 'writeable'
+      }
 
-        }
     }
+  }
 })
 
 export default plugin

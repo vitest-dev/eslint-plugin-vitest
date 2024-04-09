@@ -1,4 +1,4 @@
-# Nested describe block should be less than set max value or default value (`vitest/max-nested-describe`)
+# Require describe block to be less than set max value or default value (`vitest/max-nested-describe`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

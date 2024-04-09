@@ -1,20 +1,20 @@
 import type { SharedConfigurationSettings } from '@typescript-eslint/utils/dist/ts-eslint'
 
 interface PluginSettings {
-    typecheck: boolean;
+  typecheck: boolean
 }
 
 const DEFAULTS: PluginSettings = {
-    typecheck: false
+  typecheck: false
 }
 
 export function parsePluginSettings(settings: SharedConfigurationSettings): PluginSettings {
-    const pluginSettings = typeof settings.vitest !== 'object' || settings.vitest === null
-        ? {}
-        : settings.vitest
+  const pluginSettings = typeof settings.vitest !== 'object' || settings.vitest === null
+    ? {}
+    : settings.vitest
 
-    return {
-        ...DEFAULTS,
-        ...pluginSettings
-    }
+  return {
+    ...DEFAULTS,
+    ...pluginSettings
+  }
 }

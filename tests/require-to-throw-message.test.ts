@@ -6,58 +6,58 @@ ruleTester.run(RULE_NAME, rule, {
     'expect(() => { throw new Error(\'a\'); }).toThrow(\'a\');',
     'expect(() => { throw new Error(\'a\'); }).toThrowError(\'a\');',
     `
-				test('string', async () => {
-				  const throwErrorAsync = async () => { throw new Error('a') };
-				  await expect(throwErrorAsync()).rejects.toThrow('a');
-				  await expect(throwErrorAsync()).rejects.toThrowError('a');
-				})
-			  `,
+    test('string', async () => {
+      const throwErrorAsync = async () => { throw new Error('a') };
+      await expect(throwErrorAsync()).rejects.toThrow('a');
+      await expect(throwErrorAsync()).rejects.toThrowError('a');
+    })
+     `,
     // eslint-disable-next-line no-template-curly-in-string
     'const a = \'a\'; expect(() => { throw new Error(\'a\'); }).toThrow(`${a}`);',
     // eslint-disable-next-line no-template-curly-in-string
     'const a = \'a\'; expect(() => { throw new Error(\'a\'); }).toThrowError(`${a}`);',
     `
-				test('Template literal', async () => {
-				  const a = 'a';
-				  const throwErrorAsync = async () => { throw new Error('a') };
-				  await expect(throwErrorAsync()).rejects.toThrow(\`\${a}\`);
-				  await expect(throwErrorAsync()).rejects.toThrowError(\`\${a}\`);
-				})
-			  `,
+    test('Template literal', async () => {
+      const a = 'a';
+      const throwErrorAsync = async () => { throw new Error('a') };
+      await expect(throwErrorAsync()).rejects.toThrow(\`\${a}\`);
+      await expect(throwErrorAsync()).rejects.toThrowError(\`\${a}\`);
+    })
+     `,
 
     // Regex
     'expect(() => { throw new Error(\'a\'); }).toThrow(/^a$/);',
     'expect(() => { throw new Error(\'a\'); }).toThrowError(/^a$/);',
     `
-				test('Regex', async () => {
-				  const throwErrorAsync = async () => { throw new Error('a') };
-				  await expect(throwErrorAsync()).rejects.toThrow(/^a$/);
-				  await expect(throwErrorAsync()).rejects.toThrowError(/^a$/);
-				})
-			  `,
+    test('Regex', async () => {
+      const throwErrorAsync = async () => { throw new Error('a') };
+      await expect(throwErrorAsync()).rejects.toThrow(/^a$/);
+      await expect(throwErrorAsync()).rejects.toThrowError(/^a$/);
+    })
+     `,
 
     // Function
     'expect(() => { throw new Error(\'a\'); }).toThrow((() => { return \'a\'; })());',
     'expect(() => { throw new Error(\'a\'); }).toThrowError((() => { return \'a\'; })());',
     `
-				test('Function', async () => {
-				  const throwErrorAsync = async () => { throw new Error('a') };
-				  const fn = () => { return 'a'; };
-				  await expect(throwErrorAsync()).rejects.toThrow(fn());
-				  await expect(throwErrorAsync()).rejects.toThrowError(fn());
-				})
-			  `,
+    test('Function', async () => {
+      const throwErrorAsync = async () => { throw new Error('a') };
+      const fn = () => { return 'a'; };
+      await expect(throwErrorAsync()).rejects.toThrow(fn());
+      await expect(throwErrorAsync()).rejects.toThrowError(fn());
+    })
+     `,
 
     // Allow no message for `not`.
     'expect(() => { throw new Error(\'a\'); }).not.toThrow();',
     'expect(() => { throw new Error(\'a\'); }).not.toThrowError();',
     `
-				test('Allow no message for "not"', async () => {
-				  const throwErrorAsync = async () => { throw new Error('a') };
-				  await expect(throwErrorAsync()).resolves.not.toThrow();
-				  await expect(throwErrorAsync()).resolves.not.toThrowError();
-				})
-			  `,
+    test('Allow no message for "not"', async () => {
+      const throwErrorAsync = async () => { throw new Error('a') };
+      await expect(throwErrorAsync()).resolves.not.toThrow();
+      await expect(throwErrorAsync()).resolves.not.toThrowError();
+    })
+     `,
     'expect(a);'
   ],
   invalid: [
@@ -85,12 +85,12 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  test('empty rejects.toThrow', async () => {
-						const throwErrorAsync = async () => { throw new Error('a') };
-						await expect(throwErrorAsync()).rejects.toThrow();
-						await expect(throwErrorAsync()).rejects.toThrowError();
-					  })
-					`,
+       test('empty rejects.toThrow', async () => {
+      const throwErrorAsync = async () => { throw new Error('a') };
+      await expect(throwErrorAsync()).rejects.toThrow();
+      await expect(throwErrorAsync()).rejects.toThrowError();
+       })
+     `,
       errors: [
         {
           messageId: 'addErrorMessage',

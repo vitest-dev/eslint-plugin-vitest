@@ -168,33 +168,33 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `describe('things to test', () => {
-						describe('unit tests #unit', () => {
-						  it('is true', () => {
-							expect(true).toBe(true);
-						  });
-						});
-			  
-						describe('e2e tests #e2e', () => {
-						  it('is another test #jest4life', () => {});
-						});
-					  });`,
+      describe('unit tests #unit', () => {
+        it('is true', () => {
+       expect(true).toBe(true);
+        });
+      });
+     
+      describe('e2e tests #e2e', () => {
+        it('is another test #jest4life', () => {});
+      });
+       });`,
       options: [{ mustMatch: { test: /^[^#]+$|(?:#(?:unit|e2e))/u.source } }]
     }
   ],
   invalid: [
     {
       code: `
-					describe('things to test', () => {
-						describe('unit tests #unit', () => {
-						  it('is true', () => {
-							expect(true).toBe(true);
-						  });
-						});
-			  
-						describe('e2e tests #e4e', () => {
-						  it('is another test #e2e #vitest4life', () => {});
-						});
-					  });`,
+     describe('things to test', () => {
+      describe('unit tests #unit', () => {
+        it('is true', () => {
+       expect(true).toBe(true);
+        });
+      });
+     
+      describe('e2e tests #e4e', () => {
+        it('is another test #e2e #vitest4life', () => {});
+      });
+       });`,
       options: [
         {
           mustNotMatch: /(?:#(?!unit|e2e))\w+/u.source,
@@ -224,16 +224,16 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: ` describe('things to test', () => {
-						describe('unit tests #unit', () => {
-						  it('is true', () => {
-							expect(true).toBe(true);
-						  });
-						});
-			  
-						describe('e2e tests #e4e', () => {
-						  it('is another test #e2e #vitest4life', () => {});
-						});
-					  });`,
+      describe('unit tests #unit', () => {
+        it('is true', () => {
+       expect(true).toBe(true);
+        });
+      });
+     
+      describe('e2e tests #e4e', () => {
+        it('is another test #e2e #vitest4life', () => {});
+      });
+       });`,
       options: [
         {
           mustNotMatch: [
@@ -430,10 +430,10 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  describe('foo', () => {
-						it('', () => {});
-					  });
-					`,
+       describe('foo', () => {
+      it('', () => {});
+       });
+     `,
       errors: [
         {
           messageId: 'emptyTitle',

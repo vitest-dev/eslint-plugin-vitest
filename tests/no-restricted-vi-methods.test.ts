@@ -10,9 +10,9 @@ ruleTester.run(RULE_NAME, rule, {
     'expect(a);',
     {
       code: `
-					import { vi } from 'vitest';
-					vi;
-				`,
+     import { vi } from 'vitest';
+     vi;
+    `,
       parserOptions: { sourceType: 'module' }
     }
   ],
@@ -50,9 +50,9 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					import { vi } from 'vitest';
-					vi.advanceTimersByTime();
-				`,
+     import { vi } from 'vitest';
+     vi.advanceTimersByTime();
+    `,
       options: [{ advanceTimersByTime: null }],
       parserOptions: { sourceType: 'module' },
       errors: [

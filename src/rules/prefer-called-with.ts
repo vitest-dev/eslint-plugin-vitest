@@ -2,15 +2,15 @@ import { createEslintRule, getAccessorValue } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'prefer-called-with'
-type MESSAGE_IDS = 'preferCalledWith';
-type Options = [];
+type MESSAGE_IDS = 'preferCalledWith'
+type Options = []
 
 export default createEslintRule<Options, MESSAGE_IDS>({
   name: RULE_NAME,
   meta: {
     docs: {
       description:
-        'Suggest using `toBeCalledWith()` or `toHaveBeenCalledWith()`',
+        'enforce using `toBeCalledWith()` or `toHaveBeenCalledWith()`',
       recommended: 'strict'
     },
     messages: {
@@ -30,7 +30,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         if (
           vitestFnCall.modifiers.some(
-            (node) => getAccessorValue(node) === 'not'
+            node => getAccessorValue(node) === 'not'
           )
         )
           return
@@ -43,7 +43,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             data: { matcherName },
             messageId: 'preferCalledWith',
             node: matcher,
-            fix: (fixer) => [fixer.replaceText(matcher, `${matcherName}With`)]
+            fix: fixer => [fixer.replaceText(matcher, `${matcherName}With`)]
           })
         }
       }

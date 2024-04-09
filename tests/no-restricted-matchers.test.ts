@@ -152,10 +152,10 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  test('some test', async () => {
-						await expect(Promise.resolve(1)).resolves.toBe(1);
-					   });
-					`,
+       test('some test', async () => {
+      await expect(Promise.resolve(1)).resolves.toBe(1);
+        });
+     `,
       options: [{ resolves: 'Use `expect(await promise)` instead.' }],
       errors: [
         {

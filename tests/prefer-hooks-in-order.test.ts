@@ -9,268 +9,268 @@ ruleTester.run(RULE_NAME, rule, {
     'afterAll(() => {})',
     'describe(() => {})',
     `beforeAll(() => {});
-							beforeEach(() => {});
-							afterEach(() => {});
-							afterAll(() => {});`,
+       beforeEach(() => {});
+       afterEach(() => {});
+       afterAll(() => {});`,
     `describe('foo', () => {
-								someSetupFn();
-								beforeEach(() => {});
-								afterEach(() => {});
+        someSetupFn();
+        beforeEach(() => {});
+        afterEach(() => {});
 
-								test('bar', () => {
-								  someFn();
-								});
-							  });`,
+        test('bar', () => {
+          someFn();
+        });
+         });`,
     `
-				  beforeAll(() => {});
-				  afterAll(() => {});
-				 `,
+      beforeAll(() => {});
+      afterAll(() => {});
+     `,
     `
-				  beforeEach(() => {});
-				  afterEach(() => {});
-				 `,
+      beforeEach(() => {});
+      afterEach(() => {});
+     `,
     `
-				  beforeAll(() => {});
-				  afterEach(() => {});
-				 `,
+      beforeAll(() => {});
+      afterEach(() => {});
+     `,
     `
-				  beforeAll(() => {});
-				  beforeEach(() => {});
-				 `,
+      beforeAll(() => {});
+      beforeEach(() => {});
+     `,
     `
-				  afterEach(() => {});
-				  afterAll(() => {});
-				 `,
+      afterEach(() => {});
+      afterAll(() => {});
+     `,
     `
-				  beforeAll(() => {});
-				  beforeAll(() => {});
-				 `,
+      beforeAll(() => {});
+      beforeAll(() => {});
+     `,
     `
-				  describe('my test', () => {
-				    afterEach(() => {});
-				    afterAll(() => {});
-				  });
-				 `,
+      describe('my test', () => {
+        afterEach(() => {});
+        afterAll(() => {});
+      });
+     `,
     `
-				  describe('my test', () => {
-				    afterEach(() => {});
-				    afterAll(() => {});
+      describe('my test', () => {
+        afterEach(() => {});
+        afterAll(() => {});
 
-				    doSomething();
+        doSomething();
 
-				    beforeAll(() => {});
-				    beforeEach(() => {});
-				  });
-				 `,
+        beforeAll(() => {});
+        beforeEach(() => {});
+      });
+     `,
     `
-				  describe('my test', () => {
-				    afterEach(() => {});
-				    afterAll(() => {});
+      describe('my test', () => {
+        afterEach(() => {});
+        afterAll(() => {});
 
-				    it('is a test', () => {});
+        it('is a test', () => {});
 
-				    beforeAll(() => {});
-				    beforeEach(() => {});
-				  });
-				 `,
+        beforeAll(() => {});
+        beforeEach(() => {});
+      });
+     `,
     `
-				  describe('my test', () => {
-				    afterAll(() => {});
+      describe('my test', () => {
+        afterAll(() => {});
 
-				    describe('when something is true', () => {
-				      beforeAll(() => {});
-				      beforeEach(() => {});
-				    });
-				  });
-				 `,
+        describe('when something is true', () => {
+          beforeAll(() => {});
+          beforeEach(() => {});
+        });
+      });
+     `,
     `
-				  describe('my test', () => {
-				    afterAll(() => {});
+      describe('my test', () => {
+        afterAll(() => {});
 
-				    describe('when something is true', () => {
-				      beforeAll(() => {});
-				      beforeEach(() => {});
+        describe('when something is true', () => {
+          beforeAll(() => {});
+          beforeEach(() => {});
 
-				      it('does something', () => {});
+          it('does something', () => {});
 
-				      beforeAll(() => {});
-				      beforeEach(() => {});
-				    });
+          beforeAll(() => {});
+          beforeEach(() => {});
+        });
 
-				    beforeAll(() => {});
-				    beforeEach(() => {});
-				  });
+        beforeAll(() => {});
+        beforeEach(() => {});
+      });
 
-				  describe('my test', () => {
-				    beforeAll(() => {});
-				    beforeEach(() => {});
-				    afterAll(() => {});
+      describe('my test', () => {
+        beforeAll(() => {});
+        beforeEach(() => {});
+        afterAll(() => {});
 
-				    describe('when something is true', () => {
-				      it('does something', () => {});
+        describe('when something is true', () => {
+          it('does something', () => {});
 
-				      beforeAll(() => {});
-				      beforeEach(() => {});
-				    });
+          beforeAll(() => {});
+          beforeEach(() => {});
+        });
 
-				    beforeAll(() => {});
-				    beforeEach(() => {});
-				  });
-				 `,
+        beforeAll(() => {});
+        beforeEach(() => {});
+      });
+     `,
     `
-				  const withDatabase = () => {
-				    beforeAll(() => {
-				      createMyDatabase();
-				    });
-				    afterAll(() => {
-				      removeMyDatabase();
-				    });
-				  };
+      const withDatabase = () => {
+        beforeAll(() => {
+          createMyDatabase();
+        });
+        afterAll(() => {
+          removeMyDatabase();
+        });
+      };
 
-				  describe('my test', () => {
-				    withDatabase();
+      describe('my test', () => {
+        withDatabase();
 
-				    afterAll(() => {});
+        afterAll(() => {});
 
-				    describe('when something is true', () => {
-				      beforeAll(() => {});
-				      beforeEach(() => {});
+        describe('when something is true', () => {
+          beforeAll(() => {});
+          beforeEach(() => {});
 
-				      it('does something', () => {});
+          it('does something', () => {});
 
-				      beforeAll(() => {});
-				      beforeEach(() => {});
-				    });
+          beforeAll(() => {});
+          beforeEach(() => {});
+        });
 
-				    beforeAll(() => {});
-				    beforeEach(() => {});
-				  });
+        beforeAll(() => {});
+        beforeEach(() => {});
+      });
 
-				  describe('my test', () => {
-				    beforeAll(() => {});
-				    beforeEach(() => {});
-				    afterAll(() => {});
+      describe('my test', () => {
+        beforeAll(() => {});
+        beforeEach(() => {});
+        afterAll(() => {});
 
-				    withDatabase();
+        withDatabase();
 
-				    describe('when something is true', () => {
-				      it('does something', () => {});
+        describe('when something is true', () => {
+          it('does something', () => {});
 
-				      beforeAll(() => {});
-				      beforeEach(() => {});
-				    });
+          beforeAll(() => {});
+          beforeEach(() => {});
+        });
 
-				    beforeAll(() => {});
-				    beforeEach(() => {});
-				  });
-				 `,
+        beforeAll(() => {});
+        beforeEach(() => {});
+      });
+     `,
     `
-				  describe('foo', () => {
-				    beforeAll(() => {
-				      createMyDatabase();
-				    });
+      describe('foo', () => {
+        beforeAll(() => {
+          createMyDatabase();
+        });
 
-				    beforeEach(() => {
-				      seedMyDatabase();
-				    });
+        beforeEach(() => {
+          seedMyDatabase();
+        });
 
-				    it('accepts this input', () => {
-				      // ...
-				    });
+        it('accepts this input', () => {
+          // ...
+        });
 
-				    it('returns that value', () => {
-				      // ...
-				    });
+        it('returns that value', () => {
+          // ...
+        });
 
-				    describe('when the database has specific values', () => {
-				      const specificValue = '...';
+        describe('when the database has specific values', () => {
+          const specificValue = '...';
 
-				      beforeEach(() => {
-				        seedMyDatabase(specificValue);
-				      });
+          beforeEach(() => {
+            seedMyDatabase(specificValue);
+          });
 
-				      it('accepts that input', () => {
-				        // ...
-				      });
+          it('accepts that input', () => {
+            // ...
+          });
 
-				      it('throws an error', () => {
-				        // ...
-				      });
+          it('throws an error', () => {
+            // ...
+          });
 
-				      beforeEach(() => {
-				        mockLogger();
-				      });
+          beforeEach(() => {
+            mockLogger();
+          });
 
-				      afterEach(() => {
-				        clearLogger();
-				      });
+          afterEach(() => {
+            clearLogger();
+          });
 
-				      it('logs a message', () => {
-				        // ...
-				      });
-				    });
+          it('logs a message', () => {
+            // ...
+          });
+        });
 
-				    afterAll(() => {
-				      removeMyDatabase();
-				    });
-				  });
-				 `,
+        afterAll(() => {
+          removeMyDatabase();
+        });
+      });
+     `,
     `
-				  describe('A file with a lot of test', () => {
-				    beforeAll(() => {
-				      setupTheDatabase();
-				      createMocks();
-				    });
+      describe('A file with a lot of test', () => {
+        beforeAll(() => {
+          setupTheDatabase();
+          createMocks();
+        });
 
-				    beforeAll(() => {
-				      doEvenMore();
-				    });
+        beforeAll(() => {
+          doEvenMore();
+        });
 
-				    beforeEach(() => {
-				      cleanTheDatabase();
-				      resetSomeThings();
-				    });
+        beforeEach(() => {
+          cleanTheDatabase();
+          resetSomeThings();
+        });
 
-				    afterEach(() => {
-				      cleanTheDatabase();
-				      resetSomeThings();
-				    });
+        afterEach(() => {
+          cleanTheDatabase();
+          resetSomeThings();
+        });
 
-				    afterAll(() => {
-				      closeTheDatabase();
-				      stop();
-				    });
+        afterAll(() => {
+          closeTheDatabase();
+          stop();
+        });
 
-				    it('does something', () => {
-				      const thing = getThing();
-				      expect(thing).toBe('something');
-				    });
+        it('does something', () => {
+          const thing = getThing();
+          expect(thing).toBe('something');
+        });
 
-				    it('throws', () => {
-				      // Do something that throws
-				    });
+        it('throws', () => {
+          // Do something that throws
+        });
 
-				    describe('Also have tests in here', () => {
-				      afterAll(() => {});
-				      it('tests something', () => {});
-				      it('tests something else', () => {});
-				      beforeAll(()=>{});
-				    });
-				  });
-				 `
+        describe('Also have tests in here', () => {
+          afterAll(() => {});
+          it('tests something', () => {});
+          it('tests something else', () => {});
+          beforeAll(()=>{});
+        });
+      });
+     `
   ],
   invalid: [
     {
       code: `
-					  const withDatabase = () => {
-						afterAll(() => {
-						  removeMyDatabase();
-						});
-						beforeAll(() => {
-						  createMyDatabase();
-						});
-					  };
-					`,
+       const withDatabase = () => {
+      afterAll(() => {
+        removeMyDatabase();
+      });
+      beforeAll(() => {
+        createMyDatabase();
+      });
+       };
+     `,
       errors: [
         {
           messageId: 'reorderHooks',
@@ -282,13 +282,13 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  afterAll(() => {
-						removeMyDatabase();
-					  });
-					  beforeAll(() => {
-						createMyDatabase();
-					  });
-					`,
+       afterAll(() => {
+      removeMyDatabase();
+       });
+       beforeAll(() => {
+      createMyDatabase();
+       });
+     `,
       errors: [
         {
           messageId: 'reorderHooks',
@@ -300,9 +300,9 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  afterAll(() => {});
-					  beforeAll(() => {});
-					`,
+       afterAll(() => {});
+       beforeAll(() => {});
+     `,
       errors: [
         {
           messageId: 'reorderHooks',
@@ -314,9 +314,9 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  afterEach(() => {});
-					  beforeEach(() => {});
-					`,
+       afterEach(() => {});
+       beforeEach(() => {});
+     `,
       errors: [
         {
           // 'beforeEach' hooks should be before any 'afterEach' hooks
@@ -329,9 +329,9 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  afterEach(() => {});
-					  beforeAll(() => {});
-					`,
+       afterEach(() => {});
+       beforeAll(() => {});
+     `,
       errors: [
         {
           messageId: 'reorderHooks',
@@ -343,9 +343,9 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  beforeEach(() => {});
-					  beforeAll(() => {});
-					`,
+       beforeEach(() => {});
+       beforeAll(() => {});
+     `,
       errors: [
         {
           messageId: 'reorderHooks',
@@ -357,9 +357,9 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  afterAll(() => {});
-					  afterEach(() => {});
-					`,
+       afterAll(() => {});
+       afterEach(() => {});
+     `,
       errors: [
         {
           messageId: 'reorderHooks',
@@ -371,11 +371,11 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  afterAll(() => {});
-					  // The afterEach should do this
-					  // This comment does not matter for the order
-					  afterEach(() => {});
-					`,
+       afterAll(() => {});
+       // The afterEach should do this
+       // This comment does not matter for the order
+       afterEach(() => {});
+     `,
       errors: [
         {
           messageId: 'reorderHooks',
@@ -387,10 +387,10 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  afterAll(() => {});
-					  afterAll(() => {});
-					  afterEach(() => {});
-					`,
+       afterAll(() => {});
+       afterAll(() => {});
+       afterEach(() => {});
+     `,
       errors: [
         {
           messageId: 'reorderHooks',
@@ -402,11 +402,11 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  describe('my test', () => {
-						afterAll(() => {});
-						afterEach(() => {});
-					  });
-					`,
+       describe('my test', () => {
+      afterAll(() => {});
+      afterEach(() => {});
+       });
+     `,
       errors: [
         {
           messageId: 'reorderHooks',
@@ -418,43 +418,16 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  describe('my test', () => {
-						afterAll(() => {});
-						afterEach(() => {});
-			  
-						doSomething();
-			  
-						beforeEach(() => {});
-						beforeAll(() => {});
-					  });
-					`,
-      errors: [
-        {
-          messageId: 'reorderHooks',
-          data: { currentHook: 'afterEach', previousHook: 'afterAll' },
-          column: 7,
-          line: 4
-        },
-        {
-          messageId: 'reorderHooks',
-          data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
-          column: 7,
-          line: 9
-        }
-      ]
-    },
-    {
-      code: `
-					  describe('my test', () => {
-						afterAll(() => {});
-						afterEach(() => {});
-			  
-						it('is a test', () => {});
-			  
-						beforeEach(() => {});
-						beforeAll(() => {});
-					  });
-					`,
+       describe('my test', () => {
+      afterAll(() => {});
+      afterEach(() => {});
+     
+      doSomething();
+     
+      beforeEach(() => {});
+      beforeAll(() => {});
+       });
+     `,
       errors: [
         {
           messageId: 'reorderHooks',
@@ -472,15 +445,42 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  describe('my test', () => {
-						afterAll(() => {});
-			  
-						describe('when something is true', () => {
-						  beforeEach(() => {});
-						  beforeAll(() => {});
-						});
-					  });
-					`,
+       describe('my test', () => {
+      afterAll(() => {});
+      afterEach(() => {});
+     
+      it('is a test', () => {});
+     
+      beforeEach(() => {});
+      beforeAll(() => {});
+       });
+     `,
+      errors: [
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'afterEach', previousHook: 'afterAll' },
+          column: 7,
+          line: 4
+        },
+        {
+          messageId: 'reorderHooks',
+          data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
+          column: 7,
+          line: 9
+        }
+      ]
+    },
+    {
+      code: `
+       describe('my test', () => {
+      afterAll(() => {});
+     
+      describe('when something is true', () => {
+        beforeEach(() => {});
+        beforeAll(() => {});
+      });
+       });
+     `,
       errors: [
         {
           messageId: 'reorderHooks',
@@ -492,19 +492,19 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  describe('my test', () => {
-						beforeAll(() => {});
-						afterAll(() => {});
-						beforeAll(() => {});
-			  
-						describe('when something is true', () => {
-						  beforeAll(() => {});
-						  afterEach(() => {});
-						  beforeEach(() => {});
-						  afterEach(() => {});
-						});
-					  });
-					`,
+       describe('my test', () => {
+      beforeAll(() => {});
+      afterAll(() => {});
+      beforeAll(() => {});
+     
+      describe('when something is true', () => {
+        beforeAll(() => {});
+        afterEach(() => {});
+        beforeEach(() => {});
+        afterEach(() => {});
+      });
+       });
+     `,
       errors: [
         {
           messageId: 'reorderHooks',
@@ -522,38 +522,38 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  describe('my test', () => {
-						beforeAll(() => {});
-						beforeAll(() => {});
-						afterAll(() => {});
-						
-						it('foo nested', () => {
-						  // this is a test
-						});
-			  
-						describe('when something is true', () => {
-						  beforeAll(() => {});
-						  afterEach(() => {});
-						  
-						  it('foo nested', () => {
-							// this is a test
-						  });
-						  
-						  describe('deeply nested', () => { 
-							afterAll(() => {});
-							afterAll(() => {});
-							// This comment does nothing
-							afterEach(() => {});
-							
-							it('foo nested', () => {
-							  // this is a test
-							});
-						  })
-						  beforeEach(() => {});
-						  afterEach(() => {});
-						});
-					  });
-					`,
+       describe('my test', () => {
+      beforeAll(() => {});
+      beforeAll(() => {});
+      afterAll(() => {});
+      
+      it('foo nested', () => {
+        // this is a test
+      });
+     
+      describe('when something is true', () => {
+        beforeAll(() => {});
+        afterEach(() => {});
+        
+        it('foo nested', () => {
+       // this is a test
+        });
+        
+        describe('deeply nested', () => { 
+       afterAll(() => {});
+       afterAll(() => {});
+       // This comment does nothing
+       afterEach(() => {});
+       
+       it('foo nested', () => {
+         // this is a test
+       });
+        })
+        beforeEach(() => {});
+        afterEach(() => {});
+      });
+       });
+     `,
       errors: [
         {
           messageId: 'reorderHooks',
@@ -565,31 +565,31 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  describe('my test', () => {
-						const setupDatabase = () => {
-						  beforeEach(() => {
-							initDatabase();
-							fillWithData();
-						  });
-						  beforeAll(() => {
-							setupMocks();
-						  });
-						};
-						
-						it('foo', () => {
-						  // this is a test
-						});
-						
-						describe('my nested test', () => {
-						  afterAll(() => {});
-						  afterEach(() => {});
-						  
-						  it('foo nested', () => {
-							// this is a test
-						  });
-						});
-					  });
-					`,
+       describe('my test', () => {
+      const setupDatabase = () => {
+        beforeEach(() => {
+       initDatabase();
+       fillWithData();
+        });
+        beforeAll(() => {
+       setupMocks();
+        });
+      };
+      
+      it('foo', () => {
+        // this is a test
+      });
+      
+      describe('my nested test', () => {
+        afterAll(() => {});
+        afterEach(() => {});
+        
+        it('foo nested', () => {
+       // this is a test
+        });
+      });
+       });
+     `,
       errors: [
         {
           messageId: 'reorderHooks',
@@ -607,56 +607,56 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
-					  describe('foo', () => {
-						beforeEach(() => {
-						  seedMyDatabase();
-						});
-					  
-						beforeAll(() => {
-						  createMyDatabase();
-						});
-					  
-						it('accepts this input', () => {
-						  // ...
-						});
-					  
-						it('returns that value', () => {
-						  // ...
-						});
-					  
-						describe('when the database has specific values', () => {
-						  const specificValue = '...';
-					  
-						  beforeEach(() => {
-							seedMyDatabase(specificValue);
-						  });
-					  
-						  it('accepts that input', () => {
-							// ...
-						  });
-					  
-						  it('throws an error', () => {
-							// ...
-						  });
-					  
-						  afterEach(() => {
-							clearLogger();
-						  });
-						  
-						  beforeEach(() => {
-							mockLogger();
-						  });
-					  
-						  it('logs a message', () => {
-							// ...
-						  });
-						});
-					  
-						afterAll(() => {
-						  removeMyDatabase();
-						});
-					  });
-					`,
+       describe('foo', () => {
+      beforeEach(() => {
+        seedMyDatabase();
+      });
+       
+      beforeAll(() => {
+        createMyDatabase();
+      });
+       
+      it('accepts this input', () => {
+        // ...
+      });
+       
+      it('returns that value', () => {
+        // ...
+      });
+       
+      describe('when the database has specific values', () => {
+        const specificValue = '...';
+       
+        beforeEach(() => {
+       seedMyDatabase(specificValue);
+        });
+       
+        it('accepts that input', () => {
+       // ...
+        });
+       
+        it('throws an error', () => {
+       // ...
+        });
+       
+        afterEach(() => {
+       clearLogger();
+        });
+        
+        beforeEach(() => {
+       mockLogger();
+        });
+       
+        it('logs a message', () => {
+       // ...
+        });
+      });
+       
+      afterAll(() => {
+        removeMyDatabase();
+      });
+       });
+     `,
       errors: [
         {
           messageId: 'reorderHooks',

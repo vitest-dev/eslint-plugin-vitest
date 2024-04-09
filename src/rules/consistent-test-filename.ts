@@ -8,65 +8,65 @@ const defaultTestsPattern = /.*\.(test|spec)\.[tj]sx?$/
 
 export default createEslintRule<
     [
-        Partial<{
-            pattern: string;
-            allTestPattern: string;
-        }>
+      Partial<{
+        pattern: string
+        allTestPattern: string
+      }>
     ],
     'consistentTestFilename'
 >({
-    name: RULE_NAME,
-    meta: {
-        type: 'problem',
-        docs: {
-            recommended: 'error',
-            requiresTypeChecking: false,
-            description: 'forbidden .spec test file pattern'
-        },
-        messages: {
-            consistentTestFilename: 'use test file name pattern {{pattern}}'
-        },
-        schema: [
-            {
-                type: 'object',
-                additionalProperties: false,
-                properties: {
-                    pattern: {
-                        format: 'regex',
-                        default: defaultPattern.source
-                    },
-                    allTestPattern: {
-                        format: 'regex',
-                        default: defaultTestsPattern.source
-                    }
-                }
-            }
-        ]
+  name: RULE_NAME,
+  meta: {
+    type: 'problem',
+    docs: {
+      recommended: 'strict',
+      requiresTypeChecking: false,
+      description: 'require .spec test file pattern'
     },
-    defaultOptions: [{ pattern: defaultTestsPattern.source, allTestPattern: defaultTestsPattern.source }],
-
-    create: (context) => {
-        const config = context.options[0] ?? {}
-        const { pattern: patternRaw = defaultPattern, allTestPattern: allTestPatternRaw = defaultTestsPattern } = config
-        const pattern = typeof patternRaw === 'string' ? new RegExp(patternRaw) : patternRaw
-        const testPattern = typeof allTestPatternRaw === 'string' ? new RegExp(allTestPatternRaw) : allTestPatternRaw
-
-        const filename = path.basename(context.filename)
-        if (!testPattern.test(filename))
-            return {}
-
-        return {
-            Program: (p) => {
-                if (!pattern.test(filename)) {
-                    context.report({
-                        node: p,
-                        messageId: 'consistentTestFilename',
-                        data: {
-                            pattern: pattern.source
-                        }
-                    })
-                }
-            }
+    messages: {
+      consistentTestFilename: 'use test file name pattern {{pattern}}'
+    },
+    schema: [
+      {
+        type: 'object',
+        additionalProperties: false,
+        properties: {
+          pattern: {
+            format: 'regex',
+            default: defaultPattern.source
+          },
+          allTestPattern: {
+            format: 'regex',
+            default: defaultTestsPattern.source
+          }
         }
+      }
+    ]
+  },
+  defaultOptions: [{ pattern: defaultTestsPattern.source, allTestPattern: defaultTestsPattern.source }],
+
+  create: (context) => {
+    const config = context.options[0] ?? {}
+    const { pattern: patternRaw = defaultPattern, allTestPattern: allTestPatternRaw = defaultTestsPattern } = config
+    const pattern = typeof patternRaw === 'string' ? new RegExp(patternRaw) : patternRaw
+    const testPattern = typeof allTestPatternRaw === 'string' ? new RegExp(allTestPatternRaw) : allTestPatternRaw
+
+    const filename = path.basename(context.filename)
+    if (!testPattern.test(filename))
+      return {}
+
+    return {
+      Program: (p) => {
+        if (!pattern.test(filename)) {
+          context.report({
+            node: p,
+            messageId: 'consistentTestFilename',
+            data: {
+              pattern: pattern.source
+            }
+          })
+        }
+      }
     }
+  }
 })

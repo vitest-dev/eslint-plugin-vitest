@@ -1,4 +1,4 @@
-# Suggest using `toBeTruthy` (`vitest/prefer-to-be-truthy`)
+# Enforce using `toBeTruthy` (`vitest/prefer-to-be-truthy`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

@@ -25,12 +25,12 @@ ruleTester.run(RULE_NAME, rule, {
     'xitiViewMap()',
     `import { pending } from "actions"
 
-				test("foo", () => {
-				  expect(pending()).toEqual({})
-				})`,
+    test("foo", () => {
+      expect(pending()).toEqual({})
+    })`,
     `   import { test } from './test-utils';
 
-				test('something');`
+    test('something');`
   ],
   invalid: [
     {

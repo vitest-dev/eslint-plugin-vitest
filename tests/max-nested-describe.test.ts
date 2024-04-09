@@ -65,7 +65,7 @@ const invalid = [
 
 ruleTester.run(RULE_NAME, rule, {
   valid,
-  invalid: invalid.map((i) => ({
+  invalid: invalid.map(i => ({
     code: i,
     output: i,
     errors: [{ messageId: 'maxNestedDescribe' }]

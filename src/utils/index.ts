@@ -1,7 +1,6 @@
 // MIT License
 // Copyright (c) 2018 Jonathan Kim
 // Imported from https://github.com/jest-community/eslint-plugin-jest/blob/main/src/rules/utils/accessors.ts#L6
-// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable no-use-before-define */
 import type { Rule } from 'eslint'
 import {
@@ -17,7 +16,7 @@ import {
 
 export function createEslintRule<TOptions extends readonly unknown[], TMessageIds extends string>(rule: Readonly<ESLintUtils.RuleWithMetaAndName<TOptions, TMessageIds>>) {
   const createRule = ESLintUtils.RuleCreator(
-    (ruleName) =>
+    ruleName =>
       `https://github.com/veritem/eslint-plugin-vitest/blob/main/docs/rules/${ruleName}.md`
   )
 
@@ -29,30 +28,30 @@ export const joinNames = (a: string | null, b: string | null): string | null =>
 
 interface TemplateLiteral<Value extends string = string>
   extends TSESTree.TemplateLiteral {
-  quasis: [TSESTree.TemplateElement & { value: { raw: Value; cooked: Value } }];
+  quasis: [TSESTree.TemplateElement & { value: { raw: Value, cooked: Value } }]
 }
 interface StringLiteral<Value extends string = string>
   extends TSESTree.StringLiteral {
-  value: Value;
+  value: Value
 }
 
 export type StringNode<S extends string = string> =
   | StringLiteral<S>
-  | TemplateLiteral<S>;
+  | TemplateLiteral<S>
 
 export type FunctionExpression =
   | TSESTree.ArrowFunctionExpression
-  | TSESTree.FunctionExpression;
+  | TSESTree.FunctionExpression
 
 export const isFunction = (node: TSESTree.Node): node is FunctionExpression =>
-  node.type === AST_NODE_TYPES.FunctionExpression ||
-  node.type === AST_NODE_TYPES.ArrowFunctionExpression
+  node.type === AST_NODE_TYPES.FunctionExpression
+  || node.type === AST_NODE_TYPES.ArrowFunctionExpression
 
 /**
  * An `Identifier` with a known `name` value - i.e `expect`.
  */
 interface KnownIdentifier<Name extends string> extends TSESTree.Identifier {
-  name: Name;
+  name: Name
 }
 
 export function getNodeName(node: TSESTree.Node): string | null {
@@ -72,7 +71,7 @@ export function getNodeName(node: TSESTree.Node): string | null {
 
 export type AccessorNode<Specifics extends string = string> =
   | StringNode<Specifics>
-  | KnownIdentifier<Specifics>;
+  | KnownIdentifier<Specifics>
 
 export const isSupportedAccessor = <V extends string>(
   node: TSESTree.Node,
@@ -92,8 +91,8 @@ export const isIdentifier = <V extends string>(
   name?: V
 ): node is KnownIdentifier<V> => {
   return (
-    node.type === AST_NODE_TYPES.Identifier &&
-    (name === undefined || node.name === name)
+    node.type === AST_NODE_TYPES.Identifier
+    && (name === undefined || node.name === name)
   )
 }
 
@@ -110,9 +109,9 @@ const isTemplateLiteral = <V extends string>(
   value?: V
 ): node is StringLiteral<V> => {
   return (
-    node.type === AST_NODE_TYPES.TemplateLiteral &&
-    node.quasis.length === 1 &&
-    (value === undefined || node.quasis[0].value.raw === value)
+    node.type === AST_NODE_TYPES.TemplateLiteral
+    && node.quasis.length === 1
+    && (value === undefined || node.quasis[0].value.raw === value)
   )
 }
 
@@ -126,9 +125,9 @@ const isStringLiteral = <V extends string>(
   node: TSESTree.Node,
   value?: V
 ): node is StringLiteral<V> =>
-  node.type === AST_NODE_TYPES.Literal &&
-  typeof node.value === 'string' &&
-  (value === undefined || node.value === value)
+    node.type === AST_NODE_TYPES.Literal
+    && typeof node.value === 'string'
+    && (value === undefined || node.value === value)
 
 /**
  * Checks if the given `node` is a {@link StringNode}.
@@ -137,7 +136,7 @@ export const isStringNode = <V extends string>(
   node: TSESTree.Node,
   specifics?: V
 ): node is StringNode<V> =>
-  isStringLiteral(node, specifics) || isTemplateLiteral(node, specifics)
+    isStringLiteral(node, specifics) || isTemplateLiteral(node, specifics)
 
 /**
  * Gets the value of the given `AccessorNode`,
@@ -146,9 +145,9 @@ export const isStringNode = <V extends string>(
 export const getAccessorValue = <S extends string = string>(
   accessor: AccessorNode<S>
 ): S =>
-  accessor.type === AST_NODE_TYPES.Identifier
-    ? accessor.name
-    : getStringValue(accessor)
+    accessor.type === AST_NODE_TYPES.Identifier
+      ? accessor.name
+      : getStringValue(accessor)
 
 /**
  * Gets the value of the given `StringNode`.
@@ -183,11 +182,9 @@ export const removeExtraArgumentsFixer = (
 
   const { sourceCode } = context
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   let tokenAfterLastParam = sourceCode.getTokenAfter(lastArg)!
 
   if (tokenAfterLastParam.value === ',')
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     tokenAfterLastParam = sourceCode.getTokenAfter(tokenAfterLastParam)!
 
   return fixer.removeRange([firstArg.range[0], tokenAfterLastParam.range[0]])
@@ -195,12 +192,12 @@ export const removeExtraArgumentsFixer = (
 
 interface CalledKnownMemberExpression<Name extends string = string>
   extends KnownMemberExpression<Name> {
-  parent: KnownCallExpression<Name>;
+  parent: KnownCallExpression<Name>
 }
 
 export interface KnownCallExpression<Name extends string = string>
   extends TSESTree.CallExpression {
-  callee: CalledKnownMemberExpression<Name>;
+  callee: CalledKnownMemberExpression<Name>
 }
 
 export const isParsedInstanceOfMatcherCall = (
@@ -208,8 +205,8 @@ export const isParsedInstanceOfMatcherCall = (
   classArg?: string
 ) => {
   return (
-    getAccessorValue(expectFnCall.matcher) === 'toBeInstanceOf' &&
-    expectFnCall.args.length === 1 &&
-    isSupportedAccessor(expectFnCall.args[0], classArg)
+    getAccessorValue(expectFnCall.matcher) === 'toBeInstanceOf'
+    && expectFnCall.args.length === 1
+    && isSupportedAccessor(expectFnCall.args[0], classArg)
   )
 }

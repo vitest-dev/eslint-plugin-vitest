@@ -1,4 +1,4 @@
-# Prefer using toContain() (`vitest/prefer-to-contain`)
+# Enforce using toContain() (`vitest/prefer-to-contain`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
