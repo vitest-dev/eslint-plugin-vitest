@@ -49,9 +49,9 @@ export default createEslintRule<Options, MessageIds>({
             if (!tagCall) return
 
             if (
-              tagCall.type === 'MemberExpression' &&
-              isTestOrDescribe(tagCall.object) &&
-              isOnly(tagCall.property)
+              tagCall.type === 'MemberExpression'
+              && isTestOrDescribe(tagCall.object)
+              && isOnly(tagCall.property)
             ) {
               context.report({
                 node: tagCall.property,
