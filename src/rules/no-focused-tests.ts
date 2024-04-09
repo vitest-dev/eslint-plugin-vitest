@@ -43,6 +43,22 @@ export default createEslintRule<Options, MessageIds>({
               messageId: 'noFocusedTests'
             })
           }
+
+          if (callee.type === 'TaggedTemplateExpression') {
+            const tagCall = callee.tag.type === 'MemberExpression' ? callee.tag.object : null
+            if (!tagCall) return
+
+            if (
+              tagCall.type === 'MemberExpression'
+              && isTestOrDescribe(tagCall.object)
+              && isOnly(tagCall.property)
+            ) {
+              context.report({
+                node: tagCall.property,
+                messageId: 'noFocusedTests'
+              })
+            }
+          }
         }
       },
       CallExpression(node) {
