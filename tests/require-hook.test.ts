@@ -361,23 +361,6 @@ class MockLogger {
           column: 8
         }
       ]
-    },
-    {
-      code: `
-   enableAutoDestroy(afterEach);      
-     describe('some tests', () => {
-     it('is false', () => {
-     expect(true).toBe(true);
- });
- });`,
-      options: [{ allowedFunctionCalls: ['someOtherName'] }],
-      errors: [
-        {
-          messageId: 'useHook',
-          line: 2,
-          column: 8
-        }
-      ]
     }
   ]
 })

@@ -113,13 +113,14 @@ ruleTester.run(RULE_NAME, rule, {
       ]
     },
     {
-      code: `foo.bar = vi.fn().mockImplementation(baz => baz)
-          foo.bar = vi.fn(a => b).mockImplementation(baz => baz)
+      code: `
+        foo.bar = vi.fn().mockImplementation(baz => baz)
+        foo.bar = vi.fn(a => b).mockImplementation(baz => baz)
       `,
       output: `
-     vi.spyOn(foo, 'bar').mockImplementation(baz => baz)
-     vi.spyOn(foo, 'bar').mockImplementation(baz => baz)
- `,
+        vi.spyOn(foo, 'bar').mockImplementation(baz => baz)
+        vi.spyOn(foo, 'bar').mockImplementation(baz => baz)
+      `,
       errors: [
         {
           messageId: 'useViSpayOn',
