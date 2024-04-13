@@ -1,4 +1,4 @@
-import { TSESTree, type TSESLint } from '@typescript-eslint/utils'
+import { TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 
 export type MessageIds = 'noFocusedTests'
