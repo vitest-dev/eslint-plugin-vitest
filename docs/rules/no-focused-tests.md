@@ -48,17 +48,6 @@ export default [
     rules: {
       ...vitest.configs.recommended.all,
       'vitest/no-focused-tests': ['error', { 'fixable': false }]
-    },
-    settings: {
-      vitest: {
-        typecheck: true
-      }
-    },
-    languageOptions: {
-      parser: parser,
-      globals: {
-        ...vitest.environments.env.globals
-      }
     }
   }
 ]
