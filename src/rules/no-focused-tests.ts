@@ -44,7 +44,9 @@ export default createEslintRule<Options, MessageIds>({
   },
   defaultOptions: [{ fixable: true }],
   create: (context) => {
-    const config = context.options[0] ?? {}
+    const config = context.options[0] ?? {
+      fixable: true
+    }
     const fixable = config.fixable
 
     return {
@@ -59,7 +61,7 @@ export default createEslintRule<Options, MessageIds>({
             context.report({
               node: callee.property,
               messageId: 'noFocusedTests',
-              fix: (fixer) => fixable ? fixer.removeRange([callee.property.range[0] - 1, callee.property.range[1]]) : null
+              fix: fixer => fixable ? fixer.removeRange([callee.property.range[0] - 1, callee.property.range[1]]) : null
             })
           }
 
@@ -75,7 +77,7 @@ export default createEslintRule<Options, MessageIds>({
               context.report({
                 node: tagCall.property,
                 messageId: 'noFocusedTests',
-                fix: (fixer) => fixable ? fixer.removeRange([tagCall.property.range[0] - 1, tagCall.property.range[1]]) : null
+                fix: fixer => fixable ? fixer.removeRange([tagCall.property.range[0] - 1, tagCall.property.range[1]]) : null
               })
             }
           }
@@ -98,10 +100,12 @@ export default createEslintRule<Options, MessageIds>({
             context.report({
               node: callee.object.property,
               messageId: 'noFocusedTests',
-              fix: (fixer) => fixable ? fixer.removeRange([
-                onlyCallee.range[0] - 1,
-                onlyCallee.range[1]
-              ]) : null
+              fix: fixer => fixable
+                ? fixer.removeRange([
+                  onlyCallee.range[0] - 1,
+                  onlyCallee.range[1]
+                ])
+                : null
             })
           }
         }
