@@ -31,3 +31,35 @@ test('it', () => {
 	/* ... */
 })
 ```
+
+### Options
+
+This rule have a `fixable` option that is enabled by default; It tell this plugin to fix tests for you. If you don't want this rule to auto fix your tests, you can disable it in your `eslint.config.js` file using the following configuration.
+
+```ts
+import vitest from 'eslint-plugin-vitest'
+
+export default [
+  {
+    files: ['**/*.ts', '**/*.js'], // or any other pattern
+    plugins: {
+      vitest,
+    },
+    rules: {
+      ...vitest.configs.recommended.all,
+      'vitest/no-focused-tests': ['error', { 'fixable': false }]
+    },
+    settings: {
+      vitest: {
+        typecheck: true
+      }
+    },
+    languageOptions: {
+      parser: parser,
+      globals: {
+        ...vitest.environments.env.globals
+      }
+    }
+  }
+]
+```

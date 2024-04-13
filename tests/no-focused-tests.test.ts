@@ -100,10 +100,9 @@ ruleTester.run(RULE_NAME, rule, {
         }
       ],
       output: 'it.only.each``("test", () => {});'
-    },
+    }
   ]
 })
-
 
 ruleTester.run(RULE_NAME, rule, {
   valid: ['it("test", () => {});', 'describe("test group", () => {});'],
