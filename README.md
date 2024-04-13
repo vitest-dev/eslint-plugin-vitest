@@ -21,6 +21,27 @@ npm install eslint-plugin-vitest --save-dev
 
 ### Usage
 
+Make sure you're running eslint `v9.0.0` or higher for the latest version of this plugin to work. The following example is how your `eslint.config.js` should be setup for this plugin to work for you.
+
+```js
+import vitest from "eslint-plugin-vitest";
+
+export default [
+  {
+    files: ["tests/**"], // or any other pattern
+    plugins: {
+      vitest
+    },
+    rules: {
+      ...vitest.configs.recommended.rules, // you can also use vitest.configs.recommended.all to enable all rules 
+      "vitest/max-nested-describe": ["error", { "max": 3 }] // you can also modify rules' behavior using option like this
+    }, 
+  },
+];
+```
+
+If you're not using the latest version of eslint (version `v8.57.0` or lower) you can setup this plugin using the following configuration
+
 Add `vitest` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
 
 ```json
@@ -42,31 +63,6 @@ Then configure the rules you want to use under the rules section.
     ]
   }
 }
-```
-
-#### Recommended
-
-Make sure you're running eslint `v9.0.0` or heigher `eslint.config.js`
-
-```js
-import vitest from "eslint-plugin-vitest";
-
-export default [
-  {
-    files: ["tests/**"], // or any other pattern
-    plugins: {
-      vitest,
-    },
-    rules: {
-      ...vitest.configs.recommended.rules,
-    },
-    languageOptions: {
-      globals: {
-        ...vitest.environments.env.globals,
-      },
-    },
-  },
-];
 ```
 
 #### Enabling with type-testing
