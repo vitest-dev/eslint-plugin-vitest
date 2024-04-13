@@ -3,7 +3,11 @@ import { createEslintRule } from '../utils'
 
 export type MessageIds = 'noFocusedTests'
 export const RULE_NAME = 'no-focused-tests'
-export type Options = []
+export type Options = [
+  Partial<{
+    fixable: boolean
+  }>
+]
 
 const isTestOrDescribe = (node: TSESTree.Expression) => {
   return node.type === 'Identifier' && ['it', 'test', 'describe'].includes(node.name)
@@ -22,13 +26,29 @@ export default createEslintRule<Options, MessageIds>({
       recommended: 'strict'
     },
     fixable: 'code',
-    schema: [],
+    schema: [
+      {
+        type: 'object',
+        properties: {
+          fixable: {
+            type: 'boolean',
+            default: true
+          }
+        },
+        additionalProperties: false
+      }
+    ],
     messages: {
       noFocusedTests: 'Focused tests are not allowed.'
     }
   },
-  defaultOptions: [],
+  defaultOptions: [{ fixable: true }],
   create: (context) => {
+    const config = context.options[0] ?? {
+      fixable: true
+    }
+    const fixable = config.fixable
+
     return {
       ExpressionStatement(node) {
         if (node.expression.type === 'CallExpression') {
@@ -40,7 +60,8 @@ export default createEslintRule<Options, MessageIds>({
           ) {
             context.report({
               node: callee.property,
-              messageId: 'noFocusedTests'
+              messageId: 'noFocusedTests',
+              fix: fixer => fixable ? fixer.removeRange([callee.property.range[0] - 1, callee.property.range[1]]) : null
             })
           }
 
@@ -55,7 +76,8 @@ export default createEslintRule<Options, MessageIds>({
             ) {
               context.report({
                 node: tagCall.property,
-                messageId: 'noFocusedTests'
+                messageId: 'noFocusedTests',
+                fix: fixer => fixable ? fixer.removeRange([tagCall.property.range[0] - 1, tagCall.property.range[1]]) : null
               })
             }
           }
@@ -73,9 +95,17 @@ export default createEslintRule<Options, MessageIds>({
             && callee.property.type === 'Identifier'
             && callee.property.name === 'each'
           ) {
+            const onlyCallee = callee.object.property
+
             context.report({
               node: callee.object.property,
-              messageId: 'noFocusedTests'
+              messageId: 'noFocusedTests',
+              fix: fixer => fixable
+                ? fixer.removeRange([
+                  onlyCallee.range[0] - 1,
+                  onlyCallee.range[1]
+                ])
+                : null
             })
           }
         }
