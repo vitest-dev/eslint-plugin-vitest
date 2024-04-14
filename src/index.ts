@@ -1,4 +1,4 @@
-import type { ESLint } from 'eslint'
+import type { ESLint, Linter } from 'eslint'
 import { version } from '../package.json'
 import lowerCaseTitle, { RULE_NAME as lowerCaseTitleName } from './rules/prefer-lowercase-title'
 import maxNestedDescribe, { RULE_NAME as maxNestedDescribeName } from './rules/max-nested-describe'
@@ -53,13 +53,15 @@ import preferComparisonMatcher, { RULE_NAME as preferComparisonMatcherName } fro
 import preferToContain, { RULE_NAME as preferToContainName } from './rules/prefer-to-contain'
 import preferExpectAssertions, { RULE_NAME as preferExpectAssertionsName } from './rules/prefer-expect-assertions'
 
-const createConfig = (rules: Record<string, string>) => (
+const createConfig = <R extends Linter.RulesRecord>(rules: R) => (
   Object.keys(rules).reduce((acc, ruleName) => {
     return {
       ...acc,
       [`vitest/${ruleName}`]: rules[ruleName]
     }
-  }, {}))
+  }, {})) as {
+    [K in keyof R as `vitest/${Extract<K, string>}`]: R[K]
+  }
 
 const allRules = {
   [lowerCaseTitleName]: 'warn',
@@ -106,7 +108,7 @@ const allRules = {
   [preferToContainName]: 'warn',
   [preferExpectAssertionsName]: 'warn',
   [usePreferTobe]: 'warn'
-}
+} as const
 
 const recommended = {
   [expectedExpect]: 'error',
@@ -117,7 +119,7 @@ const recommended = {
   [validDescribeCallbackName]: 'error',
   [requireLocalTestContextForConcurrentSnapshotsName]: 'error',
   [noImportNodeTestName]: 'error'
-}
+} as const
 
 const plugin = {
   meta: {
@@ -178,7 +180,42 @@ const plugin = {
     [preferToContainName]: preferToContain,
     [preferExpectAssertionsName]: preferExpectAssertions
   },
-  configs: {},
+  configs: {
+    recommended: {
+      plugins: {
+        get vitest(): ESLint.Plugin {
+          return plugin
+        },
+      },
+      rules: createConfig(recommended)
+    },
+    all: {
+      plugins: {
+        get vitest(): ESLint.Plugin {
+          return plugin
+        },
+      },
+      rules: createConfig(allRules)
+    },
+    env: {
+      languageOptions: {
+        globals: {
+          suite: 'writable',
+          test: 'writable',
+          describe: 'writable',
+          it: 'writable',
+          expect: 'writable',
+          assert: 'writable',
+          vitest: 'writable',
+          vi: 'writable',
+          beforeAll: 'writable',
+          afterAll: 'writable',
+          beforeEach: 'writable',
+          afterEach: 'writable'
+        }
+      }
+    }
+  },
   environments: {
     env: {
       globals: {
@@ -198,45 +235,5 @@ const plugin = {
     }
   }
 } satisfies ESLint.Plugin
-
-Object.assign(plugin.configs, {
-  recommended: {
-    plugins: {
-      vitest: plugin
-    },
-    rules: createConfig(recommended)
-  }
-})
-
-Object.assign(plugin.configs, {
-  all: {
-    plugins: {
-      vitest: plugin
-    },
-    rules: createConfig(allRules)
-  }
-})
-
-Object.assign(plugin.configs, {
-  env: {
-    languageOptions: {
-      globals: {
-        suite: 'writeable',
-        test: 'writeable',
-        describe: 'writeable',
-        it: 'writeable',
-        expect: 'writeable',
-        assert: 'writeable',
-        vitest: 'writeable',
-        vi: 'writeable',
-        beforeAll: 'writeable',
-        afterAll: 'writeable',
-        beforeEach: 'writeable',
-        afterEach: 'writeable'
-      }
-
-    }
-  }
-})
 
 export default plugin
