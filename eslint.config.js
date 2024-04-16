@@ -13,15 +13,16 @@ const styleConfigs = stylistic.configs.customize({
 
 export default [
   eslintPlugin.configs['flat/recommended'],
+  vitest.configs.recommended,
+  vitest.configs.env,
   {
-    files: ['**/*.ts', '**/*.js'], // or any other pattern
+    files: ['**/*.ts', '**/*.js'],
     plugins: {
       vitest,
       '@stylistic': stylistic
     },
     rules: {
       ...styleConfigs.rules,
-      ...vitest.configs.recommended.rules,
       'eslint-plugin/require-meta-docs-description': 'error'
     },
     settings: {
@@ -30,10 +31,7 @@ export default [
       }
     },
     languageOptions: {
-      parser: parser,
-      globals: {
-        ...vitest.environments.env.globals
-      }
+      parser
     }
   }
 ]
