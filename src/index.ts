@@ -63,6 +63,16 @@ const createConfig = <R extends Linter.RulesRecord>(rules: R) => (
   [K in keyof R as `vitest/${Extract<K, string>}`]: R[K]
 }
 
+const createConfigLegacy = (rules: Record<string, string>) => ({
+  plugins: ['vitest'],
+  rules: Object.keys(rules).reduce((acc, ruleName) => {
+    return {
+      ...acc,
+      [`vitest/${ruleName}`]: rules[ruleName]
+    }
+  }, {})
+})
+
 const allRules = {
   [lowerCaseTitleName]: 'warn',
   [maxNestedDescribeName]: 'warn',
@@ -181,6 +191,8 @@ const plugin = {
     [preferExpectAssertionsName]: preferExpectAssertions
   },
   configs: {
+    'legacy-recommended': createConfigLegacy(recommended),
+    'legacy-all': createConfigLegacy(allRules),
     recommended: {
       plugins: {
         get vitest(): ESLint.Plugin {
