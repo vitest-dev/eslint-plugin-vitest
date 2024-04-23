@@ -117,15 +117,12 @@ const determineVitestFnType = (name: string): VitestFnType => {
   if (name === 'vi')
     return 'vi'
 
-  // eslint-disable-next-line no-prototype-builtins
   if (DescribeAlias.hasOwnProperty(name))
     return 'describe'
 
-  // eslint-disable-next-line no-prototype-builtins
   if (TestCaseName.hasOwnProperty(name))
     return 'test'
 
-  // eslint-disable-next-line no-prototype-builtins
   if (HookName.hasOwnProperty(name))
     return 'hook'
 
@@ -156,7 +153,7 @@ const findModifiersAndMatcher = (
 
     if (modifiers.length === 0) {
       // the first modifier can be any of the three modifiers
-      // eslint-disable-next-line no-prototype-builtins
+
       if (!ModifierName.hasOwnProperty(name))
         return 'modifier-unknown'
     }

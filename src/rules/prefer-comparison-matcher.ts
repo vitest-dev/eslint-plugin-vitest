@@ -84,7 +84,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         if (comparison?.type !== AST_NODE_TYPES.BinaryExpression
           || isComparingToString(comparison)
-        // eslint-disable-next-line no-prototype-builtins
+
           || !EqualityMatcher.hasOwnProperty(getAccessorValue(matcher))
           || !isBooleanLiteral(matcherArg))
           return

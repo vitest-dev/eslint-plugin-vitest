@@ -65,6 +65,15 @@ Then configure the rules you want to use under the rules section.
 }
 ```
 
+If you're using old Eslint configuration, make sure to use legacy key like the following
+
+```js
+{
+  "extends": ["plugin:vitest/legacy-recommended"] // or legacy-all
+}
+```
+
+
 #### Enabling with type-testing
 
 Vitest ships with an optional [type-testing feature](https://vitest.dev/guide/testing-types), which is disabled by default.

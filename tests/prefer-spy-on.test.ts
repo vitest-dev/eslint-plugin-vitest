@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
     'mock = vi.fn()',
     'const mockObj = { mock: vi.fn() }',
     'mockObj = { mock: vi.fn() }',
-    // eslint-disable-next-line no-template-curly-in-string
+
     'window[`${name}`] = vi[`fn${expression}`]()'
   ],
   invalid: [
@@ -37,9 +37,9 @@ ruleTester.run(RULE_NAME, rule, {
       ]
     },
     {
-      // eslint-disable-next-line no-template-curly-in-string
+
       code: 'window[`${name}`] = vi[`fn`]()',
-      // eslint-disable-next-line no-template-curly-in-string
+
       output: 'vi.spyOn(window, `${name}`).mockImplementation()',
       errors: [
         {

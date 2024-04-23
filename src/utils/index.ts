@@ -1,7 +1,7 @@
 // MIT License
 // Copyright (c) 2018 Jonathan Kim
 // Imported from https://github.com/jest-community/eslint-plugin-jest/blob/main/src/rules/utils/accessors.ts#L6
-/* eslint-disable no-use-before-define */
+
 import type { Rule } from 'eslint'
 import {
   TSESLint,

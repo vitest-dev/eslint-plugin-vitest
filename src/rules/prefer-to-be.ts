@@ -113,7 +113,6 @@ export default createEslintRule<[], MessageId>({
           return
         }
 
-        // eslint-disable-next-line no-prototype-builtins
         if (!EqualityMatcher.hasOwnProperty(matcherName) || vitestFnCall.args.length === 0)
           return
 

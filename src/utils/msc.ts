@@ -23,7 +23,6 @@ export const isBooleanEqualityMatcher = (
 
   const arg = getFirstMatcherArg(expectFnCall)
 
-  // eslint-disable-next-line no-prototype-builtins
   return EqualityMatcher.hasOwnProperty(matcherName) && isBooleanLiteral(arg)
 }
 

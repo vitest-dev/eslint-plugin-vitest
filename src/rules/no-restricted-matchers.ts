@@ -7,7 +7,6 @@ type MESSAGE_IDS = 'restrictedChain' | 'restrictedChainWithMessage'
 type Options = Record<string, string | null>[]
 
 const isChainRestricted = (chain: string, restriction: string): boolean => {
-  // eslint-disable-next-line no-prototype-builtins
   if (ModifierName.hasOwnProperty(restriction) || restriction.endsWith('.not'))
     return chain.startsWith(restriction)
 

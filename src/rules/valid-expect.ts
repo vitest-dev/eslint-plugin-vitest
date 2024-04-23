@@ -192,7 +192,7 @@ export default createEslintRule<[
           if (vitestFnCall === 'matcher-not-called') {
             context.report({
               messageId: isSupportedAccessor(reportingNode)
-              // eslint-disable-next-line no-prototype-builtins
+
               && ModifierName.hasOwnProperty(getAccessorValue(reportingNode))
                 ? 'matcherNotFound'
                 : 'matcherNotCalled',

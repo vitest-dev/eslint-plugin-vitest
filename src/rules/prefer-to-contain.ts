@@ -56,7 +56,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         if (
           !includesCall
           || matcherArg.type === AST_NODE_TYPES.SpreadElement
-          // eslint-disable-next-line no-prototype-builtins
+
           || !EqualityMatcher.hasOwnProperty(getAccessorValue(matcher))
           || !isBooleanLiteral(matcherArg)
           || !isFixableIncludesCallExpression(includesCall))

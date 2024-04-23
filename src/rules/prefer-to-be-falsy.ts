@@ -38,7 +38,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         if (vitestFnCall.args.length === 1
           && isFalseLiteral(getFirstMatcherArg(vitestFnCall))
-        // eslint-disable-next-line no-prototype-builtins
+
           && EqualityMatcher.hasOwnProperty(getAccessorValue(vitestFnCall.matcher))) {
           context.report({
             node: vitestFnCall.matcher,

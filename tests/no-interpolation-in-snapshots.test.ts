@@ -10,20 +10,20 @@ ruleTester.run(RULE_NAME, rule, {
     'expect(something);',
     'expect(something).not;',
     'expect.toHaveAssertions();',
-    // eslint-disable-next-line no-template-curly-in-string
+
     'myObjectWants.toMatchInlineSnapshot({}, `${interpolated}`);',
-    // eslint-disable-next-line no-template-curly-in-string
+
     'myObjectWants.toMatchInlineSnapshot({}, `${interpolated1} ${interpolated2}`);',
-    // eslint-disable-next-line no-template-curly-in-string
+
     'toMatchInlineSnapshot({}, `${interpolated}`);',
-    // eslint-disable-next-line no-template-curly-in-string
+
     'toMatchInlineSnapshot({}, `${interpolated1} ${interpolated2}`);',
     'expect(something).toThrowErrorMatchingInlineSnapshot();',
     'expect(something).toThrowErrorMatchingInlineSnapshot(`No interpolation`);'
   ],
   invalid: [
     {
-      // eslint-disable-next-line no-template-curly-in-string
+
       code: 'expect(something).toMatchInlineSnapshot(`${interpolated}`);',
       errors: [
         {
@@ -34,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
       ]
     },
     {
-      // eslint-disable-next-line no-template-curly-in-string
+
       code: 'expect(something).not.toMatchInlineSnapshot(`${interpolated}`);',
       errors: [
         {
@@ -45,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
       ]
     },
     {
-      // eslint-disable-next-line no-template-curly-in-string
+
       code: 'expect(something).toThrowErrorMatchingInlineSnapshot(`${interpolated}`);',
       errors: [
         {
@@ -56,7 +56,7 @@ ruleTester.run(RULE_NAME, rule, {
       ]
     },
     {
-      // eslint-disable-next-line no-template-curly-in-string
+
       code: 'expect(something).not.toThrowErrorMatchingInlineSnapshot(`${interpolated}`);',
       errors: [
         {

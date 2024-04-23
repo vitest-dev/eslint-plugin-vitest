@@ -12,9 +12,9 @@ ruleTester.run(RULE_NAME, rule, {
       await expect(throwErrorAsync()).rejects.toThrowError('a');
     })
      `,
-    // eslint-disable-next-line no-template-curly-in-string
+
     'const a = \'a\'; expect(() => { throw new Error(\'a\'); }).toThrow(`${a}`);',
-    // eslint-disable-next-line no-template-curly-in-string
+
     'const a = \'a\'; expect(() => { throw new Error(\'a\'); }).toThrowError(`${a}`);',
     `
     test('Template literal', async () => {

@@ -193,7 +193,7 @@ const plugin = {
   configs: {
     'legacy-recommended': createConfigLegacy(recommended),
     'legacy-all': createConfigLegacy(allRules),
-    recommended: {
+    'recommended': {
       plugins: {
         get vitest(): ESLint.Plugin {
           return plugin
@@ -201,7 +201,7 @@ const plugin = {
       },
       rules: createConfig(recommended)
     },
-    all: {
+    'all': {
       plugins: {
         get vitest(): ESLint.Plugin {
           return plugin
@@ -209,7 +209,7 @@ const plugin = {
       },
       rules: createConfig(allRules)
     },
-    env: {
+    'env': {
       languageOptions: {
         globals: {
           suite: 'writable',

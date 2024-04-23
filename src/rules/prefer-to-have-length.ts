@@ -38,7 +38,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         const [argument] = expect.arguments
         const { matcher } = vitestFnCall
 
-        // eslint-disable-next-line no-prototype-builtins
         if (!EqualityMatcher.hasOwnProperty(getAccessorValue(matcher))
           || argument?.type !== AST_NODE_TYPES.MemberExpression
           || !isSupportedAccessor(argument.property, 'length'))

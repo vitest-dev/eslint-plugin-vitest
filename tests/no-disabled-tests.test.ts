@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
     'test("foo", function () {})',
     'test.only("foo", function () {})',
     'test.concurrent("foo", function () {})',
-    // eslint-disable-next-line no-template-curly-in-string
+
     'describe[`${"skip"}`]("foo", function () {})',
     'it.todo("fill this later")',
     'var appliedSkip = describe.skip; appliedSkip.apply(describe)',

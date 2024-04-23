@@ -311,11 +311,11 @@ ruleTester.run(RULE_NAME, rule, {
     'it(1 + " + " + 1, () => {});',
     'test("is a string", () => {});',
     'xtest("is a string", () => {});',
-    // eslint-disable-next-line no-template-curly-in-string
+
     'xtest(`${myFunc} is a string`, () => {});',
     'describe("is a string", () => {});',
     'describe.skip("is a string", () => {});',
-    // eslint-disable-next-line no-template-curly-in-string
+
     'describe.skip(`${myFunc} is a string`, () => {});',
     'fdescribe("is a string", () => {});',
     {
@@ -405,9 +405,9 @@ ruleTester.run(RULE_NAME, rule, {
     'test.concurrent("foo", function () {})',
     'test(`foo`, function () {})',
     'test.concurrent(`foo`, function () {})',
-    // eslint-disable-next-line no-template-curly-in-string
+
     'test(`${foo}`, function () {})',
-    // eslint-disable-next-line no-template-curly-in-string
+
     'test.concurrent(`${foo}`, function () {})',
     'it(\'foo\', function () {})',
     'it.each([])()',
