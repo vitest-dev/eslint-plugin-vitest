@@ -24,7 +24,7 @@ const config: Config = {
         parser: '@typescript-eslint/parser'
       }
     ],
-    extends: ['plugin:vitest/all']
+    extends: ['plugin:vitest/legacy-all']
   }
 }
 
