@@ -1,12 +1,9 @@
 name: Smoke test
 
 on:
-  push:
-     branches: 
-        - '**'
-  # workflow_dispatch: # Manual trigger
-  # schedule: # Every sunday at 00:00
-  #   - cron: "0 00 * * SUN"
+  workflow_dispatch: # Manual trigger
+  schedule: # Every sunday at 00:00
+    - cron: "0 00 * * SUN"
 
 jobs:
   test:
