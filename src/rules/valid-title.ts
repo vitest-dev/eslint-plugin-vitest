@@ -1,7 +1,9 @@
-import { AST_NODE_TYPES, JSONSchema, TSESTree } from '@typescript-eslint/utils'
+import { AST_NODE_TYPES, ESLintUtils, JSONSchema, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getStringValue, isStringNode, StringNode } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { DescribeAlias, TestCaseName } from '../utils/types'
+import * as ts from 'typescript'
+import * as ts_utils from 'ts-api-utils'
 
 export const RULE_NAME = 'valid-title'
 
@@ -101,7 +103,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       recommended: 'strict'
     },
     messages: {
-      titleMustBeString: 'Test title must be a string',
+      titleMustBeString: 'Test title must be a string, a function or a class name',
       emptyTitle: '{{functionName}} should not have an empty title',
       duplicatePrefix: 'should not have duplicate prefix',
       accidentalSpace: 'should not have leading or trailing spaces',
@@ -168,9 +170,15 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       CallExpression(node: TSESTree.CallExpression) {
         const vitestFnCall = parseVitestFnCall(node, context)
 
-        if (vitestFnCall?.type !== 'describe' && vitestFnCall?.type !== 'test') return
+        if (vitestFnCall?.type !== 'describe' && vitestFnCall?.type !== 'test' && vitestFnCall?.type !== 'it') return
 
         const [argument] = node.arguments
+
+        const services = ESLintUtils.getParserServices(context)
+
+        const type = services.getTypeAtLocation(argument)
+
+        console.log("type: ", type)
 
         if (!argument || (allowArguments && argument.type === AST_NODE_TYPES.Identifier)) return
 

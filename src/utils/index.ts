@@ -137,7 +137,6 @@ export const isStringNode = <V extends string>(
   specifics?: V
 ): node is StringNode<V> =>
     isStringLiteral(node, specifics) || isTemplateLiteral(node, specifics)
-
 /**
  * Gets the value of the given `AccessorNode`,
  * account for the different node types.
