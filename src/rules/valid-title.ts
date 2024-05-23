@@ -4,6 +4,7 @@ import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { DescribeAlias, TestCaseName } from '../utils/types'
 import * as ts from 'typescript'
 import * as ts_utils from 'ts-api-utils'
+import { parsePluginSettings } from '../utils/parse-plugin-settings'
 
 export const RULE_NAME = 'valid-title'
 
@@ -75,6 +76,17 @@ function isFunctionType(type: ts.Type): boolean {
     || ts.isMethodDeclaration(declaration)
     || ts.isFunctionExpression(declaration)
     || ts.isArrowFunction(declaration)) ?? false
+}
+
+function isClassType(type: ts.Type): boolean {
+  const symbol = type.getSymbol()
+
+  if(!symbol) return false
+
+  return symbol.getDeclarations()?.some(declaration =>
+                                        ts.isClassDeclaration(declaration) ||
+                                        ts.isClassExpression(declaration)
+                                      ) ?? false
 }
 
 const compileMatcherPatterns = (matchers:
@@ -176,9 +188,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     }
   ]) {
     const disallowedWordsRegexp = new RegExp(`\\b(${disallowedWords.join('|')})\\b`, 'iu')
-
     const mustNotMatchPatterns = compileMatcherPatterns(mustNotMatch ?? {})
     const mustMatchPatterns = compileMatcherPatterns(mustMatch ?? {})
+    const settings = parsePluginSettings(context.settings)
 
     return {
       CallExpression(node: TSESTree.CallExpression) {
@@ -188,11 +200,15 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         const [argument] = node.arguments
 
+        if(settings.typecheck){
+
         const services = ESLintUtils.getParserServices(context)
 
         const type = services.getTypeAtLocation(argument)
 
-        if(isFunctionType(type)) return
+        if(isFunctionType(type) || isClassType(type)) return
+
+        }
 
         if (!argument || (allowArguments && argument.type === AST_NODE_TYPES.Identifier)) return
 
