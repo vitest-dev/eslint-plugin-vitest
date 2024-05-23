@@ -1,12 +1,10 @@
 import rule, { RULE_NAME } from '../src/rules/valid-title'
 import { RuleTester } from '@typescript-eslint/rule-tester'
 
-console.log(`HERE: ${import.meta.dirname}`)
-
 export const ruleTester = new RuleTester({
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    tsconfigRootDir: `./fixture`,
+    tsconfigRootDir: `${import.meta.dirname}/fixture`,
     project: `./tsconfig.json`
   }
 })

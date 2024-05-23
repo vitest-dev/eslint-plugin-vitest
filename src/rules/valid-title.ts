@@ -63,6 +63,20 @@ const compileMatcherPattern = (matcherMaybeWithMessage: MatcherAndMessage | stri
   return [new RegExp(matcher, 'u'), message]
 }
 
+function isFunctionType(type: ts.Type): boolean {
+  const symbol = type.getSymbol()
+
+  if (!symbol) {
+    return false
+  }
+
+  return symbol.getDeclarations()?.some(declaration =>
+    ts.isFunctionDeclaration(declaration)
+    || ts.isMethodDeclaration(declaration)
+    || ts.isFunctionExpression(declaration)
+    || ts.isArrowFunction(declaration)) ?? false
+}
+
 const compileMatcherPatterns = (matchers:
   | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
   | MatcherAndMessage
@@ -178,7 +192,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         const type = services.getTypeAtLocation(argument)
 
-        console.log("type: ", type)
+        if(isFunctionType(type)) return
 
         if (!argument || (allowArguments && argument.type === AST_NODE_TYPES.Identifier)) return
 
