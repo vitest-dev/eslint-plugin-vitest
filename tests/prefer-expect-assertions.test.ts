@@ -11,6 +11,11 @@ ruleTester.run(RULE_NAME, rule, {
     'itHappensToStartWithIt("foo", function() {})',
     'testSomething("bar", function() {})',
     'it(async () => {expect.assertions(0);})',
+    `test("example-fail", async ({ expect }) => {
+    expect.assertions(1);
+    await expect(Promise.resolve(null)).resolves.toBeNull();
+  });
+    `,
     {
       code: `
    const expectNumbersToBeGreaterThan = (numbers, value) => {
@@ -131,7 +136,7 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: 'suggestAddingHasAssertions',
               output:
-     'it("it1", function() {expect.hasAssertions();var a = 2;})'
+                'it("it1", function() {expect.hasAssertions();var a = 2;})'
             },
             {
               messageId: 'suggestAddingAssertions',
