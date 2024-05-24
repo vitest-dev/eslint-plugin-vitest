@@ -30,7 +30,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       }
     ],
     messages: {
-      restrictedChain: 'use of `{{ matcher }}` is disallowed',
+      restrictedChain: 'use of {{ restriction }} is disallowed',
       restrictedChainWithMessage: '{{ message }}'
     }
   },

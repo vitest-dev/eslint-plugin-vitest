@@ -153,7 +153,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: `
        test('some test', async () => {
-      await expect(Promise.resolve(1)).resolves.toBe(1);
+           await expect(Promise.resolve(1)).resolves.toBe(1);
         });
      `,
       options: [{ resolves: 'Use `expect(await promise)` instead.' }],
@@ -164,8 +164,8 @@ ruleTester.run(RULE_NAME, rule, {
             message: 'Use `expect(await promise)` instead.',
             restriction: 'resolves'
           },
-          endColumn: 53,
-          column: 40
+          endColumn: 58,
+          column: 45
         }
       ]
     },

@@ -46,7 +46,7 @@ const DEPTH = 3
 
 const allPermutations: string[] = []
 
-const depths = maxDepth => Array.from({ length: maxDepth }, (_, i) => i)
+const depths = (maxDepth:number) => Array.from({ length: maxDepth }, (_, i) => i)
 
 data.forEach((q) => {
   q.names.forEach((name) => {
@@ -117,7 +117,7 @@ const extra_rules = ['xtest', 'xtest.each', 'xit', 'xit.each', 'fit', 'xdescribe
 
 const output = `export const ValidVitestFnCallChains = new Set([${allPermutations.concat(extra_rules).map(item => `'${item}'`)}])`
 
-const new_path = path.resolve(__dirname, '../src/utils/validVitestFnCallChains.ts')
+const new_path = path.resolve(__dirname, '../src/utils/valid-vitest-fn-call-chains.ts')
 
 try {
   fs.writeFileSync(new_path, output)

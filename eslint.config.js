@@ -16,8 +16,6 @@ export default [
   vitest.configs.recommended,
   vitest.configs.env,
   {
-    ignores: ['node_modules/*', 'dist/*', '**/*.md'],
-    files: ['**/*.ts', '**/*.js'],
     plugins: {
       vitest,
       '@stylistic': stylistic
@@ -34,5 +32,5 @@ export default [
     languageOptions: {
       parser
     }
-  }
+  },
 ]

@@ -175,14 +175,27 @@ describe('foo', () => {
 })
 ```
 
-Note: If you'd like to use a function or class names inside `describe`, `test` or `it` blocks you must enable type vitest's type checking.
+Note: If you'd like to use a function or class names inside `describe`, `test` or `it` blocks as a parameter, you must enable vitest's type checking.
 
-To enable typechecking for vistest add the following object to your config
+To enable typechecking for vistest make sure settings key is added in your configuration
 
 ```js
-settings: {
+import vitest from "eslint-plugin-vitest";
+
+export defualt [
+ {
+  files: ["tests/**"],
+  plugins: {
+     vitest
+  },
+  rules: {
+   ...vitest.configs.recommended.rules
+  },
+  settings: {
       vitest: {
         typecheck: true
-      }
-}
+    }
+   }
+ }
+]
 ```

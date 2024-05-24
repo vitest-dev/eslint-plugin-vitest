@@ -2,8 +2,7 @@ import { AST_NODE_TYPES, ESLintUtils, JSONSchema, TSESTree } from '@typescript-e
 import { createEslintRule, getStringValue, isStringNode, StringNode } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { DescribeAlias, TestCaseName } from '../utils/types'
-import * as ts from 'typescript'
-import * as ts_utils from 'ts-api-utils'
+import ts from 'typescript'
 import { parsePluginSettings } from '../utils/parse-plugin-settings'
 
 export const RULE_NAME = 'valid-title'
@@ -84,9 +83,8 @@ function isClassType(type: ts.Type): boolean {
   if(!symbol) return false
 
   return symbol.getDeclarations()?.some(declaration =>
-                                        ts.isClassDeclaration(declaration) ||
-                                        ts.isClassExpression(declaration)
-                                      ) ?? false
+      ts.isClassDeclaration(declaration)
+      || ts.isClassExpression(declaration)) ?? false
 }
 
 const compileMatcherPatterns = (matchers:
@@ -129,7 +127,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       recommended: 'strict'
     },
     messages: {
-      titleMustBeString: 'Test title must be a string, a function or a class name',
+      titleMustBeString: 'Test title must be a string, a function or class name',
       emptyTitle: '{{functionName}} should not have an empty title',
       duplicatePrefix: 'should not have duplicate prefix',
       accidentalSpace: 'should not have leading or trailing spaces',

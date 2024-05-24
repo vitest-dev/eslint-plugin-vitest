@@ -1,7 +1,5 @@
-// MIT License
-// Copyright (c) 2018 Jonathan Kim
-// Imported from https://github.com/jest-community/eslint-plugin-jest/blob/main/src/rules/utils/accessors.ts#L6
-
+// Mostly adopted from https://github.com/jest-community/eslint-plugin-jest/blob/main/src/rules/utils/accessors.ts
+// Initial license: https://github.com/jest-community/eslint-plugin-jest/blob/main/LICENSE
 import type { Rule } from 'eslint'
 import {
   TSESLint,
@@ -30,6 +28,7 @@ interface TemplateLiteral<Value extends string = string>
   extends TSESTree.TemplateLiteral {
   quasis: [TSESTree.TemplateElement & { value: { raw: Value, cooked: Value } }]
 }
+
 interface StringLiteral<Value extends string = string>
   extends TSESTree.StringLiteral {
   value: Value

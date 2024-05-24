@@ -3,7 +3,6 @@
 	"version": "0.5.4",
 	"license": "MIT",
 	"description": "Eslint plugin for vitest",
-	"type": "module",
 	"repository": "veritem/eslint-plugin-vitest",
 	"keywords": [
 		"eslint",
@@ -13,15 +12,16 @@
 		"vitest",
 		"eslint plugin"
 	],
-	"author": "Verite Mugabo Makuza <https://veritemugabo.com/>",
-	"main": "./dist/index.cjs",
+	"author": "Verite Mugabo <https://veritemugabo.com/>",
+	"type": "module",
+	"main": "./dist/index.mjs",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
-			"require": "./dist/index.cjs",
-			"default": "./dist/index.mjs",
-			"types": "./dist/index.d.ts"
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.cjs"
 		}
 	},
 	"files": [
@@ -54,7 +54,7 @@
 		"eslint": "^8.57.0",
 		"eslint-doc-generator": "^1.7.1",
 		"eslint-plugin-eslint-plugin": "^6.1.0",
-		"eslint-plugin-vitest": "0.5.3",
+		"eslint-plugin-vitest": "^0.5.4",
 		"eslint-remote-tester": "^3.0.1",
 		"eslint-remote-tester-repositories": "^1.0.1",
 		"ts-node": "^10.9.2",
@@ -63,23 +63,19 @@
 		"unbuild": "^2.0.0",
 		"vitest": "^1.6.0"
 	},
-	"engines": {
-		"node": "^18.0.0 || >= 20.0.0"
-	},
 	"peerDependencies": {
-		"eslint": "^8.57.0 || ^9.0.0",
+		"eslint": ">= 8.57.0",
 		"vitest": "*"
 	},
 	"peerDependenciesMeta": {
-		"@typescript-eslint/eslint-plugin": {
+		"vitest": {
 			"optional": true
 		},
-		"vitest": {
+		"typescript": {
 			"optional": true
 		}
 	},
 	"dependencies": {
-		"@typescript-eslint/utils": "^7.8.0",
-		"ts-api-utils": "^1.3.0"
+		"@typescript-eslint/utils": "^7.8.0"
 	}
 }
