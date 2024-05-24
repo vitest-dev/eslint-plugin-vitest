@@ -1,20 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "es5",
     "lib": ["esnext"],
     "module": "esnext",
     "moduleResolution": "Bundler",
-    "resolveJsonModule": true,
     "types": [
       "vitest/globals"
     ],
     "strict": true,
-    "strictNullChecks": true,
-    "esModuleInterop": true,
-    "skipDefaultLibCheck": true,
-    "skipLibCheck": true
-  },
+    "sourceMap": true
+ },
   "include": [
-    "src"
+    "src/**/*.ts"
   ]
 }
