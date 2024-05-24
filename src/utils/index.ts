@@ -124,9 +124,9 @@ const isStringLiteral = <V extends string>(
   node: TSESTree.Node,
   value?: V
 ): node is StringLiteral<V> =>
-    node.type === AST_NODE_TYPES.Literal
-    && typeof node.value === 'string'
-    && (value === undefined || node.value === value)
+  node.type === AST_NODE_TYPES.Literal
+  && typeof node.value === 'string'
+  && (value === undefined || node.value === value)
 
 /**
  * Checks if the given `node` is a {@link StringNode}.
@@ -135,7 +135,7 @@ export const isStringNode = <V extends string>(
   node: TSESTree.Node,
   specifics?: V
 ): node is StringNode<V> =>
-    isStringLiteral(node, specifics) || isTemplateLiteral(node, specifics)
+  isStringLiteral(node, specifics) || isTemplateLiteral(node, specifics)
 /**
  * Gets the value of the given `AccessorNode`,
  * account for the different node types.
@@ -143,9 +143,9 @@ export const isStringNode = <V extends string>(
 export const getAccessorValue = <S extends string = string>(
   accessor: AccessorNode<S>
 ): S =>
-    accessor.type === AST_NODE_TYPES.Identifier
-      ? accessor.name
-      : getStringValue(accessor)
+  accessor.type === AST_NODE_TYPES.Identifier
+    ? accessor.name
+    : getStringValue(accessor)
 
 /**
  * Gets the value of the given `StringNode`.

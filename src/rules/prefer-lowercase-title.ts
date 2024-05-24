@@ -63,13 +63,13 @@ export default createEslintRule<[
           ignore: {
             type: 'array',
             items: {
+              type: "string",
               enum: [
                 DescribeAlias.describe,
                 TestCaseName.test,
                 TestCaseName.it
               ]
-            },
-            additionalProperties: false
+            }
           },
           allowedPrefixes: {
             type: 'array',

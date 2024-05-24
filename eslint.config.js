@@ -16,7 +16,7 @@ export default [
   vitest.configs.recommended,
   vitest.configs.env,
   {
-    ignores: ['dist/**/*'],
+    ignores: ['dist/**/*', '**/*.md'],
     plugins: {
       vitest,
       '@stylistic': stylistic

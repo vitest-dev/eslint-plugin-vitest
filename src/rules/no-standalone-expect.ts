@@ -10,28 +10,28 @@ type Options = {
 }[]
 
 const getBlockType
-    = (statement: TSESTree.BlockStatement,
-      context: TSESLint.RuleContext<string, unknown[]>): 'function' | 'describe' | null => {
-      const func = statement.parent
+  = (statement: TSESTree.BlockStatement,
+    context: TSESLint.RuleContext<string, unknown[]>): 'function' | 'describe' | null => {
+    const func = statement.parent
 
-      if (!func)
-        throw new Error('Unexpected block statement. If you feel like this is a bug report https://github.com/veritem/eslint-plugin-vitest/issues/new')
+    if (!func)
+      throw new Error('Unexpected block statement. If you feel like this is a bug report https://github.com/veritem/eslint-plugin-vitest/issues/new')
 
-      if (func.type === AST_NODE_TYPES.FunctionDeclaration)
+    if (func.type === AST_NODE_TYPES.FunctionDeclaration)
+      return 'function'
+
+    if (isFunction(func) && func.parent) {
+      const expr = func.parent
+
+      if (expr.type === AST_NODE_TYPES.VariableDeclarator)
         return 'function'
 
-      if (isFunction(func) && func.parent) {
-        const expr = func.parent
-
-        if (expr.type === AST_NODE_TYPES.VariableDeclarator)
-          return 'function'
-
-        if (expr.type === AST_NODE_TYPES.CallExpression
-          && isTypeOfVitestFnCall(expr, context, ['describe']))
-          return 'describe'
-      }
-      return null
+      if (expr.type === AST_NODE_TYPES.CallExpression
+        && isTypeOfVitestFnCall(expr, context, ['describe']))
+        return 'describe'
     }
+    return null
+  }
 
 type BlockType = 'test' | 'function' | 'describe' | 'arrow' | 'template'
 
@@ -49,12 +49,14 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     schema: [
       {
         properties: {
-          additionalTestBlockFunctions: {
+          additionaltestblockfunctions: {
+            //@ts-ignore
             type: 'array',
-            items: { type: 'string' }
+            //@ts-ignore
+            items: { type: `string` }
           }
         },
-        additionalProperties: false
+        additionalproperties: false
       }
     ]
   },
@@ -72,8 +74,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         if (vitestFnCall?.type === 'expect') {
           if (vitestFnCall.head.node.parent?.type === AST_NODE_TYPES.MemberExpression
             && vitestFnCall.members.length === 1 && !['assertions', 'hasAssertions'].includes(
-            getAccessorValue(vitestFnCall.members[0])
-          ))
+              getAccessorValue(vitestFnCall.members[0])
+            ))
             return
 
           const parent = callStack[callStack.length - 1]
@@ -95,11 +97,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         if (
           (top === 'test'
-          && (isTypeOfVitestFnCall(node, context, ['test'])
-          || isCustomTestBlockFunction(node))
-          && node.callee.type !== AST_NODE_TYPES.MemberExpression)
+            && (isTypeOfVitestFnCall(node, context, ['test'])
+              || isCustomTestBlockFunction(node))
+            && node.callee.type !== AST_NODE_TYPES.MemberExpression)
           || (top === 'template'
-          && node.callee.type === AST_NODE_TYPES.TaggedTemplateExpression)
+            && node.callee.type === AST_NODE_TYPES.TaggedTemplateExpression)
         )
           callStack.pop()
       },

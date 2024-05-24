@@ -44,13 +44,13 @@ type Options = {
   allowArguments?: boolean
   disallowedWords?: string[]
   mustNotMatch?:
-    | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
-    | MatcherAndMessage
-    | string
+  | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
+  | MatcherAndMessage
+  | string
   mustMatch?:
-    | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
-    | MatcherAndMessage
-    | string
+  | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
+  | MatcherAndMessage
+  | string
 }[]
 
 type CompiledMatcherAndMessage = [matcher: RegExp, message?: string]
@@ -80,11 +80,11 @@ function isFunctionType(type: ts.Type): boolean {
 function isClassType(type: ts.Type): boolean {
   const symbol = type.getSymbol()
 
-  if(!symbol) return false
+  if (!symbol) return false
 
   return symbol.getDeclarations()?.some(declaration =>
-      ts.isClassDeclaration(declaration)
-      || ts.isClassExpression(declaration)) ?? false
+    ts.isClassDeclaration(declaration)
+    || ts.isClassExpression(declaration)) ?? false
 }
 
 const compileMatcherPatterns = (matchers:
@@ -162,7 +162,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               MatcherAndMessageSchema,
               {
                 type: 'object',
-                propertyNames: { enum: ['describe', 'test', 'it'] },
+                //@ts-ignore
+                propertyNames: { type: "string", enum: ['describe', 'test', 'it'] },
                 additionalProperties: {
                   oneOf: [{ type: 'string' }, MatcherAndMessageSchema]
                 }
@@ -198,13 +199,13 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         const [argument] = node.arguments
 
-        if(settings.typecheck){
+        if (settings.typecheck) {
 
-        const services = ESLintUtils.getParserServices(context)
+          const services = ESLintUtils.getParserServices(context)
 
-        const type = services.getTypeAtLocation(argument)
+          const type = services.getTypeAtLocation(argument)
 
-        if(isFunctionType(type) || isClassType(type)) return
+          if (isFunctionType(type) || isClassType(type)) return
 
         }
 

@@ -18,7 +18,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'problem',
     docs: {
       description: 'disallow importing from __mocks__ directory',
-      recommended: 'error'
+      recommended: 'strict'
     },
     messages: {
       noMocksImport: `Mocks should not be manually imported from a ${mocksDirName} directory. Instead use \`jest.mock\` and import from the original module path.`

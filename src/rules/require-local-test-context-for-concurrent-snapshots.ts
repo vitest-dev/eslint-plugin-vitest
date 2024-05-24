@@ -30,6 +30,7 @@ export default createEslintRule({
           'toMatchFileSnapshot',
           'toThrowErrorMatchingSnapshot',
           'toThrowErrorMatchingInlineSnapshot'
+          //@ts-ignore
         ].includes(node.callee?.property.name)
 
         if (isNotASnapshotAssertion) return
