@@ -18,7 +18,7 @@ This rule has an object option:
 {
   "vitest/valid-title": [
 	"error",
-   { 
+   {
     "ignoreTypeOfDescribeName": false,
     "allowArguments": false,
     "disallowedWords": ["skip", "only"],
@@ -154,9 +154,9 @@ describe('foo', () => {
 Examples of **incorrect** code for this rule with the `{ "mustMatch": { "it": ["^should .+\.$"] } }` option:
 
 ```js
-// The describe title is checked with the default regex, so it's valid 
+// The describe title is checked with the default regex, so it's valid
 describe('foo', () => {
-  // This check fails because the title does not match the regex  
+  // This check fails because the title does not match the regex
   it('Should be a number', () => {
     expect(1).toBeNumber()
   })
@@ -168,9 +168,34 @@ Examples of **correct** code for this rule with the `{ "mustMatch": { "describe"
 ```js
 // The describe title is checked with the default regex, so it's valid
 describe('foo', () => {
-  // This check succeeds because the title matches the regex  
+  // This check succeeds because the title matches the regex
   it('should be a number.', () => {
     expect(1).toBeNumber()
   })
 })
+```
+
+Note: If you'd like to use a function or class names inside `describe`, `test` or `it` blocks as a parameter, you must enable vitest's type checking.
+
+To enable typechecking for vistest make sure settings key is added in your configuration
+
+```js
+import vitest from "eslint-plugin-vitest";
+
+export defualt [
+ {
+  files: ["tests/**"],
+  plugins: {
+     vitest
+  },
+  rules: {
+   ...vitest.configs.recommended.rules
+  },
+  settings: {
+      vitest: {
+        typecheck: true
+    }
+   }
+ }
+]
 ```

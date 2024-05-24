@@ -1,15 +1,11 @@
 {
-	"extends": [
-		"@veritem"
-	],
+	"extends": [ "@veritem" ],
 	"rules": {
-		"indent": [
-			0,
-			"tab"
-		],
+		"indent": [ 0, "tab" ],
 		"no-case-declarations": 0,
 		"no-tabs": "off",
 		"no-mixed-spaces-and-tabs": "off",
 		"vitest/unbound-method": "off"
 	}
 }
+

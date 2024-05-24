@@ -1,7 +1,9 @@
-import { AST_NODE_TYPES, JSONSchema, TSESTree } from '@typescript-eslint/utils'
+import { AST_NODE_TYPES, ESLintUtils, JSONSchema, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getStringValue, isStringNode, StringNode } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { DescribeAlias, TestCaseName } from '../utils/types'
+import ts from 'typescript'
+import { parsePluginSettings } from '../utils/parse-plugin-settings'
 
 export const RULE_NAME = 'valid-title'
 
@@ -61,6 +63,30 @@ const compileMatcherPattern = (matcherMaybeWithMessage: MatcherAndMessage | stri
   return [new RegExp(matcher, 'u'), message]
 }
 
+function isFunctionType(type: ts.Type): boolean {
+  const symbol = type.getSymbol()
+
+  if (!symbol) {
+    return false
+  }
+
+  return symbol.getDeclarations()?.some(declaration =>
+    ts.isFunctionDeclaration(declaration)
+    || ts.isMethodDeclaration(declaration)
+    || ts.isFunctionExpression(declaration)
+    || ts.isArrowFunction(declaration)) ?? false
+}
+
+function isClassType(type: ts.Type): boolean {
+  const symbol = type.getSymbol()
+
+  if(!symbol) return false
+
+  return symbol.getDeclarations()?.some(declaration =>
+      ts.isClassDeclaration(declaration)
+      || ts.isClassExpression(declaration)) ?? false
+}
+
 const compileMatcherPatterns = (matchers:
   | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
   | MatcherAndMessage
@@ -101,7 +127,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       recommended: 'strict'
     },
     messages: {
-      titleMustBeString: 'Test title must be a string',
+      titleMustBeString: 'Test title must be a string, a function or class name',
       emptyTitle: '{{functionName}} should not have an empty title',
       duplicatePrefix: 'should not have duplicate prefix',
       accidentalSpace: 'should not have leading or trailing spaces',
@@ -160,17 +186,27 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     }
   ]) {
     const disallowedWordsRegexp = new RegExp(`\\b(${disallowedWords.join('|')})\\b`, 'iu')
-
     const mustNotMatchPatterns = compileMatcherPatterns(mustNotMatch ?? {})
     const mustMatchPatterns = compileMatcherPatterns(mustMatch ?? {})
+    const settings = parsePluginSettings(context.settings)
 
     return {
       CallExpression(node: TSESTree.CallExpression) {
         const vitestFnCall = parseVitestFnCall(node, context)
 
-        if (vitestFnCall?.type !== 'describe' && vitestFnCall?.type !== 'test') return
+        if (vitestFnCall?.type !== 'describe' && vitestFnCall?.type !== 'test' && vitestFnCall?.type !== 'it') return
 
         const [argument] = node.arguments
+
+        if(settings.typecheck){
+
+        const services = ESLintUtils.getParserServices(context)
+
+        const type = services.getTypeAtLocation(argument)
+
+        if(isFunctionType(type) || isClassType(type)) return
+
+        }
 
         if (!argument || (allowArguments && argument.type === AST_NODE_TYPES.Identifier)) return
 

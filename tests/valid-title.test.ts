@@ -1,9 +1,17 @@
 import rule, { RULE_NAME } from '../src/rules/valid-title'
-import { ruleTester } from './ruleTester'
+import { RuleTester } from '@typescript-eslint/rule-tester'
+
+export const ruleTester = new RuleTester({
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    tsconfigRootDir: `${import.meta.dirname}/fixture`,
+    project: `./tsconfig.json`
+  }
+})
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
-    'describe("the correct way to properly handle all the things", () => {});',
+   'describe("the correct way to properly handle all the things", () => {});',
     'test("that all is as it should be", () => {});',
     {
       code: 'it("correctly sets the value", () => {});',
@@ -17,10 +25,32 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: 'it("correctly sets the value", () => {});',
       options: [{ disallowedWords: undefined }]
+    },
+    {
+      code: `
+      function foo(){}
+      describe(foo, () => {
+        test('item', () => {
+          expect(0).toBe(0)
+        })
+      })
+     `,
+     settings: { vitest: { typecheck: true } }
+    },
+    {
+      code: `
+      class foo{}
+      describe(foo, () => {
+        test('item', () => {
+          expect(0).toBe(0)
+        })
+      })
+      `,
+      settings: { vitest: { typecheck: true } }
     }
   ],
   invalid: [
-    {
+   {
       code: 'test("the correct way to properly handle all things", () => {});',
       options: [{ disallowedWords: ['correct', 'properly', 'all'] }],
       errors: [
@@ -94,6 +124,7 @@ ruleTester.run(RULE_NAME, rule, {
     }
   ]
 })
+
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
@@ -173,7 +204,7 @@ ruleTester.run(RULE_NAME, rule, {
        expect(true).toBe(true);
         });
       });
-     
+
       describe('e2e tests #e2e', () => {
         it('is another test #jest4life', () => {});
       });
@@ -190,7 +221,7 @@ ruleTester.run(RULE_NAME, rule, {
        expect(true).toBe(true);
         });
       });
-     
+
       describe('e2e tests #e4e', () => {
         it('is another test #e2e #vitest4life', () => {});
       });
@@ -229,7 +260,7 @@ ruleTester.run(RULE_NAME, rule, {
        expect(true).toBe(true);
         });
       });
-     
+
       describe('e2e tests #e4e', () => {
         it('is another test #e2e #vitest4life', () => {});
       });
@@ -311,11 +342,9 @@ ruleTester.run(RULE_NAME, rule, {
     'it(1 + " + " + 1, () => {});',
     'test("is a string", () => {});',
     'xtest("is a string", () => {});',
-
     'xtest(`${myFunc} is a string`, () => {});',
     'describe("is a string", () => {});',
     'describe.skip("is a string", () => {});',
-
     'describe.skip(`${myFunc} is a string`, () => {});',
     'fdescribe("is a string", () => {});',
     {
@@ -405,9 +434,7 @@ ruleTester.run(RULE_NAME, rule, {
     'test.concurrent("foo", function () {})',
     'test(`foo`, function () {})',
     'test.concurrent(`foo`, function () {})',
-
     'test(`${foo}`, function () {})',
-
     'test.concurrent(`${foo}`, function () {})',
     'it(\'foo\', function () {})',
     'it.each([])()',
