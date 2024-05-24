@@ -44,7 +44,7 @@
 		"@stylistic/eslint-plugin": "^2.1.0",
 		"@types/eslint": "^8.56.10",
 		"@types/mocha": "^10.0.6",
-		"@types/node": "^20.12.11",
+		"@types/node": "^20.12.12",
 		"@typescript-eslint/eslint-plugin": "^7.8.0",
 		"@typescript-eslint/parser": "^7.8.0",
 		"@typescript-eslint/rule-tester": "^7.8.0",
@@ -65,8 +65,8 @@
 	},
 	"peerDependencies": {
 		"eslint": ">= 8.57.0",
-		"vitest": "*",
-		"typescript": ">= 5.0.0"
+		"typescript": ">= 5.0.0",
+		"vitest": "*"
 	},
 	"peerDependenciesMeta": {
 		"vitest": {
