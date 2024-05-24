@@ -65,7 +65,8 @@
 	},
 	"peerDependencies": {
 		"eslint": ">= 8.57.0",
-		"vitest": "*"
+		"vitest": "*",
+		"typescript": ">= 5.0.0"
 	},
 	"peerDependenciesMeta": {
 		"vitest": {

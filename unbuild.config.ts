@@ -9,5 +9,6 @@ export default defineBuildConfig({
     esbuild: {
       minify: true
     }
-  }
+  },
+  peerDependencies: ["typescript"]
 })
