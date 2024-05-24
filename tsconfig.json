@@ -3,14 +3,13 @@
     "target": "es5",
     "lib": ["esnext"],
     "module": "esnext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "bundler",
     "types": [
       "vitest/globals"
     ],
     "strict": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "skipLibCheck": true,
  },
-  "include": [
-    "src/**/*.ts"
-  ]
+  "include": ["src/**/*.ts"],
 }

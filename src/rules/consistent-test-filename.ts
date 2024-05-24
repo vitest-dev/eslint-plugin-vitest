@@ -7,13 +7,13 @@ const defaultPattern = /.*\.test\.[tj]sx?$/
 const defaultTestsPattern = /.*\.(test|spec)\.[tj]sx?$/
 
 export default createEslintRule<
-    [
-      Partial<{
-        pattern: string
-        allTestPattern: string
-      }>
-    ],
-    'consistentTestFilename'
+  [
+    Partial<{
+      pattern: string
+      allTestPattern: string
+    }>
+  ],
+  'consistentTestFilename'
 >({
   name: RULE_NAME,
   meta: {
@@ -32,10 +32,12 @@ export default createEslintRule<
         additionalProperties: false,
         properties: {
           pattern: {
+            //@ts-ignore
             format: 'regex',
             default: defaultPattern.source
           },
           allTestPattern: {
+            //@ts-ignore
             format: 'regex',
             default: defaultTestsPattern.source
           }

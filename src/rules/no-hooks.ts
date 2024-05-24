@@ -7,8 +7,8 @@ export type MESSAGE_ID = 'unexpectedHook'
 export type Options = []
 
 export default createEslintRule<
-    [Partial<{ allow: readonly HookName[] }>],
-    MESSAGE_ID
+  [Partial<{ allow: readonly HookName[] }>],
+  MESSAGE_ID
 >({
   name: RULE_NAME,
   meta: {
@@ -22,6 +22,7 @@ export default createEslintRule<
       properties: {
         allow: {
           type: 'array',
+          //@ts-ignore
           contains: ['beforeAll', 'beforeEach', 'afterAll', 'afterEach']
         }
       },

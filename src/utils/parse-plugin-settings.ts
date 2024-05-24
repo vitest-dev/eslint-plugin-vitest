@@ -1,4 +1,4 @@
-import type { SharedConfigurationSettings } from '@typescript-eslint/utils/dist/ts-eslint'
+import type { SharedConfigurationSettings } from '@typescript-eslint/utils/ts-eslint'
 
 interface PluginSettings {
   typecheck: boolean
