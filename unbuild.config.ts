@@ -10,5 +10,4 @@ export default defineBuildConfig({
       minify: true
     }
   },
-  peerDependencies: ["typescript"]
 })
