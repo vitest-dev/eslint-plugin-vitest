@@ -38,9 +38,9 @@ const isFirstStatement = (node: TSESTree.CallExpression): boolean => {
 const suggestRemovingExtraArguments = (context: TSESLint.RuleContext<string, unknown[]>,
   func: TSESTree.CallExpression,
   from: number): TSESLint.ReportSuggestionArray<MessageIds>[0] => ({
-  messageId: 'suggestRemovingExtraArguments',
-  fix: fixer => removeExtraArgumentsFixer(fixer, context, func, from)
-})
+    messageId: 'suggestRemovingExtraArguments',
+    fix: fixer => removeExtraArgumentsFixer(fixer, context, func, from)
+  })
 
 export default createEslintRule<Options[], MessageIds>({
   name: 'prefer-expect-assertions',
@@ -51,15 +51,15 @@ export default createEslintRule<Options[], MessageIds>({
     },
     messages: {
       hasAssertionsTakesNoArguments:
-    '`expect.hasAssertions` expects no arguments',
+        '`expect.hasAssertions` expects no arguments',
       assertionsRequiresOneArgument:
-    '`expect.assertions` excepts a single argument of type number',
+        '`expect.assertions` excepts a single argument of type number',
       assertionsRequiresNumberArgument: 'This argument should be a number',
       haveExpectAssertions:
-    'Every test should have either `expect.assertions(<number of assertions>)` or `expect.hasAssertions()` as its first expression',
+        'Every test should have either `expect.assertions(<number of assertions>)` or `expect.hasAssertions()` as its first expression',
       suggestAddingHasAssertions: 'Add `expect.hasAssertions()`',
       suggestAddingAssertions:
-    'Add `expect.assertions(<number of assertions>)`',
+        'Add `expect.assertions(<number of assertions>)`',
       suggestRemovingExtraArguments: 'Remove extra arguments'
     },
     type: 'suggestion',
@@ -201,6 +201,12 @@ export default createEslintRule<Options[], MessageIds>({
           return
 
         const [, secondArg] = node.arguments
+
+        if (secondArg?.type === AST_NODE_TYPES.ArrowFunctionExpression && secondArg.params.length) {
+          if (secondArg?.params[0].type === AST_NODE_TYPES.ObjectPattern) {
+            if (secondArg.params[0].properties[0].type === AST_NODE_TYPES.Property && secondArg.params[0].properties[0].key.type === AST_NODE_TYPES.Identifier && secondArg.params[0].properties[0].key.name === "expect") return
+          }
+        }
 
         if (!isFunction(secondArg) || !shouldCheckFunction(secondArg))
           return
