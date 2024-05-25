@@ -2,6 +2,8 @@ import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { getFirstMatcherArg, ParsedExpectVitestFnCall } from './parse-vitest-fn-call'
 import { EqualityMatcher } from './types'
 import { getAccessorValue, isSupportedAccessor } from '.'
+import { basename, parse } from "node:path";
+import { fileURLToPath } from 'node:url';
 
 export const isBooleanLiteral = (node: TSESTree.Node): node is TSESTree.BooleanLiteral =>
   node.type === AST_NODE_TYPES.Literal && typeof node.value === 'boolean'
@@ -35,7 +37,7 @@ export const isInstanceOfBinaryExpression = (
   && isSupportedAccessor(node.right, className)
 
 export interface CallExpressionWithSingleArgument<
-    Argument extends TSESTree.CallExpression['arguments'][number] = TSESTree.CallExpression['arguments'][number]
+  Argument extends TSESTree.CallExpression['arguments'][number] = TSESTree.CallExpression['arguments'][number]
 > extends TSESTree.CallExpression {
   arguments: [Argument]
 }
@@ -43,3 +45,8 @@ export interface CallExpressionWithSingleArgument<
 export const hasOnlyOneArgument = (
   call: TSESTree.CallExpression
 ): call is CallExpressionWithSingleArgument => call.arguments.length === 1
+
+
+export function get_filename(url: string) {
+  return parse(basename(fileURLToPath(url))).name
+}
