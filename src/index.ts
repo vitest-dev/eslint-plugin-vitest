@@ -215,8 +215,8 @@ const plugin = {
     [paddingAroundTestBlocksName]: paddingAroundTestBlocks
   },
   configs: {
-    // 'legacy-recommended': createConfigLegacy(recommended),
-    // 'legacy-all': createConfigLegacy(allRules),
+    'legacy-recommended': createConfigLegacy(recommended),
+    'legacy-all': createConfigLegacy(allRules),
     'recommended': {
       plugins: {
         get vitest(): ESLint.Plugin {
