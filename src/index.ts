@@ -52,6 +52,14 @@ import preferSpyOn, { RULE_NAME as preferSpyOnName } from './rules/prefer-spy-on
 import preferComparisonMatcher, { RULE_NAME as preferComparisonMatcherName } from './rules/prefer-comparison-matcher'
 import preferToContain, { RULE_NAME as preferToContainName } from './rules/prefer-to-contain'
 import preferExpectAssertions, { RULE_NAME as preferExpectAssertionsName } from './rules/prefer-expect-assertions'
+import paddingAroundAfterAllBlocks, { RULE_NAME as paddingAroundAfterAllBlocksName } from "./rules/padding-around-after-all-blocks"
+import paddingAroundAfterEachBlocks, { RULE_NAME as paddingAroundAfterEachBlocksName } from "./rules/padding-around-after-each-blocks"
+import paddingAroundAll, { RULE_NAME as paddingAroundAllName } from "./rules/padding-around-all"
+import paddingAroundBeforeAllBlocks, { RULE_NAME as paddingAroundBeforeAllBlocksName } from "./rules/padding-around-before-all-blocks"
+import paddingAroundBeforeEachBlocks, { RULE_NAME as paddingAroundBeforeEachBlocksName } from "./rules/padding-around-before-each-blocks"
+import paddingAroundDescribeBlocks, { RULE_NAME as paddingAroundDescribeBlocksName } from "./rules/padding-around-describe-blocks"
+import paddingAroundExpectGroups, { RULE_NAME as paddingAroundExpectGroupsName } from "./rules/padding-around-expect-groups"
+import paddingAroundTestBlocks, { RULE_NAME as paddingAroundTestBlocksName } from "./rules/padding-around-test-blocks"
 
 const createConfig = <R extends Linter.RulesRecord>(rules: R) => (
   Object.keys(rules).reduce((acc, ruleName) => {
@@ -117,7 +125,15 @@ const allRules = {
   [preferComparisonMatcherName]: 'warn',
   [preferToContainName]: 'warn',
   [preferExpectAssertionsName]: 'warn',
-  [usePreferTobe]: 'warn'
+  [usePreferTobe]: 'warn',
+  [paddingAroundAfterAllBlocksName]: 'warn',
+  [paddingAroundAfterEachBlocksName]: 'warn',
+  [paddingAroundAllName]: 'warn',
+  [paddingAroundBeforeAllBlocksName]: 'warn',
+  [paddingAroundBeforeEachBlocksName]: 'warn',
+  [paddingAroundDescribeBlocksName]: 'warn',
+  [paddingAroundExpectGroupsName]: 'warn',
+  [paddingAroundTestBlocksName]: 'warn'
 } as const
 
 const recommended = {
@@ -188,7 +204,15 @@ const plugin = {
     [preferSpyOnName]: preferSpyOn,
     [preferComparisonMatcherName]: preferComparisonMatcher,
     [preferToContainName]: preferToContain,
-    [preferExpectAssertionsName]: preferExpectAssertions
+    [preferExpectAssertionsName]: preferExpectAssertions,
+    [paddingAroundAfterAllBlocksName]: paddingAroundAfterAllBlocks,
+    [paddingAroundAfterEachBlocksName]: paddingAroundAfterEachBlocks,
+    [paddingAroundAllName]: paddingAroundAll,
+    [paddingAroundBeforeAllBlocksName]: paddingAroundBeforeAllBlocks,
+    [paddingAroundBeforeEachBlocksName]: paddingAroundBeforeEachBlocks,
+    [paddingAroundDescribeBlocksName]: paddingAroundDescribeBlocks,
+    [paddingAroundExpectGroupsName]: paddingAroundExpectGroups,
+    [paddingAroundTestBlocksName]: paddingAroundTestBlocks
   },
   configs: {
     'legacy-recommended': createConfigLegacy(recommended),
