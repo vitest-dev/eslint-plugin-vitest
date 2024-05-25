@@ -1,6 +1,6 @@
 {
 	"name": "eslint-plugin-vitest",
-	"version": "0.5.4",
+	"version": "0.6.0",
 	"license": "MIT",
 	"description": "Eslint plugin for vitest",
 	"repository": "veritem/eslint-plugin-vitest",
@@ -14,7 +14,7 @@
 	],
 	"author": "Verite Mugabo <https://veritemugabo.com/>",
 	"type": "module",
-        "main": "./dist/index.cjs",
+	"main": "./dist/index.cjs",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
 	"exports": {
