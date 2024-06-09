@@ -11,14 +11,8 @@ ruleTester.run(RULE_NAME, rule, {
     function myTest() {
       expect(1).toBe(1);
     }`,
-    `it("one", myTest);
-    function myTest() {
-      expect(1).toBe(1);
-    }`,
-    `
-         it("one", () => expect(1).toBe(1));
-         function myHelper() {}
-       `
+    `it("one", () => expect(1).toBe(1));
+       function myHelper() {}`
   ],
   invalid: [
     {

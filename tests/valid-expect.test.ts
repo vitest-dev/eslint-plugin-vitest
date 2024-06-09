@@ -18,7 +18,6 @@ ruleTester.run(RULE_NAME, rule, {
     'test("valid-expect", function () { return Promise.resolve(expect(Promise.resolve(2)).resolves.not.toBeDefined()); });',
     'test("valid-expect", function () { return Promise.resolve(expect(Promise.resolve(2)).rejects.not.toBeDefined()); });',
     'test("valid-expect", () => expect(Promise.resolve(2)).resolves.toBeDefined());',
-    'test("valid-expect", () => expect(Promise.resolve(2)).resolves.toBeDefined());',
     'test("valid-expect", () => expect(Promise.reject(2)).rejects.toBeDefined());',
     'test("valid-expect", () => expect(Promise.reject(2)).resolves.not.toBeDefined());',
     'test("valid-expect", () => expect(Promise.reject(2)).rejects.not.toBeDefined());',

@@ -5,7 +5,6 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     'expect(null).toBeNull();',
     'expect(null).not.toBeNull();',
-    'expect(null).toBe(1);',
     'expect(null).toBe(-1);',
     'expect(null).toBe(1);',
     'expect(obj).toStrictEqual([ x, 1 ]);',
