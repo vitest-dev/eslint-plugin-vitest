@@ -11,7 +11,6 @@ ruleTester.run(RULE_NAME, rule, {
     'describe.concurrent("something", () => { it("something", () => { expect(true).toBe(true) }) })',
     'describe.concurrent("something", () => { it("something", ({ expect }) => { expect(1).toMatchSnapshot() }) })',
     'describe.concurrent("something", () => { it("something", ({ expect }) => { expect(1).toMatchInlineSnapshot() }) })',
-    'describe("something", () => { it("something", (context) => { expect(1).toMatchInlineSnapshot() }) })',
     'describe("something", () => { it("something", (context) => { context.expect(1).toMatchInlineSnapshot() }) })',
     'describe("something", () => { it("something", (context) => { expect(1).toMatchInlineSnapshot() }) })',
     'it.concurrent("something", (context) => { context.expect(1).toMatchSnapshot() })'
