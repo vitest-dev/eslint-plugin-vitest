@@ -9,23 +9,24 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
         with:
-          version: 7.16.1
+          run_install: false
 
       - uses: actions/setup-node@v3
         with:
           node-version: 18.x
           cache: pnpm
 
-      - name: Install, Build & Link plugin
+      - name: Install, Build
         run: |
           pnpm install
           pnpm build
-          pnpm link .
-          pnpm link eslint-plugin-vitest
+
+      - name: Update ESLint to v9
+        run: pnpm i -D eslint@9
 
       - uses: AriPerkkio/eslint-remote-tester-run-action@v5
         with:

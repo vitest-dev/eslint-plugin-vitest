@@ -27,6 +27,7 @@
 	"files": [
 		"dist"
 	],
+  "packageManager": "pnpm@9.3.0",
 	"scripts": {
 		"build": "unbuild",
 		"lint:eslint-docs": "pnpm build && eslint-doc-generator --check",
@@ -56,7 +57,7 @@
 		"eslint-plugin-eslint-plugin": "^6.1.0",
 		"eslint-plugin-vitest": "^0.5.4",
 		"eslint-remote-tester": "^4.0.0",
-		"eslint-remote-tester-repositories": "^1.0.1",
+    "eslint-remote-tester-repositories": "^2.0.0",
 		"importx": "^0.3.5",
 		"tsx": "^4.10.5",
 		"typescript": "^5.4.5",
