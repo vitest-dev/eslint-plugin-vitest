@@ -27,6 +27,7 @@
 	"files": [
 		"dist"
 	],
+  "packageManager": "pnpm@9.3.0",
 	"scripts": {
 		"build": "unbuild",
 		"lint:eslint-docs": "pnpm build && eslint-doc-generator --check",
