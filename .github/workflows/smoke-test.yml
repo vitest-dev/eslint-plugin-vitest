@@ -20,12 +20,13 @@ jobs:
           node-version: 18.x
           cache: pnpm
 
-      - name: Install, Build & Link plugin
+      - name: Install, Build
         run: |
           pnpm install
           pnpm build
-          pnpm link .
-          pnpm link eslint-plugin-vitest
+
+      - name: Update ESLint to v9
+        run: pnpm i -D eslint@9
 
       - uses: AriPerkkio/eslint-remote-tester-run-action@v5
         with:
