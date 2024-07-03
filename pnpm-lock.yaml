@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@typescript-eslint/utils':
-        specifier: ^7.8.0
+        specifier: '>= 7.8'
         version: 7.10.0(eslint@8.57.0)(typescript@5.4.5)
     devDependencies:
       '@stylistic/eslint-plugin':
@@ -58,8 +58,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0(eslint@8.57.0)(importx@0.3.5)(jiti@1.21.0)
       eslint-remote-tester-repositories:
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^1.0.1
+        version: 1.0.1
       importx:
         specifier: ^0.3.5
         version: 0.3.5
@@ -1592,9 +1592,8 @@ packages:
       vitest:
         optional: true
 
-  eslint-remote-tester-repositories@2.0.0:
-    resolution: {integrity: sha512-BRMINT2nB6A7IJ08Kz4p7By9/Ru8D6yl4LAfjkDpFuKoX6Y25QEUyhgo8THh1GiTKWDP+RsYsGh2etmAP/v+lg==}
-    engines: {node: ^18.0.0 || >=20.0.0}
+  eslint-remote-tester-repositories@1.0.1:
+    resolution: {integrity: sha512-XL9PqGBDL4rORnQ74b/3tqbJUpMlPz9gzKSrmYFtakLBQ/ayBELB/HZvd6ZEl+mH0vBeSYtUH7E/rawBsf9Qzg==}
 
   eslint-remote-tester@4.0.0:
     resolution: {integrity: sha512-Lmb0I9tYMQNtNHN8tYTzk755PeDa/wToBJ1x8QuSBHdFl8+X4BcRRJMLlEdsyOe4urxbm/NeUKYo/Nw6gJxMgw==}
@@ -4011,7 +4010,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 7.10.0
       '@typescript-eslint/visitor-keys': 7.10.0
-      debug: 4.3.4
+      debug: 4.3.5
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.4
@@ -5055,7 +5054,7 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-remote-tester-repositories@2.0.0: {}
+  eslint-remote-tester-repositories@1.0.1: {}
 
   eslint-remote-tester@4.0.0(eslint@8.57.0)(importx@0.3.5)(jiti@1.21.0):
     dependencies:
@@ -5759,7 +5758,7 @@ snapshots:
 
   micromark@2.11.4:
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.5
       parse-entities: 2.0.0
     transitivePeerDependencies:
       - supports-color
