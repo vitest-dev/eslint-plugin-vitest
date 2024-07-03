@@ -79,5 +79,6 @@
 		"@typescript-eslint/utils": {
 			"optional": true
 		}
-	}
+	},
+	"packageManager": "pnpm@9.1.2"
 }
