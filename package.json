@@ -1,84 +1,91 @@
 {
-	"name": "eslint-plugin-vitest",
-	"version": "0.6.1",
-	"license": "MIT",
-	"description": "Eslint plugin for vitest",
-	"repository": "veritem/eslint-plugin-vitest",
-	"keywords": [
-		"eslint",
-		"eslintplugin",
-		"eslint-plugin",
-		"vitest eslint plugin",
-		"vitest",
-		"eslint plugin"
-	],
-	"author": "Verite Mugabo <https://veritemugabo.com/>",
-	"type": "module",
-	"main": "./dist/index.cjs",
-	"module": "./dist/index.mjs",
-	"types": "./dist/index.d.ts",
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.mjs",
-			"require": "./dist/index.cjs"
-		}
-	},
-	"files": [
-		"dist"
-	],
-	"scripts": {
-		"build": "unbuild",
-		"lint:eslint-docs": "pnpm build && eslint-doc-generator --check",
-		"lint:js": "eslint . --fix",
-		"lint": "concurrently --prefixColors auto \"pnpm:lint:*\"",
-		"release": "pnpm build && bumpp package.json --commit --push --tag && pnpm publish",
-		"stub": "unbuild --stub",
-		"test:ci": "vitest run",
-		"test": "vitest",
-		"generate": "tsx scripts/generate.ts",
-		"update:eslint-docs": "pnpm build && eslint-doc-generator",
-		"tsc": "tsc --noEmit"
-	},
-	"devDependencies": {
-		"@stylistic/eslint-plugin": "^2.1.0",
-		"@types/eslint": "^8.56.10",
-		"@types/mocha": "^10.0.6",
-		"@types/node": "^20.12.12",
-		"@typescript-eslint/eslint-plugin": "^7.8.0",
-		"@typescript-eslint/parser": "^7.8.0",
-		"@typescript-eslint/rule-tester": "^7.8.0",
-		"@veritem/eslint-config": "^0.0.11",
-		"bumpp": "^9.4.1",
-		"concurrently": "^8.2.2",
-		"eslint": "^8.57.0",
-		"eslint-doc-generator": "^1.7.1",
-		"eslint-plugin-eslint-plugin": "^6.1.0",
-		"eslint-plugin-vitest": "^0.5.4",
-		"eslint-remote-tester": "^4.0.0",
-		"eslint-remote-tester-repositories": "^1.0.1",
-		"importx": "^0.3.5",
-		"tsx": "^4.10.5",
-		"typescript": "^5.4.5",
-		"unbuild": "^2.0.0",
-		"vitest": "^1.6.0"
-	},
-	"peerDependencies": {
-		"eslint": ">= 8.57.0",
-		"typescript": ">= 5.0.0",
-		"vitest": "*",
-		"@typescript-eslint/utils": ">= 7.8"
-	},
-	"peerDependenciesMeta": {
-		"vitest": {
-			"optional": true
-		},
-		"typescript": {
-			"optional": true
-		},
-		"@typescript-eslint/utils": {
-			"optional": true
-		}
-	},
-	"packageManager": "pnpm@9.1.2"
+  "name": "eslint-plugin-vitest",
+  "version": "0.6.1",
+  "license": "MIT",
+  "description": "Eslint plugin for vitest",
+  "repository": "veritem/eslint-plugin-vitest",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin",
+    "vitest eslint plugin",
+    "vitest",
+    "eslint plugin"
+  ],
+  "author": "Verite Mugabo <https://veritemugabo.com/>",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "lint:eslint-docs": "pnpm build && eslint-doc-generator --check",
+    "lint:js": "eslint . --fix",
+    "lint": "concurrently --prefixColors auto \"pnpm:lint:*\"",
+    "release": "pnpm build && bumpp package.json --commit --push --tag && pnpm publish",
+    "stub": "unbuild --stub",
+    "test:ci": "vitest run",
+    "test": "vitest",
+    "generate": "tsx scripts/generate.ts",
+    "update:eslint-docs": "pnpm build && eslint-doc-generator",
+    "tsc": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@stylistic/eslint-plugin": "^2.1.0",
+    "@types/eslint": "^8.56.10",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.12.12",
+    "@typescript-eslint/eslint-plugin": "8.0.0-alpha.39",
+    "@typescript-eslint/parser": "8.0.0-alpha.39",
+    "@typescript-eslint/rule-tester": "8.0.0-alpha.39",
+    "@veritem/eslint-config": "^0.0.11",
+    "bumpp": "^9.4.1",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "eslint-doc-generator": "^1.7.1",
+    "eslint-plugin-eslint-plugin": "^6.1.0",
+    "eslint-plugin-vitest": "^0.5.4",
+    "eslint-remote-tester": "^4.0.0",
+    "eslint-remote-tester-repositories": "^1.0.1",
+    "importx": "^0.3.5",
+    "tsx": "^4.10.5",
+    "typescript": "^5.4.5",
+    "unbuild": "^2.0.0",
+    "vitest": "^1.6.0"
+  },
+  "peerDependencies": {
+    "eslint": ">= 8.57.0",
+    "typescript": ">= 5.0.0",
+    "vitest": "*",
+    "@typescript-eslint/utils": ">= 7.8 || 8.0.0-alpha.39"
+  },
+  "peerDependenciesMeta": {
+    "vitest": {
+      "optional": true
+    },
+    "typescript": {
+      "optional": true
+    },
+    "@typescript-eslint/utils": {
+      "optional": true
+    }
+  },
+  "packageManager": "pnpm@9.1.2",
+  "resolutions": {
+    "@typescript-eslint/eslint-plugin": "8.0.0-alpha.39",
+    "@typescript-eslint/parser": "8.0.0-alpha.39",
+    "@typescript-eslint/rule-tester": "8.0.0-alpha.39",
+    "@typescript-eslint/utils": "8.0.0-alpha.39",
+    "@typescript-eslint/visitor-keys": "8.0.0-alpha.39"
+  }
 }
