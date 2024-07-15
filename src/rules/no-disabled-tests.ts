@@ -18,8 +18,8 @@ export default createEslintRule<Options, MESSAGE_ID>({
       pending: 'Call to pending()',
       pendingSuite: 'Call to pending() within test suite',
       pendingTest: 'Call to pending() within test',
-      disabledSuite: 'Disabled test suite',
-      disabledTest: 'Disabled test'
+      disabledSuite: 'Disabled test suite. If you want to skip a test suite temporarily, use .todo() instead.',
+      disabledTest: 'Disabled test. If you want to skip a test temporarily, use .todo() instead.'
     },
     schema: []
   },
