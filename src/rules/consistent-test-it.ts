@@ -117,6 +117,8 @@ export default createEslintRule<
         }
       },
       CallExpression(node: TSESTree.CallExpression) {
+        if (node.callee.type === AST_NODE_TYPES.Identifier && node.callee.name === 'bench')
+          return
         const vitestFnCall = parseVitestFnCall(node, context)
 
         if (!vitestFnCall) return
