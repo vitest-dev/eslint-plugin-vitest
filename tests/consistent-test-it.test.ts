@@ -22,7 +22,13 @@ ruleTester.run(RULE_NAME, rule, {
   });
   function myTest() { if ('bar') {} }`,
       options: [{ fn: TestCaseName.it }]
-    }
+    },
+    {
+      code: `bench("foo", function () {
+        fibonacci(10);
+     })`,
+      options: [{ fn: TestCaseName.it }]
+    },
   ],
   invalid: [
     {
