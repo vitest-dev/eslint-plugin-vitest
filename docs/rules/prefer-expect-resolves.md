@@ -13,4 +13,3 @@ it('passes', async () => { expect(await someValue()).toBe(true); });
 // good 
 it('passes', async () => { await expect(someValue()).resolves.toBe(true); });
 ```
-```
