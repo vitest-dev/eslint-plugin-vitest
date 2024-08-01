@@ -203,7 +203,7 @@ ruleTester.run(RULE_NAME, rule, {
           await use()
           teardown()
         },
-        { auto: true } // Mark as an automatic fixture
+        { auto: true }
       ],
     })
     myTest("should pass this", ()=>{
@@ -355,7 +355,6 @@ ruleTester.run(RULE_NAME, rule, {
     // ...
    });
    `,
-      options: [{ assertFunctionNames: ['expect', 'foo'] }],
       parserOptions: { sourceType: 'module' },
       errors: [
         {
@@ -370,6 +369,33 @@ ruleTester.run(RULE_NAME, rule, {
     expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: number }>()
    });
    `,
+      errors: [
+        {
+          messageId: 'noAssertions',
+          type: AST_NODE_TYPES.Identifier
+        }
+      ]
+    },
+    {
+      code: `
+    import { it } from 'vitest';
+    const myExtendedTest = it.extend({
+      fixture: [
+        async ({}, use) => {
+          // this function will run
+          setup()
+          await use()
+          teardown()
+        },
+        { auto: true }
+      ],
+    })
+    myExtendedTest("should still fail when using the extended test", ()=> {
+      // ...
+    })
+      `,
+      options: [{ additionalTestBlockFunctions: ['myExtendedTest'] }], 
+      parserOptions: { sourceType: 'module' },
       errors: [
         {
           messageId: 'noAssertions',
