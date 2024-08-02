@@ -175,6 +175,45 @@ ruleTester.run(RULE_NAME, rule, {
    });
    `,
       settings: { vitest: { typecheck: true } }
+    },
+    {
+      code: `
+    it.extend({ 
+      theForce: async ({}, use) => { await use("Space Magic") },
+      luke: async ({first}, use) => { await use(theForce) } 
+    })
+    `,
+      name: "should allow it.extend"
+    },
+    {
+      code: `
+    async function theForce ({}, use) { await use("Space Magic") }
+    const luke = async ({first}, use) => { await use(theForce) }; 
+    const testOfStrength = it.extend({ theForce, luke });
+    `,
+      name: "should allow it.extend with extracted fixtures"
+    },
+    {
+      code: `
+    const myTest = base.extend({
+      fixture: [
+        async ({}, use) => {
+          // this function will run
+          setup()
+          await use()
+          teardown()
+        },
+        { auto: true }
+      ],
+    })
+    myTest("should pass this", ()=>{
+      expect(true).toBe(true);
+    })
+      `,
+      options: [{
+        "additionalTestBlockFunctions":[ "myTest"],
+        "assertFunctionNames": ["expect"]
+      }]
     }
   ],
   invalid: [
@@ -316,7 +355,6 @@ ruleTester.run(RULE_NAME, rule, {
     // ...
    });
    `,
-      options: [{ assertFunctionNames: ['expect', 'foo'] }],
       parserOptions: { sourceType: 'module' },
       errors: [
         {
@@ -331,6 +369,33 @@ ruleTester.run(RULE_NAME, rule, {
     expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: number }>()
    });
    `,
+      errors: [
+        {
+          messageId: 'noAssertions',
+          type: AST_NODE_TYPES.Identifier
+        }
+      ]
+    },
+    {
+      code: `
+    import { it } from 'vitest';
+    const myExtendedTest = it.extend({
+      fixture: [
+        async ({}, use) => {
+          // this function will run
+          setup()
+          await use()
+          teardown()
+        },
+        { auto: true }
+      ],
+    })
+    myExtendedTest("should still fail when using the extended test", ()=> {
+      // ...
+    })
+      `,
+      options: [{ additionalTestBlockFunctions: ['myExtendedTest'] }], 
+      parserOptions: { sourceType: 'module' },
       errors: [
         {
           messageId: 'noAssertions',

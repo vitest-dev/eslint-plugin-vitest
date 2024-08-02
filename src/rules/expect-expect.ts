@@ -90,6 +90,9 @@ export default createEslintRule<Options, MESSAGE_ID>({
         if (node.callee.type === AST_NODE_TYPES.Identifier && node.callee.name === 'bench')
           return
 
+        if (node?.callee?.type === AST_NODE_TYPES.MemberExpression && node.callee.property.type === AST_NODE_TYPES.Identifier && node.callee.property.name === 'extend')
+          return
+
         if (node?.callee?.type === AST_NODE_TYPES.MemberExpression && node.callee.property.type === AST_NODE_TYPES.Identifier && node.callee.property.name === 'skip')
           return
 
