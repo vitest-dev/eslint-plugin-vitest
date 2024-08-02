@@ -1,4 +1,3 @@
-
 import { get_filename } from '../utils/msc';
 import { PaddingType, StatementType, createPaddingRule } from '../utils/padding';
 

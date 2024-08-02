@@ -1,6 +1,6 @@
-import type { TSESLint } from '@typescript-eslint/utils';
 import rule from '../src/rules/padding-around-test-blocks';
 import { ruleTester } from './ruleTester';
+import { InvalidTestCase } from "@typescript-eslint/rule-tester"
 
 const testCase = {
   code: `
@@ -126,7 +126,7 @@ xit('bar foo', () => {});
       column: 1,
     },
   ],
-} satisfies TSESLint.InvalidTestCase<'missingPadding', never>;
+} satisfies InvalidTestCase<'missingPadding', never>;
 
 ruleTester.run('padding-around-test-blocks', rule, {
   valid: [testCase.output],

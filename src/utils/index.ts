@@ -11,9 +11,15 @@ import {
   KnownMemberExpression,
   ParsedExpectVitestFnCall
 } from './parse-vitest-fn-call'
+import { RuleRecommendation, RuleRecommendationAcrossConfigs } from '@typescript-eslint/utils/ts-eslint'
+
+interface EslintPluginDocs {
+  recommended?: RuleRecommendation | RuleRecommendationAcrossConfigs<unknown[]>
+  requiresTypeChecking?: boolean;
+}
 
 export function createEslintRule<TOptions extends readonly unknown[], TMessageIds extends string>(rule: Readonly<ESLintUtils.RuleWithMetaAndName<TOptions, TMessageIds>>) {
-  const createRule = ESLintUtils.RuleCreator(
+  const createRule = ESLintUtils.RuleCreator<EslintPluginDocs>(
     ruleName =>
       `https://github.com/veritem/eslint-plugin-vitest/blob/main/docs/rules/${ruleName}.md`
   )
