@@ -34,7 +34,7 @@ test('it', () => {
 
 ### Options
 
-This rule have a `fixable` option that is enabled by default; It tell this plugin to fix tests for you. If you don't want this rule to auto fix your tests, you can disable it in your `eslint.config.js` file using the following configuration.
+This rule has a `fixable` option that tells the plugin to automatically fix the tests for you. The option is enabled by default. You can disable it in your `eslint.config.js` file using the following configuration.
 
 ```ts
 import vitest from 'eslint-plugin-vitest'
