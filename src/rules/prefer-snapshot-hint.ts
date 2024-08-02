@@ -29,7 +29,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce including a hint with external snapshots',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       missingHint: 'You should provide a hint for this snapshot'

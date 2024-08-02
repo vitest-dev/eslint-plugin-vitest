@@ -38,7 +38,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     type: 'suggestion',
     docs: {
       description: 'enforce having expectation in test body',
-      recommended: 'strict'
+      recommended: false
     },
     schema: [
       {

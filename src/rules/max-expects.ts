@@ -15,7 +15,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
   meta: {
     docs: {
       requiresTypeChecking: false,
-      recommended: 'strict',
+      recommended: false,
       description: 'enforce a maximum number of expect per test'
     },
     messages: {

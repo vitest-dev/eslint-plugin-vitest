@@ -66,7 +66,7 @@ export default createEslintRule<[RuleOptions], MESSAGE_IDS>({
   meta: {
     docs: {
       description: 'disallow large snapshots',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       noSnapShot: '`{{ lineCount }}`s should begin with lowercase',

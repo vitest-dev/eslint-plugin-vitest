@@ -19,7 +19,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     docs: {
       description: 'disallow conditional expects',
       requiresTypeChecking: false,
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       noConditionalExpect: 'Avoid calling `expect` inside conditional statements'

@@ -12,7 +12,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce using `expect().resolves` over `expect(await ...)` syntax',
-      recommended: 'strict'
+      recommended: false
     },
     fixable: 'code',
     messages: {

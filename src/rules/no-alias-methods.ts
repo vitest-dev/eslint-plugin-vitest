@@ -11,7 +11,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     docs: {
       description: 'disallow alias methods',
       requiresTypeChecking: false,
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       noAliasMethods: 'Replace {{ alias }}() with its canonical name {{ canonical }}()'

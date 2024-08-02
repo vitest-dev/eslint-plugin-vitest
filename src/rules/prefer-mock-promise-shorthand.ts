@@ -27,7 +27,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce mock resolved/rejected shorthands for promises',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       useMockShorthand: 'Prefer {{ replacement }}'

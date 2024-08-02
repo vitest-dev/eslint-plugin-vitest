@@ -15,7 +15,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   meta: {
     docs: {
       description: 'enforce that all tests are in a top-level describe',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       tooManyDescribes:

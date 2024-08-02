@@ -14,7 +14,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce using the built-in quality matchers',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       useEqualityMatcher: 'Prefer using one of the equality matchers instead',

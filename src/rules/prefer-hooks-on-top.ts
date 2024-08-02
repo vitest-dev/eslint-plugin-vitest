@@ -11,7 +11,7 @@ export default createEslintRule<Options, MessageIds>({
     type: 'suggestion',
     docs: {
       description: 'enforce having hooks before any test cases',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       noHookOnTop: 'Hooks should come before test cases'

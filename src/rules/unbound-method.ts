@@ -54,7 +54,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     docs: {
       ...baseRule?.meta.docs,
       description: 'enforce unbound methods are called with their expected scope',
-      recommended: 'strict',
+      recommended: false,
       requiresTypeChecking: true
     }
   },

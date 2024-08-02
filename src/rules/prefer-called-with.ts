@@ -11,7 +11,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     docs: {
       description:
         'enforce using `toBeCalledWith()` or `toHaveBeenCalledWith()`',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       preferCalledWith: 'Prefer {{ matcherName }}With(/* expected args */)'

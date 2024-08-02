@@ -13,7 +13,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce using toHaveLength()',
-      recommended: 'strict'
+      recommended: false
     },
     fixable: 'code',
     messages: {

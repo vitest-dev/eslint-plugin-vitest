@@ -9,7 +9,7 @@ export default createEslintRule({
   meta: {
     docs: {
       description: 'require local Test Context for concurrent snapshot tests',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       requireLocalTestContext: 'Use local Test Context instead'

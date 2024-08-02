@@ -19,7 +19,7 @@ export default createEslintRule<
   meta: {
     type: 'problem',
     docs: {
-      recommended: 'strict',
+      recommended: false,
       requiresTypeChecking: false,
       description: 'require .spec test file pattern'
     },
