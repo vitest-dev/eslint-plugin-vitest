@@ -1,7 +1,7 @@
 import { Config, PaddingType, StatementType, createPaddingRule } from "../utils/padding";
-import { get_filename } from "../utils/msc";
+import { getFilename } from "../utils/msc";
 
-export const RULE_NAME = get_filename(import.meta.url)
+export const RULE_NAME = getFilename(import.meta.url)
 
 export const config: Config[] = [
   {

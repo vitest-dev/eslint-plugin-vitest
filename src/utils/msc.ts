@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
+import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { getFirstMatcherArg, ParsedExpectVitestFnCall } from './parse-vitest-fn-call'
 import { EqualityMatcher } from './types'
 import { getAccessorValue, isSupportedAccessor } from '.'
@@ -47,6 +47,10 @@ export const hasOnlyOneArgument = (
 ): call is CallExpressionWithSingleArgument => call.arguments.length === 1
 
 
-export function get_filename(url: string) {
+export function getFilename(url: string) {
   return parse(basename(fileURLToPath(url))).name
+}
+
+export const getSourceCode = (context: TSESLint.RuleContext<string, unknown[]>) => {
+  return context.sourceCode
 }

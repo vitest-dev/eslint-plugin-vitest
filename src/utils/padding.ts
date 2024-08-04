@@ -1,7 +1,4 @@
-//Imported from https://github.com/dangreenisrael/eslint-plugin-jest-formatting/blob/master/src/rules/padding.ts
-//Original license: https://github.com/dangreenisrael/eslint-plugin-jest-formatting/blob/master/LICENSE
-
-import { getSourceCode } from "@typescript-eslint/utils/eslint-utils"
+import { getSourceCode } from "./msc"
 import { createEslintRule } from "."
 import { AST_NODE_TYPES, AST_TOKEN_TYPES, TSESLint, TSESTree } from "@typescript-eslint/utils";
 import * as astUtils from "./ast-utils"
