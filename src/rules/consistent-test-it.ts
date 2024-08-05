@@ -7,20 +7,20 @@ export const RULE_NAME = 'consistent-test-it'
 export type MessageIds = 'consistentMethod' | 'consistentMethodWithinDescribe'
 
 const buildFixer
-    = (
-      callee: TSESTree.LeftHandSideExpression,
-      nodeName: string,
-      preferredTestKeyword: TestCaseName.test | TestCaseName.it
-    ) =>
-      (fixer: TSESLint.RuleFixer) =>
-        [
-          fixer.replaceText(
-            callee.type === AST_NODE_TYPES.MemberExpression
-              ? callee.object
-              : callee,
-            getPreferredNodeName(nodeName, preferredTestKeyword)
-          )
-        ]
+  = (
+    callee: TSESTree.Expression,
+    nodeName: string,
+    preferredTestKeyword: TestCaseName.test | TestCaseName.it
+  ) =>
+    (fixer: TSESLint.RuleFixer) =>
+      [
+        fixer.replaceText(
+          callee.type === AST_NODE_TYPES.MemberExpression
+            ? callee.object
+            : callee,
+          getPreferredNodeName(nodeName, preferredTestKeyword)
+        )
+      ]
 
 function getPreferredNodeName(
   nodeName: string,
@@ -42,13 +42,13 @@ function getOppositeTestKeyword(test: TestCaseName.test | TestCaseName.it) {
 }
 
 export default createEslintRule<
-    [
-      Partial<{
-        fn: TestCaseName.it | TestCaseName.test
-        withinDescribe: TestCaseName.it | TestCaseName.test
-      }>
-    ],
-    MessageIds
+  [
+    Partial<{
+      fn: TestCaseName.it | TestCaseName.test
+      withinDescribe: TestCaseName.it | TestCaseName.test
+    }>
+  ],
+  MessageIds
 >({
   name: RULE_NAME,
   meta: {
@@ -60,9 +60,9 @@ export default createEslintRule<
     },
     messages: {
       consistentMethod:
-                'Prefer using {{ testFnKeyWork }} instead of {{ oppositeTestKeyword }}',
+        'Prefer using {{ testFnKeyWork }} instead of {{ oppositeTestKeyword }}',
       consistentMethodWithinDescribe:
-                'Prefer using {{ testKeywordWithinDescribe }} instead of {{ oppositeTestKeyword }} within describe'
+        'Prefer using {{ testKeywordWithinDescribe }} instead of {{ oppositeTestKeyword }} within describe'
     },
     schema: [
       {

@@ -10,14 +10,21 @@ import {
   KnownMemberExpression,
   ParsedExpectVitestFnCall
 } from './parse-vitest-fn-call'
+import { Rule } from 'eslint'
 
 interface PluginDocs {
   recommended?: boolean,
   requiresTypeChecking?: boolean
 }
 
+export function createEslintRule<TOptions extends readonly unknown[], TMessageIds extends string>(rule: Readonly<ESLintUtils.RuleWithMetaAndName<TOptions, TMessageIds>>) {
+  const createRule = ESLintUtils.RuleCreator<PluginDocs>(
+    ruleName =>
+      `https://github.com/veritem/eslint-plugin-vitest/blob/main/docs/rules/${ruleName}.md`
+  )
 
-export const createEslintRule = ESLintUtils.RuleCreator<PluginDocs>(name => `https://github.com/veritem/eslint-plugin-vitest/blob/main/docs/rules/${name}.md`)
+  return createRule(rule) as unknown as Rule.RuleModule
+}
 
 export const joinNames = (a: string | null, b: string | null): string | null =>
   a && b ? `${a}.${b}` : null
