@@ -21,7 +21,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     type: 'problem',
     docs: {
       description: 'disallow identical titles',
-      recommended: 'strict'
+      recommended: false
     },
     fixable: 'code',
     schema: [],

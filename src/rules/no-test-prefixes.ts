@@ -11,7 +11,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   meta: {
     docs: {
       description: 'disallow using `test` as a prefix',
-      recommended: 'strict'
+      recommended: false
     },
     type: 'suggestion',
     messages: {

@@ -11,7 +11,7 @@ export default createEslintRule({
     type: 'suggestion',
     docs: {
       description: 'enforce using `each` rather than manual loops',
-      recommended: 'strict'
+      recommended: false
     },
     schema: [],
     messages: {

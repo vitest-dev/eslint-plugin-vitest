@@ -48,7 +48,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   meta: {
     docs: {
       description: 'require setup and teardown to be within a hook',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       useHook: 'This should be done within a hook'

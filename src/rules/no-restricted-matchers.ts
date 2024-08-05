@@ -18,7 +18,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   meta: {
     docs: {
       description: 'disallow the use of certain matchers',
-      recommended: 'strict'
+      recommended: false
     },
     type: 'suggestion',
     schema: [

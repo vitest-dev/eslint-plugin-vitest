@@ -13,7 +13,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce having hooks in consistent order',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       reorderHooks: '`{{ currentHook }}` hooks should be before any `{{ previousHook }}` hooks'

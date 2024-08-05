@@ -23,7 +23,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   meta: {
     docs: {
       description: 'enforce using toContain()',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       useToContain: 'Use toContain() instead'

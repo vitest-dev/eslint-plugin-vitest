@@ -40,7 +40,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   meta: {
     docs: {
       description: 'disallow using `expect` outside of `it` or `test` blocks',
-      recommended: 'strict'
+      recommended: false
     },
     type: 'suggestion',
     messages: {

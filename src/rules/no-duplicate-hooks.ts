@@ -9,7 +9,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   name: RULE_NAME,
   meta: {
     docs: {
-      recommended: 'strict',
+      recommended: false,
       description: 'disallow duplicate hooks and teardown hooks',
       requiresTypeChecking: false
     },

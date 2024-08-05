@@ -23,7 +23,7 @@ export default createEslintRule<Options, MessageIds>({
     type: 'problem',
     docs: {
       description: 'disallow focused tests',
-      recommended: 'strict'
+      recommended: false
     },
     fixable: 'code',
     schema: [

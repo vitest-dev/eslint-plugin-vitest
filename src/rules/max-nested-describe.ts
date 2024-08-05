@@ -16,7 +16,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     docs: {
       description:
                 'require describe block to be less than set max value or default value',
-      recommended: 'strict'
+      recommended: false
     },
     schema: [
       {

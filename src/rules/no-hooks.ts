@@ -15,7 +15,7 @@ export default createEslintRule<
     type: 'suggestion',
     docs: {
       description: 'disallow setup and teardown hooks',
-      recommended: 'strict'
+      recommended: false
     },
     schema: [{
       type: 'object',

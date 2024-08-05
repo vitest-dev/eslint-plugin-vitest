@@ -84,7 +84,7 @@ export default createEslintRule<[], MessageId>({
     type: 'suggestion',
     docs: {
       description: 'enforce using toBe()',
-      recommended: 'strict'
+      recommended: false
     },
     schema: [],
     fixable: 'code',
