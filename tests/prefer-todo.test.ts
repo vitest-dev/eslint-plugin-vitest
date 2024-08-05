@@ -30,7 +30,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'test("i need to write this test",);',
       output: 'test.todo("i need to write this test",);',
 <<<<<<< HEAD
-      parserOptions: {  languageOptions: { parserOptions: { ecmaVersion: 2017 } } },
+      languageOptions: { parserOptions: { ecmaVersion: 2017 } },
 =======
       languageOptions: { languageOptions: { parserOptions: { ecmaVersion: 2017 } } },
 >>>>>>> 18602a719a4879119c1e24a5700c3f783e2078fd

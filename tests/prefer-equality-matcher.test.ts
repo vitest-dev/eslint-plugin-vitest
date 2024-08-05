@@ -44,7 +44,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'expect(a === b,).toBe(true,);',
-      parserOptions: {  languageOptions: { parserOptions: { ecmaVersion: 2017 } } },
+      languageOptions: { parserOptions: { ecmaVersion: 2017 } },
       errors: [
         {
           messageId: 'useEqualityMatcher',

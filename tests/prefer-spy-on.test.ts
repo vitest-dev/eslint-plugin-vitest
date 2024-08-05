@@ -71,7 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: 'obj.a = vi.fn(() => 10,)',
       output: 'vi.spyOn(obj, \'a\').mockImplementation(() => 10)',
-      parserOptions: {  languageOptions: { parserOptions: { ecmaVersion: 2017 } } },
+      languageOptions: { parserOptions: { ecmaVersion: 2017 } },
       errors: [
         {
           messageId: 'useViSpayOn',
