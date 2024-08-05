@@ -5,20 +5,19 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     'describe()',
     'describe("just a title")',
-  `describe('a test', () =>
+    `describe('a test', () =>
 test('something', () => {
         expect(true).toBe(true);
 }));`,
-  {
-    code: `
+    {
+      code: `
 import { myFn } from '../functions';
 test('myFn', () => {
 expect(myFn()).toBe(1);
 });
 `,
-    parserOptions: { sourceType: 'module' }
-  },
-  `
+    },
+    `
 class MockLogger {
   log() {}
      }
@@ -27,7 +26,7 @@ class MockLogger {
        expect(myFn()).toBe(1);
      });
       `,
-  `
+    `
      const { myFn } = require('../functions');
      
      describe('myFn', () => {
@@ -36,14 +35,14 @@ class MockLogger {
        });
      });
       `,
-  `
+    `
      describe('some tests', () => {
        it('is true', () => {
       expect(true).toBe(true);
        });
      });
       `,
-  `
+    `
      describe('some tests', () => {
        it('is true', () => {
       expect(true).toBe(true);
@@ -56,7 +55,7 @@ class MockLogger {
        });
      });
       `,
-  `
+    `
      describe('some tests', () => {
        let consoleLogSpy;
      
@@ -71,28 +70,28 @@ class MockLogger {
        });
      });
       `,
-  `
+    `
      let consoleErrorSpy = null; 
      
      beforeEach(() => {
        consoleErrorSpy = vi.spyOn(console, 'error');
      });
       `,
-  `
+    `
      let consoleErrorSpy = undefined; 
      
      beforeEach(() => {
        consoleErrorSpy = vi.spyOn(console, 'error');
      });
       `,
-  `
+    `
      describe('some tests', () => {
        beforeEach(() => {
       setup();
        });
      });
       `,
-  `
+    `
      beforeEach(() => {
        initializeCityDatabase();
      });
@@ -109,7 +108,7 @@ class MockLogger {
        expect(isCity('San Juan')).toBeTruthy();
      });
       `,
-  `
+    `
      describe('cities', () => {
        beforeEach(() => {
       initializeCityDatabase();
@@ -128,8 +127,8 @@ class MockLogger {
        });
      });
       `,
-  {
-    code: `
+    {
+      code: `
        enableAutoDestroy(afterEach);
        
        describe('some tests', () => {
@@ -138,8 +137,8 @@ class MockLogger {
       });
        });
      `,
-    options: [{ allowedFunctionCalls: ['enableAutoDestroy'] }]
-  }
+      options: [{ allowedFunctionCalls: ['enableAutoDestroy'] }]
+    }
   ],
   invalid: [
     {
@@ -338,7 +337,7 @@ class MockLogger {
      
        clearCityDatabase();
      `,
-      parserOptions: { sourceType: 'module' },
+      languageOptions: { parserOptions: { sourceType: 'module' } },
       errors: [
         {
           messageId: 'useHook',

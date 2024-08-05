@@ -29,7 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: 'test("i need to write this test",);',
       output: 'test.todo("i need to write this test",);',
-      parserOptions: { ecmaVersion: 2017 },
+      languageOptions: { parserOptions: { ecmaVersion: 2017 } },
       errors: [{ messageId: 'unimplementedTest' }]
     },
     {

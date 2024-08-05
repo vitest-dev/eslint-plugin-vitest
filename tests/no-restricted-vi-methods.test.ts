@@ -13,7 +13,7 @@ ruleTester.run(RULE_NAME, rule, {
      import { vi } from 'vitest';
      vi;
     `,
-      parserOptions: { sourceType: 'module' }
+      languageOptions: { parserOptions: { sourceType: 'module' } }
     }
   ],
 
@@ -54,7 +54,7 @@ ruleTester.run(RULE_NAME, rule, {
      vi.advanceTimersByTime();
     `,
       options: [{ advanceTimersByTime: null }],
-      parserOptions: { sourceType: 'module' },
+      languageOptions: { parserOptions: { sourceType: 'module' } },
       errors: [
         {
           messageId: 'restrictedViMethod',

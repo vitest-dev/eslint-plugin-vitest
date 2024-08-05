@@ -41,7 +41,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'import thing from "./__mocks__/index"',
-      parserOptions: { sourceType: 'module' },
+      languageOptions: { parserOptions: { sourceType: 'module' } },
       errors: [{ endColumn: 38, column: 1, messageId: 'noMocksImport' }]
     }
   ]

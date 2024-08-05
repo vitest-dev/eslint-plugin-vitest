@@ -88,7 +88,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: 'xit.each``("foo", function () {})',
       output: 'it.skip.each``("foo", function () {})',
-      parserOptions: { ecmaVersion: 6 },
+      languageOptions: { parserOptions: { ecmaVersion: 6 } },
       errors: [
         {
           messageId: 'usePreferredName',
@@ -101,7 +101,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: 'xtest.each``("foo", function () {})',
       output: 'test.skip.each``("foo", function () {})',
-      parserOptions: { ecmaVersion: 6 },
+      languageOptions: { parserOptions: { ecmaVersion: 6 } },
       errors: [
         {
           messageId: 'usePreferredName',
