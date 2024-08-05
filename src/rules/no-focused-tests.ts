@@ -23,7 +23,7 @@ export default createEslintRule<Options, MessageIds>({
     type: 'problem',
     docs: {
       description: 'disallow focused tests',
-      recommended: 'strict'
+      recommended: false
     },
     fixable: 'code',
     schema: [
@@ -44,10 +44,7 @@ export default createEslintRule<Options, MessageIds>({
   },
   defaultOptions: [{ fixable: true }],
   create: (context) => {
-    const config = context.options[0] ?? {
-      fixable: true
-    }
-    const fixable = config.fixable
+    const fixable = context.options[0]?.fixable
 
     return {
       ExpressionStatement(node) {

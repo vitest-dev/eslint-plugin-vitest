@@ -12,7 +12,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     type: 'problem',
     docs: {
       description: 'disallow string interpolation in snapshots',
-      recommended: 'strict'
+      recommended: false
     },
     fixable: 'code',
     schema: [],

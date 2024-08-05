@@ -140,7 +140,7 @@ ruleTester.run(RULE_NAME, rule, {
    });
    `,
       options: [{ assertFunctionNames: ['expect', 'foo'] }],
-      parserOptions: { sourceType: 'module' }
+      languageOptions: { parserOptions: { sourceType: 'module' } }
     },
     {
       code: `
@@ -152,7 +152,7 @@ ruleTester.run(RULE_NAME, rule, {
          });
    `,
       options: [{ assertFunctionNames: ['expect', 'foo'] }],
-      parserOptions: { sourceType: 'module' }
+      languageOptions: { parserOptions: { sourceType: 'module' } }
     },
     {
       code: `
@@ -166,7 +166,7 @@ ruleTester.run(RULE_NAME, rule, {
    });
    `,
       options: [{ assertFunctionNames: ['tester.foo.bar.expect'] }],
-      parserOptions: { sourceType: 'module' }
+      languageOptions: { parserOptions: { sourceType: 'module' } }
     },
     {
       code: `
@@ -355,7 +355,7 @@ ruleTester.run(RULE_NAME, rule, {
     // ...
    });
    `,
-      parserOptions: { sourceType: 'module' },
+      languageOptions: { parserOptions: { sourceType: 'module' } },
       errors: [
         {
           messageId: 'noAssertions',
@@ -395,7 +395,7 @@ ruleTester.run(RULE_NAME, rule, {
     })
       `,
       options: [{ additionalTestBlockFunctions: ['myExtendedTest'] }], 
-      parserOptions: { sourceType: 'module' },
+      languageOptions: { parserOptions: { sourceType: 'module' } },
       errors: [
         {
           messageId: 'noAssertions',

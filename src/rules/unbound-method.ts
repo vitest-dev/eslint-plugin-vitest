@@ -26,9 +26,9 @@ const baseRule = (() => {
     const TSESLintPlugin = require('@typescript-eslint/eslint-plugin')
 
     return TSESLintPlugin.rules['unbound-method'] as TSESLint.RuleModule<
-            MESSAGE_IDS,
-            Options
-        >
+      MESSAGE_IDS,
+      Options
+    >
   }
   catch (e: unknown) {
     const error = e as { code: string }
@@ -54,7 +54,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     docs: {
       ...baseRule?.meta.docs,
       description: 'enforce unbound methods are called with their expected scope',
-      recommended: 'strict',
+      recommended: false,
       requiresTypeChecking: true
     }
   },

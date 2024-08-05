@@ -7,9 +7,9 @@ import { config as paddingAroundDescribeBlocksConfig } from './padding-around-de
 import { config as paddingAroundExpectGroupsConfig } from './padding-around-expect-groups';
 import { config as paddingAroundTestBlocksConfig } from './padding-around-test-blocks';
 import { createPaddingRule } from '../utils/padding';
-import { get_filename } from '../utils/msc';
+import { getFilename } from '../utils/msc';
 
-export const RULE_NAME = get_filename(import.meta.url)
+export const RULE_NAME = getFilename(import.meta.url)
 
 export default createPaddingRule(
   RULE_NAME,

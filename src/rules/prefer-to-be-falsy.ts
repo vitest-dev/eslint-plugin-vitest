@@ -20,7 +20,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce using toBeFalsy()',
-      recommended: 'strict'
+      recommended: false
     },
     fixable: 'code',
     schema: [],

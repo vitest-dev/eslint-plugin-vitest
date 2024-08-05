@@ -53,7 +53,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce using the built-in comparison matchers',
-      recommended: 'strict'
+      recommended: false
     },
     schema: [],
     fixable: 'code',

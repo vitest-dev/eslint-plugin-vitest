@@ -96,7 +96,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: 'aVariable.mockImplementation(() => Promise.reject(42),)',
       output: 'aVariable.mockRejectedValue(42,)',
-      parserOptions: { ecmaVersion: 2017 },
+      languageOptions: { parserOptions: { ecmaVersion: 2017 } },
       errors: [
         {
           messageId: 'useMockShorthand',

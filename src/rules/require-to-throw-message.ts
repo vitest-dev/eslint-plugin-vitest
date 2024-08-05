@@ -11,7 +11,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'require toThrow() to be called with an error message',
-      recommended: 'strict'
+      recommended: false
     },
     schema: [],
     messages: {

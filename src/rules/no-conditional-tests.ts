@@ -10,7 +10,7 @@ export default createEslintRule<[], MESSAGE_ID>({
     type: 'problem',
     docs: {
       description: 'disallow conditional tests',
-      recommended: 'strict'
+      recommended: false
     },
     schema: [],
     messages: {

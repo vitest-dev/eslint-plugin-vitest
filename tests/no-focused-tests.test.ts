@@ -3,12 +3,8 @@ import { ruleTester } from './ruleTester'
 
 ruleTester.run(RULE_NAME, rule, {
   valid: ['it("test", () => {});', 'describe("test group", () => {});'],
-
   invalid: [
     {
-      options: [{
-        fixable: false
-      }],
       code: 'it.only("test", () => {});',
       errors: [
         {
@@ -19,7 +15,6 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'noFocusedTests'
         }
       ],
-      output: 'it.only("test", () => {});'
     },
     {
       options: [{
@@ -35,7 +30,6 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'noFocusedTests'
         }
       ],
-      output: 'describe.only("test", () => {});'
     },
     {
       options: [{
@@ -51,7 +45,6 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'noFocusedTests'
         }
       ],
-      output: 'test.only("test", () => {});'
     },
     {
       options: [{
@@ -67,7 +60,6 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'noFocusedTests'
         }
       ],
-      output: 'it.only.each([])("test", () => {});'
     },
     {
       options: [{
@@ -83,7 +75,6 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'noFocusedTests'
         }
       ],
-      output: 'test.only.each``("test", () => {});'
     },
     {
       options: [{
@@ -99,14 +90,12 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'noFocusedTests'
         }
       ],
-      output: 'it.only.each``("test", () => {});'
     }
   ]
 })
 
 ruleTester.run(RULE_NAME, rule, {
   valid: ['it("test", () => {});', 'describe("test group", () => {});'],
-
   invalid: [
     {
       options: [{

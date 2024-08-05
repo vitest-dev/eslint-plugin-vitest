@@ -47,7 +47,7 @@ export default createEslintRule<Options[], MessageIds>({
   meta: {
     docs: {
       description: 'enforce using expect assertions instead of callbacks',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       hasAssertionsTakesNoArguments:

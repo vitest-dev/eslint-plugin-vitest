@@ -38,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: 'expect(a.includes(b,),).toEqual(true,);',
       output: 'expect(a,).toContain(b,);',
-      parserOptions: { ecmaVersion: 2017 },
+      languageOptions: { parserOptions: { ecmaVersion: 2017 } },
       errors: [{ messageId: 'useToContain', column: 25, line: 1 }]
     },
     {

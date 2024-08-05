@@ -38,7 +38,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'layout',
     docs: {
       description: 'enforce using `test.todo`',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       emptyTest: 'Prefer todo test case over empty test case',

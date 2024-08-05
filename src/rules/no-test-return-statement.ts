@@ -20,7 +20,7 @@ export default createEslintRule<Options, MessageIds>({
     type: 'problem',
     docs: {
       description: 'disallow return statements in tests',
-      recommended: 'strict'
+      recommended: false
     },
     schema: [],
     messages: {

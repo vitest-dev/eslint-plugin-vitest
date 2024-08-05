@@ -94,8 +94,16 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'noDoneCallback',
           line: 1,
-          column: 1
-        }
+          column: 1,
+          suggestions: [
+            {
+              messageId: 'suggestWrappingInPromise',
+              data: { callback: 'done' },
+              output:
+                'test.each``("something", () => {return new Promise(done => { done(); })})'
+            }
+          ]
+        },
       ]
     },
     {
@@ -104,7 +112,16 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'noDoneCallback',
           line: 1,
-          column: 1
+          column: 1,
+          suggestions: [
+            {
+              messageId: 'suggestWrappingInPromise',
+              data: { callback: 'done' },
+              output:
+                'it.each``("something", () => {return new Promise(done => { done(); })})'
+            }
+          ]
+
         }
       ]
     }

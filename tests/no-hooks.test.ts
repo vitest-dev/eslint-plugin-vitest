@@ -67,7 +67,7 @@ ruleTester.run(RULE_NAME, rule, {
     beforeEach(() => { vi.resetModules() });
     `,
       options: [{ allow: [HookName.afterEach] }],
-      parserOptions: { sourceType: 'module' },
+      languageOptions: { parserOptions: { sourceType: 'module' } },
       errors: [
         {
           messageId: 'unexpectedHook',

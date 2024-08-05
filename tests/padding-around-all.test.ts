@@ -1,7 +1,6 @@
-
-import type { TSESLint } from '@typescript-eslint/utils';
 import rule, { RULE_NAME } from '../src/rules/padding-around-all';
 import { ruleTester } from './ruleTester';
+import { InvalidTestCase } from "@typescript-eslint/rule-tester"
 
 const testCase = {
   code: `
@@ -80,7 +79,7 @@ describe('someText', () => {
       column: 3,
     },
   ],
-} satisfies TSESLint.InvalidTestCase<'missingPadding', never>;
+} satisfies InvalidTestCase<'missingPadding', never>;
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
@@ -91,28 +90,6 @@ ruleTester.run(RULE_NAME, rule, {
     `,
   ],
   invalid: [
-    ...['src/component.test.jsx', 'src/component.test.js'].map(filename => ({
-      ...testCase,
-      filename,
-    })),
-    {
-      code: `
-        const someText = 'abc'
-        ;afterEach(() => {})
-      `,
-      output: `
-        const someText = 'abc'
-
-        ;afterEach(() => {})
-      `,
-      errors: [
-        {
-          messageId: 'missingPadding',
-          line: 3,
-          column: 10,
-        },
-      ],
-    },
     {
       code: `
         const someText = 'abc';

@@ -86,7 +86,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: 'expect(null).toEqual(null);',
       output: 'expect(null).toBeNull();',
-      parserOptions: { ecmaVersion: 2017 },
+      languageOptions: { parserOptions: { ecmaVersion: 2017 } },
       errors: [{ messageId: 'useToBeNull', column: 14, line: 1 }]
     },
     {

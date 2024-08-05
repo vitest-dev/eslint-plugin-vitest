@@ -20,7 +20,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce using `toBeTruthy`',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       preferToBeTruthy: 'Prefer using `toBeTruthy` to test value is `true`'

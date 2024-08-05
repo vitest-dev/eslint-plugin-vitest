@@ -56,7 +56,7 @@ export default createEslintRule<
     fixable: 'code',
     docs: {
       description: 'enforce using test or it but not both',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       consistentMethod:

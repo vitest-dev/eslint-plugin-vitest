@@ -65,7 +65,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce using `vi.spyOn`',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       useViSpayOn: 'Use `vi.spyOn` instead'

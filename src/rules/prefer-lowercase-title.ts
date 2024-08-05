@@ -50,7 +50,7 @@ export default createEslintRule<[
     type: 'problem',
     docs: {
       description: 'enforce lowercase titles',
-      recommended: 'strict'
+      recommended: false
     },
     fixable: 'code',
     messages: {

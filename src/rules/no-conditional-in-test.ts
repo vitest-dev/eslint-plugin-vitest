@@ -11,7 +11,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     docs: {
       description: 'disallow conditional tests',
       requiresTypeChecking: false,
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       noConditionalInTest: 'Remove conditional tests'

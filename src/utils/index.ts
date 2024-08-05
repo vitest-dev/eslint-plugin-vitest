@@ -1,6 +1,5 @@
 // Mostly adopted from https://github.com/jest-community/eslint-plugin-jest/blob/main/src/rules/utils/accessors.ts
 // Initial license: https://github.com/jest-community/eslint-plugin-jest/blob/main/LICENSE
-import type { Rule } from 'eslint'
 import {
   TSESLint,
   AST_NODE_TYPES,
@@ -12,14 +11,13 @@ import {
   ParsedExpectVitestFnCall
 } from './parse-vitest-fn-call'
 
-export function createEslintRule<TOptions extends readonly unknown[], TMessageIds extends string>(rule: Readonly<ESLintUtils.RuleWithMetaAndName<TOptions, TMessageIds>>) {
-  const createRule = ESLintUtils.RuleCreator(
-    ruleName =>
-      `https://github.com/veritem/eslint-plugin-vitest/blob/main/docs/rules/${ruleName}.md`
-  )
-
-  return createRule(rule) as unknown as Rule.RuleModule
+interface PluginDocs {
+  recommended?: boolean,
+  requiresTypeChecking?: boolean
 }
+
+
+export const createEslintRule = ESLintUtils.RuleCreator<PluginDocs>(name => `https://github.com/veritem/eslint-plugin-vitest/blob/main/docs/rules/${name}.md`)
 
 export const joinNames = (a: string | null, b: string | null): string | null =>
   a && b ? `${a}.${b}` : null
