@@ -16,14 +16,9 @@ test('myFn', () => {
 expect(myFn()).toBe(1);
 });
 `,
-<<<<<<< HEAD
     languageOptions: { parserOptions: { sourceType: 'module' } }
   },
   `
-=======
-    },
-    `
->>>>>>> 18602a719a4879119c1e24a5700c3f783e2078fd
 class MockLogger {
   log() {}
      }
