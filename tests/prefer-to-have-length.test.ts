@@ -26,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: 'expect(files["length"]).toBe(1,);',
       output: 'expect(files).toHaveLength(1,);',
-      parserOptions: { ecmaVersion: 2017 },
+      parserOptions: {  languageOptions: { parserOptions: { ecmaVersion: 2017 } } },
       errors: [{ messageId, column: 25, line: 1 }]
     },
     {
