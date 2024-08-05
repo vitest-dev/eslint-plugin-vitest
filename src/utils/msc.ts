@@ -47,6 +47,6 @@ export const hasOnlyOneArgument = (
 ): call is CallExpressionWithSingleArgument => call.arguments.length === 1
 
 
-export function get_filename(url: string) {
+export function getFilename(url: string) {
   return parse(basename(fileURLToPath(url))).name
 }

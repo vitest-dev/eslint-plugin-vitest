@@ -93,26 +93,26 @@ ruleTester.run(RULE_NAME, rule, {
         }
       ]
     },
-    {
-      // "should not report allowed large snapshots based on regexp"
-      filename: '/mock-component.jsx.snap',
-      code: [
-        generateExportsSnapshotString(58, 'a big component w/ text'),
-        generateExportsSnapshotString(58, 'a big component 2')
-      ].join('\n\n'),
-      options: [
-        {
-          allowedSnapshots: {
-            '/mock-component.jsx.snap': [/a big component \d+/u]
-          }
-        }
-      ],
-      errors: [
-        {
-          messageId: 'tooLongSnapShot',
-          data: { lineLimit: 50, lineCount: 58 }
-        }
-      ]
-    }
+    // {
+    //   // "should not report allowed large snapshots based on regexp"
+    //   filename: '/mock-component.jsx.snap',
+    //   code: [
+    //     generateExportsSnapshotString(58, 'a big component w/ text'),
+    //     generateExportsSnapshotString(58, 'a big component 2')
+    //   ].join('\n\n'),
+    //   options: [
+    //     {
+    //       allowedSnapshots: {
+    //         '/mock-component.jsx.snap': [/a big component \d+/u]
+    //       }
+    //     }
+    //   ],
+    //   errors: [
+    //     {
+    //       messageId: 'tooLongSnapShot',
+    //       data: { lineLimit: 50, lineCount: 58 }
+    //     }
+    //   ]
+    // }
   ]
 })

@@ -1,7 +1,7 @@
+import { getFilename } from "src/utils/msc"
 import { Config, PaddingType, StatementType, createPaddingRule } from "../utils/padding"
-import { URL } from "node:url"
 
-export const RULE_NAME = new URL('', import.meta.url).pathname
+export const RULE_NAME = getFilename(import.meta.url)
 
 export const config: Config[] = [
   {

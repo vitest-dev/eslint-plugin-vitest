@@ -2,16 +2,17 @@ import rule, { RULE_NAME } from '../src/rules/valid-title'
 import { RuleTester } from '@typescript-eslint/rule-tester'
 
 export const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    tsconfigRootDir: `${import.meta.dirname}/fixture`,
-    project: `./tsconfig.json`
+  languageOptions: {
+    parserOptions: {
+      tsconfigRootDir: `${import.meta.dirname}/fixture`,
+      project: `./tsconfig.json`
+    }
   }
 })
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
-   'describe("the correct way to properly handle all the things", () => {});',
+    'describe("the correct way to properly handle all the things", () => {});',
     'test("that all is as it should be", () => {});',
     {
       code: 'it("correctly sets the value", () => {});',
@@ -35,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
         })
       })
      `,
-     settings: { vitest: { typecheck: true } }
+      settings: { vitest: { typecheck: true } }
     },
     {
       code: `
@@ -50,7 +51,7 @@ ruleTester.run(RULE_NAME, rule, {
     }
   ],
   invalid: [
-   {
+    {
       code: 'test("the correct way to properly handle all things", () => {});',
       options: [{ disallowedWords: ['correct', 'properly', 'all'] }],
       errors: [

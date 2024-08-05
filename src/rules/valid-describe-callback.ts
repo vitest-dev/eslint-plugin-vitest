@@ -28,7 +28,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'problem',
     docs: {
       description: 'enforce valid describe callback',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       nameAndCallback: 'Describe requires a name and callback arguments',

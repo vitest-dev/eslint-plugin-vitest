@@ -42,7 +42,7 @@ const getPromiseCallExpressionNode = (node: TSESTree.Node) => {
 }
 
 const promiseArrayExceptionKey = ({ start, end }: TSESTree.SourceLocation) =>
-    `${start.line}:${start.column}-${end.line}:${end.column}`
+  `${start.line}:${start.column}-${end.line}:${end.column}`
 
 function getParentIfThenified(node: TSESTree.Node): TSESTree.Node {
   const grandParentNode = node.parent?.parent
@@ -59,9 +59,9 @@ function getParentIfThenified(node: TSESTree.Node): TSESTree.Node {
 
 const findPromiseCallExpressionNode = (node: TSESTree.Node) =>
   node.parent?.parent
-  && [AST_NODE_TYPES.CallExpression, AST_NODE_TYPES.ArrayExpression].includes(
-    node.parent.type
-  )
+    && [AST_NODE_TYPES.CallExpression, AST_NODE_TYPES.ArrayExpression].includes(
+      node.parent.type
+    )
     ? getPromiseCallExpressionNode(node.parent)
     : null
 
@@ -69,10 +69,10 @@ const isAcceptableReturnNode = (
   node: TSESTree.Node,
   allowReturn: boolean
 ): node is
-| TSESTree.ConditionalExpression
-| TSESTree.ArrowFunctionExpression
-| TSESTree.AwaitExpression
-| TSESTree.ReturnStatement => {
+  | TSESTree.ConditionalExpression
+  | TSESTree.ArrowFunctionExpression
+  | TSESTree.AwaitExpression
+  | TSESTree.ReturnStatement => {
   if (allowReturn && node.type === AST_NODE_TYPES.ReturnStatement)
     return true
 
@@ -97,7 +97,7 @@ export default createEslintRule<[
   meta: {
     docs: {
       description: 'enforce valid `expect()` usage',
-      recommended: 'strict'
+      recommended: false
     },
     messages: {
       tooManyArgs: 'Expect takes most {{ amount}} argument{{s}}',
@@ -107,7 +107,7 @@ export default createEslintRule<[
       matcherNotCalled: 'Matchers must be called to assert.',
       asyncMustBeAwaited: 'Async assertions must be awaited{{orReturned}}',
       promisesWithAsyncAssertionsMustBeAwaited:
-                'Promises which return async assertions must be awaited{{orReturned}}'
+        'Promises which return async assertions must be awaited{{orReturned}}'
     },
     type: 'suggestion',
     schema: [
@@ -176,9 +176,9 @@ export default createEslintRule<[
 
         if (typeof vitestFnCall === 'string') {
           const reportingNode
-                        = node.parent?.type === AST_NODE_TYPES.MemberExpression
-                          ? findTopMostMemberExpression(node.parent).property
-                          : node
+            = node.parent?.type === AST_NODE_TYPES.MemberExpression
+              ? findTopMostMemberExpression(node.parent).property
+              : node
 
           if (vitestFnCall === 'matcher-not-found') {
             context.report({
@@ -193,7 +193,7 @@ export default createEslintRule<[
             context.report({
               messageId: isSupportedAccessor(reportingNode)
 
-              && ModifierName.hasOwnProperty(getAccessorValue(reportingNode))
+                && ModifierName.hasOwnProperty(getAccessorValue(reportingNode))
                 ? 'matcherNotFound'
                 : 'matcherNotCalled',
               node: reportingNode
@@ -264,14 +264,14 @@ export default createEslintRule<[
 
         const parentNode = matcher.parent.parent
         const shouldBeAwaited
-                    = vitestFnCall.modifiers.some(nod => getAccessorValue(nod) !== 'not')
-                    || asyncMatchers.includes(getAccessorValue(matcher))
+          = vitestFnCall.modifiers.some(nod => getAccessorValue(nod) !== 'not')
+          || asyncMatchers.includes(getAccessorValue(matcher))
 
         if (!parentNode?.parent || !shouldBeAwaited)
           return
 
         const isParentArrayExpression
-                    = parentNode.parent.type === AST_NODE_TYPES.ArrayExpression
+          = parentNode.parent.type === AST_NODE_TYPES.ArrayExpression
         const orReturned = alwaysAwait ? '' : ' or returned'
 
         const targetNode = getParentIfThenified(parentNode)
