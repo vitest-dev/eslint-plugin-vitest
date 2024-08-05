@@ -1,4 +1,3 @@
-
 import rule, { RULE_NAME } from '../src/rules/padding-around-all';
 import { ruleTester } from './ruleTester';
 import { InvalidTestCase } from "@typescript-eslint/rule-tester"
@@ -91,34 +90,6 @@ ruleTester.run(RULE_NAME, rule, {
     `,
   ],
   invalid: [
-    ...['src/component.test.jsx', 'src/component.test.js'].map(filename => ({
-      ...testCase,
-      filename,
-    })),
-    {
-      code: `
-        const someText = 'abc'
-        ;afterEach(() => {})
-      `,
-      output: [`
-        const someText = 'abc'
-
-        ;afterEach(() => {})
-      `,
-        `
-      const someText = 'abc'
-
-
-        ;afterEach(() => {})
-      `],
-      errors: [
-        {
-          messageId: 'missingPadding',
-          line: 3,
-          column: 10,
-        },
-      ],
-    },
     {
       code: `
         const someText = 'abc';

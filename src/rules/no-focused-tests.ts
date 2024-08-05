@@ -44,10 +44,7 @@ export default createEslintRule<Options, MessageIds>({
   },
   defaultOptions: [{ fixable: true }],
   create: (context) => {
-    const config = context.options[0] ?? {
-      fixable: true
-    }
-    const fixable = config.fixable
+    const fixable = context.options[0]?.fixable
 
     return {
       ExpressionStatement(node) {
