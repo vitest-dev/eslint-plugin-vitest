@@ -26,11 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'expect(something).toEqual(somethingElse,);',
-<<<<<<< HEAD
       languageOptions: { parserOptions: { ecmaVersion: 2017 } },
-=======
-      languageOptions: { languageOptions: { parserOptions: { ecmaVersion: 2017 } } },
->>>>>>> 18602a719a4879119c1e24a5700c3f783e2078fd
       errors: [
         {
           messageId: 'useToStrictEqual',
