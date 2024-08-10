@@ -1,7 +1,7 @@
 ## eslint-plugin-vitest
 
-![npm](https://img.shields.io/npm/v/eslint-plugin-vitest)
-[![ci](https://github.com/veritem/eslint-plugin-vitest/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/veritem/eslint-plugin-vitest/actions/workflows/ci.yml)
+![npm](https://img.shields.io/npm/v/@vitest/eslint-plugin)
+[![ci](https://github.com/vitest-dev/eslint-plugin-vitest/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/veritem/eslint-plugin-vitest/actions/workflows/ci.yml)
 
 Eslint plugin for vitest
 
@@ -13,10 +13,10 @@ You'll first need to install [ESLint](https://eslint.org/):
 npm i eslint --save-dev
 ```
 
-Next, install `eslint-plugin-vitest-latest`:
+Next, install `@vitest/eslint-plugin`
 
 ```sh
-npm install eslint-plugin-vitest-latest --save-dev
+npm install @vitest/eslint-plugin --save
 ```
 
 ### Usage
@@ -24,7 +24,7 @@ npm install eslint-plugin-vitest-latest --save-dev
 Make sure you're running eslint `v9.0.0` or higher for the latest version of this plugin to work. The following example is how your `eslint.config.js` should be setup for this plugin to work for you.
 
 ```js
-import vitest from "eslint-plugin-vitest";
+import vitest from "@vitest/eslint-plugin";
 
 export default [
   {
@@ -81,7 +81,7 @@ Vitest ships with an optional [type-testing feature](https://vitest.dev/guide/te
 If you're using this feature, you should also enabled `typecheck` in the settings for this plugin. This ensures that rules like [expect-expect](docs/rules/expect-expect.md) account for type-related assertions in tests.
 
 ```js
-import vitest from "eslint-plugin-vitest";
+import vitest from "@vitest/eslint-plugin";
 
 export default [
   {
@@ -182,4 +182,4 @@ export default [
 
 ### Licence
 
-[MIT](https://github.com/veritem/eslint-plugin-vitest/blob/main/LICENSE) Licence &copy; 2022 - present [veritem](https://github.com/veritem)
+[MIT](https://github.com/veritem/eslint-plugin-vitest/blob/main/LICENSE) Licence &copy; 2022 - present [veritem](https://github.com/veritem) and contributors
