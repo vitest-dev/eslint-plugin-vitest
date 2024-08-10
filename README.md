@@ -1,9 +1,5 @@
 ## eslint-plugin-vitest
 
-> [!IMPORTANT]
-> After 2 months of going back and forth with [npm support](https://x.com/veritemm/status/1821595278358544827), I have decided to rename this package to a new name eslint-plugin-vitest-latest.
-> If you rely on an older version please update your package.json.
-
 ![npm](https://img.shields.io/npm/v/eslint-plugin-vitest)
 [![ci](https://github.com/veritem/eslint-plugin-vitest/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/veritem/eslint-plugin-vitest/actions/workflows/ci.yml)
 
