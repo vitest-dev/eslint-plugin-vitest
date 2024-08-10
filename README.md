@@ -1,5 +1,9 @@
 ## eslint-plugin-vitest
 
+> [!IMPORTANT]
+> After 2 months of going back and forth with npm, I have decided to rename this package to a new name eslint-plugin-vitest-latest.
+> If you rely on an older version please update your package.json.
+
 ![npm](https://img.shields.io/npm/v/eslint-plugin-vitest)
 [![ci](https://github.com/veritem/eslint-plugin-vitest/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/veritem/eslint-plugin-vitest/actions/workflows/ci.yml)
 
@@ -13,10 +17,10 @@ You'll first need to install [ESLint](https://eslint.org/):
 npm i eslint --save-dev
 ```
 
-Next, install `eslint-plugin-vitest`:
+Next, install `eslint-plugin-vitest-latest`:
 
 ```sh
-npm install eslint-plugin-vitest --save-dev
+npm install eslint-plugin-vitest-latest --save-dev
 ```
 
 ### Usage
@@ -35,7 +39,7 @@ export default [
     rules: {
       ...vitest.configs.recommended.rules, // you can also use vitest.configs.all.rules to enable all rules
       "vitest/max-nested-describe": ["error", { "max": 3 }] // you can also modify rules' behavior using option like this
-    }, 
+    },
   },
 ];
 ```
