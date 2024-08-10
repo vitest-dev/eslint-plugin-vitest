@@ -1,4 +1,4 @@
-import vitest from 'eslint-plugin-vitest'
+import vitest from '@vitest/eslint-plugin'
 import stylistic from '@stylistic/eslint-plugin'
 import eslintPlugin from 'eslint-plugin-eslint-plugin'
 import parser from '@typescript-eslint/parser'

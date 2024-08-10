@@ -49,12 +49,12 @@
 		"@typescript-eslint/eslint-plugin": "8.0.0",
 		"@typescript-eslint/parser": "8.0.0",
 		"@typescript-eslint/rule-tester": "8.0.0",
+		"@vitest/eslint-plugin": "^1.0.0",
 		"bumpp": "^9.4.2",
 		"concurrently": "^8.2.2",
 		"eslint": "^9.9.0",
 		"eslint-doc-generator": "^1.7.1",
 		"eslint-plugin-eslint-plugin": "^6.2.0",
-		"eslint-plugin-vitest": "^0.5.4",
 		"eslint-remote-tester": "^4.0.1",
 		"eslint-remote-tester-repositories": "^1.0.1",
 		"importx": "^0.3.11",
@@ -64,10 +64,10 @@
 		"vitest": "^1.6.0"
 	},
 	"peerDependencies": {
+		"@typescript-eslint/utils": ">= 8.0",
 		"eslint": ">= 8.57.0",
 		"typescript": ">= 5.0.0",
-		"vitest": "*",
-		"@typescript-eslint/utils": ">= 7.8 || 8.0.0"
+		"vitest": "*"
 	},
 	"peerDependenciesMeta": {
 		"vitest": {
