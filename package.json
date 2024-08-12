@@ -56,7 +56,7 @@
 		"eslint-doc-generator": "^1.7.1",
 		"eslint-plugin-eslint-plugin": "^6.2.0",
 		"eslint-remote-tester": "^4.0.1",
-		"eslint-remote-tester-repositories": "^1.0.1",
+		"eslint-remote-tester-repositories": "^2.0.0",
 		"importx": "^0.3.11",
 		"tsx": "^4.17.0",
 		"typescript": "^5.5.4",
