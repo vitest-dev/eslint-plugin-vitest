@@ -16,7 +16,7 @@ npm i eslint --save-dev
 Next, install `@vitest/eslint-plugin`
 
 ```sh
-npm install @vitest/eslint-plugin --save
+npm install @vitest/eslint-plugin --save-dev
 ```
 
 ### Usage
