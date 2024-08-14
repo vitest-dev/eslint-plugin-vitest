@@ -18,16 +18,16 @@ function matchesAssertFunctionName(
 ): boolean {
   return patterns.some(p =>
     new RegExp(
-   `^${p
-    .split('.')
-    .map((x) => {
-     if (x === '**')
-      return '[a-z\\d\\.]*'
+      `^${p
+        .split('.')
+        .map((x) => {
+          if (x === '**')
+            return '[a-z\\d\\.]*'
 
-     return x.replace(/\*/gu, '[a-z\\d]*')
-    })
-    .join('\\.')}(\\.|$)`,
-   'ui'
+          return x.replace(/\*/gu, '[a-z\\d]*')
+        })
+        .join('\\.')}(\\.|$)`,
+      'ui'
     ).test(nodeName)
   )
 }
@@ -108,12 +108,16 @@ export default createEslintRule<Options, MESSAGE_ID>({
         }
       },
       'Program:exit'() {
-        unchecked.forEach((node) => {
-          context.report({
-            node: node.callee,
-            messageId: 'noAssertions'
+        const isActuallyNotValid = unchecked.filter((node) => node.arguments.some((arg) =>
+          (arg.type === AST_NODE_TYPES.Literal && arg.value === "assert")))
+
+        if (!isActuallyNotValid.length)
+          unchecked.forEach((node) => {
+            context.report({
+              node: node.callee,
+              messageId: 'noAssertions'
+            })
           })
-        })
       }
     }
   }
