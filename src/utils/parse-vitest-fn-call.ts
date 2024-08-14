@@ -87,8 +87,8 @@ export const parseVitestFnCall = (
 }
 
 const parseVitestFnCallCache = new WeakMap<
-    TSESTree.CallExpression,
-    ParsedVitestFnCall | string | null
+  TSESTree.CallExpression,
+  ParsedVitestFnCall | string | null
 >()
 
 export const parseVitestFnCallWithReason = (
@@ -494,19 +494,19 @@ export const getFirstMatcherArg = (
 }
 
 interface AsExpressionChain<
-    Expression extends TSESTree.Expression = TSESTree.Expression
+  Expression extends TSESTree.Expression = TSESTree.Expression
 > extends TSESTree.TSAsExpression {
   expression: AsExpressionChain<Expression> | Expression
 }
 
 interface TypeAssertionChain<
-    Expression extends TSESTree.Expression = TSESTree.Expression
+  Expression extends TSESTree.Expression = TSESTree.Expression
 > extends TSESTree.TSTypeAssertion {
   expression: TypeAssertionChain<Expression> | Expression
 }
 
 type TSTypeCastExpression<
-    Expression extends TSESTree.Expression = TSESTree.Expression
+  Expression extends TSESTree.Expression = TSESTree.Expression
 > = AsExpressionChain<Expression> | TypeAssertionChain<Expression>
 
 export type MaybeTypeCast<Expression extends TSESTree.Expression> =
@@ -516,8 +516,8 @@ export type MaybeTypeCast<Expression extends TSESTree.Expression> =
 const isTypeCastExpression = <Expression extends TSESTree.Expression>(
   node: MaybeTypeCast<Expression>
 ): node is TSTypeCastExpression<Expression> =>
-    node.type === AST_NODE_TYPES.TSAsExpression
-    || node.type === AST_NODE_TYPES.TSTypeAssertion
+  node.type === AST_NODE_TYPES.TSAsExpression
+  || node.type === AST_NODE_TYPES.TSTypeAssertion
 
 export const followTypeAssertionChain = <Expression extends TSESTree.Expression>(
   expression: MaybeTypeCast<Expression>
