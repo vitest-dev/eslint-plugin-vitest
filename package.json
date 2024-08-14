@@ -43,7 +43,7 @@
 	},
 	"devDependencies": {
 		"@stylistic/eslint-plugin": "^2.6.2",
-		"@types/eslint": "^8.56.11",
+		"@types/eslint": "^9.6.0",
 		"@types/mocha": "^10.0.7",
 		"@types/node": "^20.14.15",
 		"@typescript-eslint/eslint-plugin": "8.0.0",
