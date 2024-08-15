@@ -60,7 +60,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
       noAssertions: 'Test has no assertions'
     }
   },
-  defaultOptions: [{ assertFunctionNames: ['expect'], additionalTestBlockFunctions: [] }],
+  defaultOptions: [{ assertFunctionNames: ['expect', 'assert'], additionalTestBlockFunctions: [] }],
   create(context, [{ assertFunctionNames = ['expect'], additionalTestBlockFunctions = [] }]) {
     const unchecked: TSESTree.CallExpression[] = []
     const settings = parsePluginSettings(context.settings)
@@ -108,16 +108,12 @@ export default createEslintRule<Options, MESSAGE_ID>({
         }
       },
       'Program:exit'() {
-        const isActuallyNotValid = unchecked.filter((node) => node.arguments.some((arg) =>
-          (arg.type === AST_NODE_TYPES.Literal && arg.value === "assert")))
-
-        if (!isActuallyNotValid.length)
-          unchecked.forEach((node) => {
-            context.report({
-              node: node.callee,
-              messageId: 'noAssertions'
-            })
+        unchecked.forEach((node) => {
+          context.report({
+            node: node.callee,
+            messageId: 'noAssertions'
           })
+        })
       }
     }
   }
