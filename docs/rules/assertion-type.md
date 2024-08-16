@@ -1,4 +1,4 @@
-# Enforce assertion type (`vitest/assertion-type`)
+# Enforce assertion type (`@vitest/assertion-type`)
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

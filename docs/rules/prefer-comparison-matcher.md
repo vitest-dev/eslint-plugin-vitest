@@ -1,4 +1,4 @@
-# Enforce using the built-in comparison matchers (`vitest/prefer-comparison-matcher`)
+# Enforce using the built-in comparison matchers (`@vitest/prefer-comparison-matcher`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

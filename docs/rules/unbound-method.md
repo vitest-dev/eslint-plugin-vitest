@@ -1,4 +1,4 @@
-# Enforce unbound methods are called with their expected scope (`vitest/unbound-method`)
+# Enforce unbound methods are called with their expected scope (`@vitest/unbound-method`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

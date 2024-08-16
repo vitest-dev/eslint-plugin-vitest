@@ -1,4 +1,4 @@
-# Disallow importing `node:test` (`vitest/no-import-node-test`)
+# Disallow importing `node:test` (`@vitest/no-import-node-test`)
 
 💼 This rule is enabled in the ✅ `recommended` config.
 

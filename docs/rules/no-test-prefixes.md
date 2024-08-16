@@ -1,4 +1,4 @@
-# Disallow using `test` as a prefix (`vitest/no-test-prefixes`)
+# Disallow using `test` as a prefix (`@vitest/no-test-prefixes`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

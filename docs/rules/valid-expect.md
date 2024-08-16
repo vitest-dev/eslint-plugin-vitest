@@ -1,4 +1,4 @@
-# Enforce valid `expect()` usage (`vitest/valid-expect`)
+# Enforce valid `expect()` usage (`@vitest/valid-expect`)
 
 💼 This rule is enabled in the ✅ `recommended` config.
 

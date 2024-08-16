@@ -1,4 +1,4 @@
-# Disallow identical titles (`vitest/no-identical-title`)
+# Disallow identical titles (`@vitest/no-identical-title`)
 
 💼 This rule is enabled in the ✅ `recommended` config.
 

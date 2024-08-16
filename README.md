@@ -34,7 +34,7 @@ export default [
     },
     rules: {
       ...vitest.configs.recommended.rules, // you can also use vitest.configs.all.rules to enable all rules
-      "vitest/max-nested-describe": ["error", { "max": 3 }] // you can also modify rules' behavior using option like this
+      "@vitest/max-nested-describe": ["error", { "max": 3 }] // you can also modify rules' behavior using option like this
     },
   },
 ];
@@ -55,7 +55,7 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
   "rules": {
-    "vitest/max-nested-describe": [
+    "@vitest/max-nested-describe": [
       "error",
       {
         "max": 3

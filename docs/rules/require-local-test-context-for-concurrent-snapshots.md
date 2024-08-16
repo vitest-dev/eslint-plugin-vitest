@@ -1,4 +1,4 @@
-# Require local Test Context for concurrent snapshot tests (`vitest/require-local-test-context-for-concurrent-snapshots`)
+# Require local Test Context for concurrent snapshot tests (`@vitest/require-local-test-context-for-concurrent-snapshots`)
 
 💼 This rule is enabled in the ✅ `recommended` config.
 

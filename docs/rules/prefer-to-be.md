@@ -1,4 +1,4 @@
-# Enforce using toBe() (`vitest/prefer-to-be`)
+# Enforce using toBe() (`@vitest/prefer-to-be`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

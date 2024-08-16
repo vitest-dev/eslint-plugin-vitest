@@ -1,4 +1,4 @@
-# Enforce valid titles (`vitest/valid-title`)
+# Enforce valid titles (`@vitest/valid-title`)
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
