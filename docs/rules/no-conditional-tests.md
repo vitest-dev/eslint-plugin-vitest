@@ -22,10 +22,8 @@ Examples of **correct** code for this rule:
 
 ```js
 describe('my tests', () => {
-	if (Math.random() > 0.5) {
-		it('is awesome', () => {
-			doTheThing()
-		})
-	}
+	it('is awesome', () => {
+		doTheThing()
+	})
 })
 ```
