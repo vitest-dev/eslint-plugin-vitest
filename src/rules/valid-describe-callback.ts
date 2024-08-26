@@ -6,7 +6,6 @@ export const RULE_NAME = 'valid-describe-callback'
 type MESSAGE_IDS =
   | 'nameAndCallback'
   | 'secondArgumentMustBeFunction'
-  | 'noAsyncDescribeCallback'
   | 'unexpectedDescribeArgument'
   | 'unexpectedReturnInDescribe'
 
@@ -33,7 +32,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     messages: {
       nameAndCallback: 'Describe requires a name and callback arguments',
       secondArgumentMustBeFunction: 'Second argument must be a function',
-      noAsyncDescribeCallback: 'Describe callback cannot be async',
       unexpectedDescribeArgument: 'Unexpected argument in describe callback',
       unexpectedReturnInDescribe: 'Unexpected return statement in describe callback'
     },
@@ -73,13 +71,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             loc: paramsLocation(node.arguments)
           })
           return
-        }
-
-        if (callback.async) {
-          context.report({
-            messageId: 'noAsyncDescribeCallback',
-            node: callback
-          })
         }
 
         if (vitestFnCall.members.every(s => getAccessorValue(s) !== 'each')

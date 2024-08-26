@@ -7,18 +7,12 @@
 
 This rule validates the second parameter of a `describe()` function is a callback. 
 
-- should not be async 
 - should not contain parameters 
 - should not contain  any `return` statements
 
 The following are considered warnings:
 
 ```js
-// async callback functions are not allowed
-describe("myfunc", async () => {
-	// 
-})
-
 // callback function parameters are not allowed
 describe("myfunc", done => {
 	// 
@@ -43,6 +37,9 @@ describe("myfunc", () => {
 The following are not considered warnings:
 
 ```js
+describe("myfunc", async () => {
+    //
+})
 describe("myfunc", () => {
 	it("should do something", () => {
 		// 
