@@ -241,12 +241,17 @@ export default createEslintRule<[
         }
 
         if (expect.arguments.length > maxArgs) {
-          // if expect(value, "message"), it is valid usage
-          // Note: 2nd argument should be string literal, not a variable in current implementation
-          if (expect.arguments.length === 2
-            && expect.arguments[1].type === AST_NODE_TYPES.Literal
-            && typeof expect.arguments[1].value === 'string') {
-            return
+          // if expect(value, "message") and expect(value, `${message}`), it is valid usage
+          // Note: 2nd argument should be string, not a variable in current implementation
+          if (expect.arguments.length === 2) {
+            //  expect(value, "string literal")
+            const isSecondArgString = expect.arguments[1].type === AST_NODE_TYPES.Literal &&
+              typeof expect.arguments[1].value === 'string';
+            // expect(value, `template literal`)
+            const isSecondArgTemplateLiteral = expect.arguments[1].type === AST_NODE_TYPES.TemplateLiteral;
+            if (isSecondArgString || isSecondArgTemplateLiteral) {
+              return;
+            }
           }
 
           const { start } = expect.arguments[maxArgs].loc

@@ -74,6 +74,8 @@ This rule triggers a warning if `expect` is called with no argument or with more
 	// ✅ good
 	expect(1).toBe(1)
 	expect(1, "expect value to be one").toBe(1)
+    const message = "expect value to be one"
+	expect(1, `Error Message: ${message}`).toBe(1)
 
 
 	// ❌ bad

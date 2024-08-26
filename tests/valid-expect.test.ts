@@ -84,6 +84,8 @@ ruleTester.run(RULE_NAME, rule, {
     });
      `,
     'expect(value, "message").toBe(1);',
+    'expect(value, `message`).toBe(1);',
+    'const message = "message"; expect(value, `${message}`).toBe(1);',
     {
       code: 'expect(1).toBe(2);',
       options: [{ maxArgs: 2 }]
