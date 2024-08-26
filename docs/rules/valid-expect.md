@@ -68,13 +68,16 @@ This rule triggers a warning if `expect` is called with no argument or with more
   - Default: `1`
 
   - Enforce `expect` to be called with at most `maxArgs` arguments.
+  - Exception: `expect(value, "message")` is allowed.
 
 	```js
 	// ✅ good
 	expect(1).toBe(1)
+	expect(1, "expect value to be one").toBe(1)
+    const message = "expect value to be one"
+	expect(1, `Error Message: ${message}`).toBe(1)
 
 
 	// ❌ bad
 	expect(1, 2, 3, 4).toBe(1)
 	```
-

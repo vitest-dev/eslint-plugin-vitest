@@ -83,6 +83,9 @@ ruleTester.run(RULE_NAME, rule, {
       }
     });
      `,
+    'expect(value, "message").toBe(1);',
+    'expect(value, `message`).toBe(1);',
+    'const message = "message"; expect(value, `${message}`).toBe(1);',
     {
       code: 'expect(1).toBe(2);',
       options: [{ maxArgs: 2 }]
@@ -143,20 +146,6 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 8,
           column: 7,
           messageId: 'notEnoughArgs',
-          data: {
-            s: '',
-            amount: 1
-          }
-        }
-      ]
-    },
-    {
-      code: 'expect("something", "else").toEqual("something");',
-      errors: [
-        {
-          endColumn: 28,
-          column: 21,
-          messageId: 'tooManyArgs',
           data: {
             s: '',
             amount: 1
@@ -236,17 +225,60 @@ ruleTester.run(RULE_NAME, rule, {
             s: 's',
             amount: 3
           }
-        },
-        {
-          endColumn: 28,
-          column: 21,
-          messageId: 'tooManyArgs',
-          data: {
-            s: '',
-            amount: 1
-          }
         }
       ]
+    },
+    // expect() 2nd argument to be a string literal
+    {
+      code: 'expect("something", true).toEqual("something");',
+      errors: [
+        {
+          endColumn: 26,
+          column: 21,
+          messageId: 'tooManyArgs',
+        }
+      ]
+    },
+    {
+      code: 'expect("something", 12).toEqual("something");',
+      errors: [
+        {
+          endColumn: 24,
+          column: 21,
+          messageId: 'tooManyArgs',
+        }
+      ]
+    },
+    {
+      code: 'expect("something", {}).toEqual("something");',
+      errors: [
+        {
+          endColumn: 24,
+          column: 21,
+          messageId: 'tooManyArgs',
+        }
+      ]
+    },
+    {
+      code: 'expect("something", []).toEqual("something");',
+      errors: [
+        {
+          endColumn: 24,
+          column: 21,
+          messageId: 'tooManyArgs',
+        }
+      ]
+    },
+    // expect(value, "string literal") is valid, but expect(value, variable) is not
+    // because the AST does not have type information for variables
+    {
+      code: `const message = "message";
+      expect(1, message).toBe(2);`,
+      errors: [{
+        endColumn: 25,
+        column: 17,
+        messageId: 'tooManyArgs'
+      }]
     },
     {
       code: 'expect("something");',
