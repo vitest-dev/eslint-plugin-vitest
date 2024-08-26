@@ -73,7 +73,7 @@ This rule triggers a warning if `expect` is called with no argument or with more
 	```js
 	// ✅ good
 	expect(1).toBe(1)
-	expect(1, "expect value is one").toBe(1)
+	expect(1, "expect value to be one").toBe(1)
 
 
 	// ❌ bad
