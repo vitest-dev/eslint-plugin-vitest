@@ -38,9 +38,7 @@ The following are not considered warnings:
 
 ```js
 describe("myfunc", async () => {
-    it("should do something", () => {
-        // 
-    })
+    //
 })
 describe("myfunc", () => {
 	it("should do something", () => {
