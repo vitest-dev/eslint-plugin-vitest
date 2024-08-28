@@ -1,7 +1,6 @@
-import { getFilename } from "../utils/msc";
 import { Config, PaddingType, StatementType, createPaddingRule } from "../utils/padding";
 
-export const RULE_NAME = getFilename(import.meta.url)
+export const RULE_NAME = 'padding-around-before-all-blocks'
 
 export const config: Config[] = [
   {
