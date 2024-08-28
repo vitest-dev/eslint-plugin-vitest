@@ -45,8 +45,3 @@ export interface CallExpressionWithSingleArgument<
 export const hasOnlyOneArgument = (
   call: TSESTree.CallExpression
 ): call is CallExpressionWithSingleArgument => call.arguments.length === 1
-
-
-export function getFilename(url: string) {
-  return parse(basename(fileURLToPath(url))).name
-}
