@@ -46,7 +46,7 @@ Add `vitest` to the plugins section of your `.eslintrc` configuration file. You 
 
 ```json
 {
-  "plugins": ["@vitest"]
+  "plugins": ["vitest"]
 }
 ```
 
