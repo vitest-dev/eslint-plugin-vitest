@@ -46,7 +46,7 @@ Add `vitest` to the plugins section of your `.eslintrc` configuration file. You 
 
 ```json
 {
-  "plugins": ["@vitest"]
+  "plugins": ["vitest"]
 }
 ```
 
@@ -69,7 +69,7 @@ If you're using old Eslint configuration, make sure to use legacy key like the f
 
 ```js
 {
-  "extends": ["plugin:@vitest/legacy-recommended"] // or legacy-all
+  "extends": ["plugin:vitest/legacy-recommended"] // or legacy-all
 }
 ```
 
