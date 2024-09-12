@@ -55,7 +55,7 @@ export default createEslintRule<[
     fixable: 'code',
     messages: {
       lowerCaseTitle: '`{{ method }}`s should begin with lowercase',
-      fullyLowerCaseTitle: '`{{ method }}`s should be fully lowercase'
+      fullyLowerCaseTitle: '`{{ method }}`s should be lowercase'
     },
     schema: [
       {
