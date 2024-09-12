@@ -17,7 +17,7 @@ interface PluginDocs {
   requiresTypeChecking?: boolean
 }
 
-export function createEslintRule<TOptions extends readonly unknown[], TMessageIds extends string>(rule: Readonly<ESLintUtils.RuleWithMetaAndName<TOptions, TMessageIds>>) {
+export function createEslintRule<TOptions extends readonly unknown[], TMessageIds extends string>(rule: Readonly<ESLintUtils.RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>>) {
   const createRule = ESLintUtils.RuleCreator<PluginDocs>(
     ruleName =>
       `https://github.com/veritem/eslint-plugin-vitest/blob/main/docs/rules/${ruleName}.md`

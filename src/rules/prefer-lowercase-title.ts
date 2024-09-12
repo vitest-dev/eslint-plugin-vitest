@@ -4,7 +4,7 @@ import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-f
 import { CallExpressionWithSingleArgument, DescribeAlias, TestCaseName } from '../utils/types'
 
 export const RULE_NAME = 'prefer-lowercase-title'
-export type MessageIds = 'lowerCaseTitle'
+export type MessageIds = 'lowerCaseTitle' | 'fullyLowerCaseTitle'
 
 type IgnorableFunctionExpressions =
   | TestCaseName.it
