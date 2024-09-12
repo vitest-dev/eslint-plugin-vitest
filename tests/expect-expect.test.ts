@@ -23,7 +23,20 @@ ruleTester.run(RULE_NAME, rule, {
 
 	assert.notEqual(cleanPrCommitTitle('Something done (fixes #123)', 123), clean);
 	assert.notEqual(cleanPrCommitTitle('Something done (#23454)', 123), clean);
-});`
+});`,
+    `import { it as base } from 'vitest'
+
+const it = base.extend<{
+  foo: string,
+  bar: string
+} >({
+ async foo({}, use) {
+   await use('foo')
+ },
+ async bar({}, use) {
+   await use('bar')
+ }
+})`
   ],
   invalid: [
     {
