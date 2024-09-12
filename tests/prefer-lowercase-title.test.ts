@@ -41,7 +41,7 @@ ruleTester.run(RULE_NAME, rule, {
       output: 'test(`sfc compile`, function () {})',
       errors: [
         {
-          messageId: 'lowerCaseTitle',
+          messageId: 'fullyLowerCaseTitle',
           data: {
             method: TestCaseName.test
           }
