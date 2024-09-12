@@ -54,7 +54,8 @@ export default createEslintRule<[
     },
     fixable: 'code',
     messages: {
-      lowerCaseTitle: '`{{ method }}`s should begin with lowercase'
+      lowerCaseTitle: '`{{ method }}`s should begin with lowercase',
+      fullyLowerCaseTitle: '`{{ method }}`s should be lowercase'
     },
     schema: [
       {
@@ -130,7 +131,7 @@ export default createEslintRule<[
         ) return
 
         context.report({
-          messageId: 'lowerCaseTitle',
+          messageId: lowercaseFirstCharacterOnly ? 'lowerCaseTitle' : 'fullyLowerCaseTitle',
           node: node.arguments[0],
           data: {
             method: vitestFnCall.name
