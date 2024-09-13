@@ -65,7 +65,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     const unchecked: TSESTree.CallExpression[] = []
     const settings = parsePluginSettings(context.settings)
 
-    if (settings.typecheck) assertFunctionNames.push('expectTypeOf')
+    if (settings.typecheck) assertFunctionNames.push('expectTypeOf', 'assertType')
 
     function checkCallExpression(nodes: TSESTree.Node[]) {
       for (const node of nodes) {

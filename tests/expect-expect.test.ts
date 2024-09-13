@@ -187,8 +187,21 @@ const it = base.extend<{
     },
     {
       code: `
-    it("should fail without 'typecheck' enabled", () => {
+    it("should fail 'expectTypeOf' without 'typecheck' enabled", () => {
      expectTypeOf({ a: 1 }).toEqualTypeOf<{ a: number }>()
+    });
+    `,
+      errors: [
+        {
+          messageId: 'noAssertions',
+          type: AST_NODE_TYPES.Identifier
+        }
+      ]
+    },
+    {
+      code: `
+    it("should fail 'assertType' without 'typecheck' enabled", () => {
+     assertType<string>('a')
     });
     `,
       errors: [
