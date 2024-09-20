@@ -8,7 +8,7 @@ It's common when writing tests to need to perform a particular setup work before
 
 ## Details 
 
-This rule flags any expression that is either at the toplevel of a test file or directly within the body of a `describe` expect the following.
+This rule flags any expression that is either at the toplevel of a test file or directly within the body of a `describe` except the following:
 
 - `import` statements
 - `const` variables
