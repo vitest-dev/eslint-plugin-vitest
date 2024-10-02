@@ -70,13 +70,7 @@
 		"vitest": "*"
 	},
 	"peerDependenciesMeta": {
-		"vitest": {
-			"optional": true
-		},
 		"typescript": {
-			"optional": true
-		},
-		"@typescript-eslint/utils": {
 			"optional": true
 		}
 	},
