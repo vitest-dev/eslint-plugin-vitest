@@ -72,7 +72,7 @@
 	"peerDependenciesMeta": {
 		"typescript": {
 			"optional": true
-		},
+		}
 	},
 	"packageManager": "pnpm@9.7.0"
 }
