@@ -70,15 +70,9 @@
 		"vitest": "*"
 	},
 	"peerDependenciesMeta": {
-		"vitest": {
-			"optional": true
-		},
 		"typescript": {
 			"optional": true
 		},
-		"@typescript-eslint/utils": {
-			"optional": true
-		}
 	},
 	"packageManager": "pnpm@9.7.0"
 }
