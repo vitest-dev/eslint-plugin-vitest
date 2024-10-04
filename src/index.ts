@@ -41,6 +41,7 @@ import preferEach, { RULE_NAME as preferEachName } from './rules/prefer-each'
 import preferHooksOnTop, { RULE_NAME as preferHooksOnTopName } from './rules/prefer-hooks-on-top'
 import preferHooksInOrder, { RULE_NAME as preferHooksInOrderName } from './rules/prefer-hooks-in-order'
 import preferMockPromiseShorthand, { RULE_NAME as preferMockPromiseShortHandName } from './rules/prefer-mock-promise-shorthand'
+import preferViMocked, { RULE_NAME as preferViMockedName } from "./rules/prefer-vi-mocked";
 import preferSnapshotHint, { RULE_NAME as preferSnapshotHintName } from './rules/prefer-snapshot-hint'
 import validDescribeCallback, { RULE_NAME as validDescribeCallbackName } from './rules/valid-describe-callback'
 import requireTopLevelDescribe, { RULE_NAME as requireTopLevelDescribeName } from './rules/require-top-level-describe'
@@ -116,6 +117,7 @@ const allRules = {
   [preferHooksOnTopName]: 'warn',
   [preferHooksInOrderName]: 'warn',
   [preferMockPromiseShortHandName]: 'warn',
+  [preferViMockedName]: 'warn',
   [preferSnapshotHintName]: 'warn',
   [requireTopLevelDescribeName]: 'warn',
   [requireToThrowMessageName]: 'warn',
@@ -195,6 +197,7 @@ const plugin = {
     [preferHooksInOrderName]: preferHooksInOrder,
     [requireLocalTestContextForConcurrentSnapshotsName]: requireLocalTestContextForConcurrentSnapshots,
     [preferMockPromiseShortHandName]: preferMockPromiseShorthand,
+    [preferViMockedName]: preferViMocked,
     [preferSnapshotHintName]: preferSnapshotHint,
     [validDescribeCallbackName]: validDescribeCallback,
     [requireTopLevelDescribeName]: requireTopLevelDescribe,
