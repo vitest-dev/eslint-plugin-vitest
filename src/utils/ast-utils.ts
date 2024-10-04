@@ -1,5 +1,6 @@
 import { AST_NODE_TYPES, AST_TOKEN_TYPES, TSESLint, TSESTree } from "@typescript-eslint/utils";
 import { createRequire } from "node:module"
+import { MaybeTypeCast, TSTypeCastExpression } from './types'
 
 const require = createRequire(import.meta.url)
 const eslintRequire = createRequire(require.resolve("eslint"))
@@ -77,3 +78,18 @@ export const areTokensOnSameLine = (
   left: TSESTree.Node | TSESTree.Token,
   right: TSESTree.Node | TSESTree.Token,
 ): boolean => left.loc.end.line === right.loc.start.line;
+
+const isTypeCastExpression = <Expression extends TSESTree.Expression>(
+  node: MaybeTypeCast<Expression>
+): node is TSTypeCastExpression<Expression> =>
+  node.type === AST_NODE_TYPES.TSAsExpression ||
+  node.type === AST_NODE_TYPES.TSTypeAssertion;
+
+export const followTypeAssertionChain = <
+  Expression extends TSESTree.Expression
+>(
+  expression: MaybeTypeCast<Expression>
+): Expression =>
+  isTypeCastExpression(expression)
+    ? followTypeAssertionChain(expression.expression)
+    : expression;

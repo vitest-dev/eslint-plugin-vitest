@@ -42,3 +42,23 @@ export enum EqualityMatcher {
   toEqual = 'toEqual',
   toStrictEqual = 'toStrictEqual'
 }
+
+export type MaybeTypeCast<Expression extends TSESTree.Expression> =
+  | TSTypeCastExpression<Expression>
+  | Expression;
+
+export type TSTypeCastExpression<
+  Expression extends TSESTree.Expression = TSESTree.Expression
+> = AsExpressionChain<Expression> | TypeAssertionChain<Expression>;
+
+interface AsExpressionChain<
+  Expression extends TSESTree.Expression = TSESTree.Expression
+> extends TSESTree.TSAsExpression {
+  expression: AsExpressionChain<Expression> | Expression;
+}
+
+interface TypeAssertionChain<
+  Expression extends TSESTree.Expression = TSESTree.Expression
+> extends TSESTree.TSTypeAssertion {
+  expression: TypeAssertionChain<Expression> | Expression;
+}
