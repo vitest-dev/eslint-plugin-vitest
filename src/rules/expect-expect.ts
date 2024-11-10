@@ -46,7 +46,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
         properties: {
           assertFunctionNames: {
             type: 'array',
-            items: [{ type: 'string' }]
+            items: { type: 'string' }
           },
           additionalTestBlockFunctions: {
             type: 'array',
