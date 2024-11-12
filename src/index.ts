@@ -61,6 +61,7 @@ import paddingAroundBeforeEachBlocks, { RULE_NAME as paddingAroundBeforeEachBloc
 import paddingAroundDescribeBlocks, { RULE_NAME as paddingAroundDescribeBlocksName } from "./rules/padding-around-describe-blocks"
 import paddingAroundExpectGroups, { RULE_NAME as paddingAroundExpectGroupsName } from "./rules/padding-around-expect-groups"
 import paddingAroundTestBlocks, { RULE_NAME as paddingAroundTestBlocksName } from "./rules/padding-around-test-blocks"
+import validExpectInPromise, { RULE_NAME as validExpectInPromiseName } from './rules/valid-expect-in-promise'
 
 const createConfig = <R extends Linter.RulesRecord>(rules: R) => (
   Object.keys(rules).reduce((acc, ruleName) => {
@@ -135,7 +136,8 @@ const allRules = {
   [paddingAroundBeforeEachBlocksName]: 'warn',
   [paddingAroundDescribeBlocksName]: 'warn',
   [paddingAroundExpectGroupsName]: 'warn',
-  [paddingAroundTestBlocksName]: 'warn'
+  [paddingAroundTestBlocksName]: 'warn',
+  [validExpectInPromiseName]: 'warn'
 } as const
 
 const recommended = {
@@ -215,7 +217,8 @@ const plugin = {
     [paddingAroundBeforeEachBlocksName]: paddingAroundBeforeEachBlocks,
     [paddingAroundDescribeBlocksName]: paddingAroundDescribeBlocks,
     [paddingAroundExpectGroupsName]: paddingAroundExpectGroups,
-    [paddingAroundTestBlocksName]: paddingAroundTestBlocks
+    [paddingAroundTestBlocksName]: paddingAroundTestBlocks,
+    [validExpectInPromiseName]: validExpectInPromise
   },
   configs: {
     'legacy-recommended': createConfigLegacy(recommended),
