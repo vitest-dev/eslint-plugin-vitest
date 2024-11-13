@@ -344,7 +344,7 @@ export default createEslintRule<[
     maxArgs: number
   }>
 ], MESSAGE_IDS>({
-  name: __filename,
+  name: RULE_NAME,
   meta: {
     docs: {
       description:
