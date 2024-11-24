@@ -1,5 +1,5 @@
-import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
-import { createEslintRule, getAccessorValue, isSupportedAccessor } from '../utils'
+import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
+import { createEslintRule, FunctionExpression, getAccessorValue, isFunction, isSupportedAccessor } from '../utils'
 import { parseVitestFnCallWithReason } from '../utils/parse-vitest-fn-call'
 import { ModifierName } from '../utils/types'
 
@@ -44,6 +44,21 @@ const getPromiseCallExpressionNode = (node: TSESTree.Node) => {
 const promiseArrayExceptionKey = ({ start, end }: TSESTree.SourceLocation) =>
   `${start.line}:${start.column}-${end.line}:${end.column}`
 
+const getNormalizeFunctionExpression = (
+  functionExpression: FunctionExpression,
+):
+  | TSESTree.PropertyComputedName
+  | TSESTree.PropertyNonComputedName
+  | FunctionExpression => {
+  if (
+    functionExpression.parent.type === AST_NODE_TYPES.Property &&
+    functionExpression.type === AST_NODE_TYPES.FunctionExpression
+  )
+    return functionExpression.parent;
+
+  return functionExpression;
+};
+
 function getParentIfThenified(node: TSESTree.Node): TSESTree.Node {
   const grandParentNode = node.parent?.parent
 
@@ -64,6 +79,15 @@ const findPromiseCallExpressionNode = (node: TSESTree.Node) =>
     )
     ? getPromiseCallExpressionNode(node.parent)
     : null
+
+const findFirstFunctionExpression = ({
+  parent,
+}: TSESTree.Node): FunctionExpression | null => {
+  if (!parent)
+    return null;
+
+  return isFunction(parent) ? parent : findFirstFunctionExpression(parent);
+};
 
 const isAcceptableReturnNode = (
   node: TSESTree.Node,
@@ -110,6 +134,7 @@ export default createEslintRule<[
         'Promises which return async assertions must be awaited{{orReturned}}'
     },
     type: 'suggestion',
+    fixable: "code",
     schema: [
       {
         type: 'object',
@@ -143,6 +168,13 @@ export default createEslintRule<[
   }],
   create: (context, [{ alwaysAwait, asyncMatchers = defaultAsyncMatchers, minArgs = 1, maxArgs = 1 }]) => {
     const arrayExceptions = new Set<string>()
+    const descriptors: Array<{
+      node: TSESTree.Node;
+      messageId: Extract<
+        MESSAGE_IDS,
+        'asyncMustBeAwaited' | 'promisesWithAsyncAssertionsMustBeAwaited'
+      >;
+    }> = [];
 
     const pushPromiseArrayException = (loc: TSESTree.SourceLocation) => arrayExceptions.add(promiseArrayExceptionKey(loc))
 
@@ -293,19 +325,64 @@ export default createEslintRule<[
         if (finalNode.parent
           && !isAcceptableReturnNode(finalNode.parent, !alwaysAwait)
           && !promiseArrayExceptionExists(finalNode.loc)) {
-          context.report({
-            loc: finalNode.loc,
-            data: { orReturned },
+          descriptors.push({
             messageId: finalNode === targetNode
               ? 'asyncMustBeAwaited'
               : 'promisesWithAsyncAssertionsMustBeAwaited',
-            node
+            node: finalNode
           })
 
           if (isParentArrayExpression)
             pushPromiseArrayException(finalNode.loc)
         }
-      }
+      },
+      'Program:exit'() {
+        const fixes: TSESLint.RuleFix[] = [];
+
+        descriptors.forEach(({ node, messageId }, index) => {
+          const orReturned = alwaysAwait ? '' : ' or returned';
+
+          context.report({
+            loc: node.loc,
+            data: { orReturned },
+            messageId,
+            node,
+            fix(fixer) {
+              const functionExpression = findFirstFunctionExpression(node);
+
+              if (!functionExpression)
+                return null;
+
+              const foundAsyncFixer = fixes.some(fix => fix.text === 'async ');
+
+              if (!functionExpression.async && !foundAsyncFixer) {
+                const targetFunction =
+                  getNormalizeFunctionExpression(functionExpression);
+
+                fixes.push(fixer.insertTextBefore(targetFunction, 'async '));
+              }
+
+              const returnStatement =
+                node.parent?.type === AST_NODE_TYPES.ReturnStatement
+                  ? node.parent
+                  : null;
+
+              if (alwaysAwait && returnStatement) {
+                const sourceCodeText =
+                context.sourceCode.getText(returnStatement);
+                const replacedText = sourceCodeText.replace('return', 'await');
+
+                fixes.push(fixer.replaceText(returnStatement, replacedText));
+              }
+              else {
+                fixes.push(fixer.insertTextBefore(node, 'await '));
+              }
+
+              return index === descriptors.length - 1 ? fixes : null;
+            },
+          });
+        });
+      },
     }
   }
 })
