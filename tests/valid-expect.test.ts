@@ -431,6 +431,15 @@ ruleTester.run(RULE_NAME, rule, {
        }
      });
       `,
+      output: `
+     expect.extend({
+       async toResolve(obj) {
+      this.isNot
+        ? expect(obj).toBe(true)
+        : await expect(obj).resolves.not.toThrow();
+       }
+     });
+      `,
       errors: [
         {
           column: 11,
@@ -449,6 +458,15 @@ ruleTester.run(RULE_NAME, rule, {
        }
      });
       `,
+      output: `
+     expect.extend({
+       async toResolve(obj) {
+      this.isNot
+        ? await expect(obj).resolves.not.toThrow()
+        : expect(obj).toBe(true);
+       }
+     });
+      `,
       errors: [
         {
           column: 11,
@@ -459,6 +477,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'test("valid-expect", () => { expect(Promise.resolve(2)).resolves.toBeDefined(); });',
+      output: 'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.toBeDefined(); });',
       errors: [
         {
           column: 30,
@@ -470,6 +489,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'test("valid-expect", () => { expect(Promise.resolve(2)).toResolve(); });',
+      output: 'test("valid-expect", async () => { await expect(Promise.resolve(2)).toResolve(); });',
       errors: [
         {
           messageId: 'asyncMustBeAwaited',
@@ -481,6 +501,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'test("valid-expect", () => { expect(Promise.resolve(2)).toResolve(); });',
+      output: 'test("valid-expect", async () => { await expect(Promise.resolve(2)).toResolve(); });',
       options: [{ asyncMatchers: undefined }],
       errors: [
         {
@@ -493,6 +514,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'test("valid-expect", () => { expect(Promise.resolve(2)).toReject(); });',
+      output: 'test("valid-expect", async () => { await expect(Promise.resolve(2)).toReject(); });',
       errors: [
         {
           messageId: 'asyncMustBeAwaited',
@@ -504,6 +526,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'test("valid-expect", () => { expect(Promise.resolve(2)).not.toReject(); });',
+      output: 'test("valid-expect", async () => { await expect(Promise.resolve(2)).not.toReject(); });',
       errors: [
         {
           messageId: 'asyncMustBeAwaited',
@@ -515,6 +538,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'test("valid-expect", () => { expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
+      output: 'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
       errors: [
         {
           column: 30,
@@ -526,6 +550,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'test("valid-expect", () => { expect(Promise.resolve(2)).rejects.toBeDefined(); });',
+      output: 'test("valid-expect", async () => { await expect(Promise.resolve(2)).rejects.toBeDefined(); });',
       errors: [
         {
           column: 30,
@@ -537,6 +562,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'test("valid-expect", () => { expect(Promise.resolve(2)).rejects.not.toBeDefined(); });',
+      output: 'test("valid-expect", async () => { await expect(Promise.resolve(2)).rejects.not.toBeDefined(); });',
       errors: [
         {
           column: 30,
@@ -548,6 +574,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'test("valid-expect", async () => { expect(Promise.resolve(2)).resolves.toBeDefined(); });',
+      output: 'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.toBeDefined(); });',
       errors: [
         {
           column: 36,
@@ -559,6 +586,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'test("valid-expect", async () => { expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
+      output: 'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
       errors: [
         {
           column: 36,
@@ -570,6 +598,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'test("valid-expect", () => { expect(Promise.reject(2)).toRejectWith(2); });',
+      output: 'test("valid-expect", async () => { await expect(Promise.reject(2)).toRejectWith(2); });',
       options: [{ asyncMatchers: ['toRejectWith'] }],
       errors: [
         {
@@ -581,6 +610,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'test("valid-expect", () => { expect(Promise.reject(2)).rejects.toBe(2); });',
+      output: 'test("valid-expect", async () => { await expect(Promise.reject(2)).rejects.toBe(2); });',
       options: [{ asyncMatchers: ['toRejectWith'] }],
       errors: [
         {
@@ -595,6 +625,12 @@ ruleTester.run(RULE_NAME, rule, {
        test("valid-expect", async () => {
       expect(Promise.resolve(2)).resolves.not.toBeDefined();
       expect(Promise.resolve(1)).rejects.toBeDefined();
+       });
+     `,
+      output: `
+       test("valid-expect", async () => {
+      await expect(Promise.resolve(2)).resolves.not.toBeDefined();
+      await expect(Promise.resolve(1)).rejects.toBeDefined();
        });
      `,
       errors: [
@@ -621,6 +657,12 @@ ruleTester.run(RULE_NAME, rule, {
       expect(Promise.resolve(1)).rejects.toBeDefined();
        });
      `,
+      output: `
+       test("valid-expect", async () => {
+      await expect(Promise.resolve(2)).resolves.not.toBeDefined();
+      await expect(Promise.resolve(1)).rejects.toBeDefined();
+       });
+     `,
       errors: [
         {
           line: 4,
@@ -636,6 +678,12 @@ ruleTester.run(RULE_NAME, rule, {
        test("valid-expect", async () => {
       expect(Promise.resolve(2)).resolves.not.toBeDefined();
       return expect(Promise.resolve(1)).rejects.toBeDefined();
+       });
+     `,
+      output: `
+       test("valid-expect", async () => {
+      await expect(Promise.resolve(2)).resolves.not.toBeDefined();
+      await expect(Promise.resolve(1)).rejects.toBeDefined();
        });
      `,
       options: [{ alwaysAwait: true }],
@@ -661,6 +709,12 @@ ruleTester.run(RULE_NAME, rule, {
       return expect(Promise.resolve(1)).rejects.toBeDefined();
        });
      `,
+      output: `
+       test("valid-expect", async () => {
+      await expect(Promise.resolve(2)).resolves.not.toBeDefined();
+      return expect(Promise.resolve(1)).rejects.toBeDefined();
+       });
+     `,
       errors: [
         {
           line: 3,
@@ -675,6 +729,11 @@ ruleTester.run(RULE_NAME, rule, {
       code: `
        test("valid-expect", () => {
       Promise.x(expect(Promise.resolve(2)).resolves.not.toBeDefined());
+       });
+     `,
+      output: `
+       test("valid-expect", async () => {
+      await Promise.x(expect(Promise.resolve(2)).resolves.not.toBeDefined());
        });
      `,
       errors: [
@@ -693,6 +752,11 @@ ruleTester.run(RULE_NAME, rule, {
        Promise.resolve(expect(Promise.resolve(2)).resolves.not.toBeDefined());
      });
       `,
+      output: `
+     test("valid-expect", async () => {
+       await Promise.resolve(expect(Promise.resolve(2)).resolves.not.toBeDefined());
+     });
+      `,
       options: [{ alwaysAwait: true }],
       errors: [
         {
@@ -707,6 +771,14 @@ ruleTester.run(RULE_NAME, rule, {
       code: `
      test("valid-expect", () => {
       Promise.all([
+        expect(Promise.resolve(2)).resolves.not.toBeDefined(),
+        expect(Promise.resolve(3)).resolves.not.toBeDefined(),
+      ]);
+       });
+       `,
+      output: `
+     test("valid-expect", async () => {
+      await Promise.all([
         expect(Promise.resolve(2)).resolves.not.toBeDefined(),
         expect(Promise.resolve(3)).resolves.not.toBeDefined(),
       ]);
@@ -731,6 +803,13 @@ ruleTester.run(RULE_NAME, rule, {
         expect(Promise.resolve(3)).resolves.not.toBeDefined(),
       ]);
        });`,
+      output: `
+     test("valid-expect", async () => {
+      await Promise.x([
+        expect(Promise.resolve(2)).resolves.not.toBeDefined(),
+        expect(Promise.resolve(3)).resolves.not.toBeDefined(),
+      ]);
+       });`,
       errors: [
         {
           line: 3,
@@ -748,6 +827,14 @@ ruleTester.run(RULE_NAME, rule, {
       const assertions = [
         expect(Promise.resolve(2)).resolves.not.toBeDefined(),
         expect(Promise.resolve(3)).resolves.not.toBeDefined(),
+      ]
+       });
+     `,
+      output: `
+       test("valid-expect", async () => {
+      const assertions = [
+        await expect(Promise.resolve(2)).resolves.not.toBeDefined(),
+        await expect(Promise.resolve(3)).resolves.not.toBeDefined(),
       ]
        });
      `,
@@ -779,6 +866,14 @@ ruleTester.run(RULE_NAME, rule, {
        ]
      });
       `,
+      output: `
+     test("valid-expect", async () => {
+       const assertions = [
+      await expect(Promise.resolve(2)).toResolve(),
+      await expect(Promise.resolve(3)).toReject(),
+       ]
+     });
+      `,
       errors: [
         {
           messageId: 'asyncMustBeAwaited',
@@ -800,6 +895,14 @@ ruleTester.run(RULE_NAME, rule, {
       const assertions = [
         expect(Promise.resolve(2)).not.toResolve(),
         expect(Promise.resolve(3)).resolves.toReject(),
+      ]
+       });
+     `,
+      output: `
+       test("valid-expect", async () => {
+      const assertions = [
+        await expect(Promise.resolve(2)).not.toResolve(),
+        await expect(Promise.resolve(3)).resolves.toReject(),
       ]
        });
      `,
@@ -836,6 +939,13 @@ ruleTester.run(RULE_NAME, rule, {
       });
        });
      `,
+      output: `
+       test("valid-expect", () => {
+      return expect(functionReturningAPromise()).resolves.toEqual(1).then(async () => {
+        await expect(Promise.resolve(2)).resolves.toBe(1);
+      });
+       });
+     `,
       errors: [
         {
           line: 4,
@@ -853,6 +963,14 @@ ruleTester.run(RULE_NAME, rule, {
       return expect(functionReturningAPromise()).resolves.toEqual(1).then(async () => {
         await expect(Promise.resolve(2)).resolves.toBe(1);
         expect(Promise.resolve(4)).resolves.toBe(4);
+      });
+       });
+     `,
+      output: `
+       test("valid-expect", () => {
+      return expect(functionReturningAPromise()).resolves.toEqual(1).then(async () => {
+        await expect(Promise.resolve(2)).resolves.toBe(1);
+        await expect(Promise.resolve(4)).resolves.toBe(4);
       });
        });
      `,
