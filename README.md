@@ -3,7 +3,7 @@
 ![npm](https://img.shields.io/npm/v/@vitest/eslint-plugin)
 [![ci](https://github.com/vitest-dev/eslint-plugin-vitest/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/veritem/eslint-plugin-vitest/actions/workflows/ci.yml)
 
-Eslint plugin for vitest
+ESLint plugin for Vitest
 
 ### Installation
 
@@ -21,7 +21,7 @@ npm install @vitest/eslint-plugin --save-dev
 
 ### Usage
 
-Make sure you're running eslint `v9.0.0` or higher for the latest version of this plugin to work. The following example is how your `eslint.config.js` should be setup for this plugin to work for you.
+Make sure you're running ESLint `v9.0.0` or higher for the latest version of this plugin to work. The following example is how your `eslint.config.js` should be setup for this plugin to work for you.
 
 ```js
 import vitest from "@vitest/eslint-plugin";
@@ -40,7 +40,7 @@ export default [
 ];
 ```
 
-If you're not using the latest version of eslint (version `v8.57.0` or lower) you can setup this plugin using the following configuration
+If you're not using the latest version of ESLint (version `v8.57.0` or lower) you can setup this plugin using the following configuration
 
 Add `vitest` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
 
@@ -65,7 +65,7 @@ Then configure the rules you want to use under the rules section.
 }
 ```
 
-If you're using old Eslint configuration, make sure to use legacy key like the following
+If you're using old ESLint configuration, make sure to use legacy key like the following
 
 ```js
 {
