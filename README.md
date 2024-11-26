@@ -171,7 +171,7 @@ export default [
 | [require-to-throw-message](docs/rules/require-to-throw-message.md)                                                       | require toThrow() to be called with an error message                  |    | 🌐 |    |    |    |
 | [require-top-level-describe](docs/rules/require-top-level-describe.md)                                                   | enforce that all tests are in a top-level describe                    |    | 🌐 |    |    |    |
 | [valid-describe-callback](docs/rules/valid-describe-callback.md)                                                         | enforce valid describe callback                                       | ✅  |    |    |    |    |
-| [valid-expect](docs/rules/valid-expect.md)                                                                               | enforce valid `expect()` usage                                        | ✅  |    |    |    |    |
+| [valid-expect](docs/rules/valid-expect.md)                                                                               | enforce valid `expect()` usage                                        | ✅  |    | 🔧 |    |    |
 | [valid-title](docs/rules/valid-title.md)                                                                                 | enforce valid titles                                                  | ✅  |    | 🔧 |    |    |
 
 <!-- end auto-generated rules list -->

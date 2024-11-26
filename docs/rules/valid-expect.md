@@ -2,6 +2,8 @@
 
 💼 This rule is enabled in the ✅ `recommended` config.
 
+🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+
 <!-- end auto-generated rule header -->
 
 This rule triggers a warning if `expect` is called with no argument or with more than one argument. You change that behavior by setting the `minArgs` and `maxArgs` options.
@@ -32,7 +34,7 @@ This rule triggers a warning if `expect` is called with no argument or with more
   - Default: `[]`
 
 
-  ```js 
+  ```js
   {
 	"vitest/valid-expect": ["error", {
 	  "asyncMatchers": ["toBeResolved", "toBeRejected"]
@@ -42,8 +44,8 @@ This rule triggers a warning if `expect` is called with no argument or with more
 
   avoid using asyncMatchers with `expect`:
 
- 
- 
+
+
 3. `minArgs`
 
   - Type: `number`
