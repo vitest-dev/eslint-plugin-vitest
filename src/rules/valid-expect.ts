@@ -2,7 +2,7 @@ import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, FunctionExpression, getAccessorValue, isFunction, isSupportedAccessor } from '../utils'
 import { parseVitestFnCallWithReason } from '../utils/parse-vitest-fn-call'
 import { ModifierName } from '../utils/types'
-import { parsePluginSettings } from 'src/utils/parse-plugin-settings'
+import { parsePluginSettings } from '../utils/parse-plugin-settings'
 
 export const RULE_NAME = 'valid-expect'
 export type MESSAGE_IDS =
