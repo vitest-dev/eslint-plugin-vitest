@@ -25,7 +25,16 @@ export enum HookName {
 export enum ModifierName {
   not = 'not',
   rejects = 'rejects',
-  resolves = 'resolves'
+  resolves = 'resolves',
+  returns = 'returns',
+  branded = 'branded',
+  asserts = 'asserts',
+  constructorParameters = 'constructorParameters',
+  parameters = 'parameters',
+  thisParameter = 'thisParameter',
+  guards = 'guards',
+  instance = 'instance',
+  items = 'items'
 }
 
 /**

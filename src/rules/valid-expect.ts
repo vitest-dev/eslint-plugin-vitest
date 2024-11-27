@@ -2,6 +2,7 @@ import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, FunctionExpression, getAccessorValue, isFunction, isSupportedAccessor } from '../utils'
 import { parseVitestFnCallWithReason } from '../utils/parse-vitest-fn-call'
 import { ModifierName } from '../utils/types'
+import { parsePluginSettings } from 'src/utils/parse-plugin-settings'
 
 export const RULE_NAME = 'valid-expect'
 export type MESSAGE_IDS =
@@ -205,6 +206,7 @@ export default createEslintRule<[
     return {
       CallExpression(node) {
         const vitestFnCall = parseVitestFnCallWithReason(node, context)
+        const settings = parsePluginSettings(context.settings)
 
         if (typeof vitestFnCall === 'string') {
           const reportingNode
@@ -239,6 +241,9 @@ export default createEslintRule<[
             })
             return
           }
+          return
+        }
+        else if (vitestFnCall?.type ==="expectTypeOf" && settings.typecheck){
           return
         }
         else if (vitestFnCall?.type !== 'expect') {
