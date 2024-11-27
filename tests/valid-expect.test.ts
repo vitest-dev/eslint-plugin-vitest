@@ -109,7 +109,79 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: 'test("valid-expect", async () => { expect(Promise.resolve(2)).toResolve(); });',
       options: [{ asyncMatchers: ['toResolveWith'] }]
-    }
+    },
+    {
+      code: `expectTypeOf().returns.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true
+        }
+      },
+    },
+    {
+      code: `expectTypeOf().branded.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true
+        }
+      },
+    },
+    {
+      code: `expectTypeOf().asserts.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true
+        }
+      },
+    },
+    {
+      code: `expectTypeOf().constructorParameters.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true
+        }
+      },
+    },
+    {
+      code: `expectTypeOf().parameters.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true
+        }
+      },
+    },
+    {
+      code: `expectTypeOf().thisParameter.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true
+        }
+      },
+    },
+    {
+      code: `expectTypeOf().guards.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true
+        }
+      },
+    },
+    {
+      code: `expectTypeOf().instance.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true
+        }
+      },
+    },
+    {
+      code: `expectTypeOf().items.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true
+        }
+      },
+    },
   ],
   invalid: [
     {
