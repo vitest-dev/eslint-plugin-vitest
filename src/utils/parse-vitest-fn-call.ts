@@ -59,6 +59,8 @@ interface ParsedGeneralVitestFnCall extends BaseParsedVitestFnCall {
   type: Exclude<VitestFnType, 'expect'> & Exclude<VitestFnType, 'expectTypeOf'>
 }
 
+type Reason = 'matcher-not-called' | 'modifier-unknown' | 'matcher-not-found'
+
 export interface ParsedExpectVitestFnCall extends BaseParsedVitestFnCall, ModifiersAndMatcher {
   type: 'expect' | 'expectTypeOf'
 }
@@ -88,13 +90,13 @@ export const parseVitestFnCall = (
 
 const parseVitestFnCallCache = new WeakMap<
   TSESTree.CallExpression,
-  ParsedVitestFnCall | string | null
+  ParsedVitestFnCall | Reason | null
 >()
 
 export const parseVitestFnCallWithReason = (
   node: TSESTree.CallExpression,
   context: TSESLint.RuleContext<string, unknown[]>
-): ParsedVitestFnCall | string | null => {
+): ParsedVitestFnCall | Reason | null => {
   let parsedVitestFnCall = parseVitestFnCallCache.get(node)
 
   if (parsedVitestFnCall)
@@ -131,7 +133,7 @@ const determineVitestFnType = (name: string): VitestFnType => {
 
 const findModifiersAndMatcher = (
   members: KnownMemberExpressionProperty[]
-): ModifiersAndMatcher | string => {
+): ModifiersAndMatcher | Reason => {
   const modifiers: KnownMemberExpressionProperty[] = []
 
   for (const member of members) {
@@ -182,7 +184,7 @@ const findModifiersAndMatcher = (
   return 'matcher-not-found'
 }
 
-const parseVitestExpectCall = (typelessParsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'>, type: 'expect' | 'expectTypeOf'): ParsedExpectVitestFnCall | string => {
+const parseVitestExpectCall = (typelessParsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'>, type: 'expect' | 'expectTypeOf'): ParsedExpectVitestFnCall | Reason => {
   const modifiersMatcher = findModifiersAndMatcher(typelessParsedVitestFnCall.members)
 
   if (typeof modifiersMatcher === 'string')
@@ -222,7 +224,7 @@ export const findTopMostCallExpression = (
 const parseVitestFnCallWithReasonInner = (
   node: TSESTree.CallExpression,
   context: TSESLint.RuleContext<string, unknown[]>
-): ParsedVitestFnCall | string | null => {
+): ParsedVitestFnCall | Reason | null => {
   const chain = getNodeChain(node)
 
   if (!chain?.length)
