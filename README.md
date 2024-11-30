@@ -106,13 +106,45 @@ export default [
 ]
 ```
 
+### Shareable configurations
+
+#### Recommended
+This plugin exports a recommended configuration that enforces good testing practices.
+
+To enable this configuration with `eslint.config.js`, use `vitest.configs.recommended`:
+
+```js
+import vitest from "@vitest/eslint-plugin";
+
+export default [
+  {
+    files: ["tests/**"], // or any other pattern
+     ...vitest.configs.recommended,
+  }
+]
+```
+
+
+#### All
+If you want to enable all rules instead of only some you can do so by adding the all configuration to your `eslint.config.js` config file:
+
+```js
+import vitest from "@vitest/eslint-plugin";
+
+export default [
+  {
+    files: ["tests/**"], // or any other pattern
+     ...vitest.configs.all,
+  }
+]
+```
+
 ### Rules
 
 <!-- begin auto-generated rules list -->
 
 💼 Configurations enabled in.\
 ⚠️ Configurations set to warn in.\
-🌐 Set in the `all` configuration.\
 ✅ Set in the `recommended` configuration.\
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).\
 💡 Manually fixable by [editor suggestions](https://eslint.org/docs/latest/use/core-concepts#rule-suggestions).\
@@ -120,56 +152,56 @@ export default [
 
 | Name                                                                                                                     | Description                                                           | 💼 | ⚠️ | 🔧 | 💡 | ❌  |
 | :----------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------- | :- | :- | :- | :- | :- |
-| [consistent-test-filename](docs/rules/consistent-test-filename.md)                                                       | require .spec test file pattern                                       |    | 🌐 |    |    |    |
-| [consistent-test-it](docs/rules/consistent-test-it.md)                                                                   | enforce using test or it but not both                                 |    | 🌐 | 🔧 |    |    |
+| [consistent-test-filename](docs/rules/consistent-test-filename.md)                                                       | require .spec test file pattern                                       |    |   |    |    |    |
+| [consistent-test-it](docs/rules/consistent-test-it.md)                                                                   | enforce using test or it but not both                                 |    |   | 🔧 |    |    |
 | [expect-expect](docs/rules/expect-expect.md)                                                                             | enforce having expectation in test body                               | ✅  |    |    |    |    |
-| [max-expects](docs/rules/max-expects.md)                                                                                 | enforce a maximum number of expect per test                           |    | 🌐 |    |    |    |
-| [max-nested-describe](docs/rules/max-nested-describe.md)                                                                 | require describe block to be less than set max value or default value |    | 🌐 |    |    |    |
-| [no-alias-methods](docs/rules/no-alias-methods.md)                                                                       | disallow alias methods                                                |    | 🌐 | 🔧 |    |    |
+| [max-expects](docs/rules/max-expects.md)                                                                                 | enforce a maximum number of expect per test                           |    |   |    |    |    |
+| [max-nested-describe](docs/rules/max-nested-describe.md)                                                                 | require describe block to be less than set max value or default value |    |   |    |    |    |
+| [no-alias-methods](docs/rules/no-alias-methods.md)                                                                       | disallow alias methods                                                |    |   | 🔧 |    |    |
 | [no-commented-out-tests](docs/rules/no-commented-out-tests.md)                                                           | disallow commented out tests                                          | ✅  |    |    |    |    |
-| [no-conditional-expect](docs/rules/no-conditional-expect.md)                                                             | disallow conditional expects                                          |    | 🌐 |    |    |    |
-| [no-conditional-in-test](docs/rules/no-conditional-in-test.md)                                                           | disallow conditional tests                                            |    | 🌐 |    |    |    |
-| [no-conditional-tests](docs/rules/no-conditional-tests.md)                                                               | disallow conditional tests                                            |    | 🌐 |    |    |    |
-| [no-disabled-tests](docs/rules/no-disabled-tests.md)                                                                     | disallow disabled tests                                               |    | 🌐 |    |    |    |
-| [no-done-callback](docs/rules/no-done-callback.md)                                                                       | disallow using a callback in asynchronous tests and hooks             |    | 🌐 |    | 💡 | ❌  |
-| [no-duplicate-hooks](docs/rules/no-duplicate-hooks.md)                                                                   | disallow duplicate hooks and teardown hooks                           |    | 🌐 |    |    |    |
-| [no-focused-tests](docs/rules/no-focused-tests.md)                                                                       | disallow focused tests                                                |    | 🌐 | 🔧 |    |    |
-| [no-hooks](docs/rules/no-hooks.md)                                                                                       | disallow setup and teardown hooks                                     |    | 🌐 |    |    |    |
+| [no-conditional-expect](docs/rules/no-conditional-expect.md)                                                             | disallow conditional expects                                          |    |   |    |    |    |
+| [no-conditional-in-test](docs/rules/no-conditional-in-test.md)                                                           | disallow conditional tests                                            |    |   |    |    |    |
+| [no-conditional-tests](docs/rules/no-conditional-tests.md)                                                               | disallow conditional tests                                            |    |   |    |    |    |
+| [no-disabled-tests](docs/rules/no-disabled-tests.md)                                                                     | disallow disabled tests                                               |    |   |    |    |    |
+| [no-done-callback](docs/rules/no-done-callback.md)                                                                       | disallow using a callback in asynchronous tests and hooks             |    |   |    | 💡 | ❌  |
+| [no-duplicate-hooks](docs/rules/no-duplicate-hooks.md)                                                                   | disallow duplicate hooks and teardown hooks                           |    |   |    |    |    |
+| [no-focused-tests](docs/rules/no-focused-tests.md)                                                                       | disallow focused tests                                                |    |   | 🔧 |    |    |
+| [no-hooks](docs/rules/no-hooks.md)                                                                                       | disallow setup and teardown hooks                                     |    |   |    |    |    |
 | [no-identical-title](docs/rules/no-identical-title.md)                                                                   | disallow identical titles                                             | ✅  |    | 🔧 |    |    |
 | [no-import-node-test](docs/rules/no-import-node-test.md)                                                                 | disallow importing `node:test`                                        | ✅  |    | 🔧 |    |    |
-| [no-interpolation-in-snapshots](docs/rules/no-interpolation-in-snapshots.md)                                             | disallow string interpolation in snapshots                            |    | 🌐 | 🔧 |    |    |
-| [no-large-snapshots](docs/rules/no-large-snapshots.md)                                                                   | disallow large snapshots                                              |    | 🌐 |    |    |    |
-| [no-mocks-import](docs/rules/no-mocks-import.md)                                                                         | disallow importing from __mocks__ directory                           |    | 🌐 |    |    |    |
-| [no-restricted-matchers](docs/rules/no-restricted-matchers.md)                                                           | disallow the use of certain matchers                                  |    | 🌐 |    |    |    |
-| [no-restricted-vi-methods](docs/rules/no-restricted-vi-methods.md)                                                       | disallow specific `vi.` methods                                       |    | 🌐 |    |    |    |
-| [no-standalone-expect](docs/rules/no-standalone-expect.md)                                                               | disallow using `expect` outside of `it` or `test` blocks              |    | 🌐 |    |    |    |
-| [no-test-prefixes](docs/rules/no-test-prefixes.md)                                                                       | disallow using `test` as a prefix                                     |    | 🌐 | 🔧 |    |    |
-| [no-test-return-statement](docs/rules/no-test-return-statement.md)                                                       | disallow return statements in tests                                   |    | 🌐 |    |    |    |
-| [prefer-called-with](docs/rules/prefer-called-with.md)                                                                   | enforce using `toBeCalledWith()` or `toHaveBeenCalledWith()`          |    | 🌐 | 🔧 |    |    |
-| [prefer-comparison-matcher](docs/rules/prefer-comparison-matcher.md)                                                     | enforce using the built-in comparison matchers                        |    | 🌐 | 🔧 |    |    |
-| [prefer-each](docs/rules/prefer-each.md)                                                                                 | enforce using `each` rather than manual loops                         |    | 🌐 |    |    |    |
-| [prefer-equality-matcher](docs/rules/prefer-equality-matcher.md)                                                         | enforce using the built-in quality matchers                           |    | 🌐 |    | 💡 |    |
-| [prefer-expect-assertions](docs/rules/prefer-expect-assertions.md)                                                       | enforce using expect assertions instead of callbacks                  |    | 🌐 |    | 💡 |    |
-| [prefer-expect-resolves](docs/rules/prefer-expect-resolves.md)                                                           | enforce using `expect().resolves` over `expect(await ...)` syntax     |    | 🌐 | 🔧 |    |    |
-| [prefer-hooks-in-order](docs/rules/prefer-hooks-in-order.md)                                                             | enforce having hooks in consistent order                              |    | 🌐 |    |    |    |
-| [prefer-hooks-on-top](docs/rules/prefer-hooks-on-top.md)                                                                 | enforce having hooks before any test cases                            |    | 🌐 |    |    |    |
-| [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md)                                                           | enforce lowercase titles                                              |    | 🌐 | 🔧 |    |    |
-| [prefer-mock-promise-shorthand](docs/rules/prefer-mock-promise-shorthand.md)                                             | enforce mock resolved/rejected shorthands for promises                |    | 🌐 | 🔧 |    |    |
-| [prefer-snapshot-hint](docs/rules/prefer-snapshot-hint.md)                                                               | enforce including a hint with external snapshots                      |    | 🌐 |    |    |    |
-| [prefer-spy-on](docs/rules/prefer-spy-on.md)                                                                             | enforce using `vi.spyOn`                                              |    | 🌐 | 🔧 |    |    |
-| [prefer-strict-equal](docs/rules/prefer-strict-equal.md)                                                                 | enforce strict equal over equal                                       |    | 🌐 |    | 💡 |    |
-| [prefer-to-be](docs/rules/prefer-to-be.md)                                                                               | enforce using toBe()                                                  |    | 🌐 | 🔧 |    |    |
-| [prefer-to-be-falsy](docs/rules/prefer-to-be-falsy.md)                                                                   | enforce using toBeFalsy()                                             |    | 🌐 | 🔧 |    |    |
-| [prefer-to-be-object](docs/rules/prefer-to-be-object.md)                                                                 | enforce using toBeObject()                                            |    | 🌐 | 🔧 |    |    |
-| [prefer-to-be-truthy](docs/rules/prefer-to-be-truthy.md)                                                                 | enforce using `toBeTruthy`                                            |    | 🌐 | 🔧 |    |    |
-| [prefer-to-contain](docs/rules/prefer-to-contain.md)                                                                     | enforce using toContain()                                             |    | 🌐 | 🔧 |    |    |
-| [prefer-to-have-length](docs/rules/prefer-to-have-length.md)                                                             | enforce using toHaveLength()                                          |    | 🌐 | 🔧 |    |    |
-| [prefer-todo](docs/rules/prefer-todo.md)                                                                                 | enforce using `test.todo`                                             |    | 🌐 | 🔧 |    |    |
-| [prefer-vi-mocked](docs/rules/prefer-vi-mocked.md)                                                                       | Prefer `vi.mocked()` over `fn as Mock`                                |    | 🌐 | 🔧 |    |    |
-| [require-hook](docs/rules/require-hook.md)                                                                               | require setup and teardown to be within a hook                        |    | 🌐 |    |    |    |
+| [no-interpolation-in-snapshots](docs/rules/no-interpolation-in-snapshots.md)                                             | disallow string interpolation in snapshots                            |    |   | 🔧 |    |    |
+| [no-large-snapshots](docs/rules/no-large-snapshots.md)                                                                   | disallow large snapshots                                              |    |   |    |    |    |
+| [no-mocks-import](docs/rules/no-mocks-import.md)                                                                         | disallow importing from __mocks__ directory                           |    |   |    |    |    |
+| [no-restricted-matchers](docs/rules/no-restricted-matchers.md)                                                           | disallow the use of certain matchers                                  |    |   |    |    |    |
+| [no-restricted-vi-methods](docs/rules/no-restricted-vi-methods.md)                                                       | disallow specific `vi.` methods                                       |    |   |    |    |    |
+| [no-standalone-expect](docs/rules/no-standalone-expect.md)                                                               | disallow using `expect` outside of `it` or `test` blocks              |    |   |    |    |    |
+| [no-test-prefixes](docs/rules/no-test-prefixes.md)                                                                       | disallow using `test` as a prefix                                     |    |   | 🔧 |    |    |
+| [no-test-return-statement](docs/rules/no-test-return-statement.md)                                                       | disallow return statements in tests                                   |    |   |    |    |    |
+| [prefer-called-with](docs/rules/prefer-called-with.md)                                                                   | enforce using `toBeCalledWith()` or `toHaveBeenCalledWith()`          |    |   | 🔧 |    |    |
+| [prefer-comparison-matcher](docs/rules/prefer-comparison-matcher.md)                                                     | enforce using the built-in comparison matchers                        |    |   | 🔧 |    |    |
+| [prefer-each](docs/rules/prefer-each.md)                                                                                 | enforce using `each` rather than manual loops                         |    |   |    |    |    |
+| [prefer-equality-matcher](docs/rules/prefer-equality-matcher.md)                                                         | enforce using the built-in quality matchers                           |    |   |    | 💡 |    |
+| [prefer-expect-assertions](docs/rules/prefer-expect-assertions.md)                                                       | enforce using expect assertions instead of callbacks                  |    |   |    | 💡 |    |
+| [prefer-expect-resolves](docs/rules/prefer-expect-resolves.md)                                                           | enforce using `expect().resolves` over `expect(await ...)` syntax     |    |   | 🔧 |    |    |
+| [prefer-hooks-in-order](docs/rules/prefer-hooks-in-order.md)                                                             | enforce having hooks in consistent order                              |    |   |    |    |    |
+| [prefer-hooks-on-top](docs/rules/prefer-hooks-on-top.md)                                                                 | enforce having hooks before any test cases                            |    |   |    |    |    |
+| [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md)                                                           | enforce lowercase titles                                              |    |   | 🔧 |    |    |
+| [prefer-mock-promise-shorthand](docs/rules/prefer-mock-promise-shorthand.md)                                             | enforce mock resolved/rejected shorthands for promises                |    |   | 🔧 |    |    |
+| [prefer-snapshot-hint](docs/rules/prefer-snapshot-hint.md)                                                               | enforce including a hint with external snapshots                      |    |   |    |    |    |
+| [prefer-spy-on](docs/rules/prefer-spy-on.md)                                                                             | enforce using `vi.spyOn`                                              |    |   | 🔧 |    |    |
+| [prefer-strict-equal](docs/rules/prefer-strict-equal.md)                                                                 | enforce strict equal over equal                                       |    |   |    | 💡 |    |
+| [prefer-to-be](docs/rules/prefer-to-be.md)                                                                               | enforce using toBe()                                                  |    |   | 🔧 |    |    |
+| [prefer-to-be-falsy](docs/rules/prefer-to-be-falsy.md)                                                                   | enforce using toBeFalsy()                                             |    |   | 🔧 |    |    |
+| [prefer-to-be-object](docs/rules/prefer-to-be-object.md)                                                                 | enforce using toBeObject()                                            |    |   | 🔧 |    |    |
+| [prefer-to-be-truthy](docs/rules/prefer-to-be-truthy.md)                                                                 | enforce using `toBeTruthy`                                            |    |   | 🔧 |    |    |
+| [prefer-to-contain](docs/rules/prefer-to-contain.md)                                                                     | enforce using toContain()                                             |    |   | 🔧 |    |    |
+| [prefer-to-have-length](docs/rules/prefer-to-have-length.md)                                                             | enforce using toHaveLength()                                          |    |   | 🔧 |    |    |
+| [prefer-todo](docs/rules/prefer-todo.md)                                                                                 | enforce using `test.todo`                                             |    |   | 🔧 |    |    |
+| [prefer-vi-mocked](docs/rules/prefer-vi-mocked.md)                                                                       | Prefer `vi.mocked()` over `fn as Mock`                                |    |   | 🔧 |    |    |
+| [require-hook](docs/rules/require-hook.md)                                                                               | require setup and teardown to be within a hook                        |    |   |    |    |    |
 | [require-local-test-context-for-concurrent-snapshots](docs/rules/require-local-test-context-for-concurrent-snapshots.md) | require local Test Context for concurrent snapshot tests              | ✅  |    |    |    |    |
-| [require-to-throw-message](docs/rules/require-to-throw-message.md)                                                       | require toThrow() to be called with an error message                  |    | 🌐 |    |    |    |
-| [require-top-level-describe](docs/rules/require-top-level-describe.md)                                                   | enforce that all tests are in a top-level describe                    |    | 🌐 |    |    |    |
+| [require-to-throw-message](docs/rules/require-to-throw-message.md)                                                       | require toThrow() to be called with an error message                  |    |   |    |    |    |
+| [require-top-level-describe](docs/rules/require-top-level-describe.md)                                                   | enforce that all tests are in a top-level describe                    |    |   |    |    |    |
 | [valid-describe-callback](docs/rules/valid-describe-callback.md)                                                         | enforce valid describe callback                                       | ✅  |    |    |    |    |
 | [valid-expect](docs/rules/valid-expect.md)                                                                               | enforce valid `expect()` usage                                        | ✅  |    | 🔧 |    |    |
 | [valid-title](docs/rules/valid-title.md)                                                                                 | enforce valid titles                                                  | ✅  |    | 🔧 |    |    |
