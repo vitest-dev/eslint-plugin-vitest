@@ -1,6 +1,5 @@
 # Enforce that all tests are in a top-level describe (`vitest/require-top-level-describe`)
 
-⚠️ This rule _warns_ in the 🌐 `all` config.
 
 <!-- end auto-generated rule header -->
 
@@ -9,16 +8,16 @@ This rule triggers warning if a test case (`test` and `it`) or a hook (`beforeAl
 
 ## Options
 
-This rule accepts an object with the following properties: 
+This rule accepts an object with the following properties:
 
 - `maxNumberOfTopLevelDescribes`: The maximum number of top-level tests allowed in a file. Defaults to `Infinity`. Allowing any number of top-level describe blocks.
 
 ```json
 {
 	"vitest/require-top-level-describe": [
-		"error", 
-		{ 
-			"maxNumberOfTopLevelDescribes": 2 
+		"error",
+		{
+			"maxNumberOfTopLevelDescribes": 2
 		}
 	]
 }
@@ -56,7 +55,3 @@ describe('foo', () => {
 })
 
 ```
-
-
-
-

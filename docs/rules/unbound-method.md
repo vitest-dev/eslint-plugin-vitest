@@ -1,6 +1,5 @@
 # Enforce unbound methods are called with their expected scope (`vitest/unbound-method`)
 
-⚠️ This rule _warns_ in the 🌐 `all` config.
 
 💭 This rule requires type information.
 
@@ -40,6 +39,6 @@ This rule is enabled in the `all` config.
 }
 ```
 
-### Options 
+### Options
 
 Checkout [@typescript-eslint/unbound-method](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/unbound-method.md)  options. including  `ignoreStatic`
