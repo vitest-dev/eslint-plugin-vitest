@@ -137,7 +137,15 @@ const allRules = {
   [paddingAroundDescribeBlocksName]: 'warn',
   [paddingAroundExpectGroupsName]: 'warn',
   [paddingAroundTestBlocksName]: 'warn',
-  [validExpectInPromiseName]: 'warn'
+  [validExpectInPromiseName]: 'warn',
+  [expectedExpect]: 'warn',
+  [noIdenticalTitleName]: 'warn',
+  [noCommentedOutTestsName]: 'warn',
+  [validTitleName]: 'warn',
+  [validExpectName]: 'warn',
+  [validDescribeCallbackName]: 'warn',
+  [requireLocalTestContextForConcurrentSnapshotsName]: 'warn',
+  [noImportNodeTestName]: 'warn'
 } as const
 
 const recommended = {

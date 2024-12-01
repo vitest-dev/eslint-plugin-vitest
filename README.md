@@ -106,6 +106,39 @@ export default [
 ]
 ```
 
+### Shareable configurations
+
+#### Recommended
+This plugin exports a recommended configuration that enforces good testing practices.
+
+To enable this configuration with `eslint.config.js`, use `vitest.configs.recommended`:
+
+```js
+import vitest from "@vitest/eslint-plugin";
+
+export default [
+  {
+    files: ["tests/**"], // or any other pattern
+     ...vitest.configs.recommended,
+  }
+]
+```
+
+
+#### All
+If you want to enable all rules instead of only some you can do so by adding the all configuration to your `eslint.config.js` config file:
+
+```js
+import vitest from "@vitest/eslint-plugin";
+
+export default [
+  {
+    files: ["tests/**"], // or any other pattern
+     ...vitest.configs.all,
+  }
+]
+```
+
 ### Rules
 
 <!-- begin auto-generated rules list -->
@@ -122,11 +155,11 @@ export default [
 | :----------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------- | :- | :- | :- | :- | :- |
 | [consistent-test-filename](docs/rules/consistent-test-filename.md)                                                       | require .spec test file pattern                                       |    | 🌐 |    |    |    |
 | [consistent-test-it](docs/rules/consistent-test-it.md)                                                                   | enforce using test or it but not both                                 |    | 🌐 | 🔧 |    |    |
-| [expect-expect](docs/rules/expect-expect.md)                                                                             | enforce having expectation in test body                               | ✅  |    |    |    |    |
+| [expect-expect](docs/rules/expect-expect.md)                                                                             | enforce having expectation in test body                               | ✅  | 🌐 |    |    |    |
 | [max-expects](docs/rules/max-expects.md)                                                                                 | enforce a maximum number of expect per test                           |    | 🌐 |    |    |    |
 | [max-nested-describe](docs/rules/max-nested-describe.md)                                                                 | require describe block to be less than set max value or default value |    | 🌐 |    |    |    |
 | [no-alias-methods](docs/rules/no-alias-methods.md)                                                                       | disallow alias methods                                                |    | 🌐 | 🔧 |    |    |
-| [no-commented-out-tests](docs/rules/no-commented-out-tests.md)                                                           | disallow commented out tests                                          | ✅  |    |    |    |    |
+| [no-commented-out-tests](docs/rules/no-commented-out-tests.md)                                                           | disallow commented out tests                                          | ✅  | 🌐 |    |    |    |
 | [no-conditional-expect](docs/rules/no-conditional-expect.md)                                                             | disallow conditional expects                                          |    | 🌐 |    |    |    |
 | [no-conditional-in-test](docs/rules/no-conditional-in-test.md)                                                           | disallow conditional tests                                            |    | 🌐 |    |    |    |
 | [no-conditional-tests](docs/rules/no-conditional-tests.md)                                                               | disallow conditional tests                                            |    | 🌐 |    |    |    |
@@ -135,8 +168,8 @@ export default [
 | [no-duplicate-hooks](docs/rules/no-duplicate-hooks.md)                                                                   | disallow duplicate hooks and teardown hooks                           |    | 🌐 |    |    |    |
 | [no-focused-tests](docs/rules/no-focused-tests.md)                                                                       | disallow focused tests                                                |    | 🌐 | 🔧 |    |    |
 | [no-hooks](docs/rules/no-hooks.md)                                                                                       | disallow setup and teardown hooks                                     |    | 🌐 |    |    |    |
-| [no-identical-title](docs/rules/no-identical-title.md)                                                                   | disallow identical titles                                             | ✅  |    | 🔧 |    |    |
-| [no-import-node-test](docs/rules/no-import-node-test.md)                                                                 | disallow importing `node:test`                                        | ✅  |    | 🔧 |    |    |
+| [no-identical-title](docs/rules/no-identical-title.md)                                                                   | disallow identical titles                                             | ✅  | 🌐 | 🔧 |    |    |
+| [no-import-node-test](docs/rules/no-import-node-test.md)                                                                 | disallow importing `node:test`                                        | ✅  | 🌐 | 🔧 |    |    |
 | [no-interpolation-in-snapshots](docs/rules/no-interpolation-in-snapshots.md)                                             | disallow string interpolation in snapshots                            |    | 🌐 | 🔧 |    |    |
 | [no-large-snapshots](docs/rules/no-large-snapshots.md)                                                                   | disallow large snapshots                                              |    | 🌐 |    |    |    |
 | [no-mocks-import](docs/rules/no-mocks-import.md)                                                                         | disallow importing from __mocks__ directory                           |    | 🌐 |    |    |    |
@@ -167,12 +200,12 @@ export default [
 | [prefer-todo](docs/rules/prefer-todo.md)                                                                                 | enforce using `test.todo`                                             |    | 🌐 | 🔧 |    |    |
 | [prefer-vi-mocked](docs/rules/prefer-vi-mocked.md)                                                                       | Prefer `vi.mocked()` over `fn as Mock`                                |    | 🌐 | 🔧 |    |    |
 | [require-hook](docs/rules/require-hook.md)                                                                               | require setup and teardown to be within a hook                        |    | 🌐 |    |    |    |
-| [require-local-test-context-for-concurrent-snapshots](docs/rules/require-local-test-context-for-concurrent-snapshots.md) | require local Test Context for concurrent snapshot tests              | ✅  |    |    |    |    |
+| [require-local-test-context-for-concurrent-snapshots](docs/rules/require-local-test-context-for-concurrent-snapshots.md) | require local Test Context for concurrent snapshot tests              | ✅  | 🌐 |    |    |    |
 | [require-to-throw-message](docs/rules/require-to-throw-message.md)                                                       | require toThrow() to be called with an error message                  |    | 🌐 |    |    |    |
 | [require-top-level-describe](docs/rules/require-top-level-describe.md)                                                   | enforce that all tests are in a top-level describe                    |    | 🌐 |    |    |    |
-| [valid-describe-callback](docs/rules/valid-describe-callback.md)                                                         | enforce valid describe callback                                       | ✅  |    |    |    |    |
-| [valid-expect](docs/rules/valid-expect.md)                                                                               | enforce valid `expect()` usage                                        | ✅  |    | 🔧 |    |    |
-| [valid-title](docs/rules/valid-title.md)                                                                                 | enforce valid titles                                                  | ✅  |    | 🔧 |    |    |
+| [valid-describe-callback](docs/rules/valid-describe-callback.md)                                                         | enforce valid describe callback                                       | ✅  | 🌐 |    |    |    |
+| [valid-expect](docs/rules/valid-expect.md)                                                                               | enforce valid `expect()` usage                                        | ✅  | 🌐 | 🔧 |    |    |
+| [valid-title](docs/rules/valid-title.md)                                                                                 | enforce valid titles                                                  | ✅  | 🌐 | 🔧 |    |    |
 
 <!-- end auto-generated rules list -->
 
