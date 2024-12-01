@@ -7,7 +7,7 @@ import noFocusedTests, { RULE_NAME as noFocusedTestsName } from './rules/no-focu
 import noConditionalTest, { RULE_NAME as noConditionalTests } from './rules/no-conditional-tests'
 import expectExpect, { RULE_NAME as expectedExpect } from './rules/expect-expect'
 import consistentTestIt, { RULE_NAME as useConsistentTestIt } from './rules/consistent-test-it'
-import preferToBe, { RULE_NAME as usePreferTobe } from './rules/prefer-to-be'
+import preferToBe, { RULE_NAME as usePreferToBe } from './rules/prefer-to-be'
 import noHooks, { RULE_NAME as noHooksName } from './rules/no-hooks'
 import noRestrictedViMethods, { RULE_NAME as noRestrictedViMethodsName } from './rules/no-restricted-vi-methods'
 import consistentTestFilename, { RULE_NAME as useConsistentTestFilename } from './rules/consistent-test-filename'
@@ -128,7 +128,7 @@ const allRules = {
   [preferComparisonMatcherName]: 'warn',
   [preferToContainName]: 'warn',
   [preferExpectAssertionsName]: 'warn',
-  [usePreferTobe]: 'warn',
+  [usePreferToBe]: 'warn',
   [paddingAroundAfterAllBlocksName]: 'warn',
   [paddingAroundAfterEachBlocksName]: 'warn',
   [paddingAroundAllName]: 'warn',
@@ -172,7 +172,7 @@ const plugin = {
     [noConditionalTests]: noConditionalTest,
     [expectedExpect]: expectExpect,
     [useConsistentTestIt]: consistentTestIt,
-    [usePreferTobe]: preferToBe,
+    [usePreferToBe]: preferToBe,
     [noHooksName]: noHooks,
     [noRestrictedViMethodsName]: noRestrictedViMethods,
     [useConsistentTestFilename]: consistentTestFilename,
