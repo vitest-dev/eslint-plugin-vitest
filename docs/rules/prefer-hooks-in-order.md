@@ -1,9 +1,10 @@
 # Enforce having hooks in consistent order (`vitest/prefer-hooks-in-order`)
 
+⚠️ This rule _warns_ in the 🌐 `all` config.
 
 <!-- end auto-generated rule header -->
 
-```js
+```js 
   // consistent order of hooks
   ['beforeAll', 'beforeEach', 'afterEach', 'afterAll']
 ```

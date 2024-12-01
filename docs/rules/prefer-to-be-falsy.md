@@ -1,5 +1,6 @@
 # Enforce using toBeFalsy() (`vitest/prefer-to-be-falsy`)
 
+⚠️ This rule _warns_ in the 🌐 `all` config.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
@@ -22,3 +23,4 @@ Examples of **correct** code for this rule:
 expect(foo).toBeFalsy()
 expectTypeOf(foo).toBeFalsy()
 ```
+

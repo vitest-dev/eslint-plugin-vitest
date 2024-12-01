@@ -1,5 +1,6 @@
 # Enforce including a hint with external snapshots (`vitest/prefer-snapshot-hint`)
 
+⚠️ This rule _warns_ in the 🌐 `all` config.
 
 <!-- end auto-generated rule header -->
 

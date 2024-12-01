@@ -1,5 +1,6 @@
 # Disallow return statements in tests (`vitest/no-test-return-statement`)
 
+⚠️ This rule _warns_ in the 🌐 `all` config.
 
 <!-- end auto-generated rule header -->
 

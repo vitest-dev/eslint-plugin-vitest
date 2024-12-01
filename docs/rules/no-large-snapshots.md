@@ -1,5 +1,6 @@
 # Disallow large snapshots (`vitest/no-large-snapshots`)
 
+⚠️ This rule _warns_ in the 🌐 `all` config.
 
 <!-- end auto-generated rule header -->
 
@@ -50,3 +51,4 @@ test('large snapshot', () => {
 ## When Not To Use It
 
 If you don't want to limit the size of your snapshots, you can disable this rule.
+
