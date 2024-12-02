@@ -206,6 +206,7 @@ export default [
 | [valid-describe-callback](docs/rules/valid-describe-callback.md)                                                         | enforce valid describe callback                                       | ✅  | 🌐 |    |    |    |
 | [valid-expect](docs/rules/valid-expect.md)                                                                               | enforce valid `expect()` usage                                        | ✅  | 🌐 | 🔧 |    |    |
 | [valid-title](docs/rules/valid-title.md)                                                                                 | enforce valid titles                                                  | ✅  | 🌐 | 🔧 |    |    |
+| [valid-expect-in-promise](docs/rules/valid-expect-in-promise.md)                                                                                 | require promises that have expectations in their chain to be valid                                                  |    | 🌐 |   |    |    |
 
 <!-- end auto-generated rules list -->
 

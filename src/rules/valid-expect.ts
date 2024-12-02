@@ -322,7 +322,6 @@ export default createEslintRule<[
 
         const isParentArrayExpression
           = parentNode.parent.type === AST_NODE_TYPES.ArrayExpression
-        const orReturned = alwaysAwait ? '' : ' or returned'
 
         const targetNode = getParentIfThenified(parentNode)
         const finalNode = findPromiseCallExpressionNode(targetNode) || targetNode
