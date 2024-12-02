@@ -29,11 +29,11 @@ describe("myfunc", () => {
 })
 
 // returning a value from a describe block is not allowed
-describe("myfunc", () => {
+describe("myfunc", () =>
 	it("should do something", () => {
 		//
 	})
-})
+)
 ```
 
 The following are not considered warnings:

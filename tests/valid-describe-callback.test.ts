@@ -56,7 +56,16 @@ ruleTester.run(RULE_NAME, rule, {
           });
         });
       });
+    `,
     `
+      describe('foo', { only: true }, () => {
+        it('bar', () => {
+          return Promise.resolve(42).then(value => {
+            expect(value).toBe(42)
+          })
+        })
+      })
+    `,
   ],
   invalid: [
     {
@@ -172,6 +181,38 @@ ruleTester.run(RULE_NAME, rule, {
       ]
     },
     {
+      code: `
+       describe('foo', { only: true }, () =>
+      test('bar', () => {})
+       )
+     `,
+      errors: [
+        { messageId: 'unexpectedReturnInDescribe', line: 2, column: 40 }
+      ],
+    },
+    {
+      code: `
+       describe('foo', { only: true }, () => {
+      return Promise.resolve().then(() => {
+        it('breaks', () => {
+       throw new Error('Fail')
+        })
+      })
+      describe('nested', () => {
+        return Promise.resolve().then(() => {
+       it('breaks', () => {
+         throw new Error('Fail')
+       })
+        })
+      })
+       })
+     `,
+      errors: [
+        { messageId: 'unexpectedReturnInDescribe', line: 3, column: 7 },
+        { messageId: 'unexpectedReturnInDescribe', line: 9, column: 9 }
+      ],
+    },
+    {
       code: 'describe("foo", done => {})',
       errors: [
         { messageId: 'unexpectedDescribeArgument', line: 1, column: 17 }
@@ -194,6 +235,12 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         { messageId: 'unexpectedDescribeArgument', line: 1, column: 17 }
       ]
-    }
+    },
+    {
+      code: 'describe("foo", { only: true }, done => {})',
+      errors: [
+        { messageId: 'unexpectedDescribeArgument', line: 1, column: 33 }
+      ],
+    },
   ]
 })
