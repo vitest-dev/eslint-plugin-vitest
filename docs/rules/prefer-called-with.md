@@ -14,7 +14,7 @@ Examples of **incorrect** code for this rule:
 
 ```ts
 test('foo', () => {
-  const mock = jest.fn()
+  const mock = vi.fn()
   mock('foo')
   expect(mock).toBeCalled()
   expect(mock).toHaveBeenCalled()
@@ -25,7 +25,7 @@ Examples of **correct** code for this rule:
 
 ```ts
 test('foo', () => {
-  const mock = jest.fn()
+  const mock = vi.fn()
   mock('foo')
   expect(mock).toBeCalledWith('foo')
   expect(mock).toHaveBeenCalledWith('foo')
