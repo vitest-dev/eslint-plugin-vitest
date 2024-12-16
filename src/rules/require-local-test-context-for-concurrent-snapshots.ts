@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule, isSupportedAccessor } from '../utils'
-import { isTypeOfVitestFnCall } from '../utils/parse-vitest-fn-call'
+import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'require-local-test-context-for-concurrent-snapshots'
 
@@ -21,8 +21,13 @@ export default createEslintRule({
   create(context) {
     return {
       CallExpression(node) {
-        const isNotAnAssertion = !isTypeOfVitestFnCall(node, context, ['expect'])
-        if (isNotAnAssertion) return
+        const vitestFnCall = parseVitestFnCall(node, context)
+        if (vitestFnCall === null)
+          return
+        if (vitestFnCall.type !== "expect")
+          return
+        if (vitestFnCall.type === "expect" && vitestFnCall.head.type === "testContext")
+          return
 
         const isNotASnapshotAssertion = ![
           'toMatchSnapshot',
