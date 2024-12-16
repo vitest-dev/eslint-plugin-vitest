@@ -202,12 +202,6 @@ export default createEslintRule<Options[], MessageIds>({
 
         const [, secondArg] = node.arguments
 
-        if (secondArg?.type === AST_NODE_TYPES.ArrowFunctionExpression && secondArg.params.length) {
-          if (secondArg?.params[0].type === AST_NODE_TYPES.ObjectPattern) {
-            if (secondArg.params[0].properties[0].type === AST_NODE_TYPES.Property && secondArg.params[0].properties[0].key.type === AST_NODE_TYPES.Identifier && secondArg.params[0].properties[0].key.name === "expect") return
-          }
-        }
-
         if (!isFunction(secondArg) || !shouldCheckFunction(secondArg))
           return
 
