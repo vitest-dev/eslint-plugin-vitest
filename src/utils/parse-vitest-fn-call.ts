@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { DescribeAlias, HookName, ModifierName, TestCaseName } from './types'
 import { ValidVitestFnCallChains } from './valid-vitest-fn-call-chains'
-import { AccessorNode, getAccessorValue, getStringValue, isIdentifier, isStringNode, isSupportedAccessor } from '.'
+import { AccessorNode, getAccessorValue, getStringValue, isFunction, isIdentifier, isStringNode, isSupportedAccessor } from '.'
 
 export type VitestFnType =
   | 'test'
@@ -17,7 +17,7 @@ export type VitestFnType =
 interface ResolvedVitestFn {
   original: string | null
   local: string
-  type: 'import' | 'global'
+  type: 'import' | 'global' | 'testContext'
 }
 
 interface ImportDetails {
@@ -309,17 +309,11 @@ export function getNodeChain(node: TSESTree.Node): AccessorNode[] | null {
   return null
 }
 
-interface ResolvedVitestFnType {
-  original: string | null
-  local: string
-  type: 'import' | 'global'
-}
-
 const resolveVitestFn = (
   context: TSESLint.RuleContext<string, unknown[]>,
-  node: TSESTree.Node,
+  node: TSESTree.CallExpression,
   identifier: string
-): ResolvedVitestFnType | null => {
+): ResolvedVitestFn | null => {
   const scope = context.sourceCode.getScope
     ? context.sourceCode.getScope(node)
     : context.getScope()
@@ -327,6 +321,13 @@ const resolveVitestFn = (
 
   if (maybeImport === 'local')
     return null
+
+  if (maybeImport === "testContext")
+    return {
+      local: identifier,
+      original: null,
+      type: "testContext"
+    }
 
   if (maybeImport) {
     if (maybeImport.source === 'vitest') {
@@ -364,7 +365,7 @@ const resolvePossibleAliasedGlobal = (
 export const resolveScope = (
   scope: TSESLint.Scope.Scope,
   identifier: string
-): ImportDetails | 'local' | null => {
+): ImportDetails | 'local' | 'testContext' | null => {
   let currentScope: TSESLint.Scope.Scope | null = scope
 
   while (currentScope !== null) {
@@ -372,6 +373,14 @@ export const resolveScope = (
 
     if (ref && ref.defs.length > 0) {
       const def = ref.defs[ref.defs.length - 1]
+
+      const objectParam = isFunction(def.node) ? def.node.params.find(params => params.type === AST_NODE_TYPES.ObjectPattern ) : undefined
+      if (objectParam) {
+        const property = objectParam.properties.find(property => property.type === AST_NODE_TYPES.Property)
+        const key = property?.key.type === AST_NODE_TYPES.Identifier ? property.key : undefined
+        if (key?.name === identifier)
+          return "testContext"
+      }
 
       const importDetails = describePossibleImportDef(def)
 

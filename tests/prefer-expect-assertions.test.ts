@@ -23,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
     expect(number).toBeGreaterThan(value);
    }
    };
- 
+
    it('returns numbers that are greater than two', function () {
     expectNumbersToBeGreaterThan(getNumbers(), 2);
    });
@@ -62,6 +62,47 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: null
         }
       ]
+    },
+    {
+      code: `
+it('my test description', ({ expect }) => {
+  const a = 1;
+  const b = 2;
+
+  expect(sum(a, b)).toBe(a + b);
+})
+`,
+      errors: [
+        {
+          messageId: 'haveExpectAssertions',
+          column: 1,
+          line: 2,
+          suggestions: [
+            {
+              messageId: 'suggestAddingHasAssertions',
+              output: `
+it('my test description', ({ expect }) => {expect.hasAssertions();
+  const a = 1;
+  const b = 2;
+
+  expect(sum(a, b)).toBe(a + b);
+})
+`
+            },
+            {
+              messageId: 'suggestAddingAssertions',
+              output: `
+it('my test description', ({ expect }) => {expect.assertions();
+  const a = 1;
+  const b = 2;
+
+  expect(sum(a, b)).toBe(a + b);
+})
+`
+            }
+          ]
+        }
+      ],
     },
     {
       code: 'it(\'resolves\', () => expect(staged()).toBe(true));',
@@ -251,12 +292,12 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: `it("it1", () => {
     expect.hasAssertions();
-   
+
     for (const number of getNumbers()) {
       expect(number).toBeGreaterThan(0);
     }
      });
-   
+
      it("it1", () => {
     for (const number of getNumbers()) {
       expect(number).toBeGreaterThan(0);
@@ -273,12 +314,12 @@ ruleTester.run(RULE_NAME, rule, {
               messageId: 'suggestAddingHasAssertions',
               output: `it("it1", () => {
     expect.hasAssertions();
-   
+
     for (const number of getNumbers()) {
       expect(number).toBeGreaterThan(0);
     }
      });
-   
+
      it("it1", () => {expect.hasAssertions();
     for (const number of getNumbers()) {
       expect(number).toBeGreaterThan(0);
@@ -289,12 +330,12 @@ ruleTester.run(RULE_NAME, rule, {
               messageId: 'suggestAddingAssertions',
               output: `it("it1", () => {
     expect.hasAssertions();
-   
+
     for (const number of getNumbers()) {
       expect(number).toBeGreaterThan(0);
     }
      });
-   
+
      it("it1", () => {expect.assertions();
     for (const number of getNumbers()) {
       expect(number).toBeGreaterThan(0);
@@ -311,7 +352,7 @@ ruleTester.run(RULE_NAME, rule, {
     expect(number).toBeGreaterThan(4);
      }
    });
- 
+
    it("returns numbers that are greater than five", () => {
      for (const number of getNumbers()) {
     expect(number).toBeGreaterThan(5);
@@ -332,7 +373,7 @@ ruleTester.run(RULE_NAME, rule, {
     expect(number).toBeGreaterThan(4);
      }
    });
- 
+
    it("returns numbers that are greater than five", () => {
      for (const number of getNumbers()) {
     expect(number).toBeGreaterThan(5);
@@ -347,7 +388,7 @@ ruleTester.run(RULE_NAME, rule, {
     expect(number).toBeGreaterThan(4);
      }
    });
- 
+
    it("returns numbers that are greater than five", () => {
      for (const number of getNumbers()) {
     expect(number).toBeGreaterThan(5);
@@ -370,7 +411,7 @@ ruleTester.run(RULE_NAME, rule, {
     expect(number).toBeGreaterThan(4);
      }
    });
- 
+
    it("returns numbers that are greater than five", () => {expect.hasAssertions();
      for (const number of getNumbers()) {
     expect(number).toBeGreaterThan(5);
@@ -385,7 +426,7 @@ ruleTester.run(RULE_NAME, rule, {
     expect(number).toBeGreaterThan(4);
      }
    });
- 
+
    it("returns numbers that are greater than five", () => {expect.assertions();
      for (const number of getNumbers()) {
     expect(number).toBeGreaterThan(5);
