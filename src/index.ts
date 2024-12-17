@@ -254,6 +254,8 @@ const plugin = {
           test: 'writable',
           describe: 'writable',
           it: 'writable',
+          expectTypeOf: 'writable',
+          assertType: 'writable',
           expect: 'writable',
           assert: 'writable',
           vitest: 'writable',
@@ -261,7 +263,9 @@ const plugin = {
           beforeAll: 'writable',
           afterAll: 'writable',
           beforeEach: 'writable',
-          afterEach: 'writable'
+          afterEach: 'writable',
+          onTestFailed: 'writable',
+          onTestFinished: 'writable'
         }
       }
     }
@@ -273,6 +277,8 @@ const plugin = {
         test: true,
         describe: true,
         it: true,
+        expectTypeOf: true,
+        assertType: true,
         expect: true,
         assert: true,
         vitest: true,
@@ -280,7 +286,9 @@ const plugin = {
         beforeAll: true,
         afterAll: true,
         beforeEach: true,
-        afterEach: true
+        afterEach: true,
+        onTestFailed: true,
+        onTestFinished: true
       }
     }
   }
