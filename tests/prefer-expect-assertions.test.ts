@@ -105,6 +105,47 @@ it('my test description', ({ expect }) => {expect.assertions();
       ],
     },
     {
+      code: `
+it('my test description', (context) => {
+  const a = 1;
+  const b = 2;
+
+  context.expect(sum(a, b)).toBe(a + b);
+})
+`,
+      errors: [
+        {
+          messageId: 'haveExpectAssertions',
+          column: 1,
+          line: 2,
+          suggestions: [
+            {
+              messageId: 'suggestAddingHasAssertions',
+              output: `
+it('my test description', (context) => {context.expect.hasAssertions();
+  const a = 1;
+  const b = 2;
+
+  context.expect(sum(a, b)).toBe(a + b);
+})
+`
+            },
+            {
+              messageId: 'suggestAddingAssertions',
+              output: `
+it('my test description', (context) => {context.expect.assertions();
+  const a = 1;
+  const b = 2;
+
+  context.expect(sum(a, b)).toBe(a + b);
+})
+`
+            }
+          ]
+        }
+      ],
+    },
+    {
       code: 'it(\'resolves\', () => expect(staged()).toBe(true));',
       errors: [
         {
