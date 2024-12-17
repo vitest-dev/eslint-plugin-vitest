@@ -88,6 +88,7 @@ export default createEslintRule<Options[], MessageIds>({
     let hasExpectInCallBack = false
     let hasExpectInLoop = false
     let hasExpectAssertAsFirstStatement = false
+    let testContextName: string | null = null
     let inTestCaseCall = false
     let inForLoop = false
 
@@ -176,6 +177,10 @@ export default createEslintRule<Options[], MessageIds>({
           return
         }
 
+        if (vitestFnCall?.head.type === "testContext" && vitestFnCall.members[0].type === AST_NODE_TYPES.Identifier && vitestFnCall.members[0].name === "expect") {
+          testContextName = `${vitestFnCall.head.local}`
+        }
+
         if (vitestFnCall?.type === 'expect' && inTestCaseCall) {
           if (expressionDepth === 1 && isFirstStatement(node) && vitestFnCall.head.node.parent?.type === AST_NODE_TYPES.MemberExpression && vitestFnCall.members.length === 1
             && ['assertions', 'hasAssertions'].includes(getAccessorValue(vitestFnCall.members[0]))) {
@@ -217,8 +222,9 @@ export default createEslintRule<Options[], MessageIds>({
         const suggestions: Array<[MessageIds, string]> = []
 
         if (secondArg.body.type === AST_NODE_TYPES.BlockStatement) {
-          suggestions.push(['suggestAddingHasAssertions', 'expect.hasAssertions();'],
-            ['suggestAddingAssertions', 'expect.assertions();'])
+          const prefix = testContextName ? `${testContextName}.` : "";
+          suggestions.push(['suggestAddingHasAssertions', `${prefix}expect.hasAssertions();`],
+            ['suggestAddingAssertions', `${prefix}expect.assertions();`])
         }
 
         context.report({

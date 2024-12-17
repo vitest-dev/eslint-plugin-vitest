@@ -252,7 +252,7 @@ const parseVitestFnCallWithReasonInner = (
 
   const links = [name, ...rest.map(getAccessorValue)]
 
-  if (name !== 'vi' && name !== 'expect' && name !== 'expectTypeOf' && !ValidVitestFnCallChains.has(links.join('.')))
+  if (resolved.type !== "testContext" && name !== 'vi' && name !== 'expect' && name !== 'expectTypeOf' && !ValidVitestFnCallChains.has(links.join('.')))
     return null
 
   const parsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'> = {
@@ -381,6 +381,10 @@ export const resolveScope = (
         if (key?.name === identifier)
           return "testContext"
       }
+
+      const namedParam = isFunction(def.node) ? def.node.params.find(params => params.type === AST_NODE_TYPES.Identifier ) : undefined
+      if (namedParam)
+        return "testContext"
 
       const importDetails = describePossibleImportDef(def)
 
