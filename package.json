@@ -48,7 +48,7 @@
 		"@types/node": "^20.17.9",
 		"@typescript-eslint/eslint-plugin": "8.0.0",
 		"@typescript-eslint/parser": "8.0.0",
-		"@typescript-eslint/rule-tester": "8.0.0",
+		"@typescript-eslint/rule-tester": "8.18.1",
 		"@vitest/eslint-plugin": "^1.1.12",
 		"bumpp": "^9.8.1",
 		"concurrently": "^8.2.2",
