@@ -11,10 +11,17 @@ const styleConfigs = stylistic.configs.customize({
   commaDangle: 'never'
 })
 
+/** @type {import("eslint").Linter.Config[]} */
 export default [
   eslintPlugin.configs['flat/recommended'],
   vitest.configs.recommended,
   vitest.configs.env,
+  {
+    files: ['**/*.ts'],
+    languageOptions: {
+      parser
+    }
+  },
   {
     ignores: ['dist/**/*', '**/*.md'],
     plugins: {
@@ -29,9 +36,6 @@ export default [
       vitest: {
         typecheck: true
       }
-    },
-    languageOptions: {
-      parser
     }
   }
 ]
