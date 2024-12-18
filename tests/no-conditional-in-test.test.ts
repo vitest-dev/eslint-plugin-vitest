@@ -4,13 +4,13 @@ import { ruleTester } from './ruleTester'
 ruleTester.run(`${RULE_NAME}-conditional expressions`, rule, {
   valid: [
     'const x = y ? 1 : 0',
-  `const foo = function (bar) {
+    `const foo = function (bar) {
      return foo ? bar : null;
       };
       it('foo', () => {
      foo();
       });`,
-  `it.concurrent('foo', () => {
+    `it.concurrent('foo', () => {
      switch('bar') {}
       })`
   ],
@@ -34,12 +34,12 @@ ruleTester.run(`${RULE_NAME}-if statements`, rule, {
     'it(\'foo\', () => {})',
     'it("foo", function () {})',
     'it(\'foo\', () => {}); function myTest() { if (\'bar\') {} }',
-  `describe.each\`\`('foo', () => {
+    `describe.each\`\`('foo', () => {
      afterEach(() => {
        if ('bar') {}
      });
       })`,
-  `const values = something.map((thing) => {
+    `const values = something.map((thing) => {
      if (thing.isFoo) {
        return thing.foo
      } else {

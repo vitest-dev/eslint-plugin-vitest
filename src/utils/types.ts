@@ -41,7 +41,7 @@ export enum ModifierName {
  * Represents a `CallExpression` with a single argument.
  */
 export interface CallExpressionWithSingleArgument<
-    Argument extends TSESTree.CallExpression['arguments'][number] = TSESTree.CallExpression['arguments'][number]
+  Argument extends TSESTree.CallExpression['arguments'][number] = TSESTree.CallExpression['arguments'][number]
 > extends TSESTree.CallExpression {
   arguments: [Argument]
 }
@@ -54,20 +54,20 @@ export enum EqualityMatcher {
 
 export type MaybeTypeCast<Expression extends TSESTree.Expression> =
   | TSTypeCastExpression<Expression>
-  | Expression;
+  | Expression
 
 export type TSTypeCastExpression<
   Expression extends TSESTree.Expression = TSESTree.Expression
-> = AsExpressionChain<Expression> | TypeAssertionChain<Expression>;
+> = AsExpressionChain<Expression> | TypeAssertionChain<Expression>
 
 interface AsExpressionChain<
   Expression extends TSESTree.Expression = TSESTree.Expression
 > extends TSESTree.TSAsExpression {
-  expression: AsExpressionChain<Expression> | Expression;
+  expression: AsExpressionChain<Expression> | Expression
 }
 
 interface TypeAssertionChain<
   Expression extends TSESTree.Expression = TSESTree.Expression
 > extends TSESTree.TSTypeAssertion {
-  expression: TypeAssertionChain<Expression> | Expression;
+  expression: TypeAssertionChain<Expression> | Expression
 }

@@ -16,13 +16,13 @@ ruleTester.run(RULE_NAME, rule, {
   assert('foo' !== 'bar', 'foo should not be equal to bar')
 })`,
     `test('cleanPrCommitTitle', () => {
-	const clean = 'Something done';
-	assert.equal(cleanPrCommitTitle('Something done (#123)', 123), clean);
-	assert.equal(cleanPrCommitTitle('  Something done  (#123)  ', 123), clean);
-	assert.equal(cleanPrCommitTitle(' Something done ', 123), clean);
+  const clean = 'Something done';
+  assert.equal(cleanPrCommitTitle('Something done (#123)', 123), clean);
+  assert.equal(cleanPrCommitTitle('  Something done  (#123)  ', 123), clean);
+  assert.equal(cleanPrCommitTitle(' Something done ', 123), clean);
 
-	assert.notEqual(cleanPrCommitTitle('Something done (fixes #123)', 123), clean);
-	assert.notEqual(cleanPrCommitTitle('Something done (#23454)', 123), clean);
+  assert.notEqual(cleanPrCommitTitle('Something done (fixes #123)', 123), clean);
+  assert.notEqual(cleanPrCommitTitle('Something done (#23454)', 123), clean);
 });`,
     `import { it as base } from 'vitest'
 

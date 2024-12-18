@@ -1,6 +1,6 @@
-import type { TSESLint } from '@typescript-eslint/utils';
-import rule, { RULE_NAME } from '../src/rules/padding-around-describe-blocks';
-import { ruleTester } from './ruleTester';
+import type { TSESLint } from '@typescript-eslint/utils'
+import rule, { RULE_NAME } from '../src/rules/padding-around-describe-blocks'
+import { ruleTester } from './ruleTester'
 
 const testCase = {
   code: `
@@ -78,49 +78,49 @@ describe
     {
       messageId: 'missingPadding',
       line: 11,
-      column: 1,
+      column: 1
     },
     {
       messageId: 'missingPadding',
       line: 14,
-      column: 3,
+      column: 3
     },
     {
       messageId: 'missingPadding',
       line: 17,
-      column: 1,
+      column: 1
     },
     {
       messageId: 'missingPadding',
       line: 21,
-      column: 5,
+      column: 5
     },
     {
       messageId: 'missingPadding',
       line: 24,
-      column: 4,
+      column: 4
     },
     {
       messageId: 'missingPadding',
       line: 25,
-      column: 1,
+      column: 1
     },
     {
       messageId: 'missingPadding',
       line: 26,
-      column: 1,
+      column: 1
     },
     {
       messageId: 'missingPadding',
       line: 27,
-      column: 1,
-    },
-  ],
-} satisfies TSESLint.InvalidTestCase<'missingPadding', never>;
+      column: 1
+    }
+  ]
+} satisfies TSESLint.InvalidTestCase<'missingPadding', never>
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [testCase.output],
   invalid: ['src/component.test.jsx', 'src/component.test.js'].map(
-    filename => ({ ...testCase, filename }),
-  ),
-});
+    filename => ({ ...testCase, filename })
+  )
+})

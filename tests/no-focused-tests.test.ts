@@ -14,7 +14,7 @@ ruleTester.run(RULE_NAME, rule, {
           line: 1,
           messageId: 'noFocusedTests'
         }
-      ],
+      ]
     },
     {
       options: [{
@@ -29,7 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
           line: 1,
           messageId: 'noFocusedTests'
         }
-      ],
+      ]
     },
     {
       options: [{
@@ -44,7 +44,7 @@ ruleTester.run(RULE_NAME, rule, {
           line: 1,
           messageId: 'noFocusedTests'
         }
-      ],
+      ]
     },
     {
       options: [{
@@ -59,7 +59,7 @@ ruleTester.run(RULE_NAME, rule, {
           line: 1,
           messageId: 'noFocusedTests'
         }
-      ],
+      ]
     },
     {
       options: [{
@@ -74,7 +74,7 @@ ruleTester.run(RULE_NAME, rule, {
           line: 1,
           messageId: 'noFocusedTests'
         }
-      ],
+      ]
     },
     {
       options: [{
@@ -89,7 +89,7 @@ ruleTester.run(RULE_NAME, rule, {
           line: 1,
           messageId: 'noFocusedTests'
         }
-      ],
+      ]
     }
   ]
 })

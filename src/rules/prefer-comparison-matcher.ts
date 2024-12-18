@@ -112,7 +112,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               ),
               fixer.replaceTextRange(
                 [expectCallEnd, matcher.parent.range[1]],
-                                `${modifierText}.${preferredMatcher}`
+                `${modifierText}.${preferredMatcher}`
               ),
               fixer.replaceText(
                 matcherArg,

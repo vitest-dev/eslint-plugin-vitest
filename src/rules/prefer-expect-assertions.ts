@@ -38,9 +38,9 @@ const isFirstStatement = (node: TSESTree.CallExpression): boolean => {
 const suggestRemovingExtraArguments = (context: TSESLint.RuleContext<string, unknown[]>,
   func: TSESTree.CallExpression,
   from: number): TSESLint.ReportSuggestionArray<MessageIds>[0] => ({
-    messageId: 'suggestRemovingExtraArguments',
-    fix: fixer => removeExtraArgumentsFixer(fixer, context, func, from)
-  })
+  messageId: 'suggestRemovingExtraArguments',
+  fix: fixer => removeExtraArgumentsFixer(fixer, context, func, from)
+})
 
 export default createEslintRule<Options[], MessageIds>({
   name: 'prefer-expect-assertions',
@@ -177,7 +177,7 @@ export default createEslintRule<Options[], MessageIds>({
           return
         }
 
-        if (vitestFnCall?.head.type === "testContext" && vitestFnCall.members[0].type === AST_NODE_TYPES.Identifier && vitestFnCall.members[0].name === "expect") {
+        if (vitestFnCall?.head.type === 'testContext' && vitestFnCall.members[0].type === AST_NODE_TYPES.Identifier && vitestFnCall.members[0].name === 'expect') {
           testContextName = `${vitestFnCall.head.local}`
         }
 
@@ -222,7 +222,7 @@ export default createEslintRule<Options[], MessageIds>({
         const suggestions: Array<[MessageIds, string]> = []
 
         if (secondArg.body.type === AST_NODE_TYPES.BlockStatement) {
-          const prefix = testContextName ? `${testContextName}.` : "";
+          const prefix = testContextName ? `${testContextName}.` : ''
           suggestions.push(['suggestAddingHasAssertions', `${prefix}expect.hasAssertions();`],
             ['suggestAddingAssertions', `${prefix}expect.assertions();`])
         }

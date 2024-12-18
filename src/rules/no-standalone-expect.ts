@@ -50,9 +50,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       {
         properties: {
           additionaltestblockfunctions: {
-            //@ts-ignore
+            // @ts-ignore
             type: 'array',
-            //@ts-ignore
+            // @ts-ignore
             items: { type: `string` }
           }
         },
@@ -74,8 +74,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         if (vitestFnCall?.type === 'expect') {
           if (vitestFnCall.head.node.parent?.type === AST_NODE_TYPES.MemberExpression
             && vitestFnCall.members.length === 1 && !['assertions', 'hasAssertions'].includes(
-              getAccessorValue(vitestFnCall.members[0])
-            ))
+            getAccessorValue(vitestFnCall.members[0])
+          ))
             return
 
           const parent = callStack[callStack.length - 1]

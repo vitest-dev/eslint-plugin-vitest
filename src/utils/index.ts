@@ -13,7 +13,7 @@ import {
 import { Rule } from 'eslint'
 
 interface PluginDocs {
-  recommended?: boolean,
+  recommended?: boolean
   requiresTypeChecking?: boolean
 }
 

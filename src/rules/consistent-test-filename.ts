@@ -32,12 +32,12 @@ export default createEslintRule<
         additionalProperties: false,
         properties: {
           pattern: {
-            //@ts-ignore
+            // @ts-ignore
             format: 'regex',
             default: defaultPattern.source
           },
           allTestPattern: {
-            //@ts-ignore
+            // @ts-ignore
             format: 'regex',
             default: defaultTestsPattern.source
           }

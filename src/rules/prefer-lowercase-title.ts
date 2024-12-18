@@ -64,7 +64,7 @@ export default createEslintRule<[
           ignore: {
             type: 'array',
             items: {
-              type: "string",
+              type: 'string',
               enum: [
                 DescribeAlias.describe,
                 TestCaseName.test,

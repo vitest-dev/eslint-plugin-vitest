@@ -116,7 +116,7 @@ ruleTester.run(RULE_NAME, rule, {
         vitest: {
           typecheck: true
         }
-      },
+      }
     },
     {
       code: `expectTypeOf().branded.toMatchTypeOf();`,
@@ -124,7 +124,7 @@ ruleTester.run(RULE_NAME, rule, {
         vitest: {
           typecheck: true
         }
-      },
+      }
     },
     {
       code: `expectTypeOf().asserts.toMatchTypeOf();`,
@@ -132,7 +132,7 @@ ruleTester.run(RULE_NAME, rule, {
         vitest: {
           typecheck: true
         }
-      },
+      }
     },
     {
       code: `expectTypeOf().constructorParameters.toMatchTypeOf();`,
@@ -140,7 +140,7 @@ ruleTester.run(RULE_NAME, rule, {
         vitest: {
           typecheck: true
         }
-      },
+      }
     },
     {
       code: `expectTypeOf().parameters.toMatchTypeOf();`,
@@ -148,7 +148,7 @@ ruleTester.run(RULE_NAME, rule, {
         vitest: {
           typecheck: true
         }
-      },
+      }
     },
     {
       code: `expectTypeOf().thisParameter.toMatchTypeOf();`,
@@ -156,7 +156,7 @@ ruleTester.run(RULE_NAME, rule, {
         vitest: {
           typecheck: true
         }
-      },
+      }
     },
     {
       code: `expectTypeOf().guards.toMatchTypeOf();`,
@@ -164,7 +164,7 @@ ruleTester.run(RULE_NAME, rule, {
         vitest: {
           typecheck: true
         }
-      },
+      }
     },
     {
       code: `expectTypeOf().instance.toMatchTypeOf();`,
@@ -172,7 +172,7 @@ ruleTester.run(RULE_NAME, rule, {
         vitest: {
           typecheck: true
         }
-      },
+      }
     },
     {
       code: `expectTypeOf().items.toMatchTypeOf();`,
@@ -180,8 +180,8 @@ ruleTester.run(RULE_NAME, rule, {
         vitest: {
           typecheck: true
         }
-      },
-    },
+      }
+    }
   ],
   invalid: [
     {
@@ -307,7 +307,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           endColumn: 26,
           column: 21,
-          messageId: 'tooManyArgs',
+          messageId: 'tooManyArgs'
         }
       ]
     },
@@ -317,7 +317,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           endColumn: 24,
           column: 21,
-          messageId: 'tooManyArgs',
+          messageId: 'tooManyArgs'
         }
       ]
     },
@@ -327,7 +327,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           endColumn: 24,
           column: 21,
-          messageId: 'tooManyArgs',
+          messageId: 'tooManyArgs'
         }
       ]
     },
@@ -337,7 +337,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           endColumn: 24,
           column: 21,
-          messageId: 'tooManyArgs',
+          messageId: 'tooManyArgs'
         }
       ]
     },

@@ -41,7 +41,7 @@ ruleTester.run(RULE_NAME, rule, {
           maxSize: 61
         }
       ]
-    },
+    }
   ],
   invalid: [
     {
@@ -80,6 +80,6 @@ ruleTester.run(RULE_NAME, rule, {
           data: { lineLimit: 50, lineCount: 51 }
         }
       ]
-    },
+    }
   ]
 })

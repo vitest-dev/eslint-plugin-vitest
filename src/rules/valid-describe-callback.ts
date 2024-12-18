@@ -82,7 +82,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         }
 
         if (!isFunction(arg2)) {
-          if(arg3 && isFunction(arg3)) {
+          if (arg3 && isFunction(arg3)) {
             if (hasNonEachMembersAndParams(vitestFnCall, arg3)) {
               context.report({
                 messageId: 'unexpectedDescribeArgument',

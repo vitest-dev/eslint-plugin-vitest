@@ -103,7 +103,7 @@ ruleTester.run(RULE_NAME, rule, {
                 'test.each``("something", () => {return new Promise(done => { done(); })})'
             }
           ]
-        },
+        }
       ]
     },
     {

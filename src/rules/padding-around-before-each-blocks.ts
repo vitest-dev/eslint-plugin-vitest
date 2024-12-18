@@ -1,4 +1,4 @@
-import { PaddingType, StatementType, createPaddingRule } from '../utils/padding';
+import { PaddingType, StatementType, createPaddingRule } from '../utils/padding'
 
 export const RULE_NAME = 'padding-around-before-each-blocks'
 
@@ -6,17 +6,17 @@ export const config = [
   {
     paddingType: PaddingType.Always,
     prevStatementType: StatementType.Any,
-    nextStatementType: StatementType.BeforeEachToken,
+    nextStatementType: StatementType.BeforeEachToken
   },
   {
     paddingType: PaddingType.Always,
     prevStatementType: StatementType.BeforeEachToken,
-    nextStatementType: StatementType.Any,
-  },
-];
+    nextStatementType: StatementType.Any
+  }
+]
 
 export default createPaddingRule(
   RULE_NAME,
   'Enforce padding around `beforeEach` blocks',
-  config,
-);
+  config
+)

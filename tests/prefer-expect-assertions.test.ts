@@ -102,7 +102,7 @@ it('my test description', ({ expect }) => {expect.assertions();
             }
           ]
         }
-      ],
+      ]
     },
     {
       code: `
@@ -143,7 +143,7 @@ it('my test description', (context) => {context.expect.assertions();
             }
           ]
         }
-      ],
+      ]
     },
     {
       code: 'it(\'resolves\', () => expect(staged()).toBe(true));',
@@ -408,7 +408,7 @@ it('my test description', (context) => {context.expect.assertions();
           line: 1,
           suggestions: [
             {
-              messageId: "suggestAddingHasAssertions",
+              messageId: 'suggestAddingHasAssertions',
               output: `it("returns numbers that are greater than four", async () => {expect.hasAssertions();
      for (const number of await getNumbers()) {
     expect(number).toBeGreaterThan(4);
@@ -423,7 +423,7 @@ it('my test description', (context) => {context.expect.assertions();
     `
             },
             {
-              messageId: "suggestAddingAssertions",
+              messageId: 'suggestAddingAssertions',
               output: `it("returns numbers that are greater than four", async () => {expect.assertions();
      for (const number of await getNumbers()) {
     expect(number).toBeGreaterThan(4);
@@ -446,7 +446,7 @@ it('my test description', (context) => {context.expect.assertions();
           line: 7,
           suggestions: [
             {
-              messageId: "suggestAddingHasAssertions",
+              messageId: 'suggestAddingHasAssertions',
               output: `it("returns numbers that are greater than four", async () => {
      for (const number of await getNumbers()) {
     expect(number).toBeGreaterThan(4);
@@ -461,7 +461,7 @@ it('my test description', (context) => {context.expect.assertions();
     `
             },
             {
-              messageId: "suggestAddingAssertions",
+              messageId: 'suggestAddingAssertions',
               output: `it("returns numbers that are greater than four", async () => {
      for (const number of await getNumbers()) {
     expect(number).toBeGreaterThan(4);
