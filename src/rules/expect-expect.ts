@@ -12,26 +12,6 @@ type Options = [
   }
 ]
 
-function matchesAssertFunctionName(
-  nodeName: string,
-  patterns: readonly string[]
-): boolean {
-  return patterns.some(p =>
-    new RegExp(
-      `^${p
-        .split('.')
-        .map((x) => {
-          if (x === '**')
-            return '[_a-z\\d\\.]*'
-
-          return x.replace(/\*/gu, '[a-z\\d]*')
-        })
-        .join('\\.')}(\\.|$)`,
-      'ui'
-    ).test(nodeName)
-  )
-}
-
 export default createEslintRule<Options, MESSAGE_ID>({
   name: RULE_NAME,
   meta: {
@@ -66,6 +46,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     const settings = parsePluginSettings(context.settings)
 
     if (settings.typecheck) assertFunctionNames.push('expectTypeOf', 'assertType')
+    const assertFunctionRegexps = assertFunctionNames.map(buildPatternRegexp)
 
     function checkCallExpression(nodes: TSESTree.Node[]) {
       for (const node of nodes) {
@@ -103,7 +84,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
           unchecked.push(node)
         }
-        else if (matchesAssertFunctionName(name, assertFunctionNames)) {
+        else if (assertFunctionRegexps.some(p =>p.test(name))) {
           checkCallExpression(context.sourceCode.getAncestors(node))
         }
       },
@@ -118,3 +99,17 @@ export default createEslintRule<Options, MESSAGE_ID>({
     }
   }
 })
+
+function buildPatternRegexp(pattern: string): RegExp {
+  const parts = pattern.split('.').map((x) => {
+    if (x === '**')
+      return '[_a-z\\d\\.]*'
+
+    return x.replace(/\*/gu, '[a-z\\d]*')
+  })
+
+  return new RegExp(
+      `^${parts.join('\\.')}(\\.|$)`,
+      'ui'
+    )
+}
