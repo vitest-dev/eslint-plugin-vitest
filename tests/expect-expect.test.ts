@@ -36,7 +36,13 @@ const it = base.extend<{
  async bar({}, use) {
    await use('bar')
  }
-})`
+})`,
+    `
+it('example', async () => {
+  const result = Promise.reject<string>('error');
+
+  await expect(result.then((it) => it.toUpperCase())).rejects.toThrow();
+});`
   ],
   invalid: [
     {
