@@ -22,7 +22,7 @@ function matchesAssertFunctionName(
         .split('.')
         .map((x) => {
           if (x === '**')
-            return '[a-z\\d\\.]*'
+            return '[_a-z\\d\\.]*'
 
           return x.replace(/\*/gu, '[a-z\\d]*')
         })
