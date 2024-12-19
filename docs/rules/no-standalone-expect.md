@@ -12,9 +12,12 @@ This rule aims to prevent the use of `expect` outside of `it` or `test` blocks.
 
 ```json
 {
-  "vitest/no-standalone-expect": {
-	"additionalTestBlockFunctions": ["test"]
-  }
+  "vitest/no-standalone-expect": [
+    "error",
+    {
+      "additionalTestBlockFunctions": ["test"]
+    }
+  ]
 }
 ```
 
@@ -23,11 +26,11 @@ example:
 ```js
 // invalid
 
-expect(1).toBe(1)
+expect(1).toBe(1);
 
 // valid
 
-it('should be 1', () => {
-  expect(1).toBe(1)
-})
+it("should be 1", () => {
+  expect(1).toBe(1);
+});
 ```
