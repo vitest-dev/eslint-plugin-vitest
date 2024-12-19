@@ -26,11 +26,11 @@ example:
 ```js
 // invalid
 
-expect(1).toBe(1);
+expect(1).toBe(1)
 
 // valid
 
-it("should be 1", () => {
-  expect(1).toBe(1);
-});
+it('should be 1', () => {
+  expect(1).toBe(1)
+})
 ```
