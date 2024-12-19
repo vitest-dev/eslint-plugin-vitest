@@ -362,6 +362,11 @@ const resolvePossibleAliasedGlobal = (
   return null
 }
 
+const isAncestorTestCaseCall = ({ parent }: TSESTree.Node) => {
+  if (parent?.type === AST_NODE_TYPES.CallExpression && parent.callee.type === AST_NODE_TYPES.Identifier)
+    return TestCaseName.hasOwnProperty(parent.callee.name)
+}
+
 export const resolveScope = (
   scope: TSESLint.Scope.Scope,
   identifier: string
@@ -383,7 +388,7 @@ export const resolveScope = (
       }
 
       const namedParam = isFunction(def.node) ? def.node.params.find(params => params.type === AST_NODE_TYPES.Identifier) : undefined
-      if (namedParam)
+      if (namedParam && isAncestorTestCaseCall(namedParam.parent))
         return 'testContext'
 
       const importDetails = describePossibleImportDef(def)
