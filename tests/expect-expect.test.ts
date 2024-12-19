@@ -1,6 +1,7 @@
-import { AST_NODE_TYPES } from '@typescript-eslint/utils'
-import rule, { RULE_NAME } from '../src/rules/expect-expect'
-import { ruleTester } from './ruleTester'
+import { AST_NODE_TYPES } from '@typescript-eslint/utils';
+
+import rule, { RULE_NAME } from '../src/rules/expect-expect';
+import { ruleTester } from './ruleTester';
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
@@ -42,7 +43,15 @@ it('example', async () => {
   const result = Promise.reject<string>('error');
 
   await expect(result.then((it) => it.toUpperCase())).rejects.toThrow();
-});`
+});`,
+  {
+    code: `it("should pass", () => { anyChain.of.calls.expect(true) })`,
+    options: [{ assertFunctionNames: ['**.expect'] }]
+  },
+  {
+    code: `it("should pass", () => { any_chain.of.calls.expect(true) })`,
+    options: [{ assertFunctionNames: ['**.expect'] }]
+  }
   ],
   invalid: [
     {
