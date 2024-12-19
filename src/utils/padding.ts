@@ -1,9 +1,9 @@
-//Imported from https://github.com/dangreenisrael/eslint-plugin-jest-formatting/blob/master/src/rules/padding.ts
-//Original license: https://github.com/dangreenisrael/eslint-plugin-jest-formatting/blob/master/LICENSE
+// Imported from https://github.com/dangreenisrael/eslint-plugin-jest-formatting/blob/master/src/rules/padding.ts
+// Original license: https://github.com/dangreenisrael/eslint-plugin-jest-formatting/blob/master/LICENSE
 
-import { createEslintRule } from "."
-import { AST_NODE_TYPES, AST_TOKEN_TYPES, TSESLint, TSESTree } from "@typescript-eslint/utils";
-import * as astUtils from "./ast-utils"
+import { createEslintRule } from '.'
+import { AST_NODE_TYPES, AST_TOKEN_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
+import * as astUtils from './ast-utils'
 
 export const enum PaddingType {
   Any,
@@ -25,40 +25,40 @@ export const enum StatementType {
   TestToken,
   XdescribeToken,
   XitToken,
-  XtestToken,
+  XtestToken
 }
 
 export interface Config {
-  paddingType: PaddingType,
-  prevStatementType: StatementType | StatementType[],
+  paddingType: PaddingType
+  prevStatementType: StatementType | StatementType[]
   nextStatementType: StatementType | StatementType[]
 }
 
 interface ScopeInfo {
-  prevNode: TSESTree.Node | null;
-  enter: () => void;
-  exit: () => void;
+  prevNode: TSESTree.Node | null
+  enter: () => void
+  exit: () => void
 }
 
 // Tracks position in scope and prevNode. Used to compare current and prev node
 // and then to walk back up to the parent scope or down into the next one.
 // And so on...
 interface Scope {
-  upper: Scope | null;
-  prevNode: TSESTree.Node | null;
+  upper: Scope | null
+  prevNode: TSESTree.Node | null
 }
 
 type PaddingTester = (
   prevNode: TSESTree.Node,
   nextNode: TSESTree.Node,
   paddingContext: PaddingContext,
-) => void;
+) => void
 
 interface PaddingContext {
-  ruleContext: TSESLint.RuleContext<'missingPadding', unknown[]>;
-  sourceCode: TSESLint.SourceCode;
-  scopeInfo: ScopeInfo;
-  configs: Config[];
+  ruleContext: TSESLint.RuleContext<'missingPadding', unknown[]>
+  sourceCode: TSESLint.SourceCode
+  scopeInfo: ScopeInfo
+  configs: Config[]
 }
 
 const paddingAlwaysTester = (prevNode: TSESTree.Node, nextNode: TSESTree.Node, paddingContext: PaddingContext): void => {
@@ -68,10 +68,9 @@ const paddingAlwaysTester = (prevNode: TSESTree.Node, nextNode: TSESTree.Node, p
 
   if (paddingLines.length > 0) return
 
-
   ruleContext.report({
     node: nextNode,
-    messageId: "missingPadding",
+    messageId: 'missingPadding',
     fix(fixer: TSESLint.RuleFixer) {
       let prevToken = astUtils.getActualLastToken(sourceCode, prevNode)
       const nextToken = (sourceCode.getFirstTokenBetween(prevToken, nextNode, {
@@ -114,9 +113,8 @@ const paddingAlwaysTester = (prevNode: TSESTree.Node, nextNode: TSESTree.Node, p
 // A mapping of PaddingType to PaddingTester
 const paddingTesters: { [T in PaddingType]: PaddingTester } = {
   [PaddingType.Any]: () => true,
-  [PaddingType.Always]: paddingAlwaysTester,
-};
-
+  [PaddingType.Always]: paddingAlwaysTester
+}
 
 const createScopeInfo = (): ScopeInfo => {
   let scope: Scope | null = null
@@ -126,7 +124,7 @@ const createScopeInfo = (): ScopeInfo => {
       return scope!.prevNode
     },
     set prevNode(node) {
-      scope!.prevNode = node;
+      scope!.prevNode = node
     },
     enter() {
       scope = { upper: scope, prevNode: null }
@@ -137,35 +135,33 @@ const createScopeInfo = (): ScopeInfo => {
   }
 }
 
-
 const createTokenTester = (tokenName: string): StatementTester => {
   return (node: TSESTree.Node, sourceCode: TSESLint.SourceCode): boolean => {
-    let activeNode = node;
+    let activeNode = node
 
     if (activeNode.type === AST_NODE_TYPES.ExpressionStatement) {
       // In the case of `await`, we actually care about its argument
       if (activeNode.expression.type === AST_NODE_TYPES.AwaitExpression) {
-        activeNode = activeNode.expression.argument;
+        activeNode = activeNode.expression.argument
       }
 
-      const token = sourceCode.getFirstToken(activeNode);
+      const token = sourceCode.getFirstToken(activeNode)
 
       return (
         token?.type === AST_TOKEN_TYPES.Identifier && token.value === tokenName
-      );
+      )
     }
 
-    return false;
-  };
-};
-
+    return false
+  }
+}
 
 type StatementTester = (
   node: TSESTree.Node,
   sourceCode: TSESLint.SourceCode,
-) => boolean;
+) => boolean
 
-type StatementTypes = StatementType | StatementType[];
+type StatementTypes = StatementType | StatementType[]
 
 // A mapping of StatementType to StatementTester for... testing statements
 const statementTesters: { [T in StatementType]: StatementTester } = {
@@ -183,8 +179,8 @@ const statementTesters: { [T in StatementType]: StatementTester } = {
   [StatementType.TestToken]: createTokenTester('test'),
   [StatementType.XdescribeToken]: createTokenTester('xdescribe'),
   [StatementType.XitToken]: createTokenTester('xit'),
-  [StatementType.XtestToken]: createTokenTester('xtest'),
-};
+  [StatementType.XtestToken]: createTokenTester('xtest')
+}
 
 /**
  * Check whether the given node matches the statement type
@@ -192,35 +188,34 @@ const statementTesters: { [T in StatementType]: StatementTester } = {
 const nodeMatchesType = (
   node: TSESTree.Node,
   statementType: StatementTypes,
-  paddingContext: PaddingContext,
+  paddingContext: PaddingContext
 ): boolean => {
-  let innerStatementNode = node;
-  const { sourceCode } = paddingContext;
+  let innerStatementNode = node
+  const { sourceCode } = paddingContext
 
   // Dig into LabeledStatement body until it's not that anymore
   while (innerStatementNode.type === AST_NODE_TYPES.LabeledStatement) {
-    innerStatementNode = innerStatementNode.body;
+    innerStatementNode = innerStatementNode.body
   }
 
   // If it's an array recursively check if any of the statement types match
   // the node
   if (Array.isArray(statementType)) {
     return statementType.some(type =>
-      nodeMatchesType(innerStatementNode, type, paddingContext),
-    );
+      nodeMatchesType(innerStatementNode, type, paddingContext)
+    )
   }
 
-  return statementTesters[statementType](innerStatementNode, sourceCode);
-};
+  return statementTesters[statementType](innerStatementNode, sourceCode)
+}
 
 const testPadding = (prevNode: TSESTree.Node, nextNode: TSESTree.Node, paddingContext: PaddingContext): void => {
   const { configs } = paddingContext
 
   const testType = (type: PaddingType) => paddingTesters[type](prevNode, nextNode, paddingContext)
 
-
   for (let i = configs.length - 1; i >= 0; --i) {
-    const { prevStatementType: prevType, nextStatementType: nextType, paddingType } = configs[i];
+    const { prevStatementType: prevType, nextStatementType: nextType, paddingType } = configs[i]
 
     if (nodeMatchesType(prevNode, prevType, paddingContext) && nodeMatchesType(nextNode, nextType, paddingContext)) {
       return testType(paddingType)
@@ -246,7 +241,6 @@ const verifyNode = (node: TSESTree.Node, paddingContext: PaddingContext): void =
 
   scopeInfo.prevNode = node
 }
-
 
 /**
  * Creates an ESLint rule for a given set of padding Config objects.
@@ -297,14 +291,14 @@ export const createPaddingRule = (name: string, description: string, configs: Co
         configs
       }
 
-      const { scopeInfo } = paddingContext;
+      const { scopeInfo } = paddingContext
 
       return {
-        Program: scopeInfo.enter,
+        'Program': scopeInfo.enter,
         'Program:exit': scopeInfo.exit,
-        BlockStatement: scopeInfo.enter,
+        'BlockStatement': scopeInfo.enter,
         'BlockStatement:exit': scopeInfo.exit,
-        SwitchStatement: scopeInfo.enter,
+        'SwitchStatement': scopeInfo.enter,
         'SwitchStatement:exit': scopeInfo.exit,
         ':statement': (node: TSESTree.Node) => verifyNode(node, paddingContext),
         SwitchCase(node: TSESTree.Node) {

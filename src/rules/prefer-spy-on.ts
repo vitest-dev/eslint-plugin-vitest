@@ -99,11 +99,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               fixer.insertTextBefore(left, 'vi.spyOn('),
               fixer.replaceTextRange(
                 [left.object.range[1], left.property.range[0]],
-                                `, ${lefPropQuote}`
+                `, ${lefPropQuote}`
               ),
               fixer.replaceTextRange(
                 [left.property.range[1], vitestFnCall.range[1]],
-                                `${lefPropQuote})${mockImplementation}`
+                `${lefPropQuote})${mockImplementation}`
               )
             ]
           }

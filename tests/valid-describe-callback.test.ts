@@ -65,7 +65,7 @@ ruleTester.run(RULE_NAME, rule, {
           })
         })
       })
-    `,
+    `
   ],
   invalid: [
     {
@@ -188,7 +188,7 @@ ruleTester.run(RULE_NAME, rule, {
      `,
       errors: [
         { messageId: 'unexpectedReturnInDescribe', line: 2, column: 40 }
-      ],
+      ]
     },
     {
       code: `
@@ -210,7 +210,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         { messageId: 'unexpectedReturnInDescribe', line: 3, column: 7 },
         { messageId: 'unexpectedReturnInDescribe', line: 9, column: 9 }
-      ],
+      ]
     },
     {
       code: 'describe("foo", done => {})',
@@ -240,7 +240,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'describe("foo", { only: true }, done => {})',
       errors: [
         { messageId: 'unexpectedDescribeArgument', line: 1, column: 33 }
-      ],
-    },
+      ]
+    }
   ]
 })

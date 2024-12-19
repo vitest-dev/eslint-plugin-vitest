@@ -6,21 +6,21 @@ ruleTester.run(RULE_NAME, rule, {
     'test(\'should pass\')',
     'test(\'should pass\', () => {})',
     'test.skip(\'should pass\', () => {})',
-      `test('should pass', () => {
+    `test('should pass', () => {
       expect(true).toBeDefined();
       expect(true).toBeDefined();
       expect(true).toBeDefined();
       expect(true).toBeDefined();
       expect(true).toBeDefined();
     });`,
-      `test('should pass', () => {
+    `test('should pass', () => {
      expect(true).toBeDefined();
      expect(true).toBeDefined();
      expect(true).toBeDefined();
      expect(true).toBeDefined();
      expect(true).toBeDefined();
       });`,
-      ` test('should pass', async () => {
+    ` test('should pass', async () => {
      expect.hasAssertions();
    
      expect(true).toBeDefined();

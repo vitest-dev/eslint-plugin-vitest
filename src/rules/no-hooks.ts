@@ -22,7 +22,7 @@ export default createEslintRule<
       properties: {
         allow: {
           type: 'array',
-          //@ts-ignore
+          // @ts-ignore
           contains: ['beforeAll', 'beforeEach', 'afterAll', 'afterEach']
         }
       },

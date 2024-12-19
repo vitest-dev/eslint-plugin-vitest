@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
         fibonacci(10);
      })`,
       options: [{ fn: TestCaseName.it }]
-    },
+    }
   ],
   invalid: [
     {

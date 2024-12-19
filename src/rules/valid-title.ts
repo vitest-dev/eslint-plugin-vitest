@@ -44,13 +44,13 @@ type Options = {
   allowArguments?: boolean
   disallowedWords?: string[]
   mustNotMatch?:
-  | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
-  | MatcherAndMessage
-  | string
+    | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
+    | MatcherAndMessage
+    | string
   mustMatch?:
-  | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
-  | MatcherAndMessage
-  | string
+    | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
+    | MatcherAndMessage
+    | string
 }[]
 
 type CompiledMatcherAndMessage = [matcher: RegExp, message?: string]
@@ -91,7 +91,7 @@ const compileMatcherPatterns = (matchers:
   | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
   | MatcherAndMessage
   | string): Record<MatcherGroups, CompiledMatcherAndMessage | null> &
-  Record<string, CompiledMatcherAndMessage | null> => {
+    Record<string, CompiledMatcherAndMessage | null> => {
   if (typeof matchers === 'string' || Array.isArray(matchers)) {
     const compiledMatcher = compileMatcherPattern(matchers)
 
@@ -162,8 +162,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               MatcherAndMessageSchema,
               {
                 type: 'object',
-                //@ts-ignore
-                propertyNames: { type: "string", enum: ['describe', 'test', 'it'] },
+                // @ts-ignore
+                propertyNames: { type: 'string', enum: ['describe', 'test', 'it'] },
                 additionalProperties: {
                   oneOf: [{ type: 'string' }, MatcherAndMessageSchema]
                 }
@@ -200,13 +200,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         const [argument] = node.arguments
 
         if (settings.typecheck) {
-
           const services = ESLintUtils.getParserServices(context)
 
           const type = services.getTypeAtLocation(argument)
 
           if (isFunctionType(type) || isClassType(type)) return
-
         }
 
         if (!argument || (allowArguments && argument.type === AST_NODE_TYPES.Identifier)) return

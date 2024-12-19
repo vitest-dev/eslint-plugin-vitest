@@ -46,19 +46,19 @@ const promiseArrayExceptionKey = ({ start, end }: TSESTree.SourceLocation) =>
   `${start.line}:${start.column}-${end.line}:${end.column}`
 
 const getNormalizeFunctionExpression = (
-  functionExpression: FunctionExpression,
+  functionExpression: FunctionExpression
 ):
   | TSESTree.PropertyComputedName
   | TSESTree.PropertyNonComputedName
   | FunctionExpression => {
   if (
-    functionExpression.parent.type === AST_NODE_TYPES.Property &&
-    functionExpression.type === AST_NODE_TYPES.FunctionExpression
+    functionExpression.parent.type === AST_NODE_TYPES.Property
+    && functionExpression.type === AST_NODE_TYPES.FunctionExpression
   )
-    return functionExpression.parent;
+    return functionExpression.parent
 
-  return functionExpression;
-};
+  return functionExpression
+}
 
 function getParentIfThenified(node: TSESTree.Node): TSESTree.Node {
   const grandParentNode = node.parent?.parent
@@ -75,29 +75,29 @@ function getParentIfThenified(node: TSESTree.Node): TSESTree.Node {
 
 const findPromiseCallExpressionNode = (node: TSESTree.Node) =>
   node.parent?.parent
-    && [AST_NODE_TYPES.CallExpression, AST_NODE_TYPES.ArrayExpression].includes(
-      node.parent.type
-    )
+  && [AST_NODE_TYPES.CallExpression, AST_NODE_TYPES.ArrayExpression].includes(
+    node.parent.type
+  )
     ? getPromiseCallExpressionNode(node.parent)
     : null
 
 const findFirstFunctionExpression = ({
-  parent,
+  parent
 }: TSESTree.Node): FunctionExpression | null => {
   if (!parent)
-    return null;
+    return null
 
-  return isFunction(parent) ? parent : findFirstFunctionExpression(parent);
-};
+  return isFunction(parent) ? parent : findFirstFunctionExpression(parent)
+}
 
 const isAcceptableReturnNode = (
   node: TSESTree.Node,
   allowReturn: boolean
 ): node is
-  | TSESTree.ConditionalExpression
-  | TSESTree.ArrowFunctionExpression
-  | TSESTree.AwaitExpression
-  | TSESTree.ReturnStatement => {
+| TSESTree.ConditionalExpression
+| TSESTree.ArrowFunctionExpression
+| TSESTree.AwaitExpression
+| TSESTree.ReturnStatement => {
   if (allowReturn && node.type === AST_NODE_TYPES.ReturnStatement)
     return true
 
@@ -135,7 +135,7 @@ export default createEslintRule<[
         'Promises which return async assertions must be awaited{{orReturned}}'
     },
     type: 'suggestion',
-    fixable: "code",
+    fixable: 'code',
     schema: [
       {
         type: 'object',
@@ -170,12 +170,12 @@ export default createEslintRule<[
   create: (context, [{ alwaysAwait, asyncMatchers = defaultAsyncMatchers, minArgs = 1, maxArgs = 1 }]) => {
     const arrayExceptions = new Set<string>()
     const descriptors: Array<{
-      node: TSESTree.Node;
+      node: TSESTree.Node
       messageId: Extract<
         MESSAGE_IDS,
         'asyncMustBeAwaited' | 'promisesWithAsyncAssertionsMustBeAwaited'
-      >;
-    }> = [];
+      >
+    }> = []
 
     const pushPromiseArrayException = (loc: TSESTree.SourceLocation) => arrayExceptions.add(promiseArrayExceptionKey(loc))
 
@@ -243,7 +243,7 @@ export default createEslintRule<[
           }
           return
         }
-        else if (vitestFnCall?.type ==="expectTypeOf" && settings.typecheck){
+        else if (vitestFnCall?.type === 'expectTypeOf' && settings.typecheck) {
           return
         }
         else if (vitestFnCall?.type !== 'expect') {
@@ -282,12 +282,12 @@ export default createEslintRule<[
           // Note: 2nd argument should be string, not a variable in current implementation
           if (expect.arguments.length === 2) {
             //  expect(value, "string literal")
-            const isSecondArgString = expect.arguments[1].type === AST_NODE_TYPES.Literal &&
-              typeof expect.arguments[1].value === 'string';
+            const isSecondArgString = expect.arguments[1].type === AST_NODE_TYPES.Literal
+              && typeof expect.arguments[1].value === 'string'
             // expect(value, `template literal`)
-            const isSecondArgTemplateLiteral = expect.arguments[1].type === AST_NODE_TYPES.TemplateLiteral;
+            const isSecondArgTemplateLiteral = expect.arguments[1].type === AST_NODE_TYPES.TemplateLiteral
             if (isSecondArgString || isSecondArgTemplateLiteral) {
-              return;
+              return
             }
           }
 
@@ -341,10 +341,10 @@ export default createEslintRule<[
         }
       },
       'Program:exit'() {
-        const fixes: TSESLint.RuleFix[] = [];
+        const fixes: TSESLint.RuleFix[] = []
 
         descriptors.forEach(({ node, messageId }, index) => {
-          const orReturned = alwaysAwait ? '' : ' or returned';
+          const orReturned = alwaysAwait ? '' : ' or returned'
 
           context.report({
             loc: node.loc,
@@ -352,41 +352,41 @@ export default createEslintRule<[
             messageId,
             node,
             fix(fixer) {
-              const functionExpression = findFirstFunctionExpression(node);
+              const functionExpression = findFirstFunctionExpression(node)
 
               if (!functionExpression)
-                return null;
+                return null
 
-              const foundAsyncFixer = fixes.some(fix => fix.text === 'async ');
+              const foundAsyncFixer = fixes.some(fix => fix.text === 'async ')
 
               if (!functionExpression.async && !foundAsyncFixer) {
-                const targetFunction =
-                  getNormalizeFunctionExpression(functionExpression);
+                const targetFunction
+                  = getNormalizeFunctionExpression(functionExpression)
 
-                fixes.push(fixer.insertTextBefore(targetFunction, 'async '));
+                fixes.push(fixer.insertTextBefore(targetFunction, 'async '))
               }
 
-              const returnStatement =
-                node.parent?.type === AST_NODE_TYPES.ReturnStatement
+              const returnStatement
+                = node.parent?.type === AST_NODE_TYPES.ReturnStatement
                   ? node.parent
-                  : null;
+                  : null
 
               if (alwaysAwait && returnStatement) {
-                const sourceCodeText =
-                context.sourceCode.getText(returnStatement);
-                const replacedText = sourceCodeText.replace('return', 'await');
+                const sourceCodeText
+                = context.sourceCode.getText(returnStatement)
+                const replacedText = sourceCodeText.replace('return', 'await')
 
-                fixes.push(fixer.replaceText(returnStatement, replacedText));
+                fixes.push(fixer.replaceText(returnStatement, replacedText))
               }
               else {
-                fixes.push(fixer.insertTextBefore(node, 'await '));
+                fixes.push(fixer.insertTextBefore(node, 'await '))
               }
 
-              return index === descriptors.length - 1 ? fixes : null;
-            },
-          });
-        });
-      },
+              return index === descriptors.length - 1 ? fixes : null
+            }
+          })
+        })
+      }
     }
   }
 })

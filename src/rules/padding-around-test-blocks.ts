@@ -1,4 +1,4 @@
-import { PaddingType, StatementType, createPaddingRule } from '../utils/padding';
+import { PaddingType, StatementType, createPaddingRule } from '../utils/padding'
 
 export const RULE_NAME = 'padding-around-test-blocks'
 
@@ -11,8 +11,8 @@ export const config = [
       StatementType.ItToken,
       StatementType.FitToken,
       StatementType.XitToken,
-      StatementType.XtestToken,
-    ],
+      StatementType.XtestToken
+    ]
   },
   {
     paddingType: PaddingType.Always,
@@ -21,14 +21,14 @@ export const config = [
       StatementType.ItToken,
       StatementType.FitToken,
       StatementType.XitToken,
-      StatementType.XtestToken,
+      StatementType.XtestToken
     ],
-    nextStatementType: StatementType.Any,
-  },
-];
+    nextStatementType: StatementType.Any
+  }
+]
 
 export default createPaddingRule(
   RULE_NAME,
   'Enforce padding around afterAll blocks',
-  config,
-);
+  config
+)

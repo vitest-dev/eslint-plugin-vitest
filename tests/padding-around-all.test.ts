@@ -1,6 +1,6 @@
-import rule, { RULE_NAME } from '../src/rules/padding-around-all';
-import { ruleTester } from './ruleTester';
-import { InvalidTestCase } from "@typescript-eslint/rule-tester"
+import rule, { RULE_NAME } from '../src/rules/padding-around-all'
+import { ruleTester } from './ruleTester'
+import { InvalidTestCase } from '@typescript-eslint/rule-tester'
 
 const testCase = {
   code: `
@@ -56,30 +56,30 @@ describe('someText', () => {
     {
       messageId: 'missingPadding',
       line: 3,
-      column: 1,
+      column: 1
     },
     {
       messageId: 'missingPadding',
       line: 5,
-      column: 1,
+      column: 1
     },
     {
       messageId: 'missingPadding',
       line: 8,
-      column: 3,
+      column: 3
     },
     {
       messageId: 'missingPadding',
       line: 11,
-      column: 3,
+      column: 3
     },
     {
       messageId: 'missingPadding',
       line: 18,
-      column: 3,
-    },
-  ],
-} satisfies InvalidTestCase<'missingPadding', never>;
+      column: 3
+    }
+  ]
+} satisfies InvalidTestCase<'missingPadding', never>
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
@@ -87,7 +87,7 @@ ruleTester.run(RULE_NAME, rule, {
     `
       xyz:
       afterEach(() => {});
-    `,
+    `
   ],
   invalid: [
     {
@@ -106,9 +106,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'missingPadding',
           line: 3,
-          column: 9,
-        },
-      ],
+          column: 9
+        }
+      ]
     },
     {
       code: `
@@ -162,37 +162,37 @@ ruleTester.run(RULE_NAME, rule, {
           line: 3,
           column: 9,
           endLine: 3,
-          endColumn: 30,
+          endColumn: 30
         },
         {
           messageId: 'missingPadding',
           line: 4,
           column: 9,
           endLine: 19,
-          endColumn: 12,
+          endColumn: 12
         },
         {
           messageId: 'missingPadding',
           line: 8,
           column: 15,
           endLine: 8,
-          endColumn: 21,
+          endColumn: 21
         },
         {
           messageId: 'missingPadding',
           line: 12,
           column: 15,
           endLine: 12,
-          endColumn: 33,
+          endColumn: 33
         },
         {
           messageId: 'missingPadding',
           line: 13,
           column: 15,
           endLine: 13,
-          endColumn: 69,
-        },
-      ],
-    },
-  ],
-});
+          endColumn: 69
+        }
+      ]
+    }
+  ]
+})

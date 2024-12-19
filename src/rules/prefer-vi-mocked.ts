@@ -1,64 +1,64 @@
-import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
-import { createEslintRule } from "../utils";
-import { followTypeAssertionChain } from "../utils/ast-utils";
+import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
+import { createEslintRule } from '../utils'
+import { followTypeAssertionChain } from '../utils/ast-utils'
 
-export const RULE_NAME = "prefer-vi-mocked";
-type MESSAGE_IDS = "useViMocked";
+export const RULE_NAME = 'prefer-vi-mocked'
+type MESSAGE_IDS = 'useViMocked'
 
-const mockTypes = ["Mock", "MockedFunction", "MockedClass", "MockedObject"];
+const mockTypes = ['Mock', 'MockedFunction', 'MockedClass', 'MockedObject']
 
-type Options = [];
+type Options = []
 
 export default createEslintRule<Options, MESSAGE_IDS>({
   name: RULE_NAME,
   meta: {
-    type: "suggestion",
+    type: 'suggestion',
     docs: {
-      description: "Prefer `vi.mocked()` over `fn as Mock`",
+      description: 'require `vi.mocked()` over `fn as Mock`',
       requiresTypeChecking: true,
-      recommended: false,
+      recommended: false
     },
-    fixable: "code",
+    fixable: 'code',
     messages: {
-      useViMocked: "Prefer `vi.mocked()`",
+      useViMocked: 'Prefer `vi.mocked()`'
     },
-    schema: [],
+    schema: []
   },
   defaultOptions: [],
   create(context) {
     function check(node: TSESTree.TSAsExpression | TSESTree.TSTypeAssertion) {
-      const { typeAnnotation } = node;
+      const { typeAnnotation } = node
 
-      if (typeAnnotation.type !== AST_NODE_TYPES.TSTypeReference) return;
+      if (typeAnnotation.type !== AST_NODE_TYPES.TSTypeReference) return
 
-      const { typeName } = typeAnnotation;
+      const { typeName } = typeAnnotation
 
-      if (typeName.type !== AST_NODE_TYPES.Identifier) return;
+      if (typeName.type !== AST_NODE_TYPES.Identifier) return
 
-      if (!mockTypes.includes(typeName.name)) return;
+      if (!mockTypes.includes(typeName.name)) return
 
       const fnName = context.sourceCode.text.slice(
         ...followTypeAssertionChain(node.expression).range
-      );
+      )
 
       context.report({
         node,
-        messageId: "useViMocked",
+        messageId: 'useViMocked',
         fix(fixer) {
-          return fixer.replaceText(node, `vi.mocked(${fnName})`);
-        },
-      });
+          return fixer.replaceText(node, `vi.mocked(${fnName})`)
+        }
+      })
     }
 
     return {
       TSAsExpression(node) {
-        if (node.parent.type === AST_NODE_TYPES.TSAsExpression) return;
+        if (node.parent.type === AST_NODE_TYPES.TSAsExpression) return
 
-        check(node);
+        check(node)
       },
       TSTypeAssertion(node) {
-        check(node);
-      },
-    };
-  },
-});
+        check(node)
+      }
+    }
+  }
+})

@@ -16,9 +16,9 @@ test('myFn', () => {
 expect(myFn()).toBe(1);
 });
 `,
-    languageOptions: { parserOptions: { sourceType: 'module' } }
-  },
-  `
+      languageOptions: { parserOptions: { sourceType: 'module' } }
+    },
+    `
 class MockLogger {
   log() {}
      }

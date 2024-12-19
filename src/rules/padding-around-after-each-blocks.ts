@@ -1,4 +1,4 @@
-import { Config, PaddingType, StatementType, createPaddingRule } from "../utils/padding";
+import { Config, PaddingType, StatementType, createPaddingRule } from '../utils/padding'
 
 export const RULE_NAME = 'padding-around-after-each-blocks'
 

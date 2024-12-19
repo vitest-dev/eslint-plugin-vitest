@@ -252,7 +252,7 @@ const parseVitestFnCallWithReasonInner = (
 
   const links = [name, ...rest.map(getAccessorValue)]
 
-  if (resolved.type !== "testContext" && name !== 'vi' && name !== 'expect' && name !== 'expectTypeOf' && !ValidVitestFnCallChains.has(links.join('.')))
+  if (resolved.type !== 'testContext' && name !== 'vi' && name !== 'expect' && name !== 'expectTypeOf' && !ValidVitestFnCallChains.has(links.join('.')))
     return null
 
   const parsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'> = {
@@ -322,11 +322,11 @@ const resolveVitestFn = (
   if (maybeImport === 'local')
     return null
 
-  if (maybeImport === "testContext")
+  if (maybeImport === 'testContext')
     return {
       local: identifier,
       original: null,
-      type: "testContext"
+      type: 'testContext'
     }
 
   if (maybeImport) {
@@ -374,17 +374,17 @@ export const resolveScope = (
     if (ref && ref.defs.length > 0) {
       const def = ref.defs[ref.defs.length - 1]
 
-      const objectParam = isFunction(def.node) ? def.node.params.find(params => params.type === AST_NODE_TYPES.ObjectPattern ) : undefined
+      const objectParam = isFunction(def.node) ? def.node.params.find(params => params.type === AST_NODE_TYPES.ObjectPattern) : undefined
       if (objectParam) {
         const property = objectParam.properties.find(property => property.type === AST_NODE_TYPES.Property)
         const key = property?.key.type === AST_NODE_TYPES.Identifier ? property.key : undefined
         if (key?.name === identifier)
-          return "testContext"
+          return 'testContext'
       }
 
-      const namedParam = isFunction(def.node) ? def.node.params.find(params => params.type === AST_NODE_TYPES.Identifier ) : undefined
+      const namedParam = isFunction(def.node) ? def.node.params.find(params => params.type === AST_NODE_TYPES.Identifier) : undefined
       if (namedParam)
-        return "testContext"
+        return 'testContext'
 
       const importDetails = describePossibleImportDef(def)
 
@@ -537,5 +537,5 @@ const isTypeCastExpression = <Expression extends TSESTree.Expression>(
 export const followTypeAssertionChain = <Expression extends TSESTree.Expression>(
   expression: MaybeTypeCast<Expression>
 ): Expression => isTypeCastExpression(expression)
-    ? followTypeAssertionChain(expression.expression)
-    : expression
+  ? followTypeAssertionChain(expression.expression)
+  : expression

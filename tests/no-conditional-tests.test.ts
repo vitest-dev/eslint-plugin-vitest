@@ -6,7 +6,7 @@ ruleTester.run(RULE_NAME, rule, {
     'test("shows error", () => {});',
     'it("foo", function () {})',
     'it(\'foo\', () => {}); function myTest() { if (\'bar\') {} }',
-  `function myFunc(str: string) {
+    `function myFunc(str: string) {
     return str;
   }
   describe("myTest", () => {
@@ -16,7 +16,7 @@ ruleTester.run(RULE_NAME, rule, {
       ).toEqual("5");
      });
     });`,
-  `describe("shows error", () => {
+    `describe("shows error", () => {
      if (1 === 2) {
       myFunc();
      }

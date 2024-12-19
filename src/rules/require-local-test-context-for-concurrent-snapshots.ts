@@ -24,9 +24,9 @@ export default createEslintRule({
         const vitestFnCall = parseVitestFnCall(node, context)
         if (vitestFnCall === null)
           return
-        if (vitestFnCall.type !== "expect")
+        if (vitestFnCall.type !== 'expect')
           return
-        if (vitestFnCall.type === "expect" && vitestFnCall.head.type === "testContext")
+        if (vitestFnCall.type === 'expect' && vitestFnCall.head.type === 'testContext')
           return
 
         const isNotASnapshotAssertion = ![
@@ -35,7 +35,7 @@ export default createEslintRule({
           'toMatchFileSnapshot',
           'toThrowErrorMatchingSnapshot',
           'toThrowErrorMatchingInlineSnapshot'
-          //@ts-ignore
+          // @ts-ignore
         ].includes(node.callee?.property.name)
 
         if (isNotASnapshotAssertion) return

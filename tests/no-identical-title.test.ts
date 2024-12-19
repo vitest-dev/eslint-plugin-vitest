@@ -3,7 +3,7 @@ import { ruleTester } from './ruleTester'
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
-  `suite('parent', () => {
+    `suite('parent', () => {
             suite('child 1', () => {
      test('grand child 1', () => {})
          })
@@ -11,9 +11,9 @@ ruleTester.run(RULE_NAME, rule, {
             test('grand child 1', () => {})
          })
         })`,
-  'it(); it();',
-  'test("two", () => {});',
-  `fdescribe('a describe', () => {
+    'it(); it();',
+    'test("two", () => {});',
+    `fdescribe('a describe', () => {
   test('a test', () => {
    expect(true).toBe(true);
   });
@@ -23,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
    expect(true).toBe(true);
   });
   });`,
-  `
+    `
   suite('parent', () => {
    suite('child 1', () => {
          test('grand child 1', () => {})

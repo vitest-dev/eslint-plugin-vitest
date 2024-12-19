@@ -46,7 +46,7 @@ const DEPTH = 3
 
 const allPermutations: string[] = []
 
-const depths = (maxDepth:number) => Array.from({ length: maxDepth }, (_, i) => i)
+const depths = (maxDepth: number) => Array.from({ length: maxDepth }, (_, i) => i)
 
 data.forEach((q) => {
   q.names.forEach((name) => {

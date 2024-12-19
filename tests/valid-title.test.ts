@@ -126,7 +126,6 @@ ruleTester.run(RULE_NAME, rule, {
   ]
 })
 
-
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     {
