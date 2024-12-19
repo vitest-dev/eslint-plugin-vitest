@@ -74,7 +74,7 @@ it('example', async () => {
     },
     {
       code: 'afterEach(() => {});',
-      options: [{ additionalTestBlockFunctions: ['afterEach'] }],
+      options: [{ additionalTestBlockFunctions: ['afterEach'], assertFunctionNames: [] }],
       errors: [
         {
           messageId: 'noAssertions',
@@ -88,7 +88,7 @@ it('example', async () => {
      const output = NumberToLongString(theory.input);
     })
     `,
-      options: [{ additionalTestBlockFunctions: ['theoretically'] }],
+      options: [{ additionalTestBlockFunctions: ['theoretically'], assertFunctionNames: [] }],
       errors: [
         {
           messageId: 'noAssertions',
@@ -107,7 +107,7 @@ it('example', async () => {
     },
     {
       code: 'test("should fail", () => { foo(true).toBe(true); })',
-      options: [{ assertFunctionNames: ['expect'] }],
+      options: [{ assertFunctionNames: ['expect'], additionalTestBlockFunctions: [] }],
       errors: [
         {
           messageId: 'noAssertions',
@@ -117,7 +117,7 @@ it('example', async () => {
     },
     {
       code: 'it("should also fail",() => expectSaga(mySaga).returns());',
-      options: [{ assertFunctionNames: ['expect'] }],
+      options: [{ assertFunctionNames: ['expect'], additionalTestBlockFunctions: [] }],
       errors: [
         {
           messageId: 'noAssertions',
@@ -127,7 +127,7 @@ it('example', async () => {
     },
     {
       code: 'test(\'should fail\', () => request.get().foo().expect(456));',
-      options: [{ assertFunctionNames: ['request.*.expect'] }],
+      options: [{ assertFunctionNames: ['request.*.expect'], additionalTestBlockFunctions: [] }],
       errors: [
         {
           messageId: 'noAssertions',
@@ -137,7 +137,7 @@ it('example', async () => {
     },
     {
       code: 'test(\'should fail\', () => request.get().foo().bar().expect(456));',
-      options: [{ assertFunctionNames: ['request.foo**.expect'] }],
+      options: [{ assertFunctionNames: ['request.foo**.expect'], additionalTestBlockFunctions: [] }],
       errors: [
         {
           messageId: 'noAssertions',
@@ -147,7 +147,7 @@ it('example', async () => {
     },
     {
       code: 'test(\'should fail\', () => tester.request(123));',
-      options: [{ assertFunctionNames: ['request.*'] }],
+      options: [{ assertFunctionNames: ['request.*'], additionalTestBlockFunctions: [] }],
       errors: [
         {
           messageId: 'noAssertions',
@@ -157,7 +157,7 @@ it('example', async () => {
     },
     {
       code: 'test(\'should fail\', () => request(123));',
-      options: [{ assertFunctionNames: ['request.*'] }],
+      options: [{ assertFunctionNames: ['request.*'], additionalTestBlockFunctions: [] }],
       errors: [
         {
           messageId: 'noAssertions',
@@ -167,7 +167,7 @@ it('example', async () => {
     },
     {
       code: 'test(\'should fail\', () => request(123));',
-      options: [{ assertFunctionNames: ['request.**'] }],
+      options: [{ assertFunctionNames: ['request.**'], additionalTestBlockFunctions: [] }],
       errors: [
         {
           messageId: 'noAssertions',
@@ -235,7 +235,7 @@ it('example', async () => {
        // ...
      })
        `,
-      options: [{ additionalTestBlockFunctions: ['myExtendedTest'] }],
+      options: [{ additionalTestBlockFunctions: ['myExtendedTest'], assertFunctionNames: [] }],
       languageOptions: { parserOptions: { sourceType: 'module' } },
       errors: [
         {

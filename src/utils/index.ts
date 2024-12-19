@@ -10,7 +10,6 @@ import {
   KnownMemberExpression,
   ParsedExpectVitestFnCall
 } from './parse-vitest-fn-call'
-import { Rule } from 'eslint'
 
 interface PluginDocs {
   recommended?: boolean
@@ -18,12 +17,12 @@ interface PluginDocs {
 }
 
 export function createEslintRule<TOptions extends readonly unknown[], TMessageIds extends string>(rule: Readonly<ESLintUtils.RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>>) {
-  const createRule = ESLintUtils.RuleCreator<PluginDocs>(
+  const createRule = ESLintUtils.RuleCreator(
     ruleName =>
       `https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/${ruleName}.md`
   )
 
-  return createRule(rule) as unknown as Rule.RuleModule
+  return createRule(rule)
 }
 
 export const joinNames = (a: string | null, b: string | null): string | null =>
