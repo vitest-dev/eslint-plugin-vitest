@@ -12,9 +12,12 @@ This rule aims to prevent the use of `expect` outside of `it` or `test` blocks.
 
 ```json
 {
-  "vitest/no-standalone-expect": {
-	"additionalTestBlockFunctions": ["test"]
-  }
+  "vitest/no-standalone-expect": [
+    "error",
+    {
+      "additionalTestBlockFunctions": ["test"]
+    }
+  ]
 }
 ```
 
