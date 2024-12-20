@@ -57,9 +57,6 @@ importers:
       eslint-remote-tester-repositories:
         specifier: ^2.0.0
         version: 2.0.0
-      importx:
-        specifier: ^0.3.11
-        version: 0.3.11
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
@@ -3742,6 +3739,7 @@ snapshots:
     dependencies:
       esbuild: 0.20.2
       load-tsconfig: 0.2.5
+    optional: true
 
   c12@2.0.1:
     dependencies:
@@ -4422,6 +4420,7 @@ snapshots:
       tsx: 4.19.2
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   imurmurhash@0.1.4: {}
 
@@ -4560,7 +4559,8 @@ snapshots:
 
   lines-and-columns@1.2.4: {}
 
-  load-tsconfig@0.2.5: {}
+  load-tsconfig@0.2.5:
+    optional: true
 
   local-pkg@0.5.0:
     dependencies:
