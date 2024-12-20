@@ -102,7 +102,7 @@ export default createEslintRule<
           if (specifier.type !== 'ImportSpecifier')
             continue
           if (specifier.imported.type !== 'Identifier')
-             continue
+            continue
           if (specifier.local.name !== specifier.imported.name)
             continue
           if (specifier.local.name === oppositeTestKeyword) {

@@ -66,46 +66,46 @@ data.forEach((q) => {
       ),
       ...(i > 0
         ? q.first.flatMap(first =>
-          q.conditions.flatMap(condition =>
-            (per(q.methods, i - 1) || ['']).map(p => [
-              first,
-              condition,
-              ...p
-            ])
+            q.conditions.flatMap(condition =>
+              (per(q.methods, i - 1) || ['']).map(p => [
+                first,
+                condition,
+                ...p
+              ])
+            )
           )
-        )
         : []),
       ...(i > 0
         ? q.first.flatMap(first =>
-          q.last.flatMap(last =>
-            (per(q.methods, i - 1) || ['']).map(p => [first, ...p, last])
+            q.last.flatMap(last =>
+              (per(q.methods, i - 1) || ['']).map(p => [first, ...p, last])
+            )
           )
-        )
         : []),
       ...(i > 0
         ? q.conditions.flatMap(condition =>
-          q.last.flatMap(last =>
-            (per(q.methods, i - 1) || ['']).map(p => [
-              condition,
-              ...p,
-              last
-            ])
-          )
-        )
-        : []),
-      ...(i > 1
-        ? q.first.flatMap(first =>
-          q.conditions.flatMap(condition =>
             q.last.flatMap(last =>
-              (per(q.methods, i - 2) || ['']).map(p => [
-                first,
+              (per(q.methods, i - 1) || ['']).map(p => [
                 condition,
                 ...p,
                 last
               ])
             )
           )
-        )
+        : []),
+      ...(i > 1
+        ? q.first.flatMap(first =>
+            q.conditions.flatMap(condition =>
+              q.last.flatMap(last =>
+                (per(q.methods, i - 2) || ['']).map(p => [
+                  first,
+                  condition,
+                  ...p,
+                  last
+                ])
+              )
+            )
+          )
         : [])
     ])
     const allPerms = methodPerms.map(p => [name, ...p].join('.'))

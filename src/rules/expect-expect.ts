@@ -84,7 +84,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
           unchecked.push(node)
         }
-        else if (assertFunctionRegexps.some(p =>p.test(name))) {
+        else if (assertFunctionRegexps.some(p => p.test(name))) {
           checkCallExpression(context.sourceCode.getAncestors(node))
         }
       },
@@ -109,7 +109,7 @@ function buildPatternRegexp(pattern: string): RegExp {
   })
 
   return new RegExp(
-      `^${parts.join('\\.')}(\\.|$)`,
-      'ui'
-    )
+    `^${parts.join('\\.')}(\\.|$)`,
+    'ui'
+  )
 }

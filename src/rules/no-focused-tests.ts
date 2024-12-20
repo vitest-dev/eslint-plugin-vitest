@@ -99,9 +99,9 @@ export default createEslintRule<Options, MessageIds>({
               messageId: 'noFocusedTests',
               fix: fixer => fixable
                 ? fixer.removeRange([
-                  onlyCallee.range[0] - 1,
-                  onlyCallee.range[1]
-                ])
+                    onlyCallee.range[0] - 1,
+                    onlyCallee.range[1]
+                  ])
                 : null
             })
           }

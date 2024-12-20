@@ -84,9 +84,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
               fixes.push(notModifier
                 ? fixer.removeRange([
-                  notModifier.range[0] - 1,
-                  notModifier.range[1]
-                ])
+                    notModifier.range[0] - 1,
+                    notModifier.range[1]
+                  ])
                 : fixer.insertTextBefore(vitestFnCall.matcher, 'not.')
               )
             }

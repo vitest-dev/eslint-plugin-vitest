@@ -436,7 +436,7 @@ const describeImportDefAsImport = (
 
   if (def.node.type !== AST_NODE_TYPES.ImportSpecifier)
     return null
-  if(def.node.imported.type != AST_NODE_TYPES.Identifier)
+  if (def.node.imported.type != AST_NODE_TYPES.Identifier)
     return null
 
   // we only care about value imports
