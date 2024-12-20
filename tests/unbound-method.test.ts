@@ -5,11 +5,12 @@ import unboundMethod from '../src/rules/unbound-method'
 const rootPath = path.join(__dirname, './fixtures')
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    tsconfigRootDir: rootPath,
-    project: './tsconfig.json',
-    sourceType: 'module'
+  languageOptions: {
+    parserOptions: {
+      tsconfigRootDir: rootPath,
+      project: './tsconfig.json',
+      sourceType: 'module'
+    }
   }
 })
 
@@ -20,16 +21,16 @@ ruleTester.run('unbound-method', unboundMethod, {
    public logArrowBound = (): void => {
     console.log(bound);
    };
-  
+
    public logManualBind(): void {
     console.log(this);
    }
   }
-  
+
   const instance = new MyClass();
   const logArrowBound = instance.logArrowBound;
   const logManualBind = instance.logManualBind.bind(instance);
-  
+
   logArrowBound();
   logManualBind();`,
       skip: true
@@ -43,9 +44,9 @@ ruleTester.run('unbound-method', unboundMethod, {
    process.stdout.write(str);
     }
   }
-  
+
   const console = new Console();
-  
+
   Promise.resolve().then(console.log);
      `,
       skip: true,

@@ -1,4 +1,4 @@
-import type { ESLint, Linter } from 'eslint'
+import type { Linter } from 'eslint'
 import { version } from '../package.json'
 import lowerCaseTitle, { RULE_NAME as lowerCaseTitleName } from './rules/prefer-lowercase-title'
 import maxNestedDescribe, { RULE_NAME as maxNestedDescribeName } from './rules/max-nested-describe'
@@ -233,7 +233,7 @@ const plugin = {
     'legacy-all': createConfigLegacy(allRules),
     'recommended': {
       plugins: {
-        get vitest(): ESLint.Plugin {
+        get vitest() {
           return plugin
         }
       },
@@ -241,7 +241,7 @@ const plugin = {
     },
     'all': {
       plugins: {
-        get vitest(): ESLint.Plugin {
+        get vitest() {
           return plugin
         }
       },
@@ -292,6 +292,6 @@ const plugin = {
       }
     }
   }
-} satisfies ESLint.Plugin
+}
 
 export default plugin
