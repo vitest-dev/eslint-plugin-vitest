@@ -101,6 +101,8 @@ export default createEslintRule<
         for (const specifier of node.specifiers) {
           if (specifier.type !== 'ImportSpecifier')
             continue
+          if (specifier.imported.type !== 'Identifier')
+             continue
           if (specifier.local.name !== specifier.imported.name)
             continue
           if (specifier.local.name === oppositeTestKeyword) {

@@ -46,11 +46,11 @@ it('example', async () => {
 });`,
   {
     code: `it("should pass", () => { anyChain.of.calls.expect(true) })`,
-    options: [{ assertFunctionNames: ['**.expect'] }]
+    options: [{ assertFunctionNames: ['**.expect'],  additionalTestBlockFunctions: [] }]
   },
   {
     code: `it("should pass", () => { any_chain.of.calls.expect(true) })`,
-    options: [{ assertFunctionNames: ['**.expect'] }]
+    options: [{ assertFunctionNames: ['**.expect'],  additionalTestBlockFunctions: [] }]
   }
   ],
   invalid: [
