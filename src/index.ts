@@ -62,7 +62,6 @@ import paddingAroundDescribeBlocks, { RULE_NAME as paddingAroundDescribeBlocksNa
 import paddingAroundExpectGroups, { RULE_NAME as paddingAroundExpectGroupsName } from './rules/padding-around-expect-groups'
 import paddingAroundTestBlocks, { RULE_NAME as paddingAroundTestBlocksName } from './rules/padding-around-test-blocks'
 import validExpectInPromise, { RULE_NAME as validExpectInPromiseName } from './rules/valid-expect-in-promise'
-import { TSESLint } from '@typescript-eslint/utils'
 
 const createConfig = <R extends Linter.RulesRecord>(rules: R) => (
   Object.keys(rules).reduce((acc, ruleName) => {
