@@ -17,7 +17,7 @@ interface PluginDocs {
 }
 
 export function createEslintRule<TOptions extends readonly unknown[], TMessageIds extends string>(rule: Readonly<ESLintUtils.RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>>) {
-  const createRule = ESLintUtils.RuleCreator(
+  const createRule = ESLintUtils.RuleCreator<PluginDocs>(
     ruleName =>
       `https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/${ruleName}.md`
   )
