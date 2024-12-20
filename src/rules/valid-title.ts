@@ -197,6 +197,15 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         if (vitestFnCall?.type !== 'describe' && vitestFnCall?.type !== 'test' && vitestFnCall?.type !== 'it') return
 
+        if (
+          vitestFnCall.members &&
+          vitestFnCall.members[0] &&
+          vitestFnCall.members[0].type === AST_NODE_TYPES.Identifier &&
+          vitestFnCall.members[0].name === 'extend'
+        ) {
+          return
+        }
+
         const [argument] = node.arguments
 
         if (settings.typecheck) {
