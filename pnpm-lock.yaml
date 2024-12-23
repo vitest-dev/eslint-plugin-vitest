@@ -22,8 +22,8 @@ importers:
         specifier: ^10.0.10
         version: 10.0.10
       '@types/node':
-        specifier: ^20.17.10
-        version: 20.17.10
+        specifier: ^22.10.2
+        version: 22.10.2
       '@typescript-eslint/eslint-plugin':
         specifier: 8.0.0
         version: 8.0.0(@typescript-eslint/parser@8.0.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2))(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
@@ -35,7 +35,7 @@ importers:
         version: 8.18.1(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
       '@vitest/eslint-plugin':
         specifier: ^1.1.20
-        version: 1.1.20(@typescript-eslint/utils@8.18.1(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2))(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)(vitest@1.6.0(@types/node@20.17.10))
+        version: 1.1.20(@typescript-eslint/utils@8.18.1(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2))(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)(vitest@1.6.0(@types/node@22.10.2))
       bumpp:
         specifier: ^9.9.1
         version: 9.9.1
@@ -68,7 +68,7 @@ importers:
         version: 3.0.1(typescript@5.7.2)
       vitest:
         specifier: ^1.6.0
-        version: 1.6.0(@types/node@20.17.10)
+        version: 1.6.0(@types/node@22.10.2)
 
 packages:
 
@@ -949,8 +949,8 @@ packages:
   '@types/mocha@10.0.10':
     resolution: {integrity: sha512-xPyYSz1cMPnJQhl0CLMH68j3gprKZaTjG3s5Vi+fDgx+uhG9NOXwbVt52eFS8ECyXhyKcjDLCBEqBExKuiZb7Q==}
 
-  '@types/node@20.17.10':
-    resolution: {integrity: sha512-/jrvh5h6NXhEauFFexRin69nA0uHJ5gwk4iDivp/DeoEua3uwCUto6PC86IpRITBOs4+6i2I56K5x5b6WYGXHA==}
+  '@types/node@22.10.2':
+    resolution: {integrity: sha512-Xxr6BBRCAOQixvonOye19wnzyDiUtTeqldOOmj3CkeblonbccA12PFwlufvRdrpjXxqnmUaeiU5EOA+7s5diUQ==}
 
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
@@ -2640,8 +2640,8 @@ packages:
       typescript:
         optional: true
 
-  undici-types@6.19.8:
-    resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
+  undici-types@6.20.0:
+    resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
 
   untyped@1.5.2:
     resolution: {integrity: sha512-eL/8PlhLcMmlMDtNPKhyyz9kEBDS3Uk4yMu/ewlkT2WFbtzScjHWPJLdQLmaGPUKjXzwe9MumOtOgc4Fro96Kg==}
@@ -3404,9 +3404,9 @@ snapshots:
 
   '@types/mocha@10.0.10': {}
 
-  '@types/node@20.17.10':
+  '@types/node@22.10.2':
     dependencies:
-      undici-types: 6.19.8
+      undici-types: 6.20.0
 
   '@types/resolve@1.20.2': {}
 
@@ -3624,13 +3624,13 @@ snapshots:
       '@typescript-eslint/types': 8.18.1
       eslint-visitor-keys: 4.2.0
 
-  '@vitest/eslint-plugin@1.1.20(@typescript-eslint/utils@8.18.1(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2))(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)(vitest@1.6.0(@types/node@20.17.10))':
+  '@vitest/eslint-plugin@1.1.20(@typescript-eslint/utils@8.18.1(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2))(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)(vitest@1.6.0(@types/node@22.10.2))':
     dependencies:
       '@typescript-eslint/utils': 8.18.1(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
       eslint: 9.17.0(jiti@2.4.2)
     optionalDependencies:
       typescript: 5.7.2
-      vitest: 1.6.0(@types/node@20.17.10)
+      vitest: 1.6.0(@types/node@22.10.2)
 
   '@vitest/expect@1.6.0':
     dependencies:
@@ -5277,7 +5277,7 @@ snapshots:
       - vue
       - vue-tsc
 
-  undici-types@6.19.8: {}
+  undici-types@6.20.0: {}
 
   untyped@1.5.2:
     dependencies:
@@ -5304,13 +5304,13 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vite-node@1.6.0(@types/node@20.17.10):
+  vite-node@1.6.0(@types/node@22.10.2):
     dependencies:
       cac: 6.7.14
       debug: 4.3.5
       pathe: 1.1.2
       picocolors: 1.0.1
-      vite: 5.2.11(@types/node@20.17.10)
+      vite: 5.2.11(@types/node@22.10.2)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -5321,16 +5321,16 @@ snapshots:
       - supports-color
       - terser
 
-  vite@5.2.11(@types/node@20.17.10):
+  vite@5.2.11(@types/node@22.10.2):
     dependencies:
       esbuild: 0.20.2
       postcss: 8.4.38
       rollup: 4.18.0
     optionalDependencies:
-      '@types/node': 20.17.10
+      '@types/node': 22.10.2
       fsevents: 2.3.3
 
-  vitest@1.6.0(@types/node@20.17.10):
+  vitest@1.6.0(@types/node@22.10.2):
     dependencies:
       '@vitest/expect': 1.6.0
       '@vitest/runner': 1.6.0
@@ -5349,11 +5349,11 @@ snapshots:
       strip-literal: 2.1.0
       tinybench: 2.8.0
       tinypool: 0.8.4
-      vite: 5.2.11(@types/node@20.17.10)
-      vite-node: 1.6.0(@types/node@20.17.10)
+      vite: 5.2.11(@types/node@22.10.2)
+      vite-node: 1.6.0(@types/node@22.10.2)
       why-is-node-running: 2.2.2
     optionalDependencies:
-      '@types/node': 20.17.10
+      '@types/node': 22.10.2
     transitivePeerDependencies:
       - less
       - lightningcss
