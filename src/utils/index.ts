@@ -12,7 +12,7 @@ import {
 } from './parse-vitest-fn-call'
 import { RuleRecommendation, RuleRecommendationAcrossConfigs } from '@typescript-eslint/utils/ts-eslint'
 
-interface PluginDocs {
+export interface PluginDocs {
   recommended?: boolean
   requiresTypeChecking?: boolean
   extendsBaseRule?: boolean | string;
