@@ -10,21 +10,24 @@ import {
   KnownMemberExpression,
   ParsedExpectVitestFnCall
 } from './parse-vitest-fn-call'
-import { Rule } from 'eslint'
+import { RuleRecommendation, RuleRecommendationAcrossConfigs } from '@typescript-eslint/utils/ts-eslint'
 
 interface PluginDocs {
   recommended?: boolean
   requiresTypeChecking?: boolean
+  extendsBaseRule?: boolean | string;
 }
 
-export function createEslintRule<TOptions extends readonly unknown[], TMessageIds extends string>(rule: Readonly<ESLintUtils.RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>>) {
-  const createRule = ESLintUtils.RuleCreator<PluginDocs>(
-    ruleName =>
-      `https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/${ruleName}.md`
-  )
 
-  return createRule(rule) as unknown as Rule.RuleModule
-}
+// export function createEslintRule<TOptions extends readonly unknown[], TMessageIds extends string>(rule: Readonly<ESLintUtils.RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>>) {
+//   const createRule = ESLintUtils.RuleCreator<PluginDocs>(
+//     ruleName =>
+//       `https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/${ruleName}.md`
+//   )
+//
+//   return createRule(rule) as unknown as Rule.RuleModule
+// }
+export const createEslintRule = ESLintUtils.RuleCreator<PluginDocs>(name => `https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/${name}.md`)
 
 export const joinNames = (a: string | null, b: string | null): string | null =>
   a && b ? `${a}.${b}` : null
