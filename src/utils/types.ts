@@ -23,6 +23,8 @@ export enum HookName {
 }
 
 export enum ModifierName {
+  to = 'to',
+  have = 'have',
   not = 'not',
   rejects = 'rejects',
   resolves = 'resolves',

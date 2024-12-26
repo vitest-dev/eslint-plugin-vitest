@@ -86,6 +86,14 @@ ruleTester.run(RULE_NAME, rule, {
     'expect(value, "message").toBe(1);',
     'expect(value, `message`).toBe(1);',
     'const message = "message"; expect(value, `${message}`).toBe(1);',
+    `it('example', () => {
+   expect("foo bar").to.include("foo");
+});
+`,
+    `it('example', () => {
+   expect("hey").to.have.property("foo", "bar")
+});
+`,
     {
       code: 'expect(1).toBe(2);',
       options: [{ maxArgs: 2 }]

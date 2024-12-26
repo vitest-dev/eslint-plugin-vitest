@@ -249,6 +249,9 @@ export default createEslintRule<[
         else if (vitestFnCall?.type !== 'expect') {
           return
         }
+        else if (vitestFnCall.modifiers.some(mod => mod.type === AST_NODE_TYPES.Identifier && mod.name == 'to')) {
+          return
+        }
 
         const { parent: expect } = vitestFnCall.head.node
 
@@ -373,7 +376,7 @@ export default createEslintRule<[
 
               if (alwaysAwait && returnStatement) {
                 const sourceCodeText
-                = context.sourceCode.getText(returnStatement)
+                  = context.sourceCode.getText(returnStatement)
                 const replacedText = sourceCodeText.replace('return', 'await')
 
                 fixes.push(fixer.replaceText(returnStatement, replacedText))
