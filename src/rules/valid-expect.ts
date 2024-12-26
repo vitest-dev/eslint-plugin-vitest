@@ -75,9 +75,9 @@ function getParentIfThenified(node: TSESTree.Node): TSESTree.Node {
 
 const findPromiseCallExpressionNode = (node: TSESTree.Node) =>
   node.parent?.parent
-  && [AST_NODE_TYPES.CallExpression, AST_NODE_TYPES.ArrayExpression].includes(
-    node.parent.type
-  )
+    && [AST_NODE_TYPES.CallExpression, AST_NODE_TYPES.ArrayExpression].includes(
+      node.parent.type
+    )
     ? getPromiseCallExpressionNode(node.parent)
     : null
 
@@ -94,10 +94,10 @@ const isAcceptableReturnNode = (
   node: TSESTree.Node,
   allowReturn: boolean
 ): node is
-| TSESTree.ConditionalExpression
-| TSESTree.ArrowFunctionExpression
-| TSESTree.AwaitExpression
-| TSESTree.ReturnStatement => {
+  | TSESTree.ConditionalExpression
+  | TSESTree.ArrowFunctionExpression
+  | TSESTree.AwaitExpression
+  | TSESTree.ReturnStatement => {
   if (allowReturn && node.type === AST_NODE_TYPES.ReturnStatement)
     return true
 
@@ -248,6 +248,8 @@ export default createEslintRule<[
         }
         else if (vitestFnCall?.type !== 'expect') {
           return
+        } else if (vitestFnCall.modifiers.some(mod => mod.type === AST_NODE_TYPES.Identifier && mod.name == "to")) {
+          return
         }
 
         const { parent: expect } = vitestFnCall.head.node
@@ -373,7 +375,7 @@ export default createEslintRule<[
 
               if (alwaysAwait && returnStatement) {
                 const sourceCodeText
-                = context.sourceCode.getText(returnStatement)
+                  = context.sourceCode.getText(returnStatement)
                 const replacedText = sourceCodeText.replace('return', 'await')
 
                 fixes.push(fixer.replaceText(returnStatement, replacedText))

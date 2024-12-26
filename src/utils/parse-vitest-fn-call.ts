@@ -155,28 +155,26 @@ const findModifiersAndMatcher = (
 
     if (modifiers.length === 0) {
       // the first modifier can be any of the three modifiers
-
       if (!ModifierName.hasOwnProperty(name))
         return 'modifier-unknown'
     }
     else if (modifiers.length === 1) {
-      // the second modifier can only be "not"
-      if (name !== ModifierName.not)
+      // the second modifier can only either be "not" or "have"
+      if (name !== ModifierName.not && name != ModifierName.have)
         return 'modifier-unknown'
 
       const firstModifier = getAccessorValue(modifiers[0])
 
-      // and the first modifier has to be either "resolves" or "rejects"
+      // and the first modifier has to be either "resolves" or "rejects" or "to"
       if (
         firstModifier !== ModifierName.resolves
         && firstModifier !== ModifierName.rejects
+        && firstModifier !== ModifierName.to
       )
         return 'modifier-unknown'
-    }
-    else {
+    } else {
       return 'modifier-unknown'
     }
-
     modifiers.push(member)
   }
 
@@ -544,5 +542,5 @@ const isTypeCastExpression = <Expression extends TSESTree.Expression>(
 export const followTypeAssertionChain = <Expression extends TSESTree.Expression>(
   expression: MaybeTypeCast<Expression>
 ): Expression => isTypeCastExpression(expression)
-  ? followTypeAssertionChain(expression.expression)
-  : expression
+    ? followTypeAssertionChain(expression.expression)
+    : expression
