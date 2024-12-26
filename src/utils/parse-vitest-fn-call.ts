@@ -172,7 +172,8 @@ const findModifiersAndMatcher = (
         && firstModifier !== ModifierName.to
       )
         return 'modifier-unknown'
-    } else {
+    }
+    else {
       return 'modifier-unknown'
     }
     modifiers.push(member)
@@ -542,5 +543,5 @@ const isTypeCastExpression = <Expression extends TSESTree.Expression>(
 export const followTypeAssertionChain = <Expression extends TSESTree.Expression>(
   expression: MaybeTypeCast<Expression>
 ): Expression => isTypeCastExpression(expression)
-    ? followTypeAssertionChain(expression.expression)
-    : expression
+  ? followTypeAssertionChain(expression.expression)
+  : expression
