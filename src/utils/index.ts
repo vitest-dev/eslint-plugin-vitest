@@ -11,7 +11,7 @@ import {
   ParsedExpectVitestFnCall
 } from './parse-vitest-fn-call'
 
-interface PluginDocs {
+export interface PluginDocs {
   recommended?: boolean
   requiresTypeChecking?: boolean
 }
