@@ -169,6 +169,7 @@ ruleTester.run(RULE_NAME, rule, {
   ]
 })
 
+
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     'describe("the correct way to properly handle all the things", () => {});',
@@ -557,7 +558,10 @@ ruleTester.run(RULE_NAME, rule, {
     'test.concurrent("foo", function () {})',
     'xtest("foo", function () {})',
     'xtest(`foo`, function () {})',
-    'someFn("foo", function () {})'
+    'someFn("foo", function () {})',
+    `export const myTest = test.extend({
+      archive: []
+    })`
   ],
   invalid: [
     {
