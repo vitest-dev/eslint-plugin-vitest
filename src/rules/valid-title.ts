@@ -44,13 +44,13 @@ type Options = {
   allowArguments?: boolean
   disallowedWords?: string[]
   mustNotMatch?:
-  | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
-  | MatcherAndMessage
-  | string
+    | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
+    | MatcherAndMessage
+    | string
   mustMatch?:
-  | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
-  | MatcherAndMessage
-  | string
+    | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
+    | MatcherAndMessage
+    | string
 }[]
 
 type CompiledMatcherAndMessage = [matcher: RegExp, message?: string]
@@ -91,7 +91,7 @@ const compileMatcherPatterns = (matchers:
   | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
   | MatcherAndMessage
   | string): Record<MatcherGroups, CompiledMatcherAndMessage | null> &
-  Record<string, CompiledMatcherAndMessage | null> => {
+    Record<string, CompiledMatcherAndMessage | null> => {
   if (typeof matchers === 'string' || Array.isArray(matchers)) {
     const compiledMatcher = compileMatcherPattern(matchers)
 
@@ -198,7 +198,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         if (vitestFnCall?.type !== 'describe' && vitestFnCall?.type !== 'test' && vitestFnCall?.type !== 'it') return
 
         // check if extend keyword have been used
-        if (vitestFnCall.members.some(m => m.type == AST_NODE_TYPES.Identifier && m.name == "extend")) return
+        if (vitestFnCall.members.some(m => m.type == AST_NODE_TYPES.Identifier && m.name == 'extend')) return
 
         const [argument] = node.arguments
 

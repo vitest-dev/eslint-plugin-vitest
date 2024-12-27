@@ -169,7 +169,6 @@ ruleTester.run(RULE_NAME, rule, {
   ]
 })
 
-
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     'describe("the correct way to properly handle all the things", () => {});',
