@@ -184,7 +184,7 @@ To enable typechecking for vitest make sure settings key is added in your config
 ```js
 import vitest from "eslint-plugin-vitest";
 
-export defualt [
+export default [
  {
   files: ["tests/**"],
   plugins: {
