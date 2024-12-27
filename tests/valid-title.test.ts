@@ -557,7 +557,10 @@ ruleTester.run(RULE_NAME, rule, {
     'test.concurrent("foo", function () {})',
     'xtest("foo", function () {})',
     'xtest(`foo`, function () {})',
-    'someFn("foo", function () {})'
+    'someFn("foo", function () {})',
+    `export const myTest = test.extend({
+      archive: []
+    })`
   ],
   invalid: [
     {

@@ -1,5 +1,4 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/utils'
-
 import rule, { RULE_NAME } from '../src/rules/expect-expect'
 import { ruleTester } from './ruleTester'
 

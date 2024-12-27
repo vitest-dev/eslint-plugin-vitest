@@ -70,8 +70,8 @@ const createConfig = <R extends Linter.RulesRecord>(rules: R) => (
       [`vitest/${ruleName}`]: rules[ruleName]
     }
   }, {})) as {
-    [K in keyof R as `vitest/${Extract<K, string>}`]: R[K]
-  }
+  [K in keyof R as `vitest/${Extract<K, string>}`]: R[K]
+}
 
 const createConfigLegacy = (rules: Record<string, string>) => ({
   plugins: ['@vitest'],
@@ -165,7 +165,7 @@ interface VitestPLugin extends Linter.Plugin {
     version: string
   }
   rules: Record<string, RuleModule<any, any>>
-  //TODO: use classic type for config
+  // TODO: use classic type for config
   configs?: Record<string, any>
   environments?: Record<string, any>
 }
@@ -268,13 +268,13 @@ plugin.configs = {
   'legacy-all': createConfigLegacy(allRules),
   'recommended': {
     plugins: {
-      ["vitest"]: plugin
+      ['vitest']: plugin
     },
     rules: createConfig(recommended)
   },
   'all': {
     plugins: {
-      ["vitest"]: plugin
+      ['vitest']: plugin
     },
     rules: createConfig(allRules)
   },
@@ -301,6 +301,5 @@ plugin.configs = {
     }
   }
 }
-
 
 export default plugin
