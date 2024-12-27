@@ -1,5 +1,5 @@
-// Mostly adopted from https://github.com/jest-community/eslint-plugin-jest/blob/main/src/rules/utils/accessors.ts
-// Initial license: https://github.com/jest-community/eslint-plugin-jest/blob/main/LICENSE
+// mostly adopted from https://github.com/jest-community/eslint-plugin-jest/blob/main/src/rules/utils/accessors.ts
+// initial license: https://github.com/jest-community/eslint-plugin-jest/blob/main/LICENSE
 import {
   TSESLint,
   AST_NODE_TYPES,
@@ -10,18 +10,18 @@ import {
   KnownMemberExpression,
   ParsedExpectVitestFnCall
 } from './parse-vitest-fn-call'
+import { RuleListener, RuleModule } from '@typescript-eslint/utils/ts-eslint'
 
 export interface PluginDocs {
   recommended?: boolean
   requiresTypeChecking?: boolean
 }
 
-export function createEslintRule<TOptions extends readonly unknown[], TMessageIds extends string>(rule: Readonly<ESLintUtils.RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>>) {
+export function createEslintRule<TOptions extends readonly unknown[], TMessageIds extends string>(rule: Readonly<ESLintUtils.RuleWithMetaAndName<TOptions, TMessageIds, PluginDocs>>): RuleModule<TMessageIds, TOptions, PluginDocs, RuleListener> {
   const createRule = ESLintUtils.RuleCreator<PluginDocs>(
-    (ruleName: string) =>
+    (ruleName) =>
       `https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/${ruleName}.md`
   )
-
   return createRule(rule)
 }
 
