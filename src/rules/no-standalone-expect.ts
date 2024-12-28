@@ -48,15 +48,14 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     },
     schema: [
       {
+        type: 'object',
         properties: {
-          additionaltestblockfunctions: {
-            // @ts-ignore
+          additionalTestBlockFunctions: {
             type: 'array',
-            // @ts-ignore
-            items: { type: `string` }
+            items: { type: 'string' }
           }
         },
-        additionalproperties: false
+        additionalProperties: false
       }
     ]
   },
