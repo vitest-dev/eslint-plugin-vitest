@@ -29,6 +29,6 @@ export const config = [
 
 export default createPaddingRule(
   RULE_NAME,
-  'Enforce padding around afterAll blocks',
+  'Enforce padding around `test` blocks',
   config
 )
