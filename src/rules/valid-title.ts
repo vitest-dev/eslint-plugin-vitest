@@ -197,8 +197,16 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         if (vitestFnCall?.type !== 'describe' && vitestFnCall?.type !== 'test' && vitestFnCall?.type !== 'it') return
 
+
         // check if extend keyword have been used
-        if (vitestFnCall.members.some(m => m.type == AST_NODE_TYPES.Identifier && m.name == 'extend')) return
+        if (
+          vitestFnCall.members &&
+          vitestFnCall.members[0] &&
+          vitestFnCall.members[0].type === AST_NODE_TYPES.Identifier &&
+          vitestFnCall.members[0].name === 'extend'
+        ) {
+          return
+        }
 
         const [argument] = node.arguments
 
