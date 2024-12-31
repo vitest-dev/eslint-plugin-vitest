@@ -125,14 +125,14 @@ export default createEslintRule<[
       recommended: false
     },
     messages: {
-      tooManyArgs: 'Expect takes most {{ amount}} argument{{s}}',
-      notEnoughArgs: 'Expect requires atleast {{ amount }} argument{{s}}',
-      modifierUnknown: 'Expect has unknown modifier',
-      matcherNotFound: 'Expect must have a corresponding matcher call.',
-      matcherNotCalled: 'Matchers must be called to assert.',
-      asyncMustBeAwaited: 'Async assertions must be awaited{{orReturned}}',
+      tooManyArgs: 'Expect takes at most {{ amount}} argument{{ s }}',
+      notEnoughArgs: 'Expect requires at least {{ amount }} argument{{ s }}',
+      modifierUnknown: 'Expect has an unknown modifier',
+      matcherNotFound: 'Expect must have a corresponding matcher call',
+      matcherNotCalled: 'Matchers must be called to assert',
+      asyncMustBeAwaited: 'Async assertions must be awaited{{ orReturned }}',
       promisesWithAsyncAssertionsMustBeAwaited:
-        'Promises which return async assertions must be awaited{{orReturned}}'
+        'Promises which return async assertions must be awaited{{ orReturned }}'
     },
     type: 'suggestion',
     fixable: 'code',

@@ -14,7 +14,7 @@ export default createEslintRule<[], MESSAGE_ID>({
     },
     schema: [],
     messages: {
-      noConditionalTests: 'Avoid using if conditions in a test.'
+      noConditionalTests: 'Avoid using if conditions in a test'
     }
   },
   defaultOptions: [],

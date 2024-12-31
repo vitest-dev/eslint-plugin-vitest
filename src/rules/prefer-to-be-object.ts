@@ -17,7 +17,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     },
     fixable: 'code',
     messages: {
-      preferToBeObject: 'Prefer toBeObject() to test if a value is an object.'
+      preferToBeObject: 'Prefer toBeObject() to test if a value is an object'
     },
     schema: []
   },

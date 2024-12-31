@@ -18,7 +18,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       recommended: false
     },
     messages: {
-      noCommentedOutTests: 'Remove commented out tests. You may want to use `skip` or `only` instead.'
+      noCommentedOutTests: 'Remove commented out tests - you may want to use `skip` or `only` instead'
     },
     schema: [],
     type: 'suggestion'

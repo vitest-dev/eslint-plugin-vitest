@@ -15,7 +15,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     },
     type: 'suggestion',
     messages: {
-      usePreferredName: 'Use "{{preferredNodeName}}" instead'
+      usePreferredName: 'Use "{{ preferredNodeName }}" instead'
     },
     fixable: 'code',
     schema: []

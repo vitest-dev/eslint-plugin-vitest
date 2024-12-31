@@ -21,7 +21,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       recommended: false
     },
     messages: {
-      noMocksImport: `Mocks should not be manually imported from a ${mocksDirName} directory. Instead use \`vi.mock\` and import from the original module path.`
+      noMocksImport: `Mocks should not be manually imported from a ${mocksDirName} directory. Instead use \`vi.mock\` and import from the original module path`
     },
     schema: []
   },
