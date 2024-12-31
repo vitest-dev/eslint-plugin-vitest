@@ -19,7 +19,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
       description: 'enforce a maximum number of expect per test'
     },
     messages: {
-      maxExpect: 'Too many assertion calls ({{count}}). Maximum is {{max}}.'
+      maxExpect: 'Too many assertion calls ({{ count }}) - maximum allowed is {{ max }}'
     },
     type: 'suggestion',
     schema: [

@@ -31,7 +31,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     ],
     messages: {
       maxNestedDescribe:
-                'Nested describe block should be less than set max value.'
+                'Nested describe block should be less than set max value'
     }
   },
   defaultOptions: [

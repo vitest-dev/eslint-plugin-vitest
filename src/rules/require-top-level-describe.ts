@@ -20,8 +20,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     messages: {
       tooManyDescribes:
         'There should not be more than {{ max }} describe{{ s }} at the top level',
-      unexpectedTestCase: 'All test cases must be wrapped in a describe block.',
-      unexpectedHook: 'All hooks must be wrapped in a describe block.'
+      unexpectedTestCase: 'All test cases must be wrapped in a describe block',
+      unexpectedHook: 'All hooks must be wrapped in a describe block'
     },
     type: 'suggestion',
     schema: [

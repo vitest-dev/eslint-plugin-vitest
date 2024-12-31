@@ -14,7 +14,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       requiresTypeChecking: false
     },
     messages: {
-      noDuplicateHooks: 'Duplicate {{hook}} in describe block.'
+      noDuplicateHooks: 'Duplicate {{ hook }} in describe block'
     },
     schema: [],
     type: 'suggestion'

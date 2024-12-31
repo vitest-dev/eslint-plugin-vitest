@@ -24,7 +24,7 @@ export default createEslintRule<
       description: 'require .spec test file pattern'
     },
     messages: {
-      consistentTestFilename: 'use test file name pattern {{pattern}}'
+      consistentTestFilename: 'Use test file name pattern {{ pattern }}'
     },
     schema: [
       {

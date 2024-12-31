@@ -128,14 +128,14 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     },
     messages: {
       titleMustBeString: 'Test title must be a string, a function or class name',
-      emptyTitle: '{{functionName}} should not have an empty title',
+      emptyTitle: '{{ functionName }} should not have an empty title',
       duplicatePrefix: 'should not have duplicate prefix',
       accidentalSpace: 'should not have leading or trailing spaces',
-      disallowedWord: '"{{word}}" is not allowed in test title',
-      mustNotMatch: '{{functionName}} should not match {{pattern}}',
-      mustMatch: '{{functionName}} should match {{pattern}}',
-      mustNotMatchCustom: '{{message}}',
-      mustMatchCustom: '{{message}}'
+      disallowedWord: '"{{ word }}" is not allowed in test title',
+      mustNotMatch: '{{ functionName }} should not match {{ pattern }}',
+      mustMatch: '{{ functionName }} should match {{ pattern }}',
+      mustNotMatchCustom: '{{ message }}',
+      mustMatchCustom: '{{ message }}'
     },
     type: 'suggestion',
     schema: [
