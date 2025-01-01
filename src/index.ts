@@ -159,22 +159,23 @@ const recommended = {
   [noImportNodeTestName]: 'error'
 } as const
 
-interface VitestPLugin extends Linter.Plugin {
+interface VitestPlugin extends Linter.Plugin {
   meta: {
     name: string
     version: string
   }
   rules: Record<string, RuleModule<any, any>>
   // TODO: use classic type for config
-  configs?: Record<string, any>
+  configs: Record<string, any>
   environments?: Record<string, any>
 }
 
-const plugin: VitestPLugin = {
+const plugin: VitestPlugin = {
   meta: {
     name: 'vitest',
     version
   },
+  configs: {},
   rules: {
     [lowerCaseTitleName]: lowerCaseTitle,
     [maxNestedDescribeName]: maxNestedDescribe,
