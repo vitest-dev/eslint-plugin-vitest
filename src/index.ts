@@ -1,4 +1,5 @@
-import type { Linter, RuleModule } from '@typescript-eslint/utils/ts-eslint'
+import type { Linter } from '@typescript-eslint/utils/ts-eslint'
+import type { ESLint } from "eslint"
 import { version } from '../package.json'
 import lowerCaseTitle, { RULE_NAME as lowerCaseTitleName } from './rules/prefer-lowercase-title'
 import maxNestedDescribe, { RULE_NAME as maxNestedDescribeName } from './rules/max-nested-describe'
@@ -70,8 +71,8 @@ const createConfig = <R extends Linter.RulesRecord>(rules: R) => (
       [`vitest/${ruleName}`]: rules[ruleName]
     }
   }, {})) as {
-  [K in keyof R as `vitest/${Extract<K, string>}`]: R[K]
-}
+    [K in keyof R as `vitest/${Extract<K, string>}`]: R[K]
+  }
 
 const createConfigLegacy = (rules: Record<string, string>) => ({
   plugins: ['@vitest'],
@@ -159,23 +160,12 @@ const recommended = {
   [noImportNodeTestName]: 'error'
 } as const
 
-interface VitestPlugin extends Linter.Plugin {
-  meta: {
-    name: string
-    version: string
-  }
-  rules: Record<string, RuleModule<any, any>>
-  // TODO: use classic type for config
-  configs: Record<string, any>
-  environments?: Record<string, any>
-}
 
-const plugin: VitestPlugin = {
+const plugin = {
   meta: {
     name: 'vitest',
     version
   },
-  configs: {},
   rules: {
     [lowerCaseTitleName]: lowerCaseTitle,
     [maxNestedDescribeName]: maxNestedDescribe,
@@ -261,46 +251,49 @@ const plugin: VitestPlugin = {
         onTestFinished: true
       }
     }
-  }
-}
-
-plugin.configs = {
-  'legacy-recommended': createConfigLegacy(recommended),
-  'legacy-all': createConfigLegacy(allRules),
-  'recommended': {
-    plugins: {
-      ['vitest']: plugin
-    },
-    rules: createConfig(recommended)
   },
-  'all': {
-    plugins: {
-      ['vitest']: plugin
+  configs: {
+    'legacy-recommended': createConfigLegacy(recommended),
+    'legacy-all': createConfigLegacy(allRules),
+    'recommended': {
+      plugins: {
+        get vitest(): ESLint.Plugin {
+          return plugin
+        }
+      },
+      rules: createConfig(recommended)
     },
-    rules: createConfig(allRules)
-  },
-  'env': {
-    languageOptions: {
-      globals: {
-        suite: 'writable',
-        test: 'writable',
-        describe: 'writable',
-        it: 'writable',
-        expectTypeOf: 'writable',
-        assertType: 'writable',
-        expect: 'writable',
-        assert: 'writable',
-        vitest: 'writable',
-        vi: 'writable',
-        beforeAll: 'writable',
-        afterAll: 'writable',
-        beforeEach: 'writable',
-        afterEach: 'writable',
-        onTestFailed: 'writable',
-        onTestFinished: 'writable'
+    'all': {
+      plugins: {
+        get vitest(): ESLint.Plugin {
+          return plugin
+        }
+      },
+      rules: createConfig(allRules)
+    },
+    'env': {
+      languageOptions: {
+        globals: {
+          suite: 'writable',
+          test: 'writable',
+          describe: 'writable',
+          it: 'writable',
+          expectTypeOf: 'writable',
+          assertType: 'writable',
+          expect: 'writable',
+          assert: 'writable',
+          vitest: 'writable',
+          vi: 'writable',
+          beforeAll: 'writable',
+          afterAll: 'writable',
+          beforeEach: 'writable',
+          afterEach: 'writable',
+          onTestFailed: 'writable',
+          onTestFinished: 'writable'
+        }
       }
     }
   }
-}
+} satisfies ESLint.Plugin
 
 export default plugin
