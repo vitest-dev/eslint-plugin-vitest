@@ -10,7 +10,7 @@ import {
   KnownMemberExpression,
   ParsedExpectVitestFnCall
 } from './parse-vitest-fn-call'
-import { Rule } from "eslint"
+import { Rule } from 'eslint'
 
 export interface PluginDocs {
   recommended?: boolean

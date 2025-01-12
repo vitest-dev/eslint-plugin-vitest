@@ -110,10 +110,21 @@ export default createEslintRule<
               node: specifier,
               data: { testFnKeyWork, oppositeTestKeyword },
               messageId: 'consistentMethod',
-              fix: fixer => fixer.replaceText(
-                specifier.local,
-                testFnDisabled
-              )
+              fix: (fixer) => {
+                const remainingSpecifiers = node.specifiers.filter(spec => spec.local.name !== oppositeTestKeyword)
+                if (remainingSpecifiers.length > 0) {
+                  const importText = remainingSpecifiers.map(spec => spec.local.name).join(', ')
+                  const lastSpecifierRange = node.specifiers.at(-1)?.range
+                  if (!lastSpecifierRange) return null
+
+                  return fixer.replaceTextRange(
+                    [node.specifiers[0].range[0], lastSpecifierRange[1]],
+                    importText
+                  )
+                }
+
+                return fixer.replaceText(specifier.local, testFnDisabled)
+              }
             })
           }
         }
