@@ -84,6 +84,33 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ fn: TestCaseName.it }],
       output: 'import { it } from "vitest"\nit("shows error", () => {});',
       errors: [{ messageId: 'consistentMethod' }, { messageId: 'consistentMethod' }]
+    },
+    {
+      code: 'import { expect, test, it } from "vitest"\ntest("shows error", () => {});',
+      options: [{ fn: TestCaseName.it }],
+      output: 'import { expect, it } from "vitest"\nit("shows error", () => {});',
+      errors: [
+        {
+          messageId: 'consistentMethod',
+          data: {
+            testFnKeyWork: TestCaseName.it,
+            oppositeTestKeyword: TestCaseName.test
+          },
+          line: 1,
+          column: 18,
+          endColumn: 22
+        },
+        {
+          messageId: 'consistentMethod',
+          data: {
+            testFnKeyWork: TestCaseName.it,
+            oppositeTestKeyword: TestCaseName.test
+          },
+          line: 2,
+          column: 1,
+          endColumn: 5
+        }
+      ]
     }
   ]
 })
@@ -300,6 +327,35 @@ ruleTester.run(RULE_NAME, rule, {
             testFnKeyWork: TestCaseName.test,
             oppositeTestKeyword: TestCaseName.it
           }
+        }
+      ]
+    },
+    {
+      code: 'import { expect, it, test } from "vitest"\nit("foo")',
+      output: 'import { expect, test } from "vitest"\ntest("foo")',
+      options: [
+        { withinDescribe: TestCaseName.test }
+      ],
+      errors: [
+        {
+          messageId: 'consistentMethod',
+          data: {
+            testFnKeyWork: TestCaseName.test,
+            oppositeTestKeyword: TestCaseName.it
+          },
+          line: 1,
+          column: 18,
+          endColumn: 20
+        },
+        {
+          messageId: 'consistentMethod',
+          data: {
+            testFnKeyWork: TestCaseName.test,
+            oppositeTestKeyword: TestCaseName.it
+          },
+          line: 2,
+          column: 1,
+          endColumn: 3
         }
       ]
     },
