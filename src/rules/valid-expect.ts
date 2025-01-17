@@ -318,7 +318,7 @@ export default createEslintRule<[
         const parentNode = matcher.parent.parent
         const shouldBeAwaited
           = vitestFnCall.modifiers.some(nod => getAccessorValue(nod) !== 'not')
-          || asyncMatchers.includes(getAccessorValue(matcher))
+            || asyncMatchers.includes(getAccessorValue(matcher))
 
         if (!parentNode?.parent || !shouldBeAwaited)
           return
