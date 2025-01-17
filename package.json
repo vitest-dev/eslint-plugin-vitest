@@ -42,25 +42,25 @@
 		"tsc": "tsc --noEmit"
 	},
 	"devDependencies": {
-		"@stylistic/eslint-plugin": "^2.12.1",
+		"@stylistic/eslint-plugin": "^2.13.0",
 		"@types/eslint": "^9.6.1",
 		"@types/mocha": "^10.0.10",
-		"@types/node": "^22.10.5",
+		"@types/node": "^22.10.7",
 		"@typescript-eslint/eslint-plugin": "8.19.0",
 		"@typescript-eslint/parser": "8.19.0",
 		"@typescript-eslint/rule-tester": "8.18.2",
-		"@vitest/eslint-plugin": "^1.1.24",
-		"bumpp": "^9.9.2",
+		"@vitest/eslint-plugin": "^1.1.25",
+		"bumpp": "^9.10.1",
 		"concurrently": "^9.1.2",
-		"eslint": "^9.17.0",
+		"eslint": "^9.18.0",
 		"eslint-doc-generator": "^2.0.2",
 		"eslint-plugin-eslint-plugin": "^6.4.0",
 		"eslint-remote-tester": "^4.0.1",
 		"eslint-remote-tester-repositories": "^2.0.0",
 		"tsx": "^4.19.2",
-		"typescript": "^5.7.2",
-		"unbuild": "^3.2.0",
-		"vitest": "^2.1.8"
+		"typescript": "^5.7.3",
+		"unbuild": "^3.3.1",
+		"vitest": "^3.0.1"
 	},
 	"peerDependencies": {
 		"@typescript-eslint/utils": ">= 8.0",
@@ -76,5 +76,5 @@
 			"optional": true
 		}
 	},
-	"packageManager": "pnpm@9.15.2"
+	"packageManager": "pnpm@9.15.4"
 }
