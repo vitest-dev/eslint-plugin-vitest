@@ -48,7 +48,7 @@ export default createEslintRule({
 
           const isTestRunningConcurrently
             = ancestor.callee.type === AST_NODE_TYPES.MemberExpression
-            && isSupportedAccessor(ancestor.callee.property, 'concurrent')
+              && isSupportedAccessor(ancestor.callee.property, 'concurrent')
 
           return isTestRunningConcurrently
         })

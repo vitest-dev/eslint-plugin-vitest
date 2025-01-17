@@ -76,7 +76,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               fixes.push(fixer.remove(matcherArg))
 
               invertCondition = matcherArg.type === AST_NODE_TYPES.Literal
-              && followTypeAssertionChain(matcherArg).value === false
+                && followTypeAssertionChain(matcherArg).value === false
             }
 
             if (invertCondition) {

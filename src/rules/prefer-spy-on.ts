@@ -45,8 +45,8 @@ const getAutoFixMockImplementation = (
 ): string => {
   const hasMockImplementationAlready
         = vitestFnCall.parent?.type === AST_NODE_TYPES.MemberExpression
-        && vitestFnCall.parent.property.type === AST_NODE_TYPES.Identifier
-        && vitestFnCall.parent.property.name === 'mockImplementation'
+          && vitestFnCall.parent.property.type === AST_NODE_TYPES.Identifier
+          && vitestFnCall.parent.property.name === 'mockImplementation'
 
   if (hasMockImplementationAlready)
     return ''
