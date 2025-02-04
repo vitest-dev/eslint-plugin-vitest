@@ -63,6 +63,7 @@ import paddingAroundDescribeBlocks, { RULE_NAME as paddingAroundDescribeBlocksNa
 import paddingAroundExpectGroups, { RULE_NAME as paddingAroundExpectGroupsName } from './rules/padding-around-expect-groups'
 import paddingAroundTestBlocks, { RULE_NAME as paddingAroundTestBlocksName } from './rules/padding-around-test-blocks'
 import validExpectInPromise, { RULE_NAME as validExpectInPromiseName } from './rules/valid-expect-in-promise'
+import preferStrictBooleanMatchers, { RULE_NAME as preferStrictBooleanMatchersName } from './rules/prefer-strict-boolean-matchers'
 
 const createConfig = <R extends Linter.RulesRecord>(rules: R) => (
   Object.keys(rules).reduce((acc, ruleName) => {
@@ -146,7 +147,8 @@ const allRules = {
   [validExpectName]: 'warn',
   [validDescribeCallbackName]: 'warn',
   [requireLocalTestContextForConcurrentSnapshotsName]: 'warn',
-  [noImportNodeTestName]: 'warn'
+  [noImportNodeTestName]: 'warn',
+  [preferStrictBooleanMatchersName]: 'warn'
 } as const
 
 const recommended = {
@@ -227,7 +229,8 @@ const plugin = {
     [paddingAroundDescribeBlocksName]: paddingAroundDescribeBlocks,
     [paddingAroundExpectGroupsName]: paddingAroundExpectGroups,
     [paddingAroundTestBlocksName]: paddingAroundTestBlocks,
-    [validExpectInPromiseName]: validExpectInPromise
+    [validExpectInPromiseName]: validExpectInPromise,
+    [preferStrictBooleanMatchersName]: preferStrictBooleanMatchers
   },
   environments: {
     env: {
