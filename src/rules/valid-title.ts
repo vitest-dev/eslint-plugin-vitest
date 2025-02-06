@@ -24,7 +24,6 @@ type MESSAGE_IDS =
   | 'mustNotMatch'
   | 'mustMatch'
   | 'mustNotMatchCustom'
-  | 'mustNotMatchCustom'
   | 'mustMatchCustom'
 
 type MatcherGroups = 'describe' | 'test' | 'it'
