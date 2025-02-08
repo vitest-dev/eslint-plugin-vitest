@@ -64,6 +64,7 @@ import paddingAroundExpectGroups, { RULE_NAME as paddingAroundExpectGroupsName }
 import paddingAroundTestBlocks, { RULE_NAME as paddingAroundTestBlocksName } from './rules/padding-around-test-blocks'
 import validExpectInPromise, { RULE_NAME as validExpectInPromiseName } from './rules/valid-expect-in-promise'
 import preferStrictBooleanMatchers, { RULE_NAME as preferStrictBooleanMatchersName } from './rules/prefer-strict-boolean-matchers'
+import requireMockTypeParameters, { RULE_NAME as requireMockTypeParametersName } from './rules/require-mock-type-parameters'
 
 const createConfig = <R extends Linter.RulesRecord>(rules: R) => (
   Object.keys(rules).reduce((acc, ruleName) => {
@@ -148,7 +149,8 @@ const allRules = {
   [validDescribeCallbackName]: 'warn',
   [requireLocalTestContextForConcurrentSnapshotsName]: 'warn',
   [noImportNodeTestName]: 'warn',
-  [preferStrictBooleanMatchersName]: 'warn'
+  [preferStrictBooleanMatchersName]: 'warn',
+  [requireMockTypeParametersName]: 'warn'
 } as const
 
 const recommended = {
@@ -230,7 +232,8 @@ const plugin = {
     [paddingAroundExpectGroupsName]: paddingAroundExpectGroups,
     [paddingAroundTestBlocksName]: paddingAroundTestBlocks,
     [validExpectInPromiseName]: validExpectInPromise,
-    [preferStrictBooleanMatchersName]: preferStrictBooleanMatchers
+    [preferStrictBooleanMatchersName]: preferStrictBooleanMatchers,
+    [requireMockTypeParametersName]: requireMockTypeParameters
   },
   environments: {
     env: {
