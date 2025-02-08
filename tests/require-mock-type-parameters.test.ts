@@ -14,15 +14,33 @@ ruleTester.run(RULE_NAME, rule, {
     'vi.fn<(arg1: string, arg2: boolean, ...args: string[]) => string>()',
     'vi.fn<MyProcedure>()',
     'vi.fn<any>()',
-    'vi.fn<(...args: any[]) => any>(() => {})'
+    'vi.fn<(...args: any[]) => any>(() => {})',
+    'vi.importActual<{ default: boolean }>("./example.js")',
+    'vi.importActual<MyModule>("./example.js")',
+    'vi.importActual<any>("./example.js")',
+    'vi.importMock<{ default: boolean }>("./example.js")',
+    'vi.importMock<MyModule>("./example.js")',
+    'vi.importMock<any>("./example.js")',
+    'vi.importActual("./example.js")',
+    'vi.importMock("./example.js")'
   ],
   invalid: [
     {
-      code: 'vi.fn();',
+      code: 'vi.fn()',
       errors: [{ messageId, column: 4, line: 1 }]
     },
     {
-      code: 'vi.fn(() => {});',
+      code: 'vi.fn(() => {})',
+      errors: [{ messageId, column: 4, line: 1 }]
+    },
+    {
+      code: 'vi.importActual("./example.js")',
+      options: [{ checkImportFunctions: true }],
+      errors: [{ messageId, column: 4, line: 1 }]
+    },
+    {
+      code: 'vi.importMock("./example.js")',
+      options: [{ checkImportFunctions: true }],
       errors: [{ messageId, column: 4, line: 1 }]
     }
   ]
