@@ -15,6 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
     'vi.fn<MyProcedure>()',
     'vi.fn<any>()',
     'vi.fn<(...args: any[]) => any>(() => {})',
+    'vi.fn<() => string | undefined>().mockReturnValue("some error message");',
     'vi.importActual<{ default: boolean }>("./example.js")',
     'vi.importActual<MyModule>("./example.js")',
     'vi.importActual<any>("./example.js")',
