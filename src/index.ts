@@ -112,7 +112,7 @@ const allRules = {
   [preferCalledWithName]: 'warn',
   [preferToBeFalsyName]: 'warn',
   [preferToBeObjectName]: 'warn',
-  [preferToBeTruthyName]: 'warn',
+  [preferToBeTruthyName]: 'off',
   [preferToHaveLengthName]: 'warn',
   [preferEqualityMatcherName]: 'warn',
   [preferStrictEqualName]: 'warn',
@@ -149,7 +149,7 @@ const allRules = {
   [validDescribeCallbackName]: 'warn',
   [requireLocalTestContextForConcurrentSnapshotsName]: 'warn',
   [noImportNodeTestName]: 'warn',
-  [preferStrictBooleanMatchersName]: 'off',
+  [preferStrictBooleanMatchersName]: 'warn',
   [requireMockTypeParametersName]: 'warn'
 } as const
 
