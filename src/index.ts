@@ -149,7 +149,7 @@ const allRules = {
   [validDescribeCallbackName]: 'warn',
   [requireLocalTestContextForConcurrentSnapshotsName]: 'warn',
   [noImportNodeTestName]: 'warn',
-  [preferStrictBooleanMatchersName]: 'warn',
+  [preferStrictBooleanMatchersName]: 'off',
   [requireMockTypeParametersName]: 'warn'
 } as const
 
