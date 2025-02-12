@@ -73,8 +73,8 @@ const createConfig = <R extends Linter.RulesRecord>(rules: R) => (
       [`vitest/${ruleName}`]: rules[ruleName]
     }
   }, {})) as {
-  [K in keyof R as `vitest/${Extract<K, string>}`]: R[K]
-}
+    [K in keyof R as `vitest/${Extract<K, string>}`]: R[K]
+  }
 
 const createConfigLegacy = (rules: Record<string, string>) => ({
   plugins: ['@vitest'],
@@ -110,7 +110,7 @@ const allRules = {
   [noTestPrefixesName]: 'warn',
   [noTestReturnStatementName]: 'warn',
   [preferCalledWithName]: 'warn',
-  [preferToBeFalsyName]: 'warn',
+  [preferToBeFalsyName]: 'off',
   [preferToBeObjectName]: 'warn',
   [preferToBeTruthyName]: 'off',
   [preferToHaveLengthName]: 'warn',
