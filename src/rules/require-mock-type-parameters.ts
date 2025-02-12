@@ -41,7 +41,7 @@ export default createEslintRule<Options[], MESSAGE_IDS>({
         if (vitestFnCall?.type !== 'vi') return
 
         for (const member of vitestFnCall?.members) {
-          if (!('name' in member) || node.typeArguments !== undefined) continue
+          if (!('name' in member) || member.parent.parent.typeArguments !== undefined) continue
           if (member.name === 'fn') {
             context.report({
               node: member,
