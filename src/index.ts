@@ -110,7 +110,7 @@ const allRules = {
   [noTestPrefixesName]: 'warn',
   [noTestReturnStatementName]: 'warn',
   [preferCalledWithName]: 'warn',
-  [preferToBeFalsyName]: 'warn',
+  [preferToBeFalsyName]: 'off',
   [preferToBeObjectName]: 'warn',
   [preferToBeTruthyName]: 'off',
   [preferToHaveLengthName]: 'warn',
