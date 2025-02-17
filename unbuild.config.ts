@@ -6,6 +6,7 @@ export default defineBuildConfig({
   rootDir: import.meta.dirname,
   name: packageJson.name,
   declaration: 'node16',
+  externals: ['@typescript-eslint/utils'],
   clean: true,
   rollup: {
     emitCJS: true,

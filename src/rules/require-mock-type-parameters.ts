@@ -41,6 +41,7 @@ export default createEslintRule<Options[], MESSAGE_IDS>({
         if (vitestFnCall?.type !== 'vi') return
 
         for (const member of vitestFnCall?.members) {
+          // @ts-expect-error TS2339
           if (!('name' in member) || member.parent.parent.typeArguments !== undefined) continue
           if (member.name === 'fn') {
             context.report({

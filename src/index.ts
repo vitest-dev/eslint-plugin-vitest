@@ -1,5 +1,4 @@
 import type { Linter } from '@typescript-eslint/utils/ts-eslint'
-import type { ESLint } from 'eslint'
 import { version } from '../package.json'
 import lowerCaseTitle, { RULE_NAME as lowerCaseTitleName } from './rules/prefer-lowercase-title'
 import maxNestedDescribe, { RULE_NAME as maxNestedDescribeName } from './rules/max-nested-describe'
@@ -164,7 +163,7 @@ const recommended = {
   [noImportNodeTestName]: 'error'
 } as const
 
-const plugin = {
+const plugin: Linter.Plugin = {
   meta: {
     name: 'vitest',
     version
@@ -235,6 +234,39 @@ const plugin = {
     [preferStrictBooleanMatchersName]: preferStrictBooleanMatchers,
     [requireMockTypeParametersName]: requireMockTypeParameters
   },
+  configs: {
+    'legacy-recommended': createConfigLegacy(recommended),
+    'legacy-all': createConfigLegacy(allRules),
+    'recommended': {
+      plugins: ['vitest'],
+      rules: createConfig(recommended)
+    },
+    'all': {
+      plugins: ['vitest'],
+      rules: createConfig(allRules)
+    },
+    'env': {
+      globals: {
+        suite: 'writable',
+        test: 'writable',
+        describe: 'writable',
+        it: 'writable',
+        expectTypeOf: 'writable',
+        assertType: 'writable',
+        expect: 'writable',
+        assert: 'writable',
+        chai: 'writable',
+        vitest: 'writable',
+        vi: 'writable',
+        beforeAll: 'writable',
+        afterAll: 'writable',
+        beforeEach: 'writable',
+        afterEach: 'writable',
+        onTestFailed: 'writable',
+        onTestFinished: 'writable'
+      }
+    }
+  },
   environments: {
     env: {
       globals: {
@@ -257,50 +289,7 @@ const plugin = {
         onTestFinished: true
       }
     }
-  },
-  configs: {
-    'legacy-recommended': createConfigLegacy(recommended),
-    'legacy-all': createConfigLegacy(allRules),
-    'recommended': {
-      plugins: {
-        get vitest(): ESLint.Plugin {
-          return plugin
-        }
-      },
-      rules: createConfig(recommended)
-    },
-    'all': {
-      plugins: {
-        get vitest(): ESLint.Plugin {
-          return plugin
-        }
-      },
-      rules: createConfig(allRules)
-    },
-    'env': {
-      languageOptions: {
-        globals: {
-          suite: 'writable',
-          test: 'writable',
-          describe: 'writable',
-          it: 'writable',
-          expectTypeOf: 'writable',
-          assertType: 'writable',
-          expect: 'writable',
-          assert: 'writable',
-          chai: 'writable',
-          vitest: 'writable',
-          vi: 'writable',
-          beforeAll: 'writable',
-          afterAll: 'writable',
-          beforeEach: 'writable',
-          afterEach: 'writable',
-          onTestFailed: 'writable',
-          onTestFinished: 'writable'
-        }
-      }
-    }
   }
-} satisfies ESLint.Plugin
+}
 
 export default plugin
