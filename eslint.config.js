@@ -15,7 +15,6 @@ const styleConfigs = stylistic.configs.customize({
 export default [
   eslintPlugin.configs['flat/recommended'],
   vitest.configs.recommended,
-  vitest.configs.env,
   {
     files: ['**/*.ts'],
     languageOptions: {

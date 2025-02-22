@@ -59,7 +59,7 @@
     "@typescript-eslint/parser": "^8.24.0",
     "@typescript-eslint/rule-tester": "^8.24.0",
     "@typescript-eslint/utils": "^8.24.0",
-    "@vitest/eslint-plugin": "1.1.32-beta.1",
+    "@vitest/eslint-plugin": "./dist",
     "bumpp": "^9.11.1",
     "concurrently": "^9.1.2",
     "eslint": "^9.20.0",

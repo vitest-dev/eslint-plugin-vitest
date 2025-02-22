@@ -238,28 +238,7 @@ const plugin = {
   rules,
   configs: {
     'legacy-recommended': createConfigLegacy(recommended),
-    'legacy-all': createConfigLegacy(allRules),
-    'env': {
-      globals: {
-        suite: 'writable',
-        test: 'writable',
-        describe: 'writable',
-        it: 'writable',
-        expectTypeOf: 'writable',
-        assertType: 'writable',
-        expect: 'writable',
-        assert: 'writable',
-        chai: 'writable',
-        vitest: 'writable',
-        vi: 'writable',
-        beforeAll: 'writable',
-        afterAll: 'writable',
-        beforeEach: 'writable',
-        afterEach: 'writable',
-        onTestFailed: 'writable',
-        onTestFinished: 'writable'
-      }
-    }
+    'legacy-all': createConfigLegacy(allRules)
   },
   environments: {
     env: {

@@ -33,8 +33,8 @@ importers:
         specifier: ^8.24.0
         version: 8.24.1(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3)
       '@vitest/eslint-plugin':
-        specifier: 1.1.32-beta.1
-        version: 1.1.32-beta.1(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3)(vitest@3.0.5(@types/node@22.13.1))
+        specifier: ./dist
+        version: link:dist
       bumpp:
         specifier: ^9.11.1
         version: 9.11.1
@@ -925,18 +925,6 @@ packages:
   '@typescript-eslint/visitor-keys@8.24.1':
     resolution: {integrity: sha512-EwVHlp5l+2vp8CoqJm9KikPZgi3gbdZAtabKT9KPShGeOcJhsv4Zdo3oc8T8I0uKEmYoU4ItyxbptjF08enaxg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@vitest/eslint-plugin@1.1.32-beta.1':
-    resolution: {integrity: sha512-U0OWYco/g+y+AtyOWBrFYCBUreDG4aFYh+4FiSHB0kI3KXQ5/ytf7UCfPwMfewQjhBYJpfQ0uphKy5x3ItLqVA==}
-    peerDependencies:
-      eslint: '>= 8.57.0'
-      typescript: '>= 5.0.0'
-      vitest: '*'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-      vitest:
-        optional: true
 
   '@vitest/expect@3.0.5':
     resolution: {integrity: sha512-nNIOqupgZ4v5jWuQx2DSlHLEs7Q4Oh/7AYwNyE+k0UQzG7tSmjPXShUikn1mpNGzYEN2jJbTvLejwShMitovBA==}
@@ -3220,13 +3208,6 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.24.1
       eslint-visitor-keys: 4.2.0
-
-  '@vitest/eslint-plugin@1.1.32-beta.1(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3)(vitest@3.0.5(@types/node@22.13.1))':
-    dependencies:
-      eslint: 9.20.0(jiti@2.4.2)
-    optionalDependencies:
-      typescript: 5.7.3
-      vitest: 3.0.5(@types/node@22.13.1)
 
   '@vitest/expect@3.0.5':
     dependencies:
