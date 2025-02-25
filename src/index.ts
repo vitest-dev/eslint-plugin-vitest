@@ -277,12 +277,14 @@ Object.assign(plugin.configs, {
   recommended: {
     plugins: {
       vitest: plugin
-    }
+    },
+    rules: createConfig(recommended)
   },
   all: {
     plugins: {
       vitest: plugin
-    }
+    },
+    rules: createConfig(allRules)
   }
 })
 
