@@ -240,10 +240,12 @@ const plugin = {
     'legacy-recommended': createConfigLegacy(recommended),
     'legacy-all': createConfigLegacy(allRules),
     'recommended': {
-      rules: createConfig(recommended)
+      plugins: ['vitest'],
+      rules: createConfig(recommended),
     },
     'all': {
-      rules: createConfig(allRules)
+      plugins: ['vitest'],
+      rules: createConfig(allRules),
     }
   },
   environments: {
@@ -275,7 +277,7 @@ Object.assign(plugin.configs, {
   recommended: {
     plugins: {
       vitest: plugin
-    },
+    }
   },
   all: {
     plugins: {
