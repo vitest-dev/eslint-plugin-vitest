@@ -1,4 +1,5 @@
 import type { Linter } from '@typescript-eslint/utils/ts-eslint'
+import type { ESLint } from 'eslint'
 import { version } from '../package.json'
 import lowerCaseTitle, { RULE_NAME as lowerCaseTitleName } from './rules/prefer-lowercase-title'
 import maxNestedDescribe, { RULE_NAME as maxNestedDescribeName } from './rules/max-nested-describe'
@@ -163,90 +164,76 @@ const recommended = {
   [noImportNodeTestName]: 'error'
 } as const
 
-const rules = {
-  [lowerCaseTitleName]: lowerCaseTitle,
-  [maxNestedDescribeName]: maxNestedDescribe,
-  [noIdenticalTitleName]: noIdenticalTitle,
-  [noFocusedTestsName]: noFocusedTests,
-  [noConditionalTests]: noConditionalTest,
-  [expectedExpect]: expectExpect,
-  [useConsistentTestIt]: consistentTestIt,
-  [usePreferToBe]: preferToBe,
-  [noHooksName]: noHooks,
-  [noRestrictedViMethodsName]: noRestrictedViMethods,
-  [useConsistentTestFilename]: consistentTestFilename,
-  [maxExpectName]: maxExpect,
-  [noAliasMethodName]: noAliasMethod,
-  [noCommentedOutTestsName]: noCommentedOutTests,
-  [noConditionalExpectName]: noConditionalExpect,
-  [noConditionalInTestName]: noConditionalInTest,
-  [noDisabledTestsName]: noDisabledTests,
-  [noDoneCallbackName]: noDoneCallback,
-  [noDuplicateHooksName]: noDuplicateHooks,
-  [noLargeSnapShotsName]: noLargeSnapshots,
-  [noInterpolationInSnapshotsName]: nonInterpolationInSnapShots,
-  [noMocksImportName]: noMocksImport,
-  [noRestrictedMatchersName]: noRestrictedMatchers,
-  [noStandaloneExpectName]: noStandaloneExpect,
-  [noTestPrefixesName]: noTestPrefixes,
-  [noTestReturnStatementName]: noTestReturnStatement,
-  [noImportNodeTestName]: noImportNodeTest,
-  [preferCalledWithName]: preferCalledWith,
-  [validTitleName]: validTitle,
-  [validExpectName]: validExpect,
-  [preferToBeFalsyName]: preferToBeFalsy,
-  [preferToBeObjectName]: preferToBeObject,
-  [preferToBeTruthyName]: preferToBeTruthy,
-  [preferToHaveLengthName]: preferToHaveLength,
-  [preferEqualityMatcherName]: preferEqualityMatcher,
-  [preferStrictEqualName]: preferStrictEqual,
-  [preferExpectResolvesName]: preferExpectResolves,
-  [preferEachName]: preferEach,
-  [preferHooksOnTopName]: preferHooksOnTop,
-  [preferHooksInOrderName]: preferHooksInOrder,
-  [requireLocalTestContextForConcurrentSnapshotsName]: requireLocalTestContextForConcurrentSnapshots,
-  [preferMockPromiseShortHandName]: preferMockPromiseShorthand,
-  [preferViMockedName]: preferViMocked,
-  [preferSnapshotHintName]: preferSnapshotHint,
-  [validDescribeCallbackName]: validDescribeCallback,
-  [requireTopLevelDescribeName]: requireTopLevelDescribe,
-  [requireToThrowMessageName]: requireToThrowMessage,
-  [requireHookName]: requireHook,
-  [preferTodoName]: preferTodo,
-  [preferSpyOnName]: preferSpyOn,
-  [preferComparisonMatcherName]: preferComparisonMatcher,
-  [preferToContainName]: preferToContain,
-  [preferExpectAssertionsName]: preferExpectAssertions,
-  [paddingAroundAfterAllBlocksName]: paddingAroundAfterAllBlocks,
-  [paddingAroundAfterEachBlocksName]: paddingAroundAfterEachBlocks,
-  [paddingAroundAllName]: paddingAroundAll,
-  [paddingAroundBeforeAllBlocksName]: paddingAroundBeforeAllBlocks,
-  [paddingAroundBeforeEachBlocksName]: paddingAroundBeforeEachBlocks,
-  [paddingAroundDescribeBlocksName]: paddingAroundDescribeBlocks,
-  [paddingAroundExpectGroupsName]: paddingAroundExpectGroups,
-  [paddingAroundTestBlocksName]: paddingAroundTestBlocks,
-  [validExpectInPromiseName]: validExpectInPromise,
-  [preferStrictBooleanMatchersName]: preferStrictBooleanMatchers,
-  [requireMockTypeParametersName]: requireMockTypeParameters
-} satisfies Linter.PluginRules
-
 const plugin = {
   meta: {
     name: 'vitest',
     version
   },
-  rules,
-  configs: {
-    'legacy-recommended': createConfigLegacy(recommended),
-    'legacy-all': createConfigLegacy(allRules),
-    'recommended': {
-      plugins: ['vitest'],
-      rules: createConfig(recommended),
-    },
-    'all': {
-      plugins: ['vitest'],
-      rules: createConfig(allRules),
-    }
+  rules: {
+    [lowerCaseTitleName]: lowerCaseTitle,
+    [maxNestedDescribeName]: maxNestedDescribe,
+    [noIdenticalTitleName]: noIdenticalTitle,
+    [noFocusedTestsName]: noFocusedTests,
+    [noConditionalTests]: noConditionalTest,
+    [expectedExpect]: expectExpect,
+    [useConsistentTestIt]: consistentTestIt,
+    [usePreferToBe]: preferToBe,
+    [noHooksName]: noHooks,
+    [noRestrictedViMethodsName]: noRestrictedViMethods,
+    [useConsistentTestFilename]: consistentTestFilename,
+    [maxExpectName]: maxExpect,
+    [noAliasMethodName]: noAliasMethod,
+    [noCommentedOutTestsName]: noCommentedOutTests,
+    [noConditionalExpectName]: noConditionalExpect,
+    [noConditionalInTestName]: noConditionalInTest,
+    [noDisabledTestsName]: noDisabledTests,
+    [noDoneCallbackName]: noDoneCallback,
+    [noDuplicateHooksName]: noDuplicateHooks,
+    [noLargeSnapShotsName]: noLargeSnapshots,
+    [noInterpolationInSnapshotsName]: nonInterpolationInSnapShots,
+    [noMocksImportName]: noMocksImport,
+    [noRestrictedMatchersName]: noRestrictedMatchers,
+    [noStandaloneExpectName]: noStandaloneExpect,
+    [noTestPrefixesName]: noTestPrefixes,
+    [noTestReturnStatementName]: noTestReturnStatement,
+    [noImportNodeTestName]: noImportNodeTest,
+    [preferCalledWithName]: preferCalledWith,
+    [validTitleName]: validTitle,
+    [validExpectName]: validExpect,
+    [preferToBeFalsyName]: preferToBeFalsy,
+    [preferToBeObjectName]: preferToBeObject,
+    [preferToBeTruthyName]: preferToBeTruthy,
+    [preferToHaveLengthName]: preferToHaveLength,
+    [preferEqualityMatcherName]: preferEqualityMatcher,
+    [preferStrictEqualName]: preferStrictEqual,
+    [preferExpectResolvesName]: preferExpectResolves,
+    [preferEachName]: preferEach,
+    [preferHooksOnTopName]: preferHooksOnTop,
+    [preferHooksInOrderName]: preferHooksInOrder,
+    [requireLocalTestContextForConcurrentSnapshotsName]: requireLocalTestContextForConcurrentSnapshots,
+    [preferMockPromiseShortHandName]: preferMockPromiseShorthand,
+    [preferViMockedName]: preferViMocked,
+    [preferSnapshotHintName]: preferSnapshotHint,
+    [validDescribeCallbackName]: validDescribeCallback,
+    [requireTopLevelDescribeName]: requireTopLevelDescribe,
+    [requireToThrowMessageName]: requireToThrowMessage,
+    [requireHookName]: requireHook,
+    [preferTodoName]: preferTodo,
+    [preferSpyOnName]: preferSpyOn,
+    [preferComparisonMatcherName]: preferComparisonMatcher,
+    [preferToContainName]: preferToContain,
+    [preferExpectAssertionsName]: preferExpectAssertions,
+    [paddingAroundAfterAllBlocksName]: paddingAroundAfterAllBlocks,
+    [paddingAroundAfterEachBlocksName]: paddingAroundAfterEachBlocks,
+    [paddingAroundAllName]: paddingAroundAll,
+    [paddingAroundBeforeAllBlocksName]: paddingAroundBeforeAllBlocks,
+    [paddingAroundBeforeEachBlocksName]: paddingAroundBeforeEachBlocks,
+    [paddingAroundDescribeBlocksName]: paddingAroundDescribeBlocks,
+    [paddingAroundExpectGroupsName]: paddingAroundExpectGroups,
+    [paddingAroundTestBlocksName]: paddingAroundTestBlocks,
+    [validExpectInPromiseName]: validExpectInPromise,
+    [preferStrictBooleanMatchersName]: preferStrictBooleanMatchers,
+    [requireMockTypeParametersName]: requireMockTypeParameters
   },
   environments: {
     env: {
@@ -270,22 +257,50 @@ const plugin = {
         onTestFinished: true
       }
     }
-  }
-} satisfies Linter.Plugin
-
-Object.assign(plugin.configs, {
-  recommended: {
-    plugins: {
-      vitest: plugin
-    },
-    rules: createConfig(recommended)
   },
-  all: {
-    plugins: {
-      vitest: plugin
+  configs: {
+    'legacy-recommended': createConfigLegacy(recommended),
+    'legacy-all': createConfigLegacy(allRules),
+    'recommended': {
+      plugins: {
+        get vitest(): ESLint.Plugin {
+          return plugin
+        }
+      },
+      rules: createConfig(recommended)
     },
-    rules: createConfig(allRules)
+    'all': {
+      plugins: {
+        get vitest(): ESLint.Plugin {
+          return plugin
+        }
+      },
+      rules: createConfig(allRules)
+    },
+    'env': {
+      languageOptions: {
+        globals: {
+          suite: 'writable',
+          test: 'writable',
+          describe: 'writable',
+          it: 'writable',
+          expectTypeOf: 'writable',
+          assertType: 'writable',
+          expect: 'writable',
+          assert: 'writable',
+          chai: 'writable',
+          vitest: 'writable',
+          vi: 'writable',
+          beforeAll: 'writable',
+          afterAll: 'writable',
+          beforeEach: 'writable',
+          afterEach: 'writable',
+          onTestFailed: 'writable',
+          onTestFinished: 'writable'
+        }
+      }
+    }
   }
-})
+} satisfies ESLint.Plugin
 
 export default plugin
