@@ -53,7 +53,8 @@ export default createEslintRule<
     const pattern = typeof patternRaw === 'string' ? new RegExp(patternRaw) : patternRaw
     const testPattern = typeof allTestPatternRaw === 'string' ? new RegExp(allTestPatternRaw) : allTestPatternRaw
 
-    const filename = path.basename(context.filename)
+    const { filename } = context
+
     if (!testPattern.test(filename))
       return {}
 
