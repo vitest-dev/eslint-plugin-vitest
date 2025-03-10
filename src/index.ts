@@ -262,6 +262,7 @@ const plugin = {
     'legacy-recommended': createConfigLegacy(recommended),
     'legacy-all': createConfigLegacy(allRules),
     'recommended': {
+      name: '@vitest/recommended',
       plugins: {
         get vitest(): ESLint.Plugin {
           return plugin
@@ -270,6 +271,7 @@ const plugin = {
       rules: createConfig(recommended)
     },
     'all': {
+      name: '@vitest/all',
       plugins: {
         get vitest(): ESLint.Plugin {
           return plugin
@@ -278,6 +280,7 @@ const plugin = {
       rules: createConfig(allRules)
     },
     'env': {
+      name: '@vitest/env',
       languageOptions: {
         globals: {
           suite: 'writable',
