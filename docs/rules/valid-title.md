@@ -57,18 +57,26 @@ describe('1', () => {
 
 ### `allowArguments`
 
-If `true`, the rule ignores the arguments of `describe` function.
+If `true`, the rule ignores the arguments of the `describe`, `test`, and `it` functions.
 
 Examples of **correct** code for this rule with the `{ "allowArguments": false }` option:
 
 ```js
-describe('name', () => {})
+describe('name', () => {
+  it('name', () => {
+
+  })
+})
 ```
 
 Examples of **correct** code for this rule with the `{ "allowArguments": true }` option:
 
 ```js
-describe(foo, () => {})
+describe(foo, () => {
+   it(hoge, () => {
+
+  })
+})
 ```
 
 ### `disallowedWords`
