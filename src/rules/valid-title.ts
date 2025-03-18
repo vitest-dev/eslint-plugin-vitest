@@ -86,6 +86,10 @@ function isClassType(type: ts.Type): boolean {
     || ts.isClassExpression(declaration)) ?? false
 }
 
+function isStringLikeType(type: ts.Type): boolean {
+  return !!(type.flags & (ts.TypeFlags.StringLike))
+}
+
 const compileMatcherPatterns = (matchers:
   | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
   | MatcherAndMessage
@@ -213,7 +217,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
           const type = services.getTypeAtLocation(argument)
 
-          if (isFunctionType(type) || isClassType(type)) return
+          if (isFunctionType(type) || isClassType(type) || isStringLikeType(type)) return
         }
 
         if (!argument || (allowArguments && argument.type === AST_NODE_TYPES.Identifier)) return

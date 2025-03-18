@@ -40,6 +40,39 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
+      declare const outerName: string;
+      describe(outerName, () => {
+        test('item', () => {
+          expect(0).toBe(0)
+        })
+      })
+     `,
+      settings: { vitest: { typecheck: true } }
+    },
+    {
+      code: `
+      declare const outerName: 'a';
+      describe(outerName, () => {
+        test('item', () => {
+          expect(0).toBe(0)
+        })
+      })
+     `,
+      settings: { vitest: { typecheck: true } }
+    },
+    {
+      code: `
+      declare const outerName: \`\${'a'}\`;
+      describe(outerName, () => {
+        test('item', () => {
+          expect(0).toBe(0)
+        })
+      })
+     `,
+      settings: { vitest: { typecheck: true } }
+    },
+    {
+      code: `
       class foo{}
       describe(foo, () => {
         test('item', () => {
