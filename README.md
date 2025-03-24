@@ -55,7 +55,7 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
   "rules": {
-    "vitest/max-nested-describe": [
+    "@vitest/max-nested-describe": [
       "error",
       {
         "max": 3
