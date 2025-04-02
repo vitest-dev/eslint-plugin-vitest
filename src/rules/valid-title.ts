@@ -210,6 +210,18 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           return
         }
 
+        const reportEmptyTitle = (node: TSESTree.CallExpression) => {
+          context.report({
+            messageId: 'emptyTitle',
+            data: {
+              functionName: vitestFnCall.type === 'describe'
+                ? DescribeAlias.describe
+                : TestCaseName.test
+            },
+            node
+          })
+        }
+
         const [argument] = node.arguments
 
         if (settings.typecheck) {
@@ -217,7 +229,14 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
           const type = services.getTypeAtLocation(argument)
 
-          if (isFunctionType(type) || isClassType(type) || isStringLikeType(type)) return
+          if (isFunctionType(type) || isClassType(type)) return
+
+          if (isStringLikeType(type)) {
+            if (isStringNode(argument) && !getStringValue(argument)) {
+              reportEmptyTitle(node)
+            }
+            return
+          }
         }
 
         if (!argument || (allowArguments && argument.type === AST_NODE_TYPES.Identifier)) return
@@ -240,15 +259,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         const title = getStringValue(argument)
 
         if (!title) {
-          context.report({
-            messageId: 'emptyTitle',
-            data: {
-              functionName: vitestFnCall.type === 'describe'
-                ? DescribeAlias.describe
-                : TestCaseName.test
-            },
-            node
-          })
+          reportEmptyTitle(node)
           return
         }
 
