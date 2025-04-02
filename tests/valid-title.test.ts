@@ -515,6 +515,18 @@ ruleTester.run(RULE_NAME, rule, {
       ]
     },
     {
+      code: 'it("", function () {})',
+      settings: { vitest: { typecheck: true } },
+      errors: [
+        {
+          messageId: 'emptyTitle',
+          column: 1,
+          line: 1,
+          data: { functionName: 'test' }
+        }
+      ]
+    },
+    {
       code: 'it.concurrent("", function () {})',
       errors: [
         {
