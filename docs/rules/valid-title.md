@@ -40,7 +40,7 @@ Examples of **incorrect** code for this rule with the `{ "ignoreTypeOfDescribeNa
 ```js
 describe(1, () => {
   it('should be a number', () => {
-	expect(1).toBeNumber()
+	expect(1).toBe(1)
   })
 })
 ```
@@ -50,7 +50,7 @@ Examples of **correct** code for this rule with the `{ "ignoreTypeOfDescribeName
 ```js
 describe('1', () => {
   it('should be a number', () => {
-	expect(1).toBeNumber()
+	expect(1).toBe(1)
   })
 })
 ```
@@ -88,7 +88,7 @@ Examples of **incorrect** code for this rule with the `{ "disallowedWords": ["sk
 ```js
 describe('foo', () => {
   it.skip('should be skipped', () => {
-	expect(1).toBeNumber()
+	expect(1).toBe(1)
   })
 })
 ```
@@ -98,7 +98,7 @@ Examples of **correct** code for this rule with the `{ "disallowedWords": ["skip
 ```js
 describe('foo', () => {
   it('should be skipped', () => {
-	expect(1).toBeNumber()
+	expect(1).toBe(1)
   })
 })
 ```
@@ -112,7 +112,7 @@ Examples of **incorrect** code for this rule with the `{ "mustNotMatch": ["^\\s+
 ```js
 describe('foo', () => {
   it('  ', () => {
-	expect(1).toBeNumber()
+	expect(1).toBe(1)
   })
 })
 ```
@@ -123,7 +123,7 @@ Examples of **correct** code for this rule with the `{ "mustNotMatch": ["^\\s+$"
 
 describe('foo', () => {
   it('should be a number', () => {
-	expect(1).toBeNumber()
+	expect(1).toBe(1)
   })
 })
 ```
@@ -145,7 +145,7 @@ Examples of **incorrect** code for this rule with the `{ "mustMatch": ["^\\s*\\w
 ```js
 describe('foo', () => {
   it('  ', () => {
-	expect(1).toBeNumber()
+	expect(1).toBe(1)
   })
 })
 ```
@@ -156,7 +156,7 @@ Examples of **correct** code for this rule with the `{ "mustMatch": ["^\\s*\\w+\
 
 describe('foo', () => {
   it('should be a number', () => {
-	expect(1).toBeNumber()
+	expect(1).toBe(1)
   })
 })
 ```
@@ -168,7 +168,7 @@ Examples of **incorrect** code for this rule with the `{ "mustMatch": { "it": ["
 describe('foo', () => {
   // This check fails because the title does not match the regex
   it('Should be a number', () => {
-    expect(1).toBeNumber()
+    expect(1).toBe(1)
   })
 })
 ```
@@ -180,7 +180,7 @@ Examples of **correct** code for this rule with the `{ "mustMatch": { "describe"
 describe('foo', () => {
   // This check succeeds because the title matches the regex
   it('should be a number.', () => {
-    expect(1).toBeNumber()
+    expect(1).toBe(1)
   })
 })
 ```
