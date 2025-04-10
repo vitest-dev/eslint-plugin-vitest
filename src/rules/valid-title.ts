@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, ESLintUtils, JSONSchema, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getStringValue, isStringNode, StringNode } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
-import { DescribeAlias, TestCaseName } from '../utils/types'
+import { DescribeAlias, isClassOrFunctionType, TestCaseName } from '../utils/types'
 import ts from 'typescript'
 import { parsePluginSettings } from '../utils/parse-plugin-settings'
 
@@ -60,30 +60,6 @@ const compileMatcherPattern = (matcherMaybeWithMessage: MatcherAndMessage | stri
     : [matcherMaybeWithMessage]
 
   return [new RegExp(matcher, 'u'), message]
-}
-
-function isFunctionType(type: ts.Type): boolean {
-  const symbol = type.getSymbol()
-
-  if (!symbol) {
-    return false
-  }
-
-  return symbol.getDeclarations()?.some(declaration =>
-    ts.isFunctionDeclaration(declaration)
-    || ts.isMethodDeclaration(declaration)
-    || ts.isFunctionExpression(declaration)
-    || ts.isArrowFunction(declaration)) ?? false
-}
-
-function isClassType(type: ts.Type): boolean {
-  const symbol = type.getSymbol()
-
-  if (!symbol) return false
-
-  return symbol.getDeclarations()?.some(declaration =>
-    ts.isClassDeclaration(declaration)
-    || ts.isClassExpression(declaration)) ?? false
 }
 
 function isStringLikeType(type: ts.Type): boolean {
@@ -229,7 +205,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
           const type = services.getTypeAtLocation(argument)
 
-          if (isFunctionType(type) || isClassType(type)) return
+          if (isClassOrFunctionType(type)) return
 
           if (isStringLikeType(type)) {
             if (isStringNode(argument) && !getStringValue(argument)) {
