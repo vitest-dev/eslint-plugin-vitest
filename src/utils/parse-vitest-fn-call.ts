@@ -2,6 +2,7 @@ import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { DescribeAlias, HookName, ModifierName, TestCaseName } from './types'
 import { ValidVitestFnCallChains } from './valid-vitest-fn-call-chains'
 import { AccessorNode, getAccessorValue, getStringValue, isFunction, isIdentifier, isStringNode, isSupportedAccessor } from '.'
+import { getScope } from './scope'
 
 export type VitestFnType =
   | 'test'
@@ -313,9 +314,7 @@ const resolveVitestFn = (
   node: TSESTree.CallExpression,
   identifier: string
 ): ResolvedVitestFn | null => {
-  const scope = context.sourceCode.getScope
-    ? context.sourceCode.getScope(node)
-    : context.getScope()
+  const scope = getScope(context, node)
   const maybeImport = resolveScope(scope, identifier)
 
   if (maybeImport === 'local')

@@ -1,4 +1,5 @@
 import { TSESTree } from '@typescript-eslint/utils'
+import ts from 'typescript'
 
 export enum DescribeAlias {
   describe = 'describe',
@@ -72,4 +73,19 @@ interface TypeAssertionChain<
   Expression extends TSESTree.Expression = TSESTree.Expression
 > extends TSESTree.TSTypeAssertion {
   expression: TypeAssertionChain<Expression> | Expression
+}
+
+export function isClassOrFunctionType(type: ts.Type): boolean {
+  return type
+    .getSymbol()
+    ?.getDeclarations()
+    ?.some(
+      declaration =>
+        ts.isArrowFunction(declaration)
+        || ts.isClassDeclaration(declaration)
+        || ts.isClassExpression(declaration)
+        || ts.isFunctionDeclaration(declaration)
+        || ts.isFunctionExpression(declaration)
+        || ts.isMethodDeclaration(declaration)
+    ) ?? false
 }

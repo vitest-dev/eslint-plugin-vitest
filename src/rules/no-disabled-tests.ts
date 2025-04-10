@@ -1,5 +1,6 @@
 import { createEslintRule, getAccessorValue } from '../utils'
 import { parseVitestFnCall, resolveScope } from '../utils/parse-vitest-fn-call'
+import { getScope } from '../utils/scope'
 
 export const RULE_NAME = 'no-disabled-tests'
 export type MESSAGE_ID = 'missingFunction' | 'pending' | 'pendingSuite' | 'pendingTest' | 'disabledSuite' | 'disabledTest'
@@ -69,9 +70,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
           testDepth--
       },
       'CallExpression[callee.name="pending"]'(node) {
-        const scope = context.sourceCode.getScope
-          ? context.sourceCode.getScope(node)
-          : context.getScope()
+        const scope = getScope(context, node)
 
         if (resolveScope(scope, 'pending'))
           return
