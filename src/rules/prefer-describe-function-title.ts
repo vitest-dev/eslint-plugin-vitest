@@ -45,9 +45,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         }
 
         const describedTitle = argument.value
-        if (!context.filename.includes(`${describedTitle}.`)) {
-          return
-        }
+        // if (!context.filename.includes(`${describedTitle}.`)) {
+        //   return
+        // }
 
         const vitestFnCall = parseVitestFnCall(node, context)
         if (vitestFnCall?.type !== 'describe') {
