@@ -81,6 +81,9 @@
   "peerDependenciesMeta": {
     "typescript": {
       "optional": true
+    },
+    "vitest": {
+      "optional": true
     }
   },
   "packageManager": "pnpm@9.15.5"
