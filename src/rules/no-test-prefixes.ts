@@ -10,7 +10,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   name: RULE_NAME,
   meta: {
     docs: {
-      description: 'disallow using `test` as a prefix',
+      description: 'Disallow using the `f` and `x` prefixes in favour of `.only` and `.skip`',
       recommended: false
     },
     type: 'suggestion',
