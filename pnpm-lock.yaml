@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@typescript-eslint/utils':
+        specifier: ^8.24.0
+        version: 8.24.1(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3)
     devDependencies:
       '@stylistic/eslint-plugin':
         specifier: ^2.13.0
@@ -27,9 +31,6 @@ importers:
         specifier: ^8.24.0
         version: 8.24.1(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3)
       '@typescript-eslint/rule-tester':
-        specifier: ^8.24.0
-        version: 8.24.1(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3)
-      '@typescript-eslint/utils':
         specifier: ^8.24.0
         version: 8.24.1(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3)
       '@vitest/eslint-plugin':

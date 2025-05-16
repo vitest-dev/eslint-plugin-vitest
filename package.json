@@ -50,6 +50,9 @@
     "update:eslint-docs": "pnpm build && eslint-doc-generator",
     "tsc": "tsc --noEmit"
   },
+  "dependencies": {
+    "@typescript-eslint/utils": "^8.24.0"
+  },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^2.13.0",
     "@types/eslint": "^9.6.1",
@@ -58,7 +61,6 @@
     "@typescript-eslint/eslint-plugin": "^8.24.0",
     "@typescript-eslint/parser": "^8.24.0",
     "@typescript-eslint/rule-tester": "^8.24.0",
-    "@typescript-eslint/utils": "^8.24.0",
     "@vitest/eslint-plugin": "./dist",
     "bumpp": "^9.11.1",
     "concurrently": "^9.1.2",
@@ -73,7 +75,6 @@
     "vitest": "^3.0.5"
   },
   "peerDependencies": {
-    "@typescript-eslint/utils": ">= 8.24.0",
     "eslint": ">= 8.57.0",
     "typescript": ">= 5.0.0",
     "vitest": "*"
