@@ -87,5 +87,6 @@ export function isClassOrFunctionType(type: ts.Type): boolean {
         || ts.isFunctionDeclaration(declaration)
         || ts.isFunctionExpression(declaration)
         || ts.isMethodDeclaration(declaration)
+        || ts.isFunctionTypeNode(declaration)
     ) ?? false
 }
