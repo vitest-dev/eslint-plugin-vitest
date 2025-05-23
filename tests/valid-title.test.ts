@@ -81,6 +81,17 @@ ruleTester.run(RULE_NAME, rule, {
       })
       `,
       settings: { vitest: { typecheck: true } }
+    },
+    {
+      code: `
+      type Func = (params: object) => void
+      const func: Func = (params) => console.log(params)
+      describe(func, () => {
+        test('item', () => {
+          expect(0).toBe(0)
+        })
+      });`,
+      settings: { vitest: { typecheck: true } }
     }
   ],
   invalid: [
