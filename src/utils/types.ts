@@ -76,6 +76,8 @@ interface TypeAssertionChain<
 }
 
 export function isClassOrFunctionType(type: ts.Type): boolean {
+  if (type.getCallSignatures().length > 0) return true
+
   return type
     .getSymbol()
     ?.getDeclarations()
