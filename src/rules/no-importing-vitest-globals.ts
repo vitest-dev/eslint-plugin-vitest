@@ -54,12 +54,12 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           }
 
           context.report({
-          node,
-          messageId: 'noImportingVitestGlobals',
-          data: {
-            name: importedName,
-          },
-        });
+            node,
+            messageId: 'noImportingVitestGlobals',
+            data: {
+              name: importedName,
+            },
+          });
         }
       }
     }
