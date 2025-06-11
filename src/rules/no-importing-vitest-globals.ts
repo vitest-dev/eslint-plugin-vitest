@@ -85,6 +85,13 @@ export default createEslintRule<Options, MESSAGE_IDS>({
                 return fixer.remove(node);
               }
 
+              const specifierIndex = specifiers.indexOf(specifier);
+              if (specifierIndex === 0) {
+                // First specifier: remove it and the following comma
+                const nextSpecifier = specifiers[1];
+                return fixer.removeRange([specifier.range[0], nextSpecifier.range[0]]);
+              }
+
               return null;
             }
           });
