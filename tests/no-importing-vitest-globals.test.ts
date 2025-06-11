@@ -29,6 +29,13 @@ ruleTester.run(RULE_NAME, rule, {
         { message: "Do not import 'describe' from 'vitest'. Use globals configuration instead." },
       ],
       output: "import { BenchFactory } from 'vitest'",
-    }
+    },
+    {
+      code: "import { BenchFactory, describe } from 'vitest'",
+      errors: [
+        { message: "Do not import 'describe' from 'vitest'. Use globals configuration instead." },
+      ],
+      output: "import { BenchFactory } from 'vitest'",
+    },
   ]
 });
