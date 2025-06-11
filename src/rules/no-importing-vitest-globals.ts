@@ -26,7 +26,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       recommended: false
     },
     messages: {
-      noImportingVitestGlobals: "Do not import Vitest global '{{name}}' from 'vitest'. Use globals configuration instead.",
+      noImportingVitestGlobals: "Do not import '{{name}}' from 'vitest'. Use globals configuration instead.",
     },
     fixable: 'code',
     schema: []
@@ -57,7 +57,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           node,
           messageId: 'noImportingVitestGlobals',
           data: {
-            name: "TODO",
+            name: importedName,
           },
         });
         }
