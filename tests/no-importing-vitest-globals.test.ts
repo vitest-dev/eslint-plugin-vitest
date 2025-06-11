@@ -84,6 +84,14 @@ ruleTester.run(RULE_NAME, rule, {
       output: "const x = 1, y = 2;",
     },
     {
+      code: "const { describe, it } = require('vitest')",
+      errors: [
+        { message: "Do not require 'describe' from 'vitest'. Use globals configuration instead." },
+        { message: "Do not require 'it' from 'vitest'. Use globals configuration instead." },
+      ],
+      output: "",
+    },
+    {
       code: "const { describe, BenchFactory } = require('vitest')",
       errors: [
         { message: "Do not require 'describe' from 'vitest'. Use globals configuration instead." },

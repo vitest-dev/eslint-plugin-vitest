@@ -195,7 +195,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
                 return !isValid;
               });
               if (allDisallowed) {
-                return fixer.remove(node);
+                return removeDeclarator(fixer, node);
               }
 
               const propIndex = properties.indexOf(prop);
