@@ -5,6 +5,18 @@ export const RULE_NAME = 'no-importing-vitest-globals'
 export type MESSAGE_IDS = 'noImportingVitestGlobals'
 export type Options = []
 
+const DISALLOWED_IMPORTS = new Set([
+  'describe',
+  'it',
+  'test',
+  'beforeAll',
+  'afterAll',
+  'beforeEach',
+  'afterEach',
+  'expect',
+  'vi',
+]);
+
 export default createEslintRule<Options, MESSAGE_IDS>({
   name: RULE_NAME,
   meta: {
@@ -33,6 +45,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           }
 
           if (specifier.imported.type !== 'Identifier') {
+            continue;
+          }
+
+          const importedName = specifier.imported.name;
+          if (!DISALLOWED_IMPORTS.has(importedName)) {
             continue;
           }
 
