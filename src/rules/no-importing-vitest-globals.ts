@@ -1,4 +1,4 @@
-import { TSESTree } from '@typescript-eslint/utils';
+import { TSESLint, TSESTree } from '@typescript-eslint/utils';
 import { createEslintRule } from '../utils'
 
 export const RULE_NAME = 'no-importing-vitest-globals'
@@ -59,6 +59,16 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             data: {
               name: importedName,
             },
+            fix(fixer: TSESLint.RuleFixer) {
+              const specifiers = node.specifiers;
+              
+              // If this is the only specifier, remove the entire import
+              if (specifiers.length === 1) {
+                return fixer.remove(node);
+              }
+
+              return null;
+            }
           });
         }
       }

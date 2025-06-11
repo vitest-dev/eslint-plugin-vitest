@@ -13,6 +13,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: "import { describe } from 'vitest'",
       errors: [{ message: "Do not import 'describe' from 'vitest'. Use globals configuration instead." }],
+      output: '',
     }
   ]
 });
