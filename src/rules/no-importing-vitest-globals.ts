@@ -1,9 +1,9 @@
 import { TSESLint, TSESTree } from '@typescript-eslint/utils';
 import { createEslintRule } from '../utils'
 
-export const RULE_NAME = 'no-importing-vitest-globals'
-export type MESSAGE_IDS = 'noImportingVitestGlobals'
-export type Options = []
+export const RULE_NAME = 'no-importing-vitest-globals';
+export type MESSAGE_IDS = 'noImportingVitestGlobals' | 'noRequiringVitestGlobals';
+export type Options = [];
 
 const DISALLOWED_IMPORTS = new Set([
   'describe',
@@ -27,6 +27,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     },
     messages: {
       noImportingVitestGlobals: "Do not import '{{name}}' from 'vitest'. Use globals configuration instead.",
+      noRequiringVitestGlobals: "Do not require '{{name}}' from 'vitest'. Use globals configuration instead."
     },
     fixable: 'code',
     schema: []
@@ -98,7 +99,32 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             }
           });
         }
-      }
+      },
+      VariableDeclarator(node) {
+        if (!node.init) {
+          return;
+        }
+
+        if (node.init.type !== 'CallExpression') {
+          return;
+        }
+
+        if (node.init.callee.type !== 'Identifier') {
+          return;
+        }
+
+        if (node.init.callee.name !== 'require') {
+          return;
+        }
+
+        context.report({
+          node,
+          messageId: 'noRequiringVitestGlobals',
+          data: {
+            name: 'TODO',
+          },
+        });
+      },
     }
   }
 })

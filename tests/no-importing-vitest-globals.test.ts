@@ -8,6 +8,10 @@ ruleTester.run(RULE_NAME, rule, {
     "import * as vitest from 'vitest'",
     "import { \"default\" as vitest } from 'vitest'",
     "import { BenchFactory } from 'vitest'",
+    "let x;",
+    "let x = 1;",
+    "const x = console.log('hello');",
+    "const x = print('hello');",
   ],
   invalid: [
     {
@@ -52,6 +56,10 @@ ruleTester.run(RULE_NAME, rule, {
         { message: "Do not import 'it' from 'vitest'. Use globals configuration instead." },
       ],
       output: "import { BenchTask, BenchFactory } from 'vitest'",
+    },
+    {
+      code: "const { describe } = require('vitest')",
+      errors: [{ message: "Do not require 'TODO' from 'vitest'. Use globals configuration instead." }],
     },
   ]
 });
