@@ -33,6 +33,23 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   },
   defaultOptions: [],
   create(context) {
+    const checkSpecifier = (specifier: TSESTree.ImportClause) => {
+      if (specifier.type !== 'ImportSpecifier') {
+        return { isValid: true };
+      }
+
+      if (specifier.imported.type !== 'Identifier') {
+        return { isValid: true };
+      }
+
+      const importedName = specifier.imported.name;
+      if (!DISALLOWED_IMPORTS.has(importedName)) {
+        return { isValid: true };
+      }
+
+      return { isValid: false, importedName };
+    }
+
     return {
       ImportDeclaration(node: TSESTree.ImportDeclaration) {
         if (node.source.value !== 'vitest') {
@@ -40,16 +57,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         }
 
         for (const specifier of node.specifiers) {
-          if (specifier.type !== 'ImportSpecifier') {
-            continue;
-          }
-
-          if (specifier.imported.type !== 'Identifier') {
-            continue;
-          }
-
-          const importedName = specifier.imported.name;
-          if (!DISALLOWED_IMPORTS.has(importedName)) {
+          const { isValid, importedName } = checkSpecifier(specifier);
+          if (isValid) {
             continue;
           }
 
@@ -61,7 +70,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             },
             fix(fixer: TSESLint.RuleFixer) {
               const specifiers = node.specifiers;
-              
+
               // If this is the only specifier, remove the entire import
               if (specifiers.length === 1) {
                 return fixer.remove(node);
