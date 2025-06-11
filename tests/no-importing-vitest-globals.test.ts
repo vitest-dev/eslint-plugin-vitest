@@ -3,30 +3,30 @@ import { ruleTester } from './ruleTester'
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
-    "import { describe } from 'jest'",
-    "import vitest from 'vitest'",
-    "import * as vitest from 'vitest'",
-    "import { \"default\" as vitest } from 'vitest'",
-    "import { BenchFactory } from 'vitest'",
+    "import { describe } from 'jest';",
+    "import vitest from 'vitest';",
+    "import * as vitest from 'vitest';",
+    "import { \"default\" as vitest } from 'vitest';",
+    "import { BenchFactory } from 'vitest';",
     "let x;",
     "let x = 1;",
     "const x = console.log('hello');",
     "const x = print('hello');",
     "const x = require('something', 'wrong');",
     "const x = require(a_variable);",
-    "const x = require('jest')",
-    "const x = require('vitest')",
-    "const { ...rest } = require('vitest')",
-    "const { \"default\": vitest } = require('vitest')",
+    "const x = require('jest');",
+    "const x = require('vitest');",
+    "const { ...rest } = require('vitest');",
+    "const { \"default\": vitest } = require('vitest');",
   ],
   invalid: [
     {
-      code: "import { describe } from 'vitest'",
+      code: "import { describe } from 'vitest';",
       errors: [{ message: "Do not import 'describe' from 'vitest'. Use globals configuration instead." }],
       output: "",
     },
     {
-      code: "import { describe, it } from 'vitest'",
+      code: "import { describe, it } from 'vitest';",
       errors: [
         { message: "Do not import 'describe' from 'vitest'. Use globals configuration instead." },
         { message: "Do not import 'it' from 'vitest'. Use globals configuration instead." },
@@ -34,37 +34,37 @@ ruleTester.run(RULE_NAME, rule, {
       output: "",
     },
     {
-      code: "import { describe, BenchFactory } from 'vitest'",
+      code: "import { describe, BenchFactory } from 'vitest';",
       errors: [
         { message: "Do not import 'describe' from 'vitest'. Use globals configuration instead." },
       ],
-      output: "import { BenchFactory } from 'vitest'",
+      output: "import { BenchFactory } from 'vitest';",
     },
     {
-      code: "import { BenchFactory, describe } from 'vitest'",
+      code: "import { BenchFactory, describe } from 'vitest';",
       errors: [
         { message: "Do not import 'describe' from 'vitest'. Use globals configuration instead." },
       ],
-      output: "import { BenchFactory } from 'vitest'",
+      output: "import { BenchFactory } from 'vitest';",
     },
     {
-      code: "import { describe, BenchFactory, it } from 'vitest'",
-      errors: [
-        { message: "Do not import 'describe' from 'vitest'. Use globals configuration instead." },
-        { message: "Do not import 'it' from 'vitest'. Use globals configuration instead." },
-      ],
-      output: "import { BenchFactory } from 'vitest'",
-    },
-    {
-      code: "import { BenchTask, describe, BenchFactory, it } from 'vitest'",
+      code: "import { describe, BenchFactory, it } from 'vitest';",
       errors: [
         { message: "Do not import 'describe' from 'vitest'. Use globals configuration instead." },
         { message: "Do not import 'it' from 'vitest'. Use globals configuration instead." },
       ],
-      output: "import { BenchTask, BenchFactory } from 'vitest'",
+      output: "import { BenchFactory } from 'vitest';",
     },
     {
-      code: "const { describe } = require('vitest')",
+      code: "import { BenchTask, describe, BenchFactory, it } from 'vitest';",
+      errors: [
+        { message: "Do not import 'describe' from 'vitest'. Use globals configuration instead." },
+        { message: "Do not import 'it' from 'vitest'. Use globals configuration instead." },
+      ],
+      output: "import { BenchTask, BenchFactory } from 'vitest';",
+    },
+    {
+      code: "const { describe } = require('vitest');",
       errors: [{ message: "Do not require 'describe' from 'vitest'. Use globals configuration instead." }],
       output: "",
     },
@@ -84,7 +84,7 @@ ruleTester.run(RULE_NAME, rule, {
       output: "const x = 1, y = 2;",
     },
     {
-      code: "const { describe, it } = require('vitest')",
+      code: "const { describe, it } = require('vitest');",
       errors: [
         { message: "Do not require 'describe' from 'vitest'. Use globals configuration instead." },
         { message: "Do not require 'it' from 'vitest'. Use globals configuration instead." },
@@ -92,34 +92,34 @@ ruleTester.run(RULE_NAME, rule, {
       output: "",
     },
     {
-      code: "const { describe, BenchFactory } = require('vitest')",
+      code: "const { describe, BenchFactory } = require('vitest');",
       errors: [
         { message: "Do not require 'describe' from 'vitest'. Use globals configuration instead." },
       ],
-      output: "const { BenchFactory } = require('vitest')",
+      output: "const { BenchFactory } = require('vitest');",
     },
     {
-      code: "const { BenchFactory, describe } = require('vitest')",
+      code: "const { BenchFactory, describe } = require('vitest');",
       errors: [
         { message: "Do not require 'describe' from 'vitest'. Use globals configuration instead." },
       ],
-      output: "const { BenchFactory } = require('vitest')",
+      output: "const { BenchFactory } = require('vitest');",
     },
     {
-      code: "const { describe, BenchFactory, it } = require('vitest')",
+      code: "const { describe, BenchFactory, it } = require('vitest');",
       errors: [
         { message: "Do not require 'describe' from 'vitest'. Use globals configuration instead." },
         { message: "Do not require 'it' from 'vitest'. Use globals configuration instead." },
       ],
-      output: "const { BenchFactory } = require('vitest')",
+      output: "const { BenchFactory } = require('vitest');",
     },
     {
-      code: "const { BenchTask, describe, BenchFactory, it } = require('vitest')",
+      code: "const { BenchTask, describe, BenchFactory, it } = require('vitest');",
       errors: [
         { message: "Do not require 'describe' from 'vitest'. Use globals configuration instead." },
         { message: "Do not require 'it' from 'vitest'. Use globals configuration instead." },
       ],
-      output: "const { BenchTask, BenchFactory } = require('vitest')",
+      output: "const { BenchTask, BenchFactory } = require('vitest');",
     },
   ]
 });
