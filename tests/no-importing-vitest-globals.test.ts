@@ -12,8 +12,8 @@ ruleTester.run(RULE_NAME, rule, {
     "let x = 1;",
     "const x = console.log('hello');",
     "const x = print('hello');",
-    "const x = require('something', 'wrong');", // let it be handled by other rules
-    "const x = require(a_variable);",           // edge case, cannot determine whether it is vitest
+    "const x = require('something', 'wrong');",
+    "const x = require(a_variable);",
     "const x = require('jest')",
     "const x = require('vitest')",
     "const { ...rest } = require('vitest')",
