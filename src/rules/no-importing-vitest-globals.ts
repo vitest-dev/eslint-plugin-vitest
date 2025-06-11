@@ -133,13 +133,26 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           return;
         }
 
-        context.report({
-          node,
-          messageId: 'noRequiringVitestGlobals',
-          data: {
-            name: 'TODO',
-          },
-        });
+        for (const prop of node.id.properties) {
+          if (prop.type !== 'Property') {
+            continue;
+          }
+
+          if (prop.key.type !== 'Identifier') {
+            continue;
+          }
+
+          const propertyName = prop.key.name;
+          if (DISALLOWED_IMPORTS.has(propertyName)) {
+            context.report({
+              node: prop,
+              messageId: 'noRequiringVitestGlobals',
+              data: {
+                name: propertyName
+              },
+            });
+          }
+        }
       },
     }
   }

@@ -16,6 +16,8 @@ ruleTester.run(RULE_NAME, rule, {
     "const x = require(a_variable);",           // edge case, cannot determine whether it is vitest
     "const x = require('jest')",
     "const x = require('vitest')",
+    "const { ...rest } = require('vitest')",
+    "const { \"default\": vitest } = require('vitest')",
   ],
   invalid: [
     {
@@ -63,7 +65,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: "const { describe } = require('vitest')",
-      errors: [{ message: "Do not require 'TODO' from 'vitest'. Use globals configuration instead." }],
+      errors: [{ message: "Do not require 'describe' from 'vitest'. Use globals configuration instead." }],
     },
   ]
 });
