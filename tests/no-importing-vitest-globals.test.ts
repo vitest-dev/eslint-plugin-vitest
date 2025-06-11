@@ -15,6 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
     "const x = require('something', 'wrong');", // let it be handled by other rules
     "const x = require(a_variable);",           // edge case, cannot determine whether it is vitest
     "const x = require('jest')",
+    "const x = require('vitest')",
   ],
   invalid: [
     {

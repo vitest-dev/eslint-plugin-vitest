@@ -129,6 +129,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           return;
         }
 
+        if (node.id.type !== 'ObjectPattern') {
+          return;
+        }
+
         context.report({
           node,
           messageId: 'noRequiringVitestGlobals',
