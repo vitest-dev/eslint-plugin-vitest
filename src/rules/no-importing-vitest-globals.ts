@@ -32,6 +32,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             continue;
           }
 
+          if (specifier.imported.type !== 'Identifier') {
+            continue;
+          }
+
           context.report({
           node,
           messageId: 'noImportingVitestGlobals',

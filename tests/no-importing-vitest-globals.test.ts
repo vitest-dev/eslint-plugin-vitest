@@ -6,6 +6,7 @@ ruleTester.run(RULE_NAME, rule, {
     "import { describe } from 'jest'",
     "import vitest from 'vitest'",
     "import * as vitest from 'vitest'",
+    "import { \"default\" as vitest } from 'vitest'",
   ],
   invalid: [
     {
