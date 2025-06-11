@@ -95,8 +95,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
                 const prevSpecifier = specifiers[specifierIndex - 1];
                 return fixer.removeRange([prevSpecifier.range[1], specifier.range[1]]);
               }
-
-              return null;
             }
           });
         }
