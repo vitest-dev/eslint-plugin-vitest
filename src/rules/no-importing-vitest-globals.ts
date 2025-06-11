@@ -35,11 +35,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   defaultOptions: [],
   create(context) {
     const checkSpecifier = (specifier: TSESTree.ImportClause) => {
-      if (specifier.type !== 'ImportSpecifier') {
+      if (specifier.type !== TSESTree.AST_NODE_TYPES.ImportSpecifier) {
         return { isValid: true };
       }
 
-      if (specifier.imported.type !== 'Identifier') {
+      if (specifier.imported.type !== TSESTree.AST_NODE_TYPES.Identifier) {
         return { isValid: true };
       }
 
@@ -52,11 +52,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     }
 
     const checkProperty = (prop: TSESTree.Property | TSESTree.RestElement) => {
-      if (prop.type !== 'Property') {
+      if (prop.type !== TSESTree.AST_NODE_TYPES.Property) {
         return { isValid: true };
       }
 
-      if (prop.key.type !== 'Identifier') {
+      if (prop.key.type !== TSESTree.AST_NODE_TYPES.Identifier) {
         return { isValid: true };
       }
 
@@ -143,11 +143,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           return;
         }
 
-        if (node.init.type !== 'CallExpression') {
+        if (node.init.type !== TSESTree.AST_NODE_TYPES.CallExpression) {
           return;
         }
 
-        if (node.init.callee.type !== 'Identifier') {
+        if (node.init.callee.type !== TSESTree.AST_NODE_TYPES.Identifier) {
           return;
         }
 
@@ -159,7 +159,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           return;
         }
 
-        if (node.init.arguments[0].type !== 'Literal') {
+        if (node.init.arguments[0].type !== TSESTree.AST_NODE_TYPES.Literal) {
           return;
         }
 
@@ -167,7 +167,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           return;
         }
 
-        if (node.id.type !== 'ObjectPattern') {
+        if (node.id.type !== TSESTree.AST_NODE_TYPES.ObjectPattern) {
           return;
         }
 
