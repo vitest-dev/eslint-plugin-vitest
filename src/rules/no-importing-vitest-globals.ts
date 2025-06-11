@@ -117,6 +117,18 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           return;
         }
 
+        if (node.init.arguments.length !== 1) {
+          return;
+        }
+
+        if (node.init.arguments[0].type !== 'Literal') {
+          return;
+        }
+
+        if (node.init.arguments[0].value !== 'vitest') {
+          return;
+        }
+
         context.report({
           node,
           messageId: 'noRequiringVitestGlobals',
