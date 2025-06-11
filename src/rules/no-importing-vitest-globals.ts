@@ -27,13 +27,19 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           return;
         }
 
-        context.report({
+        for (const specifier of node.specifiers) {
+          if (specifier.type !== 'ImportSpecifier') {
+            continue;
+          }
+
+          context.report({
           node,
           messageId: 'noImportingVitestGlobals',
           data: {
             name: "TODO",
           },
         });
+        }
       }
     }
   }
