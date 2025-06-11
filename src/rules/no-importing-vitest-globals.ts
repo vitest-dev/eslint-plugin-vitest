@@ -143,15 +143,17 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           }
 
           const propertyName = prop.key.name;
-          if (DISALLOWED_IMPORTS.has(propertyName)) {
-            context.report({
-              node: prop,
-              messageId: 'noRequiringVitestGlobals',
-              data: {
-                name: propertyName
-              },
-            });
+          if (!DISALLOWED_IMPORTS.has(propertyName)) {
+            continue;
           }
+
+          context.report({
+            node: prop,
+            messageId: 'noRequiringVitestGlobals',
+            data: {
+              name: propertyName
+            },
+          });
         }
       },
     }
