@@ -102,7 +102,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           }
 
           context.report({
-            node,
+            node: specifier,
             messageId: 'noImportingVitestGlobals',
             data: {
               name: importedName,
