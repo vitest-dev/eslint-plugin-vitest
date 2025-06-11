@@ -76,6 +76,15 @@ export default createEslintRule<Options, MESSAGE_IDS>({
                 return fixer.remove(node);
               }
 
+              // If all specifiers are disallowed, remove the entire import
+              const allDisallowed = specifiers.every(spec => {
+                const { isValid } = checkSpecifier(spec);
+                return !isValid;
+              });
+              if (allDisallowed) {
+                return fixer.remove(node);
+              }
+
               return null;
             }
           });
