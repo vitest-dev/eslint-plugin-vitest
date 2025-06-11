@@ -66,6 +66,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: "const { describe } = require('vitest')",
       errors: [{ message: "Do not require 'describe' from 'vitest'. Use globals configuration instead." }],
+      output: "",
     },
   ]
 });

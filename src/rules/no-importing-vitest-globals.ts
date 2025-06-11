@@ -100,7 +100,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           });
         }
       },
-      VariableDeclarator(node) {
+      VariableDeclarator(node: TSESTree.VariableDeclarator) {
         if (!node.init) {
           return;
         }
@@ -133,7 +133,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           return;
         }
 
-        for (const prop of node.id.properties) {
+        const properties = node.id.properties;
+        for (const prop of properties) {
           if (prop.type !== 'Property') {
             continue;
           }
@@ -153,6 +154,14 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             data: {
               name: propertyName
             },
+            fix(fixer) {
+              if (properties.length === 1) {
+                const variableDeclaration = node.parent;
+                return fixer.remove(variableDeclaration);
+              }
+
+              return null;
+            }
           });
         }
       },
