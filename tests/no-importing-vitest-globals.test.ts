@@ -4,7 +4,8 @@ import { ruleTester } from './ruleTester'
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     "import { describe } from 'jest'",
-    "import vitest from 'vitest'"
+    "import vitest from 'vitest'",
+    "import * as vitest from 'vitest'",
   ],
   invalid: [
     {
