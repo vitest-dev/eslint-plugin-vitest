@@ -7,7 +7,7 @@ ruleTester.run(RULE_NAME, rule, {
     "import vitest from 'vitest'",
     "import * as vitest from 'vitest'",
     "import { \"default\" as vitest } from 'vitest'",
-    "import { defineConfig } from 'vitest'",
+    "import { BenchFactory } from 'vitest'",
   ],
   invalid: [
     {
@@ -24,11 +24,11 @@ ruleTester.run(RULE_NAME, rule, {
       output: "",
     },
     {
-      code: "import { describe, defineConfig } from 'vitest'",
+      code: "import { describe, BenchFactory } from 'vitest'",
       errors: [
         { message: "Do not import 'describe' from 'vitest'. Use globals configuration instead." },
       ],
-      output: "import { defineConfig } from 'vitest'",
+      output: "import { BenchFactory } from 'vitest'",
     }
   ]
 });
