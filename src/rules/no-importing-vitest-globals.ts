@@ -176,7 +176,16 @@ export default createEslintRule<Options, MESSAGE_IDS>({
                 }
               }
 
-              return null;
+              const propIndex = properties.indexOf(prop);
+              if (propIndex === 0) {
+                // First property: remove it and the following comma
+                const nextProp = properties[1];
+                return fixer.removeRange([prop.range[0], nextProp.range[0]]);
+              } else {
+                // Not first property: remove preceding comma and the property
+                const prevProp = properties[propIndex - 1];
+                return fixer.removeRange([prevProp.range![1], prop.range![1]]);
+              }
             }
           });
         }
