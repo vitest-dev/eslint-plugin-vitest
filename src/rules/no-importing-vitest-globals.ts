@@ -51,6 +51,24 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       return { isValid: false, importedName };
     }
 
+    const checkProperty = (prop: TSESTree.Property | TSESTree.RestElement) => {
+      if (prop.type !== 'Property') {
+        return { isValid: true };
+      }
+
+      if (prop.key.type !== 'Identifier') {
+        return { isValid: true };
+      }
+
+      const propertyName = prop.key.name;
+      if (!DISALLOWED_IMPORTS.has(propertyName)) {
+        return { isValid: true };
+      }
+
+      return { isValid: false, propertyName };
+    };
+
+
     return {
       ImportDeclaration(node: TSESTree.ImportDeclaration) {
         if (node.source.value !== 'vitest') {
@@ -135,16 +153,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         const properties = node.id.properties;
         for (const prop of properties) {
-          if (prop.type !== 'Property') {
-            continue;
-          }
-
-          if (prop.key.type !== 'Identifier') {
-            continue;
-          }
-
-          const propertyName = prop.key.name;
-          if (!DISALLOWED_IMPORTS.has(propertyName)) {
+          const { isValid, propertyName } = checkProperty(prop);
+          if (isValid) {
             continue;
           }
 
@@ -174,6 +184,15 @@ export default createEslintRule<Options, MESSAGE_IDS>({
                   const prevDeclarator = declarators[declaratorIndex - 1];
                   return fixer.removeRange([prevDeclarator.range[1], node.range[1]]);
                 }
+              }
+
+              // If all specifiers are disallowed, remove the entire import
+              const allDisallowed = properties.every(p => {
+                const { isValid } = checkProperty(p);
+                return !isValid;
+              });
+              if (allDisallowed) {
+                return fixer.remove(node);
               }
 
               const propIndex = properties.indexOf(prop);
