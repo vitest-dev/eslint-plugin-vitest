@@ -189,7 +189,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
                 return removeDeclarator(fixer, node);
               }
 
-              // If all specifiers are disallowed, remove the entire import
+              // If all properties are disallowed, remove the entire declarator
               const allDisallowed = properties.every(p => {
                 const { isValid } = checkProperty(p);
                 return !isValid;
