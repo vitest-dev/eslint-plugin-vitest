@@ -18,6 +18,7 @@ import noCommentedOutTests, { RULE_NAME as noCommentedOutTestsName } from './rul
 import noConditionalExpect, { RULE_NAME as noConditionalExpectName } from './rules/no-conditional-expect'
 import noImportNodeTest, { RULE_NAME as noImportNodeTestName } from './rules/no-import-node-test'
 import noImportingVitestGlobals, { RULE_NAME as noImportingVitestGlobalsName } from './rules/no-importing-vitest-globals'
+import preferImportingVitestGlobals, { RULE_NAME as preferImportingVitestGlobalsName } from './rules/prefer-importing-vitest-globals'
 import noConditionalInTest, { RULE_NAME as noConditionalInTestName } from './rules/no-conditional-in-test'
 import noDisabledTests, { RULE_NAME as noDisabledTestsName } from './rules/no-disabled-tests'
 import noDoneCallback, { RULE_NAME as noDoneCallbackName } from './rules/no-done-callback'
@@ -154,7 +155,8 @@ const allRules = {
   [noImportNodeTestName]: 'warn',
   [preferStrictBooleanMatchersName]: 'warn',
   [requireMockTypeParametersName]: 'warn',
-  [noImportingVitestGlobalsName]: 'warn'
+  [noImportingVitestGlobalsName]: 'warn',
+  [preferImportingVitestGlobalsName]: 'warn'
 } as const
 
 const recommended = {
@@ -202,6 +204,7 @@ const plugin = {
     [noTestReturnStatementName]: noTestReturnStatement,
     [noImportNodeTestName]: noImportNodeTest,
     [noImportingVitestGlobalsName]: noImportingVitestGlobals,
+    [preferImportingVitestGlobalsName]: preferImportingVitestGlobals,
     [preferCalledWithName]: preferCalledWith,
     [validTitleName]: validTitle,
     [validExpectName]: validExpect,
