@@ -23,7 +23,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   defaultOptions: [],
   create(context) {
     const importedNames = new Set<string>();
-    let vitestImport: TSESTree.ImportDeclaration;
+    let vitestImportSpecifiers: TSESTree.ImportClause[];
     let vitestRequireProperties: TSESTree.ObjectPattern['properties'] | undefined;
 
     return {
@@ -38,7 +38,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           }
         }
 
-        vitestImport = node;
+        vitestImportSpecifiers = node.specifiers;
       },
       VariableDeclarator(node: TSESTree.VariableDeclarator) {
         if (!isRequireVitestCall(node.init)) return;
@@ -66,7 +66,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           data: { name },
           fix(fixer) {
             const program = context.sourceCode.ast;
-            if (!vitestImport) {
+            if (!vitestImportSpecifiers) {
               if (!vitestRequireProperties) {
                 return fixer.insertTextBefore(program.body[0], `import { ${name} } from 'vitest';\n`);
               } else {
@@ -75,17 +75,17 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               }
             }
 
-            const namespaceImport = vitestImport.specifiers.find(s => s.type === 'ImportNamespaceSpecifier');
+            const namespaceImport = vitestImportSpecifiers.find(s => s.type === 'ImportNamespaceSpecifier');
             if (namespaceImport) {
               return fixer.insertTextBefore(program.body[0], `import { ${name} } from 'vitest';\n`);
             }
 
-            const defaultImport = vitestImport.specifiers.find(s => s.type === 'ImportDefaultSpecifier');
+            const defaultImport = vitestImportSpecifiers.find(s => s.type === 'ImportDefaultSpecifier');
             if (defaultImport) {
               return fixer.insertTextAfter(defaultImport, `, { ${name} }`);
             }
 
-            const lastSpecifier = vitestImport.specifiers[vitestImport.specifiers.length - 1];
+            const lastSpecifier = vitestImportSpecifiers[vitestImportSpecifiers.length - 1];
             return fixer.insertTextAfter(lastSpecifier, `, ${name}`);
           }
         });
