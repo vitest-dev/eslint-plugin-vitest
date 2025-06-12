@@ -1,7 +1,7 @@
 import { TSESLint, TSESTree } from '@typescript-eslint/utils';
 import { createEslintRule } from '../utils'
 import { isObjectPattern, isRequireVitestCall, isVitestGlobalsImportSpecifier, isVitestGlobalsProperty, isVitestImport } from '../utils/guards';
-import { removeVariableDeclarator } from '../utils/variable-declarator-utils';
+import { removeVariableDeclarator } from '../utils/fixer-utils';
 
 export const RULE_NAME = 'no-importing-vitest-globals';
 export type MESSAGE_IDS = 'noImportingVitestGlobals' | 'noRequiringVitestGlobals';
