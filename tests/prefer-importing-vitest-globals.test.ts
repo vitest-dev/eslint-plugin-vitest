@@ -54,35 +54,40 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       output: "import { \"default\" as vitest, describe } from 'vitest'; describe('suite', () => {});",
     },
-    // {
-    //   code: "const x = require('something', 'wrong'); describe('suite', () => {});",
-    //   errors: [
-    //     { message: "Import 'describe' from 'vitest'" },
-    //   ],
-    // },
-    // {
-    //   code: "const x = require('jest'); describe('suite', () => {});",
-    //   errors: [
-    //     { message: "Import 'describe' from 'vitest'" },
-    //   ],
-    // },
-    // {
-    //   code: "const vitest = require('vitest'); describe('suite', () => {});",
-    //   errors: [
-    //     { message: "Import 'describe' from 'vitest'" },
-    //   ],
-    // },
-    // {
-    //   code: "const { ...rest } = require('vitest'); describe('suite', () => {});",
-    //   errors: [
-    //     { message: "Import 'describe' from 'vitest'" },
-    //   ],
-    // },
-    // {
-    //   code: "const { \"default\": vitest } = require('vitest'); describe('suite', () => {});",
-    //   errors: [
-    //     { message: "Import 'describe' from 'vitest'" },
-    //   ],
-    // },
+    {
+      code: "const x = require('something', 'else'); describe('suite', () => {});",
+      errors: [
+        { message: "Import 'describe' from 'vitest'" },
+      ],
+      output: "import { describe } from 'vitest';\nconst x = require('something', 'else'); describe('suite', () => {});",
+    },
+    {
+      code: "const x = require('jest'); describe('suite', () => {});",
+      errors: [
+        { message: "Import 'describe' from 'vitest'" },
+      ],
+      output: "import { describe } from 'vitest';\nconst x = require('jest'); describe('suite', () => {});",
+    },
+    {
+      code: "const vitest = require('vitest'); describe('suite', () => {});",
+      errors: [
+        { message: "Import 'describe' from 'vitest'" },
+      ],
+      output: "import { describe } from 'vitest';\nconst vitest = require('vitest'); describe('suite', () => {});",
+    },
+    {
+      code: "const { ...rest } = require('vitest'); describe('suite', () => {});",
+      errors: [
+        { message: "Import 'describe' from 'vitest'" },
+      ],
+      output: "import { describe } from 'vitest';\nconst { ...rest } = require('vitest'); describe('suite', () => {});",
+    },
+    {
+      code: "const { \"default\": vitest } = require('vitest'); describe('suite', () => {});",
+      errors: [
+        { message: "Import 'describe' from 'vitest'" },
+      ],
+      output: "import { describe } from 'vitest';\nconst { \"default\": vitest } = require('vitest'); describe('suite', () => {});",
+    },
   ]
 });
