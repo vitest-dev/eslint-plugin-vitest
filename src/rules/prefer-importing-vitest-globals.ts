@@ -61,10 +61,27 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           return;
         }
 
+        const name = node.callee.name;
         context.report({
           node: node.callee,
           messageId: 'preferImportingVitestGlobals',
-          data: { name: node.callee.name },
+          data: { name },
+          fix(fixer) {
+            const program = context.sourceCode.ast;
+
+            const vitestImport = program.body.find(
+              (n): n is TSESTree.ImportDeclaration =>
+                n.type === 'ImportDeclaration' &&
+                n.source.value === 'vitest'
+            );
+
+            if (vitestImport) {
+              const lastSpecifier = vitestImport.specifiers[vitestImport.specifiers.length - 1];
+              return fixer.insertTextAfter(lastSpecifier, `, ${name}`);
+            } else {
+              return fixer.insertTextBefore(program.body[0], `import { ${name} } from 'vitest';\n`);
+            }
+          }
         });
       },
     };
