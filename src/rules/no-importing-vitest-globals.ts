@@ -28,7 +28,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       ImportDeclaration(node: TSESTree.ImportDeclaration) {
         if (!isVitestImport(node)) return;
 
-        for (const specifier of node.specifiers) {
+        const specifiers = node.specifiers;
+        for (const specifier of specifiers) {
           if (!isVitestGlobalsImportSpecifier(specifier)) {
             continue;
           }
@@ -40,8 +41,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               name: specifier.imported.name,
             },
             fix(fixer: TSESLint.RuleFixer) {
-              const specifiers = node.specifiers;
-
               // If all specifiers are disallowed, remove the entire import
               const allDisallowed = specifiers.every(spec => isVitestGlobalsImportSpecifier(spec));
               if (allDisallowed) {
