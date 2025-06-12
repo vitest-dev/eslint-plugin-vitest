@@ -1,6 +1,7 @@
 import { TSESLint, TSESTree } from '@typescript-eslint/utils';
 import { createEslintRule } from '../utils'
 import { isObjectPattern, isRequireVitestCall, isVitestGlobalsImportSpecifier, isVitestGlobalsProperty } from '../utils/guards';
+import { removeVariableDeclarator } from '../utils/variable-declarator-utils';
 
 export const RULE_NAME = 'no-importing-vitest-globals';
 export type MESSAGE_IDS = 'noImportingVitestGlobals' | 'noRequiringVitestGlobals';
@@ -23,27 +24,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   },
   defaultOptions: [],
   create(context) {
-    const removeDeclarator = (fixer: TSESLint.RuleFixer, node: TSESTree.VariableDeclarator) => {
-      const variableDeclaration = node.parent;
-      const declarators = variableDeclaration.declarations;
-      if (declarators.length === 1) {
-        return fixer.remove(variableDeclaration);
-      }
-
-      const declaratorIndex = declarators.findIndex(
-        (decl) => decl.range[0] === node.range[0] && decl.range[1] === node.range[1]
-      );
-      if (declaratorIndex === 0) {
-        // First declarator: remove it and the following comma
-        const nextDeclarator = declarators[1];
-        return fixer.removeRange([node.range[0], nextDeclarator.range[0]]);
-      } else {
-        // Not first: remove the previous comma and this declarator
-        const prevDeclarator = declarators[declaratorIndex - 1];
-        return fixer.removeRange([prevDeclarator.range[1], node.range[1]]);
-      }
-    }
-
     return {
       ImportDeclaration(node: TSESTree.ImportDeclaration) {
         if (node.source.value !== 'vitest') {
@@ -107,13 +87,13 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             },
             fix(fixer) {
               if (properties.length === 1) {
-                return removeDeclarator(fixer, node);
+                return removeVariableDeclarator(fixer, node);
               }
 
               // If all properties are disallowed, remove the entire declarator
               const allDisallowed = properties.every(p => isVitestGlobalsProperty(p));
               if (allDisallowed) {
-                return removeDeclarator(fixer, node);
+                return removeVariableDeclarator(fixer, node);
               }
 
               const propIndex = properties.indexOf(prop);
