@@ -40,12 +40,13 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       output: "import vitest, { describe } from 'vitest';\ndescribe('suite', () => {});",
     },
-    // {
-    //   code: "import * as vitest from 'vitest'; describe('suite', () => {});",
-    //   errors: [
-    //     { message: "Import 'describe' from 'vitest'" },
-    //   ],
-    // },
+    {
+      code: "import * as abc from 'vitest';\ndescribe('suite', () => {});",
+      errors: [
+        { message: "Import 'describe' from 'vitest'" },
+      ],
+      output: "import { describe } from 'vitest';\nimport * as abc from 'vitest';\ndescribe('suite', () => {});",
+    },
     // {
     //   code: "import { \"default\" as vitest } from 'vitest'; describe('suite', () => {});",
     //   errors: [

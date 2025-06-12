@@ -75,17 +75,24 @@ export default createEslintRule<Options, MESSAGE_IDS>({
                 n.source.value === 'vitest'
             );
 
-            if (vitestImport) {
-              const defaultImport = vitestImport.specifiers.find(s => s.type === 'ImportDefaultSpecifier');
-              if(defaultImport){
-                return fixer.insertTextAfter(defaultImport!, `, { ${name} }`);
-              }
-
-              const lastSpecifier = vitestImport.specifiers[vitestImport.specifiers.length - 1];
-              return fixer.insertTextAfter(lastSpecifier, `, ${name}`);
-            } else {
+            if (!vitestImport) {
               return fixer.insertTextBefore(program.body[0], `import { ${name} } from 'vitest';\n`);
             }
+
+            const namespaceImport = vitestImport.specifiers.find(
+              s => s.type === 'ImportNamespaceSpecifier'
+            );
+            if (namespaceImport) {
+              return fixer.insertTextBefore(program.body[0], `import { ${name} } from 'vitest';\n`);
+            }
+
+            const defaultImport = vitestImport.specifiers.find(s => s.type === 'ImportDefaultSpecifier');
+            if (defaultImport) {
+              return fixer.insertTextAfter(defaultImport!, `, { ${name} }`);
+            }
+
+            const lastSpecifier = vitestImport.specifiers[vitestImport.specifiers.length - 1];
+            return fixer.insertTextAfter(lastSpecifier, `, ${name}`);
           }
         });
       },
