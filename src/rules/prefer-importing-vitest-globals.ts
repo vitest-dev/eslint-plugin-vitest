@@ -1,4 +1,4 @@
-import { TSESTree } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
 import { createEslintRule } from "../utils";
 import { VITEST_GLOBALS } from "../utils/valid-vitest-globals";
 import { isObjectPattern, isRequireVitestCall, isVitestGlobalsImportSpecifier, isVitestGlobalsProperty, isVitestImport } from "../utils/guards";
@@ -51,7 +51,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       },
       CallExpression(node: TSESTree.CallExpression) {
         if (
-          node.callee.type !== TSESTree.AST_NODE_TYPES.Identifier ||
+          node.callee.type !== AST_NODE_TYPES.Identifier ||
           !VITEST_GLOBALS.has(node.callee.name)
         ) {
           return;
@@ -71,7 +71,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
             const vitestImport = program.body.find(
               (n): n is TSESTree.ImportDeclaration =>
-                n.type === TSESTree.AST_NODE_TYPES.ImportDeclaration &&
+                n.type === AST_NODE_TYPES.ImportDeclaration &&
                 n.source.value === 'vitest'
             );
 
