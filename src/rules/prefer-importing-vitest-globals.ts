@@ -1,6 +1,5 @@
-import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
+import { TSESTree } from "@typescript-eslint/utils";
 import { createEslintRule } from "../utils";
-import { VITEST_GLOBALS } from "../utils/valid-vitest-globals";
 import { isObjectPattern, isRequireVitestCall, isVitestGlobalsFunction, isVitestGlobalsImportSpecifier, isVitestGlobalsProperty, isVitestImport } from "../utils/guards";
 import { findVitestImport } from "src/utils/finders";
 
