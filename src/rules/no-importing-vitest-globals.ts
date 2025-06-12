@@ -34,21 +34,12 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   },
   defaultOptions: [],
   create(context) {
-    const checkSpecifier = (specifier: TSESTree.ImportClause) => {
-      if (specifier.type !== TSESTree.AST_NODE_TYPES.ImportSpecifier) {
-        return { isValid: true };
-      }
-
-      if (specifier.imported.type !== TSESTree.AST_NODE_TYPES.Identifier) {
-        return { isValid: true };
-      }
-
-      const importedName = specifier.imported.name;
-      if (!DISALLOWED_IMPORTS.has(importedName)) {
-        return { isValid: true };
-      }
-
-      return { isValid: false, importedName };
+    const isDisallowedSpecifier = (specifier: TSESTree.ImportClause): specifier is TSESTree.ImportSpecifier & { imported: TSESTree.Identifier } => {
+      return (
+        specifier.type === TSESTree.AST_NODE_TYPES.ImportSpecifier &&
+        specifier.imported.type === TSESTree.AST_NODE_TYPES.Identifier &&
+        DISALLOWED_IMPORTS.has(specifier.imported.name)
+      );
     }
 
     const isDisallowedProperty = (prop: TSESTree.Property | TSESTree.RestElement): prop is TSESTree.Property & { key: TSESTree.Identifier } => {
@@ -108,8 +99,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         }
 
         for (const specifier of node.specifiers) {
-          const { isValid, importedName } = checkSpecifier(specifier);
-          if (isValid) {
+          if(!isDisallowedSpecifier(specifier)) {
             continue;
           }
 
@@ -117,7 +107,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             node: specifier,
             messageId: 'noImportingVitestGlobals',
             data: {
-              name: importedName,
+              name: specifier.imported.name,
             },
             fix(fixer: TSESLint.RuleFixer) {
               const specifiers = node.specifiers;
@@ -128,10 +118,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               }
 
               // If all specifiers are disallowed, remove the entire import
-              const allDisallowed = specifiers.every(spec => {
-                const { isValid } = checkSpecifier(spec);
-                return !isValid;
-              });
+              const allDisallowed = specifiers.every(spec => isDisallowedSpecifier(spec));
               if (allDisallowed) {
                 return fixer.remove(node);
               }
