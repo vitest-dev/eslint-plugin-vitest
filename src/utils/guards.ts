@@ -21,6 +21,13 @@ export const isVitestGlobalsProperty = (prop: TSESTree.Property | TSESTree.RestE
   );
 };
 
+export const isVitestGlobalsFunction = (node: TSESTree.CallExpression): node is TSESTree.CallExpression & { callee: TSESTree.Identifier } => {
+  return (
+    node.callee.type === AST_NODE_TYPES.Identifier &&
+    VITEST_GLOBALS.has(node.callee.name)
+  )
+}
+
 export const isRequireVitestCall = (node: TSESTree.Expression | null): node is TSESTree.CallExpression => {
   if (
     node?.type !== AST_NODE_TYPES.CallExpression ||
