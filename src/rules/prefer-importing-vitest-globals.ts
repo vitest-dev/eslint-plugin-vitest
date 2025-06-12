@@ -1,7 +1,6 @@
 import { TSESTree } from "@typescript-eslint/utils";
 import { createEslintRule } from "../utils";
 import { isObjectPattern, isRequireVitestCall, isVitestGlobalsFunction, isVitestGlobalsImportSpecifier, isVitestGlobalsProperty, isVitestImport } from "../utils/guards";
-import { findVitestImport } from "src/utils/finders";
 
 export const RULE_NAME = 'prefer-importing-vitest-globals';
 export type MESSAGE_IDS = 'preferImportingVitestGlobals';
@@ -24,10 +23,12 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   defaultOptions: [],
   create(context) {
     const importedNames = new Set<string>();
+    let vitestImport: TSESTree.ImportDeclaration;
 
     return {
       ImportDeclaration(node: TSESTree.ImportDeclaration) {
         if (!isVitestImport(node)) return;
+        vitestImport = node;
 
         const specifiers = node.specifiers;
         for (const specifier of specifiers) {
@@ -61,7 +62,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           data: { name },
           fix(fixer) {
             const program = context.sourceCode.ast;
-            const vitestImport = findVitestImport(program);
             if (!vitestImport) {
               return fixer.insertTextBefore(program.body[0], `import { ${name} } from 'vitest';\n`);
             }
