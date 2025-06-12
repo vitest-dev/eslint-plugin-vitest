@@ -89,6 +89,27 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       }
     }
 
+    const isRequireVitestCall = (node: TSESTree.Expression | null): node is TSESTree.CallExpression => {
+      if (
+        node?.type !== TSESTree.AST_NODE_TYPES.CallExpression ||
+        node.callee.type !== TSESTree.AST_NODE_TYPES.Identifier ||
+        node.callee.name !== 'require'
+      ) {
+        return false;
+      }
+
+      const args = node.arguments;
+      return (
+        args.length === 1 &&
+        args[0].type === TSESTree.AST_NODE_TYPES.Literal &&
+        args[0].value === 'vitest'
+      );
+    };
+
+    const isObjectPattern = (node: TSESTree.BindingName): node is TSESTree.ObjectPattern => {
+      return node.type === TSESTree.AST_NODE_TYPES.ObjectPattern;
+    };
+
     return {
       ImportDeclaration(node: TSESTree.ImportDeclaration) {
         if (node.source.value !== 'vitest') {
@@ -139,37 +160,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         }
       },
       VariableDeclarator(node: TSESTree.VariableDeclarator) {
-        if (!node.init) {
-          return;
-        }
-
-        if (node.init.type !== TSESTree.AST_NODE_TYPES.CallExpression) {
-          return;
-        }
-
-        if (node.init.callee.type !== TSESTree.AST_NODE_TYPES.Identifier) {
-          return;
-        }
-
-        if (node.init.callee.name !== 'require') {
-          return;
-        }
-
-        if (node.init.arguments.length !== 1) {
-          return;
-        }
-
-        if (node.init.arguments[0].type !== TSESTree.AST_NODE_TYPES.Literal) {
-          return;
-        }
-
-        if (node.init.arguments[0].value !== 'vitest') {
-          return;
-        }
-
-        if (node.id.type !== TSESTree.AST_NODE_TYPES.ObjectPattern) {
-          return;
-        }
+        if (!isRequireVitestCall(node.init)) return;
+        if (!isObjectPattern(node.id)) return;
 
         const properties = node.id.properties;
         for (const prop of properties) {
