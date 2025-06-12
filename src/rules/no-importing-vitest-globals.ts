@@ -1,21 +1,10 @@
 import { TSESLint, TSESTree } from '@typescript-eslint/utils';
 import { createEslintRule } from '../utils'
+import { VITEST_GLOBALS } from '../utils/valid-vitest-globals';
 
 export const RULE_NAME = 'no-importing-vitest-globals';
 export type MESSAGE_IDS = 'noImportingVitestGlobals' | 'noRequiringVitestGlobals';
 export type Options = [];
-
-const DISALLOWED_IMPORTS = new Set([
-  'describe',
-  'it',
-  'test',
-  'beforeAll',
-  'afterAll',
-  'beforeEach',
-  'afterEach',
-  'expect',
-  'vi',
-]);
 
 export default createEslintRule<Options, MESSAGE_IDS>({
   name: RULE_NAME,
@@ -38,7 +27,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       return (
         specifier.type === TSESTree.AST_NODE_TYPES.ImportSpecifier &&
         specifier.imported.type === TSESTree.AST_NODE_TYPES.Identifier &&
-        DISALLOWED_IMPORTS.has(specifier.imported.name)
+        VITEST_GLOBALS.has(specifier.imported.name)
       );
     }
 
@@ -46,7 +35,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       return (
         prop.type === TSESTree.AST_NODE_TYPES.Property &&
         prop.key.type === TSESTree.AST_NODE_TYPES.Identifier &&
-        DISALLOWED_IMPORTS.has(prop.key.name)
+        VITEST_GLOBALS.has(prop.key.name)
       );
     };
 
