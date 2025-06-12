@@ -24,11 +24,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   create(context) {
     const importedNames = new Set<string>();
     let vitestImport: TSESTree.ImportDeclaration;
+    let vitestRequireProperties: TSESTree.ObjectPattern['properties'] | undefined;
 
     return {
       ImportDeclaration(node: TSESTree.ImportDeclaration) {
         if (!isVitestImport(node)) return;
-        vitestImport = node;
 
         const specifiers = node.specifiers;
         for (const specifier of specifiers) {
@@ -37,6 +37,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             importedNames.add(importedName);
           }
         }
+
+        vitestImport = node;
       },
       VariableDeclarator(node: TSESTree.VariableDeclarator) {
         if (!isRequireVitestCall(node.init)) return;
@@ -49,6 +51,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             importedNames.add(importedName);
           }
         }
+
+        vitestRequireProperties = properties;
       },
       CallExpression(node: TSESTree.CallExpression) {
         if (!isVitestGlobalsFunction(node)) return;
@@ -63,7 +67,12 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           fix(fixer) {
             const program = context.sourceCode.ast;
             if (!vitestImport) {
-              return fixer.insertTextBefore(program.body[0], `import { ${name} } from 'vitest';\n`);
+              if (!vitestRequireProperties) {
+                return fixer.insertTextBefore(program.body[0], `import { ${name} } from 'vitest';\n`);
+              } else {
+                const lastProp = vitestRequireProperties[vitestRequireProperties.length - 1];
+                return fixer.insertTextAfter(lastProp, `, ${name}`);
+              }
             }
 
             const namespaceImport = vitestImport.specifiers.find(s => s.type === 'ImportNamespaceSpecifier');

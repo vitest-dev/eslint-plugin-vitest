@@ -80,14 +80,14 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         { message: "Import 'describe' from 'vitest'" },
       ],
-      output: "import { describe } from 'vitest';\nconst { ...rest } = require('vitest'); describe('suite', () => {});",
+      output: "const { ...rest, describe } = require('vitest'); describe('suite', () => {});",
     },
     {
       code: "const { \"default\": vitest } = require('vitest'); describe('suite', () => {});",
       errors: [
         { message: "Import 'describe' from 'vitest'" },
       ],
-      output: "import { describe } from 'vitest';\nconst { \"default\": vitest } = require('vitest'); describe('suite', () => {});",
+      output: "const { \"default\": vitest, describe } = require('vitest'); describe('suite', () => {});",
     },
   ]
 });
