@@ -4,13 +4,13 @@ import { ruleTester } from './ruleTester'
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     "vitest.describe('suite', () => {});",
-    "min(1, 2);"
+    "min(1, 2);",
   ],
   invalid: [
     {
       code: "describe('suite', () => {});",
       errors: [
-        { message: "Import 'TODO' from 'vitest'" },
+        { message: "Import 'describe' from 'vitest'" },
       ],
     },
   ]

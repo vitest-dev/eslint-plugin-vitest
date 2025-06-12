@@ -35,7 +35,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         context.report({
           node: node.callee,
           messageId: 'preferImportingVitestGlobals',
-          data: { name: 'TODO' },
+          data: { name: node.callee.name },
         });
       },
     };
