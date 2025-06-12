@@ -1,6 +1,7 @@
 import { TSESLint, TSESTree } from '@typescript-eslint/utils';
 import { createEslintRule } from '../utils'
 import { VITEST_GLOBALS } from '../utils/valid-vitest-globals';
+import { isVitestGlobalsImportSpecifier } from 'src/utils/guards';
 
 export const RULE_NAME = 'no-importing-vitest-globals';
 export type MESSAGE_IDS = 'noImportingVitestGlobals' | 'noRequiringVitestGlobals';
@@ -23,14 +24,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   },
   defaultOptions: [],
   create(context) {
-    const isDisallowedSpecifier = (specifier: TSESTree.ImportClause): specifier is TSESTree.ImportSpecifier & { imported: TSESTree.Identifier } => {
-      return (
-        specifier.type === TSESTree.AST_NODE_TYPES.ImportSpecifier &&
-        specifier.imported.type === TSESTree.AST_NODE_TYPES.Identifier &&
-        VITEST_GLOBALS.has(specifier.imported.name)
-      );
-    }
-
     const isDisallowedProperty = (prop: TSESTree.Property | TSESTree.RestElement): prop is TSESTree.Property & { key: TSESTree.Identifier } => {
       return (
         prop.type === TSESTree.AST_NODE_TYPES.Property &&
@@ -88,7 +81,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         }
 
         for (const specifier of node.specifiers) {
-          if(!isDisallowedSpecifier(specifier)) {
+          if(!isVitestGlobalsImportSpecifier(specifier)) {
             continue;
           }
 
@@ -107,7 +100,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               }
 
               // If all specifiers are disallowed, remove the entire import
-              const allDisallowed = specifiers.every(spec => isDisallowedSpecifier(spec));
+              const allDisallowed = specifiers.every(spec => isVitestGlobalsImportSpecifier(spec));
               if (allDisallowed) {
                 return fixer.remove(node);
               }
