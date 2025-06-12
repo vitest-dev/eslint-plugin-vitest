@@ -89,5 +89,12 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       output: "const { \"default\": vitest, describe } = require('vitest'); describe('suite', () => {});",
     },
+    {
+      code: "const { it } = require('vitest');\ndescribe('suite', () => {});",
+      errors: [
+        { message: "Import 'describe' from 'vitest'" },
+      ],
+      output: "const { it, describe } = require('vitest');\ndescribe('suite', () => {});",
+    },
   ]
 });
