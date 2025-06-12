@@ -71,7 +71,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
             const vitestImport = program.body.find(
               (n): n is TSESTree.ImportDeclaration =>
-                n.type === 'ImportDeclaration' &&
+                n.type === TSESTree.AST_NODE_TYPES.ImportDeclaration &&
                 n.source.value === 'vitest'
             );
 
@@ -79,9 +79,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               return fixer.insertTextBefore(program.body[0], `import { ${name} } from 'vitest';\n`);
             }
 
-            const namespaceImport = vitestImport.specifiers.find(
-              s => s.type === 'ImportNamespaceSpecifier'
-            );
+            const namespaceImport = vitestImport.specifiers.find(s => s.type === 'ImportNamespaceSpecifier');
             if (namespaceImport) {
               return fixer.insertTextBefore(program.body[0], `import { ${name} } from 'vitest';\n`);
             }
