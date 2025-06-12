@@ -203,8 +203,6 @@ const plugin = {
     [noTestPrefixesName]: noTestPrefixes,
     [noTestReturnStatementName]: noTestReturnStatement,
     [noImportNodeTestName]: noImportNodeTest,
-    [noImportingVitestGlobalsName]: noImportingVitestGlobals,
-    [preferImportingVitestGlobalsName]: preferImportingVitestGlobals,
     [preferCalledWithName]: preferCalledWith,
     [validTitleName]: validTitle,
     [validExpectName]: validExpect,
