@@ -22,7 +22,9 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: "import { describe } from 'vitest';",
-      errors: [{ message: "Do not import 'describe' from 'vitest'. Use globals configuration instead." }],
+      errors: [
+        { message: "Do not import 'describe' from 'vitest'. Use globals configuration instead." }
+      ],
       output: "",
     },
     {
