@@ -41,3 +41,4 @@ export const removeNodeFromArray = (
     return fixer.removeRange([prev.range[1], target.range[1]]);
   }
 };
+

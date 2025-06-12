@@ -2,6 +2,7 @@ import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
 import { createEslintRule } from "../utils";
 import { VITEST_GLOBALS } from "../utils/valid-vitest-globals";
 import { isObjectPattern, isRequireVitestCall, isVitestGlobalsImportSpecifier, isVitestGlobalsProperty, isVitestImport } from "../utils/guards";
+import { findVitestImport } from "src/utils/finders";
 
 export const RULE_NAME = 'prefer-importing-vitest-globals';
 export type MESSAGE_IDS = 'preferImportingVitestGlobals';
@@ -68,13 +69,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           data: { name },
           fix(fixer) {
             const program = context.sourceCode.ast;
-
-            const vitestImport = program.body.find(
-              (n): n is TSESTree.ImportDeclaration =>
-                n.type === AST_NODE_TYPES.ImportDeclaration &&
-                n.source.value === 'vitest'
-            );
-
+            const vitestImport = findVitestImport(program);
             if (!vitestImport) {
               return fixer.insertTextBefore(program.body[0], `import { ${name} } from 'vitest';\n`);
             }
