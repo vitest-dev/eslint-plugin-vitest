@@ -7,6 +7,7 @@ ruleTester.run(RULE_NAME, rule, {
     "min(1, 2);",
     "import { describe } from 'vitest'; describe('suite', () => {});",
     "import { describe, it } from 'vitest'; describe('suite', () => {});",
+    "import { describe, desccribe } from 'vitest'; describe('suite', () => {});",
   ],
   invalid: [
     {
