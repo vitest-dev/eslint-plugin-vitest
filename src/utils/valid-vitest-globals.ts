@@ -7,5 +7,5 @@ export const VITEST_GLOBALS = new Set([
   'beforeEach',
   'afterEach',
   'expect',
-  'vi',
-]);
+  'vi'
+])
