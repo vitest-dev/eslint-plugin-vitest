@@ -1,7 +1,7 @@
 import { TSESLint, TSESTree } from '@typescript-eslint/utils';
 import { createEslintRule } from '../utils'
 import { isObjectPattern, isRequireVitestCall, isVitestGlobalsImportSpecifier, isVitestGlobalsProperty, isVitestImport } from '../utils/guards';
-import { removeVariableDeclarator } from '../utils/fixer-utils';
+import { removeNodeFromArray, removeVariableDeclarator } from '../utils/fixer-utils';
 
 export const RULE_NAME = 'no-importing-vitest-globals';
 export type MESSAGE_IDS = 'noImportingVitestGlobals' | 'noRequiringVitestGlobals';
@@ -53,16 +53,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
                 return fixer.remove(node);
               }
 
-              const specifierIndex = specifiers.indexOf(specifier);
-              if (specifierIndex === 0) {
-                // First specifier: remove it and the following comma
-                const nextSpecifier = specifiers[1];
-                return fixer.removeRange([specifier.range[0], nextSpecifier.range[0]]);
-              } else {
-                // Not first specifier: remove preceding comma and the specifier
-                const prevSpecifier = specifiers[specifierIndex - 1];
-                return fixer.removeRange([prevSpecifier.range[1], specifier.range[1]]);
-              }
+              return removeNodeFromArray(fixer, specifiers, specifier);
             }
           });
         }
@@ -94,16 +85,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
                 return removeVariableDeclarator(fixer, node);
               }
 
-              const propIndex = properties.indexOf(prop);
-              if (propIndex === 0) {
-                // First property: remove it and the following comma
-                const nextProp = properties[1];
-                return fixer.removeRange([prop.range[0], nextProp.range[0]]);
-              } else {
-                // Not first property: remove preceding comma and the property
-                const prevProp = properties[propIndex - 1];
-                return fixer.removeRange([prevProp.range![1], prop.range![1]]);
-              }
+              return removeNodeFromArray(fixer, properties, prop);
             }
           });
         }
