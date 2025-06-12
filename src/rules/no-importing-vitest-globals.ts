@@ -1,6 +1,6 @@
 import { TSESLint, TSESTree } from '@typescript-eslint/utils';
 import { createEslintRule } from '../utils'
-import { isVitestGlobalsImportSpecifier, isVitestGlobalsProperty } from '../utils/guards';
+import { isObjectPattern, isRequireVitestCall, isVitestGlobalsImportSpecifier, isVitestGlobalsProperty } from '../utils/guards';
 
 export const RULE_NAME = 'no-importing-vitest-globals';
 export type MESSAGE_IDS = 'noImportingVitestGlobals' | 'noRequiringVitestGlobals';
@@ -43,27 +43,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         return fixer.removeRange([prevDeclarator.range[1], node.range[1]]);
       }
     }
-
-    const isRequireVitestCall = (node: TSESTree.Expression | null): node is TSESTree.CallExpression => {
-      if (
-        node?.type !== TSESTree.AST_NODE_TYPES.CallExpression ||
-        node.callee.type !== TSESTree.AST_NODE_TYPES.Identifier ||
-        node.callee.name !== 'require'
-      ) {
-        return false;
-      }
-
-      const args = node.arguments;
-      return (
-        args.length === 1 &&
-        args[0].type === TSESTree.AST_NODE_TYPES.Literal &&
-        args[0].value === 'vitest'
-      );
-    };
-
-    const isObjectPattern = (node: TSESTree.BindingName): node is TSESTree.ObjectPattern => {
-      return node.type === TSESTree.AST_NODE_TYPES.ObjectPattern;
-    };
 
     return {
       ImportDeclaration(node: TSESTree.ImportDeclaration) {
