@@ -8,7 +8,7 @@ export const removeVariableDeclarator = (fixer: TSESLint.RuleFixer, node: TSESTr
   }
 
   const declaratorIndex = declarators.findIndex(
-    (decl) => decl.range[0] === node.range[0] && decl.range[1] === node.range[1]
+    (dec) => dec.range[0] === node.range[0] && dec.range[1] === node.range[1]
   );
   if (declaratorIndex === 0) {
     // First declarator: remove it and the following comma
