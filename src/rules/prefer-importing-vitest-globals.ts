@@ -52,9 +52,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       },
       CallExpression(node: TSESTree.CallExpression) {
         if (!isVitestGlobalsFunction(node)) return;
-        if (importedNames.has(node.callee.name)) return;
 
         const name = node.callee.name;
+        if (importedNames.has(name)) return;
+
         context.report({
           node: node.callee,
           messageId: 'preferImportingVitestGlobals',
