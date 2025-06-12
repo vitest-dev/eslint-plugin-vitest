@@ -4,10 +4,12 @@ import { ruleTester } from './ruleTester'
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     "vitest.describe('suite', () => {});",
-    "min(1, 2);",
     "import { describe } from 'vitest'; describe('suite', () => {});",
     "import { describe, it } from 'vitest'; describe('suite', () => {});",
     "import { describe, desccribe } from 'vitest'; describe('suite', () => {});",
+    "const { describe } = require('vitest'); describe('suite', () => {});",
+    "const { describe, it } = require('vitest'); describe('suite', () => {});",
+    "const { describe, describe } = require('vitest'); describe('suite', () => {});",
   ],
   invalid: [
     {
@@ -42,6 +44,36 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: "import { \"default\" as vitest } from 'vitest'; describe('suite', () => {});",
+      errors: [
+        { message: "Import 'describe' from 'vitest'" },
+      ],
+    },
+    {
+      code: "const x = require('something', 'wrong'); describe('suite', () => {});",
+      errors: [
+        { message: "Import 'describe' from 'vitest'" },
+      ],
+    },
+    {
+      code: "const x = require('jest'); describe('suite', () => {});",
+      errors: [
+        { message: "Import 'describe' from 'vitest'" },
+      ],
+    },
+    {
+      code: "const vitest = require('vitest'); describe('suite', () => {});",
+      errors: [
+        { message: "Import 'describe' from 'vitest'" },
+      ],
+    },
+    {
+      code: "const { ...rest } = require('vitest'); describe('suite', () => {});",
+      errors: [
+        { message: "Import 'describe' from 'vitest'" },
+      ],
+    },
+    {
+      code: "const { \"default\": vitest } = require('vitest'); describe('suite', () => {});",
       errors: [
         { message: "Import 'describe' from 'vitest'" },
       ],
