@@ -1,6 +1,11 @@
 import { TSESTree } from "@typescript-eslint/utils";
 import { VITEST_GLOBALS } from "./valid-vitest-globals";
 
+export const isVitestImport = (node: TSESTree.ImportDeclaration): boolean => {
+  return node.source.value === 'vitest';
+}
+
+
 export const isVitestGlobalsImportSpecifier = (specifier: TSESTree.ImportClause): specifier is TSESTree.ImportSpecifier & { imported: TSESTree.Identifier } => {
   return (
     specifier.type === TSESTree.AST_NODE_TYPES.ImportSpecifier &&
