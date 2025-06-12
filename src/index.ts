@@ -240,7 +240,9 @@ const plugin = {
     [paddingAroundTestBlocksName]: paddingAroundTestBlocks,
     [validExpectInPromiseName]: validExpectInPromise,
     [preferStrictBooleanMatchersName]: preferStrictBooleanMatchers,
-    [requireMockTypeParametersName]: requireMockTypeParameters
+    [requireMockTypeParametersName]: requireMockTypeParameters,
+    [noImportingVitestGlobalsName]: noImportingVitestGlobals,
+    [preferImportingVitestGlobalsName]: preferImportingVitestGlobals
   },
   environments: {
     env: {
