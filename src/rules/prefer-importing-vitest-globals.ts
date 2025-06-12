@@ -76,6 +76,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             );
 
             if (vitestImport) {
+              const defaultImport = vitestImport.specifiers.find(s => s.type === 'ImportDefaultSpecifier');
+              if(defaultImport){
+                return fixer.insertTextAfter(defaultImport!, `, { ${name} }`);
+              }
+
               const lastSpecifier = vitestImport.specifiers[vitestImport.specifiers.length - 1];
               return fixer.insertTextAfter(lastSpecifier, `, ${name}`);
             } else {
