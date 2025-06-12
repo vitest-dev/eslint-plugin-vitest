@@ -42,17 +42,13 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             fix(fixer: TSESLint.RuleFixer) {
               const specifiers = node.specifiers;
 
-              // If this is the only specifier, remove the entire import
-              if (specifiers.length === 1) {
-                return fixer.remove(node);
-              }
-
               // If all specifiers are disallowed, remove the entire import
               const allDisallowed = specifiers.every(spec => isVitestGlobalsImportSpecifier(spec));
               if (allDisallowed) {
                 return fixer.remove(node);
               }
 
+              // Otherwise, remove just the particular specifier
               return removeNodeFromArray(fixer, specifiers, specifier);
             }
           });
@@ -75,16 +71,13 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               name: prop.key.name,
             },
             fix(fixer) {
-              if (properties.length === 1) {
-                return removeVariableDeclarator(fixer, node);
-              }
-
               // If all properties are disallowed, remove the entire declarator
               const allDisallowed = properties.every(p => isVitestGlobalsProperty(p));
               if (allDisallowed) {
                 return removeVariableDeclarator(fixer, node);
               }
 
+              // Otherwise, remove just the particular property
               return removeNodeFromArray(fixer, properties, prop);
             }
           });
