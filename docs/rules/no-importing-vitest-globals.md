@@ -1,4 +1,4 @@
-# Disallow importing Vitest globals (`vitest/no-import-vitest-globals`)
+# Disallow importing Vitest globals (`vitest/no-importing-vitest-globals`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
