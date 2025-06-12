@@ -15,8 +15,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       recommended: false,
     },
     messages: {
-      preferImportingVitestGlobals:
-        "Import '{{name}}' from 'vitest'",
+      preferImportingVitestGlobals: "Import '{{name}}' from 'vitest'",
     },
     schema: [],
     fixable: 'code',
