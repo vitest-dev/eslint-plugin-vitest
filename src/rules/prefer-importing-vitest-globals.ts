@@ -73,7 +73,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
             const defaultImport = vitestImport.specifiers.find(s => s.type === 'ImportDefaultSpecifier');
             if (defaultImport) {
-              return fixer.insertTextAfter(defaultImport!, `, { ${name} }`);
+              return fixer.insertTextAfter(defaultImport, `, { ${name} }`);
             }
 
             const lastSpecifier = vitestImport.specifiers[vitestImport.specifiers.length - 1];
