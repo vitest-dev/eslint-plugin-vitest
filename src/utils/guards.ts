@@ -8,3 +8,11 @@ export const isVitestGlobalsImportSpecifier = (specifier: TSESTree.ImportClause)
         VITEST_GLOBALS.has(specifier.imported.name)
     );
 }
+
+export const isVitestGlobalsProperty = (prop: TSESTree.Property | TSESTree.RestElement): prop is TSESTree.Property & { key: TSESTree.Identifier } => {
+    return (
+        prop.type === TSESTree.AST_NODE_TYPES.Property &&
+        prop.key.type === TSESTree.AST_NODE_TYPES.Identifier &&
+        VITEST_GLOBALS.has(prop.key.name)
+    );
+};

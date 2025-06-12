@@ -1,7 +1,6 @@
 import { TSESLint, TSESTree } from '@typescript-eslint/utils';
 import { createEslintRule } from '../utils'
-import { VITEST_GLOBALS } from '../utils/valid-vitest-globals';
-import { isVitestGlobalsImportSpecifier } from 'src/utils/guards';
+import { isVitestGlobalsImportSpecifier, isVitestGlobalsProperty } from '../utils/guards';
 
 export const RULE_NAME = 'no-importing-vitest-globals';
 export type MESSAGE_IDS = 'noImportingVitestGlobals' | 'noRequiringVitestGlobals';
@@ -24,14 +23,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   },
   defaultOptions: [],
   create(context) {
-    const isDisallowedProperty = (prop: TSESTree.Property | TSESTree.RestElement): prop is TSESTree.Property & { key: TSESTree.Identifier } => {
-      return (
-        prop.type === TSESTree.AST_NODE_TYPES.Property &&
-        prop.key.type === TSESTree.AST_NODE_TYPES.Identifier &&
-        VITEST_GLOBALS.has(prop.key.name)
-      );
-    };
-
     const removeDeclarator = (fixer: TSESLint.RuleFixer, node: TSESTree.VariableDeclarator) => {
       const variableDeclaration = node.parent;
       const declarators = variableDeclaration.declarations;
@@ -125,7 +116,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         const properties = node.id.properties;
         for (const prop of properties) {
-          if (!isDisallowedProperty(prop)) {
+          if (!isVitestGlobalsProperty(prop)) {
             continue;
           }
 
@@ -141,7 +132,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               }
 
               // If all properties are disallowed, remove the entire declarator
-              const allDisallowed = properties.every(p => isDisallowedProperty(p));
+              const allDisallowed = properties.every(p => isVitestGlobalsProperty(p));
               if (allDisallowed) {
                 return removeDeclarator(fixer, node);
               }
