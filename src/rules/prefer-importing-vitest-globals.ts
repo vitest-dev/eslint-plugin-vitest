@@ -13,7 +13,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   meta: {
     type: 'suggestion',
     docs: {
-      description: 'Detect usage of Vitest globals without importing them',
+      description: 'Enforce importing Vitest globals',
       recommended: false,
     },
     messages: {
