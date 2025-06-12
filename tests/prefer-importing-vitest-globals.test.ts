@@ -4,6 +4,7 @@ import { ruleTester } from './ruleTester'
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     "vitest.describe('suite', () => {});",
+    "min(1, 2);"
   ],
   invalid: [
     {
