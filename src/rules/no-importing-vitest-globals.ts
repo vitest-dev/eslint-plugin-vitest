@@ -51,21 +51,12 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       return { isValid: false, importedName };
     }
 
-    const checkProperty = (prop: TSESTree.Property | TSESTree.RestElement) => {
-      if (prop.type !== TSESTree.AST_NODE_TYPES.Property) {
-        return { isValid: true };
-      }
-
-      if (prop.key.type !== TSESTree.AST_NODE_TYPES.Identifier) {
-        return { isValid: true };
-      }
-
-      const propertyName = prop.key.name;
-      if (!DISALLOWED_IMPORTS.has(propertyName)) {
-        return { isValid: true };
-      }
-
-      return { isValid: false, propertyName };
+    const isDisallowedProperty = (prop: TSESTree.Property | TSESTree.RestElement): prop is TSESTree.Property & { key: TSESTree.Identifier } => {
+      return (
+        prop.type === TSESTree.AST_NODE_TYPES.Property &&
+        prop.key.type === TSESTree.AST_NODE_TYPES.Identifier &&
+        DISALLOWED_IMPORTS.has(prop.key.name)
+      );
     };
 
     const removeDeclarator = (fixer: TSESLint.RuleFixer, node: TSESTree.VariableDeclarator) => {
@@ -165,8 +156,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         const properties = node.id.properties;
         for (const prop of properties) {
-          const { isValid, propertyName } = checkProperty(prop);
-          if (isValid) {
+          if (!isDisallowedProperty(prop)) {
             continue;
           }
 
@@ -174,7 +164,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             node: prop,
             messageId: 'noRequiringVitestGlobals',
             data: {
-              name: propertyName
+              name: prop.key.name,
             },
             fix(fixer) {
               if (properties.length === 1) {
@@ -182,10 +172,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               }
 
               // If all properties are disallowed, remove the entire declarator
-              const allDisallowed = properties.every(p => {
-                const { isValid } = checkProperty(p);
-                return !isValid;
-              });
+              const allDisallowed = properties.every(p => isDisallowedProperty(p));
               if (allDisallowed) {
                 return removeDeclarator(fixer, node);
               }
