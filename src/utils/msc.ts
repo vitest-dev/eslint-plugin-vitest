@@ -2,8 +2,6 @@ import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { getFirstMatcherArg, ParsedExpectVitestFnCall } from './parse-vitest-fn-call'
 import { EqualityMatcher } from './types'
 import { getAccessorValue, isSupportedAccessor } from '.'
-import { basename, parse } from 'node:path'
-import { fileURLToPath } from 'node:url'
 
 export const isBooleanLiteral = (node: TSESTree.Node): node is TSESTree.BooleanLiteral =>
   node.type === AST_NODE_TYPES.Literal && typeof node.value === 'boolean'

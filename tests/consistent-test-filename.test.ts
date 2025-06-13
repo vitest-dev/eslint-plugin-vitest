@@ -17,12 +17,12 @@ ruleTester.run(`file-name`, rule, {
       options: [{ pattern: String.raw`.*\.test\.ts$` }]
     },
     {
-      code: "export {}",
-      filename: "__tests__/2.ts",
-      errors: [{ messageId: "consistentTestFilename" }],
+      code: 'export {}',
+      filename: '__tests__/2.ts',
+      errors: [{ messageId: 'consistentTestFilename' }],
       options: [
-        { allTestPattern: String.raw`__tests__`, pattern: String.raw`.*\.test\.ts$` },
-      ],
-    },
+        { allTestPattern: String.raw`__tests__`, pattern: String.raw`.*\.test\.ts$` }
+      ]
+    }
   ]
 })
