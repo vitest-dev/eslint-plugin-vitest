@@ -1,7 +1,7 @@
 import { TSESTree } from '@typescript-eslint/utils'
 import ts from 'typescript'
 
-export enum HelperName {
+export enum UtilName {
   vi = 'vi',
   vitest = 'vitest'
 }
