@@ -6,7 +6,7 @@ import { parseVitestFnCall } from '../utils/parse-vitest-fn-call';
 export const RULE_NAME = 'consistent-vitest-vi';
 export type MESSAGE_ID = 'consistentUtil';
 
-const getOppositeUtilKeyword = (util: UtilName) =>
+const getOppositeVitestUtilKeyword = (util: UtilName) =>
   util === UtilName.vi ? UtilName.vitest : UtilName.vi;
 
 export default createEslintRule<[Partial<{ fn: UtilName }>], MESSAGE_ID>({
@@ -39,7 +39,7 @@ export default createEslintRule<[Partial<{ fn: UtilName }>], MESSAGE_ID>({
   create(context) {
     const config = context.options[0] ?? {};
     const utilKeyword = config.fn || UtilName.vi;
-    const oppositeUtilKeyword = getOppositeUtilKeyword(utilKeyword);
+    const oppositeUtilKeyword = getOppositeVitestUtilKeyword(utilKeyword);
 
     return {
       ImportDeclaration(node: TSESTree.ImportDeclaration) {
