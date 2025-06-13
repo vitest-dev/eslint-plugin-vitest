@@ -13,6 +13,7 @@ export type VitestFnType =
   | 'unknown'
   | 'hook'
   | 'vi'
+  | 'vitest'
   | 'expectTypeOf'
 
 interface ResolvedVitestFn {
@@ -119,6 +120,9 @@ const determineVitestFnType = (name: string): VitestFnType => {
 
   if (name === 'vi')
     return 'vi'
+
+  if (name === 'vitest')
+    return 'vitest'
 
   if (DescribeAlias.hasOwnProperty(name))
     return 'describe'
@@ -252,7 +256,7 @@ const parseVitestFnCallWithReasonInner = (
 
   const links = [name, ...rest.map(getAccessorValue)]
 
-  if (resolved.type !== 'testContext' && name !== 'vi' && name !== 'expect' && name !== 'expectTypeOf' && !ValidVitestFnCallChains.has(links.join('.')))
+  if (resolved.type !== 'testContext' && name !== 'vi' && name !== 'vitest' && name !== 'expect' && name !== 'expectTypeOf' && !ValidVitestFnCallChains.has(links.join('.')))
     return null
 
   const parsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'> = {
