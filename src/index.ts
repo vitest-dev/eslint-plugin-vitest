@@ -8,6 +8,7 @@ import noFocusedTests, { RULE_NAME as noFocusedTestsName } from './rules/no-focu
 import noConditionalTest, { RULE_NAME as noConditionalTests } from './rules/no-conditional-tests'
 import expectExpect, { RULE_NAME as expectedExpect } from './rules/expect-expect'
 import consistentTestIt, { RULE_NAME as useConsistentTestIt } from './rules/consistent-test-it'
+import consistentVitestVi, { RULE_NAME as useConsistentVitestVi } from './rules/consistent-vitest-vi'
 import preferToBe, { RULE_NAME as usePreferToBe } from './rules/prefer-to-be'
 import noHooks, { RULE_NAME as noHooksName } from './rules/no-hooks'
 import noRestrictedViMethods, { RULE_NAME as noRestrictedViMethodsName } from './rules/no-restricted-vi-methods'
@@ -93,6 +94,7 @@ const allRules = {
   [noFocusedTestsName]: 'warn',
   [noConditionalTests]: 'warn',
   [useConsistentTestIt]: 'warn',
+  [useConsistentVitestVi]: 'warn',
   [noHooksName]: 'warn',
   [noRestrictedViMethodsName]: 'warn',
   [useConsistentTestFilename]: 'warn',
@@ -179,6 +181,7 @@ const plugin = {
     [noConditionalTests]: noConditionalTest,
     [expectedExpect]: expectExpect,
     [useConsistentTestIt]: consistentTestIt,
+    [useConsistentVitestVi]: consistentVitestVi,
     [usePreferToBe]: preferToBe,
     [noHooksName]: noHooks,
     [noRestrictedViMethodsName]: noRestrictedViMethods,

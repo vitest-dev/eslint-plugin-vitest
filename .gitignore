@@ -3,3 +3,4 @@ dist/
 eslint-remote-tester-results/
 fixtures/node_modules
 .idea/
+.vscode/
