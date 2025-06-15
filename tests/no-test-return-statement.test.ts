@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
       expect(1).toBe(1);
     }`,
     `it("one", () => expect(1).toBe(1));
-       function myHelper() {}`
+       function myHelper() {}`,
   ],
   invalid: [
     {
@@ -23,9 +23,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'noTestReturnStatement',
           column: 7,
-          line: 2
-        }
-      ]
+          line: 2,
+        },
+      ],
     },
     {
       code: `it("one", function () {
@@ -35,9 +35,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'noTestReturnStatement',
           column: 7,
-          line: 2
-        }
-      ]
+          line: 2,
+        },
+      ],
     },
     {
       code: `it.skip("one", function () {
@@ -47,9 +47,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'noTestReturnStatement',
           column: 7,
-          line: 2
-        }
-      ]
+          line: 2,
+        },
+      ],
     },
     {
       code: `it("one", myTest);
@@ -60,9 +60,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'noTestReturnStatement',
           column: 8,
-          line: 3
-        }
-      ]
-    }
-  ]
+          line: 3,
+        },
+      ],
+    },
+  ],
 })

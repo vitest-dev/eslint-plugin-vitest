@@ -9,14 +9,14 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   meta: {
     docs: {
       description: 'disallow importing `node:test`',
-      recommended: false
+      recommended: false,
     },
     type: 'suggestion',
     messages: {
-      noImportNodeTest: 'Import from `vitest` instead of `node:test`'
+      noImportNodeTest: 'Import from `vitest` instead of `node:test`',
     },
     fixable: 'code',
-    schema: []
+    schema: [],
   },
   defaultOptions: [],
   create(context) {
@@ -26,13 +26,14 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           context.report({
             messageId: 'noImportNodeTest',
             node,
-            fix: fixer => fixer.replaceText(
-              node.source,
-              node.source.raw.replace('node:test', 'vitest')
-            )
+            fix: (fixer) =>
+              fixer.replaceText(
+                node.source,
+                node.source.raw.replace('node:test', 'vitest'),
+              ),
           })
         }
-      }
+      },
     }
-  }
+  },
 })

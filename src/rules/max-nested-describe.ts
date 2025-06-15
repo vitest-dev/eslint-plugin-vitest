@@ -6,7 +6,7 @@ export type MESSAGE_ID = 'maxNestedDescribe'
 export type Options = [
   {
     max: number
-  }
+  },
 ]
 
 export default createEslintRule<Options, MESSAGE_ID>({
@@ -15,36 +15,41 @@ export default createEslintRule<Options, MESSAGE_ID>({
     type: 'problem',
     docs: {
       description:
-                'require describe block to be less than set max value or default value',
-      recommended: false
+        'require describe block to be less than set max value or default value',
+      recommended: false,
     },
     schema: [
       {
         type: 'object',
         properties: {
           max: {
-            type: 'number'
-          }
+            type: 'number',
+          },
         },
-        additionalProperties: false
-      }
+        additionalProperties: false,
+      },
     ],
     messages: {
       maxNestedDescribe:
-                'Nested describe block should be less than set max value'
-    }
+        'Nested describe block should be less than set max value',
+    },
   },
   defaultOptions: [
     {
-      max: 5
-    }
+      max: 5,
+    },
   ],
   create(context, [{ max }]) {
     const stack: number[] = []
 
-    function pushStack(node: TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression) {
+    function pushStack(
+      node: TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression,
+    ) {
       if (node.parent?.type !== 'CallExpression') return
-      if (node.parent.callee.type !== 'Identifier' || node.parent.callee.name !== 'describe')
+      if (
+        node.parent.callee.type !== 'Identifier' ||
+        node.parent.callee.name !== 'describe'
+      )
         return
 
       stack.push(0)
@@ -52,23 +57,28 @@ export default createEslintRule<Options, MESSAGE_ID>({
       if (stack.length > max) {
         context.report({
           node: node.parent,
-          messageId: 'maxNestedDescribe'
+          messageId: 'maxNestedDescribe',
         })
       }
     }
-    function popStack(node: TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression) {
+    function popStack(
+      node: TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression,
+    ) {
       if (node.parent?.type !== 'CallExpression') return
-      if (node.parent.callee.type !== 'Identifier' || node.parent.callee.name !== 'describe')
+      if (
+        node.parent.callee.type !== 'Identifier' ||
+        node.parent.callee.name !== 'describe'
+      )
         return
 
       stack.pop()
     }
 
     return {
-      'FunctionExpression': pushStack,
+      FunctionExpression: pushStack,
       'FunctionExpression:exit': popStack,
-      'ArrowFunctionExpression': pushStack,
-      'ArrowFunctionExpression:exit': popStack
+      ArrowFunctionExpression: pushStack,
+      'ArrowFunctionExpression:exit': popStack,
     }
-  }
+  },
 })

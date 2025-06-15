@@ -12,13 +12,14 @@ export default createEslintRule<Options, MESSAGE_ID>({
     type: 'problem',
     docs: {
       description: 'disallow string interpolation in snapshots',
-      recommended: false
+      recommended: false,
     },
     fixable: 'code',
     schema: [],
     messages: {
-      noInterpolationInSnapshots: 'Do not use string interpolation in snapshots'
-    }
+      noInterpolationInSnapshots:
+        'Do not use string interpolation in snapshots',
+    },
   },
   defaultOptions: [],
   create(context) {
@@ -26,21 +27,27 @@ export default createEslintRule<Options, MESSAGE_ID>({
       CallExpression(node) {
         const vitestFnCall = parseVitestFnCall(node, context)
 
-        if (vitestFnCall?.type !== 'expect')
-          return
+        if (vitestFnCall?.type !== 'expect') return
 
-        if (['toMatchInlineSnapshot',
-          'toThrowErrorMatchingInlineSnapshot'].includes(getAccessorValue(vitestFnCall.matcher))) {
+        if (
+          [
+            'toMatchInlineSnapshot',
+            'toThrowErrorMatchingInlineSnapshot',
+          ].includes(getAccessorValue(vitestFnCall.matcher))
+        ) {
           vitestFnCall.args.forEach((argument) => {
-            if (argument.type === AST_NODE_TYPES.TemplateLiteral && argument.expressions.length > 0) {
+            if (
+              argument.type === AST_NODE_TYPES.TemplateLiteral &&
+              argument.expressions.length > 0
+            ) {
               context.report({
                 messageId: 'noInterpolationInSnapshots',
-                node: argument
+                node: argument,
               })
             }
           })
         }
-      }
+      },
     }
-  }
+  },
 })

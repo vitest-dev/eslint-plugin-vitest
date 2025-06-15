@@ -33,7 +33,7 @@ ruleTester.run(`${RULE_NAME}-logical conditions`, rule, {
     it('foo', () => {
       expect(getValue()).toBe(2);
     });
-     `
+     `,
   ],
   invalid: [
     {
@@ -42,9 +42,9 @@ ruleTester.run(`${RULE_NAME}-logical conditions`, rule, {
        })`,
       errors: [
         {
-          messageId: 'noConditionalExpect'
-        }
-      ]
+          messageId: 'noConditionalExpect',
+        },
+      ],
     },
     {
       code: ` it('foo', () => {
@@ -52,9 +52,9 @@ ruleTester.run(`${RULE_NAME}-logical conditions`, rule, {
        })`,
       errors: [
         {
-          messageId: 'noConditionalExpect'
-        }
-      ]
+          messageId: 'noConditionalExpect',
+        },
+      ],
     },
     {
       code: `
@@ -62,7 +62,7 @@ ruleTester.run(`${RULE_NAME}-logical conditions`, rule, {
       something || expect(something).toHaveBeenCalled();
        })
      `,
-      errors: [{ messageId: 'noConditionalExpect' }]
+      errors: [{ messageId: 'noConditionalExpect' }],
     },
     {
       code: `
@@ -70,7 +70,7 @@ ruleTester.run(`${RULE_NAME}-logical conditions`, rule, {
       something || expect(something).toHaveBeenCalled();
        })
      `,
-      errors: [{ messageId: 'noConditionalExpect' }]
+      errors: [{ messageId: 'noConditionalExpect' }],
     },
     {
       code: `
@@ -80,9 +80,9 @@ ruleTester.run(`${RULE_NAME}-logical conditions`, rule, {
      
        it('foo', getValue);
      `,
-      errors: [{ messageId: 'noConditionalExpect' }]
-    }
-  ]
+      errors: [{ messageId: 'noConditionalExpect' }],
+    },
+  ],
 })
 
 ruleTester.run(`${RULE_NAME}-conditional conditions`, rule, {
@@ -102,7 +102,7 @@ ruleTester.run(`${RULE_NAME}-conditional conditions`, rule, {
       it('foo', () => {
         expect(getValue()).toBe(2);
       });
-    `
+    `,
   ],
   invalid: [
     {
@@ -111,7 +111,7 @@ ruleTester.run(`${RULE_NAME}-conditional conditions`, rule, {
       something ? expect(something).toHaveBeenCalled() : noop();
        })
      `,
-      errors: [{ messageId: 'noConditionalExpect' }]
+      errors: [{ messageId: 'noConditionalExpect' }],
     },
     {
       code: `
@@ -121,7 +121,7 @@ ruleTester.run(`${RULE_NAME}-conditional conditions`, rule, {
      
        it('foo', getValue);
      `,
-      errors: [{ messageId: 'noConditionalExpect' }]
+      errors: [{ messageId: 'noConditionalExpect' }],
     },
     {
       code: `
@@ -129,7 +129,7 @@ ruleTester.run(`${RULE_NAME}-conditional conditions`, rule, {
       something ? noop() : expect(something).toHaveBeenCalled();
        })
      `,
-      errors: [{ messageId: 'noConditionalExpect' }]
-    }
-  ]
+      errors: [{ messageId: 'noConditionalExpect' }],
+    },
+  ],
 })

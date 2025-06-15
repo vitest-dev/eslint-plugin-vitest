@@ -11,16 +11,18 @@ export default createEslintRule<Options, MESSAGE_ID>({
     type: 'suggestion',
     docs: {
       description: 'disallow specific `vi.` methods',
-      recommended: false
+      recommended: false,
     },
-    schema: [{
-      type: 'object',
-      additionalProperties: { type: ['string', 'null'] }
-    }],
+    schema: [
+      {
+        type: 'object',
+        additionalProperties: { type: ['string', 'null'] },
+      },
+    ],
     messages: {
       restrictedViMethod: 'Use of `{{ restriction }}` is disallowed',
-      restrictedViMethodWithMessage: '{{ message }}'
-    }
+      restrictedViMethodWithMessage: '{{ message }}',
+    },
   },
   defaultOptions: [{}],
   create(context, [restrictedMethods]) {
@@ -43,11 +45,12 @@ export default createEslintRule<Options, MESSAGE_ID>({
             data: { message, restriction: method },
             loc: {
               start: vitestFnCall.members[0].loc.start,
-              end: vitestFnCall.members[vitestFnCall.members.length - 1].loc.end
-            }
+              end: vitestFnCall.members[vitestFnCall.members.length - 1].loc
+                .end,
+            },
           })
         }
-      }
+      },
     }
-  }
+  },
 })

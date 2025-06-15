@@ -2,19 +2,22 @@ import { TSESLint } from '@typescript-eslint/utils'
 import rule, { RULE_NAME } from '../src/rules/prefer-equality-matcher'
 import { ruleTester } from './ruleTester'
 
-type RuleMessages<TRuleModule extends TSESLint.RuleModule<string, unknown[]>> = TRuleModule extends TSESLint.RuleModule<infer TMessageIds, unknown[]> ? TMessageIds : never
+type RuleMessages<TRuleModule extends TSESLint.RuleModule<string, unknown[]>> =
+  TRuleModule extends TSESLint.RuleModule<infer TMessageIds, unknown[]>
+    ? TMessageIds
+    : never
 
 type RuleSuggestionOutput = TSESLint.SuggestionOutput<RuleMessages<typeof rule>>
 
 const expectSuggestions = (
-  output: (equalityMatcher: string) => string
+  output: (equalityMatcher: string) => string,
 ): RuleSuggestionOutput[] => {
   return ['toBe', 'toEqual', 'toStrictEqual'].map<RuleSuggestionOutput>(
-    equalityMatcher => ({
+    (equalityMatcher) => ({
       messageId: 'suggestEqualityMatcher',
       data: { equalityMatcher },
-      output: output(equalityMatcher)
-    })
+      output: output(equalityMatcher),
+    }),
   )
 }
 
@@ -26,7 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
     'expect(true).toBe(...true)',
     'expect(a == 1).toBe(true)',
     'expect(1 == a).toBe(true)',
-    'expect(a == b).toBe(true)'
+    'expect(a == b).toBe(true)',
   ],
   invalid: [
     {
@@ -35,12 +38,12 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).${equalityMatcher}(b);`
+            (equalityMatcher) => `expect(a).${equalityMatcher}(b);`,
           ),
           column: 17,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a === b,).toBe(true,);',
@@ -49,12 +52,12 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a,).${equalityMatcher}(b,);`
+            (equalityMatcher) => `expect(a,).${equalityMatcher}(b,);`,
           ),
           column: 18,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a === b).toBe(false);',
@@ -62,12 +65,12 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).not.${equalityMatcher}(b);`
+            (equalityMatcher) => `expect(a).not.${equalityMatcher}(b);`,
           ),
           column: 17,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a === b).resolves.toBe(true);',
@@ -75,12 +78,12 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).resolves.${equalityMatcher}(b);`
+            (equalityMatcher) => `expect(a).resolves.${equalityMatcher}(b);`,
           ),
           column: 26,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a === b).resolves.toBe(false);',
@@ -88,12 +91,13 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).resolves.not.${equalityMatcher}(b);`
+            (equalityMatcher) =>
+              `expect(a).resolves.not.${equalityMatcher}(b);`,
           ),
           column: 26,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a === b).not.toBe(true);',
@@ -101,12 +105,12 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).not.${equalityMatcher}(b);`
+            (equalityMatcher) => `expect(a).not.${equalityMatcher}(b);`,
           ),
           column: 21,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a === b).not.toBe(false);',
@@ -114,12 +118,12 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).${equalityMatcher}(b);`
+            (equalityMatcher) => `expect(a).${equalityMatcher}(b);`,
           ),
           column: 21,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a === b).resolves.not.toBe(true);',
@@ -127,12 +131,13 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).resolves.not.${equalityMatcher}(b);`
+            (equalityMatcher) =>
+              `expect(a).resolves.not.${equalityMatcher}(b);`,
           ),
           column: 30,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a === b).resolves.not.toBe(false);',
@@ -140,12 +145,12 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).resolves.${equalityMatcher}(b);`
+            (equalityMatcher) => `expect(a).resolves.${equalityMatcher}(b);`,
           ),
           column: 30,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a === b)["resolves"].not.toBe(false);',
@@ -153,12 +158,12 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).resolves.${equalityMatcher}(b);`
+            (equalityMatcher) => `expect(a).resolves.${equalityMatcher}(b);`,
           ),
           column: 33,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a === b)["resolves"]["not"]["toBe"](false);',
@@ -166,14 +171,14 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).resolves.${equalityMatcher}(b);`
+            (equalityMatcher) => `expect(a).resolves.${equalityMatcher}(b);`,
           ),
           column: 36,
-          line: 1
-        }
-      ]
-    }
-  ]
+          line: 1,
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
@@ -184,7 +189,7 @@ ruleTester.run(RULE_NAME, rule, {
     'expect(true).toBe(...true)',
     'expect(a != 1).toBe(true)',
     'expect(1 != a).toBe(true)',
-    'expect(a != b).toBe(true)'
+    'expect(a != b).toBe(true)',
   ],
   invalid: [
     {
@@ -193,12 +198,12 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).not.${equalityMatcher}(b);`
+            (equalityMatcher) => `expect(a).not.${equalityMatcher}(b);`,
           ),
           column: 17,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a !== b).toBe(false);',
@@ -206,12 +211,12 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).${equalityMatcher}(b);`
+            (equalityMatcher) => `expect(a).${equalityMatcher}(b);`,
           ),
           column: 17,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a !== b).resolves.toBe(true);',
@@ -219,12 +224,13 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).resolves.not.${equalityMatcher}(b);`
+            (equalityMatcher) =>
+              `expect(a).resolves.not.${equalityMatcher}(b);`,
           ),
           column: 26,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a !== b).resolves.toBe(false);',
@@ -232,12 +238,12 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).resolves.${equalityMatcher}(b);`
+            (equalityMatcher) => `expect(a).resolves.${equalityMatcher}(b);`,
           ),
           column: 26,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a !== b).not.toBe(true);',
@@ -245,12 +251,12 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).${equalityMatcher}(b);`
+            (equalityMatcher) => `expect(a).${equalityMatcher}(b);`,
           ),
           column: 21,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a !== b).not.toBe(false);',
@@ -258,12 +264,12 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).not.${equalityMatcher}(b);`
+            (equalityMatcher) => `expect(a).not.${equalityMatcher}(b);`,
           ),
           column: 21,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a !== b).resolves.not.toBe(true);',
@@ -271,12 +277,12 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).resolves.${equalityMatcher}(b);`
+            (equalityMatcher) => `expect(a).resolves.${equalityMatcher}(b);`,
           ),
           column: 30,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a !== b).resolves.not.toBe(false);',
@@ -284,12 +290,13 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useEqualityMatcher',
           suggestions: expectSuggestions(
-            equalityMatcher => `expect(a).resolves.not.${equalityMatcher}(b);`
+            (equalityMatcher) =>
+              `expect(a).resolves.not.${equalityMatcher}(b);`,
           ),
           column: 30,
-          line: 1
-        }
-      ]
-    }
-  ]
+          line: 1,
+        },
+      ],
+    },
+  ],
 })

@@ -1,12 +1,12 @@
 import { createEslintRule } from '../utils'
-import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  isTypeOfVitestFnCall,
+  parseVitestFnCall,
+} from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'require-top-level-describe'
 
-type MESSAGE_IDS =
-  | 'tooManyDescribes'
-  | 'unexpectedTestCase'
-  | 'unexpectedHook'
+type MESSAGE_IDS = 'tooManyDescribes' | 'unexpectedTestCase' | 'unexpectedHook'
 
 type Options = [Partial<{ maxNumberOfTopLevelDescribes: number }>]
 
@@ -15,13 +15,13 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   meta: {
     docs: {
       description: 'enforce that all tests are in a top-level describe',
-      recommended: false
+      recommended: false,
     },
     messages: {
       tooManyDescribes:
         'There should not be more than {{ max }} describe{{ s }} at the top level',
       unexpectedTestCase: 'All test cases must be wrapped in a describe block',
-      unexpectedHook: 'All hooks must be wrapped in a describe block'
+      unexpectedHook: 'All hooks must be wrapped in a describe block',
     },
     type: 'suggestion',
     schema: [
@@ -30,12 +30,12 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         properties: {
           maxNumberOfTopLevelDescribes: {
             type: 'number',
-            minimum: 1
-          }
+            minimum: 1,
+          },
         },
-        additionalProperties: false
-      }
-    ]
+        additionalProperties: false,
+      },
+    ],
   },
   defaultOptions: [{}],
   create(context) {
@@ -60,8 +60,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
                 messageId: 'tooManyDescribes',
                 data: {
                   max: maxNumberOfTopLevelDescribes,
-                  s: maxNumberOfTopLevelDescribes === 1 ? '' : 's'
-                }
+                  s: maxNumberOfTopLevelDescribes === 1 ? '' : 's',
+                },
               })
             }
           }
@@ -81,7 +81,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       'CallExpression:exit'(node) {
         if (isTypeOfVitestFnCall(node, context, ['describe']))
           numberOfDescribeBlocks--
-      }
+      },
     }
-  }
+  },
 })

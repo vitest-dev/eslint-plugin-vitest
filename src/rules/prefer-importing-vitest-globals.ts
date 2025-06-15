@@ -1,6 +1,13 @@
 import { TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
-import { isObjectPattern, isRequireVitestCall, isVitestGlobalsFunction, isVitestGlobalsImportSpecifier, isVitestGlobalsProperty, isVitestImport } from '../utils/guards'
+import {
+  isObjectPattern,
+  isRequireVitestCall,
+  isVitestGlobalsFunction,
+  isVitestGlobalsImportSpecifier,
+  isVitestGlobalsProperty,
+  isVitestImport,
+} from '../utils/guards'
 
 export const RULE_NAME = 'prefer-importing-vitest-globals'
 export type MESSAGE_IDS = 'preferImportingVitestGlobals'
@@ -12,19 +19,21 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce importing Vitest globals',
-      recommended: false
+      recommended: false,
     },
     messages: {
-      preferImportingVitestGlobals: 'Import \'{{name}}\' from \'vitest\''
+      preferImportingVitestGlobals: "Import '{{name}}' from 'vitest'",
     },
     schema: [],
-    fixable: 'code'
+    fixable: 'code',
   },
   defaultOptions: [],
   create(context) {
     const importedNames = new Set<string>()
     let vitestImportSpecifiers: TSESTree.ImportClause[]
-    let vitestRequireProperties: TSESTree.ObjectPattern['properties'] | undefined
+    let vitestRequireProperties:
+      | TSESTree.ObjectPattern['properties']
+      | undefined
 
     return {
       ImportDeclaration(node: TSESTree.ImportDeclaration) {
@@ -68,29 +77,40 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             const program = context.sourceCode.ast
             if (!vitestImportSpecifiers) {
               if (!vitestRequireProperties) {
-                return fixer.insertTextBefore(program.body[0], `import { ${name} } from 'vitest';\n`)
-              }
-              else {
-                const lastProp = vitestRequireProperties[vitestRequireProperties.length - 1]
+                return fixer.insertTextBefore(
+                  program.body[0],
+                  `import { ${name} } from 'vitest';\n`,
+                )
+              } else {
+                const lastProp =
+                  vitestRequireProperties[vitestRequireProperties.length - 1]
                 return fixer.insertTextAfter(lastProp, `, ${name}`)
               }
             }
 
-            const namespaceImport = vitestImportSpecifiers.find(s => s.type === 'ImportNamespaceSpecifier')
+            const namespaceImport = vitestImportSpecifiers.find(
+              (s) => s.type === 'ImportNamespaceSpecifier',
+            )
             if (namespaceImport) {
-              return fixer.insertTextBefore(program.body[0], `import { ${name} } from 'vitest';\n`)
+              return fixer.insertTextBefore(
+                program.body[0],
+                `import { ${name} } from 'vitest';\n`,
+              )
             }
 
-            const defaultImport = vitestImportSpecifiers.find(s => s.type === 'ImportDefaultSpecifier')
+            const defaultImport = vitestImportSpecifiers.find(
+              (s) => s.type === 'ImportDefaultSpecifier',
+            )
             if (defaultImport) {
               return fixer.insertTextAfter(defaultImport, `, { ${name} }`)
             }
 
-            const lastSpecifier = vitestImportSpecifiers[vitestImportSpecifiers.length - 1]
+            const lastSpecifier =
+              vitestImportSpecifiers[vitestImportSpecifiers.length - 1]
             return fixer.insertTextAfter(lastSpecifier, `, ${name}`)
-          }
+          },
         })
-      }
+      },
     }
-  }
+  },
 })

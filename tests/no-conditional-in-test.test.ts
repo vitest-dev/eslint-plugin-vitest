@@ -12,7 +12,7 @@ ruleTester.run(`${RULE_NAME}-conditional expressions`, rule, {
       });`,
     `it.concurrent('foo', () => {
      switch('bar') {}
-      })`
+      })`,
   ],
   invalid: [
     {
@@ -21,19 +21,19 @@ ruleTester.run(`${RULE_NAME}-conditional expressions`, rule, {
      });`,
       errors: [
         {
-          messageId: 'noConditionalInTest'
-        }
-      ]
-    }
-  ]
+          messageId: 'noConditionalInTest',
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run(`${RULE_NAME}-if statements`, rule, {
   valid: [
     'if (foo) {}',
-    'it(\'foo\', () => {})',
+    "it('foo', () => {})",
     'it("foo", function () {})',
-    'it(\'foo\', () => {}); function myTest() { if (\'bar\') {} }',
+    "it('foo', () => {}); function myTest() { if ('bar') {} }",
     `describe.each\`\`('foo', () => {
      afterEach(() => {
        if ('bar') {}
@@ -51,7 +51,7 @@ ruleTester.run(`${RULE_NAME}-if statements`, rule, {
      it('still valid', () => {
        expect(values).toStrictEqual(['foo']);
      });
-      });`
+      });`,
   ],
   invalid: [
     {
@@ -67,8 +67,8 @@ ruleTester.run(`${RULE_NAME}-if statements`, rule, {
       errors: [
         { messageId: 'noConditionalInTest', column: 9, line: 3 },
         { messageId: 'noConditionalInTest', column: 9, line: 6 },
-        { messageId: 'noConditionalInTest', column: 9, line: 7 }
-      ]
+        { messageId: 'noConditionalInTest', column: 9, line: 7 },
+      ],
     },
     {
       code: `test("shows error", () => {
@@ -85,8 +85,8 @@ ruleTester.run(`${RULE_NAME}-if statements`, rule, {
        });`,
       errors: [
         { messageId: 'noConditionalInTest', column: 7, line: 2 },
-        { messageId: 'noConditionalInTest', column: 7, line: 9 }
-      ]
-    }
-  ]
+        { messageId: 'noConditionalInTest', column: 7, line: 9 },
+      ],
+    },
+  ],
 })

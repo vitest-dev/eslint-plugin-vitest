@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
     expectNumbersToBeGreaterThan(getNumbers(), 2);
    });
    `,
-      options: [{ onlyFunctionsWithExpectInLoop: true }]
+      options: [{ onlyFunctionsWithExpectInLoop: true }],
     },
     {
       code: `
@@ -39,7 +39,7 @@ ruleTester.run(RULE_NAME, rule, {
    }
    });
    `,
-      options: [{ onlyFunctionsWithExpectInLoop: true }]
+      options: [{ onlyFunctionsWithExpectInLoop: true }],
     },
     {
       code: `it("returns things that are less than ten", function () {
@@ -48,8 +48,8 @@ ruleTester.run(RULE_NAME, rule, {
      expect(thing).toBeLessThan(10);
     }
    });`,
-      options: [{ onlyFunctionsWithExpectInLoop: true }]
-    }
+      options: [{ onlyFunctionsWithExpectInLoop: true }],
+    },
   ],
   invalid: [
     {
@@ -59,9 +59,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'haveExpectAssertions',
           column: 1,
           line: 1,
-          suggestions: null
-        }
-      ]
+          suggestions: null,
+        },
+      ],
     },
     {
       code: `
@@ -87,7 +87,7 @@ it('my test description', ({ expect }) => {expect.hasAssertions();
 
   expect(sum(a, b)).toBe(a + b);
 })
-`
+`,
             },
             {
               messageId: 'suggestAddingAssertions',
@@ -98,11 +98,11 @@ it('my test description', ({ expect }) => {expect.assertions();
 
   expect(sum(a, b)).toBe(a + b);
 })
-`
-            }
-          ]
-        }
-      ]
+`,
+            },
+          ],
+        },
+      ],
     },
     {
       code: `
@@ -128,7 +128,7 @@ it('my test description', (context) => {context.expect.hasAssertions();
 
   context.expect(sum(a, b)).toBe(a + b);
 })
-`
+`,
             },
             {
               messageId: 'suggestAddingAssertions',
@@ -139,33 +139,33 @@ it('my test description', (context) => {context.expect.assertions();
 
   context.expect(sum(a, b)).toBe(a + b);
 })
-`
-            }
-          ]
-        }
-      ]
+`,
+            },
+          ],
+        },
+      ],
     },
     {
-      code: 'it(\'resolves\', () => expect(staged()).toBe(true));',
+      code: "it('resolves', () => expect(staged()).toBe(true));",
       errors: [
         {
           messageId: 'haveExpectAssertions',
           column: 1,
           line: 1,
-          suggestions: null
-        }
-      ]
+          suggestions: null,
+        },
+      ],
     },
     {
-      code: 'it(\'resolves\', async () => expect(await staged()).toBe(true));',
+      code: "it('resolves', async () => expect(await staged()).toBe(true));",
       errors: [
         {
           messageId: 'haveExpectAssertions',
           column: 1,
           line: 1,
-          suggestions: null
-        }
-      ]
+          suggestions: null,
+        },
+      ],
     },
     {
       code: 'it("it1", () => {})',
@@ -177,15 +177,15 @@ it('my test description', (context) => {context.expect.assertions();
           suggestions: [
             {
               messageId: 'suggestAddingHasAssertions',
-              output: 'it("it1", () => {expect.hasAssertions();})'
+              output: 'it("it1", () => {expect.hasAssertions();})',
             },
             {
               messageId: 'suggestAddingAssertions',
-              output: 'it("it1", () => {expect.assertions();})'
-            }
-          ]
-        }
-      ]
+              output: 'it("it1", () => {expect.assertions();})',
+            },
+          ],
+        },
+      ],
     },
     {
       code: 'it("it1", () => { foo()})',
@@ -197,15 +197,15 @@ it('my test description', (context) => {context.expect.assertions();
           suggestions: [
             {
               messageId: 'suggestAddingHasAssertions',
-              output: 'it("it1", () => {expect.hasAssertions(); foo()})'
+              output: 'it("it1", () => {expect.hasAssertions(); foo()})',
             },
             {
               messageId: 'suggestAddingAssertions',
-              output: 'it("it1", () => {expect.assertions(); foo()})'
-            }
-          ]
-        }
-      ]
+              output: 'it("it1", () => {expect.assertions(); foo()})',
+            },
+          ],
+        },
+      ],
     },
     {
       code: 'it("it1", function() {var a = 2;})',
@@ -218,15 +218,15 @@ it('my test description', (context) => {context.expect.assertions();
             {
               messageId: 'suggestAddingHasAssertions',
               output:
-                'it("it1", function() {expect.hasAssertions();var a = 2;})'
+                'it("it1", function() {expect.hasAssertions();var a = 2;})',
             },
             {
               messageId: 'suggestAddingAssertions',
-              output: 'it("it1", function() {expect.assertions();var a = 2;})'
-            }
-          ]
-        }
-      ]
+              output: 'it("it1", function() {expect.assertions();var a = 2;})',
+            },
+          ],
+        },
+      ],
     },
     {
       code: 'it("it1", function() {expect.assertions();})',
@@ -235,9 +235,9 @@ it('my test description', (context) => {context.expect.assertions();
           messageId: 'assertionsRequiresOneArgument',
           column: 30,
           line: 1,
-          suggestions: []
-        }
-      ]
+          suggestions: [],
+        },
+      ],
     },
     {
       code: 'it("it1", function() {expect.assertions(1,2);})',
@@ -249,11 +249,11 @@ it('my test description', (context) => {context.expect.assertions();
           suggestions: [
             {
               messageId: 'suggestRemovingExtraArguments',
-              output: 'it("it1", function() {expect.assertions(1,);})'
-            }
-          ]
-        }
-      ]
+              output: 'it("it1", function() {expect.assertions(1,);})',
+            },
+          ],
+        },
+      ],
     },
     {
       code: 'it("it1", function() {expect.assertions(1,2,);})',
@@ -265,11 +265,11 @@ it('my test description', (context) => {context.expect.assertions();
           suggestions: [
             {
               messageId: 'suggestRemovingExtraArguments',
-              output: 'it("it1", function() {expect.assertions(1,);})'
-            }
-          ]
-        }
-      ]
+              output: 'it("it1", function() {expect.assertions(1,);})',
+            },
+          ],
+        },
+      ],
     },
     {
       code: 'it("it1", function() {expect.assertions("1");})',
@@ -278,9 +278,9 @@ it('my test description', (context) => {context.expect.assertions();
           messageId: 'assertionsRequiresNumberArgument',
           column: 41,
           line: 1,
-          suggestions: []
-        }
-      ]
+          suggestions: [],
+        },
+      ],
     },
     {
       code: 'it("it1", function() {expect.hasAssertions("1");})',
@@ -292,11 +292,11 @@ it('my test description', (context) => {context.expect.assertions();
           suggestions: [
             {
               messageId: 'suggestRemovingExtraArguments',
-              output: 'it("it1", function() {expect.hasAssertions();})'
-            }
-          ]
-        }
-      ]
+              output: 'it("it1", function() {expect.hasAssertions();})',
+            },
+          ],
+        },
+      ],
     },
     {
       code: 'it("it1", function() {expect.hasAssertions("1",);})',
@@ -308,11 +308,11 @@ it('my test description', (context) => {context.expect.assertions();
           suggestions: [
             {
               messageId: 'suggestRemovingExtraArguments',
-              output: 'it("it1", function() {expect.hasAssertions();})'
-            }
-          ]
-        }
-      ]
+              output: 'it("it1", function() {expect.hasAssertions();})',
+            },
+          ],
+        },
+      ],
     },
     {
       code: 'it("it1", function() {expect.hasAssertions("1", "2");})',
@@ -324,11 +324,11 @@ it('my test description', (context) => {context.expect.assertions();
           suggestions: [
             {
               messageId: 'suggestRemovingExtraArguments',
-              output: 'it("it1", function() {expect.hasAssertions();})'
-            }
-          ]
-        }
-      ]
+              output: 'it("it1", function() {expect.hasAssertions();})',
+            },
+          ],
+        },
+      ],
     },
     {
       code: `it("it1", () => {
@@ -365,7 +365,7 @@ it('my test description', (context) => {context.expect.assertions();
     for (const number of getNumbers()) {
       expect(number).toBeGreaterThan(0);
     }
-     });`
+     });`,
             },
             {
               messageId: 'suggestAddingAssertions',
@@ -381,11 +381,11 @@ it('my test description', (context) => {context.expect.assertions();
     for (const number of getNumbers()) {
       expect(number).toBeGreaterThan(0);
     }
-     });`
-            }
-          ]
-        }
-      ]
+     });`,
+            },
+          ],
+        },
+      ],
     },
     {
       code: `it("returns numbers that are greater than four", async () => {
@@ -420,7 +420,7 @@ it('my test description', (context) => {context.expect.assertions();
     expect(number).toBeGreaterThan(5);
      }
    });
-    `
+    `,
             },
             {
               messageId: 'suggestAddingAssertions',
@@ -435,10 +435,9 @@ it('my test description', (context) => {context.expect.assertions();
     expect(number).toBeGreaterThan(5);
      }
    });
-    `
-
-            }
-          ]
+    `,
+            },
+          ],
         },
         {
           messageId: 'haveExpectAssertions',
@@ -458,7 +457,7 @@ it('my test description', (context) => {context.expect.assertions();
     expect(number).toBeGreaterThan(5);
      }
    });
-    `
+    `,
             },
             {
               messageId: 'suggestAddingAssertions',
@@ -473,11 +472,11 @@ it('my test description', (context) => {context.expect.assertions();
     expect(number).toBeGreaterThan(5);
      }
    });
-    `
-            }
-          ]
-        }
-      ]
-    }
-  ]
+    `,
+            },
+          ],
+        },
+      ],
+    },
+  ],
 })

@@ -1,16 +1,25 @@
-import { createEslintRule, getAccessorValue, isStringNode, isSupportedAccessor } from '../utils'
-import { isTypeOfVitestFnCall, ParsedExpectVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  createEslintRule,
+  getAccessorValue,
+  isStringNode,
+  isSupportedAccessor,
+} from '../utils'
+import {
+  isTypeOfVitestFnCall,
+  ParsedExpectVitestFnCall,
+  parseVitestFnCall,
+} from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'prefer-snapshot-hint'
 type MESSAGE_IDS = 'missingHint'
-type Options = [
-    ('always' | 'multi')?
-]
+type Options = [('always' | 'multi')?]
 
 const snapshotMatchers = ['toMatchSnapshot', 'toThrowErrorMatchingSnapshot']
 const snapshotMatcherNames = snapshotMatchers
 
-const isSnapshotMatcherWithoutHint = (expectFnCall: ParsedExpectVitestFnCall) => {
+const isSnapshotMatcherWithoutHint = (
+  expectFnCall: ParsedExpectVitestFnCall,
+) => {
   if (expectFnCall.args.length === 0) return true
 
   if (!isSupportedAccessor(expectFnCall.matcher, 'toMatchSnapshot'))
@@ -29,17 +38,17 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce including a hint with external snapshots',
-      recommended: false
+      recommended: false,
     },
     messages: {
-      missingHint: 'You should provide a hint for this snapshot'
+      missingHint: 'You should provide a hint for this snapshot',
     },
     schema: [
       {
         type: 'string',
-        enum: ['always', 'multi']
-      }
-    ]
+        enum: ['always', 'multi'],
+      },
+    ],
   },
   defaultOptions: ['multi'],
   create(context, [mode]) {
@@ -52,7 +61,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         if (isSnapshotMatcherWithoutHint(snapshotMatcher)) {
           context.report({
             messageId: 'missingHint',
-            node: snapshotMatcher.matcher
+            node: snapshotMatcher.matcher,
           })
         }
       }
@@ -71,8 +80,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       }
 
       if (mode === 'multi' && expressionDepth === 0) {
-        if (snapshotMatchers.length > 1)
-          reportSnapshotMatchersWithoutHints()
+        if (snapshotMatchers.length > 1) reportSnapshotMatchersWithoutHints()
 
         snapshotMatchers.length = 0
       }
@@ -83,9 +91,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         enterExpression()
         exitExpression()
       },
-      'FunctionExpression': enterExpression,
+      FunctionExpression: enterExpression,
       'FunctionExpression:exit': exitExpression,
-      'ArrowFunctionExpression': enterExpression,
+      ArrowFunctionExpression: enterExpression,
       'ArrowFunctionExpression:exit': exitExpression,
       'CallExpression:exit'(node) {
         if (isTypeOfVitestFnCall(node, context, ['describe', 'test']))
@@ -95,7 +103,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         const vitestFnCall = parseVitestFnCall(node, context)
 
         if (vitestFnCall?.type !== 'expect') {
-          if (vitestFnCall?.type === 'describe' || vitestFnCall?.type === 'test') {
+          if (
+            vitestFnCall?.type === 'describe' ||
+            vitestFnCall?.type === 'test'
+          ) {
             depths.push(expressionDepth)
             expressionDepth = 0
           }
@@ -107,7 +118,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         if (!snapshotMatcherNames.includes(matcherName)) return
 
         snapshotMatchers.push(vitestFnCall)
-      }
+      },
     }
-  }
+  },
 })

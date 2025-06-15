@@ -1,33 +1,32 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
-import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  isTypeOfVitestFnCall,
+  parseVitestFnCall,
+} from '../utils/parse-vitest-fn-call'
 import { TestCaseName } from '../utils/types'
 
 export const RULE_NAME = 'consistent-test-it'
 export type MessageIds = 'consistentMethod' | 'consistentMethodWithinDescribe'
 
-const buildFixer
-  = (
+const buildFixer =
+  (
     callee: TSESTree.Expression,
     nodeName: string,
-    preferredTestKeyword: TestCaseName.test | TestCaseName.it
+    preferredTestKeyword: TestCaseName.test | TestCaseName.it,
   ) =>
-    (fixer: TSESLint.RuleFixer) =>
-      [
-        fixer.replaceText(
-          callee.type === AST_NODE_TYPES.MemberExpression
-            ? callee.object
-            : callee,
-          getPreferredNodeName(nodeName, preferredTestKeyword)
-        )
-      ]
+  (fixer: TSESLint.RuleFixer) => [
+    fixer.replaceText(
+      callee.type === AST_NODE_TYPES.MemberExpression ? callee.object : callee,
+      getPreferredNodeName(nodeName, preferredTestKeyword),
+    ),
+  ]
 
 function getPreferredNodeName(
   nodeName: string,
-  preferredTestKeyword: TestCaseName.test | TestCaseName.it
+  preferredTestKeyword: TestCaseName.test | TestCaseName.it,
 ) {
-  if (nodeName === TestCaseName.fit)
-    return 'test.only'
+  if (nodeName === TestCaseName.fit) return 'test.only'
 
   return nodeName.startsWith('f') || nodeName.startsWith('x')
     ? nodeName.charAt(0) + preferredTestKeyword
@@ -35,8 +34,7 @@ function getPreferredNodeName(
 }
 
 function getOppositeTestKeyword(test: TestCaseName.test | TestCaseName.it) {
-  if (test === TestCaseName.test)
-    return TestCaseName.it
+  if (test === TestCaseName.test) return TestCaseName.it
 
   return TestCaseName.test
 }
@@ -46,7 +44,7 @@ export default createEslintRule<
     Partial<{
       fn: TestCaseName.it | TestCaseName.test
       withinDescribe: TestCaseName.it | TestCaseName.test
-    }>
+    }>,
   ],
   MessageIds
 >({
@@ -56,13 +54,13 @@ export default createEslintRule<
     fixable: 'code',
     docs: {
       description: 'enforce using test or it but not both',
-      recommended: false
+      recommended: false,
     },
     messages: {
       consistentMethod:
         'Prefer using {{ testFnKeyWork }} instead of {{ oppositeTestKeyword }}',
       consistentMethodWithinDescribe:
-        'Prefer using {{ testKeywordWithinDescribe }} instead of {{ oppositeTestKeyword }} within describe'
+        'Prefer using {{ testKeywordWithinDescribe }} instead of {{ oppositeTestKeyword }} within describe',
     },
     schema: [
       {
@@ -70,67 +68,72 @@ export default createEslintRule<
         properties: {
           fn: {
             type: 'string',
-            enum: [TestCaseName.test, TestCaseName.it]
+            enum: [TestCaseName.test, TestCaseName.it],
           },
           withinDescribe: {
             type: 'string',
-            enum: [TestCaseName.test, TestCaseName.it]
-          }
+            enum: [TestCaseName.test, TestCaseName.it],
+          },
         },
-        additionalProperties: false
-      }
-    ]
+        additionalProperties: false,
+      },
+    ],
   },
   defaultOptions: [{ fn: TestCaseName.test, withinDescribe: TestCaseName.it }],
   create(context) {
     const config = context.options[0] ?? {}
     const testFnKeyWork = config.fn || TestCaseName.test
-    const testKeywordWithinDescribe = config?.withinDescribe || config?.fn || TestCaseName?.it
-    const testFnDisabled = testFnKeyWork === testKeywordWithinDescribe ? testFnKeyWork : undefined
+    const testKeywordWithinDescribe =
+      config?.withinDescribe || config?.fn || TestCaseName?.it
+    const testFnDisabled =
+      testFnKeyWork === testKeywordWithinDescribe ? testFnKeyWork : undefined
 
     let describeNestingLevel = 0
 
     return {
       ImportDeclaration(node: TSESTree.ImportDeclaration) {
-        if (testFnDisabled == null)
-          return
+        if (testFnDisabled == null) return
         if (node.source.type !== 'Literal' || node.source.value !== 'vitest')
           return
 
         const oppositeTestKeyword = getOppositeTestKeyword(testFnDisabled)
         for (const specifier of node.specifiers) {
-          if (specifier.type !== 'ImportSpecifier')
-            continue
-          if (specifier.imported.type !== 'Identifier')
-            continue
-          if (specifier.local.name !== specifier.imported.name)
-            continue
+          if (specifier.type !== 'ImportSpecifier') continue
+          if (specifier.imported.type !== 'Identifier') continue
+          if (specifier.local.name !== specifier.imported.name) continue
           if (specifier.local.name === oppositeTestKeyword) {
             context.report({
               node: specifier,
               data: { testFnKeyWork, oppositeTestKeyword },
               messageId: 'consistentMethod',
               fix: (fixer) => {
-                const remainingSpecifiers = node.specifiers.filter(spec => spec.local.name !== oppositeTestKeyword)
+                const remainingSpecifiers = node.specifiers.filter(
+                  (spec) => spec.local.name !== oppositeTestKeyword,
+                )
                 if (remainingSpecifiers.length > 0) {
-                  const importText = remainingSpecifiers.map(spec => spec.local.name).join(', ')
+                  const importText = remainingSpecifiers
+                    .map((spec) => spec.local.name)
+                    .join(', ')
                   const lastSpecifierRange = node.specifiers.at(-1)?.range
                   if (!lastSpecifierRange) return null
 
                   return fixer.replaceTextRange(
                     [node.specifiers[0].range[0], lastSpecifierRange[1]],
-                    importText
+                    importText,
                   )
                 }
 
                 return fixer.replaceText(specifier.local, testFnDisabled)
-              }
+              },
             })
           }
         }
       },
       CallExpression(node: TSESTree.CallExpression) {
-        if (node.callee.type === AST_NODE_TYPES.Identifier && node.callee.name === 'bench')
+        if (
+          node.callee.type === AST_NODE_TYPES.Identifier &&
+          node.callee.name === 'bench'
+        )
           return
         const vitestFnCall = parseVitestFnCall(node, context)
 
@@ -141,40 +144,50 @@ export default createEslintRule<
           return
         }
 
-        const funcNode = node.callee.type === AST_NODE_TYPES.TaggedTemplateExpression
-          ? node.callee.tag
-          : node.callee.type === AST_NODE_TYPES.CallExpression
-            ? node.callee.callee
-            : node.callee
-        if (vitestFnCall.type === 'test'
-          && describeNestingLevel === 0
-          && !vitestFnCall.name.endsWith(testFnKeyWork)) {
+        const funcNode =
+          node.callee.type === AST_NODE_TYPES.TaggedTemplateExpression
+            ? node.callee.tag
+            : node.callee.type === AST_NODE_TYPES.CallExpression
+              ? node.callee.callee
+              : node.callee
+        if (
+          vitestFnCall.type === 'test' &&
+          describeNestingLevel === 0 &&
+          !vitestFnCall.name.endsWith(testFnKeyWork)
+        ) {
           const oppositeTestKeyword = getOppositeTestKeyword(testFnKeyWork)
 
           context.report({
             node: node.callee,
             data: { testFnKeyWork, oppositeTestKeyword },
             messageId: 'consistentMethod',
-            fix: buildFixer(funcNode, vitestFnCall.name, testFnKeyWork)
+            fix: buildFixer(funcNode, vitestFnCall.name, testFnKeyWork),
           })
-        }
-        else if (vitestFnCall.type === 'test'
-          && describeNestingLevel > 0
-          && !vitestFnCall.name.endsWith(testKeywordWithinDescribe)) {
-          const oppositeTestKeyword = getOppositeTestKeyword(testKeywordWithinDescribe)
+        } else if (
+          vitestFnCall.type === 'test' &&
+          describeNestingLevel > 0 &&
+          !vitestFnCall.name.endsWith(testKeywordWithinDescribe)
+        ) {
+          const oppositeTestKeyword = getOppositeTestKeyword(
+            testKeywordWithinDescribe,
+          )
 
           context.report({
             messageId: 'consistentMethodWithinDescribe',
             node: node.callee,
             data: { testKeywordWithinDescribe, oppositeTestKeyword },
-            fix: buildFixer(funcNode, vitestFnCall.name, testKeywordWithinDescribe)
+            fix: buildFixer(
+              funcNode,
+              vitestFnCall.name,
+              testKeywordWithinDescribe,
+            ),
           })
         }
       },
       'CallExpression:exit'(node) {
         if (isTypeOfVitestFnCall(node, context, ['describe']))
           describeNestingLevel--
-      }
+      },
     }
-  }
+  },
 })

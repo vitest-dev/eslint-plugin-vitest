@@ -5,7 +5,7 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     'test("shows error", () => {});',
     'it("foo", function () {})',
-    'it(\'foo\', () => {}); function myTest() { if (\'bar\') {} }',
+    "it('foo', () => {}); function myTest() { if ('bar') {} }",
     `function myFunc(str: string) {
     return str;
   }
@@ -21,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
       myFunc();
      }
      expect(true).toBe(false);
-    });`
+    });`,
   ],
   invalid: [
     {
@@ -32,8 +32,9 @@ ruleTester.run(RULE_NAME, rule, {
      })
     }
    })`,
-      errors: [{ messageId: 'noConditionalTests' }]
-    }, {
+      errors: [{ messageId: 'noConditionalTests' }],
+    },
+    {
       code: `
    describe("shows error", () => {
     if(true) {
@@ -42,7 +43,7 @@ ruleTester.run(RULE_NAME, rule, {
       })
      }
    })`,
-      errors: [{ messageId: 'noConditionalTests' }]
+      errors: [{ messageId: 'noConditionalTests' }],
     },
     {
       code: `describe("errors", () => {
@@ -52,7 +53,7 @@ ruleTester.run(RULE_NAME, rule, {
     });
     }
    });`,
-      errors: [{ messageId: 'noConditionalTests' }]
-    }
-  ]
+      errors: [{ messageId: 'noConditionalTests' }],
+    },
+  ],
 })

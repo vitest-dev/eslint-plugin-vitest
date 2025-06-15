@@ -11,29 +11,29 @@ ruleTester.run(RULE_NAME, rule, {
     'expect(obj).toStrictEqual({ x: 1 });',
     'expect(obj).not.toStrictEqual({ x: 1 });',
     'expect(value).toMatchSnapshot();',
-    'expect(catchError()).toStrictEqual({ message: \'oh noes!\' })',
+    "expect(catchError()).toStrictEqual({ message: 'oh noes!' })",
     'expect("something");',
     'expect(token).toStrictEqual(/[abc]+/g);',
-    'expect(token).toStrictEqual(new RegExp(\'[abc]+\', \'g\'));',
-    'expect(0.1 + 0.2).toEqual(0.3);'
+    "expect(token).toStrictEqual(new RegExp('[abc]+', 'g'));",
+    'expect(0.1 + 0.2).toEqual(0.3);',
   ],
   invalid: [
     {
       code: 'expect(value).toEqual("my string");',
       output: 'expect(value).toBe("my string");',
-      errors: [{ messageId: 'useToBe' }]
+      errors: [{ messageId: 'useToBe' }],
     },
     {
       code: 'expect("a string").not.toEqual(null);',
       output: 'expect("a string").not.toBeNull();',
-      errors: [{ messageId: 'useToBeNull', column: 24, line: 1 }]
+      errors: [{ messageId: 'useToBeNull', column: 24, line: 1 }],
     },
     {
       code: 'expect("a string").not.toStrictEqual(null);',
       output: 'expect("a string").not.toBeNull();',
-      errors: [{ messageId: 'useToBeNull', column: 24, line: 1 }]
-    }
-  ]
+      errors: [{ messageId: 'useToBeNull', column: 24, line: 1 }],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
@@ -47,25 +47,25 @@ ruleTester.run(RULE_NAME, rule, {
     'expect(something).not.toBe(somethingElse)',
     'expect(something).not.toEqual(somethingElse)',
     'expect(undefined).toBe',
-    'expect("something");'
+    'expect("something");',
   ],
   invalid: [
     {
       code: 'expect(NaN).toBe(NaN);',
       output: 'expect(NaN).toBeNaN();',
-      errors: [{ messageId: 'useToBeNaN', column: 13, line: 1 }]
+      errors: [{ messageId: 'useToBeNaN', column: 13, line: 1 }],
     },
     {
       code: 'expect("a string").not.toBe(NaN);',
       output: 'expect("a string").not.toBeNaN();',
-      errors: [{ messageId: 'useToBeNaN', column: 24, line: 1 }]
+      errors: [{ messageId: 'useToBeNaN', column: 24, line: 1 }],
     },
     {
       code: 'expect("a string").not.toStrictEqual(NaN);',
       output: 'expect("a string").not.toBeNaN();',
-      errors: [{ messageId: 'useToBeNaN', column: 24, line: 1 }]
-    }
-  ]
+      errors: [{ messageId: 'useToBeNaN', column: 24, line: 1 }],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
@@ -75,34 +75,34 @@ ruleTester.run(RULE_NAME, rule, {
     'expect(null).toBe(1);',
     'expect(obj).toStrictEqual([ x, 1 ]);',
     'expect(obj).toStrictEqual({ x: 1 });',
-    'expect(obj).not.toStrictEqual({ x: 1 });'
+    'expect(obj).not.toStrictEqual({ x: 1 });',
   ],
   invalid: [
     {
       code: 'expect(null).toBe(null);',
       output: 'expect(null).toBeNull();',
-      errors: [{ messageId: 'useToBeNull', column: 14, line: 1 }]
+      errors: [{ messageId: 'useToBeNull', column: 14, line: 1 }],
     },
     {
       code: 'expect(null).toEqual(null);',
       output: 'expect(null).toBeNull();',
       languageOptions: { parserOptions: { ecmaVersion: 2017 } },
-      errors: [{ messageId: 'useToBeNull', column: 14, line: 1 }]
+      errors: [{ messageId: 'useToBeNull', column: 14, line: 1 }],
     },
     {
       code: 'expect("a string").not.toEqual(null as number);',
       output: 'expect("a string").not.toBeNull();',
-      errors: [{ messageId: 'useToBeNull', column: 24, line: 1 }]
+      errors: [{ messageId: 'useToBeNull', column: 24, line: 1 }],
     },
     {
       code: 'expect(undefined).toBe(undefined as unknown as string as any);',
       output: 'expect(undefined).toBeUndefined();',
-      errors: [{ messageId: 'useToBeUndefined', column: 19, line: 1 }]
+      errors: [{ messageId: 'useToBeUndefined', column: 19, line: 1 }],
     },
     {
       code: 'expect("a string").toEqual(undefined as number);',
       output: 'expect("a string").toBeUndefined();',
-      errors: [{ messageId: 'useToBeUndefined', column: 20, line: 1 }]
-    }
-  ]
+      errors: [{ messageId: 'useToBeUndefined', column: 20, line: 1 }],
+    },
+  ],
 })

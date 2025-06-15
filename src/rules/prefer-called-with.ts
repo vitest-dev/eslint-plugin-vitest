@@ -11,14 +11,14 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     docs: {
       description:
         'enforce using `toBeCalledWith()` or `toHaveBeenCalledWith()`',
-      recommended: false
+      recommended: false,
     },
     messages: {
-      preferCalledWith: 'Prefer {{ matcherName }}With(/* expected args */)'
+      preferCalledWith: 'Prefer {{ matcherName }}With(/* expected args */)',
     },
     type: 'suggestion',
     fixable: 'code',
-    schema: []
+    schema: [],
   },
   defaultOptions: [],
   create(context) {
@@ -30,7 +30,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         if (
           vitestFnCall.modifiers.some(
-            node => getAccessorValue(node) === 'not'
+            (node) => getAccessorValue(node) === 'not',
           )
         )
           return
@@ -43,10 +43,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             data: { matcherName },
             messageId: 'preferCalledWith',
             node: matcher,
-            fix: fixer => [fixer.replaceText(matcher, `${matcherName}With`)]
+            fix: (fixer) => [fixer.replaceText(matcher, `${matcherName}With`)],
           })
         }
-      }
+      },
     }
-  }
+  },
 })

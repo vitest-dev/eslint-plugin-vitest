@@ -20,42 +20,42 @@ ruleTester.run(RULE_NAME, rule, {
     'testSomething()',
     '// latest(dates)',
     '// TODO: unify with Git implementation from Shipit (?)',
-    '#!/usr/bin/env node'
+    '#!/usr/bin/env node',
   ],
   invalid: [
     {
-      code: '// describe(\'foo\', function () {})\'',
+      code: "// describe('foo', function () {})'",
       errors: [
         {
-          messageId: 'noCommentedOutTests'
-        }
-      ]
+          messageId: 'noCommentedOutTests',
+        },
+      ],
     },
     {
       code: '// test.concurrent("foo", function () {})',
-      errors: [{ messageId: 'noCommentedOutTests', column: 1, line: 1 }]
+      errors: [{ messageId: 'noCommentedOutTests', column: 1, line: 1 }],
     },
     {
       code: '// test["skip"]("foo", function () {})',
-      errors: [{ messageId: 'noCommentedOutTests', column: 1, line: 1 }]
+      errors: [{ messageId: 'noCommentedOutTests', column: 1, line: 1 }],
     },
     {
       code: '// xdescribe("foo", function () {})',
-      errors: [{ messageId: 'noCommentedOutTests', column: 1, line: 1 }]
+      errors: [{ messageId: 'noCommentedOutTests', column: 1, line: 1 }],
     },
     {
       code: '// xit("foo", function () {})',
-      errors: [{ messageId: 'noCommentedOutTests', column: 1, line: 1 }]
+      errors: [{ messageId: 'noCommentedOutTests', column: 1, line: 1 }],
     },
     {
       code: '// fit("foo", function () {})',
-      errors: [{ messageId: 'noCommentedOutTests', column: 1, line: 1 }]
+      errors: [{ messageId: 'noCommentedOutTests', column: 1, line: 1 }],
     },
     {
       code: ` // test(
       //   "foo", function () {}
       // )`,
-      errors: [{ messageId: 'noCommentedOutTests', column: 2, line: 1 }]
-    }
-  ]
+      errors: [{ messageId: 'noCommentedOutTests', column: 2, line: 1 }],
+    },
+  ],
 })

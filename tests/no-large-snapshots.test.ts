@@ -1,16 +1,17 @@
 import rule, { RULE_NAME } from '../src/rules/no-large-snapshots'
 import { ruleTester } from './ruleTester'
 
-const generateSnaShotLines = (lines: number) => `\`\n${'line\n'.repeat(lines)}\``
+const generateSnaShotLines = (lines: number) =>
+  `\`\n${'line\n'.repeat(lines)}\``
 
 const generateExportsSnapshotString = (
   lines: number,
-  title = 'a big component 1'
+  title = 'a big component 1',
 ) => `exports[\`${title}\`] = ${generateSnaShotLines(lines - 1)};`
 
 const generateExpectInlineSnapsCode = (
   lines: number,
-  matcher: 'toMatchInlineSnapshot' | 'toThrowErrorMatchingInlineSnapshot'
+  matcher: 'toMatchInlineSnapshot' | 'toThrowErrorMatchingInlineSnapshot',
 ) => `expect(something).${matcher}(${generateSnaShotLines(lines)});`
 
 ruleTester.run(RULE_NAME, rule, {
@@ -21,7 +22,7 @@ ruleTester.run(RULE_NAME, rule, {
     'expect(something).toMatchInlineSnapshot()',
     {
       filename: 'mock.js',
-      code: generateExpectInlineSnapsCode(2, 'toMatchInlineSnapshot')
+      code: generateExpectInlineSnapsCode(2, 'toMatchInlineSnapshot'),
     },
     {
       filename: 'mock.jsx',
@@ -29,19 +30,19 @@ ruleTester.run(RULE_NAME, rule, {
       options: [
         {
           maxSize: 19,
-          inlineMaxSize: 21
-        }
-      ]
+          inlineMaxSize: 21,
+        },
+      ],
     },
     {
       filename: 'mock.jsx',
       code: generateExpectInlineSnapsCode(60, 'toMatchInlineSnapshot'),
       options: [
         {
-          maxSize: 61
-        }
-      ]
-    }
+          maxSize: 61,
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -50,36 +51,36 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: 'tooLongSnapShot',
-          data: { lineLimit: 50, lineCount: 51 }
-        }
-      ]
+          data: { lineLimit: 50, lineCount: 51 },
+        },
+      ],
     },
     {
       filename: 'mock.js',
       code: generateExpectInlineSnapsCode(
         50,
-        'toThrowErrorMatchingInlineSnapshot'
+        'toThrowErrorMatchingInlineSnapshot',
       ),
       errors: [
         {
           messageId: 'tooLongSnapShot',
-          data: { lineLimit: 50, lineCount: 51 }
-        }
-      ]
+          data: { lineLimit: 50, lineCount: 51 },
+        },
+      ],
     },
     {
       filename: 'mock.js',
       code: generateExpectInlineSnapsCode(
         50,
-        'toThrowErrorMatchingInlineSnapshot'
+        'toThrowErrorMatchingInlineSnapshot',
       ),
       options: [{ maxSize: 51, inlineMaxSize: 50 }],
       errors: [
         {
           messageId: 'tooLongSnapShot',
-          data: { lineLimit: 50, lineCount: 51 }
-        }
-      ]
-    }
-  ]
+          data: { lineLimit: 50, lineCount: 51 },
+        },
+      ],
+    },
+  ],
 })

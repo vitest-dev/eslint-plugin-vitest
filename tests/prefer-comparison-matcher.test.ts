@@ -16,7 +16,7 @@ ruleTester.run(RULE_NAME, rule, {
     'expect(5 != a).toBe(true)',
     'expect(a == "string").toBe(true)',
     'expect(a == "string").not.toBe(true)',
-    'expect().fail(\'Should not succeed a HTTPS proxy request.\');'
+    "expect().fail('Should not succeed a HTTPS proxy request.');",
   ],
   invalid: [
     {
@@ -26,10 +26,10 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useToBeComparison',
           data: {
-            preferredMatcher: 'toBeGreaterThan'
-          }
-        }
-      ]
+            preferredMatcher: 'toBeGreaterThan',
+          },
+        },
+      ],
     },
     {
       code: 'expect(a < b).toBe(true)',
@@ -38,10 +38,10 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useToBeComparison',
           data: {
-            preferredMatcher: 'toBeLessThan'
-          }
-        }
-      ]
+            preferredMatcher: 'toBeLessThan',
+          },
+        },
+      ],
     },
     {
       code: 'expect(a >= b).toBe(true)',
@@ -50,46 +50,46 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'useToBeComparison',
           data: {
-            preferredMatcher: 'toBeGreaterThanOrEqual'
-          }
-        }
-      ]
+            preferredMatcher: 'toBeGreaterThanOrEqual',
+          },
+        },
+      ],
     },
     {
       code: 'expect(a <= b).toBe(true)',
       output: 'expect(a).toBeLessThanOrEqual(b)',
       errors: [
         {
-          messageId: 'useToBeComparison'
-        }
-      ]
+          messageId: 'useToBeComparison',
+        },
+      ],
     },
     {
       code: 'expect(a > b).not.toBe(true)',
       output: 'expect(a).toBeLessThanOrEqual(b)',
       errors: [
         {
-          messageId: 'useToBeComparison'
-        }
-      ]
+          messageId: 'useToBeComparison',
+        },
+      ],
     },
     {
       code: 'expect(a < b).not.toBe(true)',
       output: 'expect(a).toBeGreaterThanOrEqual(b)',
       errors: [
         {
-          messageId: 'useToBeComparison'
-        }
-      ]
+          messageId: 'useToBeComparison',
+        },
+      ],
     },
     {
       code: 'expect(a >= b).not.toBe(true)',
       output: 'expect(a).toBeLessThan(b)',
       errors: [
         {
-          messageId: 'useToBeComparison'
-        }
-      ]
-    }
-  ]
+          messageId: 'useToBeComparison',
+        },
+      ],
+    },
+  ],
 })

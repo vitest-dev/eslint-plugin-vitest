@@ -11,8 +11,8 @@ export const config = [
       StatementType.ItToken,
       StatementType.FitToken,
       StatementType.XitToken,
-      StatementType.XtestToken
-    ]
+      StatementType.XtestToken,
+    ],
   },
   {
     paddingType: PaddingType.Always,
@@ -21,14 +21,14 @@ export const config = [
       StatementType.ItToken,
       StatementType.FitToken,
       StatementType.XitToken,
-      StatementType.XtestToken
+      StatementType.XtestToken,
     ],
-    nextStatementType: StatementType.Any
-  }
+    nextStatementType: StatementType.Any,
+  },
 ]
 
 export default createPaddingRule(
   RULE_NAME,
   'Enforce padding around `test` blocks',
-  config
+  config,
 )

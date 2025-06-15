@@ -65,58 +65,58 @@ ruleTester.run(RULE_NAME, rule, {
           })
         })
       })
-    `
+    `,
   ],
   invalid: [
     {
       code: 'describe.each()()',
-      errors: [{ messageId: 'nameAndCallback', line: 1, column: 1 }]
+      errors: [{ messageId: 'nameAndCallback', line: 1, column: 1 }],
     },
     {
       code: 'describe["each"]()()',
-      errors: [{ messageId: 'nameAndCallback', line: 1, column: 1 }]
+      errors: [{ messageId: 'nameAndCallback', line: 1, column: 1 }],
     },
     {
       code: 'describe.each(() => {})()',
-      errors: [{ messageId: 'nameAndCallback', line: 1, column: 1 }]
+      errors: [{ messageId: 'nameAndCallback', line: 1, column: 1 }],
     },
     {
       code: 'describe.each(() => {})("foo")',
-      errors: [{ messageId: 'nameAndCallback', line: 1, column: 25 }]
+      errors: [{ messageId: 'nameAndCallback', line: 1, column: 25 }],
     },
     {
       code: 'describe.each()(() => {})',
-      errors: [{ messageId: 'nameAndCallback', line: 1, column: 17 }]
+      errors: [{ messageId: 'nameAndCallback', line: 1, column: 17 }],
     },
     {
       code: 'describe["each"]()(() => {})',
-      errors: [{ messageId: 'nameAndCallback', line: 1, column: 20 }]
+      errors: [{ messageId: 'nameAndCallback', line: 1, column: 20 }],
     },
     {
       code: 'describe.each("foo")(() => {})',
-      errors: [{ messageId: 'nameAndCallback', line: 1, column: 22 }]
+      errors: [{ messageId: 'nameAndCallback', line: 1, column: 22 }],
     },
     {
       code: 'describe.only.each("foo")(() => {})',
-      errors: [{ messageId: 'nameAndCallback', line: 1, column: 27 }]
+      errors: [{ messageId: 'nameAndCallback', line: 1, column: 27 }],
     },
     {
       code: 'describe(() => {})',
-      errors: [{ messageId: 'nameAndCallback', line: 1, column: 10 }]
+      errors: [{ messageId: 'nameAndCallback', line: 1, column: 10 }],
     },
     {
       code: 'describe("foo")',
-      errors: [{ messageId: 'nameAndCallback', line: 1, column: 10 }]
+      errors: [{ messageId: 'nameAndCallback', line: 1, column: 10 }],
     },
     {
       code: 'describe("foo", "foo2")',
       errors: [
-        { messageId: 'secondArgumentMustBeFunction', line: 1, column: 10 }
-      ]
+        { messageId: 'secondArgumentMustBeFunction', line: 1, column: 10 },
+      ],
     },
     {
       code: 'describe()',
-      errors: [{ messageId: 'nameAndCallback', line: 1, column: 1 }]
+      errors: [{ messageId: 'nameAndCallback', line: 1, column: 1 }],
     },
     {
       code: `
@@ -128,7 +128,7 @@ ruleTester.run(RULE_NAME, rule, {
       })
        })
      `,
-      errors: [{ messageId: 'unexpectedReturnInDescribe', line: 3, column: 7 }]
+      errors: [{ messageId: 'unexpectedReturnInDescribe', line: 3, column: 7 }],
     },
     {
       code: `
@@ -149,8 +149,8 @@ ruleTester.run(RULE_NAME, rule, {
      `,
       errors: [
         { messageId: 'unexpectedReturnInDescribe', line: 3, column: 7 },
-        { messageId: 'unexpectedReturnInDescribe', line: 9, column: 9 }
-      ]
+        { messageId: 'unexpectedReturnInDescribe', line: 9, column: 9 },
+      ],
     },
     {
       code: `
@@ -166,9 +166,7 @@ ruleTester.run(RULE_NAME, rule, {
       })
        })
      `,
-      errors: [
-        { messageId: 'unexpectedReturnInDescribe', line: 6, column: 9 }
-      ]
+      errors: [{ messageId: 'unexpectedReturnInDescribe', line: 6, column: 9 }],
     },
     {
       code: `
@@ -177,8 +175,8 @@ ruleTester.run(RULE_NAME, rule, {
        )
      `,
       errors: [
-        { messageId: 'unexpectedReturnInDescribe', line: 2, column: 24 }
-      ]
+        { messageId: 'unexpectedReturnInDescribe', line: 2, column: 24 },
+      ],
     },
     {
       code: `
@@ -187,8 +185,8 @@ ruleTester.run(RULE_NAME, rule, {
        )
      `,
       errors: [
-        { messageId: 'unexpectedReturnInDescribe', line: 2, column: 40 }
-      ]
+        { messageId: 'unexpectedReturnInDescribe', line: 2, column: 40 },
+      ],
     },
     {
       code: `
@@ -209,38 +207,38 @@ ruleTester.run(RULE_NAME, rule, {
      `,
       errors: [
         { messageId: 'unexpectedReturnInDescribe', line: 3, column: 7 },
-        { messageId: 'unexpectedReturnInDescribe', line: 9, column: 9 }
-      ]
+        { messageId: 'unexpectedReturnInDescribe', line: 9, column: 9 },
+      ],
     },
     {
       code: 'describe("foo", done => {})',
       errors: [
-        { messageId: 'unexpectedDescribeArgument', line: 1, column: 17 }
-      ]
+        { messageId: 'unexpectedDescribeArgument', line: 1, column: 17 },
+      ],
     },
     {
       code: 'describe("foo", function (done) {})',
       errors: [
-        { messageId: 'unexpectedDescribeArgument', line: 1, column: 17 }
-      ]
+        { messageId: 'unexpectedDescribeArgument', line: 1, column: 17 },
+      ],
     },
     {
       code: 'describe("foo", function (one, two, three) {})',
       errors: [
-        { messageId: 'unexpectedDescribeArgument', line: 1, column: 17 }
-      ]
+        { messageId: 'unexpectedDescribeArgument', line: 1, column: 17 },
+      ],
     },
     {
       code: 'describe("foo", async function (done) {})',
       errors: [
-        { messageId: 'unexpectedDescribeArgument', line: 1, column: 17 }
-      ]
+        { messageId: 'unexpectedDescribeArgument', line: 1, column: 17 },
+      ],
     },
     {
       code: 'describe("foo", { only: true }, done => {})',
       errors: [
-        { messageId: 'unexpectedDescribeArgument', line: 1, column: 33 }
-      ]
-    }
-  ]
+        { messageId: 'unexpectedDescribeArgument', line: 1, column: 33 },
+      ],
+    },
+  ],
 })

@@ -2,7 +2,7 @@ import parser from '@typescript-eslint/parser'
 import type { Config } from 'eslint-remote-tester'
 import {
   getPathIgnorePattern,
-  getRepositories
+  getRepositories,
 } from 'eslint-remote-tester-repositories'
 import vitest from './dist/index.mjs'
 
@@ -17,8 +17,8 @@ export default {
     vitest.configs.all,
     {
       languageOptions: {
-        parser
-      }
-    }
-  ] as Config['eslintConfig']
+        parser,
+      },
+    },
+  ] as Config['eslintConfig'],
 } satisfies Config

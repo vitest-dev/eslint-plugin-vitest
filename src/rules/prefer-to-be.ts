@@ -1,6 +1,17 @@
 import { TSESLint, AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
-import { AccessorNode, createEslintRule, getAccessorValue, isIdentifier, removeExtraArgumentsFixer, replaceAccessorFixer } from '../utils'
-import { getFirstMatcherArg, ParsedExpectVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  AccessorNode,
+  createEslintRule,
+  getAccessorValue,
+  isIdentifier,
+  removeExtraArgumentsFixer,
+  replaceAccessorFixer,
+} from '../utils'
+import {
+  getFirstMatcherArg,
+  ParsedExpectVitestFnCall,
+  parseVitestFnCall,
+} from '../utils/parse-vitest-fn-call'
 import { EqualityMatcher } from '../utils/types'
 
 export const RULE_NAME = 'prefer-to-be'
@@ -13,21 +24,25 @@ const isNullEqualityMatcher = (expectFnCall: ParsedExpectVitestFnCall) =>
 
 const isFirstArgumentIdentifier = (
   expectFnCall: ParsedExpectVitestFnCall,
-  name: string
+  name: string,
 ) => isIdentifier(getFirstMatcherArg(expectFnCall), name)
 
 // @ts-expect-error
-const isFloat = v => Math.floor(v) !== Math.ceil(v)
+const isFloat = (v) => Math.floor(v) !== Math.ceil(v)
 
 const shouldUseToBe = (expectFnCall: ParsedExpectVitestFnCall): boolean => {
   let firstArg = getFirstMatcherArg(expectFnCall)
 
-  if (firstArg.type === AST_NODE_TYPES.Literal && typeof firstArg.value === 'number' && isFloat(firstArg.value))
+  if (
+    firstArg.type === AST_NODE_TYPES.Literal &&
+    typeof firstArg.value === 'number' &&
+    isFloat(firstArg.value)
+  )
     return false
 
   if (
-    firstArg.type === AST_NODE_TYPES.UnaryExpression
-    && firstArg.operator === '-'
+    firstArg.type === AST_NODE_TYPES.UnaryExpression &&
+    firstArg.operator === '-'
   )
     firstArg = firstArg.argument
 
@@ -54,13 +69,13 @@ const reportPreferToBe = (
   whatToBe: ToBeWhat,
   expectFnCall: ParsedExpectVitestFnCall,
   func: TSESTree.CallExpression,
-  modifierNode?: AccessorNode
+  modifierNode?: AccessorNode,
 ) => {
   context.report({
     messageId: `useToBe${whatToBe}`,
     fix(fixer) {
       const fixes = [
-        replaceAccessorFixer(fixer, expectFnCall.matcher, `toBe${whatToBe}`)
+        replaceAccessorFixer(fixer, expectFnCall.matcher, `toBe${whatToBe}`),
       ]
 
       if (expectFnCall.args?.length && whatToBe !== '')
@@ -68,13 +83,13 @@ const reportPreferToBe = (
 
       if (modifierNode) {
         fixes.push(
-          fixer.removeRange([modifierNode.range[0] - 1, modifierNode.range[1]])
+          fixer.removeRange([modifierNode.range[0] - 1, modifierNode.range[1]]),
         )
       }
 
       return fixes
     },
-    node: expectFnCall.matcher
+    node: expectFnCall.matcher,
   })
 }
 
@@ -84,7 +99,7 @@ export default createEslintRule<[], MessageId>({
     type: 'suggestion',
     docs: {
       description: 'enforce using toBe()',
-      recommended: false
+      recommended: false,
     },
     schema: [],
     fixable: 'code',
@@ -93,8 +108,8 @@ export default createEslintRule<[], MessageId>({
       useToBeUndefined: 'Use `toBeUndefined()` instead',
       useToBeDefined: 'Use `toBeDefined()` instead',
       useToBeNull: 'Use `toBeNull()` instead',
-      useToBeNaN: 'Use `toBeNaN()` instead'
-    }
+      useToBeNaN: 'Use `toBeNaN()` instead',
+    },
   },
   defaultOptions: [],
   create(context) {
@@ -102,18 +117,31 @@ export default createEslintRule<[], MessageId>({
       CallExpression(node) {
         const vitestFnCall = parseVitestFnCall(node, context)
 
-        if (vitestFnCall?.type !== 'expect')
-          return
+        if (vitestFnCall?.type !== 'expect') return
 
         const matcherName = getAccessorValue(vitestFnCall.matcher)
-        const notModifier = vitestFnCall.modifiers.find(node => getAccessorValue(node) === 'not')
+        const notModifier = vitestFnCall.modifiers.find(
+          (node) => getAccessorValue(node) === 'not',
+        )
 
-        if (notModifier && ['toBeUndefined', 'toBeDefined'].includes(matcherName)) {
-          reportPreferToBe(context, matcherName === 'toBeDefined' ? 'Undefined' : 'Defined', vitestFnCall, node, notModifier)
+        if (
+          notModifier &&
+          ['toBeUndefined', 'toBeDefined'].includes(matcherName)
+        ) {
+          reportPreferToBe(
+            context,
+            matcherName === 'toBeDefined' ? 'Undefined' : 'Defined',
+            vitestFnCall,
+            node,
+            notModifier,
+          )
           return
         }
 
-        if (!EqualityMatcher.hasOwnProperty(matcherName) || vitestFnCall.args.length === 0)
+        if (
+          !EqualityMatcher.hasOwnProperty(matcherName) ||
+          vitestFnCall.args.length === 0
+        )
           return
 
         if (isNullEqualityMatcher(vitestFnCall)) {
@@ -134,7 +162,7 @@ export default createEslintRule<[], MessageId>({
 
         if (shouldUseToBe(vitestFnCall) && matcherName !== EqualityMatcher.toBe)
           reportPreferToBe(context, '', vitestFnCall, node)
-      }
+      },
     }
-  }
+  },
 })

@@ -10,45 +10,64 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   meta: {
     type: 'suggestion',
     docs: {
-      description: 'enforce using `toBe(true)` and `toBe(false)` over matchers that coerce types to boolean',
-      recommended: false
+      description:
+        'enforce using `toBe(true)` and `toBe(false)` over matchers that coerce types to boolean',
+      recommended: false,
     },
     messages: {
       preferToBeTrue: 'Prefer using `toBe(true)` to test value is `true`',
-      preferToBeFalse: 'Prefer using `toBe(false)` to test value is `false`'
+      preferToBeFalse: 'Prefer using `toBe(false)` to test value is `false`',
     },
     fixable: 'code',
-    schema: []
+    schema: [],
   },
   defaultOptions: [],
   create(context) {
     return {
       CallExpression(node) {
         const vitestFnCall = parseVitestFnCall(node, context)
-        if (!(vitestFnCall?.type === 'expect' || vitestFnCall?.type === 'expectTypeOf')) return
+        if (
+          !(
+            vitestFnCall?.type === 'expect' ||
+            vitestFnCall?.type === 'expectTypeOf'
+          )
+        )
+          return
 
         const accessor = getAccessorValue(vitestFnCall.matcher)
         if (accessor === 'toBeFalsy') {
           context.report({
             node: vitestFnCall.matcher,
             messageId: 'preferToBeFalse',
-            fix: fixer => [
+            fix: (fixer) => [
               fixer.replaceText(vitestFnCall.matcher, 'toBe'),
-              fixer.insertTextAfterRange([vitestFnCall.matcher.range[0], vitestFnCall.matcher.range[1] + 1], 'false')
-            ]
+              fixer.insertTextAfterRange(
+                [
+                  vitestFnCall.matcher.range[0],
+                  vitestFnCall.matcher.range[1] + 1,
+                ],
+                'false',
+              ),
+            ],
           })
         }
         if (accessor === 'toBeTruthy') {
           context.report({
             node: vitestFnCall.matcher,
             messageId: 'preferToBeTrue',
-            fix: fixer => [
+            fix: (fixer) => [
               fixer.replaceText(vitestFnCall.matcher, 'toBe'),
-              fixer.insertTextAfterRange([vitestFnCall.matcher.range[0], vitestFnCall.matcher.range[1] + 1], 'true')
-            ]
+              fixer.insertTextAfterRange(
+                [
+                  vitestFnCall.matcher.range[0],
+                  vitestFnCall.matcher.range[1] + 1,
+                ],
+                'true',
+              ),
+            ],
           })
         }
-      }
+      },
     }
-  }
+  },
 })

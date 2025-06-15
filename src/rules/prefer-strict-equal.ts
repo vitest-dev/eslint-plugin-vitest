@@ -1,4 +1,8 @@
-import { createEslintRule, isSupportedAccessor, replaceAccessorFixer } from '../utils'
+import {
+  createEslintRule,
+  isSupportedAccessor,
+  replaceAccessorFixer,
+} from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { EqualityMatcher } from '../utils/types'
 
@@ -12,14 +16,14 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce strict equal over equal',
-      recommended: false
+      recommended: false,
     },
     messages: {
       useToStrictEqual: 'Use `toStrictEqual()` instead',
-      suggestReplaceWithStrictEqual: 'Replace with `toStrictEqual()`'
+      suggestReplaceWithStrictEqual: 'Replace with `toStrictEqual()`',
     },
     schema: [],
-    hasSuggestions: true
+    hasSuggestions: true,
   },
   defaultOptions: [],
   create(context) {
@@ -38,14 +42,18 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             suggest: [
               {
                 messageId: 'suggestReplaceWithStrictEqual',
-                fix: fixer => [
-                  replaceAccessorFixer(fixer, matcher, EqualityMatcher.toStrictEqual)
-                ]
-              }
-            ]
+                fix: (fixer) => [
+                  replaceAccessorFixer(
+                    fixer,
+                    matcher,
+                    EqualityMatcher.toStrictEqual,
+                  ),
+                ],
+              },
+            ],
           })
         }
-      }
+      },
     }
-  }
+  },
 })

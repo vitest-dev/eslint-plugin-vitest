@@ -10,119 +10,133 @@ const data = [
     first: [],
     conditions: [],
     methods: [],
-    last: []
+    last: [],
   },
   {
     names: ['it', 'test'],
     first: ['extend'],
     conditions: ['skipIf', 'runIf'],
     methods: ['skip', 'only', 'concurrent', 'sequential', 'todo', 'fails'],
-    last: ['each']
+    last: ['each'],
   },
   {
     names: ['bench'],
     first: [],
     conditions: ['skipIf', 'runIf'],
     methods: ['skip', 'only', 'todo'],
-    last: []
+    last: [],
   },
   {
     names: ['describe'],
     first: [],
     conditions: ['skipIf', 'runIf'],
     methods: ['skip', 'only', 'concurrent', 'sequential', 'shuffle', 'todo'],
-    last: ['each']
+    last: ['each'],
   },
   {
     names: ['suite'],
     first: [],
     conditions: ['skipIf', 'runIf'],
     methods: ['skip', 'only', 'concurrent', 'sequential', 'shuffle', 'todo'],
-    last: ['each']
-  }
+    last: ['each'],
+  },
 ]
 
 const DEPTH = 3
 
 const allPermutations: string[] = []
 
-const depths = (maxDepth: number) => Array.from({ length: maxDepth }, (_, i) => i)
+const depths = (maxDepth: number) =>
+  Array.from({ length: maxDepth }, (_, i) => i)
 
 data.forEach((q) => {
   q.names.forEach((name) => {
     allPermutations.push(name)
 
     const maxDepth = Math.min(DEPTH, q.methods.length)
-    const methodPerms = depths(maxDepth).flatMap(i => [
+    const methodPerms = depths(maxDepth).flatMap((i) => [
       ...per(q.methods, i + 1),
-      ...q.first.flatMap(first =>
-        (per(q.methods, i) || ['']).map(p => [first, ...p])
+      ...q.first.flatMap((first) =>
+        (per(q.methods, i) || ['']).map((p) => [first, ...p]),
       ),
-      ...q.conditions.flatMap(condition =>
-        (per(q.methods, i) || ['']).map(p => [condition, ...p])
+      ...q.conditions.flatMap((condition) =>
+        (per(q.methods, i) || ['']).map((p) => [condition, ...p]),
       ),
-      ...q.last.flatMap(last =>
-        (per(q.methods, i) || ['']).map(p => [...p, last])
+      ...q.last.flatMap((last) =>
+        (per(q.methods, i) || ['']).map((p) => [...p, last]),
       ),
       ...(i > 0
-        ? q.first.flatMap(first =>
-            q.conditions.flatMap(condition =>
-              (per(q.methods, i - 1) || ['']).map(p => [
+        ? q.first.flatMap((first) =>
+            q.conditions.flatMap((condition) =>
+              (per(q.methods, i - 1) || ['']).map((p) => [
                 first,
                 condition,
-                ...p
-              ])
-            )
+                ...p,
+              ]),
+            ),
           )
         : []),
       ...(i > 0
-        ? q.first.flatMap(first =>
-            q.last.flatMap(last =>
-              (per(q.methods, i - 1) || ['']).map(p => [first, ...p, last])
-            )
+        ? q.first.flatMap((first) =>
+            q.last.flatMap((last) =>
+              (per(q.methods, i - 1) || ['']).map((p) => [first, ...p, last]),
+            ),
           )
         : []),
       ...(i > 0
-        ? q.conditions.flatMap(condition =>
-            q.last.flatMap(last =>
-              (per(q.methods, i - 1) || ['']).map(p => [
+        ? q.conditions.flatMap((condition) =>
+            q.last.flatMap((last) =>
+              (per(q.methods, i - 1) || ['']).map((p) => [
                 condition,
                 ...p,
-                last
-              ])
-            )
+                last,
+              ]),
+            ),
           )
         : []),
       ...(i > 1
-        ? q.first.flatMap(first =>
-            q.conditions.flatMap(condition =>
-              q.last.flatMap(last =>
-                (per(q.methods, i - 2) || ['']).map(p => [
+        ? q.first.flatMap((first) =>
+            q.conditions.flatMap((condition) =>
+              q.last.flatMap((last) =>
+                (per(q.methods, i - 2) || ['']).map((p) => [
                   first,
                   condition,
                   ...p,
-                  last
-                ])
-              )
-            )
+                  last,
+                ]),
+              ),
+            ),
           )
-        : [])
+        : []),
     ])
-    const allPerms = methodPerms.map(p => [name, ...p].join('.'))
+    const allPerms = methodPerms.map((p) => [name, ...p].join('.'))
     allPermutations.push(...allPerms)
   })
 })
 
-const extra_rules = ['xtest', 'xtest.each', 'xit', 'xit.each', 'fit', 'xdescribe', 'xdescribe.each', 'fdescribe']
+const extra_rules = [
+  'xtest',
+  'xtest.each',
+  'xit',
+  'xit.each',
+  'fit',
+  'xdescribe',
+  'xdescribe.each',
+  'fdescribe',
+]
 
-const output = `export const ValidVitestFnCallChains = new Set([${allPermutations.concat(extra_rules).map(item => `'${item}'`)}])`
+const output = `export const ValidVitestFnCallChains = new Set([${allPermutations.concat(extra_rules).map((item) => `'${item}'`)}])`
 
-const new_path = path.resolve(__dirname, '../src/utils/valid-vitest-fn-call-chains.ts')
+const new_path = path.resolve(
+  __dirname,
+  '../src/utils/valid-vitest-fn-call-chains.ts',
+)
 
 try {
   fs.writeFileSync(new_path, output)
-  console.log(`done writing to ${new_path.split('/')[new_path.split('/').length - 1]}`)
-}
-catch (err) {
+  console.log(
+    `done writing to ${new_path.split('/')[new_path.split('/').length - 1]}`,
+  )
+} catch (err) {
   console.log(`err: ${err.message}`)
 }

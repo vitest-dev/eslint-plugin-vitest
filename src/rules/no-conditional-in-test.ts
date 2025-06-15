@@ -11,27 +11,31 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     docs: {
       description: 'disallow conditional tests',
       requiresTypeChecking: false,
-      recommended: false
+      recommended: false,
     },
     messages: {
-      noConditionalInTest: 'Remove conditional tests'
+      noConditionalInTest: 'Remove conditional tests',
     },
     schema: [],
-    type: 'problem'
+    type: 'problem',
   },
   defaultOptions: [],
   create(context) {
     return {
       IfStatement(node) {
-        if (node.parent?.parent?.parent?.type
-          === 'CallExpression'
-          && isTypeOfVitestFnCall(node.parent?.parent?.parent, context, ['test', 'it'])) {
+        if (
+          node.parent?.parent?.parent?.type === 'CallExpression' &&
+          isTypeOfVitestFnCall(node.parent?.parent?.parent, context, [
+            'test',
+            'it',
+          ])
+        ) {
           context.report({
             messageId: 'noConditionalInTest',
-            node
+            node,
           })
         }
-      }
+      },
     }
-  }
+  },
 })

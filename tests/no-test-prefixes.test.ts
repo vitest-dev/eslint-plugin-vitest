@@ -10,7 +10,7 @@ ruleTester.run(RULE_NAME, rule, {
     'test.concurrent("foo", function () {})',
     'describe.only("foo", function () {})',
     'it.only("foo", function () {})',
-    'it.each()("foo", function () {})'
+    'it.each()("foo", function () {})',
   ],
   invalid: [
     {
@@ -21,9 +21,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'usePreferredName',
           data: { preferredNodeName: 'describe.only' },
           column: 1,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'xdescribe.each([])("foo", function () {})',
@@ -33,9 +33,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'usePreferredName',
           data: { preferredNodeName: 'describe.skip.each' },
           column: 1,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'fit("foo", function () {})',
@@ -45,9 +45,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'usePreferredName',
           data: { preferredNodeName: 'it.only' },
           column: 1,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'xdescribe("foo", function () {})',
@@ -57,9 +57,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'usePreferredName',
           data: { preferredNodeName: 'describe.skip' },
           column: 1,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'xit("foo", function () {})',
@@ -69,9 +69,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'usePreferredName',
           data: { preferredNodeName: 'it.skip' },
           column: 1,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'xtest("foo", function () {})',
@@ -81,9 +81,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'usePreferredName',
           data: { preferredNodeName: 'test.skip' },
           column: 1,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'xit.each``("foo", function () {})',
@@ -94,9 +94,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'usePreferredName',
           data: { preferredNodeName: 'it.skip.each' },
           column: 1,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'xtest.each``("foo", function () {})',
@@ -107,9 +107,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'usePreferredName',
           data: { preferredNodeName: 'test.skip.each' },
           column: 1,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'xit.each([])("foo", function () {})',
@@ -119,9 +119,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'usePreferredName',
           data: { preferredNodeName: 'it.skip.each' },
           column: 1,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'xtest.each([])("foo", function () {})',
@@ -131,9 +131,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'usePreferredName',
           data: { preferredNodeName: 'test.skip.each' },
           column: 1,
-          line: 1
-        }
-      ]
-    }
-  ]
+          line: 1,
+        },
+      ],
+    },
+  ],
 })

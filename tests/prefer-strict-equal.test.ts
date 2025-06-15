@@ -4,8 +4,8 @@ import { ruleTester } from './ruleTester'
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     'expect(something).toStrictEqual(somethingElse);',
-    'a().toEqual(\'b\')',
-    'expect(a);'
+    "a().toEqual('b')",
+    'expect(a);',
   ],
   invalid: [
     {
@@ -18,11 +18,11 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: 'suggestReplaceWithStrictEqual',
-              output: 'expect(something).toStrictEqual(somethingElse);'
-            }
-          ]
-        }
-      ]
+              output: 'expect(something).toStrictEqual(somethingElse);',
+            },
+          ],
+        },
+      ],
     },
     {
       code: 'expect(something).toEqual(somethingElse,);',
@@ -35,11 +35,11 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: 'suggestReplaceWithStrictEqual',
-              output: 'expect(something).toStrictEqual(somethingElse,);'
-            }
-          ]
-        }
-      ]
+              output: 'expect(something).toStrictEqual(somethingElse,);',
+            },
+          ],
+        },
+      ],
     },
     {
       code: 'expect(something)["toEqual"](somethingElse);',
@@ -51,11 +51,11 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: 'suggestReplaceWithStrictEqual',
-              output: 'expect(something)[\'toStrictEqual\'](somethingElse);'
-            }
-          ]
-        }
-      ]
-    }
-  ]
+              output: "expect(something)['toStrictEqual'](somethingElse);",
+            },
+          ],
+        },
+      ],
+    },
+  ],
 })

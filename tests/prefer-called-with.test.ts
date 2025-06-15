@@ -15,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
     'expect(fn).resolves.not.toHaveBeenCalledWith();',
     'expect(fn).toBeCalledTimes(0);',
     'expect(fn).toHaveBeenCalledTimes(0);',
-    'expect(fn);'
+    'expect(fn);',
   ],
   invalid: [
     {
@@ -25,10 +25,10 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'preferCalledWith',
           data: { matcherName: 'toBeCalled' },
           column: 12,
-          line: 1
-        }
+          line: 1,
+        },
       ],
-      output: 'expect(fn).toBeCalledWith();'
+      output: 'expect(fn).toBeCalledWith();',
     },
     {
       code: 'expect(fn).resolves.toBeCalled();',
@@ -37,10 +37,10 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'preferCalledWith',
           data: { matcherName: 'toBeCalled' },
           column: 21,
-          line: 1
-        }
+          line: 1,
+        },
       ],
-      output: 'expect(fn).resolves.toBeCalledWith();'
+      output: 'expect(fn).resolves.toBeCalledWith();',
     },
     {
       code: 'expect(fn).toHaveBeenCalled();',
@@ -49,10 +49,10 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'preferCalledWith',
           data: { matcherName: 'toHaveBeenCalled' },
           column: 12,
-          line: 1
-        }
+          line: 1,
+        },
       ],
-      output: 'expect(fn).toHaveBeenCalledWith();'
-    }
-  ]
+      output: 'expect(fn).toHaveBeenCalledWith();',
+    },
+  ],
 })

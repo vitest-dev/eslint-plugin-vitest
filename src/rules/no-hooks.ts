@@ -15,22 +15,24 @@ export default createEslintRule<
     type: 'suggestion',
     docs: {
       description: 'disallow setup and teardown hooks',
-      recommended: false
+      recommended: false,
     },
-    schema: [{
-      type: 'object',
-      properties: {
-        allow: {
-          type: 'array',
-          // @ts-ignore
-          contains: ['beforeAll', 'beforeEach', 'afterAll', 'afterEach']
-        }
+    schema: [
+      {
+        type: 'object',
+        properties: {
+          allow: {
+            type: 'array',
+            // @ts-ignore
+            contains: ['beforeAll', 'beforeEach', 'afterAll', 'afterEach'],
+          },
+        },
+        additionalProperties: false,
       },
-      additionalProperties: false
-    }],
+    ],
     messages: {
-      unexpectedHook: 'Unexpected \'{{ hookName }}\' hook'
-    }
+      unexpectedHook: "Unexpected '{{ hookName }}' hook",
+    },
   },
   defaultOptions: [{ allow: [] }],
   create(context, [{ allow = [] }]) {
@@ -39,16 +41,16 @@ export default createEslintRule<
         const vitestFnCall = parseVitestFnCall(node, context)
 
         if (
-          vitestFnCall?.type === 'hook'
-          && !allow.includes(vitestFnCall.name as HookName)
+          vitestFnCall?.type === 'hook' &&
+          !allow.includes(vitestFnCall.name as HookName)
         ) {
           context.report({
             node,
             messageId: 'unexpectedHook',
-            data: { hookName: vitestFnCall.name }
+            data: { hookName: vitestFnCall.name },
           })
         }
-      }
+      },
     }
-  }
+  },
 })

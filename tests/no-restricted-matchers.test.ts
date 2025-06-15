@@ -19,28 +19,28 @@ ruleTester.run(RULE_NAME, rule, {
     'expect(a);',
     {
       code: 'expect(a).resolves',
-      options: [{ not: null }]
+      options: [{ not: null }],
     },
     {
       code: 'expect(a).toBe(b)',
-      options: [{ 'not.toBe': null }]
+      options: [{ 'not.toBe': null }],
     },
     {
       code: 'expect(a).toBeUndefined(b)',
-      options: [{ toBe: null }]
+      options: [{ toBe: null }],
     },
     {
       code: 'expect(a)["toBe"](b)',
-      options: [{ 'not.toBe': null }]
+      options: [{ 'not.toBe': null }],
     },
     {
       code: 'expect(a).resolves.not.toBe(b)',
-      options: [{ not: null }]
+      options: [{ not: null }],
     },
     {
       code: 'expect(a).resolves.not.toBe(b)',
-      options: [{ 'not.toBe': null }]
-    }
+      options: [{ 'not.toBe': null }],
+    },
   ],
   invalid: [
     {
@@ -51,12 +51,12 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'restrictedChain',
           data: {
             message: null,
-            restriction: 'not'
+            restriction: 'not',
           },
           column: 11,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a).resolves.toBe(b)',
@@ -66,12 +66,12 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'restrictedChain',
           data: {
             message: null,
-            restriction: 'resolves'
+            restriction: 'resolves',
           },
           column: 11,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a).resolves.not.toBe(b)',
@@ -81,12 +81,12 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'restrictedChain',
           data: {
             message: null,
-            restriction: 'resolves'
+            restriction: 'resolves',
           },
           column: 11,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a).resolves.not.toBe(b)',
@@ -96,12 +96,12 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'restrictedChain',
           data: {
             message: null,
-            restriction: 'resolves.not'
+            restriction: 'resolves.not',
           },
           column: 11,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a).not.toBe(b)',
@@ -111,13 +111,13 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'restrictedChain',
           data: {
             message: null,
-            restriction: 'not.toBe'
+            restriction: 'not.toBe',
           },
           endColumn: 19,
           column: 11,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a).resolves.not.toBe(b)',
@@ -127,13 +127,13 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'restrictedChain',
           data: {
             message: null,
-            restriction: 'resolves.not.toBe'
+            restriction: 'resolves.not.toBe',
           },
           endColumn: 28,
           column: 11,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a).toBe(b)',
@@ -143,12 +143,12 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'restrictedChainWithMessage',
           data: {
             message: 'Prefer `toStrictEqual` instead',
-            restriction: 'toBe'
+            restriction: 'toBe',
           },
           column: 11,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: `
@@ -162,12 +162,12 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'restrictedChainWithMessage',
           data: {
             message: 'Use `expect(await promise)` instead.',
-            restriction: 'resolves'
+            restriction: 'resolves',
           },
           endColumn: 58,
-          column: 45
-        }
-      ]
+          column: 45,
+        },
+      ],
     },
     {
       code: 'expect(Promise.resolve({})).rejects.toBeFalsy()',
@@ -177,29 +177,29 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'restrictedChain',
           data: {
             message: null,
-            restriction: 'rejects.toBeFalsy'
+            restriction: 'rejects.toBeFalsy',
           },
           endColumn: 46,
-          column: 29
-        }
-      ]
+          column: 29,
+        },
+      ],
     },
     {
-      code: 'expect(uploadFileMock).not.toHaveBeenCalledWith(\'file.name\')',
+      code: "expect(uploadFileMock).not.toHaveBeenCalledWith('file.name')",
       options: [
-        { 'not.toHaveBeenCalledWith': 'Use not.toHaveBeenCalled instead' }
+        { 'not.toHaveBeenCalledWith': 'Use not.toHaveBeenCalled instead' },
       ],
       errors: [
         {
           messageId: 'restrictedChainWithMessage',
           data: {
             message: 'Use not.toHaveBeenCalled instead',
-            restriction: 'not.toHaveBeenCalledWith'
+            restriction: 'not.toHaveBeenCalledWith',
           },
           endColumn: 48,
-          column: 24
-        }
-      ]
-    }
-  ]
+          column: 24,
+        },
+      ],
+    },
+  ],
 })

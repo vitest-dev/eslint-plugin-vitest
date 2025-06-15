@@ -6,17 +6,17 @@ export const config = [
   {
     paddingType: PaddingType.Always,
     prevStatementType: StatementType.Any,
-    nextStatementType: StatementType.BeforeEachToken
+    nextStatementType: StatementType.BeforeEachToken,
   },
   {
     paddingType: PaddingType.Always,
     prevStatementType: StatementType.BeforeEachToken,
-    nextStatementType: StatementType.Any
-  }
+    nextStatementType: StatementType.Any,
+  },
 ]
 
 export default createPaddingRule(
   RULE_NAME,
   'Enforce padding around `beforeEach` blocks',
-  config
+  config,
 )

@@ -32,7 +32,7 @@ ruleTester.run(RULE_NAME, rule, {
     test('grand child 1', () => {})
    })
   })
-  `
+  `,
   ],
   invalid: [
     {
@@ -40,14 +40,14 @@ ruleTester.run(RULE_NAME, rule, {
      it('works', () => {});
      it('works', () => {});
    });`,
-      errors: [{ messageId: 'multipleTestTitle' }]
+      errors: [{ messageId: 'multipleTestTitle' }],
     },
     {
       code: `xdescribe('foo', () => {
      it('works', () => {});
      it('works', () => {});
     });`,
-      errors: [{ messageId: 'multipleTestTitle' }]
-    }
-  ]
+      errors: [{ messageId: 'multipleTestTitle' }],
+    },
+  ],
 })

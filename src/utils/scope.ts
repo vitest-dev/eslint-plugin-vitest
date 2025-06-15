@@ -3,7 +3,7 @@ import { Scope } from '@typescript-eslint/utils/ts-eslint'
 
 export function getScope(
   context: TSESLint.RuleContext<string, unknown[]>,
-  node: TSESTree.Node
+  node: TSESTree.Node,
 ): Scope.Scope {
   return context.sourceCode.getScope
     ? context.sourceCode.getScope(node)
@@ -12,7 +12,7 @@ export function getScope(
 
 export function getModuleScope(
   context: TSESLint.RuleContext<string, unknown[]>,
-  node: TSESTree.Node
+  node: TSESTree.Node,
 ): Scope.Scope | null {
   let scope: Scope.Scope | null = getScope(context, node)
 

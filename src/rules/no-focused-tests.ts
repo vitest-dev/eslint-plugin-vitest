@@ -6,11 +6,13 @@ export const RULE_NAME = 'no-focused-tests'
 export type Options = [
   Partial<{
     fixable: boolean
-  }>
+  }>,
 ]
 
 const isTestOrDescribe = (node: TSESTree.Expression) => {
-  return node.type === 'Identifier' && ['it', 'test', 'describe'].includes(node.name)
+  return (
+    node.type === 'Identifier' && ['it', 'test', 'describe'].includes(node.name)
+  )
 }
 
 const isOnly = (node: TSESTree.Expression | TSESTree.PrivateIdentifier) => {
@@ -23,7 +25,7 @@ export default createEslintRule<Options, MessageIds>({
     type: 'problem',
     docs: {
       description: 'disallow focused tests',
-      recommended: false
+      recommended: false,
     },
     fixable: 'code',
     schema: [
@@ -32,15 +34,15 @@ export default createEslintRule<Options, MessageIds>({
         properties: {
           fixable: {
             type: 'boolean',
-            default: true
-          }
+            default: true,
+          },
         },
-        additionalProperties: false
-      }
+        additionalProperties: false,
+      },
     ],
     messages: {
-      noFocusedTests: 'Focused tests are not allowed'
-    }
+      noFocusedTests: 'Focused tests are not allowed',
+    },
   },
   defaultOptions: [{ fixable: true }],
   create: (context) => {
@@ -51,30 +53,43 @@ export default createEslintRule<Options, MessageIds>({
         if (node.expression.type === 'CallExpression') {
           const { callee } = node.expression
           if (
-            callee.type === 'MemberExpression'
-            && isTestOrDescribe(callee.object)
-            && isOnly(callee.property)
+            callee.type === 'MemberExpression' &&
+            isTestOrDescribe(callee.object) &&
+            isOnly(callee.property)
           ) {
             context.report({
               node: callee.property,
               messageId: 'noFocusedTests',
-              fix: fixer => fixable ? fixer.removeRange([callee.property.range[0] - 1, callee.property.range[1]]) : null
+              fix: (fixer) =>
+                fixable
+                  ? fixer.removeRange([
+                      callee.property.range[0] - 1,
+                      callee.property.range[1],
+                    ])
+                  : null,
             })
           }
 
           if (callee.type === 'TaggedTemplateExpression') {
-            const tagCall = callee.tag.type === 'MemberExpression' ? callee.tag.object : null
+            const tagCall =
+              callee.tag.type === 'MemberExpression' ? callee.tag.object : null
             if (!tagCall) return
 
             if (
-              tagCall.type === 'MemberExpression'
-              && isTestOrDescribe(tagCall.object)
-              && isOnly(tagCall.property)
+              tagCall.type === 'MemberExpression' &&
+              isTestOrDescribe(tagCall.object) &&
+              isOnly(tagCall.property)
             ) {
               context.report({
                 node: tagCall.property,
                 messageId: 'noFocusedTests',
-                fix: fixer => fixable ? fixer.removeRange([tagCall.property.range[0] - 1, tagCall.property.range[1]]) : null
+                fix: (fixer) =>
+                  fixable
+                    ? fixer.removeRange([
+                        tagCall.property.range[0] - 1,
+                        tagCall.property.range[1],
+                      ])
+                    : null,
               })
             }
           }
@@ -85,28 +100,29 @@ export default createEslintRule<Options, MessageIds>({
           const { callee } = node.callee
 
           if (
-            callee.type === 'MemberExpression'
-            && callee.object.type === 'MemberExpression'
-            && isTestOrDescribe(callee.object.object)
-            && isOnly(callee.object.property)
-            && callee.property.type === 'Identifier'
-            && callee.property.name === 'each'
+            callee.type === 'MemberExpression' &&
+            callee.object.type === 'MemberExpression' &&
+            isTestOrDescribe(callee.object.object) &&
+            isOnly(callee.object.property) &&
+            callee.property.type === 'Identifier' &&
+            callee.property.name === 'each'
           ) {
             const onlyCallee = callee.object.property
 
             context.report({
               node: callee.object.property,
               messageId: 'noFocusedTests',
-              fix: fixer => fixable
-                ? fixer.removeRange([
-                    onlyCallee.range[0] - 1,
-                    onlyCallee.range[1]
-                  ])
-                : null
+              fix: (fixer) =>
+                fixable
+                  ? fixer.removeRange([
+                      onlyCallee.range[0] - 1,
+                      onlyCallee.range[1],
+                    ])
+                  : null,
             })
           }
         }
-      }
+      },
     }
-  }
+  },
 })

@@ -17,5 +17,5 @@ export const VITEST_GLOBALS = new Set([
   'beforeEach',
   'afterEach',
   'onTestFailed',
-  'onTestFinished'
+  'onTestFinished',
 ])

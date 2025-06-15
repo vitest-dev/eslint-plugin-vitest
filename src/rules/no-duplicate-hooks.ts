@@ -1,5 +1,8 @@
 import { createEslintRule } from '../utils'
-import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  isTypeOfVitestFnCall,
+  parseVitestFnCall,
+} from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'no-duplicate-hooks'
 export type MESSAGE_IDS = 'noDuplicateHooks'
@@ -11,13 +14,13 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     docs: {
       recommended: false,
       description: 'disallow duplicate hooks and teardown hooks',
-      requiresTypeChecking: false
+      requiresTypeChecking: false,
     },
     messages: {
-      noDuplicateHooks: 'Duplicate {{ hook }} in describe block'
+      noDuplicateHooks: 'Duplicate {{ hook }} in describe block',
     },
     schema: [],
-    type: 'suggestion'
+    type: 'suggestion',
   },
   defaultOptions: [],
   create(context) {
@@ -27,11 +30,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       CallExpression(node) {
         const vitestFnCall = parseVitestFnCall(node, context)
 
-        if (vitestFnCall?.type === 'describe')
-          hooksContexts.push({})
+        if (vitestFnCall?.type === 'describe') hooksContexts.push({})
 
-        if (vitestFnCall?.type !== 'hook')
-          return
+        if (vitestFnCall?.type !== 'hook') return
 
         const currentLayer = hooksContexts[hooksContexts.length - 1]
 
@@ -42,14 +43,14 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           context.report({
             messageId: 'noDuplicateHooks',
             data: { hook: vitestFnCall.name },
-            node
+            node,
           })
         }
       },
       'CallExpression:exit'(node) {
         if (isTypeOfVitestFnCall(node, context, ['describe']))
           hooksContexts.pop()
-      }
+      },
     }
-  }
+  },
 })

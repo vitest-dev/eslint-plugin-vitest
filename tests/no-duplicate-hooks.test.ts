@@ -22,7 +22,7 @@ ruleTester.run(RULE_NAME, rule, {
     test("bar", () => {
       someFn();
     })
-     })`
+     })`,
   ],
   invalid: [
     {
@@ -38,9 +38,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'noDuplicateHooks',
           data: { hook: 'beforeEach' },
           column: 7,
-          line: 3
-        }
-      ]
+          line: 3,
+        },
+      ],
     },
     {
       code: `
@@ -57,11 +57,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'noDuplicateHooks',
           data: { hook: 'afterEach' },
           column: 7,
-          line: 4
-        }
-      ]
-    }
-  ]
+          line: 4,
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
@@ -79,7 +79,7 @@ ruleTester.run(RULE_NAME, rule, {
         test("bar", () => {
           someFn();
         })
-      })`
+      })`,
   ],
   invalid: [
     {
@@ -103,11 +103,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'noDuplicateHooks',
           data: { hook: 'beforeEach' },
           column: 7,
-          line: 10
-        }
-      ]
-    }
-  ]
+          line: 10,
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
@@ -123,7 +123,7 @@ ruleTester.run(RULE_NAME, rule, {
       someFn();
        })
      })
-      })`
+      })`,
   ],
   invalid: [
     {
@@ -147,11 +147,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'noDuplicateHooks',
           data: { hook: 'beforeEach' },
           column: 7,
-          line: 10
-        }
-      ]
-    }
-  ]
+          line: 10,
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
@@ -165,7 +165,7 @@ ruleTester.run(RULE_NAME, rule, {
      beforeEach(() => {});
    
      it('is fine', () => {});
-      });`
+      });`,
   ],
   invalid: [
     {
@@ -180,9 +180,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'noDuplicateHooks',
           data: { hook: 'beforeEach' },
           column: 7,
-          line: 3
-        }
-      ]
+          line: 3,
+        },
+      ],
     },
     {
       code: ` describe('something', () => {
@@ -204,9 +204,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'noDuplicateHooks',
           data: { hook: 'beforeEach' },
           column: 9,
-          line: 10
-        }
-      ]
-    }
-  ]
+          line: 10,
+        },
+      ],
+    },
+  ],
 })

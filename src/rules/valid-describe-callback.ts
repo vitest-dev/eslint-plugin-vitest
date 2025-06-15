@@ -1,6 +1,14 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
-import { createEslintRule, FunctionExpression, getAccessorValue, isFunction } from '../utils'
-import { ParsedVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  createEslintRule,
+  FunctionExpression,
+  getAccessorValue,
+  isFunction,
+} from '../utils'
+import {
+  ParsedVitestFnCall,
+  parseVitestFnCall,
+} from '../utils/parse-vitest-fn-call'
 import { RuleContext } from '@typescript-eslint/utils/ts-eslint'
 
 export const RULE_NAME = 'valid-describe-callback'
@@ -12,27 +20,38 @@ type MESSAGE_IDS =
 
 type Options = []
 
-const paramsLocation = (params: TSESTree.CallExpressionArgument[] | TSESTree.Parameter[]) => {
+const paramsLocation = (
+  params: TSESTree.CallExpressionArgument[] | TSESTree.Parameter[],
+) => {
   const [first] = params
   const last = params[params.length - 1]
 
   return {
     start: first.loc.start,
-    end: last.loc.end
+    end: last.loc.end,
   }
 }
 
-const hasNonEachMembersAndParams = (vitestFnCall: ParsedVitestFnCall, functionExpression: FunctionExpression) => {
-  return vitestFnCall.members.every(s => getAccessorValue(s) !== 'each') && functionExpression.params.length
+const hasNonEachMembersAndParams = (
+  vitestFnCall: ParsedVitestFnCall,
+  functionExpression: FunctionExpression,
+) => {
+  return (
+    vitestFnCall.members.every((s) => getAccessorValue(s) !== 'each') &&
+    functionExpression.params.length
+  )
 }
 
-const reportUnexpectedReturnInDescribe = (blockStatement: TSESTree.BlockStatement, context: Readonly<RuleContext<MESSAGE_IDS, []>>) => {
+const reportUnexpectedReturnInDescribe = (
+  blockStatement: TSESTree.BlockStatement,
+  context: Readonly<RuleContext<MESSAGE_IDS, []>>,
+) => {
   blockStatement.body.forEach((node) => {
     if (node.type !== AST_NODE_TYPES.ReturnStatement) return
 
     context.report({
       messageId: 'unexpectedReturnInDescribe',
-      node
+      node,
     })
   })
 }
@@ -43,15 +62,16 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'problem',
     docs: {
       description: 'enforce valid describe callback',
-      recommended: false
+      recommended: false,
     },
     messages: {
       nameAndCallback: 'Describe requires a name and callback arguments',
       secondArgumentMustBeFunction: 'Second argument must be a function',
       unexpectedDescribeArgument: 'Unexpected argument in describe callback',
-      unexpectedReturnInDescribe: 'Unexpected return statement in describe callback'
+      unexpectedReturnInDescribe:
+        'Unexpected return statement in describe callback',
     },
-    schema: []
+    schema: [],
   },
   defaultOptions: [],
   create(context) {
@@ -61,13 +81,16 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         if (vitestFnCall?.type !== 'describe') return
 
-        if (vitestFnCall?.members[0]?.type === AST_NODE_TYPES.Identifier && vitestFnCall.members[0].name === 'todo')
+        if (
+          vitestFnCall?.members[0]?.type === AST_NODE_TYPES.Identifier &&
+          vitestFnCall.members[0].name === 'todo'
+        )
           return
 
         if (node.arguments.length < 1) {
           return context.report({
             messageId: 'nameAndCallback',
-            loc: node.loc
+            loc: node.loc,
           })
         }
 
@@ -76,7 +99,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         if (!arg2) {
           context.report({
             messageId: 'nameAndCallback',
-            loc: paramsLocation(node.arguments)
+            loc: paramsLocation(node.arguments),
           })
           return
         }
@@ -86,14 +109,14 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             if (hasNonEachMembersAndParams(vitestFnCall, arg3)) {
               context.report({
                 messageId: 'unexpectedDescribeArgument',
-                node: arg3
+                node: arg3,
               })
             }
 
             if (arg3.body.type === AST_NODE_TYPES.CallExpression) {
               context.report({
                 messageId: 'unexpectedReturnInDescribe',
-                node: arg3
+                node: arg3,
               })
             }
 
@@ -106,7 +129,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
           context.report({
             messageId: 'secondArgumentMustBeFunction',
-            loc: paramsLocation(node.arguments)
+            loc: paramsLocation(node.arguments),
           })
           return
         }
@@ -114,21 +137,21 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         if (hasNonEachMembersAndParams(vitestFnCall, arg2)) {
           context.report({
             messageId: 'unexpectedDescribeArgument',
-            node: arg2
+            node: arg2,
           })
         }
 
         if (arg2.body.type === AST_NODE_TYPES.CallExpression) {
           context.report({
             messageId: 'unexpectedReturnInDescribe',
-            node: arg2
+            node: arg2,
           })
         }
 
         if (arg2.body.type === AST_NODE_TYPES.BlockStatement) {
           reportUnexpectedReturnInDescribe(arg2.body, context)
         }
-      }
+      },
     }
-  }
+  },
 })

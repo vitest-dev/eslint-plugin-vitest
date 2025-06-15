@@ -38,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
       const upper5 = (a: string) => a.toUpperCase();
       const length = (x: string) => x.length;
       expect("test").toBe('test');
-    });`
+    });`,
   ],
   invalid: [
     {
@@ -49,9 +49,9 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 14,
           endLine: 1,
           line: 1,
-          messageId: 'disabledSuite'
-        }
-      ]
+          messageId: 'disabledSuite',
+        },
+      ],
     },
     {
       code: 'xtest("foo", function () {})',
@@ -61,9 +61,9 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 6,
           endLine: 1,
           line: 1,
-          messageId: 'disabledTest'
-        }
-      ]
+          messageId: 'disabledTest',
+        },
+      ],
     },
     {
       code: 'xit.each``("foo", function () {})',
@@ -73,9 +73,9 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 4,
           endLine: 1,
           line: 1,
-          messageId: 'disabledTest'
-        }
-      ]
+          messageId: 'disabledTest',
+        },
+      ],
     },
     {
       code: 'xtest.each``("foo", function () {})',
@@ -85,9 +85,9 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 6,
           endLine: 1,
           line: 1,
-          messageId: 'disabledTest'
-        }
-      ]
+          messageId: 'disabledTest',
+        },
+      ],
     },
     {
       code: 'xit.each([])("foo", function () {})',
@@ -97,9 +97,9 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 4,
           endLine: 1,
           line: 1,
-          messageId: 'disabledTest'
-        }
-      ]
+          messageId: 'disabledTest',
+        },
+      ],
     },
     {
       code: 'it("has title but no callback")',
@@ -109,9 +109,9 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 32,
           endLine: 1,
           line: 1,
-          messageId: 'missingFunction'
-        }
-      ]
+          messageId: 'missingFunction',
+        },
+      ],
     },
     {
       code: 'test("has title but no callback")',
@@ -121,9 +121,9 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 34,
           endLine: 1,
           line: 1,
-          messageId: 'missingFunction'
-        }
-      ]
+          messageId: 'missingFunction',
+        },
+      ],
     },
     {
       code: 'it("contains a call to pending", function () { pending() })',
@@ -133,9 +133,9 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 57,
           endLine: 1,
           line: 1,
-          messageId: 'pendingTest'
-        }
-      ]
+          messageId: 'pendingTest',
+        },
+      ],
     },
     {
       code: 'pending();',
@@ -145,9 +145,9 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 10,
           endLine: 1,
           line: 1,
-          messageId: 'pending'
-        }
-      ]
-    }
-  ]
+          messageId: 'pending',
+        },
+      ],
+    },
+  ],
 })

@@ -9,9 +9,9 @@ const ruleTester = new RuleTester({
     parserOptions: {
       tsconfigRootDir: rootPath,
       project: './tsconfig.json',
-      sourceType: 'module'
-    }
-  }
+      sourceType: 'module',
+    },
+  },
 })
 
 ruleTester.run('unbound-method', unboundMethod, {
@@ -33,8 +33,8 @@ ruleTester.run('unbound-method', unboundMethod, {
 
   logArrowBound();
   logManualBind();`,
-      skip: true
-    }
+      skip: true,
+    },
   ],
   invalid: [
     {
@@ -53,9 +53,9 @@ ruleTester.run('unbound-method', unboundMethod, {
       errors: [
         {
           line: 10,
-          messageId: 'unboundWithoutThisAnnotation'
-        }
-      ]
-    }
-  ]
+          messageId: 'unboundWithoutThisAnnotation',
+        },
+      ],
+    },
+  ],
 })

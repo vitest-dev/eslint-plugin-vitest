@@ -1,8 +1,4 @@
-import {
-  AST_NODE_TYPES,
-  ESLintUtils,
-  TSESLint
-} from '@typescript-eslint/utils'
+import { AST_NODE_TYPES, ESLintUtils, TSESLint } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 import { parsePluginSettings } from '../utils/parse-plugin-settings'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
@@ -20,13 +16,13 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     docs: {
       description:
         'enforce using a function as a describe title over an equivalent string',
-      recommended: false
+      recommended: false,
     },
     fixable: 'code',
     schema: [],
     messages: {
-      preferFunction: 'Enforce using a function over an equivalent string'
-    }
+      preferFunction: 'Enforce using a function over an equivalent string',
+    },
   },
   defaultOptions: [],
   create(context) {
@@ -38,8 +34,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         const [argument] = node.arguments
         if (
-          argument.type !== AST_NODE_TYPES.Literal
-          || typeof argument.value !== 'string'
+          argument.type !== AST_NODE_TYPES.Literal ||
+          typeof argument.value !== 'string'
         ) {
           return
         }
@@ -75,9 +71,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           messageId: 'preferFunction',
           fix(fixer) {
             return fixer.replaceText(argument, describedTitle)
-          }
+          },
         })
-      }
+      },
     }
-  }
+  },
 })

@@ -12,14 +12,16 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 8,
           endLine: 1,
           line: 1,
-          messageId: 'noFocusedTests'
-        }
-      ]
+          messageId: 'noFocusedTests',
+        },
+      ],
     },
     {
-      options: [{
-        fixable: false
-      }],
+      options: [
+        {
+          fixable: false,
+        },
+      ],
       code: 'describe.only("test", () => {});',
       errors: [
         {
@@ -27,14 +29,16 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 14,
           endLine: 1,
           line: 1,
-          messageId: 'noFocusedTests'
-        }
-      ]
+          messageId: 'noFocusedTests',
+        },
+      ],
     },
     {
-      options: [{
-        fixable: false
-      }],
+      options: [
+        {
+          fixable: false,
+        },
+      ],
       code: 'test.only("test", () => {});',
       errors: [
         {
@@ -42,14 +46,16 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 10,
           endLine: 1,
           line: 1,
-          messageId: 'noFocusedTests'
-        }
-      ]
+          messageId: 'noFocusedTests',
+        },
+      ],
     },
     {
-      options: [{
-        fixable: false
-      }],
+      options: [
+        {
+          fixable: false,
+        },
+      ],
       code: 'it.only.each([])("test", () => {});',
       errors: [
         {
@@ -57,14 +63,16 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 8,
           endLine: 1,
           line: 1,
-          messageId: 'noFocusedTests'
-        }
-      ]
+          messageId: 'noFocusedTests',
+        },
+      ],
     },
     {
-      options: [{
-        fixable: false
-      }],
+      options: [
+        {
+          fixable: false,
+        },
+      ],
       code: 'test.only.each``("test", () => {});',
       errors: [
         {
@@ -72,14 +80,16 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 10,
           endLine: 1,
           line: 1,
-          messageId: 'noFocusedTests'
-        }
-      ]
+          messageId: 'noFocusedTests',
+        },
+      ],
     },
     {
-      options: [{
-        fixable: false
-      }],
+      options: [
+        {
+          fixable: false,
+        },
+      ],
       code: 'it.only.each``("test", () => {});',
       errors: [
         {
@@ -87,20 +97,22 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 8,
           endLine: 1,
           line: 1,
-          messageId: 'noFocusedTests'
-        }
-      ]
-    }
-  ]
+          messageId: 'noFocusedTests',
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
   valid: ['it("test", () => {});', 'describe("test group", () => {});'],
   invalid: [
     {
-      options: [{
-        fixable: true
-      }],
+      options: [
+        {
+          fixable: true,
+        },
+      ],
       code: 'it.only("test", () => {});',
       errors: [
         {
@@ -108,15 +120,17 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 8,
           endLine: 1,
           line: 1,
-          messageId: 'noFocusedTests'
-        }
+          messageId: 'noFocusedTests',
+        },
       ],
-      output: 'it("test", () => {});'
+      output: 'it("test", () => {});',
     },
     {
-      options: [{
-        fixable: true
-      }],
+      options: [
+        {
+          fixable: true,
+        },
+      ],
       code: 'describe.only("test", () => {});',
       errors: [
         {
@@ -124,15 +138,17 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 14,
           endLine: 1,
           line: 1,
-          messageId: 'noFocusedTests'
-        }
+          messageId: 'noFocusedTests',
+        },
       ],
-      output: 'describe("test", () => {});'
+      output: 'describe("test", () => {});',
     },
     {
-      options: [{
-        fixable: true
-      }],
+      options: [
+        {
+          fixable: true,
+        },
+      ],
       code: 'test.only("test", () => {});',
       errors: [
         {
@@ -140,15 +156,17 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 10,
           endLine: 1,
           line: 1,
-          messageId: 'noFocusedTests'
-        }
+          messageId: 'noFocusedTests',
+        },
       ],
-      output: 'test("test", () => {});'
+      output: 'test("test", () => {});',
     },
     {
-      options: [{
-        fixable: true
-      }],
+      options: [
+        {
+          fixable: true,
+        },
+      ],
       code: 'it.only.each([])("test", () => {});',
       errors: [
         {
@@ -156,15 +174,17 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 8,
           endLine: 1,
           line: 1,
-          messageId: 'noFocusedTests'
-        }
+          messageId: 'noFocusedTests',
+        },
       ],
-      output: 'it.each([])("test", () => {});'
+      output: 'it.each([])("test", () => {});',
     },
     {
-      options: [{
-        fixable: true
-      }],
+      options: [
+        {
+          fixable: true,
+        },
+      ],
       code: 'test.only.each``("test", () => {});',
       errors: [
         {
@@ -172,15 +192,17 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 10,
           endLine: 1,
           line: 1,
-          messageId: 'noFocusedTests'
-        }
+          messageId: 'noFocusedTests',
+        },
       ],
-      output: 'test.each``("test", () => {});'
+      output: 'test.each``("test", () => {});',
     },
     {
-      options: [{
-        fixable: true
-      }],
+      options: [
+        {
+          fixable: true,
+        },
+      ],
       code: 'it.only.each``("test", () => {});',
       errors: [
         {
@@ -188,10 +210,10 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 8,
           endLine: 1,
           line: 1,
-          messageId: 'noFocusedTests'
-        }
+          messageId: 'noFocusedTests',
+        },
       ],
-      output: 'it.each``("test", () => {});'
-    }
-  ]
+      output: 'it.each``("test", () => {});',
+    },
+  ],
 })

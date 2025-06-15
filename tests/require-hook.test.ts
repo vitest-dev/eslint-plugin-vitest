@@ -16,7 +16,7 @@ test('myFn', () => {
 expect(myFn()).toBe(1);
 });
 `,
-      languageOptions: { parserOptions: { sourceType: 'module' } }
+      languageOptions: { parserOptions: { sourceType: 'module' } },
     },
     `
 class MockLogger {
@@ -138,8 +138,8 @@ class MockLogger {
       });
        });
      `,
-      options: [{ allowedFunctionCalls: ['enableAutoDestroy'] }]
-    }
+      options: [{ allowedFunctionCalls: ['enableAutoDestroy'] }],
+    },
   ],
   invalid: [
     {
@@ -148,9 +148,9 @@ class MockLogger {
         {
           messageId: 'useHook',
           line: 1,
-          column: 1
-        }
-      ]
+          column: 1,
+        },
+      ],
     },
     {
       code: `
@@ -162,9 +162,9 @@ class MockLogger {
         {
           messageId: 'useHook',
           line: 3,
-          column: 7
-        }
-      ]
+          column: 7,
+        },
+      ],
     },
     {
       code: `
@@ -178,14 +178,14 @@ class MockLogger {
         {
           messageId: 'useHook',
           line: 2,
-          column: 8
+          column: 8,
         },
         {
           messageId: 'useHook',
           line: 5,
-          column: 7
-        }
-      ]
+          column: 7,
+        },
+      ],
     },
     {
       code: `
@@ -209,14 +209,14 @@ class MockLogger {
         {
           messageId: 'useHook',
           line: 3,
-          column: 8
+          column: 8,
         },
         {
           messageId: 'useHook',
           line: 10,
-          column: 7
-        }
-      ]
+          column: 7,
+        },
+      ],
     },
     {
       code: `
@@ -230,14 +230,14 @@ class MockLogger {
         {
           messageId: 'useHook',
           line: 2,
-          column: 8
+          column: 8,
         },
         {
           messageId: 'useHook',
           line: 5,
-          column: 7
-        }
-      ]
+          column: 7,
+        },
+      ],
     },
     {
       code: `
@@ -251,9 +251,9 @@ class MockLogger {
         {
           messageId: 'useHook',
           line: 5,
-          column: 7
-        }
-      ]
+          column: 7,
+        },
+      ],
     },
     {
       code: 'let value = 1',
@@ -261,29 +261,29 @@ class MockLogger {
         {
           messageId: 'useHook',
           line: 1,
-          column: 1
-        }
-      ]
+          column: 1,
+        },
+      ],
     },
     {
-      code: 'let consoleErrorSpy, consoleWarnSpy = vi.spyOn(console, \'error\');',
+      code: "let consoleErrorSpy, consoleWarnSpy = vi.spyOn(console, 'error');",
       errors: [
         {
           messageId: 'useHook',
           line: 1,
-          column: 1
-        }
-      ]
+          column: 1,
+        },
+      ],
     },
     {
-      code: 'let consoleErrorSpy = vi.spyOn(console, \'error\'), consoleWarnSpy;',
+      code: "let consoleErrorSpy = vi.spyOn(console, 'error'), consoleWarnSpy;",
       errors: [
         {
           messageId: 'useHook',
           line: 1,
-          column: 1
-        }
-      ]
+          column: 1,
+        },
+      ],
     },
     {
       code: `
@@ -343,24 +343,24 @@ class MockLogger {
         {
           messageId: 'useHook',
           line: 17,
-          column: 8
+          column: 8,
         },
         {
           messageId: 'useHook',
           line: 32,
-          column: 7
+          column: 7,
         },
         {
           messageId: 'useHook',
           line: 34,
-          column: 7
+          column: 7,
         },
         {
           messageId: 'useHook',
           line: 51,
-          column: 8
-        }
-      ]
-    }
-  ]
+          column: 8,
+        },
+      ],
+    },
+  ],
 })

@@ -16,13 +16,13 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     docs: {
       description: 'require `vi.mocked()` over `fn as Mock`',
       requiresTypeChecking: true,
-      recommended: false
+      recommended: false,
     },
     fixable: 'code',
     messages: {
-      useViMocked: 'Prefer `vi.mocked()`'
+      useViMocked: 'Prefer `vi.mocked()`',
     },
-    schema: []
+    schema: [],
   },
   defaultOptions: [],
   create(context) {
@@ -38,7 +38,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       if (!mockTypes.includes(typeName.name)) return
 
       const fnName = context.sourceCode.text.slice(
-        ...followTypeAssertionChain(node.expression).range
+        ...followTypeAssertionChain(node.expression).range,
       )
 
       context.report({
@@ -46,7 +46,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         messageId: 'useViMocked',
         fix(fixer) {
           return fixer.replaceText(node, `vi.mocked(${fnName})`)
-        }
+        },
       })
     }
 
@@ -58,7 +58,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       },
       TSTypeAssertion(node) {
         check(node)
-      }
+      },
     }
-  }
+  },
 })

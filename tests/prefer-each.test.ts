@@ -23,7 +23,7 @@ ruleTester.run(RULE_NAME, rule, {
      for (let i = 0; i < numbers.length; i++) {
        expect(numbers[i]).toBeGreaterThan(7);
      }
-      });`
+      });`,
   ],
   invalid: [
     {
@@ -35,9 +35,9 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { fn: 'it' },
-          messageId: 'preferEach'
-        }
-      ]
+          messageId: 'preferEach',
+        },
+      ],
     },
     {
       code: ` for (const [input, expected] of data) {
@@ -50,9 +50,9 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { fn: 'describe' },
-          messageId: 'preferEach'
-        }
-      ]
+          messageId: 'preferEach',
+        },
+      ],
     },
     {
       code: `for (const [input, expected] of data) {
@@ -71,13 +71,13 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { fn: 'describe' },
-          messageId: 'preferEach'
+          messageId: 'preferEach',
         },
         {
           data: { fn: 'it' },
-          messageId: 'preferEach'
-        }
-      ]
+          messageId: 'preferEach',
+        },
+      ],
     },
     {
       code: `for (const [input, expected] of data) {
@@ -88,9 +88,9 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { fn: 'it' },
-          messageId: 'preferEach'
-        }
-      ]
+          messageId: 'preferEach',
+        },
+      ],
     },
     {
       code: `it('is true', () => {
@@ -105,9 +105,9 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { fn: 'it' },
-          messageId: 'preferEach'
-        }
-      ]
+          messageId: 'preferEach',
+        },
+      ],
     },
     {
       code: ` for (const [input, expected] of data) {
@@ -122,9 +122,9 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { fn: 'it' },
-          messageId: 'preferEach'
-        }
-      ]
+          messageId: 'preferEach',
+        },
+      ],
     },
     {
       code: ` it('is true', () => {
@@ -143,9 +143,9 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { fn: 'it' },
-          messageId: 'preferEach'
-        }
-      ]
+          messageId: 'preferEach',
+        },
+      ],
     },
     {
       code: `for (const [input, expected] of data) {
@@ -160,9 +160,9 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { fn: 'describe' },
-          messageId: 'preferEach'
-        }
-      ]
+          messageId: 'preferEach',
+        },
+      ],
     },
     {
       code: `for (const [input, expected] of data) {
@@ -179,13 +179,13 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { fn: 'it' },
-          messageId: 'preferEach'
+          messageId: 'preferEach',
         },
         {
           data: { fn: 'it' },
-          messageId: 'preferEach'
-        }
-      ]
+          messageId: 'preferEach',
+        },
+      ],
     },
     {
       code: `for (const [input, expected] of data) {
@@ -198,9 +198,9 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { fn: 'describe' },
-          messageId: 'preferEach'
-        }
-      ]
+          messageId: 'preferEach',
+        },
+      ],
     },
     {
       code: `
@@ -217,9 +217,9 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { fn: 'it' },
-          messageId: 'preferEach'
-        }
-      ]
+          messageId: 'preferEach',
+        },
+      ],
     },
     {
       code: `
@@ -238,9 +238,9 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { fn: 'describe' },
-          messageId: 'preferEach'
-        }
-      ]
-    }
-  ]
+          messageId: 'preferEach',
+        },
+      ],
+    },
+  ],
 })

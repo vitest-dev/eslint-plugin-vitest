@@ -11,17 +11,18 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   meta: {
     type: 'suggestion',
     docs: {
-      description: 'enforce using `expect().resolves` over `expect(await ...)` syntax',
-      recommended: false
+      description:
+        'enforce using `expect().resolves` over `expect(await ...)` syntax',
+      recommended: false,
     },
     fixable: 'code',
     messages: {
-      expectResolves: 'Use `expect().resolves` instead'
+      expectResolves: 'Use `expect().resolves` instead',
     },
-    schema: []
+    schema: [],
   },
   defaultOptions: [],
-  create: context => ({
+  create: (context) => ({
     CallExpression(node) {
       const vitestFnCall = parseVitestFnCall(node, context)
 
@@ -29,8 +30,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
       const { parent } = vitestFnCall.head.node
 
-      if (parent?.type !== AST_NODE_TYPES.CallExpression)
-        return
+      if (parent?.type !== AST_NODE_TYPES.CallExpression) return
 
       const [awaitNode] = parent.arguments
 
@@ -43,13 +43,13 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               fixer.insertTextBefore(parent, 'await '),
               fixer.removeRange([
                 awaitNode.range[0],
-                awaitNode.argument.range[0]
+                awaitNode.argument.range[0],
               ]),
-              fixer.insertTextAfter(parent, '.resolves')
+              fixer.insertTextAfter(parent, '.resolves'),
             ]
-          }
+          },
         })
       }
-    }
-  })
+    },
+  }),
 })

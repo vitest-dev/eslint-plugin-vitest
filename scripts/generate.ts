@@ -11,20 +11,21 @@ async function generate() {
 
   rules.forEach(async (rule) => {
     const ruleName = rule.replace(/\.ts$/, '')
-    const content = await import(path.resolve(__dirname, `../src/rules/${ruleName}.ts`))
+    const content = await import(
+      path.resolve(__dirname, `../src/rules/${ruleName}.ts`)
+    )
 
     if (content.default.meta.docs.recommended) {
       // @ts-expect-error fix letter
       recommendedRules.push({
         name: ruleName,
-        rule: content.default
+        rule: content.default,
       })
-    }
-    else {
+    } else {
       // @ts-expect-error fix letter
       allRules.push({
         name: ruleName,
-        rule: content.default
+        rule: content.default,
       })
     }
   })
@@ -32,8 +33,7 @@ async function generate() {
   console.log(recommendedRules)
 }
 
-generate()
-  .catch((e) => {
-    console.error(e)
-    process.exit(1)
-  })
+generate().catch((e) => {
+  console.error(e)
+  process.exit(1)
+})

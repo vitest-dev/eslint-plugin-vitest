@@ -11,12 +11,12 @@ export default createEslintRule({
     type: 'suggestion',
     docs: {
       description: 'enforce using `each` rather than manual loops',
-      recommended: false
+      recommended: false,
     },
     schema: [],
     messages: {
-      preferEach: 'Prefer using `{{ fn }}.each` rather than a manual loop'
-    }
+      preferEach: 'Prefer using `{{ fn }}.each` rather than a manual loop',
+    },
   },
   defaultOptions: [],
   create(context) {
@@ -24,8 +24,7 @@ export default createEslintRule({
     let inTestCaseCall = false
 
     const recommendFn = () => {
-      if (vitestFnCalls.length === 1 && vitestFnCalls[0] === 'test')
-        return 'it'
+      if (vitestFnCalls.length === 1 && vitestFnCalls[0] === 'test') return 'it'
 
       return 'describe'
     }
@@ -40,41 +39,43 @@ export default createEslintRule({
       node:
         | TSESTree.ForInStatement
         | TSESTree.ForOfStatement
-        | TSESTree.ForStatement
+        | TSESTree.ForStatement,
     ) => {
       if (vitestFnCalls.length === 0 || inTestCaseCall) return
 
       context.report({
         node,
         messageId: 'preferEach',
-        data: { fn: recommendFn() }
+        data: { fn: recommendFn() },
       })
       vitestFnCalls.length = 0
     }
 
     return {
-      'ForStatement': enterForLoop,
+      ForStatement: enterForLoop,
       'ForStatement:exit': exitForLoop,
-      'ForInStatement': enterForLoop,
+      ForInStatement: enterForLoop,
       'ForInStatement:exit': exitForLoop,
-      'ForOfStatement': enterForLoop,
+      ForOfStatement: enterForLoop,
       'ForOfStatement:exit': exitForLoop,
       CallExpression(node) {
-        const { type: vitestFnCallType } = parseVitestFnCall(node, context) ?? {}
+        const { type: vitestFnCallType } =
+          parseVitestFnCall(node, context) ?? {}
 
-        if (vitestFnCallType === 'hook'
-          || vitestFnCallType === 'describe'
-          || vitestFnCallType === 'test')
+        if (
+          vitestFnCallType === 'hook' ||
+          vitestFnCallType === 'describe' ||
+          vitestFnCallType === 'test'
+        )
           vitestFnCalls.push(vitestFnCallType)
 
-        if (vitestFnCallType === 'test')
-          inTestCaseCall = true
+        if (vitestFnCallType === 'test') inTestCaseCall = true
       },
       'CallExpression:exit'(node) {
-        const { type: vitestFnCallType } = parseVitestFnCall(node, context) ?? {}
-        if (vitestFnCallType === 'test')
-          inTestCaseCall = false
-      }
+        const { type: vitestFnCallType } =
+          parseVitestFnCall(node, context) ?? {}
+        if (vitestFnCallType === 'test') inTestCaseCall = false
+      },
     }
-  }
+  },
 })

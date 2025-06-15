@@ -19,6 +19,6 @@ export default createPaddingRule(
     ...paddingAroundBeforeEachBlocksConfig,
     ...paddingAroundDescribeBlocksConfig,
     ...paddingAroundExpectGroupsConfig,
-    ...paddingAroundTestBlocksConfig
-  ]
+    ...paddingAroundTestBlocksConfig,
+  ],
 )
