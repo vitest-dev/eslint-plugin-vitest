@@ -5,7 +5,7 @@
 const config = {
   semi: false,
   singleQuote: true,
-  endOfLine: "auto"
+  endOfLine: 'auto',
 }
 
 export default config

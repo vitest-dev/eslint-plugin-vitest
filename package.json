@@ -46,7 +46,7 @@
     "stub": "unbuild --stub",
     "test:ci": "npm run format:check && vitest run",
     "format:check": "npx prettier 'src/**/*.ts' --check",
-    "format:fix": "npx prettier '**/*.ts' --write",
+    "format:fix": "npx prettier '**/*.{ts,js}' --write",
     "test": "vitest",
     "generate": "tsx scripts/generate.ts",
     "update:eslint-docs": "pnpm build && eslint-doc-generator",
