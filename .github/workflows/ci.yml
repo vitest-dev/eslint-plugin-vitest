@@ -39,11 +39,17 @@ jobs:
       - name: install
         run: pnpm install
 
+      - name: format
+        run: pnpm format:check
+
+      #- name: typecheck
+      #  run: pnpm tsc
+
+      - name: lint code
+        run: pnpm lint:js
+
       - name: test
         run: pnpm test:ci
 
       - name: build
         run: pnpm build
-
-        #      - name: typecheck
-        #run: pnpm tsc
