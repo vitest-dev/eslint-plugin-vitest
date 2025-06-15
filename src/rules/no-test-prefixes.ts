@@ -11,7 +11,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   meta: {
     docs: {
       description:
-        'Disallow using the `f` and `x` prefixes in favour of `.only` and `.skip`',
+        'disallow using the `f` and `x` prefixes in favour of `.only` and `.skip`',
       recommended: false,
     },
     type: 'suggestion',

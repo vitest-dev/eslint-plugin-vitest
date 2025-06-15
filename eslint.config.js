@@ -20,7 +20,6 @@ export default [
       vitest,
     },
     rules: {
-      ...styleConfigs.rules,
       'eslint-plugin/require-meta-docs-description': 'error',
     },
     settings: {
