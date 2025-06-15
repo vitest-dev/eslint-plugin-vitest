@@ -46,7 +46,7 @@ jobs:
       #  run: pnpm tsc
 
       - name: lint code
-        run: pnpm lint:js
+        run: pnpm build && pnpm lint:js
 
       - name: test
         run: pnpm test:ci
