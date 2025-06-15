@@ -1,5 +1,4 @@
 import type { Linter } from '@typescript-eslint/utils/ts-eslint'
-import type { ESLint } from 'eslint'
 import { version } from '../package.json'
 import lowerCaseTitle, {
   RULE_NAME as lowerCaseTitleName,
@@ -397,7 +396,7 @@ const plugin = {
     recommended: {
       name: '@vitest/recommended',
       plugins: {
-        get vitest(): ESLint.Plugin {
+        get vitest() {
           return plugin
         },
       },
@@ -406,7 +405,7 @@ const plugin = {
     all: {
       name: '@vitest/all',
       plugins: {
-        get vitest(): ESLint.Plugin {
+        get vitest() {
           return plugin
         },
       },
@@ -437,6 +436,6 @@ const plugin = {
       },
     },
   },
-} satisfies ESLint.Plugin
+}
 
 export default plugin

@@ -42,6 +42,9 @@ jobs:
       - name: format
         run: pnpm format:check
 
+      - name: check types
+        run: pnpm tsc
+
       - name: build
         run: pnpm build
 

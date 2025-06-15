@@ -24,8 +24,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: "import { describe } from 'vitest';",
       errors: [
         {
-          message:
-            "Do not import 'describe' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noImportingVitestGlobals',
+          data: { name: 'describe' },
         },
       ],
       output: '',
@@ -34,12 +34,12 @@ ruleTester.run(RULE_NAME, rule, {
       code: "import { describe, it } from 'vitest';",
       errors: [
         {
-          message:
-            "Do not import 'describe' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noImportingVitestGlobals',
+          data: { name: 'describe' },
         },
         {
-          message:
-            "Do not import 'it' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noImportingVitestGlobals',
+          data: { name: 'it' },
         },
       ],
       output: '',
@@ -48,8 +48,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: "import { describe, BenchFactory } from 'vitest';",
       errors: [
         {
-          message:
-            "Do not import 'describe' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noImportingVitestGlobals',
+          data: { name: 'describe' },
         },
       ],
       output: "import { BenchFactory } from 'vitest';",
@@ -58,8 +58,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: "import { BenchFactory, describe } from 'vitest';",
       errors: [
         {
-          message:
-            "Do not import 'describe' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noImportingVitestGlobals',
+          data: { name: 'describe' },
         },
       ],
       output: "import { BenchFactory } from 'vitest';",
@@ -68,12 +68,12 @@ ruleTester.run(RULE_NAME, rule, {
       code: "import { describe, BenchFactory, it } from 'vitest';",
       errors: [
         {
-          message:
-            "Do not import 'describe' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noImportingVitestGlobals',
+          data: { name: 'describe' },
         },
         {
-          message:
-            "Do not import 'it' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noImportingVitestGlobals',
+          data: { name: 'it' },
         },
       ],
       output: "import { BenchFactory } from 'vitest';",
@@ -82,12 +82,12 @@ ruleTester.run(RULE_NAME, rule, {
       code: "import { BenchTask, describe, BenchFactory, it } from 'vitest';",
       errors: [
         {
-          message:
-            "Do not import 'describe' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noImportingVitestGlobals',
+          data: { name: 'describe' },
         },
         {
-          message:
-            "Do not import 'it' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noImportingVitestGlobals',
+          data: { name: 'it' },
         },
       ],
       output: "import { BenchTask, BenchFactory } from 'vitest';",
@@ -96,8 +96,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: "const { describe } = require('vitest');",
       errors: [
         {
-          message:
-            "Do not require 'describe' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noRequiringVitestGlobals',
+          data: { name: 'describe' },
         },
       ],
       output: '',
@@ -106,8 +106,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: "const { describe } = require('vitest'), x = 1;",
       errors: [
         {
-          message:
-            "Do not require 'describe' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noRequiringVitestGlobals',
+          data: { name: 'describe' },
         },
       ],
       output: 'const x = 1;',
@@ -116,8 +116,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: "const x = 1, { describe } = require('vitest');",
       errors: [
         {
-          message:
-            "Do not require 'describe' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noRequiringVitestGlobals',
+          data: { name: 'describe' },
         },
       ],
       output: 'const x = 1;',
@@ -126,8 +126,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: "const x = 1, { describe } = require('vitest'), y = 2;",
       errors: [
         {
-          message:
-            "Do not require 'describe' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noRequiringVitestGlobals',
+          data: { name: 'describe' },
         },
       ],
       output: 'const x = 1, y = 2;',
@@ -136,12 +136,12 @@ ruleTester.run(RULE_NAME, rule, {
       code: "const { describe, it } = require('vitest');",
       errors: [
         {
-          message:
-            "Do not require 'describe' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noRequiringVitestGlobals',
+          data: { name: 'describe' },
         },
         {
-          message:
-            "Do not require 'it' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noRequiringVitestGlobals',
+          data: { name: 'it' },
         },
       ],
       output: '',
@@ -150,8 +150,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: "const { describe, BenchFactory } = require('vitest');",
       errors: [
         {
-          message:
-            "Do not require 'describe' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noRequiringVitestGlobals',
+          data: { name: 'describe' },
         },
       ],
       output: "const { BenchFactory } = require('vitest');",
@@ -160,8 +160,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: "const { BenchFactory, describe } = require('vitest');",
       errors: [
         {
-          message:
-            "Do not require 'describe' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noRequiringVitestGlobals',
+          data: { name: 'describe' },
         },
       ],
       output: "const { BenchFactory } = require('vitest');",
@@ -170,12 +170,12 @@ ruleTester.run(RULE_NAME, rule, {
       code: "const { describe, BenchFactory, it } = require('vitest');",
       errors: [
         {
-          message:
-            "Do not require 'describe' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noRequiringVitestGlobals',
+          data: { name: 'describe' },
         },
         {
-          message:
-            "Do not require 'it' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noRequiringVitestGlobals',
+          data: { name: 'it' },
         },
       ],
       output: "const { BenchFactory } = require('vitest');",
@@ -184,12 +184,12 @@ ruleTester.run(RULE_NAME, rule, {
       code: "const { BenchTask, describe, BenchFactory, it } = require('vitest');",
       errors: [
         {
-          message:
-            "Do not require 'describe' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noRequiringVitestGlobals',
+          data: { name: 'describe' },
         },
         {
-          message:
-            "Do not require 'it' from 'vitest'. Use globals configuration instead.",
+          messageId: 'noRequiringVitestGlobals',
+          data: { name: 'it' },
         },
       ],
       output: "const { BenchTask, BenchFactory } = require('vitest');",
