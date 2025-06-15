@@ -1,6 +1,9 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue } from '../utils'
-import { findTopMostCallExpression, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  findTopMostCallExpression,
+  parseVitestFnCall,
+} from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'unbound-method'
 
@@ -8,7 +11,7 @@ const toThrowMatchers = [
   'toThrow',
   'toThrowError',
   'toThrowErrorMatchingSnapshot',
-  'toThrowErrorMatchingInlineSnapshot'
+  'toThrowErrorMatchingInlineSnapshot',
 ]
 
 type MESSAGE_IDS = 'unbound' | 'unboundWithoutThisAnnotation'
@@ -29,12 +32,10 @@ const baseRule = (() => {
       MESSAGE_IDS,
       Options
     >
-  }
-  catch (e: unknown) {
+  } catch (e: unknown) {
     const error = e as { code: string }
 
-    if (error.code === 'MODULE_NOT_FOUND')
-      return null
+    if (error.code === 'MODULE_NOT_FOUND') return null
 
     throw error
   }
@@ -46,17 +47,18 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   meta: {
     messages: {
       unbound: DEFAULT_MESSAGE,
-      unboundWithoutThisAnnotation: DEFAULT_MESSAGE
+      unboundWithoutThisAnnotation: DEFAULT_MESSAGE,
     },
     schema: [],
     type: 'problem',
     ...baseRule?.meta,
     docs: {
       ...baseRule?.meta.docs,
-      description: 'enforce unbound methods are called with their expected scope',
+      description:
+        'enforce unbound methods are called with their expected scope',
       recommended: false,
-      requiresTypeChecking: true
-    }
+      requiresTypeChecking: true,
+    },
   },
   create(context) {
     const baseSelectors = baseRule?.create(context)
@@ -69,7 +71,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         if (node.parent?.type === AST_NODE_TYPES.CallExpression) {
           const vitestFnCall = parseVitestFnCall(
             findTopMostCallExpression(node.parent),
-            context
+            context,
           )
 
           if (vitestFnCall?.type === 'expect') {
@@ -79,7 +81,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           }
         }
         baseSelectors?.MemberExpression?.(node)
-      }
+      },
     }
-  }
+  },
 })

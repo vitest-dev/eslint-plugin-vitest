@@ -3,13 +3,13 @@ import ts from 'typescript'
 
 export enum UtilName {
   vi = 'vi',
-  vitest = 'vitest'
+  vitest = 'vitest',
 }
 
 export enum DescribeAlias {
   describe = 'describe',
   fdescribe = 'fdescribe',
-  xdescribe = 'xdescribe'
+  xdescribe = 'xdescribe',
 }
 
 export enum TestCaseName {
@@ -18,14 +18,14 @@ export enum TestCaseName {
   test = 'test',
   xit = 'xit',
   xtest = 'xtest',
-  bench = 'bench'
+  bench = 'bench',
 }
 
 export enum HookName {
   beforeAll = 'beforeAll',
   beforeEach = 'beforeEach',
   afterAll = 'afterAll',
-  afterEach = 'afterEach'
+  afterEach = 'afterEach',
 }
 
 export enum ModifierName {
@@ -42,14 +42,15 @@ export enum ModifierName {
   thisParameter = 'thisParameter',
   guards = 'guards',
   instance = 'instance',
-  items = 'items'
+  items = 'items',
 }
 
 /**
  * Represents a `CallExpression` with a single argument.
  */
 export interface CallExpressionWithSingleArgument<
-  Argument extends TSESTree.CallExpression['arguments'][number] = TSESTree.CallExpression['arguments'][number]
+  Argument extends
+    TSESTree.CallExpression['arguments'][number] = TSESTree.CallExpression['arguments'][number],
 > extends TSESTree.CallExpression {
   arguments: [Argument]
 }
@@ -57,7 +58,7 @@ export interface CallExpressionWithSingleArgument<
 export enum EqualityMatcher {
   toBe = 'toBe',
   toEqual = 'toEqual',
-  toStrictEqual = 'toStrictEqual'
+  toStrictEqual = 'toStrictEqual',
 }
 
 export type MaybeTypeCast<Expression extends TSESTree.Expression> =
@@ -65,17 +66,17 @@ export type MaybeTypeCast<Expression extends TSESTree.Expression> =
   | Expression
 
 export type TSTypeCastExpression<
-  Expression extends TSESTree.Expression = TSESTree.Expression
+  Expression extends TSESTree.Expression = TSESTree.Expression,
 > = AsExpressionChain<Expression> | TypeAssertionChain<Expression>
 
 interface AsExpressionChain<
-  Expression extends TSESTree.Expression = TSESTree.Expression
+  Expression extends TSESTree.Expression = TSESTree.Expression,
 > extends TSESTree.TSAsExpression {
   expression: AsExpressionChain<Expression> | Expression
 }
 
 interface TypeAssertionChain<
-  Expression extends TSESTree.Expression = TSESTree.Expression
+  Expression extends TSESTree.Expression = TSESTree.Expression,
 > extends TSESTree.TSTypeAssertion {
   expression: TypeAssertionChain<Expression> | Expression
 }
@@ -83,17 +84,19 @@ interface TypeAssertionChain<
 export function isClassOrFunctionType(type: ts.Type): boolean {
   if (type.getCallSignatures().length > 0) return true
 
-  return type
-    .getSymbol()
-    ?.getDeclarations()
-    ?.some(
-      declaration =>
-        ts.isArrowFunction(declaration)
-        || ts.isClassDeclaration(declaration)
-        || ts.isClassExpression(declaration)
-        || ts.isFunctionDeclaration(declaration)
-        || ts.isFunctionExpression(declaration)
-        || ts.isMethodDeclaration(declaration)
-        || ts.isFunctionTypeNode(declaration)
-    ) ?? false
+  return (
+    type
+      .getSymbol()
+      ?.getDeclarations()
+      ?.some(
+        (declaration) =>
+          ts.isArrowFunction(declaration) ||
+          ts.isClassDeclaration(declaration) ||
+          ts.isClassExpression(declaration) ||
+          ts.isFunctionDeclaration(declaration) ||
+          ts.isFunctionExpression(declaration) ||
+          ts.isMethodDeclaration(declaration) ||
+          ts.isFunctionTypeNode(declaration),
+      ) ?? false
+  )
 }

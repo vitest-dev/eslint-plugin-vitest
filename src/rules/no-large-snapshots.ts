@@ -1,6 +1,10 @@
 import { isAbsolute } from 'node:path'
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
-import { createEslintRule, getAccessorValue, isSupportedAccessor } from '../utils'
+import {
+  createEslintRule,
+  getAccessorValue,
+  isSupportedAccessor,
+} from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'no-large-snapshots'
@@ -16,7 +20,7 @@ type RuleOptions = {
 const reportOnViolation = (
   context: TSESLint.RuleContext<MESSAGE_IDS, [RuleOptions]>,
   node: TSESTree.CallExpressionArgument | TSESTree.ExpressionStatement,
-  { maxSize: lineLimit = 50, allowedSnapshots = {} }: RuleOptions
+  { maxSize: lineLimit = 50, allowedSnapshots = {} }: RuleOptions,
 ) => {
   const startLine = node.loc.start.line
   const endLine = node.loc.end.line
@@ -25,14 +29,17 @@ const reportOnViolation = (
   const allPathsAreAbsolute = Object.keys(allowedSnapshots).every(isAbsolute)
 
   if (!allPathsAreAbsolute)
-    throw new Error('All paths for allowedSnapshots must be absolute. You can use JS config and `path.resolve`')
+    throw new Error(
+      'All paths for allowedSnapshots must be absolute. You can use JS config and `path.resolve`',
+    )
 
   let isAllowed = false
 
-  if (node.type === AST_NODE_TYPES.ExpressionStatement
-    && 'left' in node.expression
-    && node.expression.left.type === AST_NODE_TYPES.MemberExpression
-    && isSupportedAccessor(node.expression.left.property)
+  if (
+    node.type === AST_NODE_TYPES.ExpressionStatement &&
+    'left' in node.expression &&
+    node.expression.left.type === AST_NODE_TYPES.MemberExpression &&
+    isSupportedAccessor(node.expression.left.property)
   ) {
     const fileName = context.filename
     const allowedSnapshotsInFile = allowedSnapshots[fileName]
@@ -41,8 +48,7 @@ const reportOnViolation = (
       const snapshotName = getAccessorValue(node.expression.left.property)
 
       isAllowed = allowedSnapshotsInFile.some((name) => {
-        if (name instanceof RegExp)
-          return name.test(snapshotName)
+        if (name instanceof RegExp) return name.test(snapshotName)
 
         return snapshotName === name
       })
@@ -55,8 +61,8 @@ const reportOnViolation = (
       messageId: lineLimit === 0 ? 'noSnapShot' : 'tooLongSnapShot',
       data: {
         lineCount,
-        lineLimit
-      }
+        lineLimit,
+      },
     })
   }
 }
@@ -66,11 +72,12 @@ export default createEslintRule<[RuleOptions], MESSAGE_IDS>({
   meta: {
     docs: {
       description: 'disallow large snapshots',
-      recommended: false
+      recommended: false,
     },
     messages: {
       noSnapShot: '`{{ lineCount }}`s should begin with lowercase',
-      tooLongSnapShot: 'Expected vitest snapshot to be smaller than {{ lineLimit }} lines but was {{ lineCount }} lines long'
+      tooLongSnapShot:
+        'Expected vitest snapshot to be smaller than {{ lineLimit }} lines but was {{ lineCount }} lines long',
     },
     type: 'suggestion',
     schema: [
@@ -78,19 +85,19 @@ export default createEslintRule<[RuleOptions], MESSAGE_IDS>({
         type: 'object',
         properties: {
           maxSize: {
-            type: 'number'
+            type: 'number',
           },
           inlineMaxSize: {
-            type: 'number'
+            type: 'number',
           },
           allowedSnapshots: {
             type: 'object',
-            additionalProperties: { type: 'array' }
-          }
+            additionalProperties: { type: 'array' },
+          },
         },
-        additionalProperties: false
-      }
-    ]
+        additionalProperties: false,
+      },
+    ],
   },
   defaultOptions: [{}],
   create(context, [options]) {
@@ -98,7 +105,7 @@ export default createEslintRule<[RuleOptions], MESSAGE_IDS>({
       return {
         ExpressionStatement(node) {
           reportOnViolation(context, node, options)
-        }
+        },
       }
     }
 
@@ -106,18 +113,21 @@ export default createEslintRule<[RuleOptions], MESSAGE_IDS>({
       CallExpression(node) {
         const vitestFnCall = parseVitestFnCall(node, context)
 
-        if (vitestFnCall?.type !== 'expect')
-          return
+        if (vitestFnCall?.type !== 'expect') return
 
-        if (['toMatchInlineSnapshot',
-          'toThrowErrorMatchingInlineSnapshot'
-        ].includes(getAccessorValue(vitestFnCall.matcher)) && vitestFnCall.args.length) {
+        if (
+          [
+            'toMatchInlineSnapshot',
+            'toThrowErrorMatchingInlineSnapshot',
+          ].includes(getAccessorValue(vitestFnCall.matcher)) &&
+          vitestFnCall.args.length
+        ) {
           reportOnViolation(context, vitestFnCall.args[0], {
             ...options,
-            maxSize: options.inlineMaxSize ?? options.maxSize
+            maxSize: options.inlineMaxSize ?? options.maxSize,
           })
         }
-      }
+      },
     }
-  }
+  },
 })

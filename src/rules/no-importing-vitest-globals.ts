@@ -1,10 +1,21 @@
 import { TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
-import { isObjectPattern, isRequireVitestCall, isVitestGlobalsImportSpecifier, isVitestGlobalsProperty, isVitestImport } from '../utils/guards'
-import { removeNodeFromArray, removeVariableDeclarator } from '../utils/fixer-utils'
+import {
+  isObjectPattern,
+  isRequireVitestCall,
+  isVitestGlobalsImportSpecifier,
+  isVitestGlobalsProperty,
+  isVitestImport,
+} from '../utils/guards'
+import {
+  removeNodeFromArray,
+  removeVariableDeclarator,
+} from '../utils/fixer-utils'
 
 export const RULE_NAME = 'no-importing-vitest-globals'
-export type MESSAGE_IDS = 'noImportingVitestGlobals' | 'noRequiringVitestGlobals'
+export type MESSAGE_IDS =
+  | 'noImportingVitestGlobals'
+  | 'noRequiringVitestGlobals'
 export type Options = []
 
 export default createEslintRule<Options, MESSAGE_IDS>({
@@ -13,14 +24,16 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'disallow importing Vitest globals',
-      recommended: false
+      recommended: false,
     },
     messages: {
-      noImportingVitestGlobals: 'Do not import \'{{name}}\' from \'vitest\'. Use globals configuration instead.',
-      noRequiringVitestGlobals: 'Do not require \'{{name}}\' from \'vitest\'. Use globals configuration instead.'
+      noImportingVitestGlobals:
+        "Do not import '{{name}}' from 'vitest'. Use globals configuration instead.",
+      noRequiringVitestGlobals:
+        "Do not require '{{name}}' from 'vitest'. Use globals configuration instead.",
     },
     fixable: 'code',
-    schema: []
+    schema: [],
   },
   defaultOptions: [],
   create(context) {
@@ -38,16 +51,18 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             node: specifier,
             messageId: 'noImportingVitestGlobals',
             data: {
-              name: specifier.imported.name
+              name: specifier.imported.name,
             },
             fix(fixer: TSESLint.RuleFixer) {
-              const allDisallowed = specifiers.every(spec => isVitestGlobalsImportSpecifier(spec))
+              const allDisallowed = specifiers.every((spec) =>
+                isVitestGlobalsImportSpecifier(spec),
+              )
               if (allDisallowed) {
                 return fixer.remove(node)
               }
 
               return removeNodeFromArray(fixer, specifiers, specifier)
-            }
+            },
           })
         }
       },
@@ -65,19 +80,21 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             node: prop,
             messageId: 'noRequiringVitestGlobals',
             data: {
-              name: prop.key.name
+              name: prop.key.name,
             },
             fix(fixer) {
-              const allDisallowed = properties.every(p => isVitestGlobalsProperty(p))
+              const allDisallowed = properties.every((p) =>
+                isVitestGlobalsProperty(p),
+              )
               if (allDisallowed) {
                 return removeVariableDeclarator(fixer, node)
               }
 
               return removeNodeFromArray(fixer, properties, prop)
-            }
+            },
           })
         }
-      }
+      },
     }
-  }
+  },
 })

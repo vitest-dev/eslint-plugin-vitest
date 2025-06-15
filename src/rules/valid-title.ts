@@ -1,7 +1,21 @@
-import { AST_NODE_TYPES, ESLintUtils, JSONSchema, TSESTree } from '@typescript-eslint/utils'
-import { createEslintRule, getStringValue, isStringNode, StringNode } from '../utils'
+import {
+  AST_NODE_TYPES,
+  ESLintUtils,
+  JSONSchema,
+  TSESTree,
+} from '@typescript-eslint/utils'
+import {
+  createEslintRule,
+  getStringValue,
+  isStringNode,
+  StringNode,
+} from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
-import { DescribeAlias, isClassOrFunctionType, TestCaseName } from '../utils/types'
+import {
+  DescribeAlias,
+  isClassOrFunctionType,
+  TestCaseName,
+} from '../utils/types'
 import ts from 'typescript'
 import { parsePluginSettings } from '../utils/parse-plugin-settings'
 
@@ -35,7 +49,7 @@ const MatcherAndMessageSchema: JSONSchema.JSONSchema4 = {
   items: { type: 'string' },
   minItems: 1,
   maxItems: 2,
-  additionalItems: false
+  additionalItems: false,
 } as const
 
 type Options = {
@@ -54,7 +68,9 @@ type Options = {
 
 type CompiledMatcherAndMessage = [matcher: RegExp, message?: string]
 
-const compileMatcherPattern = (matcherMaybeWithMessage: MatcherAndMessage | string): CompiledMatcherAndMessage => {
+const compileMatcherPattern = (
+  matcherMaybeWithMessage: MatcherAndMessage | string,
+): CompiledMatcherAndMessage => {
   const [matcher, message] = Array.isArray(matcherMaybeWithMessage)
     ? matcherMaybeWithMessage
     : [matcherMaybeWithMessage]
@@ -63,34 +79,39 @@ const compileMatcherPattern = (matcherMaybeWithMessage: MatcherAndMessage | stri
 }
 
 function isStringLikeType(type: ts.Type): boolean {
-  return !!(type.flags & (ts.TypeFlags.StringLike))
+  return !!(type.flags & ts.TypeFlags.StringLike)
 }
 
-const compileMatcherPatterns = (matchers:
-  | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
-  | MatcherAndMessage
-  | string): Record<MatcherGroups, CompiledMatcherAndMessage | null> &
-    Record<string, CompiledMatcherAndMessage | null> => {
+const compileMatcherPatterns = (
+  matchers:
+    | Partial<Record<MatcherGroups, string | MatcherAndMessage>>
+    | MatcherAndMessage
+    | string,
+): Record<MatcherGroups, CompiledMatcherAndMessage | null> &
+  Record<string, CompiledMatcherAndMessage | null> => {
   if (typeof matchers === 'string' || Array.isArray(matchers)) {
     const compiledMatcher = compileMatcherPattern(matchers)
 
     return {
       describe: compiledMatcher,
       test: compiledMatcher,
-      it: compiledMatcher
+      it: compiledMatcher,
     }
   }
 
   return {
-    describe: matchers.describe ? compileMatcherPattern(matchers.describe) : null,
+    describe: matchers.describe
+      ? compileMatcherPattern(matchers.describe)
+      : null,
     test: matchers.test ? compileMatcherPattern(matchers.test) : null,
-    it: matchers.it ? compileMatcherPattern(matchers.it) : null
+    it: matchers.it ? compileMatcherPattern(matchers.it) : null,
   }
 }
 
-const doesBinaryExpressionContainStringNode = (binaryExp: TSESTree.BinaryExpression): boolean => {
-  if (isStringNode(binaryExp.right))
-    return true
+const doesBinaryExpressionContainStringNode = (
+  binaryExp: TSESTree.BinaryExpression,
+): boolean => {
+  if (isStringNode(binaryExp.right)) return true
 
   if (binaryExp.left.type === AST_NODE_TYPES.BinaryExpression)
     return doesBinaryExpressionContainStringNode(binaryExp.left)
@@ -103,10 +124,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   meta: {
     docs: {
       description: 'enforce valid titles',
-      recommended: false
+      recommended: false,
     },
     messages: {
-      titleMustBeString: 'Test title must be a string, a function or class name',
+      titleMustBeString:
+        'Test title must be a string, a function or class name',
       emptyTitle: '{{ functionName }} should not have an empty title',
       duplicatePrefix: 'should not have duplicate prefix',
       accidentalSpace: 'should not have leading or trailing spaces',
@@ -114,7 +136,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       mustNotMatch: '{{ functionName }} should not match {{ pattern }}',
       mustMatch: '{{ functionName }} should match {{ pattern }}',
       mustNotMatchCustom: '{{ message }}',
-      mustMatchCustom: '{{ message }}'
+      mustMatchCustom: '{{ message }}',
     },
     type: 'suggestion',
     schema: [
@@ -123,16 +145,16 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         properties: {
           ignoreTypeOfDescribeName: {
             type: 'boolean',
-            default: false
+            default: false,
           },
           allowArguments: {
             type: 'boolean',
-            default: false
+            default: false,
           },
           disallowedWords: {
             type: 'array',
-            items: { type: 'string' }
-          }
+            items: { type: 'string' },
+          },
         },
         patternProperties: {
           [/^must(?:Not)?Match$/u.source]: {
@@ -142,30 +164,45 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               {
                 type: 'object',
                 // @ts-ignore
-                propertyNames: { type: 'string', enum: ['describe', 'test', 'it'] },
+                propertyNames: {
+                  type: 'string',
+                  enum: ['describe', 'test', 'it'],
+                },
                 additionalProperties: {
-                  oneOf: [{ type: 'string' }, MatcherAndMessageSchema]
-                }
-              }
-            ]
-          }
+                  oneOf: [{ type: 'string' }, MatcherAndMessageSchema],
+                },
+              },
+            ],
+          },
         },
-        additionalProperties: false
-      }
+        additionalProperties: false,
+      },
     ],
-    fixable: 'code'
+    fixable: 'code',
   },
-  defaultOptions: [{ ignoreTypeOfDescribeName: false, allowArguments: false, disallowedWords: [] }],
-  create(context, [
+  defaultOptions: [
     {
-      ignoreTypeOfDescribeName,
-      allowArguments,
-      disallowedWords = [],
-      mustNotMatch,
-      mustMatch
-    }
-  ]) {
-    const disallowedWordsRegexp = new RegExp(`\\b(${disallowedWords.join('|')})\\b`, 'iu')
+      ignoreTypeOfDescribeName: false,
+      allowArguments: false,
+      disallowedWords: [],
+    },
+  ],
+  create(
+    context,
+    [
+      {
+        ignoreTypeOfDescribeName,
+        allowArguments,
+        disallowedWords = [],
+        mustNotMatch,
+        mustMatch,
+      },
+    ],
+  ) {
+    const disallowedWordsRegexp = new RegExp(
+      `\\b(${disallowedWords.join('|')})\\b`,
+      'iu',
+    )
     const mustNotMatchPatterns = compileMatcherPatterns(mustNotMatch ?? {})
     const mustMatchPatterns = compileMatcherPatterns(mustMatch ?? {})
     const settings = parsePluginSettings(context.settings)
@@ -174,14 +211,19 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       CallExpression(node: TSESTree.CallExpression) {
         const vitestFnCall = parseVitestFnCall(node, context)
 
-        if (vitestFnCall?.type !== 'describe' && vitestFnCall?.type !== 'test' && vitestFnCall?.type !== 'it') return
+        if (
+          vitestFnCall?.type !== 'describe' &&
+          vitestFnCall?.type !== 'test' &&
+          vitestFnCall?.type !== 'it'
+        )
+          return
 
         // check if extend keyword have been used
         if (
-          vitestFnCall.members
-          && vitestFnCall.members[0]
-          && vitestFnCall.members[0].type === AST_NODE_TYPES.Identifier
-          && vitestFnCall.members[0].name === 'extend'
+          vitestFnCall.members &&
+          vitestFnCall.members[0] &&
+          vitestFnCall.members[0].type === AST_NODE_TYPES.Identifier &&
+          vitestFnCall.members[0].name === 'extend'
         ) {
           return
         }
@@ -190,11 +232,12 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           context.report({
             messageId: 'emptyTitle',
             data: {
-              functionName: vitestFnCall.type === 'describe'
-                ? DescribeAlias.describe
-                : TestCaseName.test
+              functionName:
+                vitestFnCall.type === 'describe'
+                  ? DescribeAlias.describe
+                  : TestCaseName.test,
             },
-            node
+            node,
           })
         }
 
@@ -215,18 +258,26 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           }
         }
 
-        if (!argument || (allowArguments && argument.type === AST_NODE_TYPES.Identifier)) return
+        if (
+          !argument ||
+          (allowArguments && argument.type === AST_NODE_TYPES.Identifier)
+        )
+          return
 
         if (!isStringNode(argument)) {
-          if (argument.type === AST_NODE_TYPES.BinaryExpression
-            && doesBinaryExpressionContainStringNode(argument))
+          if (
+            argument.type === AST_NODE_TYPES.BinaryExpression &&
+            doesBinaryExpressionContainStringNode(argument)
+          )
             return
 
-          if (argument.type !== AST_NODE_TYPES.TemplateLiteral
-            && !(ignoreTypeOfDescribeName && vitestFnCall.type === 'describe')) {
+          if (
+            argument.type !== AST_NODE_TYPES.TemplateLiteral &&
+            !(ignoreTypeOfDescribeName && vitestFnCall.type === 'describe')
+          ) {
             context.report({
               messageId: 'titleMustBeString',
-              loc: argument.loc
+              loc: argument.loc,
             })
           }
           return
@@ -246,9 +297,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             context.report({
               messageId: 'disallowedWord',
               data: {
-                word: disallowedMatch[1]
+                word: disallowedMatch[1],
               },
-              node: argument
+              node: argument,
             })
             return
           }
@@ -258,14 +309,14 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           context.report({
             messageId: 'accidentalSpace',
             node: argument,
-            fix: fixer => [
+            fix: (fixer) => [
               fixer.replaceTextRange(
                 argument.range,
                 quoteStringValue(argument)
                   .replace(/^([`'"]) +?/u, '$1')
-                  .replace(/ +?([`'"])$/u, '$1')
-              )
-            ]
+                  .replace(/ +?([`'"])$/u, '$1'),
+              ),
+            ],
           })
         }
 
@@ -276,35 +327,39 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           context.report({
             messageId: 'duplicatePrefix',
             node: argument,
-            fix: fixer => [
+            fix: (fixer) => [
               fixer.replaceTextRange(
                 argument.range,
-                quoteStringValue(argument).replace(/^([`'"]).+? /u, '$1')
-              )
-            ]
+                quoteStringValue(argument).replace(/^([`'"]).+? /u, '$1'),
+              ),
+            ],
           })
         }
 
         const vitestFnName = unPrefixedName
 
-        const [mustNotMatchPattern, mustNotMatchMessage] = mustNotMatchPatterns[vitestFnName] ?? []
+        const [mustNotMatchPattern, mustNotMatchMessage] =
+          mustNotMatchPatterns[vitestFnName] ?? []
 
         if (mustNotMatchPattern) {
           if (mustNotMatchPattern.test(title)) {
             context.report({
-              messageId: mustNotMatchMessage ? 'mustNotMatchCustom' : 'mustNotMatch',
+              messageId: mustNotMatchMessage
+                ? 'mustNotMatchCustom'
+                : 'mustNotMatch',
               node: argument,
               data: {
                 functionName: vitestFnName,
                 pattern: mustNotMatchPattern,
-                message: mustNotMatchMessage
-              }
+                message: mustNotMatchMessage,
+              },
             })
             return
           }
         }
 
-        const [mustMatchPattern, mustMatchMessage] = mustMatchPatterns[vitestFnName] ?? []
+        const [mustMatchPattern, mustMatchMessage] =
+          mustMatchPatterns[vitestFnName] ?? []
 
         if (mustMatchPattern) {
           if (!mustMatchPattern.test(title)) {
@@ -314,12 +369,12 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               data: {
                 functionName: vitestFnName,
                 pattern: mustMatchPattern,
-                message: mustMatchMessage
-              }
+                message: mustMatchMessage,
+              },
             })
           }
         }
-      }
+      },
     }
-  }
+  },
 })

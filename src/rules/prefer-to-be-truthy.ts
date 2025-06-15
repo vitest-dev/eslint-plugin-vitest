@@ -1,6 +1,9 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue } from '../utils'
-import { getFirstMatcherArg, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  getFirstMatcherArg,
+  parseVitestFnCall,
+} from '../utils/parse-vitest-fn-call'
 import { EqualityMatcher } from '../utils/types'
 
 type MESSAGE_IDS = 'preferToBeTruthy'
@@ -20,13 +23,13 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce using `toBeTruthy`',
-      recommended: false
+      recommended: false,
     },
     messages: {
-      preferToBeTruthy: 'Prefer using `toBeTruthy` to test value is `true`'
+      preferToBeTruthy: 'Prefer using `toBeTruthy` to test value is `true`',
     },
     fixable: 'code',
-    schema: []
+    schema: [],
   },
   defaultOptions: [],
   create(context) {
@@ -34,22 +37,29 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       CallExpression(node) {
         const vitestFnCall = parseVitestFnCall(node, context)
 
-        if (!(vitestFnCall?.type === 'expect' || vitestFnCall?.type === 'expectTypeOf')) return
+        if (
+          !(
+            vitestFnCall?.type === 'expect' ||
+            vitestFnCall?.type === 'expectTypeOf'
+          )
+        )
+          return
 
-        if (vitestFnCall.args.length === 1
-          && isTrueLiteral(getFirstMatcherArg(vitestFnCall))
-
-          && EqualityMatcher.hasOwnProperty(getAccessorValue(vitestFnCall.matcher))) {
+        if (
+          vitestFnCall.args.length === 1 &&
+          isTrueLiteral(getFirstMatcherArg(vitestFnCall)) &&
+          EqualityMatcher.hasOwnProperty(getAccessorValue(vitestFnCall.matcher))
+        ) {
           context.report({
             node: vitestFnCall.matcher,
             messageId: 'preferToBeTruthy',
-            fix: fixer => [
+            fix: (fixer) => [
               fixer.replaceText(vitestFnCall.matcher, 'toBeTruthy'),
-              fixer.remove(vitestFnCall.args[0])
-            ]
+              fixer.remove(vitestFnCall.args[0]),
+            ],
           })
         }
-      }
+      },
     }
-  }
+  },
 })

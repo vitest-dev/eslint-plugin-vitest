@@ -1,18 +1,22 @@
 import { AST_NODE_TYPES, TSESTree, TSESLint } from '@typescript-eslint/utils'
-import { createEslintRule, getAccessorValue, isSupportedAccessor, type KnownCallExpression,
+import {
+  createEslintRule,
+  getAccessorValue,
+  isSupportedAccessor,
+  type KnownCallExpression,
   getNodeName,
   isFunction,
-  isIdentifier } from '../utils'
+  isIdentifier,
+} from '../utils'
 import { ModifierName } from '../utils/types'
 import {
   findTopMostCallExpression,
   isTypeOfVitestFnCall,
-  parseVitestFnCall
+  parseVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'valid-expect-in-promise'
-export type MESSAGE_IDS =
-  | 'expectInFloatingPromise'
+export type MESSAGE_IDS = 'expectInFloatingPromise'
 const defaultAsyncMatchers = ['toRejectWith', 'toResolveWith']
 
 type PromiseChainCallExpression = KnownCallExpression<
@@ -20,12 +24,12 @@ type PromiseChainCallExpression = KnownCallExpression<
 >
 
 const isPromiseChainCall = (
-  node: TSESTree.Node
+  node: TSESTree.Node,
 ): node is PromiseChainCallExpression => {
   if (
-    node.type === AST_NODE_TYPES.CallExpression
-    && node.callee.type === AST_NODE_TYPES.MemberExpression
-    && isSupportedAccessor(node.callee.property)
+    node.type === AST_NODE_TYPES.CallExpression &&
+    node.callee.type === AST_NODE_TYPES.MemberExpression &&
+    isSupportedAccessor(node.callee.property)
   ) {
     // promise methods should have at least 1 argument
     if (node.arguments.length === 0) {
@@ -46,7 +50,7 @@ const isPromiseChainCall = (
 
 const isTestCaseCallWithCallbackArg = (
   node: TSESTree.CallExpression,
-  context: TSESLint.RuleContext<string, unknown[]>
+  context: TSESLint.RuleContext<string, unknown[]>,
 ): boolean => {
   const vitestCallFn = parseVitestFnCall(node, context)
 
@@ -55,12 +59,12 @@ const isTestCaseCallWithCallbackArg = (
   }
 
   const isVitestEach = vitestCallFn.members.some(
-    s => getAccessorValue(s) === 'each'
+    (s) => getAccessorValue(s) === 'each',
   )
 
   if (
-    isVitestEach
-    && node.callee.type !== AST_NODE_TYPES.TaggedTemplateExpression
+    isVitestEach &&
+    node.callee.type !== AST_NODE_TYPES.TaggedTemplateExpression
   ) {
     return true
   }
@@ -70,15 +74,15 @@ const isTestCaseCallWithCallbackArg = (
   const callbackArgIndex = Number(isVitestEach)
 
   return (
-    callback
-    && isFunction(callback)
-    && callback.params.length === 1 + callbackArgIndex
+    callback &&
+    isFunction(callback) &&
+    callback.params.length === 1 + callbackArgIndex
   )
 }
 
 const isPromiseMethodThatUsesValue = (
   node: TSESTree.AwaitExpression | TSESTree.ReturnStatement,
-  identifier: TSESTree.Identifier
+  identifier: TSESTree.Identifier,
 ): boolean => {
   const { name } = identifier
 
@@ -87,8 +91,8 @@ const isPromiseMethodThatUsesValue = (
   }
 
   if (
-    node.argument.type === AST_NODE_TYPES.CallExpression
-    && node.argument.arguments.length > 0
+    node.argument.type === AST_NODE_TYPES.CallExpression &&
+    node.argument.arguments.length > 0
   ) {
     const nodeName = getNodeName(node.argument)
 
@@ -96,16 +100,16 @@ const isPromiseMethodThatUsesValue = (
       const [firstArg] = node.argument.arguments
 
       if (
-        firstArg.type === AST_NODE_TYPES.ArrayExpression
-        && firstArg.elements.some(nod => nod && isIdentifier(nod, name))
+        firstArg.type === AST_NODE_TYPES.ArrayExpression &&
+        firstArg.elements.some((nod) => nod && isIdentifier(nod, name))
       ) {
         return true
       }
     }
 
     if (
-      ['Promise.resolve', 'Promise.reject'].includes(nodeName as string)
-      && node.argument.arguments.length === 1
+      ['Promise.resolve', 'Promise.reject'].includes(nodeName as string) &&
+      node.argument.arguments.length === 1
     ) {
       return isIdentifier(node.argument.arguments[0], name)
     }
@@ -122,19 +126,19 @@ const isValueAwaitedInElements = (
   name: string,
   elements:
     | TSESTree.ArrayExpression['elements']
-    | TSESTree.CallExpression['arguments']
+    | TSESTree.CallExpression['arguments'],
 ): boolean => {
   for (const element of elements) {
     if (
-      element?.type === AST_NODE_TYPES.AwaitExpression
-      && isIdentifier(element.argument, name)
+      element?.type === AST_NODE_TYPES.AwaitExpression &&
+      isIdentifier(element.argument, name)
     ) {
       return true
     }
 
     if (
-      element?.type === AST_NODE_TYPES.ArrayExpression
-      && isValueAwaitedInElements(name, element.elements)
+      element?.type === AST_NODE_TYPES.ArrayExpression &&
+      isValueAwaitedInElements(name, element.elements)
     ) {
       return true
     }
@@ -149,7 +153,7 @@ const isValueAwaitedInElements = (
  */
 const isValueAwaitedInArguments = (
   name: string,
-  call: TSESTree.CallExpression
+  call: TSESTree.CallExpression,
 ): boolean => {
   let node: TSESTree.Node = call
 
@@ -173,7 +177,7 @@ const isValueAwaitedInArguments = (
 }
 
 const getLeftMostCallExpression = (
-  call: TSESTree.CallExpression
+  call: TSESTree.CallExpression,
 ): TSESTree.CallExpression => {
   let leftMostCallExpression: TSESTree.CallExpression = call
   let node: TSESTree.Node = call
@@ -201,7 +205,7 @@ const getLeftMostCallExpression = (
 const isValueAwaitedOrReturned = (
   identifier: TSESTree.Identifier,
   body: TSESTree.Statement[],
-  context: TSESLint.RuleContext<string, unknown[]>
+  context: TSESLint.RuleContext<string, unknown[]>,
 ): boolean => {
   const { name } = identifier
 
@@ -227,9 +231,9 @@ const isValueAwaitedOrReturned = (
         const vitestFnCall = parseVitestFnCall(node.expression, context)
 
         if (
-          vitestFnCall?.type === 'expect'
-          && leftMostCall.arguments.length > 0
-          && isIdentifier(leftMostCall.arguments[0], name)
+          vitestFnCall?.type === 'expect' &&
+          leftMostCall.arguments.length > 0 &&
+          isIdentifier(leftMostCall.arguments[0], name)
         ) {
           if (
             vitestFnCall.members.some((m) => {
@@ -244,8 +248,8 @@ const isValueAwaitedOrReturned = (
       }
 
       if (
-        node.expression.type === AST_NODE_TYPES.AwaitExpression
-        && isPromiseMethodThatUsesValue(node.expression, identifier)
+        node.expression.type === AST_NODE_TYPES.AwaitExpression &&
+        isPromiseMethodThatUsesValue(node.expression, identifier)
       ) {
         return true
       }
@@ -256,9 +260,9 @@ const isValueAwaitedOrReturned = (
         // unless we're assigning to the same identifier, in which case
         // we might be chaining off the existing promise value
         if (
-          isIdentifier(node.expression.left, name)
-          && getNodeName(node.expression.right)?.startsWith(`${name}.`)
-          && isPromiseChainCall(node.expression.right)
+          isIdentifier(node.expression.left, name) &&
+          getNodeName(node.expression.right)?.startsWith(`${name}.`) &&
+          isPromiseChainCall(node.expression.right)
         ) {
           continue
         }
@@ -268,8 +272,8 @@ const isValueAwaitedOrReturned = (
     }
 
     if (
-      node.type === AST_NODE_TYPES.BlockStatement
-      && isValueAwaitedOrReturned(identifier, node.body, context)
+      node.type === AST_NODE_TYPES.BlockStatement &&
+      isValueAwaitedOrReturned(identifier, node.body, context)
     ) {
       return true
     }
@@ -279,7 +283,7 @@ const isValueAwaitedOrReturned = (
 }
 
 const findFirstBlockBodyUp = (
-  node: TSESTree.Node
+  node: TSESTree.Node,
 ): TSESTree.BlockStatement['body'] => {
   let parent: TSESTree.Node['parent'] = node
 
@@ -293,13 +297,13 @@ const findFirstBlockBodyUp = (
 
   /* istanbul ignore next */
   throw new Error(
-    `Could not find BlockStatement - please file a github issue at https://github.com/vitest-dev/eslint-plugin-vitest`
+    `Could not find BlockStatement - please file a github issue at https://github.com/vitest-dev/eslint-plugin-vitest`,
   )
 }
 
 const isDirectlyWithinTestCaseCall = (
   node: TSESTree.Node,
-  context: TSESLint.RuleContext<string, unknown[]>
+  context: TSESLint.RuleContext<string, unknown[]>,
 ): boolean => {
   let parent: TSESTree.Node['parent'] = node
 
@@ -308,8 +312,8 @@ const isDirectlyWithinTestCaseCall = (
       parent = parent.parent
 
       return (
-        parent?.type === AST_NODE_TYPES.CallExpression
-        && isTypeOfVitestFnCall(parent, context, ['test'])
+        parent?.type === AST_NODE_TYPES.CallExpression &&
+        isTypeOfVitestFnCall(parent, context, ['test'])
       )
     }
 
@@ -321,7 +325,7 @@ const isDirectlyWithinTestCaseCall = (
 
 const isVariableAwaitedOrReturned = (
   variable: TSESTree.VariableDeclarator,
-  context: TSESLint.RuleContext<string, unknown[]>
+  context: TSESLint.RuleContext<string, unknown[]>,
 ): boolean => {
   const body = findFirstBlockBodyUp(variable)
 
@@ -334,33 +338,38 @@ const isVariableAwaitedOrReturned = (
   return isValueAwaitedOrReturned(variable.id, body, context)
 }
 
-export default createEslintRule<[
-  Partial<{
-    alwaysAwait: boolean
-    asyncMatchers: string[]
-    minArgs: number
-    maxArgs: number
-  }>
-], MESSAGE_IDS>({
+export default createEslintRule<
+  [
+    Partial<{
+      alwaysAwait: boolean
+      asyncMatchers: string[]
+      minArgs: number
+      maxArgs: number
+    }>,
+  ],
+  MESSAGE_IDS
+>({
   name: RULE_NAME,
   meta: {
     docs: {
       description:
-        'require promises that have expectations in their chain to be valid'
+        'require promises that have expectations in their chain to be valid',
     },
     messages: {
       expectInFloatingPromise:
-        'This promise should either be returned or awaited to ensure the expects in its chain are called'
+        'This promise should either be returned or awaited to ensure the expects in its chain are called',
     },
     type: 'suggestion',
-    schema: []
+    schema: [],
   },
-  defaultOptions: [{
-    alwaysAwait: false,
-    asyncMatchers: defaultAsyncMatchers,
-    minArgs: 1,
-    maxArgs: 1
-  }],
+  defaultOptions: [
+    {
+      alwaysAwait: false,
+      asyncMatchers: defaultAsyncMatchers,
+      minArgs: 1,
+      maxArgs: 1,
+    },
+  ],
   create(context) {
     let inTestCaseWithDoneCallback = false
     // an array of booleans representing each promise chain we enter, with the
@@ -393,8 +402,8 @@ export default createEslintRule<[
         // if we're within a promise chain, and this call expression looks like
         // an expect call, mark the deepest chain as having an expect call
         if (
-          chains.length > 0
-          && isTypeOfVitestFnCall(node, context, ['expect'])
+          chains.length > 0 &&
+          isTypeOfVitestFnCall(node, context, ['expect'])
         ) {
           chains[0] = true
         }
@@ -446,11 +455,11 @@ export default createEslintRule<[
 
           case AST_NODE_TYPES.AssignmentExpression: {
             if (
-              parent.left.type === AST_NODE_TYPES.Identifier
-              && isValueAwaitedOrReturned(
+              parent.left.type === AST_NODE_TYPES.Identifier &&
+              isValueAwaitedOrReturned(
                 parent.left,
                 findFirstBlockBodyUp(parent),
-                context
+                context,
               )
             ) {
               return
@@ -470,9 +479,9 @@ export default createEslintRule<[
 
         context.report({
           messageId: 'expectInFloatingPromise',
-          node: parent
+          node: parent,
         })
-      }
+      },
     }
-  }
+  },
 })

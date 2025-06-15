@@ -10,12 +10,12 @@ export default createEslintRule<[], MESSAGE_ID>({
     type: 'problem',
     docs: {
       description: 'disallow conditional tests',
-      recommended: false
+      recommended: false,
     },
     schema: [],
     messages: {
-      noConditionalTests: 'Avoid using if conditions in a test'
-    }
+      noConditionalTests: 'Avoid using if conditions in a test',
+    },
   },
   defaultOptions: [],
   create(context) {
@@ -25,11 +25,11 @@ export default createEslintRule<[], MESSAGE_ID>({
           if (node.parent?.parent?.parent?.parent?.type === 'IfStatement') {
             context.report({
               node,
-              messageId: 'noConditionalTests'
+              messageId: 'noConditionalTests',
             })
           }
         }
-      }
+      },
     }
-  }
+  },
 })

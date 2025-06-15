@@ -1,5 +1,13 @@
-import { createEslintRule, getStringValue, isStringNode, isSupportedAccessor } from '../utils'
-import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  createEslintRule,
+  getStringValue,
+  isStringNode,
+  isSupportedAccessor,
+} from '../utils'
+import {
+  isTypeOfVitestFnCall,
+  parseVitestFnCall,
+} from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'no-identical-title'
 export type MESSAGE_ID = 'multipleTestTitle' | 'multipleDescribeTitle'
@@ -12,7 +20,7 @@ interface DescribeContext {
 
 const newDescribeContext = (): DescribeContext => ({
   describeTitles: [],
-  testTitles: []
+  testTitles: [],
 })
 
 export default createEslintRule<Options, MESSAGE_ID>({
@@ -21,14 +29,16 @@ export default createEslintRule<Options, MESSAGE_ID>({
     type: 'problem',
     docs: {
       description: 'disallow identical titles',
-      recommended: false
+      recommended: false,
     },
     fixable: 'code',
     schema: [],
     messages: {
-      multipleTestTitle: 'Test is used multiple times in the same describe(suite) block',
-      multipleDescribeTitle: 'Describe is used multiple times in the same describe(suite) block'
-    }
+      multipleTestTitle:
+        'Test is used multiple times in the same describe(suite) block',
+      multipleDescribeTitle:
+        'Describe is used multiple times in the same describe(suite) block',
+    },
   },
   defaultOptions: [],
   create(context) {
@@ -39,19 +49,17 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
         const vitestFnCall = parseVitestFnCall(node, context)
 
-        if (!vitestFnCall)
-          return
+        if (!vitestFnCall) return
 
         if (vitestFnCall.name === 'describe' || vitestFnCall.name === 'suite')
           stack.push(newDescribeContext())
 
-        if (vitestFnCall.members.find(s => isSupportedAccessor(s, 'each')))
+        if (vitestFnCall.members.find((s) => isSupportedAccessor(s, 'each')))
           return
 
         const [argument] = node.arguments
 
-        if (!argument || !isStringNode(argument))
-          return
+        if (!argument || !isStringNode(argument)) return
 
         const title = getStringValue(argument)
 
@@ -59,27 +67,25 @@ export default createEslintRule<Options, MESSAGE_ID>({
           if (currentStack?.testTitles.includes(title)) {
             context.report({
               node,
-              messageId: 'multipleTestTitle'
+              messageId: 'multipleTestTitle',
             })
           }
           currentStack?.testTitles.push(title)
         }
 
-        if (vitestFnCall.type !== 'describe')
-          return
+        if (vitestFnCall.type !== 'describe') return
 
         if (currentStack?.describeTitles.includes(title)) {
           context.report({
             node,
-            messageId: 'multipleDescribeTitle'
+            messageId: 'multipleDescribeTitle',
           })
         }
         currentStack?.describeTitles.push(title)
       },
       'CallExpression:exit'(node) {
-        if (isTypeOfVitestFnCall(node, context, ['describe']))
-          stack.pop()
-      }
+        if (isTypeOfVitestFnCall(node, context, ['describe'])) stack.pop()
+      },
     }
-  }
+  },
 })

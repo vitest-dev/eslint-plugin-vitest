@@ -1,16 +1,24 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
-import { createEslintRule, isSupportedAccessor, KnownCallExpression } from '../utils'
-import { getTestCallExpressionsFromDeclaredVariables, isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  createEslintRule,
+  isSupportedAccessor,
+  KnownCallExpression,
+} from '../utils'
+import {
+  getTestCallExpressionsFromDeclaredVariables,
+  isTypeOfVitestFnCall,
+  parseVitestFnCall,
+} from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'no-conditional-expect'
 export type MESSAGE_ID = 'noConditionalExpect'
 export type Options = []
 
 const isCatchCall = (
-  node: TSESTree.CallExpression
+  node: TSESTree.CallExpression,
 ): node is KnownCallExpression<'catch'> =>
-  node.callee.type === AST_NODE_TYPES.MemberExpression
-  && isSupportedAccessor(node.callee.property, 'catch')
+  node.callee.type === AST_NODE_TYPES.MemberExpression &&
+  isSupportedAccessor(node.callee.property, 'catch')
 
 export default createEslintRule<Options, MESSAGE_ID>({
   name: RULE_NAME,
@@ -19,12 +27,13 @@ export default createEslintRule<Options, MESSAGE_ID>({
     docs: {
       description: 'disallow conditional expects',
       requiresTypeChecking: false,
-      recommended: false
+      recommended: false,
     },
     messages: {
-      noConditionalExpect: 'Avoid calling `expect` inside conditional statements'
+      noConditionalExpect:
+        'Avoid calling `expect` inside conditional statements',
     },
-    schema: []
+    schema: [],
   },
   defaultOptions: [],
   create(context) {
@@ -38,51 +47,54 @@ export default createEslintRule<Options, MESSAGE_ID>({
     return {
       FunctionDeclaration(node) {
         const declaredVariables = context.sourceCode.getDeclaredVariables(node)
-        const testCallExpressions = getTestCallExpressionsFromDeclaredVariables(declaredVariables, context)
+        const testCallExpressions = getTestCallExpressionsFromDeclaredVariables(
+          declaredVariables,
+          context,
+        )
 
-        if (testCallExpressions.length > 0)
-          inTestCase = true
+        if (testCallExpressions.length > 0) inTestCase = true
       },
       CallExpression(node: TSESTree.CallExpression) {
-        const { type: vitestFnCallType } = parseVitestFnCall(node, context) ?? {}
+        const { type: vitestFnCallType } =
+          parseVitestFnCall(node, context) ?? {}
 
-        if (vitestFnCallType === 'test')
-          inTestCase = true
+        if (vitestFnCallType === 'test') inTestCase = true
 
-        if (isCatchCall(node))
-          inPromiseCatch = true
+        if (isCatchCall(node)) inPromiseCatch = true
 
-        if (inTestCase && vitestFnCallType === 'expect' && conditionalDepth > 0) {
+        if (
+          inTestCase &&
+          vitestFnCallType === 'expect' &&
+          conditionalDepth > 0
+        ) {
           context.report({
             messageId: 'noConditionalExpect',
-            node
+            node,
           })
         }
 
         if (inPromiseCatch && vitestFnCallType === 'expect') {
           context.report({
             messageId: 'noConditionalExpect',
-            node
+            node,
           })
         }
       },
       'CallExpression:exit'(node) {
-        if (isTypeOfVitestFnCall(node, context, ['test']))
-          inTestCase = false
+        if (isTypeOfVitestFnCall(node, context, ['test'])) inTestCase = false
 
-        if (isCatchCall(node))
-          inPromiseCatch = false
+        if (isCatchCall(node)) inPromiseCatch = false
       },
-      'CatchClause': increaseConditionalDepth,
+      CatchClause: increaseConditionalDepth,
       'CatchClause:exit': decreaseConditionalDepth,
-      'IfStatement': increaseConditionalDepth,
+      IfStatement: increaseConditionalDepth,
       'IfStatement:exit': decreaseConditionalDepth,
-      'SwitchStatement': increaseConditionalDepth,
+      SwitchStatement: increaseConditionalDepth,
       'SwitchStatement:exit': decreaseConditionalDepth,
-      'ConditionalExpression': increaseConditionalDepth,
+      ConditionalExpression: increaseConditionalDepth,
       'ConditionalExpression:exit': decreaseConditionalDepth,
-      'LogicalExpression': increaseConditionalDepth,
-      'LogicalExpression:exit': decreaseConditionalDepth
+      LogicalExpression: increaseConditionalDepth,
+      'LogicalExpression:exit': decreaseConditionalDepth,
     }
-  }
+  },
 })

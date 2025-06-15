@@ -11,12 +11,12 @@ export default createEslintRule<Options, MessageIds>({
     type: 'suggestion',
     docs: {
       description: 'enforce having hooks before any test cases',
-      recommended: false
+      recommended: false,
     },
     messages: {
-      noHookOnTop: 'Hooks should come before test cases'
+      noHookOnTop: 'Hooks should come before test cases',
     },
-    schema: []
+    schema: [],
   },
   defaultOptions: [],
   create(context) {
@@ -26,10 +26,13 @@ export default createEslintRule<Options, MessageIds>({
         if (isTypeOfVitestFnCall(node, context, ['test']))
           hooksContext[hooksContext.length - 1] = true
 
-        if (hooksContext[hooksContext.length - 1] && isTypeOfVitestFnCall(node, context, ['hook'])) {
+        if (
+          hooksContext[hooksContext.length - 1] &&
+          isTypeOfVitestFnCall(node, context, ['hook'])
+        ) {
           context.report({
             messageId: 'noHookOnTop',
-            node
+            node,
           })
         }
 
@@ -37,7 +40,7 @@ export default createEslintRule<Options, MessageIds>({
       },
       'CallExpression:exit'() {
         hooksContext.pop()
-      }
+      },
     }
-  }
+  },
 })

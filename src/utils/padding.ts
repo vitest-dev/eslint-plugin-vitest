@@ -2,12 +2,17 @@
 // Original license: https://github.com/dangreenisrael/eslint-plugin-jest-formatting/blob/master/LICENSE
 
 import { createEslintRule } from '.'
-import { AST_NODE_TYPES, AST_TOKEN_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
+import {
+  AST_NODE_TYPES,
+  AST_TOKEN_TYPES,
+  TSESLint,
+  TSESTree,
+} from '@typescript-eslint/utils'
 import * as astUtils from './ast-utils'
 
 export const enum PaddingType {
   Any,
-  Always
+  Always,
 }
 
 export const enum StatementType {
@@ -25,7 +30,7 @@ export const enum StatementType {
   TestToken,
   XdescribeToken,
   XitToken,
-  XtestToken
+  XtestToken,
 }
 
 export interface Config {
@@ -61,10 +66,18 @@ interface PaddingContext {
   configs: Config[]
 }
 
-const paddingAlwaysTester = (prevNode: TSESTree.Node, nextNode: TSESTree.Node, paddingContext: PaddingContext): void => {
+const paddingAlwaysTester = (
+  prevNode: TSESTree.Node,
+  nextNode: TSESTree.Node,
+  paddingContext: PaddingContext,
+): void => {
   const { sourceCode, ruleContext } = paddingContext
 
-  const paddingLines = astUtils.getPaddingLineSequences(prevNode, nextNode, sourceCode)
+  const paddingLines = astUtils.getPaddingLineSequences(
+    prevNode,
+    nextNode,
+    sourceCode,
+  )
 
   if (paddingLines.length > 0) return
 
@@ -100,20 +113,22 @@ const paddingAlwaysTester = (prevNode: TSESTree.Node, nextNode: TSESTree.Node, p
           }
 
           return true
-        }
+        },
       }) || nextNode) as TSESTree.Token
 
-      const insertText = astUtils.areTokensOnSameLine(prevToken, nextToken) ? '\n\n' : '\n'
+      const insertText = astUtils.areTokensOnSameLine(prevToken, nextToken)
+        ? '\n\n'
+        : '\n'
 
       return fixer.insertTextAfter(prevToken, insertText)
-    }
+    },
   })
 }
 
 // A mapping of PaddingType to PaddingTester
 const paddingTesters: { [T in PaddingType]: PaddingTester } = {
   [PaddingType.Any]: () => true,
-  [PaddingType.Always]: paddingAlwaysTester
+  [PaddingType.Always]: paddingAlwaysTester,
 }
 
 const createScopeInfo = (): ScopeInfo => {
@@ -131,7 +146,7 @@ const createScopeInfo = (): ScopeInfo => {
     },
     exit() {
       scope = scope!.upper
-    }
+    },
   }
 }
 
@@ -179,7 +194,7 @@ const statementTesters: { [T in StatementType]: StatementTester } = {
   [StatementType.TestToken]: createTokenTester('test'),
   [StatementType.XdescribeToken]: createTokenTester('xdescribe'),
   [StatementType.XitToken]: createTokenTester('xit'),
-  [StatementType.XtestToken]: createTokenTester('xtest')
+  [StatementType.XtestToken]: createTokenTester('xtest'),
 }
 
 /**
@@ -188,7 +203,7 @@ const statementTesters: { [T in StatementType]: StatementTester } = {
 const nodeMatchesType = (
   node: TSESTree.Node,
   statementType: StatementTypes,
-  paddingContext: PaddingContext
+  paddingContext: PaddingContext,
 ): boolean => {
   let innerStatementNode = node
   const { sourceCode } = paddingContext
@@ -201,23 +216,35 @@ const nodeMatchesType = (
   // If it's an array recursively check if any of the statement types match
   // the node
   if (Array.isArray(statementType)) {
-    return statementType.some(type =>
-      nodeMatchesType(innerStatementNode, type, paddingContext)
+    return statementType.some((type) =>
+      nodeMatchesType(innerStatementNode, type, paddingContext),
     )
   }
 
   return statementTesters[statementType](innerStatementNode, sourceCode)
 }
 
-const testPadding = (prevNode: TSESTree.Node, nextNode: TSESTree.Node, paddingContext: PaddingContext): void => {
+const testPadding = (
+  prevNode: TSESTree.Node,
+  nextNode: TSESTree.Node,
+  paddingContext: PaddingContext,
+): void => {
   const { configs } = paddingContext
 
-  const testType = (type: PaddingType) => paddingTesters[type](prevNode, nextNode, paddingContext)
+  const testType = (type: PaddingType) =>
+    paddingTesters[type](prevNode, nextNode, paddingContext)
 
   for (let i = configs.length - 1; i >= 0; --i) {
-    const { prevStatementType: prevType, nextStatementType: nextType, paddingType } = configs[i]
+    const {
+      prevStatementType: prevType,
+      nextStatementType: nextType,
+      paddingType,
+    } = configs[i]
 
-    if (nodeMatchesType(prevNode, prevType, paddingContext) && nodeMatchesType(nextNode, nextType, paddingContext)) {
+    if (
+      nodeMatchesType(prevNode, prevType, paddingContext) &&
+      nodeMatchesType(nextNode, nextType, paddingContext)
+    ) {
       return testType(paddingType)
     }
   }
@@ -225,7 +252,10 @@ const testPadding = (prevNode: TSESTree.Node, nextNode: TSESTree.Node, paddingCo
   return testType(PaddingType.Any)
 }
 
-const verifyNode = (node: TSESTree.Node, paddingContext: PaddingContext): void => {
+const verifyNode = (
+  node: TSESTree.Node,
+  paddingContext: PaddingContext,
+): void => {
   const { scopeInfo } = paddingContext
 
   // NOTE: ESLint types use ESTree which provides a Node type, however
@@ -269,7 +299,12 @@ const verifyNode = (node: TSESTree.Node, paddingContext: PaddingContext): void =
  * statement types. If they match then the specified padding type is
  * tested/enforced.
  */
-export const createPaddingRule = (name: string, description: string, configs: Config[], deprecated = false) => {
+export const createPaddingRule = (
+  name: string,
+  description: string,
+  configs: Config[],
+  deprecated = false,
+) => {
   return createEslintRule({
     name,
     meta: {
@@ -277,10 +312,10 @@ export const createPaddingRule = (name: string, description: string, configs: Co
       fixable: 'whitespace',
       deprecated,
       messages: {
-        missingPadding: 'expect blank line before this statement'
+        missingPadding: 'expect blank line before this statement',
       },
       schema: [],
-      type: 'suggestion'
+      type: 'suggestion',
     },
     defaultOptions: [],
     create(context) {
@@ -288,25 +323,25 @@ export const createPaddingRule = (name: string, description: string, configs: Co
         ruleContext: context,
         sourceCode: context.sourceCode ?? context.getSourceCode(),
         scopeInfo: createScopeInfo(),
-        configs
+        configs,
       }
 
       const { scopeInfo } = paddingContext
 
       return {
-        'Program': scopeInfo.enter,
+        Program: scopeInfo.enter,
         'Program:exit': scopeInfo.exit,
-        'BlockStatement': scopeInfo.enter,
+        BlockStatement: scopeInfo.enter,
         'BlockStatement:exit': scopeInfo.exit,
-        'SwitchStatement': scopeInfo.enter,
+        SwitchStatement: scopeInfo.enter,
         'SwitchStatement:exit': scopeInfo.exit,
         ':statement': (node: TSESTree.Node) => verifyNode(node, paddingContext),
         SwitchCase(node: TSESTree.Node) {
           verifyNode(node, paddingContext)
           scopeInfo.enter()
         },
-        'SwitchCase:exit': scopeInfo.exit
+        'SwitchCase:exit': scopeInfo.exit,
       }
-    }
+    },
   })
 }

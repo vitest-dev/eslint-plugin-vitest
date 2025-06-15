@@ -1,6 +1,9 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue, isStringNode } from '../utils'
-import { getFirstMatcherArg, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  getFirstMatcherArg,
+  parseVitestFnCall,
+} from '../utils/parse-vitest-fn-call'
 import { EqualityMatcher } from '../utils/types'
 import { isBooleanLiteral } from '../utils/msc'
 
@@ -30,7 +33,10 @@ const invertOperator = (operator: string) => {
   return null
 }
 
-const determineMatcher = (operator: string, negated: boolean): string | null => {
+const determineMatcher = (
+  operator: string,
+  negated: boolean,
+): string | null => {
   const op = negated ? invertOperator(operator) : operator
 
   switch (op) {
@@ -53,13 +59,13 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce using the built-in comparison matchers',
-      recommended: false
+      recommended: false,
     },
     schema: [],
     fixable: 'code',
     messages: {
-      useToBeComparison: 'Prefer using `{{ preferredMatcher }}` instead'
-    }
+      useToBeComparison: 'Prefer using `{{ preferredMatcher }}` instead',
+    },
   },
   defaultOptions: [],
   create(context) {
@@ -76,23 +82,29 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         const {
           arguments: [comparison],
-          range: [, expectCallEnd]
+          range: [, expectCallEnd],
         } = expect
 
         const { matcher } = vitestFnCall
         const matcherArg = getFirstMatcherArg(vitestFnCall)
 
-        if (comparison?.type !== AST_NODE_TYPES.BinaryExpression
-          || isComparingToString(comparison)
-
-          || !EqualityMatcher.hasOwnProperty(getAccessorValue(matcher))
-          || !isBooleanLiteral(matcherArg))
+        if (
+          comparison?.type !== AST_NODE_TYPES.BinaryExpression ||
+          isComparingToString(comparison) ||
+          !EqualityMatcher.hasOwnProperty(getAccessorValue(matcher)) ||
+          !isBooleanLiteral(matcherArg)
+        )
           return
 
         const [modifier] = vitestFnCall.modifiers
-        const hasNot = vitestFnCall.modifiers.some(nod => getAccessorValue(nod) === 'not')
+        const hasNot = vitestFnCall.modifiers.some(
+          (nod) => getAccessorValue(nod) === 'not',
+        )
 
-        const preferredMatcher = determineMatcher(comparison.operator, matcherArg.value === hasNot)
+        const preferredMatcher = determineMatcher(
+          comparison.operator,
+          matcherArg.value === hasNot,
+        )
 
         if (!preferredMatcher) return
 
@@ -100,31 +112,31 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           fix(fixer) {
             const { sourceCode } = context
 
-            const modifierText
-                            = modifier && getAccessorValue(modifier) !== 'not'
-                              ? `.${getAccessorValue(modifier)}`
-                              : ''
+            const modifierText =
+              modifier && getAccessorValue(modifier) !== 'not'
+                ? `.${getAccessorValue(modifier)}`
+                : ''
 
             return [
               fixer.replaceText(
                 comparison,
-                sourceCode.getText(comparison.left)
+                sourceCode.getText(comparison.left),
               ),
               fixer.replaceTextRange(
                 [expectCallEnd, matcher.parent.range[1]],
-                `${modifierText}.${preferredMatcher}`
+                `${modifierText}.${preferredMatcher}`,
               ),
               fixer.replaceText(
                 matcherArg,
-                sourceCode.getText(comparison.right)
-              )
+                sourceCode.getText(comparison.right),
+              ),
             ]
           },
           messageId: 'useToBeComparison',
           data: { preferredMatcher },
-          node: matcher
+          node: matcher,
         })
-      }
+      },
     }
-  }
+  },
 })

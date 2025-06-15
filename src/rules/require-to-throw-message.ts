@@ -11,12 +11,12 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'require toThrow() to be called with an error message',
-      recommended: false
+      recommended: false,
     },
     schema: [],
     messages: {
-      addErrorMessage: 'Add an error message to {{ matcherName }}()'
-    }
+      addErrorMessage: 'Add an error message to {{ matcherName }}()',
+    },
   },
   defaultOptions: [],
   create(context) {
@@ -29,17 +29,18 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         const { matcher } = vitestFnCall
         const matcherName = getAccessorValue(matcher)
 
-        if (vitestFnCall.args.length === 0
-          && ['toThrow', 'toThrowError'].includes(matcherName)
-          && !vitestFnCall.modifiers.some(nod => getAccessorValue(nod) === 'not')
+        if (
+          vitestFnCall.args.length === 0 &&
+          ['toThrow', 'toThrowError'].includes(matcherName) &&
+          !vitestFnCall.modifiers.some((nod) => getAccessorValue(nod) === 'not')
         ) {
           context.report({
             messageId: 'addErrorMessage',
             data: { matcherName },
-            node: matcher
+            node: matcher,
           })
         }
-      }
+      },
     }
-  }
+  },
 })

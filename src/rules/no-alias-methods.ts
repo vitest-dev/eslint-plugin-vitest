@@ -1,4 +1,8 @@
-import { createEslintRule, getAccessorValue, replaceAccessorFixer } from '../utils'
+import {
+  createEslintRule,
+  getAccessorValue,
+  replaceAccessorFixer,
+} from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'no-alias-methods'
@@ -11,14 +15,15 @@ export default createEslintRule<Options, MESSAGE_ID>({
     docs: {
       description: 'disallow alias methods',
       requiresTypeChecking: false,
-      recommended: false
+      recommended: false,
     },
     messages: {
-      noAliasMethods: 'Replace {{ alias }}() with its canonical name {{ canonical }}()'
+      noAliasMethods:
+        'Replace {{ alias }}() with its canonical name {{ canonical }}()',
     },
     type: 'suggestion',
     fixable: 'code',
-    schema: []
+    schema: [],
   },
   defaultOptions: [],
   create(context) {
@@ -33,15 +38,14 @@ export default createEslintRule<Options, MESSAGE_ID>({
       toReturnWith: 'toHaveReturnedWith',
       lastReturnedWith: 'toHaveLastReturnedWith',
       nthReturnedWith: 'toHaveNthReturnedWith',
-      toThrowError: 'toThrow'
+      toThrowError: 'toThrow',
     }
 
     return {
       CallExpression(node) {
         const vitestFnCall = parseVitestFnCall(node, context)
 
-        if (vitestFnCall?.type !== 'expect')
-          return
+        if (vitestFnCall?.type !== 'expect') return
 
         const { matcher } = vitestFnCall
 
@@ -54,10 +58,10 @@ export default createEslintRule<Options, MESSAGE_ID>({
             messageId: 'noAliasMethods',
             data: { alias, canonical },
             node: matcher,
-            fix: fixer => [replaceAccessorFixer(fixer, matcher, canonical)]
+            fix: (fixer) => [replaceAccessorFixer(fixer, matcher, canonical)],
           })
         }
-      }
+      },
     }
-  }
+  },
 })

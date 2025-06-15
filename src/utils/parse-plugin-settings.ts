@@ -5,16 +5,19 @@ interface PluginSettings {
 }
 
 const DEFAULTS: PluginSettings = {
-  typecheck: false
+  typecheck: false,
 }
 
-export function parsePluginSettings(settings: SharedConfigurationSettings): PluginSettings {
-  const pluginSettings = typeof settings.vitest !== 'object' || settings.vitest === null
-    ? {}
-    : settings.vitest
+export function parsePluginSettings(
+  settings: SharedConfigurationSettings,
+): PluginSettings {
+  const pluginSettings =
+    typeof settings.vitest !== 'object' || settings.vitest === null
+      ? {}
+      : settings.vitest
 
   return {
     ...DEFAULTS,
-    ...pluginSettings
+    ...pluginSettings,
   }
 }

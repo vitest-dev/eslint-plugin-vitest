@@ -1,5 +1,9 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/utils'
-import { createEslintRule, getAccessorValue, isSupportedAccessor } from '../utils'
+import {
+  createEslintRule,
+  getAccessorValue,
+  isSupportedAccessor,
+} from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { EqualityMatcher } from '../utils/types'
 
@@ -13,13 +17,13 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce using toHaveLength()',
-      recommended: false
+      recommended: false,
     },
     fixable: 'code',
     messages: {
-      preferToHaveLength: 'Prefer toHaveLength()'
+      preferToHaveLength: 'Prefer toHaveLength()',
     },
-    schema: []
+    schema: [],
   },
   defaultOptions: [],
   create(context) {
@@ -27,20 +31,20 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       CallExpression(node) {
         const vitestFnCall = parseVitestFnCall(node, context)
 
-        if (vitestFnCall?.type !== 'expect')
-          return
+        if (vitestFnCall?.type !== 'expect') return
 
         const { parent: expect } = vitestFnCall.head.node
 
-        if (expect?.type !== AST_NODE_TYPES.CallExpression)
-          return
+        if (expect?.type !== AST_NODE_TYPES.CallExpression) return
 
         const [argument] = expect.arguments
         const { matcher } = vitestFnCall
 
-        if (!EqualityMatcher.hasOwnProperty(getAccessorValue(matcher))
-          || argument?.type !== AST_NODE_TYPES.MemberExpression
-          || !isSupportedAccessor(argument.property, 'length'))
+        if (
+          !EqualityMatcher.hasOwnProperty(getAccessorValue(matcher)) ||
+          argument?.type !== AST_NODE_TYPES.MemberExpression ||
+          !isSupportedAccessor(argument.property, 'length')
+        )
           return
 
         context.report({
@@ -50,17 +54,17 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             return [
               fixer.removeRange([
                 argument.property.range[0] - 1,
-                argument.range[1]
+                argument.range[1],
               ]),
 
               fixer.replaceTextRange(
                 [matcher.parent.object.range[1], matcher.parent.range[1]],
-                '.toHaveLength'
-              )
+                '.toHaveLength',
+              ),
             ]
-          }
+          },
         })
-      }
+      },
     }
-  }
+  },
 })

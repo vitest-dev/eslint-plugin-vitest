@@ -1,14 +1,28 @@
 import { TSESLint, AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
-import { createEslintRule, getNodeName, isFunction, isSupportedAccessor } from '../utils'
-import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  createEslintRule,
+  getNodeName,
+  isFunction,
+  isSupportedAccessor,
+} from '../utils'
+import {
+  isTypeOfVitestFnCall,
+  parseVitestFnCall,
+} from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'no-done-callback'
-export type MessageIds = 'noDoneCallback' | 'suggestWrappingInPromise' | 'useAwaitInsteadOfCallback'
+export type MessageIds =
+  | 'noDoneCallback'
+  | 'suggestWrappingInPromise'
+  | 'useAwaitInsteadOfCallback'
 export type Options = []
 
-const findCallbackArg = (node: TSESTree.CallExpression, isVitestEach: boolean, context: TSESLint.RuleContext<string, unknown[]>): TSESTree.CallExpression['arguments'][0] | null => {
-  if (isVitestEach)
-    return node.arguments[1]
+const findCallbackArg = (
+  node: TSESTree.CallExpression,
+  isVitestEach: boolean,
+  context: TSESLint.RuleContext<string, unknown[]>,
+): TSESTree.CallExpression['arguments'][0] | null => {
+  if (isVitestEach) return node.arguments[1]
 
   const vitestFnCall = parseVitestFnCall(node, context)
 
@@ -27,46 +41,62 @@ export default createEslintRule<Options, MessageIds>({
     type: 'suggestion',
     docs: {
       description: 'disallow using a callback in asynchronous tests and hooks',
-      recommended: false
+      recommended: false,
     },
     deprecated: true,
     schema: [],
     messages: {
-      noDoneCallback: 'Return a promise instead of relying on callback parameter',
+      noDoneCallback:
+        'Return a promise instead of relying on callback parameter',
       suggestWrappingInPromise: 'Wrap in `new Promise({{ callback }} => ...`',
-      useAwaitInsteadOfCallback: 'Use `await` instead of callback in async function'
+      useAwaitInsteadOfCallback:
+        'Use `await` instead of callback in async function',
     },
-    hasSuggestions: true
+    hasSuggestions: true,
   },
   defaultOptions: [],
   create(context) {
     return {
       CallExpression(node) {
-        const isVitestEach = /\.each$|\.concurrent$/.test(getNodeName(node.callee) ?? '')
+        const isVitestEach = /\.each$|\.concurrent$/.test(
+          getNodeName(node.callee) ?? '',
+        )
 
-        if (isVitestEach && node.callee.type !== AST_NODE_TYPES.TaggedTemplateExpression)
+        if (
+          isVitestEach &&
+          node.callee.type !== AST_NODE_TYPES.TaggedTemplateExpression
+        )
           return
 
-        const isInsideConcurrentTestOrDescribe = context.sourceCode.getAncestors(node).some((ancestor) => {
-          if (ancestor.type !== AST_NODE_TYPES.CallExpression) return false
+        const isInsideConcurrentTestOrDescribe = context.sourceCode
+          .getAncestors(node)
+          .some((ancestor) => {
+            if (ancestor.type !== AST_NODE_TYPES.CallExpression) return false
 
-          const isNotInsideDescribeOrTest = !isTypeOfVitestFnCall(ancestor, context, ['describe', 'test'])
-          if (isNotInsideDescribeOrTest) return false
+            const isNotInsideDescribeOrTest = !isTypeOfVitestFnCall(
+              ancestor,
+              context,
+              ['describe', 'test'],
+            )
+            if (isNotInsideDescribeOrTest) return false
 
-          const isTestRunningConcurrently
-                        = ancestor.callee.type === AST_NODE_TYPES.MemberExpression
-                          && isSupportedAccessor(ancestor.callee.property, 'concurrent')
+            const isTestRunningConcurrently =
+              ancestor.callee.type === AST_NODE_TYPES.MemberExpression &&
+              isSupportedAccessor(ancestor.callee.property, 'concurrent')
 
-          return isTestRunningConcurrently
-        })
+            return isTestRunningConcurrently
+          })
 
         if (isInsideConcurrentTestOrDescribe) return
 
         const callback = findCallbackArg(node, isVitestEach, context)
         const callbackArgIndex = Number(isVitestEach)
 
-        if (!callback
-          || !isFunction(callback) || callback.params.length !== 1 + callbackArgIndex)
+        if (
+          !callback ||
+          !isFunction(callback) ||
+          callback.params.length !== 1 + callbackArgIndex
+        )
           return
 
         const argument = callback.params[callbackArgIndex]
@@ -74,7 +104,7 @@ export default createEslintRule<Options, MessageIds>({
         if (argument.type !== AST_NODE_TYPES.Identifier) {
           context.report({
             node: argument,
-            messageId: 'noDoneCallback'
+            messageId: 'noDoneCallback',
           })
           return
         }
@@ -82,7 +112,7 @@ export default createEslintRule<Options, MessageIds>({
         if (callback.async) {
           context.report({
             node: argument,
-            messageId: 'useAwaitInsteadOfCallback'
+            messageId: 'useAwaitInsteadOfCallback',
           })
           return
         }
@@ -104,22 +134,34 @@ export default createEslintRule<Options, MessageIds>({
                 const [firstParam] = params
                 const lastParam = params[params.length - 1]
 
-                const tokenBeforeFirstParam = sourceCode.getTokenBefore(firstParam)
+                const tokenBeforeFirstParam =
+                  sourceCode.getTokenBefore(firstParam)
                 let tokenAfterLastParam = sourceCode.getTokenAfter(lastParam)
 
                 if (tokenAfterLastParam?.value === ',')
-                  tokenAfterLastParam = sourceCode.getTokenAfter(tokenAfterLastParam)
+                  tokenAfterLastParam =
+                    sourceCode.getTokenAfter(tokenAfterLastParam)
 
-                if (!firstBodyToken
-                  || !lastBodyToken
-                  || !tokenBeforeFirstParam
-                  || !tokenAfterLastParam)
-                  throw new Error(`Unexpected null when attempting to fix ${context.filename} - please file an issue at https://github/veritem/eslint-plugin-vitest`)
+                if (
+                  !firstBodyToken ||
+                  !lastBodyToken ||
+                  !tokenBeforeFirstParam ||
+                  !tokenAfterLastParam
+                )
+                  throw new Error(
+                    `Unexpected null when attempting to fix ${context.filename} - please file an issue at https://github/veritem/eslint-plugin-vitest`,
+                  )
 
                 let argumentFix = fixer.replaceText(firstParam, '()')
 
-                if (tokenBeforeFirstParam.value === '(' && tokenAfterLastParam.value === ')')
-                  argumentFix = fixer.removeRange([tokenBeforeFirstParam.range[1], tokenAfterLastParam.range[0]])
+                if (
+                  tokenBeforeFirstParam.value === '(' &&
+                  tokenAfterLastParam.value === ')'
+                )
+                  argumentFix = fixer.removeRange([
+                    tokenBeforeFirstParam.range[1],
+                    tokenAfterLastParam.range[0],
+                  ])
 
                 const newCallBack = argument.name
 
@@ -140,13 +182,13 @@ export default createEslintRule<Options, MessageIds>({
                   replaceBefore
                     ? fixer.insertTextBefore(firstBodyToken, beforeReplacement)
                     : fixer.insertTextAfter(firstBodyToken, beforeReplacement),
-                  fixer.insertTextAfter(lastBodyToken, afterReplacement)
+                  fixer.insertTextAfter(lastBodyToken, afterReplacement),
                 ]
-              }
-            }
-          ]
+              },
+            },
+          ],
         })
-      }
+      },
     }
-  }
+  },
 })

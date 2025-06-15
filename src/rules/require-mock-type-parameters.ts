@@ -13,10 +13,10 @@ export default createEslintRule<Options[], MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce using type parameters with vitest mock functions',
-      recommended: false
+      recommended: false,
     },
     messages: {
-      noTypeParameter: 'Missing type parameters'
+      noTypeParameter: 'Missing type parameters',
     },
     fixable: 'code',
     schema: [
@@ -24,16 +24,18 @@ export default createEslintRule<Options[], MESSAGE_IDS>({
         type: 'object',
         properties: {
           checkImportFunctions: {
-            type: 'boolean'
-          }
+            type: 'boolean',
+          },
         },
-        additionalProperties: false
-      }
-    ]
+        additionalProperties: false,
+      },
+    ],
   },
-  defaultOptions: [{
-    checkImportFunctions: false
-  }],
+  defaultOptions: [
+    {
+      checkImportFunctions: false,
+    },
+  ],
   create(context, [options]) {
     return {
       CallExpression(node) {
@@ -42,21 +44,28 @@ export default createEslintRule<Options[], MESSAGE_IDS>({
 
         for (const member of vitestFnCall?.members) {
           // @ts-expect-error TS2339
-          if (!('name' in member) || member.parent.parent.typeArguments !== undefined) continue
+          if (
+            !('name' in member) ||
+            member.parent.parent.typeArguments !== undefined
+          )
+            continue
           if (member.name === 'fn') {
             context.report({
               node: member,
-              messageId: 'noTypeParameter'
+              messageId: 'noTypeParameter',
             })
           }
-          if (options.checkImportFunctions && ['importActual', 'importMock'].includes(member.name)) {
+          if (
+            options.checkImportFunctions &&
+            ['importActual', 'importMock'].includes(member.name)
+          ) {
             context.report({
               node: member,
-              messageId: 'noTypeParameter'
+              messageId: 'noTypeParameter',
             })
           }
         }
-      }
+      },
     }
-  }
+  },
 })

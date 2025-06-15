@@ -4,9 +4,11 @@ import { createEslintRule, getStringValue, isStringNode } from '../utils'
 
 const mocksDirName = '__mocks__'
 
-const isMockPath = (path: string) => path.split(posix.sep).includes(mocksDirName)
+const isMockPath = (path: string) =>
+  path.split(posix.sep).includes(mocksDirName)
 
-const isMockImportLiteral = (expression: TSESTree.CallExpressionArgument) => isStringNode(expression) && isMockPath(getStringValue(expression))
+const isMockImportLiteral = (expression: TSESTree.CallExpressionArgument) =>
+  isStringNode(expression) && isMockPath(getStringValue(expression))
 
 export const RULE_NAME = 'no-mocks-import'
 type MESSAGE_IDS = 'noMocksImport'
@@ -18,12 +20,12 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'problem',
     docs: {
       description: 'disallow importing from __mocks__ directory',
-      recommended: false
+      recommended: false,
     },
     messages: {
-      noMocksImport: `Mocks should not be manually imported from a ${mocksDirName} directory. Instead use \`vi.mock\` and import from the original module path`
+      noMocksImport: `Mocks should not be manually imported from a ${mocksDirName} directory. Instead use \`vi.mock\` and import from the original module path`,
     },
-    schema: []
+    schema: [],
   },
   defaultOptions: [],
   create(context) {
@@ -37,7 +39,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         if (args && isMockImportLiteral(args))
           context.report({ node: args, messageId: 'noMocksImport' })
-      }
+      },
     }
-  }
+  },
 })

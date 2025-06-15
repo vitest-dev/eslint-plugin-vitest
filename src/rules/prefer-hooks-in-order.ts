@@ -1,5 +1,8 @@
 import { createEslintRule } from '../utils/index'
-import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  isTypeOfVitestFnCall,
+  parseVitestFnCall,
+} from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'prefer-hooks-in-order'
 type MESSAGE_IDS = 'reorderHooks'
@@ -13,12 +16,13 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'enforce having hooks in consistent order',
-      recommended: false
+      recommended: false,
     },
     messages: {
-      reorderHooks: '`{{ currentHook }}` hooks should be before any `{{ previousHook }}` hooks'
+      reorderHooks:
+        '`{{ currentHook }}` hooks should be before any `{{ previousHook }}` hooks',
     },
-    schema: []
+    schema: [],
   },
   defaultOptions: [],
   create(context) {
@@ -45,9 +49,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             messageId: 'reorderHooks',
             data: {
               previousHook: HooksOrder[previousHookIndex],
-              currentHook
+              currentHook,
             },
-            node
+            node,
           })
           inHook = false
           return
@@ -61,11 +65,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           return
         }
 
-        if (inHook)
-          return
+        if (inHook) return
 
         previousHookIndex = -1
-      }
+      },
     }
-  }
+  },
 })

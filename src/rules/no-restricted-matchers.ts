@@ -18,21 +18,21 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   meta: {
     docs: {
       description: 'disallow the use of certain matchers',
-      recommended: false
+      recommended: false,
     },
     type: 'suggestion',
     schema: [
       {
         type: 'object',
         additionalProperties: {
-          type: ['string', 'null']
-        }
-      }
+          type: ['string', 'null'],
+        },
+      },
     ],
     messages: {
       restrictedChain: 'use of {{ restriction }} is disallowed',
-      restrictedChainWithMessage: '{{ message }}'
-    }
+      restrictedChainWithMessage: '{{ message }}',
+    },
   },
   defaultOptions: [{}],
   create(context, [restrictedChains]) {
@@ -40,27 +40,29 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       CallExpression(node) {
         const vitestFnCall = parseVitestFnCall(node, context)
 
-        if (vitestFnCall?.type !== 'expect')
-          return
+        if (vitestFnCall?.type !== 'expect') return
 
         const chain = vitestFnCall.members
-          .map(node => getAccessorValue(node))
+          .map((node) => getAccessorValue(node))
           .join('.')
 
         for (const [restriction, message] of Object.entries(restrictedChains)) {
           if (isChainRestricted(chain, restriction)) {
             context.report({
-              messageId: message ? 'restrictedChainWithMessage' : 'restrictedChain',
+              messageId: message
+                ? 'restrictedChainWithMessage'
+                : 'restrictedChain',
               data: { message, restriction },
               loc: {
                 start: vitestFnCall.members[0].loc.start,
-                end: vitestFnCall.members[vitestFnCall.members.length - 1].loc.end
-              }
+                end: vitestFnCall.members[vitestFnCall.members.length - 1].loc
+                  .end,
+              },
             })
             break
           }
         }
-      }
+      },
     }
-  }
+  },
 })

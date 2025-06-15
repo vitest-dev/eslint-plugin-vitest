@@ -1,6 +1,14 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
-import { createEslintRule, getNodeName, isFunction, isIdentifier } from '../utils'
-import { isTypeOfVitestFnCall, parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  createEslintRule,
+  getNodeName,
+  isFunction,
+  isIdentifier,
+} from '../utils'
+import {
+  isTypeOfVitestFnCall,
+  parseVitestFnCall,
+} from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'require-hook'
 type MESSAGE_IDS = 'useHook'
@@ -8,34 +16,38 @@ type Options = [{ allowedFunctionCalls?: readonly string[] }]
 
 const isVitestFnCall = (
   node: TSESTree.CallExpression,
-  context: TSESLint.RuleContext<string, unknown[]>
+  context: TSESLint.RuleContext<string, unknown[]>,
 ) => {
-  if (parseVitestFnCall(node, context))
-    return true
+  if (parseVitestFnCall(node, context)) return true
 
   return !!getNodeName(node)?.startsWith('vi')
 }
 
 const isNullOrUndefined = (node: TSESTree.Expression) => {
-  return (node.type === AST_NODE_TYPES.Literal && node.value === null) || isIdentifier(node, 'undefined')
+  return (
+    (node.type === AST_NODE_TYPES.Literal && node.value === null) ||
+    isIdentifier(node, 'undefined')
+  )
 }
 
 const shouldBeInHook = (
   node: TSESTree.Node,
   context: TSESLint.RuleContext<string, unknown[]>,
-  allowedFunctionCalls: readonly string[] = []
+  allowedFunctionCalls: readonly string[] = [],
 ): boolean => {
   switch (node.type) {
     case AST_NODE_TYPES.ExpressionStatement:
       return shouldBeInHook(node.expression, context, allowedFunctionCalls)
     case AST_NODE_TYPES.CallExpression:
-      return !(isVitestFnCall(node, context) || allowedFunctionCalls.includes(getNodeName(node) as string))
+      return !(
+        isVitestFnCall(node, context) ||
+        allowedFunctionCalls.includes(getNodeName(node) as string)
+      )
     case AST_NODE_TYPES.VariableDeclaration: {
-      if (node.kind === 'const')
-        return false
+      if (node.kind === 'const') return false
 
       return node.declarations.some(
-        ({ init }) => init !== null && !isNullOrUndefined(init)
+        ({ init }) => init !== null && !isNullOrUndefined(init),
       )
     }
     default:
@@ -48,10 +60,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   meta: {
     docs: {
       description: 'require setup and teardown to be within a hook',
-      recommended: false
+      recommended: false,
     },
     messages: {
-      useHook: 'This should be done within a hook'
+      useHook: 'This should be done within a hook',
     },
     type: 'suggestion',
     schema: [
@@ -60,17 +72,17 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         properties: {
           allowedFunctionCalls: {
             type: 'array',
-            items: { type: 'string' }
-          }
+            items: { type: 'string' },
+          },
         },
-        additionalProperties: false
-      }
-    ]
+        additionalProperties: false,
+      },
+    ],
   },
   defaultOptions: [
     {
-      allowedFunctionCalls: []
-    }
+      allowedFunctionCalls: [],
+    },
   ],
   create(context) {
     const { allowedFunctionCalls } = context.options[0] ?? {}
@@ -80,7 +92,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         if (shouldBeInHook(statement, context, allowedFunctionCalls)) {
           context.report({
             node: statement,
-            messageId: 'useHook'
+            messageId: 'useHook',
           })
         }
       }
@@ -91,15 +103,22 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         checkBlockBody(program.body)
       },
       CallExpression(node) {
-        if (!isTypeOfVitestFnCall(node, context, ['describe']) || node.arguments.length < 2) return
+        if (
+          !isTypeOfVitestFnCall(node, context, ['describe']) ||
+          node.arguments.length < 2
+        )
+          return
 
         const [, testFn] = node.arguments
 
-        if (!isFunction(testFn)
-          || testFn.body.type !== AST_NODE_TYPES.BlockStatement) return
+        if (
+          !isFunction(testFn) ||
+          testFn.body.type !== AST_NODE_TYPES.BlockStatement
+        )
+          return
 
         checkBlockBody(testFn.body.body)
-      }
+      },
     }
-  }
+  },
 })
