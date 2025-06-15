@@ -39,7 +39,7 @@ jobs:
       - name: install
         run: pnpm install
 
-      - name: format code
+      - name: format
         run: pnpm format:check
 
       #- name: typecheck
