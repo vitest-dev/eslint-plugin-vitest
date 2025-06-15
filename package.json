@@ -40,7 +40,7 @@
   "scripts": {
     "build": "unbuild --config unbuild.config.ts",
     "lint:eslint-docs": "pnpm build && eslint-doc-generator --check",
-    "lint:js": "eslint . --fix",
+    "lint:js": "eslint .",
     "lint": "concurrently --prefixColors auto \"pnpm:lint:*\"",
     "release": "bumpp package.json --commit --push --tag && pnpm build && pnpm publish",
     "stub": "unbuild --stub",
