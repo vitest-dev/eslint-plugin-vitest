@@ -3,7 +3,7 @@ import { ruleTester } from './ruleTester'
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
-    'test(\'something\', () => Promise.resolve().then(() => expect(1).toBe(2)));',
+    "test('something', () => Promise.resolve().then(() => expect(1).toBe(2)));",
     'Promise.resolve().then(() => expect(1).toBe(2))',
     'const x = Promise.resolve().then(() => expect(1).toBe(2))',
     `
@@ -827,7 +827,7 @@ ruleTester.run(RULE_NAME, rule, {
 
         return Promise.allSettled([onePromise, twoPromise]);
       });
-    `
+    `,
   ],
   invalid: [
     {
@@ -849,9 +849,9 @@ ruleTester.run(RULE_NAME, rule, {
           column: 11,
           endColumn: 14,
           messageId: 'expectInFloatingPromise',
-          line: 9
-        }
-      ]
+          line: 9,
+        },
+      ],
     },
     {
       code: `
@@ -862,8 +862,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 14, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 14, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -874,8 +874,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 14, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 14, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -886,8 +886,8 @@ ruleTester.run(RULE_NAME, rule, {
        });
       `,
       errors: [
-        { column: 10, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 10, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -898,8 +898,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 14, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 14, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -910,8 +910,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 14, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 14, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -922,8 +922,8 @@ ruleTester.run(RULE_NAME, rule, {
         })
       `,
       errors: [
-        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -934,8 +934,8 @@ ruleTester.run(RULE_NAME, rule, {
         })
       `,
       errors: [
-        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -946,8 +946,8 @@ ruleTester.run(RULE_NAME, rule, {
         })
       `,
       errors: [
-        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -960,8 +960,8 @@ ruleTester.run(RULE_NAME, rule, {
         })
       `,
       errors: [
-        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -973,8 +973,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -986,8 +986,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 55, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 55, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -999,8 +999,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 55, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 55, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1012,8 +1012,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1024,8 +1024,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 58, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 58, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1036,8 +1036,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 28, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 28, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1051,8 +1051,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1066,8 +1066,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1081,8 +1081,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1098,8 +1098,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1114,8 +1114,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 43, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 43, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1130,8 +1130,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 30, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 30, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1143,8 +1143,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1156,8 +1156,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1169,8 +1169,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1182,8 +1182,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1196,8 +1196,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1212,8 +1212,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1228,8 +1228,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1244,8 +1244,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1260,8 +1260,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1276,8 +1276,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1292,8 +1292,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1306,8 +1306,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1320,8 +1320,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1334,8 +1334,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1348,8 +1348,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1362,8 +1362,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1374,8 +1374,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 17, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1386,8 +1386,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 24, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 24, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1400,11 +1400,11 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       languageOptions: {
-        parserOptions: { sourceType: 'module' }
+        parserOptions: { sourceType: 'module' },
       },
       errors: [
-        { column: 24, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 24, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1418,8 +1418,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 14, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 14, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1433,8 +1433,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 11, endColumn: 14, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 11, endColumn: 14, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1449,8 +1449,8 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [
-        { column: 15, endColumn: 13, messageId: 'expectInFloatingPromise' }
-      ]
+        { column: 15, endColumn: 13, messageId: 'expectInFloatingPromise' },
+      ],
     },
     {
       code: `
@@ -1471,9 +1471,9 @@ ruleTester.run(RULE_NAME, rule, {
           column: 15,
           endColumn: 13,
           line: 3,
-          messageId: 'expectInFloatingPromise'
-        }
-      ]
+          messageId: 'expectInFloatingPromise',
+        },
+      ],
     },
     {
       code: `
@@ -1490,9 +1490,9 @@ ruleTester.run(RULE_NAME, rule, {
           column: 15,
           endColumn: 13,
           line: 3,
-          messageId: 'expectInFloatingPromise'
-        }
-      ]
+          messageId: 'expectInFloatingPromise',
+        },
+      ],
     },
     {
       code: `
@@ -1515,9 +1515,9 @@ ruleTester.run(RULE_NAME, rule, {
           column: 15,
           endColumn: 13,
           line: 3,
-          messageId: 'expectInFloatingPromise'
-        }
-      ]
+          messageId: 'expectInFloatingPromise',
+        },
+      ],
     },
     {
       code: `
@@ -1532,9 +1532,9 @@ ruleTester.run(RULE_NAME, rule, {
           column: 11,
           endColumn: 13,
           line: 3,
-          messageId: 'expectInFloatingPromise'
-        }
-      ]
+          messageId: 'expectInFloatingPromise',
+        },
+      ],
     },
     {
       code: `
@@ -1550,9 +1550,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'expectInFloatingPromise',
           line: 3,
-          column: 17
-        }
-      ]
+          column: 17,
+        },
+      ],
     },
     {
       code: `
@@ -1570,9 +1570,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'expectInFloatingPromise',
           line: 3,
-          column: 17
-        }
-      ]
+          column: 17,
+        },
+      ],
     },
     {
       code: `
@@ -1590,9 +1590,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'expectInFloatingPromise',
           line: 3,
-          column: 17
-        }
-      ]
+          column: 17,
+        },
+      ],
     },
     {
       code: `
@@ -1613,9 +1613,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'expectInFloatingPromise',
           line: 5,
-          column: 17
-        }
-      ]
+          column: 17,
+        },
+      ],
     },
     {
       code: `
@@ -1633,10 +1633,10 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'expectInFloatingPromise',
           line: 3,
-          column: 17
-        }
+          column: 17,
+        },
       ],
-      settings: { vitest: { globalAliases: { xit: ['promiseThatThis'] } } }
-    }
-  ]
+      settings: { vitest: { globalAliases: { xit: ['promiseThatThis'] } } },
+    },
+  ],
 })

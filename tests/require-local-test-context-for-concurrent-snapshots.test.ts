@@ -1,4 +1,6 @@
-import rule, { RULE_NAME } from '../src/rules/require-local-test-context-for-concurrent-snapshots'
+import rule, {
+  RULE_NAME,
+} from '../src/rules/require-local-test-context-for-concurrent-snapshots'
 import { ruleTester } from './ruleTester'
 
 ruleTester.run(RULE_NAME, rule, {
@@ -13,28 +15,28 @@ ruleTester.run(RULE_NAME, rule, {
     'describe.concurrent("something", () => { it("something", ({ expect }) => { expect(1).toMatchInlineSnapshot() }) })',
     'describe("something", () => { it("something", (context) => { context.expect(1).toMatchInlineSnapshot() }) })',
     'describe("something", () => { it("something", (context) => { expect(1).toMatchInlineSnapshot() }) })',
-    'it.concurrent("something", (context) => { context.expect(1).toMatchSnapshot() })'
+    'it.concurrent("something", (context) => { context.expect(1).toMatchSnapshot() })',
   ],
   invalid: [
     {
       code: 'it.concurrent("should fail", () => { expect(true).toMatchSnapshot() })',
-      errors: [{ messageId: 'requireLocalTestContext' }]
+      errors: [{ messageId: 'requireLocalTestContext' }],
     },
     {
       code: 'it.concurrent("should fail", () => { expect(true).toMatchInlineSnapshot("true") })',
-      errors: [{ messageId: 'requireLocalTestContext' }]
+      errors: [{ messageId: 'requireLocalTestContext' }],
     },
     {
       code: 'describe.concurrent("failing", () => { it("should fail", () => { expect(true).toMatchSnapshot() }) })',
-      errors: [{ messageId: 'requireLocalTestContext' }]
+      errors: [{ messageId: 'requireLocalTestContext' }],
     },
     {
       code: 'describe.concurrent("failing", () => { it("should fail", () => { expect(true).toMatchInlineSnapshot("true") }) })',
-      errors: [{ messageId: 'requireLocalTestContext' }]
+      errors: [{ messageId: 'requireLocalTestContext' }],
     },
     {
       code: 'it.concurrent("something", (context) => { expect(true).toMatchSnapshot() })',
-      errors: [{ messageId: 'requireLocalTestContext' }]
+      errors: [{ messageId: 'requireLocalTestContext' }],
     },
     {
       code: `it.concurrent("something", () => {
@@ -42,7 +44,10 @@ ruleTester.run(RULE_NAME, rule, {
 
                  expect(true).toMatchSnapshot();
             })`,
-      errors: [{ messageId: 'requireLocalTestContext' }, { messageId: 'requireLocalTestContext' }]
+      errors: [
+        { messageId: 'requireLocalTestContext' },
+        { messageId: 'requireLocalTestContext' },
+      ],
     },
     {
       code: `it.concurrent("something", () => {
@@ -50,19 +55,19 @@ ruleTester.run(RULE_NAME, rule, {
 
                  expect(true).toMatchSnapshot();
             })`,
-      errors: [{ messageId: 'requireLocalTestContext' }]
+      errors: [{ messageId: 'requireLocalTestContext' }],
     },
     {
       code: 'it.concurrent("should fail", () => { expect(true).toMatchFileSnapshot("./test/basic.output.html") })',
-      errors: [{ messageId: 'requireLocalTestContext' }]
+      errors: [{ messageId: 'requireLocalTestContext' }],
     },
     {
       code: 'it.concurrent("should fail", () => { expect(foo()).toThrowErrorMatchingSnapshot() })',
-      errors: [{ messageId: 'requireLocalTestContext' }]
+      errors: [{ messageId: 'requireLocalTestContext' }],
     },
     {
       code: 'it.concurrent("should fail", () => { expect(foo()).toThrowErrorMatchingInlineSnapshot("bar") })',
-      errors: [{ messageId: 'requireLocalTestContext' }]
-    }
-  ]
+      errors: [{ messageId: 'requireLocalTestContext' }],
+    },
+  ],
 })

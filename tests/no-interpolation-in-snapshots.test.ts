@@ -19,52 +19,48 @@ ruleTester.run(RULE_NAME, rule, {
 
     'toMatchInlineSnapshot({}, `${interpolated1} ${interpolated2}`);',
     'expect(something).toThrowErrorMatchingInlineSnapshot();',
-    'expect(something).toThrowErrorMatchingInlineSnapshot(`No interpolation`);'
+    'expect(something).toThrowErrorMatchingInlineSnapshot(`No interpolation`);',
   ],
   invalid: [
     {
-
       code: 'expect(something).toMatchInlineSnapshot(`${interpolated}`);',
       errors: [
         {
           messageId: 'noInterpolationInSnapshots',
           column: 41,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
-
       code: 'expect(something).not.toMatchInlineSnapshot(`${interpolated}`);',
       errors: [
         {
           messageId: 'noInterpolationInSnapshots',
           column: 45,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
-
       code: 'expect(something).toThrowErrorMatchingInlineSnapshot(`${interpolated}`);',
       errors: [
         {
           endColumn: 71,
           column: 54,
-          messageId: 'noInterpolationInSnapshots'
-        }
-      ]
+          messageId: 'noInterpolationInSnapshots',
+        },
+      ],
     },
     {
-
       code: 'expect(something).not.toThrowErrorMatchingInlineSnapshot(`${interpolated}`);',
       errors: [
         {
           endColumn: 75,
           column: 58,
-          messageId: 'noInterpolationInSnapshots'
-        }
-      ]
-    }
-  ]
+          messageId: 'noInterpolationInSnapshots',
+        },
+      ],
+    },
+  ],
 })

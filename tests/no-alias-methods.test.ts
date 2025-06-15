@@ -15,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
     'expect(a).toHaveNthReturnedWith()',
     'expect(a).toThrow()',
     'expect(a).rejects;',
-    'expect(a);'
+    'expect(a);',
   ],
   invalid: [
     {
@@ -26,12 +26,12 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'noAliasMethods',
           data: {
             alias: 'toBeCalled',
-            canonical: 'toHaveBeenCalled'
+            canonical: 'toHaveBeenCalled',
           },
           column: 11,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a).toBeCalledTimes()',
@@ -41,27 +41,27 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'noAliasMethods',
           data: {
             alias: 'toBeCalledTimes',
-            canonical: 'toHaveBeenCalledTimes'
+            canonical: 'toHaveBeenCalledTimes',
           },
           column: 11,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'expect(a).not["toThrowError"]()',
-      output: 'expect(a).not[\'toThrow\']()',
+      output: "expect(a).not['toThrow']()",
       errors: [
         {
           messageId: 'noAliasMethods',
           data: {
             alias: 'toThrowError',
-            canonical: 'toThrow'
+            canonical: 'toThrow',
           },
           column: 15,
-          line: 1
-        }
-      ]
-    }
-  ]
+          line: 1,
+        },
+      ],
+    },
+  ],
 })

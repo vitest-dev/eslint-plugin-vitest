@@ -24,7 +24,7 @@ ruleTester.run(RULE_NAME, rule, {
      someFn();
       });
     });
-     `
+     `,
   ],
   invalid: [
     {
@@ -45,9 +45,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'noHookOnTop',
           column: 7,
-          line: 8
-        }
-      ]
+          line: 8,
+        },
+      ],
     },
     {
       code: `
@@ -67,9 +67,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'noHookOnTop',
           column: 7,
-          line: 8
-        }
-      ]
+          line: 8,
+        },
+      ],
     },
     {
       code: `
@@ -89,11 +89,11 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'noHookOnTop',
           column: 7,
-          line: 8
-        }
-      ]
-    }
-  ]
+          line: 8,
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
@@ -115,7 +115,7 @@ ruleTester.run(RULE_NAME, rule, {
        someFn();
      });
       });
-    `
+    `,
   ],
   invalid: [
     {
@@ -155,26 +155,26 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'noHookOnTop',
           column: 8,
-          line: 8
+          line: 8,
         },
         {
           messageId: 'noHookOnTop',
           column: 8,
-          line: 28
+          line: 28,
         },
         {
           messageId: 'noHookOnTop',
           column: 8,
-          line: 29
+          line: 29,
         },
         {
           messageId: 'noHookOnTop',
           column: 8,
-          line: 30
-        }
-      ]
-    }
-  ]
+          line: 30,
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run('nested describe blocks', rule, {
@@ -193,7 +193,7 @@ ruleTester.run('nested describe blocks', rule, {
      });
       });
     });
-     `
+     `,
   ],
   invalid: [
     {
@@ -226,14 +226,14 @@ ruleTester.run('nested describe blocks', rule, {
         {
           messageId: 'noHookOnTop',
           column: 8,
-          line: 18
+          line: 18,
         },
         {
           messageId: 'noHookOnTop',
           column: 8,
-          line: 19
-        }
-      ]
-    }
-  ]
+          line: 19,
+        },
+      ],
+    },
+  ],
 })

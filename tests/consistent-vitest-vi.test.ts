@@ -1,6 +1,6 @@
-import rule, { RULE_NAME } from '../src/rules/consistent-vitest-vi';
-import { UtilName } from '../src/utils/types';
-import { ruleTester } from './ruleTester';
+import rule, { RULE_NAME } from '../src/rules/consistent-vitest-vi'
+import { UtilName } from '../src/utils/types'
+import { ruleTester } from './ruleTester'
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
@@ -117,4 +117,4 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
   ],
-});
+})

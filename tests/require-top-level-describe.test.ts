@@ -51,19 +51,19 @@ ruleTester.run(`${RULE_NAME}: require-top-level-describe`, rule, {
       //
        });
      });
-      `
+      `,
   ],
   invalid: [
     {
       code: 'beforeEach("my test", () => {})',
-      errors: [{ messageId: 'unexpectedHook' }]
+      errors: [{ messageId: 'unexpectedHook' }],
     },
     {
       code: `
         test("my test", () => {})
         describe("test suite", () => {});
       `,
-      errors: [{ messageId: 'unexpectedTestCase' }]
+      errors: [{ messageId: 'unexpectedTestCase' }],
     },
     {
       code: `
@@ -72,36 +72,36 @@ ruleTester.run(`${RULE_NAME}: require-top-level-describe`, rule, {
        it("test", () => {})
         });
       `,
-      errors: [{ messageId: 'unexpectedTestCase' }]
+      errors: [{ messageId: 'unexpectedTestCase' }],
     },
     {
       code: `
         describe("test suite", () => {});
         afterAll("my test", () => {})
       `,
-      errors: [{ messageId: 'unexpectedHook' }]
+      errors: [{ messageId: 'unexpectedHook' }],
     },
     {
-      code: 'it.skip(\'test\', () => {});',
-      errors: [{ messageId: 'unexpectedTestCase' }]
+      code: "it.skip('test', () => {});",
+      errors: [{ messageId: 'unexpectedTestCase' }],
     },
     {
-      code: 'it.each([1, 2, 3])(\'%n\', () => {});',
-      errors: [{ messageId: 'unexpectedTestCase' }]
+      code: "it.each([1, 2, 3])('%n', () => {});",
+      errors: [{ messageId: 'unexpectedTestCase' }],
     },
     {
-      code: 'it.skip.each([1, 2, 3])(\'%n\', () => {});',
-      errors: [{ messageId: 'unexpectedTestCase' }]
+      code: "it.skip.each([1, 2, 3])('%n', () => {});",
+      errors: [{ messageId: 'unexpectedTestCase' }],
     },
     {
-      code: 'it.skip.each``(\'%n\', () => {});',
-      errors: [{ messageId: 'unexpectedTestCase' }]
+      code: "it.skip.each``('%n', () => {});",
+      errors: [{ messageId: 'unexpectedTestCase' }],
     },
     {
-      code: 'it.each``(\'%n\', () => {});',
-      errors: [{ messageId: 'unexpectedTestCase' }]
-    }
-  ]
+      code: "it.each``('%n', () => {});",
+      errors: [{ messageId: 'unexpectedTestCase' }],
+    },
+  ],
 })
 
 ruleTester.run(`${RULE_NAME}: (enforce number of describe)`, rule, {
@@ -116,8 +116,8 @@ ruleTester.run(`${RULE_NAME}: (enforce number of describe)`, rule, {
       describe('three', () => {});
        });
      `,
-      options: [{ maxNumberOfTopLevelDescribes: 1 }]
-    }
+      options: [{ maxNumberOfTopLevelDescribes: 1 }],
+    },
   ],
   invalid: [
     {
@@ -127,7 +127,7 @@ ruleTester.run(`${RULE_NAME}: (enforce number of describe)`, rule, {
        describe('three', () => {});
      `,
       options: [{ maxNumberOfTopLevelDescribes: 2 }],
-      errors: [{ messageId: 'tooManyDescribes', line: 4 }]
+      errors: [{ messageId: 'tooManyDescribes', line: 4 }],
     },
     {
       code: `
@@ -147,7 +147,7 @@ ruleTester.run(`${RULE_NAME}: (enforce number of describe)`, rule, {
        });
      `,
       options: [{ maxNumberOfTopLevelDescribes: 2 }],
-      errors: [{ messageId: 'tooManyDescribes', line: 11 }]
+      errors: [{ messageId: 'tooManyDescribes', line: 11 }],
     },
     {
       code: `
@@ -158,8 +158,8 @@ ruleTester.run(`${RULE_NAME}: (enforce number of describe)`, rule, {
       options: [{ maxNumberOfTopLevelDescribes: 1 }],
       errors: [
         { messageId: 'tooManyDescribes', line: 3 },
-        { messageId: 'tooManyDescribes', line: 4 }
-      ]
-    }
-  ]
+        { messageId: 'tooManyDescribes', line: 4 },
+      ],
+    },
+  ],
 })

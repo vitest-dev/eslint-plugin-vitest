@@ -13,8 +13,8 @@ ruleTester.run(RULE_NAME, rule, {
      import { vi } from 'vitest';
      vi;
     `,
-      languageOptions: { parserOptions: { sourceType: 'module' } }
-    }
+      languageOptions: { parserOptions: { sourceType: 'module' } },
+    },
   ],
 
   invalid: [
@@ -26,12 +26,12 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'restrictedViMethod',
           data: {
             message: null,
-            restriction: 'fn'
+            restriction: 'fn',
           },
           column: 4,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'vi.mock()',
@@ -41,12 +41,12 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'restrictedViMethodWithMessage',
           data: {
             message: 'Do not use mocks',
-            restriction: 'mock'
+            restriction: 'mock',
           },
           column: 4,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: `
@@ -60,12 +60,12 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'restrictedViMethod',
           data: {
             message: null,
-            restriction: 'advanceTimersByTime'
+            restriction: 'advanceTimersByTime',
           },
           column: 9,
-          line: 3
-        }
-      ]
+          line: 3,
+        },
+      ],
     },
     {
       code: 'vi["fn"]()',
@@ -75,12 +75,12 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'restrictedViMethod',
           data: {
             message: null,
-            restriction: 'fn'
+            restriction: 'fn',
           },
           column: 4,
-          line: 1
-        }
-      ]
-    }
-  ]
+          line: 1,
+        },
+      ],
+    },
+  ],
 })

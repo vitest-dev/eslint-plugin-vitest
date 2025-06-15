@@ -5,9 +5,9 @@ const ruleTester = new RuleTester({
   languageOptions: {
     parserOptions: {
       tsconfigRootDir: `${import.meta.dirname}/fixture`,
-      project: true
-    }
-  }
+      project: true,
+    },
+  },
 })
 
 ruleTester.run(RULE_NAME, rule, {
@@ -17,70 +17,70 @@ ruleTester.run(RULE_NAME, rule, {
         import { myFunction } from "./myFunction"
         describe()
       `,
-      filename: 'myFunction.test.ts'
+      filename: 'myFunction.test.ts',
     },
     {
       code: `
         import { myFunction } from "./myFunction"
         describe("myFunction")
       `,
-      filename: 'myFunction.test.ts'
+      filename: 'myFunction.test.ts',
     },
     {
       code: `
         import { myFunction } from "./myFunction"
         describe.todo("myFunction")
       `,
-      filename: 'myFunction.test.ts'
+      filename: 'myFunction.test.ts',
     },
     {
       code: `
         import { myFunction } from "./myFunction"
         describe.each("myFunction", () => {})
       `,
-      filename: 'myFunction.test.ts'
+      filename: 'myFunction.test.ts',
     },
     {
       code: `
         import { myFunction } from "./myFunction"
         describe(() => {})
       `,
-      filename: 'myFunction.test.ts'
+      filename: 'myFunction.test.ts',
     },
     {
       code: `
         import { myFunction } from "./myFunction"
         describe("other", () => {})
       `,
-      filename: 'myFunction.test.ts'
+      filename: 'myFunction.test.ts',
     },
     {
       code: `
         import { myFunction } from "./myFunction"
         it("myFunction", () => {})
       `,
-      filename: 'myFunction.test.ts'
+      filename: 'myFunction.test.ts',
     },
     {
       code: `
         import { myFunction } from "./myFunction"
         test("myFunction", () => {})
       `,
-      filename: 'myFunction.test.ts'
+      filename: 'myFunction.test.ts',
     },
     {
       code: `
         import { other } from "./other.js"
         describe("myFunction", () => {})
       `,
-      filename: 'myFunction.test.ts'
+      filename: 'myFunction.test.ts',
     },
     {
       code: `
         declare const myFunction: () => unknown
         describe("myFunction", () => {})
       `,
-      filename: 'myFunction.test.ts'
+      filename: 'myFunction.test.ts',
     },
     {
       code: `
@@ -90,10 +90,10 @@ ruleTester.run(RULE_NAME, rule, {
       filename: 'myFunction.test.ts',
       settings: {
         vitest: {
-          typecheck: true
-        }
-      }
-    }
+          typecheck: true,
+        },
+      },
+    },
   ],
   invalid: [
     {
@@ -105,14 +105,14 @@ ruleTester.run(RULE_NAME, rule, {
         {
           column: 18,
           line: 3,
-          messageId: 'preferFunction'
-        }
+          messageId: 'preferFunction',
+        },
       ],
       filename: 'myFunction.test.ts',
       output: `
         import { myFunction } from "./myFunction"
         describe(myFunction, () => {})
-      `
+      `,
     },
     {
       code: `
@@ -125,8 +125,8 @@ ruleTester.run(RULE_NAME, rule, {
         {
           column: 20,
           line: 4,
-          messageId: 'preferFunction'
-        }
+          messageId: 'preferFunction',
+        },
       ],
       filename: 'myFunction.test.ts',
       output: `
@@ -134,7 +134,7 @@ ruleTester.run(RULE_NAME, rule, {
         if (someProcessEnvCheck) {
           describe(myFunction, () => {})
         }
-      `
+      `,
     },
     {
       code: `
@@ -145,8 +145,8 @@ ruleTester.run(RULE_NAME, rule, {
         {
           column: 18,
           line: 3,
-          messageId: 'preferFunction'
-        }
+          messageId: 'preferFunction',
+        },
       ],
       filename: 'myFunction.test.ts',
       output: `
@@ -155,9 +155,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       settings: {
         vitest: {
-          typecheck: true
-        }
-      }
-    }
-  ]
+          typecheck: true,
+        },
+      },
+    },
+  ],
 })

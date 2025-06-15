@@ -156,74 +156,74 @@ test('expectTypeOf test', () => {
     {
       messageId: 'missingPadding',
       line: 13,
-      column: 3
+      column: 3,
     },
     {
       messageId: 'missingPadding',
       line: 15,
-      column: 3
+      column: 3,
     },
     {
       messageId: 'missingPadding',
       line: 16,
-      column: 3
+      column: 3,
     },
     {
       messageId: 'missingPadding',
       line: 21,
-      column: 3
+      column: 3,
     },
     {
       messageId: 'missingPadding',
       line: 24,
-      column: 3
+      column: 3,
     },
     {
       messageId: 'missingPadding',
       line: 32,
-      column: 7
+      column: 7,
     },
     {
       messageId: 'missingPadding',
       line: 43,
-      column: 3
+      column: 3,
     },
     {
       messageId: 'missingPadding',
       line: 47,
-      column: 3
+      column: 3,
     },
     {
       messageId: 'missingPadding',
       line: 51,
-      column: 3
+      column: 3,
     },
     {
       messageId: 'missingPadding',
       line: 56,
-      column: 3
+      column: 3,
     },
     {
       messageId: 'missingPadding',
       line: 61,
-      column: 3
+      column: 3,
     },
     {
       messageId: 'missingPadding',
       line: 63,
-      column: 3
+      column: 3,
     },
     {
       messageId: 'missingPadding',
       line: 65,
-      column: 3
-    }
-  ]
+      column: 3,
+    },
+  ],
 } satisfies InvalidTestCase<'missingPadding', never>
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [testCase.output],
   invalid: ['src/component.test.jsx', 'src/component.test.js'].map(
-    filename => ({ ...testCase, filename })
-  )
+    (filename) => ({ ...testCase, filename }),
+  ),
 })

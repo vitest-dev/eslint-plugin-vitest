@@ -9,9 +9,9 @@ ruleTester.run(RULE_NAME, rule, {
     'test("foo", () => { expect(subject.beforeEach()).toBe(true) })',
     {
       code: 'afterEach(() => {}); afterAll(() => {});',
-      options: [{ allow: [HookName.afterEach, HookName.afterAll] }]
+      options: [{ allow: [HookName.afterEach, HookName.afterAll] }],
     },
-    { code: 'test("foo")', options: [{ allow: undefined }] }
+    { code: 'test("foo")', options: [{ allow: undefined }] },
   ],
   invalid: [
     {
@@ -19,36 +19,36 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: 'unexpectedHook',
-          data: { hookName: HookName.beforeAll }
-        }
-      ]
+          data: { hookName: HookName.beforeAll },
+        },
+      ],
     },
     {
       code: 'beforeEach(() => {})',
       errors: [
         {
           messageId: 'unexpectedHook',
-          data: { hookName: HookName.beforeEach }
-        }
-      ]
+          data: { hookName: HookName.beforeEach },
+        },
+      ],
     },
     {
       code: 'afterAll(() => {})',
       errors: [
         {
           messageId: 'unexpectedHook',
-          data: { hookName: HookName.afterAll }
-        }
-      ]
+          data: { hookName: HookName.afterAll },
+        },
+      ],
     },
     {
       code: 'afterEach(() => {})',
       errors: [
         {
           messageId: 'unexpectedHook',
-          data: { hookName: HookName.afterEach }
-        }
-      ]
+          data: { hookName: HookName.afterEach },
+        },
+      ],
     },
     {
       code: 'beforeEach(() => {}); afterEach(() => { vi.resetModules() });',
@@ -56,9 +56,9 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: 'unexpectedHook',
-          data: { hookName: HookName.beforeEach }
-        }
-      ]
+          data: { hookName: HookName.beforeEach },
+        },
+      ],
     },
     {
       code: `
@@ -71,9 +71,9 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: 'unexpectedHook',
-          data: { hookName: HookName.beforeEach }
-        }
-      ]
-    }
-  ]
+          data: { hookName: HookName.beforeEach },
+        },
+      ],
+    },
+  ],
 })

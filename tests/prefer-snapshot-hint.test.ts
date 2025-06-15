@@ -5,31 +5,31 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     {
       code: 'expect(something).toStrictEqual(somethingElse);',
-      options: ['multi']
+      options: ['multi'],
     },
     {
-      code: 'a().toEqual(\'b\')',
-      options: ['multi']
+      code: "a().toEqual('b')",
+      options: ['multi'],
     },
     {
       code: 'expect(a);',
-      options: ['multi']
+      options: ['multi'],
     },
     {
       code: 'expect(1).toMatchSnapshot({}, "my snapshot");',
-      options: ['multi']
+      options: ['multi'],
     },
     {
       code: 'expect(1).toThrowErrorMatchingSnapshot("my snapshot");',
-      options: ['multi']
+      options: ['multi'],
     },
     {
       code: 'expect(1).toMatchSnapshot({});',
-      options: ['multi']
+      options: ['multi'],
     },
     {
       code: 'expect(1).toThrowErrorMatchingSnapshot();',
-      options: ['multi']
+      options: ['multi'],
     },
     {
       code: `
@@ -37,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
       expect(1).toMatchSnapshot();
        });
      `,
-      options: ['multi']
+      options: ['multi'],
     },
     {
       code: `
@@ -45,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
       expect(1).toMatchSnapshot(undefined, 'my first snapshot');
        });
      `,
-      options: ['multi']
+      options: ['multi'],
     },
     {
       code: `
@@ -60,7 +60,7 @@ ruleTester.run(RULE_NAME, rule, {
       });
        });
      `,
-      options: ['multi']
+      options: ['multi'],
     },
     {
       code: `
@@ -73,7 +73,7 @@ ruleTester.run(RULE_NAME, rule, {
       expect(2).toMatchSnapshot('and so is this');
        });
      `,
-      options: ['multi']
+      options: ['multi'],
     },
     {
       code: `
@@ -85,7 +85,7 @@ ruleTester.run(RULE_NAME, rule, {
       expect(2).toThrowErrorMatchingSnapshot();
        });
      `,
-      options: ['multi']
+      options: ['multi'],
     },
     {
       code: `
@@ -101,7 +101,7 @@ ruleTester.run(RULE_NAME, rule, {
       expect(2).toThrowErrorMatchingSnapshot();
        });
      `,
-      options: ['multi']
+      options: ['multi'],
     },
     {
       code: `
@@ -115,7 +115,7 @@ ruleTester.run(RULE_NAME, rule, {
       expect(1).toThrowErrorMatchingInlineSnapshot();
        });
      `,
-      options: ['multi']
+      options: ['multi'],
     },
     {
       code: `
@@ -127,7 +127,7 @@ ruleTester.run(RULE_NAME, rule, {
       expect(1).toMatchSnapshot();
        });
      `,
-      options: ['multi']
+      options: ['multi'],
     },
     {
       code: `
@@ -145,7 +145,7 @@ ruleTester.run(RULE_NAME, rule, {
       expect(1).toMatchSnapshot();
        });
      `,
-      options: ['multi']
+      options: ['multi'],
     },
     {
       code: `
@@ -162,7 +162,7 @@ ruleTester.run(RULE_NAME, rule, {
       expect(1).toMatchSnapshot();
        });
      `,
-      options: ['multi']
+      options: ['multi'],
     },
     {
       code: `
@@ -178,8 +178,8 @@ ruleTester.run(RULE_NAME, rule, {
      
        expect(1).toMatchSnapshot();
      `,
-      options: ['multi']
-    }
+      options: ['multi'],
+    },
   ],
   invalid: [
     {
@@ -193,14 +193,14 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'missingHint',
           column: 17,
-          line: 2
+          line: 2,
         },
         {
           messageId: 'missingHint',
           column: 17,
-          line: 3
-        }
-      ]
+          line: 3,
+        },
+      ],
     },
     {
       code: `it('is true', () => {
@@ -213,14 +213,14 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'missingHint',
           column: 19,
-          line: 2
+          line: 2,
         },
         {
           messageId: 'missingHint',
           column: 19,
-          line: 3
-        }
-      ]
+          line: 3,
+        },
+      ],
     },
     {
       code: `it('is true', () => {
@@ -233,14 +233,14 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'missingHint',
           column: 19,
-          line: 2
+          line: 2,
         },
         {
           messageId: 'missingHint',
           column: 19,
-          line: 3
-        }
-      ]
+          line: 3,
+        },
+      ],
     },
     {
       code: `it('is true', () => {
@@ -253,14 +253,14 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'missingHint',
           column: 19,
-          line: 2
+          line: 2,
         },
         {
           messageId: 'missingHint',
           column: 19,
-          line: 3
-        }
-      ]
+          line: 3,
+        },
+      ],
     },
     {
       code: `it('is true', () => {
@@ -275,14 +275,14 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'missingHint',
           column: 18,
-          line: 2
+          line: 2,
         },
         {
           messageId: 'missingHint',
           column: 17,
-          line: 4
-        }
-      ]
+          line: 4,
+        },
+      ],
     },
     {
       code: `it('is true', () => {
@@ -295,14 +295,14 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'missingHint',
           column: 20,
-          line: 2
+          line: 2,
         },
         {
           messageId: 'missingHint',
           column: 20,
-          line: 3
-        }
-      ]
+          line: 3,
+        },
+      ],
     },
     {
       code: `it('is true', () => {
@@ -315,9 +315,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'missingHint',
           column: 19,
-          line: 2
-        }
-      ]
+          line: 2,
+        },
+      ],
     },
     {
       code: `it('is true', () => {
@@ -329,9 +329,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'missingHint',
           column: 19,
-          line: 2
-        }
-      ]
+          line: 2,
+        },
+      ],
     },
     {
       code: `it('is true', () => {
@@ -344,9 +344,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'missingHint',
           column: 19,
-          line: 3
-        }
-      ]
+          line: 3,
+        },
+      ],
     },
     {
       code: `it('is true', () => {
@@ -360,14 +360,14 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'missingHint',
           column: 19,
-          line: 3
+          line: 3,
         },
         {
           messageId: 'missingHint',
           column: 19,
-          line: 4
-        }
-      ]
+          line: 4,
+        },
+      ],
     },
     {
       code: `it('is true', () => {
@@ -381,14 +381,14 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'missingHint',
           column: 19,
-          line: 2
+          line: 2,
         },
         {
           messageId: 'missingHint',
           column: 19,
-          line: 4
-        }
-      ]
+          line: 4,
+        },
+      ],
     },
     {
       code: `it('is true', () => {
@@ -402,14 +402,14 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'missingHint',
           column: 19,
-          line: 2
+          line: 2,
         },
         {
           messageId: 'missingHint',
           column: 19,
-          line: 3
-        }
-      ]
+          line: 3,
+        },
+      ],
     },
     {
       code: `describe('my tests', () => {
@@ -428,14 +428,14 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'missingHint',
           column: 18,
-          line: 7
+          line: 7,
         },
         {
           messageId: 'missingHint',
           column: 18,
-          line: 8
-        }
-      ]
+          line: 8,
+        },
+      ],
     },
     {
       code: `describe('my tests', () => {
@@ -454,9 +454,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'missingHint',
           column: 18,
-          line: 7
-        }
-      ]
+          line: 7,
+        },
+      ],
     },
     {
       code: `describe('my tests', () => {
@@ -477,9 +477,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'missingHint',
           column: 18,
-          line: 9
-        }
-      ]
-    }
-  ]
+          line: 9,
+        },
+      ],
+    },
+  ],
 })

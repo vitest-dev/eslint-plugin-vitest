@@ -3,9 +3,9 @@ import { ruleTester } from './ruleTester'
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
-    'test(\'should pass\')',
-    'test(\'should pass\', () => {})',
-    'test.skip(\'should pass\', () => {})',
+    "test('should pass')",
+    "test('should pass', () => {})",
+    "test.skip('should pass', () => {})",
     `test('should pass', () => {
       expect(true).toBeDefined();
       expect(true).toBeDefined();
@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
      expect(true).toBeDefined();
      expect(true).toBeDefined();
      expect(true).toEqual(expect.any(Boolean));
-      });`
+      });`,
   ],
   invalid: [
     {
@@ -45,9 +45,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'maxExpect',
           line: 7,
-          column: 8
-        }
-      ]
+          column: 8,
+        },
+      ],
     },
     {
       code: `test('should not pass', () => {
@@ -70,14 +70,14 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'maxExpect',
           line: 7,
-          column: 7
+          column: 7,
         },
         {
           messageId: 'maxExpect',
           line: 15,
-          column: 7
-        }
-      ]
+          column: 7,
+        },
+      ],
     },
     {
       code: `test('should not pass', () => {
@@ -86,16 +86,16 @@ ruleTester.run(RULE_NAME, rule, {
        });`,
       options: [
         {
-          max: 1
-        }
+          max: 1,
+        },
       ],
       errors: [
         {
           messageId: 'maxExpect',
           line: 3,
-          column: 7
-        }
-      ]
-    }
-  ]
+          column: 7,
+        },
+      ],
+    },
+  ],
 })

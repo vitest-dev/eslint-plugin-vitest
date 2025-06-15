@@ -9,7 +9,7 @@ ruleTester.run(RULE_NAME, rule, {
     'it.todo();',
     'describe("oo", function () {})',
     'test("foo", function () {})',
-    'test(`123`, function () {})'
+    'test(`123`, function () {})',
   ],
   invalid: [
     {
@@ -19,10 +19,10 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'lowerCaseTitle',
           data: {
-            method: TestCaseName.it
-          }
-        }
-      ]
+            method: TestCaseName.it,
+          },
+        },
+      ],
     },
     {
       code: 'test(`Foo MM mm`, function () {})',
@@ -31,10 +31,10 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'lowerCaseTitle',
           data: {
-            method: TestCaseName.test
-          }
-        }
-      ]
+            method: TestCaseName.test,
+          },
+        },
+      ],
     },
     {
       code: 'test(`SFC Compile`, function () {})',
@@ -43,15 +43,15 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'fullyLowerCaseTitle',
           data: {
-            method: TestCaseName.test
-          }
-        }
+            method: TestCaseName.test,
+          },
+        },
       ],
       options: [
         {
-          lowercaseFirstCharacterOnly: false
-        }
-      ]
+          lowercaseFirstCharacterOnly: false,
+        },
+      ],
     },
     {
       code: 'bench(`Foo MM mm`, function () {})',
@@ -60,10 +60,10 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'lowerCaseTitle',
           data: {
-            method: TestCaseName.bench
-          }
-        }
-      ]
-    }
-  ]
+            method: TestCaseName.bench,
+          },
+        },
+      ],
+    },
+  ],
 })

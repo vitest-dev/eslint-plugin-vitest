@@ -3,8 +3,8 @@ import { ruleTester } from './ruleTester'
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
-    'expect(() => { throw new Error(\'a\'); }).toThrow(\'a\');',
-    'expect(() => { throw new Error(\'a\'); }).toThrowError(\'a\');',
+    "expect(() => { throw new Error('a'); }).toThrow('a');",
+    "expect(() => { throw new Error('a'); }).toThrowError('a');",
     `
     test('string', async () => {
       const throwErrorAsync = async () => { throw new Error('a') };
@@ -13,9 +13,9 @@ ruleTester.run(RULE_NAME, rule, {
     })
      `,
 
-    'const a = \'a\'; expect(() => { throw new Error(\'a\'); }).toThrow(`${a}`);',
+    "const a = 'a'; expect(() => { throw new Error('a'); }).toThrow(`${a}`);",
 
-    'const a = \'a\'; expect(() => { throw new Error(\'a\'); }).toThrowError(`${a}`);',
+    "const a = 'a'; expect(() => { throw new Error('a'); }).toThrowError(`${a}`);",
     `
     test('Template literal', async () => {
       const a = 'a';
@@ -26,8 +26,8 @@ ruleTester.run(RULE_NAME, rule, {
      `,
 
     // Regex
-    'expect(() => { throw new Error(\'a\'); }).toThrow(/^a$/);',
-    'expect(() => { throw new Error(\'a\'); }).toThrowError(/^a$/);',
+    "expect(() => { throw new Error('a'); }).toThrow(/^a$/);",
+    "expect(() => { throw new Error('a'); }).toThrowError(/^a$/);",
     `
     test('Regex', async () => {
       const throwErrorAsync = async () => { throw new Error('a') };
@@ -37,8 +37,8 @@ ruleTester.run(RULE_NAME, rule, {
      `,
 
     // Function
-    'expect(() => { throw new Error(\'a\'); }).toThrow((() => { return \'a\'; })());',
-    'expect(() => { throw new Error(\'a\'); }).toThrowError((() => { return \'a\'; })());',
+    "expect(() => { throw new Error('a'); }).toThrow((() => { return 'a'; })());",
+    "expect(() => { throw new Error('a'); }).toThrowError((() => { return 'a'; })());",
     `
     test('Function', async () => {
       const throwErrorAsync = async () => { throw new Error('a') };
@@ -49,8 +49,8 @@ ruleTester.run(RULE_NAME, rule, {
      `,
 
     // Allow no message for `not`.
-    'expect(() => { throw new Error(\'a\'); }).not.toThrow();',
-    'expect(() => { throw new Error(\'a\'); }).not.toThrowError();',
+    "expect(() => { throw new Error('a'); }).not.toThrow();",
+    "expect(() => { throw new Error('a'); }).not.toThrowError();",
     `
     test('Allow no message for "not"', async () => {
       const throwErrorAsync = async () => { throw new Error('a') };
@@ -58,30 +58,30 @@ ruleTester.run(RULE_NAME, rule, {
       await expect(throwErrorAsync()).resolves.not.toThrowError();
     })
      `,
-    'expect(a);'
+    'expect(a);',
   ],
   invalid: [
     {
-      code: 'expect(() => { throw new Error(\'a\'); }).toThrow();',
+      code: "expect(() => { throw new Error('a'); }).toThrow();",
       errors: [
         {
           messageId: 'addErrorMessage',
           data: { matcherName: 'toThrow' },
           column: 41,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
-      code: 'expect(() => { throw new Error(\'a\'); }).toThrowError();',
+      code: "expect(() => { throw new Error('a'); }).toThrowError();",
       errors: [
         {
           messageId: 'addErrorMessage',
           data: { matcherName: 'toThrowError' },
           column: 41,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: `
@@ -96,15 +96,15 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'addErrorMessage',
           data: { matcherName: 'toThrow' },
           column: 47,
-          line: 4
+          line: 4,
         },
         {
           messageId: 'addErrorMessage',
           data: { matcherName: 'toThrowError' },
           column: 47,
-          line: 5
-        }
-      ]
-    }
-  ]
+          line: 5,
+        },
+      ],
+    },
+  ],
 })

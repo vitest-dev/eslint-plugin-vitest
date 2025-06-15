@@ -23,12 +23,12 @@ ruleTester.run(RULE_NAME, rule, {
     'afterAll(async function () {})',
     'afterAll(async function () {}, 5)',
     'describe.concurrent("something", () => { it("something", ({ expect }) => { }) })',
-    'describe.concurrent("something", () => { it("something", context => { }) })'
+    'describe.concurrent("something", () => { it("something", context => { }) })',
   ],
   invalid: [
     {
       code: 'test("something", (...args) => {args[0]();})',
-      errors: [{ messageId: 'noDoneCallback', line: 1, column: 20 }]
+      errors: [{ messageId: 'noDoneCallback', line: 1, column: 20 }],
     },
     {
       code: 'test("something", done => {done();})',
@@ -42,11 +42,11 @@ ruleTester.run(RULE_NAME, rule, {
               messageId: 'suggestWrappingInPromise',
               data: { callback: 'done' },
               output:
-                'test("something", () => {return new Promise(done => {done();})})'
-            }
-          ]
-        }
-      ]
+                'test("something", () => {return new Promise(done => {done();})})',
+            },
+          ],
+        },
+      ],
     },
     {
       code: 'test("something", finished => {finished();})',
@@ -60,15 +60,15 @@ ruleTester.run(RULE_NAME, rule, {
               messageId: 'suggestWrappingInPromise',
               data: { callback: 'finished' },
               output:
-                'test("something", () => {return new Promise(finished => {finished();})})'
-            }
-          ]
-        }
-      ]
+                'test("something", () => {return new Promise(finished => {finished();})})',
+            },
+          ],
+        },
+      ],
     },
     {
       code: 'beforeAll(async done => {done();})',
-      errors: [{ messageId: 'useAwaitInsteadOfCallback', line: 1, column: 17 }]
+      errors: [{ messageId: 'useAwaitInsteadOfCallback', line: 1, column: 17 }],
     },
     {
       code: 'beforeEach((done) => {done();});',
@@ -82,11 +82,11 @@ ruleTester.run(RULE_NAME, rule, {
               messageId: 'suggestWrappingInPromise',
               data: { callback: 'done' },
               output:
-                'beforeEach(() => {return new Promise(done => {done();})});'
-            }
-          ]
-        }
-      ]
+                'beforeEach(() => {return new Promise(done => {done();})});',
+            },
+          ],
+        },
+      ],
     },
     {
       code: 'test.each``("something", ({ a, b }, done) => { done(); })',
@@ -100,11 +100,11 @@ ruleTester.run(RULE_NAME, rule, {
               messageId: 'suggestWrappingInPromise',
               data: { callback: 'done' },
               output:
-                'test.each``("something", () => {return new Promise(done => { done(); })})'
-            }
-          ]
-        }
-      ]
+                'test.each``("something", () => {return new Promise(done => { done(); })})',
+            },
+          ],
+        },
+      ],
     },
     {
       code: 'it.each``("something", ({ a, b }, done) => { done(); })',
@@ -118,12 +118,11 @@ ruleTester.run(RULE_NAME, rule, {
               messageId: 'suggestWrappingInPromise',
               data: { callback: 'done' },
               output:
-                'it.each``("something", () => {return new Promise(done => { done(); })})'
-            }
-          ]
-
-        }
-      ]
-    }
-  ]
+                'it.each``("something", () => {return new Promise(done => { done(); })})',
+            },
+          ],
+        },
+      ],
+    },
+  ],
 })

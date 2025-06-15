@@ -23,7 +23,7 @@ const valid = [
       })
     })
   })
-})`
+})`,
 ]
 
 const invalid = [
@@ -60,13 +60,13 @@ const invalid = [
       })
     })
   })
-}) `
+}) `,
 ]
 
 ruleTester.run(RULE_NAME, rule, {
   valid,
-  invalid: invalid.map(i => ({
+  invalid: invalid.map((i) => ({
     code: i,
-    errors: [{ messageId: 'maxNestedDescribe' }]
-  }))
+    errors: [{ messageId: 'maxNestedDescribe' }],
+  })),
 })

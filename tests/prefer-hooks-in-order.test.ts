@@ -257,7 +257,7 @@ ruleTester.run(RULE_NAME, rule, {
           beforeAll(()=>{});
         });
       });
-     `
+     `,
   ],
   invalid: [
     {
@@ -276,9 +276,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'reorderHooks',
           data: { currentHook: 'beforeAll', previousHook: 'afterAll' },
           column: 7,
-          line: 6
-        }
-      ]
+          line: 6,
+        },
+      ],
     },
     {
       code: `
@@ -294,9 +294,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'reorderHooks',
           data: { currentHook: 'beforeAll', previousHook: 'afterAll' },
           column: 8,
-          line: 5
-        }
-      ]
+          line: 5,
+        },
+      ],
     },
     {
       code: `
@@ -308,9 +308,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'reorderHooks',
           data: { currentHook: 'beforeAll', previousHook: 'afterAll' },
           column: 8,
-          line: 3
-        }
-      ]
+          line: 3,
+        },
+      ],
     },
     {
       code: `
@@ -323,9 +323,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'reorderHooks',
           data: { currentHook: 'beforeEach', previousHook: 'afterEach' },
           column: 8,
-          line: 3
-        }
-      ]
+          line: 3,
+        },
+      ],
     },
     {
       code: `
@@ -337,9 +337,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'reorderHooks',
           data: { currentHook: 'beforeAll', previousHook: 'afterEach' },
           column: 8,
-          line: 3
-        }
-      ]
+          line: 3,
+        },
+      ],
     },
     {
       code: `
@@ -351,9 +351,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'reorderHooks',
           data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
           column: 8,
-          line: 3
-        }
-      ]
+          line: 3,
+        },
+      ],
     },
     {
       code: `
@@ -365,9 +365,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'reorderHooks',
           data: { currentHook: 'afterEach', previousHook: 'afterAll' },
           column: 8,
-          line: 3
-        }
-      ]
+          line: 3,
+        },
+      ],
     },
     {
       code: `
@@ -381,9 +381,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'reorderHooks',
           data: { currentHook: 'afterEach', previousHook: 'afterAll' },
           column: 8,
-          line: 5
-        }
-      ]
+          line: 5,
+        },
+      ],
     },
     {
       code: `
@@ -396,9 +396,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'reorderHooks',
           data: { currentHook: 'afterEach', previousHook: 'afterAll' },
           column: 8,
-          line: 4
-        }
-      ]
+          line: 4,
+        },
+      ],
     },
     {
       code: `
@@ -412,9 +412,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'reorderHooks',
           data: { currentHook: 'afterEach', previousHook: 'afterAll' },
           column: 7,
-          line: 4
-        }
-      ]
+          line: 4,
+        },
+      ],
     },
     {
       code: `
@@ -433,15 +433,15 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'reorderHooks',
           data: { currentHook: 'afterEach', previousHook: 'afterAll' },
           column: 7,
-          line: 4
+          line: 4,
         },
         {
           messageId: 'reorderHooks',
           data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
           column: 7,
-          line: 9
-        }
-      ]
+          line: 9,
+        },
+      ],
     },
     {
       code: `
@@ -460,15 +460,15 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'reorderHooks',
           data: { currentHook: 'afterEach', previousHook: 'afterAll' },
           column: 7,
-          line: 4
+          line: 4,
         },
         {
           messageId: 'reorderHooks',
           data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
           column: 7,
-          line: 9
-        }
-      ]
+          line: 9,
+        },
+      ],
     },
     {
       code: `
@@ -486,9 +486,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'reorderHooks',
           data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
           column: 9,
-          line: 7
-        }
-      ]
+          line: 7,
+        },
+      ],
     },
     {
       code: `
@@ -510,15 +510,15 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'reorderHooks',
           data: { currentHook: 'beforeAll', previousHook: 'afterAll' },
           column: 7,
-          line: 5
+          line: 5,
         },
         {
           messageId: 'reorderHooks',
           data: { currentHook: 'beforeEach', previousHook: 'afterEach' },
           column: 9,
-          line: 10
-        }
-      ]
+          line: 10,
+        },
+      ],
     },
     {
       code: `
@@ -559,9 +559,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'reorderHooks',
           data: { currentHook: 'afterEach', previousHook: 'afterAll' },
           column: 8,
-          line: 23
-        }
-      ]
+          line: 23,
+        },
+      ],
     },
     {
       code: `
@@ -595,15 +595,15 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'reorderHooks',
           data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
           column: 9,
-          line: 8
+          line: 8,
         },
         {
           messageId: 'reorderHooks',
           data: { currentHook: 'afterEach', previousHook: 'afterAll' },
           column: 9,
-          line: 19
-        }
-      ]
+          line: 19,
+        },
+      ],
     },
     {
       code: `
@@ -662,15 +662,15 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'reorderHooks',
           data: { currentHook: 'beforeAll', previousHook: 'beforeEach' },
           column: 7,
-          line: 7
+          line: 7,
         },
         {
           messageId: 'reorderHooks',
           data: { currentHook: 'beforeEach', previousHook: 'afterEach' },
           column: 9,
-          line: 38
-        }
-      ]
-    }
-  ]
+          line: 38,
+        },
+      ],
+    },
+  ],
 })

@@ -23,26 +23,26 @@ ruleTester.run(RULE_NAME, rule, {
     'vi.importMock<MyModule>("./example.js")',
     'vi.importMock<any>("./example.js")',
     'vi.importActual("./example.js")',
-    'vi.importMock("./example.js")'
+    'vi.importMock("./example.js")',
   ],
   invalid: [
     {
       code: 'vi.fn()',
-      errors: [{ messageId, column: 4, line: 1 }]
+      errors: [{ messageId, column: 4, line: 1 }],
     },
     {
       code: 'vi.fn(() => {})',
-      errors: [{ messageId, column: 4, line: 1 }]
+      errors: [{ messageId, column: 4, line: 1 }],
     },
     {
       code: 'vi.importActual("./example.js")',
       options: [{ checkImportFunctions: true }],
-      errors: [{ messageId, column: 4, line: 1 }]
+      errors: [{ messageId, column: 4, line: 1 }],
     },
     {
       code: 'vi.importMock("./example.js")',
       options: [{ checkImportFunctions: true }],
-      errors: [{ messageId, column: 4, line: 1 }]
-    }
-  ]
+      errors: [{ messageId, column: 4, line: 1 }],
+    },
+  ],
 })

@@ -20,30 +20,30 @@ ruleTester.run(RULE_NAME, rule, {
             'oh noes!',
           );
        });`,
-    'expect().nothing();'
+    'expect().nothing();',
   ],
   invalid: [
     {
-      code: 'it(\'passes\', async () => { expect(await someValue()).toBe(true); });',
+      code: "it('passes', async () => { expect(await someValue()).toBe(true); });",
       output:
-        'it(\'passes\', async () => { await expect(someValue()).resolves.toBe(true); });',
+        "it('passes', async () => { await expect(someValue()).resolves.toBe(true); });",
       errors: [
         {
-          messageId
-        }
-      ]
+          messageId,
+        },
+      ],
     },
     {
-      code: 'it(\'is true\', async () => { const myPromise = Promise.resolve(true); expect(await myPromise).toBe(true); });',
+      code: "it('is true', async () => { const myPromise = Promise.resolve(true); expect(await myPromise).toBe(true); });",
       output:
-        'it(\'is true\', async () => { const myPromise = Promise.resolve(true); await expect(myPromise).resolves.toBe(true); });',
+        "it('is true', async () => { const myPromise = Promise.resolve(true); await expect(myPromise).resolves.toBe(true); });",
       errors: [
         {
           messageId,
           endColumn: 92,
-          column: 77
-        }
-      ]
-    }
-  ]
+          column: 77,
+        },
+      ],
+    },
+  ],
 })

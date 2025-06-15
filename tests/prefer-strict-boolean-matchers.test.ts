@@ -26,50 +26,50 @@ ruleTester.run(RULE_NAME, rule, {
     'expect("a string").toMatchSnapshot(true);',
     'expect("a string").toMatchSnapshot(false);',
     'expect("a string").not.toMatchSnapshot();',
-    'expect(something).toEqual(\'a string\');',
+    "expect(something).toEqual('a string');",
     'expect(true).toBe',
-    'expectTypeOf(true).toBe()'
+    'expectTypeOf(true).toBe()',
   ],
   invalid: [
     {
       code: 'expect(false).toBeTruthy();',
       output: 'expect(false).toBe(true);',
-      errors: [{ messageId: messageIdTrue, column: 15, line: 1 }]
+      errors: [{ messageId: messageIdTrue, column: 15, line: 1 }],
     },
     {
       code: 'expect(false).toBeFalsy();',
       output: 'expect(false).toBe(false);',
-      errors: [{ messageId: messageIdFalse, column: 15, line: 1 }]
+      errors: [{ messageId: messageIdFalse, column: 15, line: 1 }],
     },
     {
       code: 'expectTypeOf(false).toBeTruthy();',
       output: 'expectTypeOf(false).toBe(true);',
-      errors: [{ messageId: messageIdTrue, column: 21, line: 1 }]
+      errors: [{ messageId: messageIdTrue, column: 21, line: 1 }],
     },
     {
       code: 'expectTypeOf(false).toBeFalsy();',
       output: 'expectTypeOf(false).toBe(false);',
-      errors: [{ messageId: messageIdFalse, column: 21, line: 1 }]
+      errors: [{ messageId: messageIdFalse, column: 21, line: 1 }],
     },
     {
       code: 'expect(wasSuccessful).toBeTruthy();',
       output: 'expect(wasSuccessful).toBe(true);',
-      errors: [{ messageId: messageIdTrue, column: 23, line: 1 }]
+      errors: [{ messageId: messageIdTrue, column: 23, line: 1 }],
     },
     {
       code: 'expect(wasSuccessful).toBeFalsy();',
       output: 'expect(wasSuccessful).toBe(false);',
-      errors: [{ messageId: messageIdFalse, column: 23, line: 1 }]
+      errors: [{ messageId: messageIdFalse, column: 23, line: 1 }],
     },
     {
       code: 'expect("a string").not.toBeTruthy();',
       output: 'expect("a string").not.toBe(true);',
-      errors: [{ messageId: messageIdTrue, column: 24, line: 1 }]
+      errors: [{ messageId: messageIdTrue, column: 24, line: 1 }],
     },
     {
       code: 'expect("a string").not.toBeFalsy();',
       output: 'expect("a string").not.toBe(false);',
-      errors: [{ messageId: messageIdFalse, column: 24, line: 1 }]
-    }
-  ]
+      errors: [{ messageId: messageIdFalse, column: 24, line: 1 }],
+    },
+  ],
 })

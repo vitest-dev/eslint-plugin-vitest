@@ -5,9 +5,9 @@ export const ruleTester = new RuleTester({
   languageOptions: {
     parserOptions: {
       tsconfigRootDir: `${import.meta.dirname}/fixture`,
-      project: `./tsconfig.json`
-    }
-  }
+      project: `./tsconfig.json`,
+    },
+  },
 })
 
 ruleTester.run(RULE_NAME, rule, {
@@ -19,13 +19,13 @@ ruleTester.run(RULE_NAME, rule, {
       options: [
         {
           ignoreTypeOfDescribeName: false,
-          disallowedWords: ['incorrectly']
-        }
-      ]
+          disallowedWords: ['incorrectly'],
+        },
+      ],
     },
     {
       code: 'it("correctly sets the value", () => {});',
-      options: [{ disallowedWords: undefined }]
+      options: [{ disallowedWords: undefined }],
     },
     {
       code: `
@@ -36,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
         })
       })
      `,
-      settings: { vitest: { typecheck: true } }
+      settings: { vitest: { typecheck: true } },
     },
     {
       code: `
@@ -47,7 +47,7 @@ ruleTester.run(RULE_NAME, rule, {
         })
       })
      `,
-      settings: { vitest: { typecheck: true } }
+      settings: { vitest: { typecheck: true } },
     },
     {
       code: `
@@ -58,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
         })
       })
      `,
-      settings: { vitest: { typecheck: true } }
+      settings: { vitest: { typecheck: true } },
     },
     {
       code: `
@@ -69,7 +69,7 @@ ruleTester.run(RULE_NAME, rule, {
         })
       })
      `,
-      settings: { vitest: { typecheck: true } }
+      settings: { vitest: { typecheck: true } },
     },
     {
       code: `
@@ -80,7 +80,7 @@ ruleTester.run(RULE_NAME, rule, {
         })
       })
       `,
-      settings: { vitest: { typecheck: true } }
+      settings: { vitest: { typecheck: true } },
     },
     {
       code: `
@@ -91,7 +91,7 @@ ruleTester.run(RULE_NAME, rule, {
           expect(0).toBe(0)
         })
       });`,
-      settings: { vitest: { typecheck: true } }
+      settings: { vitest: { typecheck: true } },
     },
     {
       code: `
@@ -104,8 +104,8 @@ ruleTester.run(RULE_NAME, rule, {
           expect(0).toBe(0)
         })
       });`,
-      settings: { vitest: { typecheck: true } }
-    }
+      settings: { vitest: { typecheck: true } },
+    },
   ],
   invalid: [
     {
@@ -116,9 +116,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'disallowedWord',
           data: { word: 'correct' },
           column: 6,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'describe("the correct way to do things", function () {})',
@@ -128,9 +128,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'disallowedWord',
           data: { word: 'correct' },
           column: 10,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'it("has ALL the things", () => {})',
@@ -140,9 +140,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'disallowedWord',
           data: { word: 'ALL' },
           column: 4,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'xdescribe("every single one of them", function () {})',
@@ -152,21 +152,21 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'disallowedWord',
           data: { word: 'every' },
           column: 11,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
-      code: 'describe(\'Very Descriptive Title Goes Here\', function () {})',
+      code: "describe('Very Descriptive Title Goes Here', function () {})",
       options: [{ disallowedWords: ['descriptive'] }],
       errors: [
         {
           messageId: 'disallowedWord',
           data: { word: 'Descriptive' },
           column: 10,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'test(`that the value is set properly`, function () {})',
@@ -176,11 +176,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'disallowedWord',
           data: { word: 'properly' },
           column: 6,
-          line: 1
-        }
-      ]
-    }
-  ]
+          line: 1,
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
@@ -189,26 +189,26 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'it(foo, () => {});',
       options: [
         {
-          allowArguments: true
-        }
-      ]
+          allowArguments: true,
+        },
+      ],
     },
     {
       code: 'describe(bar, () => {});',
       options: [
         {
-          allowArguments: true
-        }
-      ]
+          allowArguments: true,
+        },
+      ],
     },
     {
       code: 'test(baz, () => {});',
       options: [
         {
-          allowArguments: true
-        }
-      ]
-    }
+          allowArguments: true,
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -219,11 +219,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'titleMustBeString',
           data: { word: 'correct' },
           column: 6,
-          line: 1
-        }
-      ]
-    }
-  ]
+          line: 1,
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
@@ -232,27 +232,27 @@ ruleTester.run(RULE_NAME, rule, {
     'test("that all is as it should be", () => {});',
     {
       code: 'it("correctly sets the value", () => {});',
-      options: [{ mustMatch: {} }]
+      options: [{ mustMatch: {} }],
     },
     {
       code: 'it("correctly sets the value", () => {});',
-      options: [{ mustMatch: / /u.source }]
+      options: [{ mustMatch: / /u.source }],
     },
     {
       code: 'it("correctly sets the value", () => {});',
-      options: [{ mustMatch: [/ /u.source] }]
+      options: [{ mustMatch: [/ /u.source] }],
     },
     {
       code: 'it("correctly sets the value #unit", () => {});',
-      options: [{ mustMatch: /#(?:unit|integration|e2e)/u.source }]
+      options: [{ mustMatch: /#(?:unit|integration|e2e)/u.source }],
     },
     {
       code: 'it("correctly sets the value", () => {});',
-      options: [{ mustMatch: /^[^#]+$|(?:#(?:unit|e2e))/u.source }]
+      options: [{ mustMatch: /^[^#]+$|(?:#(?:unit|e2e))/u.source }],
     },
     {
       code: 'it("correctly sets the value", () => {});',
-      options: [{ mustMatch: { test: /#(?:unit|integration|e2e)/u.source } }]
+      options: [{ mustMatch: { test: /#(?:unit|integration|e2e)/u.source } }],
     },
     {
       code: `describe('things to test', () => {
@@ -266,8 +266,8 @@ ruleTester.run(RULE_NAME, rule, {
         it('is another test #jest4life', () => {});
       });
        });`,
-      options: [{ mustMatch: { test: /^[^#]+$|(?:#(?:unit|e2e))/u.source } }]
-    }
+      options: [{ mustMatch: { test: /^[^#]+$|(?:#(?:unit|e2e))/u.source } }],
+    },
   ],
   invalid: [
     {
@@ -286,29 +286,29 @@ ruleTester.run(RULE_NAME, rule, {
       options: [
         {
           mustNotMatch: /(?:#(?!unit|e2e))\w+/u.source,
-          mustMatch: /^[^#]+$|(?:#(?:unit|e2e))/u.source
-        }
+          mustMatch: /^[^#]+$|(?:#(?:unit|e2e))/u.source,
+        },
       ],
       errors: [
         {
           messageId: 'mustNotMatch',
           data: {
             functionName: 'describe',
-            pattern: /(?:#(?!unit|e2e))\w+/u
+            pattern: /(?:#(?!unit|e2e))\w+/u,
           },
           column: 16,
-          line: 9
+          line: 9,
         },
         {
           messageId: 'mustNotMatch',
           data: {
             functionName: 'it',
-            pattern: /(?:#(?!unit|e2e))\w+/u
+            pattern: /(?:#(?!unit|e2e))\w+/u,
           },
           column: 12,
-          line: 10
-        }
-      ]
+          line: 10,
+        },
+      ],
     },
     {
       code: ` describe('things to test', () => {
@@ -326,13 +326,13 @@ ruleTester.run(RULE_NAME, rule, {
         {
           mustNotMatch: [
             /(?:#(?!unit|e2e))\w+/u.source,
-            'Please include "#unit" or "#e2e" in titles'
+            'Please include "#unit" or "#e2e" in titles',
           ],
           mustMatch: [
             /^[^#]+$|(?:#(?:unit|e2e))/u.source,
-            'Please include "#unit" or "#e2e" in titles'
-          ]
-        }
+            'Please include "#unit" or "#e2e" in titles',
+          ],
+        },
       ],
       errors: [
         {
@@ -340,22 +340,22 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             functionName: 'describe',
             pattern: /(?:#(?!unit|e2e))\w+/u,
-            message: 'Please include "#unit" or "#e2e" in titles'
+            message: 'Please include "#unit" or "#e2e" in titles',
           },
           column: 16,
-          line: 8
+          line: 8,
         },
         {
           messageId: 'mustNotMatchCustom',
           data: {
             functionName: 'it',
             pattern: /(?:#(?!unit|e2e))\w+/u,
-            message: 'Please include "#unit" or "#e2e" in titles'
+            message: 'Please include "#unit" or "#e2e" in titles',
           },
           column: 12,
-          line: 9
-        }
-      ]
+          line: 9,
+        },
+      ],
     },
     {
       code: 'test("the correct way to properly handle all things", () => {});',
@@ -365,31 +365,31 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'mustMatch',
           data: {
             functionName: 'test',
-            pattern: /#(?:unit|integration|e2e)/u
+            pattern: /#(?:unit|integration|e2e)/u,
           },
           column: 6,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'describe.skip("the test", () => {});',
       options: [
-        { mustMatch: { describe: /#(?:unit|integration|e2e)/u.source } }
+        { mustMatch: { describe: /#(?:unit|integration|e2e)/u.source } },
       ],
       errors: [
         {
           messageId: 'mustMatch',
           data: {
             functionName: 'describe',
-            pattern: /#(?:unit|integration|e2e)/u
+            pattern: /#(?:unit|integration|e2e)/u,
           },
           column: 15,
-          line: 1
-        }
-      ]
-    }
-  ]
+          line: 1,
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
@@ -406,16 +406,16 @@ ruleTester.run(RULE_NAME, rule, {
     'fdescribe("is a string", () => {});',
     {
       code: 'describe(String(/.+/), () => {});',
-      options: [{ ignoreTypeOfDescribeName: true }]
+      options: [{ ignoreTypeOfDescribeName: true }],
     },
     {
       code: 'describe(myFunction, () => {});',
-      options: [{ ignoreTypeOfDescribeName: true }]
+      options: [{ ignoreTypeOfDescribeName: true }],
     },
     {
       code: 'xdescribe(skipFunction, () => {});',
-      options: [{ ignoreTypeOfDescribeName: true, disallowedWords: [] }]
-    }
+      options: [{ ignoreTypeOfDescribeName: true, disallowedWords: [] }],
+    },
   ],
   invalid: [
     {
@@ -424,9 +424,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'titleMustBeString',
           column: 13,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'it.skip.each([])(1, () => {});',
@@ -434,9 +434,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'titleMustBeString',
           column: 18,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'it.skip.each``(1, () => {});',
@@ -444,9 +444,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'titleMustBeString',
           column: 16,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'it(123, () => {});',
@@ -454,9 +454,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'titleMustBeString',
           column: 4,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'it.concurrent(123, () => {});',
@@ -464,9 +464,9 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'titleMustBeString',
           column: 15,
-          line: 1
-        }
-      ]
+          line: 1,
+        },
+      ],
     },
     {
       code: 'it(1 + 2 + 3, () => {});',
@@ -474,11 +474,11 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: 'titleMustBeString',
           column: 4,
-          line: 1
-        }
-      ]
-    }
-  ]
+          line: 1,
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
@@ -493,12 +493,12 @@ ruleTester.run(RULE_NAME, rule, {
     'test.concurrent(`foo`, function () {})',
     'test(`${foo}`, function () {})',
     'test.concurrent(`${foo}`, function () {})',
-    'it(\'foo\', function () {})',
+    "it('foo', function () {})",
     'it.each([])()',
-    'it.concurrent(\'foo\', function () {})',
-    'xdescribe(\'foo\', function () {})',
-    'xit(\'foo\', function () {})',
-    'xtest(\'foo\', function () {})'
+    "it.concurrent('foo', function () {})",
+    "xdescribe('foo', function () {})",
+    "xit('foo', function () {})",
+    "xtest('foo', function () {})",
   ],
   invalid: [
     {
@@ -508,9 +508,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'emptyTitle',
           column: 1,
           line: 1,
-          data: { functionName: 'describe' }
-        }
-      ]
+          data: { functionName: 'describe' },
+        },
+      ],
     },
     {
       code: `
@@ -523,9 +523,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'emptyTitle',
           column: 7,
           line: 3,
-          data: { functionName: 'test' }
-        }
-      ]
+          data: { functionName: 'test' },
+        },
+      ],
     },
     {
       code: 'it("", function () {})',
@@ -534,9 +534,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'emptyTitle',
           column: 1,
           line: 1,
-          data: { functionName: 'test' }
-        }
-      ]
+          data: { functionName: 'test' },
+        },
+      ],
     },
     {
       code: 'it("", function () {})',
@@ -546,9 +546,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'emptyTitle',
           column: 1,
           line: 1,
-          data: { functionName: 'test' }
-        }
-      ]
+          data: { functionName: 'test' },
+        },
+      ],
     },
     {
       code: 'it.concurrent("", function () {})',
@@ -557,9 +557,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'emptyTitle',
           column: 1,
           line: 1,
-          data: { functionName: 'test' }
-        }
-      ]
+          data: { functionName: 'test' },
+        },
+      ],
     },
     {
       code: 'test("", function () {})',
@@ -568,9 +568,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'emptyTitle',
           column: 1,
           line: 1,
-          data: { functionName: 'test' }
-        }
-      ]
+          data: { functionName: 'test' },
+        },
+      ],
     },
     {
       code: 'test.concurrent("", function () {})',
@@ -579,9 +579,9 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'emptyTitle',
           column: 1,
           line: 1,
-          data: { functionName: 'test' }
-        }
-      ]
+          data: { functionName: 'test' },
+        },
+      ],
     },
     {
       code: 'test.concurrent(``, function () {})',
@@ -590,22 +590,22 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'emptyTitle',
           column: 1,
           line: 1,
-          data: { functionName: 'test' }
-        }
-      ]
+          data: { functionName: 'test' },
+        },
+      ],
     },
     {
-      code: 'xdescribe(\'\', () => {})',
+      code: "xdescribe('', () => {})",
       errors: [
         {
           messageId: 'emptyTitle',
           column: 1,
           line: 1,
-          data: { functionName: 'describe' }
-        }
-      ]
-    }
-  ]
+          data: { functionName: 'describe' },
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
@@ -629,57 +629,57 @@ ruleTester.run(RULE_NAME, rule, {
     'someFn("foo", function () {})',
     `export const myTest = test.extend({
       archive: []
-    })`
+    })`,
   ],
   invalid: [
     {
       code: 'describe(" foo", function () {})',
       output: 'describe("foo", function () {})',
-      errors: [{ messageId: 'accidentalSpace', column: 10, line: 1 }]
+      errors: [{ messageId: 'accidentalSpace', column: 10, line: 1 }],
     },
     {
       code: 'describe.each()(" foo", function () {})',
       output: 'describe.each()("foo", function () {})',
-      errors: [{ messageId: 'accidentalSpace', column: 17, line: 1 }]
+      errors: [{ messageId: 'accidentalSpace', column: 17, line: 1 }],
     },
     {
       code: 'describe.only.each()(" foo", function () {})',
       output: 'describe.only.each()("foo", function () {})',
-      errors: [{ messageId: 'accidentalSpace', column: 22, line: 1 }]
+      errors: [{ messageId: 'accidentalSpace', column: 22, line: 1 }],
     },
     {
       code: 'describe(" foo foe fum", function () {})',
       output: 'describe("foo foe fum", function () {})',
-      errors: [{ messageId: 'accidentalSpace', column: 10, line: 1 }]
+      errors: [{ messageId: 'accidentalSpace', column: 10, line: 1 }],
     },
     {
       code: 'describe("foo foe fum ", function () {})',
       output: 'describe("foo foe fum", function () {})',
-      errors: [{ messageId: 'accidentalSpace', column: 10, line: 1 }]
+      errors: [{ messageId: 'accidentalSpace', column: 10, line: 1 }],
     },
     {
       code: 'it.skip(" foo", function () {})',
       output: 'it.skip("foo", function () {})',
-      errors: [{ messageId: 'accidentalSpace', column: 9, line: 1 }]
+      errors: [{ messageId: 'accidentalSpace', column: 9, line: 1 }],
     },
     {
       code: 'fit("foo ", function () {})',
       output: 'fit("foo", function () {})',
-      errors: [{ messageId: 'accidentalSpace', column: 5, line: 1 }]
+      errors: [{ messageId: 'accidentalSpace', column: 5, line: 1 }],
     },
     {
       code: 'it.skip("foo ", function () {})',
       output: 'it.skip("foo", function () {})',
-      errors: [{ messageId: 'accidentalSpace', column: 9, line: 1 }]
-    }
-  ]
+      errors: [{ messageId: 'accidentalSpace', column: 9, line: 1 }],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     {
       code: 'const localTest = test.extend({})',
-      name: 'does not error when using test.extend'
+      name: 'does not error when using test.extend',
     },
     {
       code: `import { it } from 'vitest'
@@ -696,9 +696,9 @@ const test = it.extend({
 })
 
 test('', () => {})`,
-      name: 'does not error when using it.extend'
-    }
+      name: 'does not error when using it.extend',
+    },
   ],
 
-  invalid: []
+  invalid: [],
 })

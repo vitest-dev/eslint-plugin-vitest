@@ -8,34 +8,34 @@ ruleTester.run(RULE_NAME, rule, {
       code: `it("shows error", () => {
   expect(true).toBe(false);
         });`,
-      options: [{ fn: TestCaseName.it }]
+      options: [{ fn: TestCaseName.it }],
     },
     {
       code: `it("foo", function () {
          expect(true).toBe(false);
      })`,
-      options: [{ fn: TestCaseName.it }]
+      options: [{ fn: TestCaseName.it }],
     },
     {
       code: ` it('foo', () => {
       expect(true).toBe(false);
   });
   function myTest() { if ('bar') {} }`,
-      options: [{ fn: TestCaseName.it }]
+      options: [{ fn: TestCaseName.it }],
     },
     {
       code: `bench("foo", function () {
         fibonacci(10);
      })`,
-      options: [{ fn: TestCaseName.it }]
-    }
+      options: [{ fn: TestCaseName.it }],
+    },
   ],
   invalid: [
     {
       code: 'test("shows error", () => {});',
       options: [{ fn: TestCaseName.it }],
       output: 'it("shows error", () => {});',
-      errors: [{ messageId: 'consistentMethod' }]
+      errors: [{ messageId: 'consistentMethod' }],
     },
     {
       code: 'test.skip("shows error");',
@@ -46,73 +46,77 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'consistentMethod',
           data: {
             testFnKeyWork: TestCaseName.it,
-            oppositeTestKeyword: TestCaseName.test
-          }
-        }
-      ]
+            oppositeTestKeyword: TestCaseName.test,
+          },
+        },
+      ],
     },
     {
-      code: 'test.only(\'shows error\');',
-      output: 'it.only(\'shows error\');',
+      code: "test.only('shows error');",
+      output: "it.only('shows error');",
       options: [{ fn: TestCaseName.it }],
       errors: [
         {
           messageId: 'consistentMethod',
           data: {
             testFnKeyWork: TestCaseName.it,
-            oppositeTestKeyword: TestCaseName.test
-          }
-        }
-      ]
+            oppositeTestKeyword: TestCaseName.test,
+          },
+        },
+      ],
     },
     {
-      code: 'describe(\'foo\', () => { it(\'bar\', () => {}); });',
-      output: 'describe(\'foo\', () => { test(\'bar\', () => {}); });',
+      code: "describe('foo', () => { it('bar', () => {}); });",
+      output: "describe('foo', () => { test('bar', () => {}); });",
       options: [{ fn: TestCaseName.it, withinDescribe: TestCaseName.test }],
       errors: [
         {
           messageId: 'consistentMethodWithinDescribe',
           data: {
             testKeywordWithinDescribe: TestCaseName.test,
-            oppositeTestKeyword: TestCaseName.it
-          }
-        }
-      ]
+            oppositeTestKeyword: TestCaseName.it,
+          },
+        },
+      ],
     },
     {
       code: 'import { test } from "vitest"\ntest("shows error", () => {});',
       options: [{ fn: TestCaseName.it }],
       output: 'import { it } from "vitest"\nit("shows error", () => {});',
-      errors: [{ messageId: 'consistentMethod' }, { messageId: 'consistentMethod' }]
+      errors: [
+        { messageId: 'consistentMethod' },
+        { messageId: 'consistentMethod' },
+      ],
     },
     {
       code: 'import { expect, test, it } from "vitest"\ntest("shows error", () => {});',
       options: [{ fn: TestCaseName.it }],
-      output: 'import { expect, it } from "vitest"\nit("shows error", () => {});',
+      output:
+        'import { expect, it } from "vitest"\nit("shows error", () => {});',
       errors: [
         {
           messageId: 'consistentMethod',
           data: {
             testFnKeyWork: TestCaseName.it,
-            oppositeTestKeyword: TestCaseName.test
+            oppositeTestKeyword: TestCaseName.test,
           },
           line: 1,
           column: 18,
-          endColumn: 22
+          endColumn: 22,
         },
         {
           messageId: 'consistentMethod',
           data: {
             testFnKeyWork: TestCaseName.it,
-            oppositeTestKeyword: TestCaseName.test
+            oppositeTestKeyword: TestCaseName.test,
           },
           line: 2,
           column: 1,
-          endColumn: 5
-        }
-      ]
-    }
-  ]
+          endColumn: 5,
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
@@ -121,39 +125,39 @@ ruleTester.run(RULE_NAME, rule, {
       code: `test("shows error", () => {
       expect(true).toBe(false);
      });`,
-      options: [{ fn: TestCaseName.test }]
+      options: [{ fn: TestCaseName.test }],
     },
     {
       code: 'test.skip("foo")',
-      options: [{ fn: TestCaseName.test }]
+      options: [{ fn: TestCaseName.test }],
     },
     {
       code: 'test.concurrent("foo")',
-      options: [{ fn: TestCaseName.test }]
+      options: [{ fn: TestCaseName.test }],
     },
     {
       code: 'xtest("foo")',
-      options: [{ fn: TestCaseName.test }]
+      options: [{ fn: TestCaseName.test }],
     },
     {
       code: 'test.each([])("foo")',
-      options: [{ fn: TestCaseName.test }]
+      options: [{ fn: TestCaseName.test }],
     },
     {
       code: 'test.each``("foo")',
-      options: [{ fn: TestCaseName.test }]
+      options: [{ fn: TestCaseName.test }],
     },
     {
       code: 'describe("suite", () => { test("foo") })',
-      options: [{ fn: TestCaseName.test }]
-    }
+      options: [{ fn: TestCaseName.test }],
+    },
   ],
   invalid: [
     {
       code: 'it("shows error", () => {});',
       options: [{ fn: TestCaseName.test }],
       output: 'test("shows error", () => {});',
-      errors: [{ messageId: 'consistentMethod' }]
+      errors: [{ messageId: 'consistentMethod' }],
     },
     {
       code: 'describe("suite", () => { it("foo") })',
@@ -164,24 +168,24 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'consistentMethodWithinDescribe',
           data: {
             testKeywordWithinDescribe: TestCaseName.test,
-            oppositeTestKeyword: TestCaseName.it
-          }
-        }
-      ]
-    }
-  ]
+            oppositeTestKeyword: TestCaseName.it,
+          },
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     {
       code: 'describe("suite", () => { it("foo") })',
-      options: [{ fn: TestCaseName.it, withinDescribe: TestCaseName.it }]
+      options: [{ fn: TestCaseName.it, withinDescribe: TestCaseName.it }],
     },
     {
       code: 'it("foo")',
-      options: [{ fn: TestCaseName.it, withinDescribe: TestCaseName.it }]
-    }
+      options: [{ fn: TestCaseName.it, withinDescribe: TestCaseName.it }],
+    },
   ],
   invalid: [
     {
@@ -193,10 +197,10 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'consistentMethodWithinDescribe',
           data: {
             testKeywordWithinDescribe: TestCaseName.it,
-            oppositeTestKeyword: TestCaseName.test
-          }
-        }
-      ]
+            oppositeTestKeyword: TestCaseName.test,
+          },
+        },
+      ],
     },
     {
       code: 'test("foo")',
@@ -207,19 +211,19 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'consistentMethod',
           data: {
             testFnKeyWork: TestCaseName.it,
-            oppositeTestKeyword: TestCaseName.test
-          }
-        }
-      ]
-    }
-  ]
+            oppositeTestKeyword: TestCaseName.test,
+          },
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     {
-      code: 'test("shows error", () => {});'
-    }
+      code: 'test("shows error", () => {});',
+    },
   ],
   invalid: [
     {
@@ -230,24 +234,24 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'consistentMethodWithinDescribe',
           data: {
             testKeywordWithinDescribe: TestCaseName.it,
-            oppositeTestKeyword: TestCaseName.test
-          }
-        }
-      ]
-    }
-  ]
+            oppositeTestKeyword: TestCaseName.test,
+          },
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     {
       code: 'test("foo")',
-      options: [{ withinDescribe: TestCaseName.it }]
+      options: [{ withinDescribe: TestCaseName.it }],
     },
     {
       code: 'describe("suite", () => { it("foo") })',
-      options: [{ withinDescribe: TestCaseName.it }]
-    }
+      options: [{ withinDescribe: TestCaseName.it }],
+    },
   ],
   invalid: [
     {
@@ -259,10 +263,10 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'consistentMethod',
           data: {
             testFnKeyWork: TestCaseName.test,
-            oppositeTestKeyword: TestCaseName.it
-          }
-        }
-      ]
+            oppositeTestKeyword: TestCaseName.it,
+          },
+        },
+      ],
     },
     {
       code: 'describe("suite", () => { test("foo") })',
@@ -273,24 +277,24 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'consistentMethodWithinDescribe',
           data: {
             testKeywordWithinDescribe: TestCaseName.it,
-            oppositeTestKeyword: TestCaseName.test
-          }
-        }
-      ]
-    }
-  ]
+            oppositeTestKeyword: TestCaseName.test,
+          },
+        },
+      ],
+    },
+  ],
 })
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     {
       code: 'test("foo")',
-      options: [{ withinDescribe: TestCaseName.test }]
+      options: [{ withinDescribe: TestCaseName.test }],
     },
     {
       code: 'describe("suite", () => { test("foo") })',
-      options: [{ withinDescribe: TestCaseName.test }]
-    }
+      options: [{ withinDescribe: TestCaseName.test }],
+    },
   ],
   invalid: [
     {
@@ -302,62 +306,58 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'consistentMethod',
           data: {
             testFnKeyWork: TestCaseName.test,
-            oppositeTestKeyword: TestCaseName.it
-          }
-        }
-      ]
+            oppositeTestKeyword: TestCaseName.it,
+          },
+        },
+      ],
     },
     {
       code: 'import { it } from "vitest"\nit("foo")',
       output: 'import { test } from "vitest"\ntest("foo")',
-      options: [
-        { withinDescribe: TestCaseName.test }
-      ],
+      options: [{ withinDescribe: TestCaseName.test }],
       errors: [
         {
           messageId: 'consistentMethod',
           data: {
             testFnKeyWork: TestCaseName.test,
-            oppositeTestKeyword: TestCaseName.it
-          }
+            oppositeTestKeyword: TestCaseName.it,
+          },
         },
         {
           messageId: 'consistentMethod',
           data: {
             testFnKeyWork: TestCaseName.test,
-            oppositeTestKeyword: TestCaseName.it
-          }
-        }
-      ]
+            oppositeTestKeyword: TestCaseName.it,
+          },
+        },
+      ],
     },
     {
       code: 'import { expect, it, test } from "vitest"\nit("foo")',
       output: 'import { expect, test } from "vitest"\ntest("foo")',
-      options: [
-        { withinDescribe: TestCaseName.test }
-      ],
+      options: [{ withinDescribe: TestCaseName.test }],
       errors: [
         {
           messageId: 'consistentMethod',
           data: {
             testFnKeyWork: TestCaseName.test,
-            oppositeTestKeyword: TestCaseName.it
+            oppositeTestKeyword: TestCaseName.it,
           },
           line: 1,
           column: 18,
-          endColumn: 20
+          endColumn: 20,
         },
         {
           messageId: 'consistentMethod',
           data: {
             testFnKeyWork: TestCaseName.test,
-            oppositeTestKeyword: TestCaseName.it
+            oppositeTestKeyword: TestCaseName.it,
           },
           line: 2,
           column: 1,
-          endColumn: 3
-        }
-      ]
+          endColumn: 3,
+        },
+      ],
     },
     {
       code: 'describe("suite", () => { it("foo") })',
@@ -368,10 +368,10 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'consistentMethodWithinDescribe',
           data: {
             testKeywordWithinDescribe: TestCaseName.test,
-            oppositeTestKeyword: TestCaseName.it
-          }
-        }
-      ]
-    }
-  ]
+            oppositeTestKeyword: TestCaseName.it,
+          },
+        },
+      ],
+    },
+  ],
 })

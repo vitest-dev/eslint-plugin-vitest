@@ -7,7 +7,7 @@ ruleTester.run(RULE_NAME, rule, {
     'test.skip("skipped test", () => {})',
     'it.todo("will test something eventually")',
     'test.todo("will test something eventually")',
-    '[\'x\']();',
+    "['x']();",
     'it("should pass", () => expect(true).toBeDefined())',
     'test("should pass", () => expect(true).toBeDefined())',
     'it("should pass", () => somePromise().then(() => expect(true).toBeDefined()))',
@@ -45,12 +45,22 @@ it('example', async () => {
 });`,
     {
       code: `it("should pass", () => { anyChain.of.calls.expect(true) })`,
-      options: [{ assertFunctionNames: ['**.expect'], additionalTestBlockFunctions: [] }]
+      options: [
+        {
+          assertFunctionNames: ['**.expect'],
+          additionalTestBlockFunctions: [],
+        },
+      ],
     },
     {
       code: `it("should pass", () => { any_chain.of.calls.expect(true) })`,
-      options: [{ assertFunctionNames: ['**.expect'], additionalTestBlockFunctions: [] }]
-    }
+      options: [
+        {
+          assertFunctionNames: ['**.expect'],
+          additionalTestBlockFunctions: [],
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -58,37 +68,42 @@ it('example', async () => {
       errors: [
         {
           messageId: 'noAssertions',
-          type: AST_NODE_TYPES.Identifier
-        }
-      ]
+          type: AST_NODE_TYPES.Identifier,
+        },
+      ],
     },
     {
       code: 'it("should fail", myTest); function myTest() {}',
       errors: [
         {
           messageId: 'noAssertions',
-          type: AST_NODE_TYPES.Identifier
-        }
-      ]
+          type: AST_NODE_TYPES.Identifier,
+        },
+      ],
     },
     {
       code: 'test("should fail", () => {});',
       errors: [
         {
           messageId: 'noAssertions',
-          type: AST_NODE_TYPES.Identifier
-        }
-      ]
+          type: AST_NODE_TYPES.Identifier,
+        },
+      ],
     },
     {
       code: 'afterEach(() => {});',
-      options: [{ additionalTestBlockFunctions: ['afterEach'], assertFunctionNames: [] }],
+      options: [
+        {
+          additionalTestBlockFunctions: ['afterEach'],
+          assertFunctionNames: [],
+        },
+      ],
       errors: [
         {
           messageId: 'noAssertions',
-          type: AST_NODE_TYPES.Identifier
-        }
-      ]
+          type: AST_NODE_TYPES.Identifier,
+        },
+      ],
     },
     {
       code: `
@@ -96,92 +111,126 @@ it('example', async () => {
      const output = NumberToLongString(theory.input);
     })
     `,
-      options: [{ additionalTestBlockFunctions: ['theoretically'], assertFunctionNames: [] }],
+      options: [
+        {
+          additionalTestBlockFunctions: ['theoretically'],
+          assertFunctionNames: [],
+        },
+      ],
       errors: [
         {
           messageId: 'noAssertions',
-          type: AST_NODE_TYPES.Identifier
-        }
-      ]
+          type: AST_NODE_TYPES.Identifier,
+        },
+      ],
     },
     {
       code: 'it("should fail", () => { somePromise.then(() => {}); });',
       errors: [
         {
           messageId: 'noAssertions',
-          type: AST_NODE_TYPES.Identifier
-        }
-      ]
+          type: AST_NODE_TYPES.Identifier,
+        },
+      ],
     },
     {
       code: 'test("should fail", () => { foo(true).toBe(true); })',
-      options: [{ assertFunctionNames: ['expect'], additionalTestBlockFunctions: [] }],
+      options: [
+        { assertFunctionNames: ['expect'], additionalTestBlockFunctions: [] },
+      ],
       errors: [
         {
           messageId: 'noAssertions',
-          type: AST_NODE_TYPES.Identifier
-        }
-      ]
+          type: AST_NODE_TYPES.Identifier,
+        },
+      ],
     },
     {
       code: 'it("should also fail",() => expectSaga(mySaga).returns());',
-      options: [{ assertFunctionNames: ['expect'], additionalTestBlockFunctions: [] }],
+      options: [
+        { assertFunctionNames: ['expect'], additionalTestBlockFunctions: [] },
+      ],
       errors: [
         {
           messageId: 'noAssertions',
-          type: AST_NODE_TYPES.Identifier
-        }
-      ]
+          type: AST_NODE_TYPES.Identifier,
+        },
+      ],
     },
     {
-      code: 'test(\'should fail\', () => request.get().foo().expect(456));',
-      options: [{ assertFunctionNames: ['request.*.expect'], additionalTestBlockFunctions: [] }],
+      code: "test('should fail', () => request.get().foo().expect(456));",
+      options: [
+        {
+          assertFunctionNames: ['request.*.expect'],
+          additionalTestBlockFunctions: [],
+        },
+      ],
       errors: [
         {
           messageId: 'noAssertions',
-          type: AST_NODE_TYPES.Identifier
-        }
-      ]
+          type: AST_NODE_TYPES.Identifier,
+        },
+      ],
     },
     {
-      code: 'test(\'should fail\', () => request.get().foo().bar().expect(456));',
-      options: [{ assertFunctionNames: ['request.foo**.expect'], additionalTestBlockFunctions: [] }],
+      code: "test('should fail', () => request.get().foo().bar().expect(456));",
+      options: [
+        {
+          assertFunctionNames: ['request.foo**.expect'],
+          additionalTestBlockFunctions: [],
+        },
+      ],
       errors: [
         {
           messageId: 'noAssertions',
-          type: AST_NODE_TYPES.Identifier
-        }
-      ]
+          type: AST_NODE_TYPES.Identifier,
+        },
+      ],
     },
     {
-      code: 'test(\'should fail\', () => tester.request(123));',
-      options: [{ assertFunctionNames: ['request.*'], additionalTestBlockFunctions: [] }],
+      code: "test('should fail', () => tester.request(123));",
+      options: [
+        {
+          assertFunctionNames: ['request.*'],
+          additionalTestBlockFunctions: [],
+        },
+      ],
       errors: [
         {
           messageId: 'noAssertions',
-          type: AST_NODE_TYPES.Identifier
-        }
-      ]
+          type: AST_NODE_TYPES.Identifier,
+        },
+      ],
     },
     {
-      code: 'test(\'should fail\', () => request(123));',
-      options: [{ assertFunctionNames: ['request.*'], additionalTestBlockFunctions: [] }],
+      code: "test('should fail', () => request(123));",
+      options: [
+        {
+          assertFunctionNames: ['request.*'],
+          additionalTestBlockFunctions: [],
+        },
+      ],
       errors: [
         {
           messageId: 'noAssertions',
-          type: AST_NODE_TYPES.Identifier
-        }
-      ]
+          type: AST_NODE_TYPES.Identifier,
+        },
+      ],
     },
     {
-      code: 'test(\'should fail\', () => request(123));',
-      options: [{ assertFunctionNames: ['request.**'], additionalTestBlockFunctions: [] }],
+      code: "test('should fail', () => request(123));",
+      options: [
+        {
+          assertFunctionNames: ['request.**'],
+          additionalTestBlockFunctions: [],
+        },
+      ],
       errors: [
         {
           messageId: 'noAssertions',
-          type: AST_NODE_TYPES.Identifier
-        }
-      ]
+          type: AST_NODE_TYPES.Identifier,
+        },
+      ],
     },
     {
       code: `
@@ -195,9 +244,9 @@ it('example', async () => {
       errors: [
         {
           messageId: 'noAssertions',
-          type: AST_NODE_TYPES.Identifier
-        }
-      ]
+          type: AST_NODE_TYPES.Identifier,
+        },
+      ],
     },
     {
       code: `
@@ -208,9 +257,9 @@ it('example', async () => {
       errors: [
         {
           messageId: 'noAssertions',
-          type: AST_NODE_TYPES.Identifier
-        }
-      ]
+          type: AST_NODE_TYPES.Identifier,
+        },
+      ],
     },
     {
       code: `
@@ -221,9 +270,9 @@ it('example', async () => {
       errors: [
         {
           messageId: 'noAssertions',
-          type: AST_NODE_TYPES.Identifier
-        }
-      ]
+          type: AST_NODE_TYPES.Identifier,
+        },
+      ],
     },
     {
       code: `
@@ -243,14 +292,19 @@ it('example', async () => {
        // ...
      })
        `,
-      options: [{ additionalTestBlockFunctions: ['myExtendedTest'], assertFunctionNames: [] }],
+      options: [
+        {
+          additionalTestBlockFunctions: ['myExtendedTest'],
+          assertFunctionNames: [],
+        },
+      ],
       languageOptions: { parserOptions: { sourceType: 'module' } },
       errors: [
         {
           messageId: 'noAssertions',
-          type: AST_NODE_TYPES.Identifier
-        }
-      ]
-    }
-  ]
+          type: AST_NODE_TYPES.Identifier,
+        },
+      ],
+    },
+  ],
 })
