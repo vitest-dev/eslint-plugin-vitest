@@ -14,73 +14,133 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: "describe('suite', () => {});",
-      errors: [{ message: "Import 'describe' from 'vitest'" }],
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'describe' },
+        },
+      ],
       output:
         "import { describe } from 'vitest';\ndescribe('suite', () => {});",
     },
     {
       code: "import { it } from 'vitest';\ndescribe('suite', () => {});",
-      errors: [{ message: "Import 'describe' from 'vitest'" }],
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'describe' },
+        },
+      ],
       output:
         "import { it, describe } from 'vitest';\ndescribe('suite', () => {});",
     },
     {
       code: "import { describe } from 'jest';\ndescribe('suite', () => {});",
-      errors: [{ message: "Import 'describe' from 'vitest'" }],
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'describe' },
+        },
+      ],
       output:
         "import { describe } from 'vitest';\nimport { describe } from 'jest';\ndescribe('suite', () => {});",
     },
     {
       code: "import vitest from 'vitest';\ndescribe('suite', () => {});",
-      errors: [{ message: "Import 'describe' from 'vitest'" }],
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'describe' },
+        },
+      ],
       output:
         "import vitest, { describe } from 'vitest';\ndescribe('suite', () => {});",
     },
     {
       code: "import * as abc from 'vitest';\ndescribe('suite', () => {});",
-      errors: [{ message: "Import 'describe' from 'vitest'" }],
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'describe' },
+        },
+      ],
       output:
         "import { describe } from 'vitest';\nimport * as abc from 'vitest';\ndescribe('suite', () => {});",
     },
     {
       code: "import { \"default\" as vitest } from 'vitest'; describe('suite', () => {});",
-      errors: [{ message: "Import 'describe' from 'vitest'" }],
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'describe' },
+        },
+      ],
       output:
         "import { \"default\" as vitest, describe } from 'vitest'; describe('suite', () => {});",
     },
     {
       code: "const x = require('something', 'else'); describe('suite', () => {});",
-      errors: [{ message: "Import 'describe' from 'vitest'" }],
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'describe' },
+        },
+      ],
       output:
         "import { describe } from 'vitest';\nconst x = require('something', 'else'); describe('suite', () => {});",
     },
     {
       code: "const x = require('jest'); describe('suite', () => {});",
-      errors: [{ message: "Import 'describe' from 'vitest'" }],
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'describe' },
+        },
+      ],
       output:
         "import { describe } from 'vitest';\nconst x = require('jest'); describe('suite', () => {});",
     },
     {
       code: "const vitest = require('vitest'); describe('suite', () => {});",
-      errors: [{ message: "Import 'describe' from 'vitest'" }],
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'describe' },
+        },
+      ],
       output:
         "import { describe } from 'vitest';\nconst vitest = require('vitest'); describe('suite', () => {});",
     },
     {
       code: "const { ...rest } = require('vitest'); describe('suite', () => {});",
-      errors: [{ message: "Import 'describe' from 'vitest'" }],
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'describe' },
+        },
+      ],
       output:
         "const { ...rest, describe } = require('vitest'); describe('suite', () => {});",
     },
     {
       code: "const { \"default\": vitest } = require('vitest'); describe('suite', () => {});",
-      errors: [{ message: "Import 'describe' from 'vitest'" }],
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'describe' },
+        },
+      ],
       output:
         "const { \"default\": vitest, describe } = require('vitest'); describe('suite', () => {});",
     },
     {
       code: "const { it } = require('vitest');\ndescribe('suite', () => {});",
-      errors: [{ message: "Import 'describe' from 'vitest'" }],
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'describe' },
+        },
+      ],
       output:
         "const { it, describe } = require('vitest');\ndescribe('suite', () => {});",
     },
