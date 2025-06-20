@@ -23,7 +23,7 @@ Examples of **correct** code for this rule:
 test('foo', () => {
   const mock = vi.fn()
   mock('foo')
-  expect(mock).toBeCalledWithOnce()
-  expect(mock).toHaveBeenCalledWithOnce()
+  expect(mock).toBeCalledOnce()
+  expect(mock).toHaveBeenCalledOnce()
 })
 ```
