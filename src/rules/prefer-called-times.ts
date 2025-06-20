@@ -1,20 +1,9 @@
 import { createEslintRule, getAccessorValue } from '../utils'
-import {
-  getFirstMatcherArg,
-  parseVitestFnCall,
-} from '../utils/parse-vitest-fn-call'
-import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
+import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'prefer-called-times'
 type MESSAGE_IDS = 'preferCalledTimes'
 type Options = []
-
-type OneLiteral = TSESTree.Literal & {
-  value: 1
-}
-
-const isOneLiteral = (node: TSESTree.Node): node is OneLiteral =>
-  node.type === AST_NODE_TYPES.Literal && node.value === 1
 
 export default createEslintRule<Options, MESSAGE_IDS>({
   name: RULE_NAME,
@@ -52,11 +41,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             fix: (fixer) => [
               fixer.replaceText(matcher, replacedMatcherName),
               fixer.insertTextAfterRange(
-                  [
-                    vitestFnCall.matcher.range[0],
-                    vitestFnCall.matcher.range[1] + 1,
-                  ],
-                  '1',
+                [
+                  vitestFnCall.matcher.range[0],
+                  vitestFnCall.matcher.range[1] + 1,
+                ],
+                '1',
               ),
             ],
           })
