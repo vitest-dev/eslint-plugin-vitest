@@ -68,6 +68,7 @@ import paddingAroundTestBlocks, { RULE_NAME as paddingAroundTestBlocksName } fro
 import validExpectInPromise, { RULE_NAME as validExpectInPromiseName } from './rules/valid-expect-in-promise'
 import preferStrictBooleanMatchers, { RULE_NAME as preferStrictBooleanMatchersName } from './rules/prefer-strict-boolean-matchers'
 import requireMockTypeParameters, { RULE_NAME as requireMockTypeParametersName } from './rules/require-mock-type-parameters'
+import preferCalledOnce, { RULE_NAME as preferCalledOnceName } from './rules/prefer-called-once'
 import preferCalledTimes, { RULE_NAME as preferCalledTimesName } from './rules/prefer-called-times'
 
 const createConfig = <R extends Linter.RulesRecord>(rules: R) =>
@@ -159,6 +160,7 @@ const allRules = {
   [requireMockTypeParametersName]: 'warn',
   [noImportingVitestGlobalsName]: 'off',
   [preferImportingVitestGlobalsName]: 'warn',
+  [preferCalledOnceName]: 'warn',
   [preferCalledTimesName]: 'warn'
 } as const
 
@@ -243,6 +245,7 @@ const rules = {
     [requireMockTypeParametersName]: requireMockTypeParameters,
     [noImportingVitestGlobalsName]: noImportingVitestGlobals,
     [preferImportingVitestGlobalsName]: preferImportingVitestGlobals,
+    [preferCalledOnceName]: preferCalledOnce,
     [preferCalledTimesName]: preferCalledTimes
 }
 
