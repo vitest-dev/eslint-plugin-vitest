@@ -1,7 +1,5 @@
 # valid-describe-callback
 
-💼⚠️ This rule is enabled in the ☑️ `legacy-recommended` config. This rule _warns_ in the 🔵 `legacy-all` config.
-
 <!-- end auto-generated rule header -->
 
 This rule validates the second parameter of a `describe()` function is a callback.

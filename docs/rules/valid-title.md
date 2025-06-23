@@ -1,7 +1,5 @@
 # valid-title
 
-💼⚠️ This rule is enabled in the ☑️ `legacy-recommended` config. This rule _warns_ in the 🔵 `legacy-all` config.
-
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
 <!-- end auto-generated rule header -->

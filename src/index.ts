@@ -277,7 +277,7 @@ const plugin = {
   },
   configs: {
       recommended: {
-      name: '@vitest/recommended',
+      name: 'vitest/recommended',
       plugins: {
         get vitest() {
           return plugin
@@ -286,7 +286,7 @@ const plugin = {
       rules: createConfig(recommended),
     },
     all: {
-      name: '@vitest/all',
+      name: 'vitest/all',
       plugins: {
         get vitest() {
           return plugin

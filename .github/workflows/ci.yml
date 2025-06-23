@@ -51,5 +51,8 @@ jobs:
       - name: lint code
         run: pnpm lint:js
 
+      - name: lint docs
+        run: pnpm lint:eslint-docs
+
       - name: test
         run: pnpm test:ci

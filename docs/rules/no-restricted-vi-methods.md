@@ -1,7 +1,5 @@
 # no-restricted-vi-methods
 
-⚠️ This rule _warns_ in the 🔵 `legacy-all` config.
-
 <!-- end auto-generated rule header -->
 
 You may wish to restrict the use of specific `vi` methods.

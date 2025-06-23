@@ -15,7 +15,7 @@ export default [
     },
   },
   {
-    ignores: ['dist/**/*', '**/*.md'],
+    files: ['**/*.test.*'],
     plugins: {
       vitest,
     },
