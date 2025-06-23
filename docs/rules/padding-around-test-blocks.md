@@ -1,6 +1,6 @@
-# Enforce padding around `test` blocks (`vitest/padding-around-test-blocks`)
+# Enforce padding around `test` blocks (`@vitest/padding-around-test-blocks`)
 
-⚠️ This rule _warns_ in the 🌐 `all` config.
+⚠️ This rule _warns_ in the `legacy-all` config.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

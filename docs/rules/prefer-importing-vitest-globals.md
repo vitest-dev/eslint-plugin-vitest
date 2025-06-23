@@ -1,4 +1,10 @@
-# Prefer importing Vitest globals (`vitest/prefer-importing-vitest-globals`)
+# Enforce importing Vitest globals (`@vitest/prefer-importing-vitest-globals`)
+
+⚠️ This rule _warns_ in the `legacy-all` config.
+
+🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+
+<!-- end auto-generated rule header -->
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

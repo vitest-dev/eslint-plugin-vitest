@@ -1,6 +1,6 @@
-# Disallow conditional expects (`vitest/no-conditional-expect`)
+# Disallow conditional expects (`@vitest/no-conditional-expect`)
 
-⚠️ This rule _warns_ in the 🌐 `all` config.
+⚠️ This rule _warns_ in the `legacy-all` config.
 
 <!-- end auto-generated rule header -->
 

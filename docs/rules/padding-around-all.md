@@ -1,6 +1,6 @@
-# Enforce padding around vitest functions (`vitest/padding-around-all`)
+# Enforce padding around vitest functions (`@vitest/padding-around-all`)
 
-⚠️ This rule _warns_ in the 🌐 `all` config.
+⚠️ This rule _warns_ in the `legacy-all` config.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

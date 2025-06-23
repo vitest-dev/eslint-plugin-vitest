@@ -1,4 +1,6 @@
-# Enforce using a function as a describe title over an equivalent string (`vitest/prefer-describe-function-title`)
+# Enforce using a function as a describe title over an equivalent string (`@vitest/prefer-describe-function-title`)
+
+⚠️ This rule _warns_ in the `legacy-all` config.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

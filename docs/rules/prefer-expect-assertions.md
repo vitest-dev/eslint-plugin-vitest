@@ -1,6 +1,6 @@
-# Enforce using expect assertions instead of callbacks (`vitest/prefer-expect-assertions`)
+# Enforce using expect assertions instead of callbacks (`@vitest/prefer-expect-assertions`)
 
-⚠️ This rule _warns_ in the 🌐 `all` config.
+⚠️ This rule _warns_ in the `legacy-all` config.
 
 💡 This rule is manually fixable by [editor suggestions](https://eslint.org/docs/latest/use/core-concepts#rule-suggestions).
 

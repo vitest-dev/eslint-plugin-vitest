@@ -1,6 +1,8 @@
-# Enforce using type parameters with vitest mock functions (`vitest/require-mock-type-parameters`)
+# Enforce using type parameters with vitest mock functions (`@vitest/require-mock-type-parameters`)
 
-⚠️ This rule _warns_ in the 🌐 `all` config.
+⚠️ This rule _warns_ in the `legacy-all` config.
+
+🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
 <!-- end auto-generated rule header -->
 
