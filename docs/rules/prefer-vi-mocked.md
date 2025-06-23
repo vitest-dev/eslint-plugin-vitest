@@ -1,4 +1,6 @@
-# Require `vi.mocked()` over `fn as Mock` (`@vitest/prefer-vi-mocked`)
+# prefer-vi-mocked
+
+⚠️ This rule _warns_ in the 💾 `legacy-all` config.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

@@ -274,8 +274,8 @@ const plugin = {
     },
   },
   configs: {
-    //'legacy-recommended': createConfigLegacy(recommended),
-    //'legacy-all': createConfigLegacy(allRules),
+    'legacy-recommended': createConfigLegacy(recommended),
+    'legacy-all': createConfigLegacy(allRules),
     recommended: {
       name: '@vitest/recommended',
       plugins: {

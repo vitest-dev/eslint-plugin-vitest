@@ -1,4 +1,6 @@
-# Require setup and teardown to be within a hook (`@vitest/require-hook`)
+# require-hook
+
+⚠️ This rule _warns_ in the 💾 `legacy-all` config.
 
 <!-- end auto-generated rule header -->
 

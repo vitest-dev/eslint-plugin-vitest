@@ -68,7 +68,7 @@
     "concurrently": "^9.1.2",
     "eslint": "^9.20.0",
     "eslint-config-prettier": "^10.1.5",
-    "eslint-doc-generator": "^2.0.2",
+    "eslint-doc-generator": "^2.2.2",
     "eslint-plugin-eslint-plugin": "^6.4.0",
     "eslint-remote-tester": "^4.0.1",
     "eslint-remote-tester-repositories": "^2.0.0",

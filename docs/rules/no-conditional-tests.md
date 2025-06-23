@@ -1,4 +1,6 @@
-# Disallow conditional tests (`@vitest/no-conditional-tests`)
+# no-conditional-tests
+
+⚠️ This rule _warns_ in the 💾 `legacy-all` config.
 
 <!-- end auto-generated rule header -->
 

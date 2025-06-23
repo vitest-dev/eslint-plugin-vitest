@@ -1,6 +1,8 @@
-# Disallow using a callback in asynchronous tests and hooks (`@vitest/no-done-callback`)
+# no-done-callback
 
 ❌ This rule is deprecated.
+
+⚠️ This rule _warns_ in the 💾 `legacy-all` config.
 
 💡 This rule is manually fixable by [editor suggestions](https://eslint.org/docs/latest/use/core-concepts#rule-suggestions).
 

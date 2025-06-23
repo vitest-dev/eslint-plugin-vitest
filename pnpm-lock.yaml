@@ -49,8 +49,8 @@ importers:
         specifier: ^10.1.5
         version: 10.1.5(eslint@9.20.0(jiti@2.4.2))
       eslint-doc-generator:
-        specifier: ^2.0.2
-        version: 2.0.2(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3)
+        specifier: ^2.2.2
+        version: 2.2.2(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3)
       eslint-plugin-eslint-plugin:
         specifier: ^6.4.0
         version: 6.4.0(eslint@9.20.0(jiti@2.4.2))
@@ -1301,9 +1301,9 @@ packages:
     resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
     engines: {node: '>=16'}
 
-  commander@12.1.0:
-    resolution: {integrity: sha512-Vw8qHK3bZM9y/P10u3Vib8o/DdkvA2OtPtZvD871QKjy74Wj1WSKFILMPRPSdUSx5RFK1arlJzEtA4PkFgnbuA==}
-    engines: {node: '>=18'}
+  commander@14.0.0:
+    resolution: {integrity: sha512-2uM9rYjPvyq39NwLRqaiLtWHyDC1FvryJDa2ATTVims5YAS4PupsEQsDvP14FqhFr0P49CYDugi59xaxJlTXRA==}
+    engines: {node: '>=20'}
 
   commander@7.2.0:
     resolution: {integrity: sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==}
@@ -1522,8 +1522,8 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
-  eslint-doc-generator@2.0.2:
-    resolution: {integrity: sha512-zdPXjnOKuxDf2Wn66aV86IvltboiNDBTgzYZKUmpGEx83anJG2ubptgvajfKhTidfL8QEfDcy9ha4M1uC0HwoQ==}
+  eslint-doc-generator@2.2.2:
+    resolution: {integrity: sha512-LBr0Nz1AZnkifkOMyE0sfx+IvS/V+TK1Sp8fCYDdk4Eb5gZCpEcK4t/ImT23oJAwso26rkHzBCRMrd/bc7bddQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -3725,7 +3725,7 @@ snapshots:
 
   commander@11.1.0: {}
 
-  commander@12.1.0: {}
+  commander@14.0.0: {}
 
   commander@7.2.0: {}
 
@@ -4028,12 +4028,12 @@ snapshots:
     dependencies:
       eslint: 9.20.0(jiti@2.4.2)
 
-  eslint-doc-generator@2.0.2(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3):
+  eslint-doc-generator@2.2.2(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3):
     dependencies:
       '@typescript-eslint/utils': 8.24.1(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3)
       ajv: 8.13.0
       change-case: 5.4.4
-      commander: 12.1.0
+      commander: 14.0.0
       cosmiconfig: 9.0.0(typescript@5.7.3)
       deepmerge: 4.3.1
       dot-prop: 9.0.0

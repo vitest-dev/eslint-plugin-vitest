@@ -1,4 +1,6 @@
-# Enforce padding around `beforeAll` blocks (`@vitest/padding-around-before-all-blocks`)
+# padding-around-before-all-blocks
+
+⚠️ This rule _warns_ in the 💾 `legacy-all` config.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

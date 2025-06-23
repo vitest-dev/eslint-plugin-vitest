@@ -1,4 +1,6 @@
-# Disallow using `expect` outside of `it` or `test` blocks (`@vitest/no-standalone-expect`)
+# no-standalone-expect
+
+⚠️ This rule _warns_ in the 💾 `legacy-all` config.
 
 <!-- end auto-generated rule header -->
 
