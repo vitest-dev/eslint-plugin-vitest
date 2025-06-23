@@ -3,7 +3,7 @@ const config = {
   configEmoji: [
     ['recommended', '✅'],
     ['legacy-recommended', '☑️'],
-    ['legacy-all', '💾'],
+    ['legacy-all', '🌍'],
   ],
   ruleDocTitleFormat: 'name',
 }

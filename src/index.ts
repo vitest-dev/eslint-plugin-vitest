@@ -274,9 +274,7 @@ const plugin = {
     },
   },
   configs: {
-    'legacy-recommended': createConfigLegacy(recommended),
-    'legacy-all': createConfigLegacy(allRules),
-    recommended: {
+      recommended: {
       name: '@vitest/recommended',
       plugins: {
         get vitest() {
@@ -294,6 +292,8 @@ const plugin = {
       },
       rules: createConfig(allRules),
     },
+    'legacy-recommended': createConfigLegacy(recommended),
+    'legacy-all': createConfigLegacy(allRules),
     env: {
       name: '@vitest/env',
       languageOptions: {
