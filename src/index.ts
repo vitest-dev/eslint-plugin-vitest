@@ -68,6 +68,7 @@ import paddingAroundTestBlocks, { RULE_NAME as paddingAroundTestBlocksName } fro
 import validExpectInPromise, { RULE_NAME as validExpectInPromiseName } from './rules/valid-expect-in-promise'
 import preferStrictBooleanMatchers, { RULE_NAME as preferStrictBooleanMatchersName } from './rules/prefer-strict-boolean-matchers'
 import requireMockTypeParameters, { RULE_NAME as requireMockTypeParametersName } from './rules/require-mock-type-parameters'
+import preferCalledTimes, { RULE_NAME as preferCalledTimesName } from './rules/prefer-called-times'
 
 const createConfig = <R extends Linter.RulesRecord>(rules: R) =>
   Object.keys(rules).reduce((acc, ruleName) => {
@@ -158,6 +159,7 @@ const allRules = {
   [requireMockTypeParametersName]: 'warn',
   [noImportingVitestGlobalsName]: 'off',
   [preferImportingVitestGlobalsName]: 'warn',
+  [preferCalledTimesName]: 'warn'
 } as const
 
 const recommended = {
@@ -246,6 +248,7 @@ const plugin = {
     [requireMockTypeParametersName]: requireMockTypeParameters,
     [noImportingVitestGlobalsName]: noImportingVitestGlobals,
     [preferImportingVitestGlobalsName]: preferImportingVitestGlobals,
+    [preferCalledTimesName]: preferCalledTimes
   },
   environments: {
     env: {
