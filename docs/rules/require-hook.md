@@ -1,6 +1,6 @@
 # require-hook
 
-⚠️ This rule _warns_ in the 🌍 `legacy-all` config.
+⚠️ This rule _warns_ in the 🔵 `legacy-all` config.
 
 <!-- end auto-generated rule header -->
 

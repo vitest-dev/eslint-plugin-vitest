@@ -3,9 +3,10 @@ import prettier from 'prettier'
 /** @type {import('eslint-doc-generator').GenerateOptions} */
 const config = {
   configEmoji: [
+    ['all', '🟢'],
     ['recommended', '✅'],
     ['legacy-recommended', '☑️'],
-    ['legacy-all', '🌍'],
+    ['legacy-all', '🔵'],
   ],
   postprocess: async (content, path) =>
     prettier.format(content, {
