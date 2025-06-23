@@ -1,7 +1,5 @@
 # Enforce using the built-in quality matchers (`@vitest/prefer-equality-matcher`)
 
-⚠️ This rule _warns_ in the `legacy-all` config.
-
 💡 This rule is manually fixable by [editor suggestions](https://eslint.org/docs/latest/use/core-concepts#rule-suggestions).
 
 <!-- end auto-generated rule header -->

@@ -1,7 +1,5 @@
 # Require `vi.mocked()` over `fn as Mock` (`@vitest/prefer-vi-mocked`)
 
-⚠️ This rule _warns_ in the `legacy-all` config.
-
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
 💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).

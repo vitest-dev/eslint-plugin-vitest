@@ -1,7 +1,5 @@
 # Enforce using `toBe(true)` and `toBe(false)` over matchers that coerce types to boolean (`@vitest/prefer-strict-boolean-matchers`)
 
-⚠️ This rule _warns_ in the `legacy-all` config.
-
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
 <!-- end auto-generated rule header -->

@@ -1,7 +1,5 @@
 # Enforce a maximum number of expect per test (`@vitest/max-expects`)
 
-⚠️ This rule _warns_ in the `legacy-all` config.
-
 <!-- end auto-generated rule header -->
 
 ### Rule Details

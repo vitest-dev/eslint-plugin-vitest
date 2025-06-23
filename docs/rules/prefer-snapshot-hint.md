@@ -1,7 +1,5 @@
 # Enforce including a hint with external snapshots (`@vitest/prefer-snapshot-hint`)
 
-⚠️ This rule _warns_ in the `legacy-all` config.
-
 <!-- end auto-generated rule header -->
 
 When working with external snapshot matchers it's considered best practice to

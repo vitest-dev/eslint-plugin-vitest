@@ -1,7 +1,5 @@
 # Require toThrow() to be called with an error message (`@vitest/require-to-throw-message`)
 
-⚠️ This rule _warns_ in the `legacy-all` config.
-
 <!-- end auto-generated rule header -->
 
 This rule triggers a warning if `toThrow()` or `toThrowError()` is used without
