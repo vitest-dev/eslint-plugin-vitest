@@ -23,4 +23,3 @@ Examples of **correct** code for this rule:
 expect(foo).toBeFalsy()
 expectTypeOf(foo).toBeFalsy()
 ```
-

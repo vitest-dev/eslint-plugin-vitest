@@ -10,13 +10,13 @@ Examples of **incorrect** code for this rule:
 
 ```js
 test.concurrent('myLogic', () => {
-    expect(true).toMatchSnapshot();
+  expect(true).toMatchSnapshot()
 })
 
 describe.concurrent('something', () => {
-    test('myLogic', () => {
-        expect(true).toMatchInlineSnapshot();
-    })
+  test('myLogic', () => {
+    expect(true).toMatchInlineSnapshot()
+  })
 })
 ```
 

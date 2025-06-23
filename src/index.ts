@@ -173,12 +173,7 @@ const recommended = {
   [noImportNodeTestName]: 'error',
 } as const
 
-const plugin = {
-  meta: {
-    name: 'vitest',
-    version,
-  },
-  rules: {
+const rules = {
     [lowerCaseTitleName]: lowerCaseTitle,
     [maxNestedDescribeName]: maxNestedDescribe,
     [noIdenticalTitleName]: noIdenticalTitle,
@@ -249,7 +244,14 @@ const plugin = {
     [noImportingVitestGlobalsName]: noImportingVitestGlobals,
     [preferImportingVitestGlobalsName]: preferImportingVitestGlobals,
     [preferCalledTimesName]: preferCalledTimes
+}
+
+const plugin = {
+  meta: {
+    name: 'vitest',
+    version,
   },
+  rules,
   environments: {
     env: {
       globals: {

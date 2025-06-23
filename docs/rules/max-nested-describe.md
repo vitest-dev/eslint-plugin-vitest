@@ -10,9 +10,9 @@ Examples of **incorrect** code for this rule with `max: 1`:
 
 ```js
 describe('outer', () => {
-	describe('inner', () => {
-		// ...
-	})
+  describe('inner', () => {
+    // ...
+  })
 })
 ```
 
@@ -20,7 +20,7 @@ Examples of **correct** code for this rule:
 
 ```js
 describe('inner', () => {
-	// ...
+  // ...
 })
 ```
 
@@ -32,6 +32,6 @@ Maximum number of nested `describe` blocks.
 
 ```js
 {
-	max: number
+  max: number
 }
 ```

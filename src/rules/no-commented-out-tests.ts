@@ -17,7 +17,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     docs: {
       description: 'disallow commented out tests',
       requiresTypeChecking: false,
-      recommended: false,
+      recommended: true,
     },
     messages: {
       noCommentedOutTests:

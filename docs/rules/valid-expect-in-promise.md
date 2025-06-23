@@ -11,41 +11,39 @@ The following patterns is considered warning:
 ```js
 test('promise test', async () => {
   something().then((value) => {
-    expect(value).toBe('red');
-  });
-});
+    expect(value).toBe('red')
+  })
+})
 
 test('promises test', () => {
   const onePromise = something().then((value) => {
-    expect(value).toBe('red');
-  });
+    expect(value).toBe('red')
+  })
   const twoPromise = something().then((value) => {
-    expect(value).toBe('blue');
-  });
+    expect(value).toBe('blue')
+  })
 
-  return Promise.any([onePromise, twoPromise]);
-});
+  return Promise.any([onePromise, twoPromise])
+})
 ```
 
 The following pattern is not warning:
 
 ```js
-
 test('promise test', async () => {
   await something().then((value) => {
-    expect(value).toBe('red');
-  });
-});
+    expect(value).toBe('red')
+  })
+})
 
 test('promises test', () => {
   const onePromise = something().then((value) => {
-    expect(value).toBe('red');
-  });
+    expect(value).toBe('red')
+  })
   const twoPromise = something().then((value) => {
-    expect(value).toBe('blue');
-  });
+    expect(value).toBe('blue')
+  })
 
-  return Promise.all([onePromise, twoPromise]);
-});
-
+  return Promise.all([onePromise, twoPromise])
+})
 ```

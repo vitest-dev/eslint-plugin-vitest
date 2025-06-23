@@ -18,26 +18,26 @@ Examples of **incorrect** code for this rule:
 ```js
 test('no assertions', () => {
   // ...
-});
+})
 
 test('assertions not first', () => {
-  expect(true).toBe(true);
+  expect(true).toBe(true)
   // ...
-});
+})
 ```
 
 Examples of **correct** code for this rule:
 
 ```js
 test('assertions first', () => {
-  expect.assertions(1);
+  expect.assertions(1)
   // ...
-});
+})
 
 test('assertions first', () => {
-  expect.hasAssertions();
+  expect.hasAssertions()
   // ...
-});
+})
 ```
 
 ## Options
@@ -73,21 +73,21 @@ when this option is enabled the following code will be considered incorrect:
 
 ```js
 test('assertions first', () => {
-   for (let i = 0; i < 10; i++) {
-	 expect(i).toBeLessThan(10);
-   }
-});
+  for (let i = 0; i < 10; i++) {
+    expect(i).toBeLessThan(10)
+  }
+})
 ```
 
 To fix this, you'll need to add `expect.assertions(1)` or `expect.hasAssertions()` as the first expression:
 
 ```js
 test('assertions first', () => {
-   expect.hasAssertions();
-   for (let i = 0; i < 10; i++) {
-	 expect(i).toBeLessThan(10);
-   }
-});
+  expect.hasAssertions()
+  for (let i = 0; i < 10; i++) {
+    expect(i).toBeLessThan(10)
+  }
+})
 ```
 
 `onlyFunctionsWithExpectInCallback`
@@ -98,19 +98,19 @@ when this option is enabled the following code will be considered incorrect:
 
 ```js
 test('assertions first', () => {
-   fetchData((data) => {
-	 expect(data).toBe('peanut butter');
-   });
-});
+  fetchData((data) => {
+    expect(data).toBe('peanut butter')
+  })
+})
 ```
 
 To fix this, you'll need to add `expect.assertions(1)` or `expect.hasAssertions()` as the first expression:
 
 ```js
 test('assertions first', () => {
-   expect.assertions(1);
-   fetchData((data) => {
-	 expect(data).toBe('peanut butter');
-   });
-});
+  expect.assertions(1)
+  fetchData((data) => {
+    expect(data).toBe('peanut butter')
+  })
+})
 ```

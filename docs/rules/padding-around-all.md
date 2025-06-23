@@ -7,6 +7,7 @@
 <!-- end auto-generated rule header -->
 
 ## Rule Details
+
 This is a meta rule that simply enables all of the following rules:
 
 - [padding-around-after-all-blocks](padding-around-after-all-blocks.md)

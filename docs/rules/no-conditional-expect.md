@@ -13,7 +13,7 @@ Examples of **incorrect** code for this rule:
 ```ts
 test('foo', () => {
   if (true) {
-	expect(1).toBe(1)
+    expect(1).toBe(1)
   }
 })
 ```

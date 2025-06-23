@@ -12,11 +12,11 @@ Examples of **incorrect** code for this rule:
 
 ```js
 it.only('test', () => {
-	// ...
+  // ...
 })
 
 test.only('it', () => {
-	// ...
+  // ...
 })
 ```
 
@@ -24,11 +24,11 @@ Examples of **correct** code for this rule:
 
 ```js
 it('test', () => {
-	// ...
+  // ...
 })
 
 test('it', () => {
-	/* ... */
+  /* ... */
 })
 ```
 
@@ -47,8 +47,8 @@ export default [
     },
     rules: {
       ...vitest.configs.recommended.all,
-      'vitest/no-focused-tests': ['error', { 'fixable': false }]
-    }
-  }
+      'vitest/no-focused-tests': ['error', { fixable: false }],
+    },
+  },
 ]
 ```

@@ -14,10 +14,10 @@ Examples of **incorrect** code for this rule:
 
 ```ts
 test('foo', () => {
-    const mock = vi.fn()
-    mock('foo')
-    expect(mock).toBeCalledOnce()
-    expect(mock).toHaveBeenCalledOnce()
+  const mock = vi.fn()
+  mock('foo')
+  expect(mock).toBeCalledOnce()
+  expect(mock).toHaveBeenCalledOnce()
 })
 ```
 

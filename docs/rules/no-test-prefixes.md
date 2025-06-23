@@ -11,11 +11,11 @@
 Examples of **incorrect** code for this rule:
 
 ```js
-xdescribe.each([])("foo", function () {})
+xdescribe.each([])('foo', function () {})
 ```
 
 Examples of **correct** code for this rule:
 
 ```js
-describe.skip.each([])("foo", function () {})
+describe.skip.each([])('foo', function () {})
 ```

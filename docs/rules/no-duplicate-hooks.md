@@ -11,7 +11,6 @@ This rule aims to prevent duplicate hooks and teardown hooks.
 Examples of **incorrect** code for this rule:
 
 ```ts
-
 test('foo', () => {
   beforeEach(() => {})
   beforeEach(() => {}) // duplicate beforeEach
@@ -25,4 +24,3 @@ test('foo', () => {
   beforeEach(() => {})
 })
 ```
-

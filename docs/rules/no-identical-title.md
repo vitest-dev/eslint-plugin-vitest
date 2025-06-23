@@ -12,11 +12,11 @@ Examples of **incorrect** code for this rule:
 
 ```js
 it('is awesome', () => {
-	/* ... */
+  /* ... */
 })
 
 it('is awesome', () => {
-	/* ... */
+  /* ... */
 })
 ```
 
@@ -24,10 +24,10 @@ Examples of **correct** code for this rule:
 
 ```js
 it('is awesome', () => {
-	/* ... */
+  /* ... */
 })
 
 it('is very awesome', () => {
-	/* ... */
+  /* ... */
 })
 ```

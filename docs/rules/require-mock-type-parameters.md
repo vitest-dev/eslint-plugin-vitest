@@ -36,9 +36,12 @@ test('foo', () => {
 
 ```json
 {
-  "vitest/require-hook": ["error", {
-	"checkImportFunctions": false
-  }]
+  "vitest/require-hook": [
+    "error",
+    {
+      "checkImportFunctions": false
+    }
+  ]
 }
 ```
 

@@ -6,22 +6,18 @@
 
 <!-- end auto-generated rule header -->
 
-
 This rule triggers a warning if `toBe()`, `toEqual()` or `toStrickEqual()` is used to assert object inclusion in an array.
-
 
 The following patterns are considered warnings:
 
-
 ```ts
-expect(a.includes(b)).toBe(true);
-expect(a.includes(b)).toEqual(true);
-expect(a.includes(b)).toStrictEqual(true);
+expect(a.includes(b)).toBe(true)
+expect(a.includes(b)).toEqual(true)
+expect(a.includes(b)).toStrictEqual(true)
 ```
-
 
 The following patterns are not considered warnings:
 
 ```ts
-expect(a).toContain(b);
+expect(a).toContain(b)
 ```

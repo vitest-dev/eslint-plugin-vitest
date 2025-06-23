@@ -134,7 +134,7 @@ export default createEslintRule<
   meta: {
     docs: {
       description: 'enforce valid `expect()` usage',
-      recommended: false,
+      recommended: true,
     },
     messages: {
       tooManyArgs: 'Expect takes at most {{ amount}} argument{{ s }}',

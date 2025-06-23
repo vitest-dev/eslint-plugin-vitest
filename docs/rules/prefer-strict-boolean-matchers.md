@@ -15,7 +15,6 @@ expectTypeOf(foo).toBeTruthy()
 expect(foo).toBeFalsy()
 expectTypeOf(foo).toBeFalsy()
 
-
 // good
 expect(foo).toBe(true)
 expectTypeOf(foo).toBe(true)

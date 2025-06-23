@@ -12,7 +12,7 @@ Examples of **incorrect** code for this rule:
 
 ```js
 test('It works', () => {
-	// ...
+  // ...
 })
 ```
 
@@ -20,44 +20,39 @@ Examples of **correct** code for this rule:
 
 ```js
 test('it works', () => {
-	// ...
+  // ...
 })
 ```
-
 
 ### Options
 
 ```json
 {
-   "type":"object",
-   "properties":{
-      "ignore":{
-         "type":"array",
-         "items":{
-            "enum":[
-               "describe",
-               "test",
-               "it"
-            ]
-         },
-         "additionalProperties":false
+  "type": "object",
+  "properties": {
+    "ignore": {
+      "type": "array",
+      "items": {
+        "enum": ["describe", "test", "it"]
       },
-      "allowedPrefixes":{
-         "type":"array",
-         "items":{
-            "type":"string"
-         },
-         "additionalItems":false
+      "additionalProperties": false
+    },
+    "allowedPrefixes": {
+      "type": "array",
+      "items": {
+        "type": "string"
       },
-      "ignoreTopLevelDescribe":{
-         "type":"boolean",
-         "default":false
-      },
-      "lowercaseFirstCharacterOnly":{
-         "type":"boolean",
-         "default":true
-      }
-   },
-   "additionalProperties":false
+      "additionalItems": false
+    },
+    "ignoreTopLevelDescribe": {
+      "type": "boolean",
+      "default": false
+    },
+    "lowercaseFirstCharacterOnly": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "additionalProperties": false
 }
 ```

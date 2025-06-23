@@ -8,26 +8,25 @@
 
 This rule aims to prevent large snapshots.
 
-
 ### Options
 
 This rule accepts an object with the following properties:
 
-* `maxSize` (default: `50`): The maximum size of a snapshot.
-* `inlineMaxSize` (default: `0`): The maximum size of a snapshot when it is inline.
-* `allowedSnapshots` (default: `[]`): The list of allowed snapshots.
+- `maxSize` (default: `50`): The maximum size of a snapshot.
+- `inlineMaxSize` (default: `0`): The maximum size of a snapshot when it is inline.
+- `allowedSnapshots` (default: `[]`): The list of allowed snapshots.
 
 ### For example:
 
 ```json
 {
   "vitest/no-large-snapshots": [
-	"error",
-	{
-	  "maxSize": 50,
-	  "inlineMaxSize": 0,
-	  "allowedSnapshots": []
-	}
+    "error",
+    {
+      "maxSize": 50,
+      "inlineMaxSize": 0,
+      "allowedSnapshots": []
+    }
   ]
 }
 ```
@@ -51,4 +50,3 @@ test('large snapshot', () => {
 ## When Not To Use It
 
 If you don't want to limit the size of your snapshots, you can disable this rule.
-

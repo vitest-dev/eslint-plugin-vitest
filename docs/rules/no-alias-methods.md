@@ -6,7 +6,6 @@
 
 <!-- end auto-generated rule header -->
 
-
 ## Rule Details
 
 This rule disallows alias methods and forces the use of the original method.
@@ -20,7 +19,6 @@ expect(a).toBeCalled()
 ```js
 expect(a).toBeCalledTimes(1)
 ```
-
 
 Examples of **correct** code for this rule:
 

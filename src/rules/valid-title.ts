@@ -124,7 +124,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   meta: {
     docs: {
       description: 'enforce valid titles',
-      recommended: false,
+      recommended: true,
     },
     messages: {
       titleMustBeString:

@@ -7,9 +7,13 @@
 <!-- end auto-generated rule header -->
 
 ```ts
-// bad 
-it('passes', async () => { expect(await someValue()).toBe(true); });
+// bad
+it('passes', async () => {
+  expect(await someValue()).toBe(true)
+})
 
-// good 
-it('passes', async () => { await expect(someValue()).resolves.toBe(true); });
+// good
+it('passes', async () => {
+  await expect(someValue()).resolves.toBe(true)
+})
 ```

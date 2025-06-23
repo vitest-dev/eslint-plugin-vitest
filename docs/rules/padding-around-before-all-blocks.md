@@ -17,17 +17,17 @@ its scope.
 Examples of **incorrect** code for this rule:
 
 ```js
-const someText = 'hoge';
-beforeAll(() => {});
-describe('foo', () => {});
+const someText = 'hoge'
+beforeAll(() => {})
+describe('foo', () => {})
 ```
 
 Examples of **correct** code for this rule:
 
 ```js
-const someText = 'hoge';
+const someText = 'hoge'
 
-beforeAll(() => {});
+beforeAll(() => {})
 
-describe('foo', () => {});
+describe('foo', () => {})
 ```

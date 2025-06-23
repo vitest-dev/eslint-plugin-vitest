@@ -5,6 +5,7 @@
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
 <!-- end auto-generated rule header -->
+
 ```ts
 // bad
 vi.fn().mockReturnValue(Promise.reject(42))
