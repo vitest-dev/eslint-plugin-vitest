@@ -69,6 +69,29 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         const name = node.callee.name
         if (importedNames.has(name)) return
 
+        const scope = context.sourceCode.getScope(node)
+        const variable = scope.set.get(name)
+
+        if (variable && variable.defs.length > 0) {
+          const hasTrueLocalBinding = variable.defs.some((def) => {
+            if (def.type === 'ImportBinding') {
+              return false
+            }
+            if (
+              def.type === 'Variable' &&
+              def.node.init &&
+              isRequireVitestCall(def.node.init)
+            ) {
+              return false
+            }
+            return true
+          })
+
+          if (hasTrueLocalBinding) {
+            return
+          }
+        }
+
         context.report({
           node: node.callee,
           messageId: 'preferImportingVitestGlobals',
