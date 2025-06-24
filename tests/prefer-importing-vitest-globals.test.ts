@@ -10,6 +10,9 @@ ruleTester.run(RULE_NAME, rule, {
     "const { describe } = require('vitest'); describe('suite', () => {});",
     "const { describe, it } = require('vitest'); describe('suite', () => {});",
     "const { describe, describe } = require('vitest'); describe('suite', () => {});",
+    "import { describe, expect, it } from 'vitest'; describe('suite', () => { it('test', () => { let test = 5; expect(test).toBe(5); }); });",
+    "import { describe, expect, it } from 'vitest'; describe('suite', () => { it('test', () => { const test = () => true; expect(test()).toBe(true); }); });",
+    "import { describe, expect, it } from 'vitest'; describe('suite', () => { it('test', () => { function fn(test) { return test; } expect(fn(5)).toBe(5); }); });",
   ],
   invalid: [
     {
