@@ -69,6 +69,7 @@ import validExpectInPromise, { RULE_NAME as validExpectInPromiseName } from './r
 import preferStrictBooleanMatchers, { RULE_NAME as preferStrictBooleanMatchersName } from './rules/prefer-strict-boolean-matchers'
 import requireMockTypeParameters, { RULE_NAME as requireMockTypeParametersName } from './rules/require-mock-type-parameters'
 import preferCalledOnce, { RULE_NAME as preferCalledOnceName } from './rules/prefer-called-once'
+import warnTodo, { RULE_NAME as warnTodoName } from './rules/warn-todo'
 
 const createConfig = <R extends Linter.RulesRecord>(rules: R) =>
   Object.keys(rules).reduce((acc, ruleName) => {
@@ -159,7 +160,8 @@ const allRules = {
   [requireMockTypeParametersName]: 'warn',
   [noImportingVitestGlobalsName]: 'off',
   [preferImportingVitestGlobalsName]: 'warn',
-  [preferCalledOnceName]: 'warn'
+  [preferCalledOnceName]: 'warn',
+  [warnTodoName]: 'warn'
 } as const
 
 const recommended = {
@@ -248,7 +250,8 @@ const plugin = {
     [requireMockTypeParametersName]: requireMockTypeParameters,
     [noImportingVitestGlobalsName]: noImportingVitestGlobals,
     [preferImportingVitestGlobalsName]: preferImportingVitestGlobals,
-    [preferCalledOnceName]: preferCalledOnce
+    [preferCalledOnceName]: preferCalledOnce,
+    [warnTodoName]: warnTodo
   },
   environments: {
     env: {
