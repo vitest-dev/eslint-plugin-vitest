@@ -3,7 +3,7 @@ name: release
 on:
   push:
     tags:
-      - "v*"
+      - 'v*'
 
 jobs:
   release:
@@ -14,9 +14,10 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
-          node-version: "22"
+          node-version: '22'
           registry-url: https://registry.npmjs.org/
       - run: npm install
+      - run: npm build
       - run: npm run test --if-present
       - run: npx conventional-github-releaser -p angular
         env:
