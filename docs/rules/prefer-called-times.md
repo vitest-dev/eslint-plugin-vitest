@@ -1,4 +1,4 @@
-# Enforce using `toBeCalledOnce()` or `toHaveBeenCalledOnce()` (`vitest/prefer-called-once`)
+# Enforce using `toBeCalledTimes(1)` or `toHaveBeenCalledTimes(1)` (`vitest/prefer-called-times`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
@@ -8,7 +8,7 @@
 
 ## Rule Details
 
-This rule aims to enforce the use of `toBeCalledOnce()` or `toHaveBeenCalledOnce()` over `toBeCalledTimes(1)` or `toHaveBeenCalledTimes(1)`.
+This rule aims to enforce the use of `toBeCalledTimes(1)` or `toHaveBeenCalledTimes(1)` over `toBeCalledOnce()` or `toHaveBeenCalledOnce()`.
 
 Examples of **incorrect** code for this rule:
 
@@ -16,8 +16,8 @@ Examples of **incorrect** code for this rule:
 test('foo', () => {
   const mock = vi.fn()
   mock('foo')
-  expect(mock).toBeCalledTimes(1)
-  expect(mock).toHaveBeenCalledTimes(1)
+  expect(mock).toBeCalledOnce()
+  expect(mock).toHaveBeenCalledOnce()
 })
 ```
 
@@ -27,7 +27,7 @@ Examples of **correct** code for this rule:
 test('foo', () => {
   const mock = vi.fn()
   mock('foo')
-  expect(mock).toBeCalledOnce()
-  expect(mock).toHaveBeenCalledOnce()
+  expect(mock).toBeCalledTimes(1)
+  expect(mock).toHaveBeenCalledTimes(1)
 })
 ```

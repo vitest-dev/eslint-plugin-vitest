@@ -69,6 +69,7 @@ import validExpectInPromise, { RULE_NAME as validExpectInPromiseName } from './r
 import preferStrictBooleanMatchers, { RULE_NAME as preferStrictBooleanMatchersName } from './rules/prefer-strict-boolean-matchers'
 import requireMockTypeParameters, { RULE_NAME as requireMockTypeParametersName } from './rules/require-mock-type-parameters'
 import preferCalledOnce, { RULE_NAME as preferCalledOnceName } from './rules/prefer-called-once'
+import preferCalledTimes, { RULE_NAME as preferCalledTimesName } from './rules/prefer-called-times'
 import warnTodo, { RULE_NAME as warnTodoName } from './rules/warn-todo'
 
 const createConfig = <R extends Linter.RulesRecord>(rules: R) =>
@@ -82,11 +83,11 @@ const createConfig = <R extends Linter.RulesRecord>(rules: R) =>
   }
 
 const createConfigLegacy = (rules: Record<string, string>) => ({
-  plugins: ['@vitest'],
+  plugins: ['vitest'],
   rules: Object.keys(rules).reduce((acc, ruleName) => {
     return {
       ...acc,
-      [`@vitest/${ruleName}`]: rules[ruleName],
+      [`vitest/${ruleName}`]: rules[ruleName],
     }
   }, {}),
 })
@@ -161,6 +162,7 @@ const allRules = {
   [noImportingVitestGlobalsName]: 'off',
   [preferImportingVitestGlobalsName]: 'warn',
   [preferCalledOnceName]: 'warn',
+  [preferCalledTimesName]: 'warn',
   [warnTodoName]: 'warn'
 } as const
 
@@ -175,12 +177,7 @@ const recommended = {
   [noImportNodeTestName]: 'error',
 } as const
 
-const plugin = {
-  meta: {
-    name: 'vitest',
-    version,
-  },
-  rules: {
+const rules = {
     [lowerCaseTitleName]: lowerCaseTitle,
     [maxNestedDescribeName]: maxNestedDescribe,
     [noIdenticalTitleName]: noIdenticalTitle,
@@ -251,8 +248,16 @@ const plugin = {
     [noImportingVitestGlobalsName]: noImportingVitestGlobals,
     [preferImportingVitestGlobalsName]: preferImportingVitestGlobals,
     [preferCalledOnceName]: preferCalledOnce,
+    [preferCalledTimesName]: preferCalledTimes,
     [warnTodoName]: warnTodo
+}
+
+const plugin = {
+  meta: {
+    name: 'vitest',
+    version,
   },
+  rules,
   environments: {
     env: {
       globals: {
@@ -280,7 +285,7 @@ const plugin = {
     'legacy-recommended': createConfigLegacy(recommended),
     'legacy-all': createConfigLegacy(allRules),
     recommended: {
-      name: '@vitest/recommended',
+      name: 'vitest/recommended',
       plugins: {
         get vitest() {
           return plugin
@@ -289,7 +294,7 @@ const plugin = {
       rules: createConfig(recommended),
     },
     all: {
-      name: '@vitest/all',
+      name: 'vitest/all',
       plugins: {
         get vitest() {
           return plugin
@@ -298,7 +303,7 @@ const plugin = {
       rules: createConfig(allRules),
     },
     env: {
-      name: '@vitest/env',
+      name: 'vitest/env',
       languageOptions: {
         globals: {
           suite: 'writable',

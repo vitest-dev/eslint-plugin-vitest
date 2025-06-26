@@ -18,25 +18,25 @@ Examples of **incorrect** code for this rule:
 
 ```js
 test('test', () => {
-  let abc = 123;
-  expect(abc).toEqual(123);
-  expect(123).toEqual(abc);
-  abc = 456;
-  expect(abc).toEqual(456);
-});
+  let abc = 123
+  expect(abc).toEqual(123)
+  expect(123).toEqual(abc)
+  abc = 456
+  expect(abc).toEqual(456)
+})
 ```
 
 Examples of **correct** code for this rule:
 
 ```js
 test('test', () => {
-  let abc = 123;
+  let abc = 123
 
-  expect(abc).toEqual(123);
-  expect(123).toEqual(abc);
+  expect(abc).toEqual(123)
+  expect(123).toEqual(abc)
 
-  abc = 456;
+  abc = 456
 
-  expect(abc).toEqual(456);
-});
+  expect(abc).toEqual(456)
+})
 ```

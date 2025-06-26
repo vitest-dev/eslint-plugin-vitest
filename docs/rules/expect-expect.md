@@ -1,11 +1,8 @@
 # Enforce having expectation in test body (`vitest/expect-expect`)
 
-💼 This rule is enabled in the ✅ `recommended` config.
-
-⚠️ This rule _warns_ in the 🌐 `all` config.
+💼⚠️ This rule is enabled in the ✅ `recommended` config. This rule _warns_ in the 🌐 `all` config.
 
 <!-- end auto-generated rule header -->
-
 
 ## Rule Details
 
@@ -15,7 +12,7 @@ Examples of **incorrect** code for this rule:
 
 ```js
 test('myLogic', () => {
-	console.log('myLogic')
+  console.log('myLogic')
 })
 
 test('myLogic', () => {})
@@ -52,19 +49,16 @@ If you're using Vitest's [type-testing feature](https://vitest.dev/guide/testing
 
 An array of strings that are the names of the functions that are used for assertions. Function names can also be wildcard patterns like `expect*`,`function.**.expect` or `expect.anything`.
 
-
 The following is an example of correct code for this rule with the option `assertFunctionNames`:
 
 ```js
 import CheckForMe from 'check-for-me'
 test('myLogic', () => {
- expect("myLogic").toBe("myOutput")
+  expect('myLogic').toBe('myOutput')
 })
 ```
 
-
 ### `additionalTestBlockFunctions`
-
 
 ```json
 {
@@ -85,8 +79,8 @@ The following is an example of correct code for this rule with the option `addit
 import CheckForMe from 'check-for-me'
 checkForMe('myLogic', () => {
   checkForMe('myLogic', () => {
-	const actual = myLogic()
-	expect(actual).toBe(true)
+    const actual = myLogic()
+    expect(actual).toBe(true)
   })
 })
 ```

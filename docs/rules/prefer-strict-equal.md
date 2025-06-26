@@ -9,9 +9,8 @@
 ```ts
 // bad
 
-expect(something).toEqual(somethingElse);
+expect(something).toEqual(somethingElse)
 
 // good
-expect(something).toStrictEqual(somethingElse);
-
+expect(something).toStrictEqual(somethingElse)
 ```

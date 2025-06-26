@@ -8,7 +8,7 @@
 // bad
 for (const item of items) {
   describe(item, () => {
-	expect(item).toBe('foo')
+    expect(item).toBe('foo')
   })
 }
 

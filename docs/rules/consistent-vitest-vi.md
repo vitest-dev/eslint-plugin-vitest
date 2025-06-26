@@ -11,39 +11,36 @@
 Examples of **incorrect** code for this rule:
 
 ```js
-vitest.mock('./src/calculator.ts', { spy: true });
+vitest.mock('./src/calculator.ts', { spy: true })
 
-vi.stubEnv('NODE_ENV', 'production');
+vi.stubEnv('NODE_ENV', 'production')
 ```
 
 Examples of **correct** code for this rule:
 
 ```js
-vi.mock('./src/calculator.ts', { spy: true });
+vi.mock('./src/calculator.ts', { spy: true })
 
-vi.stubEnv('NODE_ENV', 'production');
+vi.stubEnv('NODE_ENV', 'production')
 ```
 
 ```js
-vitest.mock('./src/calculator.ts', { spy: true });
+vitest.mock('./src/calculator.ts', { spy: true })
 
-vitest.stubEnv('NODE_ENV', 'production');
+vitest.stubEnv('NODE_ENV', 'production')
 ```
 
 ## Options
 
 ```json
 {
-   "type":"object",
-   "properties":{
-      "fn":{
-         "enum":[
-            "vi",
-            "vitest"
-         ]
-      }
-   },
-   "additionalProperties":false
+  "type": "object",
+  "properties": {
+    "fn": {
+      "enum": ["vi", "vitest"]
+    }
+  },
+  "additionalProperties": false
 }
 ```
 
