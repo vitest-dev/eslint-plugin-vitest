@@ -202,6 +202,7 @@ export default createEslintRule<Options[], MessageIds>({
 
         if (
           vitestFnCall?.head.type === 'testContext' &&
+          vitestFnCall.members[0] &&
           vitestFnCall.members[0].type === AST_NODE_TYPES.Identifier &&
           vitestFnCall.members[0].name === 'expect'
         ) {

@@ -70,6 +70,7 @@ import preferStrictBooleanMatchers, { RULE_NAME as preferStrictBooleanMatchersNa
 import requireMockTypeParameters, { RULE_NAME as requireMockTypeParametersName } from './rules/require-mock-type-parameters'
 import preferCalledOnce, { RULE_NAME as preferCalledOnceName } from './rules/prefer-called-once'
 import preferCalledTimes, { RULE_NAME as preferCalledTimesName } from './rules/prefer-called-times'
+import warnTodo, { RULE_NAME as warnTodoName } from './rules/warn-todo'
 
 const createConfig = <R extends Linter.RulesRecord>(rules: R) =>
   Object.keys(rules).reduce((acc, ruleName) => {
@@ -162,6 +163,7 @@ const allRules = {
   [preferImportingVitestGlobalsName]: 'warn',
   [preferCalledOnceName]: 'warn',
   [preferCalledTimesName]: 'warn',
+  [warnTodoName]: 'warn'
 } as const
 
 const recommended = {
@@ -247,6 +249,7 @@ const rules = {
     [preferImportingVitestGlobalsName]: preferImportingVitestGlobals,
     [preferCalledOnceName]: preferCalledOnce,
     [preferCalledTimesName]: preferCalledTimes,
+    [warnTodoName]: warnTodo
 }
 
 const plugin = {
