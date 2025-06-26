@@ -10,11 +10,11 @@ Examples of **incorrect** code for this rule:
 
 ```js
 describe('my tests', () => {
-	if (true) {
-		it('is awesome', () => {
-			doTheThing()
-		})
-	}
+  if (true) {
+    it('is awesome', () => {
+      doTheThing()
+    })
+  }
 })
 ```
 
@@ -22,8 +22,8 @@ Examples of **correct** code for this rule:
 
 ```js
 describe('my tests', () => {
-	it('is awesome', () => {
-		doTheThing()
-	})
+  it('is awesome', () => {
+    doTheThing()
+  })
 })
 ```

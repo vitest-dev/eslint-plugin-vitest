@@ -48,7 +48,6 @@
     "format:check": "npx prettier 'src/**/*.ts' --check",
     "format:fix": "npx prettier '**/*.{ts,js}' --write",
     "test": "vitest",
-    "generate": "tsx scripts/generate.ts",
     "update:eslint-docs": "pnpm build && eslint-doc-generator",
     "tsc": "tsc --noEmit"
   },
@@ -91,5 +90,10 @@
       "optional": true
     }
   },
-  "packageManager": "pnpm@9.15.5"
+  "packageManager": "pnpm@9.15.5",
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "endOfLine": "auto"
+  }
 }

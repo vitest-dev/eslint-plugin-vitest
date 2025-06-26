@@ -6,7 +6,7 @@
 
 <!-- end auto-generated rule header -->
 
-### Correct 
+### Correct
 
 ```ts
 import { test } from 'vitest'
@@ -16,7 +16,7 @@ test('foo', () => {
 })
 ```
 
-### Incorrect 
+### Incorrect
 
 ```ts
 import { test } from 'vitest'
@@ -25,4 +25,3 @@ test('foo', () => {
   expect(1).toEqual(1)
 })
 ```
-	

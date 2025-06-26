@@ -13,11 +13,9 @@ This rule aims to enforce the use of the built-in equality matchers.
 Examples of **incorrect** code for this rule:
 
 ```ts
- // bad 
-  expect(1 == 1).toBe(1)
-  
+// bad
+expect(1 == 1).toBe(1)
 
- // bad
-  expect(1).toEqual(1)
-
+// bad
+expect(1).toEqual(1)
 ```

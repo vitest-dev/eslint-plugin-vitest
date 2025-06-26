@@ -8,19 +8,17 @@
 
 This rule disallows the use of certain matchers.
 
-
 ### Forexample
-
 
 ### Options
 
 ```json
 {
   "vitest/no-restricted-matchers": [
-	"error",
-	{
-	  "not": null,
-	}
+    "error",
+    {
+      "not": null
+    }
   ]
 }
 ```

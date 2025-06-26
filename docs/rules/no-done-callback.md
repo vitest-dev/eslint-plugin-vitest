@@ -25,13 +25,13 @@ test('foo', (done) => {
 
 test('foo', (done) => {
   setTimeout(() => {
-	done()
+    done()
   }, 1000)
 })
 
 test('foo', (done) => {
   setTimeout(() => {
-	done()
+    done()
   }, 1000)
 })
 ```
@@ -48,28 +48,32 @@ test('foo', async () => {
 })
 
 test('foo', async () => {
-  await new Promise((resolve) => setTimeout(() => {
-	resolve()
-  }, 1000))
+  await new Promise((resolve) =>
+    setTimeout(() => {
+      resolve()
+    }, 1000),
+  )
 })
 
 test('foo', async () => {
-  await new Promise((resolve) => setTimeout(() => {
-	resolve()
-  }, 1000))
+  await new Promise((resolve) =>
+    setTimeout(() => {
+      resolve()
+    }, 1000),
+  )
 })
 
 test.concurrent('foo', ({ expect }) => {
-  expect(1).toMatchSnapshot();
-});
+  expect(1).toMatchSnapshot()
+})
 
 test.concurrent('foo', (context) => {
-  context.expect(1).toBe(1);
-});
+  context.expect(1).toBe(1)
+})
 
 describe.concurrent('foo', () => {
   test('foo', ({ expect }) => {
-    expect(1).toBe(1);
-  });
-});
+    expect(1).toBe(1)
+  })
+})
 ```

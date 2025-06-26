@@ -2,6 +2,8 @@
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
+🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
+
 <!-- end auto-generated rule header -->
 
 When using `vi.fn()` to mock functions, by default, the mocked function has the type of `(...args: any[]) => any`. To add more specific types to the mocked function, a type parameter needs to be added to the call, e.g. `vi.fn<(arg1: string, arg2: boolean) => number>()`.
@@ -34,9 +36,12 @@ test('foo', () => {
 
 ```json
 {
-  "vitest/require-hook": ["error", {
-	"checkImportFunctions": false
-  }]
+  "vitest/require-hook": [
+    "error",
+    {
+      "checkImportFunctions": false
+    }
+  ]
 }
 ```
 

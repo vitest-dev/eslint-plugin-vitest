@@ -12,11 +12,11 @@ Examples of **incorrect** code for this rule:
 
 ```js
 test('it works', () => {
-	// ...
+  // ...
 })
 
 it('it works', () => {
-	// ...
+  // ...
 })
 ```
 
@@ -24,13 +24,13 @@ Examples of **correct** code for this rule:
 
 ```js
 test('it works', () => {
-	// ...
+  // ...
 })
 ```
 
 ```js
 test('it works', () => {
-	// ...
+  // ...
 })
 ```
 
@@ -38,22 +38,16 @@ test('it works', () => {
 
 ```json
 {
-   "type":"object",
-   "properties":{
-      "fn":{
-         "enum":[
-            "it",
-            "test"
-         ]
-      },
-      "withinDescribe":{
-         "enum":[
-            "it",
-            "test"
-         ]
-      }
-   },
-   "additionalProperties":false
+  "type": "object",
+  "properties": {
+    "fn": {
+      "enum": ["it", "test"]
+    },
+    "withinDescribe": {
+      "enum": ["it", "test"]
+    }
+  },
+  "additionalProperties": false
 }
 ```
 
@@ -68,23 +62,25 @@ Decides whether to prefer `test` or `it` when used within a `describe` block.
 ```js
 /*eslint vitest/consistent-test-it: ["error", {"fn": "test"}]*/
 
-test('it works', () => { // <-- Valid
-	// ...
+test('it works', () => {
+  // <-- Valid
+  // ...
 })
 
-test.only('it works', () => { // <-- Valid
-	// ...
+test.only('it works', () => {
+  // <-- Valid
+  // ...
 })
 
-
-it('it works', () => { // <-- Invalid
-	// ...
+it('it works', () => {
+  // <-- Invalid
+  // ...
 })
 
-it.only('it works', () => { // <-- Invalid
-	// ...
+it.only('it works', () => {
+  // <-- Invalid
+  // ...
 })
 ```
 
 The default configuration is top level `test` and all tests nested with `describe` to use `it`.
-

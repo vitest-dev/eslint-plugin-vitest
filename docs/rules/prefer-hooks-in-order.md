@@ -4,27 +4,27 @@
 
 <!-- end auto-generated rule header -->
 
-```js 
-  // consistent order of hooks
-  ['beforeAll', 'beforeEach', 'afterEach', 'afterAll']
+```js
+// consistent order of hooks
+;['beforeAll', 'beforeEach', 'afterEach', 'afterAll']
 ```
 
 ```js
-  // bad
-   afterAll(() => {
-		removeMyDatabase();
-	});
-	beforeAll(() => {
-		createMyDatabase();
-	});
+// bad
+afterAll(() => {
+  removeMyDatabase()
+})
+beforeAll(() => {
+  createMyDatabase()
+})
 ```
 
 ```js
-  // good
-   beforeAll(() => {
-		createMyDatabase();
-	});
-	afterAll(() => {
-		removeMyDatabase();
-	});
+// good
+beforeAll(() => {
+  createMyDatabase()
+})
+afterAll(() => {
+  removeMyDatabase()
+})
 ```
