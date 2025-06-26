@@ -83,11 +83,11 @@ const createConfig = <R extends Linter.RulesRecord>(rules: R) =>
   }
 
 const createConfigLegacy = (rules: Record<string, string>) => ({
-  plugins: ['vitest'],
+  plugins: ['@vitest'],
   rules: Object.keys(rules).reduce((acc, ruleName) => {
     return {
       ...acc,
-      [`vitest/${ruleName}`]: rules[ruleName],
+      [`@vitest/${ruleName}`]: rules[ruleName],
     }
   }, {}),
 })
