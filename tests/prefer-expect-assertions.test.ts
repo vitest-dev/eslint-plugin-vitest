@@ -16,6 +16,11 @@ ruleTester.run(RULE_NAME, rule, {
     await expect(Promise.resolve(null)).resolves.toBeNull();
   });
     `,
+    `it("it1", () => {
+    expect.assertions(0);
+    const foo = { bar({ baz }) { baz(); } };
+  });
+    `,
     {
       code: `
    const expectNumbersToBeGreaterThan = (numbers, value) => {
@@ -472,6 +477,33 @@ it('my test description', (context) => {context.expect.assertions();
     expect(number).toBeGreaterThan(5);
      }
    });
+    `,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: `it("it1", () => {
+    const foo = { bar({ baz }) { baz(); } };
+  });
+    `,
+      errors: [
+        {
+          messageId: 'haveExpectAssertions',
+          suggestions: [
+            {
+              messageId: 'suggestAddingHasAssertions',
+              output: `it("it1", () => {expect.hasAssertions();
+    const foo = { bar({ baz }) { baz(); } };
+  });
+    `,
+            },
+            {
+              messageId: 'suggestAddingAssertions',
+              output: `it("it1", () => {expect.assertions();
+    const foo = { bar({ baz }) { baz(); } };
+  });
     `,
             },
           ],
