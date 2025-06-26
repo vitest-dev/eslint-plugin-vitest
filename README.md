@@ -225,13 +225,14 @@ export default [
 | [valid-expect](docs/rules/valid-expect.md)                                                                               | enforce valid `expect()` usage                                                          | ✅  | 🌐  |     | 🔧  |     |     |     |
 | [valid-expect-in-promise](docs/rules/valid-expect-in-promise.md)                                                         | require promises that have expectations in their chain to be valid                      |     | 🌐  |     |     |     |     |     |
 | [valid-title](docs/rules/valid-title.md)                                                                                 | enforce valid titles                                                                    | ✅  | 🌐  |     | 🔧  |     |     |     |
+| [warn-todo](docs/rules/warn-todo.md)                                                                                     | disallow `.todo` usage                                                                  |     | 🌐  |     |     |     |     |     |
 
 <!-- end auto-generated rules list -->
 
 #### Credits
 
-- [eslint-plugin-jest](https://github.com/jest-community/eslint-plugin-jest)
-  Most of the rules in this plugin are essentially ports of Jest plugin rules with minor modifications
+- [eslint-plugin-jest](https://github.com/jest-community/eslint-plugin-jest):
+  most of the rules in this plugin are essentially ports of Jest plugin rules with minor modifications
 
 ### Licence
 

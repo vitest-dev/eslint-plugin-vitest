@@ -1,4 +1,4 @@
-# Warns `.todo` usages (`vitest/warn-test`)
+# Disallow `.todo` usage (`vitest/warn-todo`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
