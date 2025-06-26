@@ -1,7 +1,5 @@
 # Disallow `.todo` usage (`vitest/warn-todo`)
 
-⚠️ This rule _warns_ in the 🌐 `all` config.
-
 <!-- end auto-generated rule header -->
 
 ## Rule Details
