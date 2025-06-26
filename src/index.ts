@@ -163,7 +163,7 @@ const allRules = {
   [preferImportingVitestGlobalsName]: 'warn',
   [preferCalledOnceName]: 'warn',
   [preferCalledTimesName]: 'warn',
-  [warnTodoName]: 'warn'
+  [warnTodoName]: 'off'
 } as const
 
 const recommended = {
