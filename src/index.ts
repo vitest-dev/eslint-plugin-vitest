@@ -161,7 +161,7 @@ const allRules = {
   [requireMockTypeParametersName]: 'warn',
   [noImportingVitestGlobalsName]: 'off',
   [preferImportingVitestGlobalsName]: 'warn',
-  [preferCalledOnceName]: 'warn',
+  [preferCalledOnceName]: 'off',
   [preferCalledTimesName]: 'warn',
 } as const
 
