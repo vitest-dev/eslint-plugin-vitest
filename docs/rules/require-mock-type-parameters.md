@@ -36,7 +36,7 @@ test('foo', () => {
 
 ```json
 {
-  "vitest/require-hook": [
+  "vitest/require-mock-type-parameters": [
     "error",
     {
       "checkImportFunctions": false
