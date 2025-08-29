@@ -52,6 +52,7 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
+    "@typescript-eslint/scope-manager": "^8.41.0",
     "@typescript-eslint/utils": "^8.24.1"
   },
   "devDependencies": {
