@@ -1,4 +1,5 @@
-import { AST_NODE_TYPES, ESLintUtils, TSESLint } from '@typescript-eslint/utils'
+import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils'
+import { DefinitionType } from '@typescript-eslint/scope-manager'
 import { createEslintRule } from '../utils'
 import { parsePluginSettings } from '../utils/parse-plugin-settings'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
@@ -42,7 +43,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           const identifierName = argument.object.name
           const scopedFunction = scope?.set.get(identifierName)?.defs[0]
           if (
-            scopedFunction?.type !== 'ImportBinding' ||
+            scopedFunction?.type !== DefinitionType.ImportBinding ||
             argument.property.name !== 'name'
           ) {
             return
@@ -76,7 +77,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         }
 
         const scopedFunction = scope?.set.get(describedTitle)?.defs[0]
-        if (scopedFunction?.type !== 'ImportBinding') {
+        if (scopedFunction?.type !== DefinitionType.ImportBinding) {
           return
         }
 
