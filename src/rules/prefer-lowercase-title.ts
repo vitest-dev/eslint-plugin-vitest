@@ -143,6 +143,7 @@ export default createEslintRule<
 
         const [firstArgument] = node.arguments
 
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
         const description = getStringValue(firstArgument)
 
@@ -172,6 +173,7 @@ export default createEslintRule<
             method: vitestFnCall.name,
           },
           fix: (fixer) => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
             const description = getStringValue(firstArgument)
 

@@ -26,6 +26,7 @@ export type Options = [Config]
 
 const baseRule = (() => {
   try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const TSESLintPlugin = require('@typescript-eslint/eslint-plugin')
 
     return TSESLintPlugin.rules['unbound-method'] as TSESLint.RuleModule<

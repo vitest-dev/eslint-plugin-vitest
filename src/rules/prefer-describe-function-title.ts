@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES, ESLintUtils, TSESLint } from '@typescript-eslint/utils'
+import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 import { parsePluginSettings } from '../utils/parse-plugin-settings'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
