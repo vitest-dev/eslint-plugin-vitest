@@ -1,4 +1,5 @@
 import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils'
+import { DefinitionType } from '@typescript-eslint/scope-manager'
 import { createEslintRule } from '../utils'
 import { parsePluginSettings } from '../utils/parse-plugin-settings'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
