@@ -77,6 +77,13 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
+        import { myFunction } from "./myFunction.js"
+        describe(otherFunction.name, () => {})
+      `,
+      filename: 'myFunction.test.ts',
+    },
+    {
+      code: `
         declare const myFunction: () => unknown
         describe("myFunction", () => {})
       `,
@@ -104,6 +111,25 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           column: 18,
+          line: 3,
+          messageId: 'preferFunction',
+        },
+      ],
+      filename: 'myFunction.test.ts',
+      output: `
+        import { myFunction } from "./myFunction"
+        describe(myFunction, () => {})
+      `,
+    },
+    {
+      code: `
+        import { myFunction } from "./myFunction"
+        describe(myFunction.name, () => {})
+      `,
+      errors: [
+        {
+          column: 18,
+          endColumn: 33,
           line: 3,
           messageId: 'preferFunction',
         },
