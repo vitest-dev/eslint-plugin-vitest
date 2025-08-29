@@ -32,7 +32,32 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           return
         }
 
+        const scope = getModuleScope(context, node)
         const [argument] = node.arguments
+        if (
+          argument.type === AST_NODE_TYPES.MemberExpression &&
+          argument.object.type === AST_NODE_TYPES.Identifier &&
+          argument.property.type === AST_NODE_TYPES.Identifier
+        ) {
+          const identifierName = argument.object.name
+          const scopedFunction = scope?.set.get(identifierName)?.defs[0]
+          if (
+            scopedFunction?.type !== 'ImportBinding' ||
+            argument.property.name !== 'name'
+          ) {
+            return
+          }
+
+          context.report({
+            node: argument,
+            messageId: 'preferFunction',
+            fix(fixer) {
+              return fixer.replaceText(argument, identifierName)
+            },
+          })
+          return
+        }
+
         if (
           argument.type !== AST_NODE_TYPES.Literal ||
           typeof argument.value !== 'string'
@@ -50,7 +75,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           return
         }
 
-        const scope = getModuleScope(context, node)
         const scopedFunction = scope?.set.get(describedTitle)?.defs[0]
         if (scopedFunction?.type !== 'ImportBinding') {
           return
