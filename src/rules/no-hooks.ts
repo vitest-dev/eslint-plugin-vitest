@@ -23,7 +23,8 @@ export default createEslintRule<
         properties: {
           allow: {
             type: 'array',
-            // @ts-ignore
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
             contains: ['beforeAll', 'beforeEach', 'afterAll', 'afterEach'],
           },
         },

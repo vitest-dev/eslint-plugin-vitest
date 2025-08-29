@@ -163,7 +163,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               MatcherAndMessageSchema,
               {
                 type: 'object',
-                // @ts-ignore
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error
                 propertyNames: {
                   type: 'string',
                   enum: ['describe', 'test', 'it'],

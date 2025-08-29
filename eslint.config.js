@@ -1,17 +1,37 @@
 import vitest from '@vitest/eslint-plugin'
 import eslintPlugin from 'eslint-plugin-eslint-plugin'
-import parser from '@typescript-eslint/parser'
 import eslintConfigPrettier from 'eslint-config-prettier/flat'
+import tseslint from 'typescript-eslint'
 
-/** @type {import("eslint").Linter.Config[]} */
-export default [
+export default tseslint.config(
   eslintPlugin.configs['flat/recommended'],
   vitest.configs.recommended,
+  tseslint.configs.recommended,
   eslintConfigPrettier,
   {
-    files: ['**/*.ts'],
     languageOptions: {
-      parser,
+      parserOptions: {
+        projectService: {
+          allowDefaultProject: [
+            'eslint.config.js',
+            '.eslint-doc-generatorrc.js',
+            'vitest.config.mts',
+            'unbuild.config.ts',
+            'eslint-remote-tester.config.ts',
+            'scripts/chain-permutations.ts',
+          ],
+        },
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'after-used',
+          argsIgnorePattern: '^_',
+        },
+      ],
     },
   },
   {
@@ -28,4 +48,12 @@ export default [
       },
     },
   },
-]
+  {
+    ignores: ['**/dist/**'],
+  },
+  {
+    linterOptions: {
+      reportUnusedDisableDirectives: 'error',
+    },
+  },
+)

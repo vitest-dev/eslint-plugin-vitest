@@ -1,4 +1,3 @@
-import * as path from 'node:path'
 import { createEslintRule } from '../utils'
 
 export const RULE_NAME = 'consistent-test-filename'
@@ -32,12 +31,14 @@ export default createEslintRule<
         additionalProperties: false,
         properties: {
           pattern: {
-            // @ts-ignore
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
             format: 'regex',
             default: defaultPattern.source,
           },
           allTestPattern: {
-            // @ts-ignore
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
             format: 'regex',
             default: defaultTestsPattern.source,
           },

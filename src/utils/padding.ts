@@ -263,6 +263,7 @@ const verifyNode = (
   //  ESLint during traversal. Our best bet is to ignore the property access
   //  here as it's the only place that it's checked.
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   if (!astUtils.isValidParent((node as any)?.parent.type)) return
 
   if (scopeInfo.prevNode) {

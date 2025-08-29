@@ -369,6 +369,7 @@ const resolvePossibleAliasedGlobal = (
   global: string,
   context: TSESLint.RuleContext<string, unknown[]>,
 ) => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   const globalAliases = context.settings.vitest?.globalAliases ?? {}
 
