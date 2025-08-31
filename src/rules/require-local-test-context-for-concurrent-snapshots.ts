@@ -39,7 +39,8 @@ export default createEslintRule({
           'toMatchFileSnapshot',
           'toThrowErrorMatchingSnapshot',
           'toThrowErrorMatchingInlineSnapshot',
-          // @ts-ignore
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
         ].includes(node.callee?.property.name)
 
         if (isNotASnapshotAssertion) return

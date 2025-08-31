@@ -4,11 +4,6 @@ import { ruleTester } from './ruleTester'
 const generateSnaShotLines = (lines: number) =>
   `\`\n${'line\n'.repeat(lines)}\``
 
-const generateExportsSnapshotString = (
-  lines: number,
-  title = 'a big component 1',
-) => `exports[\`${title}\`] = ${generateSnaShotLines(lines - 1)};`
-
 const generateExpectInlineSnapsCode = (
   lines: number,
   matcher: 'toMatchInlineSnapshot' | 'toThrowErrorMatchingInlineSnapshot',

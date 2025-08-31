@@ -27,8 +27,7 @@ const isFirstArgumentIdentifier = (
   name: string,
 ) => isIdentifier(getFirstMatcherArg(expectFnCall), name)
 
-// @ts-expect-error
-const isFloat = (v) => Math.floor(v) !== Math.ceil(v)
+const isFloat = (v: number) => Math.floor(v) !== Math.ceil(v)
 
 const shouldUseToBe = (expectFnCall: ParsedExpectVitestFnCall): boolean => {
   let firstArg = getFirstMatcherArg(expectFnCall)
