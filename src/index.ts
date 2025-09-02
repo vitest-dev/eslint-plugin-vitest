@@ -6,6 +6,7 @@ import noIdenticalTitle, { RULE_NAME as noIdenticalTitleName } from './rules/no-
 import noFocusedTests, { RULE_NAME as noFocusedTestsName } from './rules/no-focused-tests'
 import noConditionalTest, { RULE_NAME as noConditionalTests } from './rules/no-conditional-tests'
 import expectExpect, { RULE_NAME as expectedExpect } from './rules/expect-expect'
+import hoistedApisOnTop, { RULE_NAME as hoistedApisOnTopName } from './rules/hoisted-apis-on-top';
 import consistentTestIt, { RULE_NAME as useConsistentTestIt } from './rules/consistent-test-it'
 import consistentVitestVi, { RULE_NAME as useConsistentVitestVi } from './rules/consistent-vitest-vi'
 import preferToBe, { RULE_NAME as usePreferToBe } from './rules/prefer-to-be'
@@ -185,6 +186,7 @@ const rules = {
     [noFocusedTestsName]: noFocusedTests,
     [noConditionalTests]: noConditionalTest,
     [expectedExpect]: expectExpect,
+    [hoistedApisOnTopName]: hoistedApisOnTop,
     [useConsistentTestIt]: consistentTestIt,
     [useConsistentVitestVi]: consistentVitestVi,
     [usePreferToBe]: preferToBe,
