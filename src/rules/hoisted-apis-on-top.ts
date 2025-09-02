@@ -1,4 +1,4 @@
-import { createEslintRule } from 'src/utils'
+import { createEslintRule } from '../utils'
 import { TSESLint, TSESTree } from '@typescript-eslint/utils'
 
 export const RULE_NAME = 'hoisted-apis-on-top'
