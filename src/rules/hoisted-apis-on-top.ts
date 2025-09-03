@@ -8,6 +8,8 @@ type MESSAGE_ID =
   | 'suggestMoveHoistedApiToTop'
   | 'suggestReplaceMockWithDoMock'
 
+const hoistedAPIs = ['mock', 'hoisted', 'unmock']
+
 export default createEslintRule<[], MESSAGE_ID>({
   name: RULE_NAME,
   meta: {
@@ -32,32 +34,36 @@ export default createEslintRule<[], MESSAGE_ID>({
     const nodesToReport: Array<TSESTree.CallExpression> = []
 
     return {
-      // for autofix
+      // for suggestion fixer
       ImportDeclaration(node) {
-        if (node.parent.type !== 'Program') throw new Error('should not happen')
-
+        if (node.parent.type !== 'Program') {
+          // This shouldn't happen in a valid AST anyway, but we never want to
+          // suggest moving an API to a non-top-level position, so ignore.
+          return
+        }
         lastImportEnd = node.range[1]
       },
 
       CallExpression(node) {
         if (
-          !(
-            node.parent.type === 'ExpressionStatement' &&
-            node.parent.parent.type === 'Program'
-          )
+          node.parent.type === 'ExpressionStatement' &&
+          node.parent.parent.type === 'Program'
         ) {
-          if (node.callee.type === 'MemberExpression') {
-            const { object, property } = node.callee
+          // The call is already in a top-level position, where it should be.
+          return
+        }
 
-            if (
-              object.type === 'Identifier' &&
-              object.name === 'vi' &&
-              property.type === 'Identifier'
-            ) {
-              const hoistedAPIs = ['mock', 'hoisted', 'unmock']
-              if (hoistedAPIs.includes(property.name)) {
-                nodesToReport.push(node)
-              }
+        // look for calls that look like vi.mock() and friends.
+        if (node.callee.type === 'MemberExpression') {
+          const { object, property } = node.callee
+
+          if (
+            object.type === 'Identifier' &&
+            object.name === 'vi' &&
+            property.type === 'Identifier'
+          ) {
+            if (hoistedAPIs.includes(property.name)) {
+              nodesToReport.push(node)
             }
           }
         }
