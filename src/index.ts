@@ -166,6 +166,7 @@ const allRules = {
   [preferCalledOnceName]: 'off',
   [preferCalledTimesName]: 'warn',
   [preferExpectTypeOfName]: 'warn',
+  [hoistedApisOnTopName]: 'warn',
 } as const
 
 const recommended = {
