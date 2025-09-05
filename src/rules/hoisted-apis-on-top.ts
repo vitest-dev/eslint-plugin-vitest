@@ -62,24 +62,24 @@ export default createEslintRule<[], MESSAGE_ID>({
         if (apiName === 'hoisted') {
           // For hoisted: allow top-level ExpressionStatement or VariableDeclaration,
           // and allow wrapping by await and variable declarator.
-          let parent = node.parent
-          if (parent.type === AST_NODE_TYPES.AwaitExpression)
+          let parent: TSESTree.Node | undefined = node.parent
+          if (parent?.type === AST_NODE_TYPES.AwaitExpression)
             parent = parent.parent
-          if (parent.type === AST_NODE_TYPES.VariableDeclarator)
+          if (parent?.type === AST_NODE_TYPES.VariableDeclarator)
             parent = parent.parent
 
           if (
-            (parent.type === AST_NODE_TYPES.ExpressionStatement ||
-              parent.type === AST_NODE_TYPES.VariableDeclaration) &&
-            parent.parent.type === AST_NODE_TYPES.Program
+            (parent?.type === AST_NODE_TYPES.ExpressionStatement ||
+              parent?.type === AST_NODE_TYPES.VariableDeclaration) &&
+            parent.parent?.type === AST_NODE_TYPES.Program
           ) {
             return
           }
         } else {
           // For mock/unmock: only a bare top-level ExpressionStatement is allowed.
           if (
-            node.parent.type === AST_NODE_TYPES.ExpressionStatement &&
-            node.parent.parent.type === AST_NODE_TYPES.Program
+            node.parent?.type === AST_NODE_TYPES.ExpressionStatement &&
+            node.parent.parent?.type === AST_NODE_TYPES.Program
           ) {
             return
           }
