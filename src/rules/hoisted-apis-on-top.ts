@@ -44,41 +44,48 @@ export default createEslintRule<[], MESSAGE_ID>({
       },
 
       CallExpression(node) {
-        // Walk up the tree to find the top-level statement this call belongs to.
-        let parent = node.parent
-        // A call can be wrapped in an AwaitExpression (e.g., await vi.hoisted(...))
-        if (parent.type === AST_NODE_TYPES.AwaitExpression) {
-          parent = parent.parent
-        }
-        // A call can be the initializer of a VariableDeclarator (e.g., const x = vi.hoisted(...))
-        if (parent.type === AST_NODE_TYPES.VariableDeclarator) {
-          parent = parent.parent
-        }
-        // Now, `parent` should be the statement node. Let's check if it's a valid
-        // top-level statement.
+        // Only consider vi.<api> member calls
+        if (node.callee.type !== AST_NODE_TYPES.MemberExpression) return
+
+        const { object, property } = node.callee
         if (
-          (parent.type === AST_NODE_TYPES.ExpressionStatement ||
-            parent.type === AST_NODE_TYPES.VariableDeclaration) &&
-          parent.parent.type === AST_NODE_TYPES.Program
+          object.type !== AST_NODE_TYPES.Identifier ||
+          object.name !== 'vi' ||
+          property.type !== AST_NODE_TYPES.Identifier
         ) {
-          // The call is in a valid top-level position.
           return
         }
-        // If we're still here, it's not a valid top-level call.
-        // Now we can check if it's one of the hoisted APIs.
-        if (node.callee.type === AST_NODE_TYPES.MemberExpression) {
-          const { object, property } = node.callee
+
+        const apiName = property.name
+        if (!hoistedAPIs.includes(apiName)) return
+        // Determine whether this usage is in an allowed top-level position.
+        if (apiName === 'hoisted') {
+          // For hoisted: allow top-level ExpressionStatement or VariableDeclaration,
+          // and allow wrapping by await and variable declarator.
+          let parent = node.parent
+          if (parent && parent.type === AST_NODE_TYPES.AwaitExpression)
+            parent = parent.parent
+          if (parent && parent.type === AST_NODE_TYPES.VariableDeclarator)
+            parent = parent.parent
 
           if (
-            object.type === AST_NODE_TYPES.Identifier &&
-            object.name === 'vi' &&
-            property.type === AST_NODE_TYPES.Identifier
+            (parent.type === AST_NODE_TYPES.ExpressionStatement ||
+              parent.type === AST_NODE_TYPES.VariableDeclaration) &&
+            parent.parent.type === AST_NODE_TYPES.Program
           ) {
-            if (hoistedAPIs.includes(property.name)) {
-              nodesToReport.push(node)
-            }
+            return
+          }
+        } else {
+          // For mock/unmock: only a bare top-level ExpressionStatement is allowed.
+          if (
+            node.parent.type === AST_NODE_TYPES.ExpressionStatement &&
+            node.parent.parent.type === AST_NODE_TYPES.Program
+          ) {
+            return
           }
         }
+
+        nodesToReport.push(node)
       },
 
       'Program:exit'() {
