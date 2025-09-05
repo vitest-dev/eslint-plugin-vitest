@@ -63,9 +63,9 @@ export default createEslintRule<[], MESSAGE_ID>({
           // For hoisted: allow top-level ExpressionStatement or VariableDeclaration,
           // and allow wrapping by await and variable declarator.
           let parent = node.parent
-          if (parent && parent.type === AST_NODE_TYPES.AwaitExpression)
+          if (parent.type === AST_NODE_TYPES.AwaitExpression)
             parent = parent.parent
-          if (parent && parent.type === AST_NODE_TYPES.VariableDeclarator)
+          if (parent.type === AST_NODE_TYPES.VariableDeclarator)
             parent = parent.parent
 
           if (
