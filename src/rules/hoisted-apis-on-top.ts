@@ -1,5 +1,5 @@
-import { createEslintRule } from '../utils'
 import { TSESLint, TSESTree } from '@typescript-eslint/utils'
+import { createEslintRule } from '../utils'
 
 export const RULE_NAME = 'hoisted-apis-on-top'
 
@@ -30,7 +30,6 @@ export default createEslintRule<[], MESSAGE_ID>({
   defaultOptions: [],
   create(context) {
     let lastImportEnd: null | number = null
-
     const nodesToReport: Array<TSESTree.CallExpression> = []
 
     return {
@@ -45,15 +44,28 @@ export default createEslintRule<[], MESSAGE_ID>({
       },
 
       CallExpression(node) {
+        // Walk up the tree to find the top-level statement this call belongs to.
+        let parent = node.parent
+        // A call can be wrapped in an AwaitExpression (e.g., await vi.hoisted(...))
+        if (parent.type === 'AwaitExpression') {
+          parent = parent.parent
+        }
+        // A call can be the initializer of a VariableDeclarator (e.g., const x = vi.hoisted(...))
+        if (parent.type === 'VariableDeclarator') {
+          parent = parent.parent
+        }
+        // Now, `parent` should be the statement node. Let's check if it's a valid
+        // top-level statement.
         if (
-          node.parent.type === 'ExpressionStatement' &&
-          node.parent.parent.type === 'Program'
+          (parent.type === 'ExpressionStatement' ||
+            parent.type === 'VariableDeclaration') &&
+          parent.parent.type === 'Program'
         ) {
-          // The call is already in a top-level position, where it should be.
+          // The call is in a valid top-level position.
           return
         }
-
-        // look for calls that look like vi.mock() and friends.
+        // If we're still here, it's not a valid top-level call.
+        // Now we can check if it's one of the hoisted APIs.
         if (node.callee.type === 'MemberExpression') {
           const { object, property } = node.callee
 

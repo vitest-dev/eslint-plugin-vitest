@@ -12,6 +12,7 @@ import foo from 'bar';
 import foo from 'bar';
 vi.unmock(baz);
     `,
+    `const foo = await vi.hoisted(async () => {});`,
   ],
   invalid: [
     {
