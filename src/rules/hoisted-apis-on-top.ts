@@ -1,4 +1,4 @@
-import { TSESLint, TSESTree } from '@typescript-eslint/utils'
+import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 
 export const RULE_NAME = 'hoisted-apis-on-top'
@@ -35,7 +35,7 @@ export default createEslintRule<[], MESSAGE_ID>({
     return {
       // for suggestion fixer
       ImportDeclaration(node) {
-        if (node.parent.type !== 'Program') {
+        if (node.parent.type !== AST_NODE_TYPES.Program) {
           // This shouldn't happen in a valid AST anyway, but we never want to
           // suggest moving an API to a non-top-level position, so ignore.
           return
@@ -47,32 +47,32 @@ export default createEslintRule<[], MESSAGE_ID>({
         // Walk up the tree to find the top-level statement this call belongs to.
         let parent = node.parent
         // A call can be wrapped in an AwaitExpression (e.g., await vi.hoisted(...))
-        if (parent.type === 'AwaitExpression') {
+        if (parent.type === AST_NODE_TYPES.AwaitExpression) {
           parent = parent.parent
         }
         // A call can be the initializer of a VariableDeclarator (e.g., const x = vi.hoisted(...))
-        if (parent.type === 'VariableDeclarator') {
+        if (parent.type === AST_NODE_TYPES.VariableDeclarator) {
           parent = parent.parent
         }
         // Now, `parent` should be the statement node. Let's check if it's a valid
         // top-level statement.
         if (
-          (parent.type === 'ExpressionStatement' ||
-            parent.type === 'VariableDeclaration') &&
-          parent.parent.type === 'Program'
+          (parent.type === AST_NODE_TYPES.ExpressionStatement ||
+            parent.type === AST_NODE_TYPES.VariableDeclaration) &&
+          parent.parent.type === AST_NODE_TYPES.Program
         ) {
           // The call is in a valid top-level position.
           return
         }
         // If we're still here, it's not a valid top-level call.
         // Now we can check if it's one of the hoisted APIs.
-        if (node.callee.type === 'MemberExpression') {
+        if (node.callee.type === AST_NODE_TYPES.MemberExpression) {
           const { object, property } = node.callee
 
           if (
-            object.type === 'Identifier' &&
+            object.type === AST_NODE_TYPES.Identifier &&
             object.name === 'vi' &&
-            property.type === 'Identifier'
+            property.type === AST_NODE_TYPES.Identifier
           ) {
             if (hoistedAPIs.includes(property.name)) {
               nodesToReport.push(node)
@@ -89,7 +89,7 @@ export default createEslintRule<[], MESSAGE_ID>({
           suggestions.push({
             messageId: 'suggestMoveHoistedApiToTop',
             *fix(fixer) {
-              if (node.parent.type === 'ExpressionStatement') {
+              if (node.parent.type === AST_NODE_TYPES.ExpressionStatement) {
                 yield fixer.remove(node)
               } else {
                 yield fixer.replaceText(node, 'undefined')
