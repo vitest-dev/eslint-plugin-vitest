@@ -1,5 +1,5 @@
+import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
-import { TSESLint, TSESTree } from '@typescript-eslint/utils'
 
 export const RULE_NAME = 'hoisted-apis-on-top'
 
@@ -30,13 +30,12 @@ export default createEslintRule<[], MESSAGE_ID>({
   defaultOptions: [],
   create(context) {
     let lastImportEnd: null | number = null
-
     const nodesToReport: Array<TSESTree.CallExpression> = []
 
     return {
       // for suggestion fixer
       ImportDeclaration(node) {
-        if (node.parent.type !== 'Program') {
+        if (node.parent.type !== AST_NODE_TYPES.Program) {
           // This shouldn't happen in a valid AST anyway, but we never want to
           // suggest moving an API to a non-top-level position, so ignore.
           return
@@ -45,28 +44,48 @@ export default createEslintRule<[], MESSAGE_ID>({
       },
 
       CallExpression(node) {
+        // Only consider vi.<api> member calls
+        if (node.callee.type !== AST_NODE_TYPES.MemberExpression) return
+
+        const { object, property } = node.callee
         if (
-          node.parent.type === 'ExpressionStatement' &&
-          node.parent.parent.type === 'Program'
+          object.type !== AST_NODE_TYPES.Identifier ||
+          object.name !== 'vi' ||
+          property.type !== AST_NODE_TYPES.Identifier
         ) {
-          // The call is already in a top-level position, where it should be.
           return
         }
 
-        // look for calls that look like vi.mock() and friends.
-        if (node.callee.type === 'MemberExpression') {
-          const { object, property } = node.callee
+        const apiName = property.name
+        if (!hoistedAPIs.includes(apiName)) return
+        // Determine whether this usage is in an allowed top-level position.
+        if (apiName === 'hoisted') {
+          // For hoisted: allow top-level ExpressionStatement or VariableDeclaration,
+          // and allow wrapping by await and variable declarator.
+          let parent: TSESTree.Node | undefined = node.parent
+          if (parent?.type === AST_NODE_TYPES.AwaitExpression)
+            parent = parent.parent
+          if (parent?.type === AST_NODE_TYPES.VariableDeclarator)
+            parent = parent.parent
 
           if (
-            object.type === 'Identifier' &&
-            object.name === 'vi' &&
-            property.type === 'Identifier'
+            (parent?.type === AST_NODE_TYPES.ExpressionStatement ||
+              parent?.type === AST_NODE_TYPES.VariableDeclaration) &&
+            parent.parent?.type === AST_NODE_TYPES.Program
           ) {
-            if (hoistedAPIs.includes(property.name)) {
-              nodesToReport.push(node)
-            }
+            return
+          }
+        } else {
+          // For mock/unmock: only a bare top-level ExpressionStatement is allowed.
+          if (
+            node.parent?.type === AST_NODE_TYPES.ExpressionStatement &&
+            node.parent.parent?.type === AST_NODE_TYPES.Program
+          ) {
+            return
           }
         }
+
+        nodesToReport.push(node)
       },
 
       'Program:exit'() {
@@ -77,7 +96,7 @@ export default createEslintRule<[], MESSAGE_ID>({
           suggestions.push({
             messageId: 'suggestMoveHoistedApiToTop',
             *fix(fixer) {
-              if (node.parent.type === 'ExpressionStatement') {
+              if (node.parent.type === AST_NODE_TYPES.ExpressionStatement) {
                 yield fixer.remove(node)
               } else {
                 yield fixer.replaceText(node, 'undefined')
