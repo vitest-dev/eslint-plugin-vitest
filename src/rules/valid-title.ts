@@ -244,20 +244,15 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         const [argument] = node.arguments
 
-        if (settings.typecheck) {
+        const getArgumentType = () => {
+          if (!settings.typecheck) return null
+
           const services = ESLintUtils.getParserServices(context)
-
-          const type = services.getTypeAtLocation(argument)
-
-          if (isClassOrFunctionType(type)) return
-
-          if (isStringLikeType(type)) {
-            if (isStringNode(argument) && !getStringValue(argument)) {
-              reportEmptyTitle(node)
-            }
-            return
-          }
+          return services.getTypeAtLocation(argument)
         }
+
+        const type = getArgumentType()
+        if (type && isClassOrFunctionType(type)) return
 
         if (
           !argument ||
@@ -267,8 +262,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         if (!isStringNode(argument)) {
           if (
-            argument.type === AST_NODE_TYPES.BinaryExpression &&
-            doesBinaryExpressionContainStringNode(argument)
+            (argument.type === AST_NODE_TYPES.BinaryExpression &&
+              doesBinaryExpressionContainStringNode(argument)) ||
+            (type && isStringLikeType(type))
           )
             return
 
