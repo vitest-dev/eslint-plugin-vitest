@@ -121,6 +121,19 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      code: 'test("the correct way to properly handle all things", () => {});',
+      options: [{ disallowedWords: ['correct', 'properly', 'all'] }],
+      errors: [
+        {
+          messageId: 'disallowedWord',
+          data: { word: 'correct' },
+          column: 6,
+          line: 1,
+        },
+      ],
+      settings: { vitest: { typecheck: true } },
+    },
+    {
       code: 'describe("the correct way to do things", function () {})',
       options: [{ disallowedWords: ['correct'] }],
       errors: [
@@ -656,6 +669,12 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'describe("foo foe fum ", function () {})',
       output: 'describe("foo foe fum", function () {})',
       errors: [{ messageId: 'accidentalSpace', column: 10, line: 1 }],
+    },
+    {
+      code: 'describe("foo foe fum ", function () {})',
+      output: 'describe("foo foe fum", function () {})',
+      errors: [{ messageId: 'accidentalSpace', column: 10, line: 1 }],
+      settings: { vitest: { typecheck: true } },
     },
     {
       code: 'it.skip(" foo", function () {})',
