@@ -1,4 +1,4 @@
-import type { Linter } from '@typescript-eslint/utils/ts-eslint'
+import type { Linter } from 'eslint'
 import { version } from '../package.json'
 import lowerCaseTitle, { RULE_NAME as lowerCaseTitleName } from './rules/prefer-lowercase-title'
 import maxNestedDescribe, { RULE_NAME as maxNestedDescribeName } from './rules/max-nested-describe'
@@ -255,7 +255,7 @@ const rules = {
     [preferCalledTimesName]: preferCalledTimes,
     [preferExpectTypeOfName]: preferExpectTypeOf,
     [warnTodoName]: warnTodo
-}
+} as const
 
 const plugin = {
   meta: {
@@ -330,8 +330,8 @@ const plugin = {
           onTestFinished: 'writable',
         },
       },
-    },
-  },
-}
+    } as const satisfies Linter.Config,
+  } as const,
+} as const
 
 export default plugin
