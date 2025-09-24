@@ -49,7 +49,7 @@ When `true`, only functions with the `async` keyword will be checked.
 when this option is enabled the following code will be considered incorrect:
 
 ```js
-test('assertions first', () => {
+test('assertions first', async () => {
    const data = await fetchData();
    expect(data).toBe('peanut butter');
 });
@@ -58,7 +58,7 @@ test('assertions first', () => {
 To fix this, you'll need to add `expect.assertions(1)` or `expect.hasAssertions()` as the first expression:
 
 ```js
-test('assertions first', () => {
+test('assertions first', async () => {
    expect.assertions(1);
    const data = await fetchData();
    expect(data).toBe('peanut butter');
