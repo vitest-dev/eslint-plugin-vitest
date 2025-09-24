@@ -29,5 +29,5 @@ test.concurrent('myLogic', ({ expect }) => {
 
 test.concurrent('myLogic', (context) => {
     context.expect(true).toMatchSnapshot();
-}
+})
 ```
