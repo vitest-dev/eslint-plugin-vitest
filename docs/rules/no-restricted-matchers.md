@@ -8,7 +8,7 @@
 
 This rule disallows the use of certain matchers.
 
-### Forexample
+### For Example
 
 ### Options
 
