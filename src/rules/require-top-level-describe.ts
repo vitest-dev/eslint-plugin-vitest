@@ -69,7 +69,13 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         }
 
         if (numberOfDescribeBlocks === 0) {
-          if (vitestFnCall.type === 'test') {
+          if (
+            vitestFnCall.type === 'test' &&
+            (vitestFnCall.members.length === 0 ||
+              !vitestFnCall.members.every(
+                (m) => 'name' in m && m.name === 'extend',
+              ))
+          ) {
             context.report({ node, messageId: 'unexpectedTestCase' })
             return
           }
