@@ -697,24 +697,28 @@ ruleTester.run(RULE_NAME, rule, {
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     {
-      code: 'const localTest = test.extend({})',
+      code: `
+        const it = test.extend({})
+        it('passes', () => {})
+      `,
       name: 'does not error when using test.extend',
     },
     {
       code: `import { it } from 'vitest'
 
-const test = it.extend({
-  fixture: [
-    async ({}, use) => {
-      setup()
-      await use()
-      teardown()
-    },
-    { auto: true }
-  ],
-})
+        const test = it.extend({
+          fixture: [
+            async ({}, use) => {
+              setup()
+              await use()
+              teardown()
+            },
+            { auto: true }
+          ],
+        })
 
-test('', () => {})`,
+        test('passes', () => {})
+      `,
       name: 'does not error when using it.extend',
     },
   ],
