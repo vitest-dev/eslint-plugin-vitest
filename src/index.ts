@@ -73,6 +73,7 @@ import preferCalledOnce, { RULE_NAME as preferCalledOnceName } from './rules/pre
 import preferCalledTimes, { RULE_NAME as preferCalledTimesName } from './rules/prefer-called-times'
 import preferExpectTypeOf, { RULE_NAME as preferExpectTypeOfName } from './rules/prefer-expect-type-of'
 import warnTodo, { RULE_NAME as warnTodoName } from './rules/warn-todo'
+import preferImportInMock, { RULE_NAME as preferImportInMockName } from './rules/prefer-import-in-mock'
 
 const createConfig = <R extends Linter.RulesRecord>(rules: R) =>
   Object.keys(rules).reduce((acc, ruleName) => {
@@ -167,6 +168,7 @@ const allRules = {
   [preferCalledTimesName]: 'warn',
   [preferExpectTypeOfName]: 'warn',
   [hoistedApisOnTopName]: 'warn',
+  [preferImportInMockName]: 'warn',
 } as const
 
 const recommended = {
@@ -224,7 +226,7 @@ const rules = {
     [preferHooksOnTopName]: preferHooksOnTop,
     [preferHooksInOrderName]: preferHooksInOrder,
     [requireLocalTestContextForConcurrentSnapshotsName]:
-      requireLocalTestContextForConcurrentSnapshots,
+    requireLocalTestContextForConcurrentSnapshots,
     [preferMockPromiseShortHandName]: preferMockPromiseShorthand,
     [preferViMockedName]: preferViMocked,
     [preferSnapshotHintName]: preferSnapshotHint,
@@ -254,7 +256,8 @@ const rules = {
     [preferCalledOnceName]: preferCalledOnce,
     [preferCalledTimesName]: preferCalledTimes,
     [preferExpectTypeOfName]: preferExpectTypeOf,
-    [warnTodoName]: warnTodo
+    [warnTodoName]: warnTodo,
+    [preferImportInMockName]: preferImportInMock
 } as const
 
 const plugin = {
