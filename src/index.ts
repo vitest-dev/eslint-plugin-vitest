@@ -74,6 +74,8 @@ import preferCalledTimes, { RULE_NAME as preferCalledTimesName } from './rules/p
 import preferExpectTypeOf, { RULE_NAME as preferExpectTypeOfName } from './rules/prefer-expect-type-of'
 import warnTodo, { RULE_NAME as warnTodoName } from './rules/warn-todo'
 import preferImportInMock, { RULE_NAME as preferImportInMockName } from './rules/prefer-import-in-mock'
+import preferCalledExactlyOnceWith, { RULE_NAME as preferCalledExactlyOnceWithName } from './rules/prefer-called-exactly-once-with'
+
 
 const createConfig = <R extends Linter.RulesRecord>(rules: R) =>
   Object.keys(rules).reduce((acc, ruleName) => {
@@ -169,6 +171,7 @@ const allRules = {
   [preferExpectTypeOfName]: 'warn',
   [hoistedApisOnTopName]: 'warn',
   [preferImportInMockName]: 'warn',
+  [preferCalledExactlyOnceWithName]: 'warn'
 } as const
 
 const recommended = {
@@ -180,6 +183,7 @@ const recommended = {
   [validDescribeCallbackName]: 'error',
   [requireLocalTestContextForConcurrentSnapshotsName]: 'error',
   [noImportNodeTestName]: 'error',
+  [preferCalledExactlyOnceWithName]: 'error',
 } as const
 
 const rules = {
@@ -257,7 +261,8 @@ const rules = {
     [preferCalledTimesName]: preferCalledTimes,
     [preferExpectTypeOfName]: preferExpectTypeOf,
     [warnTodoName]: warnTodo,
-    [preferImportInMockName]: preferImportInMock
+    [preferImportInMockName]: preferImportInMock,
+    [preferCalledExactlyOnceWithName]: preferCalledExactlyOnceWith
 } as const
 
 const plugin = {
