@@ -73,6 +73,7 @@ import preferCalledOnce, { RULE_NAME as preferCalledOnceName } from './rules/pre
 import preferCalledTimes, { RULE_NAME as preferCalledTimesName } from './rules/prefer-called-times'
 import preferExpectTypeOf, { RULE_NAME as preferExpectTypeOfName } from './rules/prefer-expect-type-of'
 import warnTodo, { RULE_NAME as warnTodoName } from './rules/warn-todo'
+import preferImportInMock, { RULE_NAME as preferImportInMockName } from './rules/prefer-import-in-mock'
 import preferCalledExactlyOnceWith, { RULE_NAME as preferCalledExactlyOnceWithName } from './rules/prefer-called-exactly-once-with'
 
 const createConfig = <R extends Linter.RulesRecord>(rules: R) =>
@@ -168,6 +169,7 @@ const allRules = {
   [preferCalledTimesName]: 'warn',
   [preferExpectTypeOfName]: 'warn',
   [hoistedApisOnTopName]: 'warn',
+  [preferImportInMockName]: 'warn',
   [preferCalledExactlyOnceWithName]: 'warn'
 } as const
 
@@ -227,7 +229,7 @@ const rules = {
     [preferHooksOnTopName]: preferHooksOnTop,
     [preferHooksInOrderName]: preferHooksInOrder,
     [requireLocalTestContextForConcurrentSnapshotsName]:
-      requireLocalTestContextForConcurrentSnapshots,
+    requireLocalTestContextForConcurrentSnapshots,
     [preferMockPromiseShortHandName]: preferMockPromiseShorthand,
     [preferViMockedName]: preferViMocked,
     [preferSnapshotHintName]: preferSnapshotHint,
@@ -258,6 +260,7 @@ const rules = {
     [preferCalledTimesName]: preferCalledTimes,
     [preferExpectTypeOfName]: preferExpectTypeOf,
     [warnTodoName]: warnTodo,
+    [preferImportInMockName]: preferImportInMock,
     [preferCalledExactlyOnceWithName]: preferCalledExactlyOnceWith
 } as const
 
