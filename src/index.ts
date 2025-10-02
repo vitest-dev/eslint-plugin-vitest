@@ -73,6 +73,7 @@ import preferCalledOnce, { RULE_NAME as preferCalledOnceName } from './rules/pre
 import preferCalledTimes, { RULE_NAME as preferCalledTimesName } from './rules/prefer-called-times'
 import preferExpectTypeOf, { RULE_NAME as preferExpectTypeOfName } from './rules/prefer-expect-type-of'
 import warnTodo, { RULE_NAME as warnTodoName } from './rules/warn-todo'
+import preferCalledExactlyOnceWith, { RULE_NAME as preferCalledExactlyOnceWithName } from './rules/prefer-called-exactly-once-with'
 
 const createConfig = <R extends Linter.RulesRecord>(rules: R) =>
   Object.keys(rules).reduce((acc, ruleName) => {
@@ -167,6 +168,7 @@ const allRules = {
   [preferCalledTimesName]: 'warn',
   [preferExpectTypeOfName]: 'warn',
   [hoistedApisOnTopName]: 'warn',
+  [preferCalledExactlyOnceWithName]: 'warn'
 } as const
 
 const recommended = {
@@ -178,6 +180,7 @@ const recommended = {
   [validDescribeCallbackName]: 'error',
   [requireLocalTestContextForConcurrentSnapshotsName]: 'error',
   [noImportNodeTestName]: 'error',
+  [preferCalledExactlyOnceWithName]: 'error',
 } as const
 
 const rules = {
@@ -254,7 +257,8 @@ const rules = {
     [preferCalledOnceName]: preferCalledOnce,
     [preferCalledTimesName]: preferCalledTimes,
     [preferExpectTypeOfName]: preferExpectTypeOf,
-    [warnTodoName]: warnTodo
+    [warnTodoName]: warnTodo,
+    [preferCalledExactlyOnceWithName]: preferCalledExactlyOnceWith
 } as const
 
 const plugin = {
