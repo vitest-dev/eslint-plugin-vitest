@@ -383,11 +383,11 @@ const resolvePossibleAliasedGlobal = (
 }
 
 const isAncestorTestCaseCall = ({ parent }: TSESTree.Node) => {
-  if (
+  return (
     parent?.type === AST_NODE_TYPES.CallExpression &&
-    parent.callee.type === AST_NODE_TYPES.Identifier
+    parent.callee.type === AST_NODE_TYPES.Identifier &&
+    TestCaseName.hasOwnProperty(parent.callee.name)
   )
-    return TestCaseName.hasOwnProperty(parent.callee.name)
 }
 
 export const resolveScope = (
@@ -418,6 +418,17 @@ export const resolveScope = (
         if (key?.name === identifier) return 'testContext'
       }
 
+      /** if detect test function is created with `.extend()` */
+      if (
+        def.node.type === AST_NODE_TYPES.VariableDeclarator &&
+        def.node.id.type === AST_NODE_TYPES.Identifier &&
+        TestCaseName.hasOwnProperty(def.node.id.name) &&
+        def.node.init?.type === AST_NODE_TYPES.CallExpression &&
+        def.node.init.callee.type === AST_NODE_TYPES.MemberExpression &&
+        isIdentifier(def.node.init.callee.property, 'extend')
+      ) {
+        return 'testContext'
+      }
       const namedParam = isFunction(def.node)
         ? def.node.params.find(
             (params) => params.type === AST_NODE_TYPES.Identifier,
