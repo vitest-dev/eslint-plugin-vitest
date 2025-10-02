@@ -76,7 +76,6 @@ import warnTodo, { RULE_NAME as warnTodoName } from './rules/warn-todo'
 import preferImportInMock, { RULE_NAME as preferImportInMockName } from './rules/prefer-import-in-mock'
 import preferCalledExactlyOnceWith, { RULE_NAME as preferCalledExactlyOnceWithName } from './rules/prefer-called-exactly-once-with'
 
-
 const createConfig = <R extends Linter.RulesRecord>(rules: R) =>
   Object.keys(rules).reduce((acc, ruleName) => {
     return {
