@@ -48,7 +48,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             messageId: 'preferCalledExactlyOnceWith',
             node: matcher,
             fix: (fixer) => [
-              fixer.replaceText(matcher, `${matcherName}ExactlyOnceWith`),
+              fixer.replaceText(matcher, `toHaveBeenCalledExactlyOnceWith`),
             ],
           })
         }
