@@ -17,7 +17,7 @@ ruleTester.run(RULE_NAME, rule, {
           line: 1,
         },
       ],
-      output: 'expect(x).toHaveBeenCalledOnceExactlyOnceWith();',
+      output: 'expect(x).toHaveBeenCalledExactlyOnceWith();',
     },
     {
       code: 'expect(x).toHaveBeenCalledWith();',
@@ -29,7 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
           line: 1,
         },
       ],
-      output: 'expect(x).toHaveBeenCalledWithExactlyOnceWith();',
+      output: 'expect(x).toHaveBeenCalledExactlyOnceWith();',
     },
   ],
 })
