@@ -13,7 +13,7 @@ test('foo', () => {
   const mock = jest.fn()
   mock('foo')
   expect(mock).toHaveBeenCalledOnce()
-  expect(mock).toHaveBeenCalledWith()
+  expect(mock).toHaveBeenCalledWith('foo')
 })
 ```
 
