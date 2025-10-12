@@ -3,7 +3,7 @@ import { createEslintRule, getAccessorValue } from '../utils'
 import {
   ParsedExpectVitestFnCall,
   parseVitestFnCall,
-} from 'src/utils/parse-vitest-fn-call'
+} from '../utils/parse-vitest-fn-call'
 import { SourceCode } from '@typescript-eslint/utils/ts-eslint'
 
 type MESSAGE_IDS = 'preferCalledExactlyOnceWith'
