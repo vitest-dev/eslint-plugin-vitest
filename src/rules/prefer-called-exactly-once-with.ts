@@ -15,7 +15,11 @@ const MATCHERS_TO_COMBINE = [
   'toHaveBeenCalledWith',
 ] as const
 
-const MOCK_CALL_RESET_METHODS = ['mockClear', 'mockReset', 'mockRestore'] as const
+const MOCK_CALL_RESET_METHODS = [
+  'mockClear',
+  'mockReset',
+  'mockRestore',
+] as const
 
 type CombinedMatcher = (typeof MATCHERS_TO_COMBINE)[number]
 
