@@ -15,6 +15,12 @@ const MATCHERS_TO_COMBINE = [
   'toHaveBeenCalledWith',
 ] as const
 
+const MOCK_CALL_RESET_METHODS = [
+  'mockClear',
+  'mockReset',
+  'mockRestore',
+] as const
+
 type CombinedMatcher = (typeof MATCHERS_TO_COMBINE)[number]
 
 type MatcherReference = {
@@ -26,13 +32,12 @@ const hasMatchersToCombine = (target: string): target is CombinedMatcher =>
   MATCHERS_TO_COMBINE.some((matcher) => matcher === target)
 
 const getExpectText = (
-  expression: TSESTree.CallExpression,
+  callee: TSESTree.Expression,
   source: Readonly<SourceCode>,
 ) => {
-  if (expression.callee.type !== AST_NODE_TYPES.MemberExpression) return null
+  if (callee.type !== AST_NODE_TYPES.MemberExpression) return null
 
-  const { range } = expression.callee.object
-  return source.text.slice(range[0], range[1])
+  return source.getText(callee.object)
 }
 
 const getArgumentsText = (
@@ -57,6 +62,73 @@ const getValidExpectCall = (
 const getMatcherName = (vitestFnCall: ReturnType<typeof parseVitestFnCall>) => {
   const validExpectCall = getValidExpectCall(vitestFnCall)
   return validExpectCall ? getAccessorValue(validExpectCall.matcher) : null
+}
+
+const getExpectArgText = ({ callee }: TSESTree.CallExpression) => {
+  if (callee.type !== AST_NODE_TYPES.MemberExpression) return null
+  const { object } = callee
+  if (object.type !== AST_NODE_TYPES.CallExpression) return null
+
+  const [firstArgument] = object.arguments
+  if (firstArgument.type !== AST_NODE_TYPES.Identifier) return null
+
+  return firstArgument.name
+}
+
+const getSharedExpectArgText = (
+  firstCallExpression: TSESTree.CallExpression,
+  secondCallExpression: TSESTree.CallExpression,
+) => {
+  const firstArgText = getExpectArgText(firstCallExpression)
+  if (!firstArgText) return null
+  const secondArgText = getExpectArgText(secondCallExpression)
+  if (firstArgText !== secondArgText) return null
+
+  return firstArgText
+}
+
+const isTargetMockResetCall = (
+  statement: TSESTree.Statement,
+  expectArgText: string,
+  minLine: number,
+  maxLine: number,
+) => {
+  if (statement.type !== AST_NODE_TYPES.ExpressionStatement) return false
+  if (statement.expression.type !== AST_NODE_TYPES.CallExpression) return false
+
+  const statementLine = statement.loc.start.line
+  if (statementLine <= minLine || statementLine >= maxLine) return false
+
+  const { callee } = statement.expression
+  if (callee.type !== AST_NODE_TYPES.MemberExpression) return false
+
+  const { object, property } = callee
+  if (object.type !== AST_NODE_TYPES.Identifier) return false
+  if (object.name !== expectArgText) return false
+  if (property.type !== AST_NODE_TYPES.Identifier) return false
+
+  return MOCK_CALL_RESET_METHODS.some((method) => method === property.name)
+}
+
+const hasMockResetBetween = (
+  body: TSESTree.Statement[],
+  firstCallExpression: TSESTree.CallExpression,
+  secondCallExpression: TSESTree.CallExpression,
+): boolean => {
+  const firstLine = firstCallExpression.loc.start.line
+  const secondLine = secondCallExpression.loc.start.line
+  const [minLine, maxLine] =
+    firstLine < secondLine ? [firstLine, secondLine] : [secondLine, firstLine]
+
+  const expectArgText = getSharedExpectArgText(
+    firstCallExpression,
+    secondCallExpression,
+  )
+  if (!expectArgText) return false
+
+  return body.some((statement) =>
+    isTargetMockResetCall(statement, expectArgText, minLine, maxLine),
+  )
 }
 
 const getMemberProperty = (expression: TSESTree.CallExpression) =>
@@ -102,7 +174,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         const matcherName = getMatcherName(
           parseVitestFnCall(callExpression, context),
         )
-        const expectedText = getExpectText(callExpression, sourceCode)
+        const expectedText = getExpectText(callExpression.callee, sourceCode)
         if (!matcherName || !hasMatchersToCombine(matcherName) || !expectedText)
           continue
 
@@ -140,6 +212,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         const { callExpression: firstCallExpression } = firstMatcherReference
         const { callExpression: secondCallExpression, matcherName } =
           secondMatcherReference
+
+        if (
+          hasMockResetBetween(body, firstCallExpression, secondCallExpression)
+        )
+          continue
 
         context.report({
           messageId: 'preferCalledExactlyOnceWith',
