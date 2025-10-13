@@ -23,6 +23,26 @@ ruleTester.run(RULE_NAME, rule, {
     expect(x).not.toHaveBeenCalledOnce();
     expect(x).not.toHaveBeenCalledWith('hoge');
     `,
+    `
+    expect(x).toHaveBeenCalledOnce();
+    x.mockRestore();
+    expect(x).toHaveBeenCalledWith('hoge');
+    `,
+    `
+    expect(x).toHaveBeenCalledOnce();
+    x.mockReset();
+    expect(x).toHaveBeenCalledWith('hoge');
+    `,
+    `
+    expect(x).toHaveBeenCalledOnce();
+    x.mockClear();
+    expect(x).toHaveBeenCalledWith('hoge');
+    `,
+    `
+    expect(x).toHaveBeenCalledOnce();
+    y.mockClear();
+    expect(y).toHaveBeenCalledWith('hoge');
+    `,
   ],
   invalid: [
     {
@@ -140,6 +160,25 @@ ruleTester.run(RULE_NAME, rule, {
       output: `
       expect(x).toHaveBeenCalledExactlyOnceWith('hoge', 123);
       const hoge = 'foo';
+      `,
+    },
+    {
+      code: `
+      expect(x).toHaveBeenCalledOnce();
+      y.mockClear();
+      expect(x).toHaveBeenCalledWith('hoge');
+      `,
+      errors: [
+        {
+          messageId: 'preferCalledExactlyOnceWith',
+          data: { matcherName: 'toHaveBeenCalledWith' },
+          column: 17,
+          line: 4,
+        },
+      ],
+      output: `
+      expect(x).toHaveBeenCalledExactlyOnceWith('hoge');
+      y.mockClear();
       `,
     },
   ],
