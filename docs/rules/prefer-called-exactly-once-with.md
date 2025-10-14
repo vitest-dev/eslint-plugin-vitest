@@ -10,7 +10,7 @@ Examples of **incorrect** code for this rule:
 
 ```js
 test('foo', () => {
-  const mock = jest.fn()
+  const mock = vi.fn()
   mock('foo')
   expect(mock).toHaveBeenCalledOnce()
   expect(mock).toHaveBeenCalledWith('foo')
@@ -19,7 +19,7 @@ test('foo', () => {
 
 ```js
 test('foo', () => {
-  const mock = jest.fn()
+  const mock = vi.fn()
   mock('foo')
   expect(mock).toHaveBeenCalledExactlyOnceWith('foo')
 })
