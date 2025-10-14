@@ -8,8 +8,12 @@ ruleTester.run(RULE_NAME, rule, {
     'expect(x).toHaveBeenCalledOnce();',
     `expect(x).toHaveBeenCalledWith('hoge');`,
     `
-      expect(x).toHaveBeenCalledOnce();
-      expect(y).toHaveBeenCalledWith('hoge');
+    expect(x).toHaveBeenCalledOnce();
+    expect(y).toHaveBeenCalledWith('hoge');
+    `,
+    `
+    expect(x).toHaveBeenCalledWith('hoge');
+    expect(x).toHaveBeenCalledWith('foo');
     `,
     `
     expect(x).toHaveBeenCalledOnce();
