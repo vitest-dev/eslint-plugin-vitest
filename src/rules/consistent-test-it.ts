@@ -79,12 +79,11 @@ export default createEslintRule<
       },
     ],
   },
-  defaultOptions: [{ fn: TestCaseName.test, withinDescribe: TestCaseName.it }],
-  create(context) {
-    const config = context.options[0] ?? {}
-    const testFnKeyWork = config.fn || TestCaseName.test
-    const testKeywordWithinDescribe =
-      config?.withinDescribe || config?.fn || TestCaseName?.it
+  defaultOptions: [{}],
+  create(context, options) {
+    const { fn, withinDescribe } = options[0]
+    const testFnKeyWork = fn || TestCaseName.test
+    const testKeywordWithinDescribe = withinDescribe || fn || TestCaseName.it
     const testFnDisabled =
       testFnKeyWork === testKeywordWithinDescribe ? testFnKeyWork : undefined
 
