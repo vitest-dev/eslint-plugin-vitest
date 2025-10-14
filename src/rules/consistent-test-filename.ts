@@ -8,8 +8,8 @@ const defaultTestsPattern = /.*\.(test|spec)\.[tj]sx?$/
 export default createEslintRule<
   [
     Partial<{
-      pattern: string
-      allTestPattern: string
+      pattern: RegExp | string
+      allTestPattern: RegExp | string
     }>,
   ],
   'consistentTestFilename'
@@ -20,7 +20,7 @@ export default createEslintRule<
     docs: {
       recommended: false,
       requiresTypeChecking: false,
-      description: 'require .spec test file pattern',
+      description: 'require test file pattern',
     },
     messages: {
       consistentTestFilename: 'Use test file name pattern {{ pattern }}',
@@ -31,14 +31,12 @@ export default createEslintRule<
         additionalProperties: false,
         properties: {
           pattern: {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
+            type: 'string',
             format: 'regex',
             default: defaultPattern.source,
           },
           allTestPattern: {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
+            type: 'string',
             format: 'regex',
             default: defaultTestsPattern.source,
           },
@@ -48,23 +46,21 @@ export default createEslintRule<
   },
   defaultOptions: [
     {
-      pattern: defaultTestsPattern.source,
-      allTestPattern: defaultTestsPattern.source,
+      pattern: defaultPattern,
+      allTestPattern: defaultTestsPattern,
     },
   ],
 
-  create: (context) => {
-    const config = context.options[0] ?? {}
-    const {
-      pattern: patternRaw = defaultPattern,
-      allTestPattern: allTestPatternRaw = defaultTestsPattern,
-    } = config
+  create: (context, options) => {
+    const { pattern: patternRaw, allTestPattern: allTestPatternRaw } =
+      options[0]
+
     const pattern =
-      typeof patternRaw === 'string' ? new RegExp(patternRaw) : patternRaw
+      typeof patternRaw === 'string' ? new RegExp(patternRaw) : patternRaw!
     const testPattern =
       typeof allTestPatternRaw === 'string'
         ? new RegExp(allTestPatternRaw)
-        : allTestPatternRaw
+        : allTestPatternRaw!
 
     const { filename } = context
 
