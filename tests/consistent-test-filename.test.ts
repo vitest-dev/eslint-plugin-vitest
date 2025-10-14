@@ -6,7 +6,11 @@ ruleTester.run(`file-name`, rule, {
     {
       code: 'export {}',
       filename: '1.test.ts',
-      options: [{ pattern: String.raw`.*\.test\.ts$` }],
+    },
+    {
+      code: 'export {}',
+      filename: '1.spec.ts',
+      options: [{ pattern: String.raw`.*\.spec\.ts$` }],
     },
   ],
   invalid: [
@@ -14,7 +18,6 @@ ruleTester.run(`file-name`, rule, {
       code: 'export {}',
       filename: '1.spec.ts',
       errors: [{ messageId: 'consistentTestFilename' }],
-      options: [{ pattern: String.raw`.*\.test\.ts$` }],
     },
     {
       code: 'export {}',
@@ -23,7 +26,7 @@ ruleTester.run(`file-name`, rule, {
       options: [
         {
           allTestPattern: String.raw`__tests__`,
-          pattern: String.raw`.*\.test\.ts$`,
+          pattern: String.raw`.*\.spec\.ts$`,
         },
       ],
     },

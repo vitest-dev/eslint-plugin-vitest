@@ -5,6 +5,11 @@ ruleTester.run(RULE_NAME, rule, {
   valid: ['it("test", () => {});', 'describe("test group", () => {});'],
   invalid: [
     {
+      options: [
+        {
+          fixable: false,
+        },
+      ],
       code: 'it.only("test", () => {});',
       errors: [
         {
@@ -108,11 +113,6 @@ ruleTester.run(RULE_NAME, rule, {
   valid: ['it("test", () => {});', 'describe("test group", () => {});'],
   invalid: [
     {
-      options: [
-        {
-          fixable: true,
-        },
-      ],
       code: 'it.only("test", () => {});',
       errors: [
         {
@@ -126,11 +126,6 @@ ruleTester.run(RULE_NAME, rule, {
       output: 'it("test", () => {});',
     },
     {
-      options: [
-        {
-          fixable: true,
-        },
-      ],
       code: 'describe.only("test", () => {});',
       errors: [
         {
@@ -144,11 +139,6 @@ ruleTester.run(RULE_NAME, rule, {
       output: 'describe("test", () => {});',
     },
     {
-      options: [
-        {
-          fixable: true,
-        },
-      ],
       code: 'test.only("test", () => {});',
       errors: [
         {
@@ -162,11 +152,6 @@ ruleTester.run(RULE_NAME, rule, {
       output: 'test("test", () => {});',
     },
     {
-      options: [
-        {
-          fixable: true,
-        },
-      ],
       code: 'it.only.each([])("test", () => {});',
       errors: [
         {
@@ -180,11 +165,6 @@ ruleTester.run(RULE_NAME, rule, {
       output: 'it.each([])("test", () => {});',
     },
     {
-      options: [
-        {
-          fixable: true,
-        },
-      ],
       code: 'test.only.each``("test", () => {});',
       errors: [
         {
@@ -198,11 +178,6 @@ ruleTester.run(RULE_NAME, rule, {
       output: 'test.each``("test", () => {});',
     },
     {
-      options: [
-        {
-          fixable: true,
-        },
-      ],
       code: 'it.only.each``("test", () => {});',
       errors: [
         {

@@ -31,15 +31,17 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           maxNumberOfTopLevelDescribes: {
             type: 'number',
             minimum: 1,
+            default: Infinity,
           },
         },
         additionalProperties: false,
       },
     ],
   },
-  defaultOptions: [{}],
-  create(context) {
-    const { maxNumberOfTopLevelDescribes = Infinity } = context.options[0] ?? {}
+  defaultOptions: [{ maxNumberOfTopLevelDescribes: Infinity }],
+  create(context, options) {
+    const maxNumberOfTopLevelDescribes =
+      options[0].maxNumberOfTopLevelDescribes!
 
     let numberOfTopLevelDescribeBlocks = 0
     let numberOfDescribeBlocks = 0

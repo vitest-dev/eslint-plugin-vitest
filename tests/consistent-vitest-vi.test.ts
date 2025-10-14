@@ -6,11 +6,9 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     {
       code: 'import { expect, it } from "vitest";',
-      options: [{ fn: UtilName.vi }],
     },
     {
       code: 'import { vi } from "vitest";',
-      options: [{ fn: UtilName.vi }],
     },
     {
       code: 'import { vitest } from "vitest";',
@@ -18,17 +16,14 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'import { vi } from "vitest";\nvi.stubEnv("NODE_ENV", "production");',
-      options: [{ fn: UtilName.vi }],
     },
     {
       code: 'vi.stubEnv("NODE_ENV", "production");',
-      options: [{ fn: UtilName.vi }],
     },
   ],
   invalid: [
     {
       code: 'import { vitest } from "vitest";',
-      options: [{ fn: UtilName.vi }],
       output: 'import { vi } from "vitest";',
       errors: [
         {
@@ -45,7 +40,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'import { expect, vi, vitest } from "vitest";',
-      options: [{ fn: UtilName.vi }],
       output: 'import { expect, vi } from "vitest";',
       errors: [
         {
@@ -62,7 +56,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'import { vitest } from "vitest";\nvitest.stubEnv("NODE_ENV", "production");',
-      options: [{ fn: UtilName.vi }],
       output:
         'import { vi } from "vitest";\nvi.stubEnv("NODE_ENV", "production");',
       errors: [
