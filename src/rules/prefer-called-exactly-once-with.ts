@@ -192,6 +192,13 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       ] of expectMatcherMap.entries()) {
         if (matcherReferences.length !== 2) continue
 
+        if (
+          !matcherReferences.some(
+            (reference) => reference.matcherName === 'toHaveBeenCalledOnce',
+          )
+        )
+          continue
+
         const targetArgNode = matcherReferences.find(
           (reference) => reference.matcherName === 'toHaveBeenCalledWith',
         )
