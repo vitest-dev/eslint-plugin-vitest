@@ -1,10 +1,11 @@
+import { defineConfig } from 'eslint/config'
 import vitest from '@vitest/eslint-plugin'
 import eslintPlugin from 'eslint-plugin-eslint-plugin'
 import eslintConfigPrettier from 'eslint-config-prettier/flat'
 import tseslint from 'typescript-eslint'
 
-export default tseslint.config(
-  eslintPlugin.configs['flat/recommended'],
+export default defineConfig(
+  eslintPlugin.configs.recommended,
   vitest.configs.recommended,
   tseslint.configs.recommended,
   eslintConfigPrettier,
@@ -32,6 +33,10 @@ export default tseslint.config(
           argsIgnorePattern: '^_',
         },
       ],
+      // Demoted to warnings so these can be addressed gradually
+      'eslint-plugin/require-meta-default-options': 'warn',
+      'eslint-plugin/require-meta-schema-description': 'warn',
+      'eslint-plugin/no-meta-schema-default': 'warn',
     },
   },
   {
