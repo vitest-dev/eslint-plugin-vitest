@@ -84,12 +84,12 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       allowedFunctionCalls: [],
     },
   ],
-  create(context) {
-    const { allowedFunctionCalls } = context.options[0] ?? {}
-
+  create(context, options) {
     const checkBlockBody = (body: TSESTree.BlockStatement['body']) => {
       for (const statement of body) {
-        if (shouldBeInHook(statement, context, allowedFunctionCalls)) {
+        if (
+          shouldBeInHook(statement, context, options[0].allowedFunctionCalls)
+        ) {
           context.report({
             node: statement,
             messageId: 'useHook',
