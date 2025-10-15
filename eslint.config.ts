@@ -1,5 +1,5 @@
 import { defineConfig } from 'eslint/config'
-import vitest from '@vitest/eslint-plugin'
+import vitest from './src/index.js'
 import eslintPlugin from 'eslint-plugin-eslint-plugin'
 import eslintConfigPrettier from 'eslint-config-prettier/flat'
 import tseslint from 'typescript-eslint'
@@ -14,7 +14,7 @@ export default defineConfig(
       parserOptions: {
         projectService: {
           allowDefaultProject: [
-            'eslint.config.js',
+            'eslint.config.ts',
             '.eslint-doc-generatorrc.js',
             'vitest.config.mts',
             'unbuild.config.ts',
