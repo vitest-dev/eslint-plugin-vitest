@@ -145,7 +145,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     },
     messages: {
       preferCalledExactlyOnceWith:
-        'Prefer {{matcherName}} (/* expected args */)',
+        'They use `toHaveBeenCalledOnce` and `toHaveBeenCalledWith` on the same target; prefer `toHaveBeenCalledExactlyOnceWith` instead.',
     },
     type: 'suggestion',
     fixable: 'code',
@@ -217,8 +217,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         if (!targetNode) continue
 
         const { callExpression: firstCallExpression } = firstMatcherReference
-        const { callExpression: secondCallExpression, matcherName } =
-          secondMatcherReference
+        const { callExpression: secondCallExpression } = secondMatcherReference
 
         if (
           hasMockResetBetween(body, firstCallExpression, secondCallExpression)
@@ -228,7 +227,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         context.report({
           messageId: 'preferCalledExactlyOnceWith',
           node: targetNode,
-          data: { matcherName },
           fix(fixer) {
             const indentation = sourceCode.text.slice(
               firstCallExpression.parent.range[0],
