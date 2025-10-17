@@ -57,7 +57,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: 'preferCalledExactlyOnceWith',
-          data: { matcherName: 'toHaveBeenCalledWith' },
           column: 17,
           line: 3,
         },
@@ -74,7 +73,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: 'preferCalledExactlyOnceWith',
-          data: { matcherName: 'toHaveBeenCalledOnce' },
           column: 17,
           line: 3,
         },
@@ -91,7 +89,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: 'preferCalledExactlyOnceWith',
-          data: { matcherName: 'toHaveBeenCalledOnce' },
           column: 17,
           line: 3,
         },
@@ -110,7 +107,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: 'preferCalledExactlyOnceWith',
-          data: { matcherName: 'toHaveBeenCalledOnce' },
           column: 19,
           line: 4,
         },
@@ -131,13 +127,11 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: 'preferCalledExactlyOnceWith',
-          data: { matcherName: 'toHaveBeenCalledOnce' },
           column: 17,
           line: 3,
         },
         {
           messageId: 'preferCalledExactlyOnceWith',
-          data: { matcherName: 'toHaveBeenCalledOnce' },
           column: 17,
           line: 5,
         },
@@ -156,7 +150,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: 'preferCalledExactlyOnceWith',
-          data: { matcherName: 'toHaveBeenCalledOnce' },
           column: 17,
           line: 4,
         },
@@ -175,7 +168,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: 'preferCalledExactlyOnceWith',
-          data: { matcherName: 'toHaveBeenCalledWith' },
           column: 17,
           line: 4,
         },
