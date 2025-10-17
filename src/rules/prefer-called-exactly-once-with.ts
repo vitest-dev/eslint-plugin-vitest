@@ -145,7 +145,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     },
     messages: {
       preferCalledExactlyOnceWith:
-        Using `toHaveBeenCalledOnce` and `toHaveBeenCalledWith` on the same target; prefer `toHaveBeenCalledExactlyOnceWith` instead.'
+        'Using `toHaveBeenCalledOnce` and `toHaveBeenCalledWith` on the same target; prefer `toHaveBeenCalledExactlyOnceWith` instead.',
     },
     type: 'suggestion',
     fixable: 'code',
