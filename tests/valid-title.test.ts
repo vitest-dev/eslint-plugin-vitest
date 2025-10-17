@@ -199,8 +199,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       settings: {
         vitest: {
-          vitestImports: ['./test-extend']
-        }
+          vitestImports: ['./test-extend'],
+        },
       },
       options: [{ disallowedWords: ['correct'] }],
       errors: [
@@ -218,8 +218,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       settings: {
         vitest: {
-          vitestImports: ['@/tests/fixtures']
-        }
+          vitestImports: ['@/tests/fixtures'],
+        },
       },
       options: [{ disallowedWords: ['correct'] }],
       errors: [
@@ -237,8 +237,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       settings: {
         vitest: {
-          vitestImports: [/\/fixtures$/]
-        }
+          vitestImports: [/\/fixtures$/],
+        },
       },
       options: [{ disallowedWords: ['correct'] }],
       errors: [
