@@ -1,0 +1,28 @@
+name: Smoke Test
+
+on:
+  workflow_dispatch: # Manual trigger
+  schedule: # Every sunday at 00:00
+    - cron: '0 00 * * SUN'
+
+jobs:
+  test:
+    name: Smoke Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          node-version: 18
+
+      - name: Build
+        run: pnpm build
+
+      - name: Smoke test
+        uses: AriPerkkio/eslint-remote-tester-run-action@v5
+        with:
+          issue-title: 'Results of weekly scheduled smoke test'
+          eslint-remote-tester-config: eslint-remote-tester.config.ts

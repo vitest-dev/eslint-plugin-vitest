@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Format
+        run: pnpm format
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Lint code
+        run: pnpm lint:js
+
+      ### Temporarily disabled, see https://github.com/vitest-dev/eslint-plugin-vitest/issues/754
+      #- name: Lint docs
+      #  run: pnpm lint:eslint-docs
+
+  test:
+    name: Test (Node.js ${{ matrix.node-version }}, ${{ matrix.os.name }})
+    runs-on: ${{ matrix.os.version }}
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version:
+          - 20
+          - 22
+        os:
+          - name: Ubuntu
+            version: ubuntu-latest
+          - name: Windows
+            version: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Test
+        run: pnpm test
