@@ -193,6 +193,63 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: `import { test } from './test-extend'
+      test('the correct way to properly handle all things', () => {})
+      `,
+      settings: {
+        vitest: {
+          vitestImports: ['./test-extend']
+        }
+      },
+      options: [{ disallowedWords: ['correct'] }],
+      errors: [
+        {
+          messageId: 'disallowedWord',
+          data: { word: 'correct' },
+          column: 12,
+          line: 2,
+        },
+      ],
+    },
+    {
+      code: `import { test } from '@/tests/fixtures'
+      test('the correct way to properly handle all things', () => {})
+      `,
+      settings: {
+        vitest: {
+          vitestImports: ['@/tests/fixtures']
+        }
+      },
+      options: [{ disallowedWords: ['correct'] }],
+      errors: [
+        {
+          messageId: 'disallowedWord',
+          data: { word: 'correct' },
+          column: 12,
+          line: 2,
+        },
+      ],
+    },
+    {
+      code: `import { test } from '@/tests/fixtures'
+      test('the correct way to properly handle all things', () => {})
+      `,
+      settings: {
+        vitest: {
+          vitestImports: [/\/fixtures$/]
+        }
+      },
+      options: [{ disallowedWords: ['correct'] }],
+      errors: [
+        {
+          messageId: 'disallowedWord',
+          data: { word: 'correct' },
+          column: 12,
+          line: 2,
+        },
+      ],
+    },
   ],
 })
 
