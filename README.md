@@ -105,6 +105,31 @@ export default [
 ]
 ```
 
+### Custom Fixtures
+
+If you're using custom fixtures in a separate file and importing them in your tests, you can let the plugin know about them by adding them to the `vitestImports` setting. The property accepts an array of strings or regular expressions that match the module names where your custom fixtures are defined.
+
+```js
+import vitest from '@vitest/eslint-plugin'
+
+export default [
+  {
+    files: ['tests/**'], // or any other pattern
+    plugins: {
+      vitest,
+    },
+    rules: {
+      ...vitest.configs.recommended.rules,
+    },
+    settings: {
+      vitest: {
+        vitestImports: ['@/tests/fixtures', /test-extend$/],
+      },
+    },
+  },
+]
+```
+
 ### Shareable configurations
 
 #### Recommended

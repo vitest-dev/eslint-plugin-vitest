@@ -348,7 +348,18 @@ const resolveVitestFn = (
     }
 
   if (maybeImport) {
-    if (maybeImport.source === 'vitest') {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const vitestImports = context.settings.vitest?.vitestImports ?? []
+    const isVitestImport =
+      maybeImport.source === 'vitest' ||
+      vitestImports.some((importName: unknown) =>
+        importName instanceof RegExp
+          ? importName.test(maybeImport.source)
+          : maybeImport.source === importName,
+      )
+
+    if (isVitestImport) {
       return {
         original: maybeImport.imported,
         local: maybeImport.local,
