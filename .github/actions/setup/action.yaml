@@ -8,7 +8,7 @@ inputs:
 
   install-deps:
     description: Whether to install dependencies
-    default: true
+    default: 'true'
 
 runs:
   using: composite
