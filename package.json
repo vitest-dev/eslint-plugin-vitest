@@ -15,22 +15,12 @@
   "author": "Verite Mugabo <https://veritemugabo.com/>",
   "type": "module",
   "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.cts",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "module": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./package.json": "./package.json"
   },
@@ -38,7 +28,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "unbuild --config unbuild.config.ts",
+    "build": "tsdown --format esm --format cjs",
+    "typecheck": "tsc --noEmit",
     "lint:eslint-docs": "pnpm build && eslint-doc-generator --check",
     "lint:js": "eslint .",
     "lint": "concurrently --prefixColors auto \"pnpm:lint:*\"",
@@ -48,8 +39,7 @@
     "format:check": "npx prettier 'src/**/*.ts' --check",
     "format:fix": "npx prettier '**/*.{ts,js}' --write",
     "test": "vitest",
-    "update:eslint-docs": "pnpm build && eslint-doc-generator",
-    "tsc": "tsc --noEmit"
+    "update:eslint-docs": "pnpm build && eslint-doc-generator"
   },
   "dependencies": {
     "@typescript-eslint/scope-manager": "^8.46.1",
@@ -67,12 +57,12 @@
     "eslint-plugin-eslint-plugin": "^7.0.0",
     "eslint-remote-tester": "^4.0.3",
     "eslint-remote-tester-repositories": "^2.0.2",
-    "jiti": "2.6.1",
+    "jiti": "^2.6.1",
     "prettier": "^3.6.2",
+    "tsdown": "^0.15.7",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.1",
-    "unbuild": "^3.6.1",
     "vitest": "^3.2.4"
   },
   "peerDependencies": {
@@ -89,6 +79,9 @@
     }
   },
   "packageManager": "pnpm@10.18.3+sha512.bbd16e6d7286fd7e01f6b3c0b3c932cda2965c06a908328f74663f10a9aea51f1129eea615134bf992831b009eabe167ecb7008b597f40ff9bc75946aadfb08d",
+  "engines": {
+    "node": ">=18"
+  },
   "prettier": {
     "semi": false,
     "singleQuote": true,

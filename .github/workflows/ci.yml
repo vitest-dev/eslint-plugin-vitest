@@ -46,7 +46,7 @@ jobs:
         run: pnpm format:check
 
       - name: check types
-        run: pnpm tsc
+        run: pnpm typecheck
 
       - name: build
         run: pnpm build
