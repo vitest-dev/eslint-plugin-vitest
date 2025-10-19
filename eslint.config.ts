@@ -39,6 +39,7 @@ export default defineConfig(
       'eslint-plugin/require-meta-schema-description': 'warn',
       'eslint-plugin/no-meta-schema-default': 'warn',
       'no-prototype-builtins': 'warn',
+      'no-unsafe-optional-chaining': 'warn',
     },
   },
   eslintConfigPrettier,
