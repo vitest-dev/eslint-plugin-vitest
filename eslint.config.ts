@@ -1,28 +1,29 @@
+import eslint from '@eslint/js'
 import { defineConfig } from 'eslint/config'
+import tseslint from 'typescript-eslint'
+import gitignore from 'eslint-config-flat-gitignore'
 import vitest from './src/index.js'
 import eslintPlugin from 'eslint-plugin-eslint-plugin'
 import eslintConfigPrettier from 'eslint-config-prettier/flat'
-import tseslint from 'typescript-eslint'
 
 export default defineConfig(
-  eslintPlugin.configs.recommended,
-  vitest.configs.recommended,
+  gitignore(),
+  eslint.configs.recommended,
   tseslint.configs.recommended,
-  eslintConfigPrettier,
+  // @ts-expect-error see https://github.com/vitest-dev/eslint-plugin-vitest/issues/771
+  vitest.configs.recommended,
+  eslintPlugin.configs.recommended,
   {
     languageOptions: {
       parserOptions: {
         projectService: {
-          allowDefaultProject: [
-            'eslint.config.ts',
-            '.eslint-doc-generatorrc.js',
-            'vitest.config.mts',
-            'unbuild.config.ts',
-            'eslint-remote-tester.config.ts',
-            'scripts/chain-permutations.ts',
-          ],
+          allowDefaultProject: ['*.js'],
         },
-        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    settings: {
+      vitest: {
+        typecheck: true,
       },
     },
     rules: {
@@ -37,28 +38,8 @@ export default defineConfig(
       'eslint-plugin/require-meta-default-options': 'warn',
       'eslint-plugin/require-meta-schema-description': 'warn',
       'eslint-plugin/no-meta-schema-default': 'warn',
+      'no-prototype-builtins': 'warn',
     },
   },
-  {
-    files: ['**/*.test.*'],
-    plugins: {
-      vitest,
-    },
-    rules: {
-      'eslint-plugin/require-meta-docs-description': 'error',
-    },
-    settings: {
-      vitest: {
-        typecheck: true,
-      },
-    },
-  },
-  {
-    ignores: ['**/dist/**'],
-  },
-  {
-    linterOptions: {
-      reportUnusedDisableDirectives: 'error',
-    },
-  },
+  eslintConfigPrettier,
 )
