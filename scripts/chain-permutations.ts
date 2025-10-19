@@ -1,8 +1,12 @@
-// imported from https://github.com/veritem/eslint-plugin-vitest/pull/293
-// This script generates all possible permutations for vitest methods
+/*
+ * This script generates all possible permutations for Vitest methods.
+ *
+ * Run it with `pnpm update:chains`.
+ *
+ * Originally imported from https://github.com/veritem/eslint-plugin-vitest/pull/293.
+ */
 import fs from 'node:fs'
 import path from 'node:path'
-import { per } from 'percom'
 
 const data = [
   {
@@ -114,7 +118,7 @@ data.forEach((q) => {
   })
 })
 
-const extra_rules = [
+const extraRules = [
   'xtest',
   'xtest.each',
   'xit',
@@ -125,18 +129,49 @@ const extra_rules = [
   'fdescribe',
 ]
 
-const output = `export const ValidVitestFnCallChains = new Set([${allPermutations.concat(extra_rules).map((item) => `'${item}'`)}])`
+const output = `export const ValidVitestFnCallChains = new Set([${allPermutations.concat(extraRules).map((item) => `'${item}'`)}])`
 
-const new_path = path.resolve(
-  __dirname,
+const newPath = path.resolve(
+  import.meta.dirname,
   '../src/utils/valid-vitest-fn-call-chains.ts',
 )
 
-try {
-  fs.writeFileSync(new_path, output)
-  console.log(
-    `done writing to ${new_path.split('/')[new_path.split('/').length - 1]}`,
-  )
-} catch (err) {
-  console.log(`err: ${err.message}`)
+fs.writeFileSync(newPath, output)
+console.log(
+  `done writing to ${newPath.split('/')[newPath.split('/').length - 1]}`,
+)
+
+// Based on https://github.com/kota-yata/Percom/blob/master/src/permutation.js (MIT licensed)
+function calcPer<T>(
+  array: T[],
+  num: number,
+  current: T[] = [],
+  result: T[][] = [],
+) {
+  if (current.length >= num) return null
+  let tempCurrent = current.slice(0, current.length)
+  for (let i = 0; i < array.length; i++) {
+    tempCurrent.push(array[i])
+    const slicedArray = array.filter((_, index) => index !== i)
+    const returned = calcPer(slicedArray, num, tempCurrent, result)
+    if (returned === null) result.push(tempCurrent)
+    tempCurrent = current.slice(0, current.length)
+  }
+  return result
+}
+/**
+ * Permutation
+ * @param array - Target array
+ * @param num - Number of elements in a permutation
+ * @return Return all permutations
+ * @example
+ * const result = per([1, 2, 3], 2);
+ * //result = [ [ 1, 2 ], [ 1, 3 ], [ 2, 1 ], [ 2, 3 ], [ 3, 1 ], [ 3, 2 ] ]
+ */
+function per<T>(array: T[], num: number) {
+  if (array.length < num)
+    throw new Error(
+      'Number of elements of array must be greater than number to choose',
+    )
+  return calcPer(array, num) as T[][]
 }

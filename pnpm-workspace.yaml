@@ -1,3 +1,4 @@
+savePrefix: ^
 injectWorkspacePackages: true
 onlyBuiltDependencies:
   - esbuild
