@@ -21,7 +21,7 @@ const data = [
     first: ['extend'],
     conditions: ['skipIf', 'runIf'],
     methods: ['skip', 'only', 'concurrent', 'sequential', 'todo', 'fails'],
-    last: ['each'],
+    last: ['each', 'for'],
   },
   {
     names: ['bench'],
