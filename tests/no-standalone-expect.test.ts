@@ -25,6 +25,14 @@ ruleTester.run(RULE_NAME, rule, {
     '{}',
     'it.each([1, true])("trues", value => { expect(value).toBe(true); });',
     'it.each([1, true])("trues", value => { expect(value).toBe(true); }); it("an it", () => { expect(1).toBe(1) });',
+    `
+    it.for(["a", "b"])("test", (value, { expect }) => {
+      expect(value).toBe(true)
+    })
+    test.for(["a", "b"])("test", (value, { expect }) => {
+      expect(value).toBe(true)
+    })
+    `,
   ],
   invalid: [
     {
