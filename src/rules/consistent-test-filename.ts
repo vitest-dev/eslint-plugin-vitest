@@ -8,8 +8,8 @@ const defaultTestsPattern = /.*\.(test|spec)\.[tj]sx?$/
 export default createEslintRule<
   [
     Partial<{
-      pattern: RegExp | string
-      allTestPattern: RegExp | string
+      pattern: string
+      allTestPattern: string
     }>,
   ],
   'consistentTestFilename'
@@ -46,8 +46,8 @@ export default createEslintRule<
   },
   defaultOptions: [
     {
-      pattern: defaultPattern,
-      allTestPattern: defaultTestsPattern,
+      pattern: defaultPattern.source,
+      allTestPattern: defaultTestsPattern.source,
     },
   ],
 
@@ -55,16 +55,12 @@ export default createEslintRule<
     const { pattern: patternRaw, allTestPattern: allTestPatternRaw } =
       options[0]
 
-    const pattern =
-      typeof patternRaw === 'string' ? new RegExp(patternRaw) : patternRaw!
-    const testPattern =
-      typeof allTestPatternRaw === 'string'
-        ? new RegExp(allTestPatternRaw)
-        : allTestPatternRaw!
+    const pattern = new RegExp(patternRaw!)
+    const allTestPattern = new RegExp(allTestPatternRaw!)
 
     const { filename } = context
 
-    if (!testPattern.test(filename)) return {}
+    if (!allTestPattern.test(filename)) return {}
 
     return {
       Program: (p) => {
@@ -73,7 +69,7 @@ export default createEslintRule<
             node: p,
             messageId: 'consistentTestFilename',
             data: {
-              pattern: pattern.source,
+              pattern: patternRaw,
             },
           })
         }
