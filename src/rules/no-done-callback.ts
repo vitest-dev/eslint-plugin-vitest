@@ -58,7 +58,7 @@ export default createEslintRule<Options, MessageIds>({
   create(context) {
     return {
       CallExpression(node) {
-        const isVitestEach = /\.each$|\.concurrent$/.test(
+        const isVitestEach = /\.each$|\.for$|\.concurrent$/.test(
           getNodeName(node.callee) ?? '',
         )
 
