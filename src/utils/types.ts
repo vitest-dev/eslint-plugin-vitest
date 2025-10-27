@@ -1,5 +1,6 @@
 import { TSESTree } from '@typescript-eslint/utils'
-import ts from 'typescript'
+import type ts from 'typescript'
+import { require } from './require'
 
 export enum UtilName {
   vi = 'vi',
@@ -83,6 +84,8 @@ interface TypeAssertionChain<
 
 export function isClassOrFunctionType(type: ts.Type): boolean {
   if (type.getCallSignatures().length > 0) return true
+
+  const ts = require('typescript')
 
   return (
     type

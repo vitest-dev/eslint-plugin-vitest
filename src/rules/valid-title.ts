@@ -16,8 +16,9 @@ import {
   isClassOrFunctionType,
   TestCaseName,
 } from '../utils/types'
-import ts from 'typescript'
+import type ts from 'typescript'
 import { parsePluginSettings } from '../utils/parse-plugin-settings'
+import { require } from '../utils/require'
 
 export const RULE_NAME = 'valid-title'
 
@@ -79,6 +80,7 @@ const compileMatcherPattern = (
 }
 
 function isStringLikeType(type: ts.Type): boolean {
+  const ts = require('typescript')
   return !!(type.flags & ts.TypeFlags.StringLike)
 }
 
