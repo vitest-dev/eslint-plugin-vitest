@@ -60,7 +60,7 @@
     "eslint-remote-tester-repositories": "^2.0.2",
     "jiti": "^2.6.1",
     "prettier": "^3.6.2",
-    "tsdown": "^0.15.7",
+    "tsdown": "^0.15.10",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.1",
