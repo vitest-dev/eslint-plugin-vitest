@@ -9,6 +9,9 @@ ruleTester.run(RULE_NAME, rule, {
 test('something', () => {
         expect(true).toBe(true);
 }));`,
+    `describe('scoped', () => {
+      test.scoped({ example: 'value' });
+    });`,
     {
       code: `
 import { myFn } from '../functions';
