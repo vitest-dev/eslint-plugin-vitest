@@ -31,18 +31,11 @@ const data = [
     last: [],
   },
   {
-    names: ['describe'],
+    names: ['describe', 'suite'],
     first: [],
     conditions: ['skipIf', 'runIf'],
     methods: ['skip', 'only', 'concurrent', 'sequential', 'shuffle', 'todo'],
     last: ['each', 'for'],
-  },
-  {
-    names: ['suite'],
-    first: [],
-    conditions: ['skipIf', 'runIf'],
-    methods: ['skip', 'only', 'concurrent', 'sequential', 'shuffle', 'todo'],
-    last: ['each'],
   },
 ]
 
