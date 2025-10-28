@@ -35,7 +35,7 @@ const data = [
     first: [],
     conditions: ['skipIf', 'runIf'],
     methods: ['skip', 'only', 'concurrent', 'sequential', 'shuffle', 'todo'],
-    last: ['each'],
+    last: ['each', 'for'],
   },
   {
     names: ['suite'],
