@@ -4,6 +4,7 @@ import { ruleTester } from './ruleTester'
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     'describe.each([1, 2, 3])("%s", (a, b) => {});',
+    'describe.for([1, 2, 3])("%s", (a, b) => {});',
     'describe("foo", function() {})',
     'describe("foo", () => {})',
     'describe(`foo`, () => {})',

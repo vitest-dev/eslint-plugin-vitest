@@ -4,7 +4,7 @@ import { ruleTester } from './ruleTester'
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     'describe()',
-    'describe("just a title")',
+    `describe.for([])('%s', (value) => {})`,
     `describe('a test', () =>
 test('something', () => {
         expect(true).toBe(true);

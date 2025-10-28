@@ -34,7 +34,7 @@ const data = [
     last: [],
   },
   {
-    names: ['describe'],
+    names: ['describe', 'suite'],
     first: [],
     exclusive: [],
     conditions: ['skipIf', 'runIf'],
@@ -48,6 +48,7 @@ const data = [
     conditions: ['skipIf', 'runIf'],
     methods: ['skip', 'only', 'concurrent', 'sequential', 'shuffle', 'todo'],
     last: ['each'],
+    last: ['each', 'for'],
   },
 ]
 
