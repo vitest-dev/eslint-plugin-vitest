@@ -37,8 +37,9 @@ const hasNonEachMembersAndParams = (
   functionExpression: FunctionExpression,
 ) => {
   return (
-    vitestFnCall.members.every((s) => getAccessorValue(s) !== 'each') &&
-    functionExpression.params.length
+    vitestFnCall.members.every(
+      (s) => !['each', 'for'].includes(getAccessorValue(s)),
+    ) && functionExpression.params.length
   )
 }
 
