@@ -37,6 +37,7 @@
     "format": "prettier 'src/**/*.{ts,js}' --check",
     "test": "vitest",
     "update:chains": "node scripts/chain-permutations.ts",
+    "update:rules": "node scripts/export-rules.ts",
     "update:eslint-docs": "pnpm build && eslint-doc-generator"
   },
   "dependencies": {

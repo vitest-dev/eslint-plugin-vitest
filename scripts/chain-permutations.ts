@@ -5,8 +5,10 @@
  *
  * Originally imported from https://github.com/veritem/eslint-plugin-vitest/pull/293.
  */
-import fs from 'node:fs'
+import fs from 'node:fs/promises'
 import path from 'node:path'
+import url from 'node:url'
+import prettier from 'prettier'
 
 const data = [
   {
@@ -127,15 +129,25 @@ const extraRules = [
 
 const output = `export const ValidVitestFnCallChains = new Set([${allPermutations.concat(extraRules).map((item) => `'${item}'`)}])`
 
-const newPath = path.resolve(
+const filePath = path.resolve(
   import.meta.dirname,
   '../src/utils/valid-vitest-fn-call-chains.ts',
 )
 
-fs.writeFileSync(newPath, output)
+const formattedOutput = await prettier.format(output, {
+  ...(await prettier.resolveConfig(filePath)),
+  filepath: filePath,
+})
+
+await fs.writeFile(filePath, formattedOutput)
+
 console.log(
-  `done writing to ${newPath.split('/')[newPath.split('/').length - 1]}`,
+  `File ${terminalLink(path.relative(process.cwd(), filePath), url.pathToFileURL(filePath).href)} has been updated.`,
 )
+
+function terminalLink(name: string, url: string) {
+  return `\x1b]8;;${url}\x1b\\${name}\x1b]8;;\x1b\\`
+}
 
 // Based on https://github.com/kota-yata/Percom/blob/master/src/permutation.js (MIT licensed)
 function calcPer<T>(
