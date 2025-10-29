@@ -111,7 +111,6 @@ const allRules = {
   [noConditionalExpectName]: 'warn',
   [noConditionalInTestName]: 'warn',
   [noDisabledTestsName]: 'warn',
-  [noDoneCallbackName]: 'warn',
   [noDuplicateHooksName]: 'warn',
   [noLargeSnapShotsName]: 'warn',
   [noInterpolationInSnapshotsName]: 'warn',
