@@ -39,15 +39,6 @@ const data = [
     exclusive: [],
     conditions: ['skipIf', 'runIf'],
     methods: ['skip', 'only', 'concurrent', 'sequential', 'shuffle', 'todo'],
-    last: ['each'],
-  },
-  {
-    names: ['suite'],
-    first: [],
-    exclusive: [],
-    conditions: ['skipIf', 'runIf'],
-    methods: ['skip', 'only', 'concurrent', 'sequential', 'shuffle', 'todo'],
-    last: ['each'],
     last: ['each', 'for'],
   },
 ]
