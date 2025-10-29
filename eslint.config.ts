@@ -10,7 +10,6 @@ export default defineConfig(
   gitignore(),
   eslint.configs.recommended,
   tseslint.configs.recommended,
-  // @ts-expect-error see https://github.com/vitest-dev/eslint-plugin-vitest/issues/771
   vitest.configs.recommended,
   eslintPlugin.configs.recommended,
   {

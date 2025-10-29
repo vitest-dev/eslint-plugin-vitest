@@ -1,4 +1,4 @@
-import type { Linter } from 'eslint'
+import type { ESLint, Linter, Rule } from 'eslint'
 import { version } from '../package.json'
 import lowerCaseTitle, { RULE_NAME as lowerCaseTitleName } from './rules/prefer-lowercase-title'
 import maxNestedDescribe, { RULE_NAME as maxNestedDescribeName } from './rules/max-nested-describe'
@@ -262,7 +262,7 @@ const rules = {
     [warnTodoName]: warnTodo,
     [preferImportInMockName]: preferImportInMock,
     [preferCalledExactlyOnceWithName]: preferCalledExactlyOnceWith
-} as const
+} as unknown as Record<string, Rule.RuleModule>
 
 const plugin = {
   meta: {
@@ -299,7 +299,7 @@ const plugin = {
     recommended: {
       name: 'vitest/recommended',
       plugins: {
-        get vitest() {
+        get vitest(): ESLint.Plugin {
           return plugin
         },
       },
@@ -308,7 +308,7 @@ const plugin = {
     all: {
       name: 'vitest/all',
       plugins: {
-        get vitest() {
+        get vitest(): ESLint.Plugin {
           return plugin
         },
       },
@@ -337,8 +337,8 @@ const plugin = {
           onTestFinished: 'writable',
         },
       },
-    } as const satisfies Linter.Config,
-  } as const,
-} as const
+    },
+  },
+} as const satisfies ESLint.Plugin
 
 export default plugin

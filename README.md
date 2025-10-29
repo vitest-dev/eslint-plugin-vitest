@@ -24,20 +24,19 @@ npm install @vitest/eslint-plugin --save-dev
 Make sure you're running ESLint `v9.0.0` or higher for the latest version of this plugin to work. The following example is how your `eslint.config.js` should be setup for this plugin to work for you.
 
 ```js
+import { defineConfig } from 'eslint/config'
 import vitest from '@vitest/eslint-plugin'
 
-export default [
-  {
-    files: ['tests/**'], // or any other pattern
-    plugins: {
-      vitest,
-    },
-    rules: {
-      ...vitest.configs.recommended.rules, // you can also use vitest.configs.all.rules to enable all rules
-      'vitest/max-nested-describe': ['error', { max: 3 }], // you can also modify rules' behavior using option like this
-    },
+export default defineConfig({
+  files: ['tests/**'], // or any other pattern
+  plugins: {
+    vitest,
   },
-]
+  rules: {
+    ...vitest.configs.recommended.rules, // you can also use vitest.configs.all.rules to enable all rules
+    'vitest/max-nested-describe': ['error', { max: 3 }], // you can also modify rules' behavior using option like this
+  },
+})
 ```
 
 If you're not using the latest version of ESLint (version `v8.57.0` or lower) you can setup this plugin using the following configuration
@@ -80,9 +79,20 @@ Vitest ships with an optional [type-testing feature](https://vitest.dev/guide/te
 If you're using this feature, you should also enabled `typecheck` in the settings for this plugin. This ensures that rules like [expect-expect](docs/rules/expect-expect.md) account for type-related assertions in tests.
 
 ```js
+import { defineConfig } from 'eslint/config'
+import tseslint from 'typescript-eslint'
 import vitest from '@vitest/eslint-plugin'
 
-export default [
+export default defineConfig(
+  // see https://typescript-eslint.io
+  tseslint.configs.recommended,
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+      },
+    },
+  },
   {
     files: ['tests/**'], // or any other pattern
     plugins: {
@@ -102,7 +112,7 @@ export default [
       },
     },
   },
-]
+)
 ```
 
 ### Custom Fixtures
@@ -110,24 +120,23 @@ export default [
 If you're using custom fixtures in a separate file and importing them in your tests, you can let the plugin know about them by adding them to the `vitestImports` setting. The property accepts an array of strings or regular expressions that match the module names where your custom fixtures are defined.
 
 ```js
+import { defineConfig } from 'eslint/config'
 import vitest from '@vitest/eslint-plugin'
 
-export default [
-  {
-    files: ['tests/**'], // or any other pattern
-    plugins: {
-      vitest,
-    },
-    rules: {
-      ...vitest.configs.recommended.rules,
-    },
-    settings: {
-      vitest: {
-        vitestImports: ['@/tests/fixtures', /test-extend$/],
-      },
+export default defineConfig({
+  files: ['tests/**'], // or any other pattern
+  plugins: {
+    vitest,
+  },
+  rules: {
+    ...vitest.configs.recommended.rules,
+  },
+  settings: {
+    vitest: {
+      vitestImports: ['@/tests/fixtures', /test-extend$/],
     },
   },
-]
+})
 ```
 
 ### Shareable Configurations
@@ -139,14 +148,13 @@ This plugin exports a recommended configuration that enforces good testing pract
 To enable this configuration with `eslint.config.js`, use `vitest.configs.recommended`:
 
 ```js
+import { defineConfig } from 'eslint/config'
 import vitest from '@vitest/eslint-plugin'
 
-export default [
-  {
-    files: ['tests/**'], // or any other pattern
-    ...vitest.configs.recommended,
-  },
-]
+export default defineConfig({
+  files: ['tests/**'], // or any other pattern
+  ...vitest.configs.recommended,
+})
 ```
 
 #### All
@@ -154,14 +162,13 @@ export default [
 If you want to enable all rules instead of only some you can do so by adding the all configuration to your `eslint.config.js` config file:
 
 ```js
+import { defineConfig } from 'eslint/config'
 import vitest from '@vitest/eslint-plugin'
 
-export default [
-  {
-    files: ['tests/**'], // or any other pattern
-    ...vitest.configs.all,
-  },
-]
+export default defineConfig({
+  files: ['tests/**'], // or any other pattern
+  ...vitest.configs.all,
+})
 ```
 
 ### Rules
