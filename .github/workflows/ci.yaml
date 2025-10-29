@@ -32,9 +32,8 @@ jobs:
       - name: Lint code
         run: pnpm lint:js
 
-      ### Temporarily disabled, see https://github.com/vitest-dev/eslint-plugin-vitest/issues/754
-      #- name: Lint docs
-      #  run: pnpm lint:eslint-docs
+      - name: Lint docs
+        run: pnpm lint:eslint-docs
 
   test:
     name: Test (Node.js ${{ matrix.node-version }}, ${{ matrix.os.name }})

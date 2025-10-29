@@ -1,6 +1,6 @@
 # Enforce using `toBeCalledOnce()` or `toHaveBeenCalledOnce()` (`vitest/prefer-called-once`)
 
-⚠️ This rule _warns_ in the 🌐 `all` config.
+🚫 This rule is _disabled_ in the 🌐 `all` config.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

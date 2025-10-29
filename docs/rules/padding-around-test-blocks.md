@@ -17,31 +17,31 @@ its scope.
 Examples of **incorrect** code for this rule:
 
 ```js
-const someText = 'hoge';
-test("hoge", () => {});
-test('foo', () => {});
+const someText = 'hoge'
+test('hoge', () => {})
+test('foo', () => {})
 ```
 
 ```js
-const someText = 'hoge';
-it("hoge", () => {});
-it('foo', () => {});
+const someText = 'hoge'
+it('hoge', () => {})
+it('foo', () => {})
 ```
 
 Examples of **correct** code for this rule:
 
 ```js
-const someText = 'hoge';
+const someText = 'hoge'
 
-test("hoge", () => {});
+test('hoge', () => {})
 
-test('foo', () => {});
+test('foo', () => {})
 ```
 
 ```js
-const someText = 'hoge';
+const someText = 'hoge'
 
-it("hoge", () => {});
+it('hoge', () => {})
 
-it('foo', () => {});
+it('foo', () => {})
 ```

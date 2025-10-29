@@ -1,0 +1,13 @@
+diff --git a/dist/lib/generator.js b/dist/lib/generator.js
+index 4f566d01905c725a337439769513cb3c67fcf228..354ad5e180d2f72546f6068359f53778918b3d20 100644
+--- a/dist/lib/generator.js
++++ b/dist/lib/generator.js
+@@ -36,7 +36,7 @@ export async function generate(path, options) {
+     const context = await getContext();
+     const { endOfLine } = context;
+     const plugin = await loadPlugin(path);
+-    const pluginPrefix = await getPluginPrefix(path);
++    const pluginPrefix = plugin.meta?.name ?? (await getPluginName(path));
+     const configsToRules = await resolveConfigsToRules(plugin);
+     if (!plugin.rules) {
+         throw new Error('Could not find exported `rules` object in ESLint plugin.');
