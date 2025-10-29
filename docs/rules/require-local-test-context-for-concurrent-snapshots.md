@@ -24,10 +24,10 @@ Examples of **correct** code for this rule:
 
 ```js
 test.concurrent('myLogic', ({ expect }) => {
-  expect(true).toMatchSnapshot()
+    expect(true).toMatchSnapshot();
 })
 
 test.concurrent('myLogic', (context) => {
-  context.expect(true).toMatchSnapshot()
+    context.expect(true).toMatchSnapshot();
 })
 ```

@@ -1,4 +1,4 @@
-# Prefer dynamic import in mock (`vitest/prefer-import-in-mock`)
+# Enforce using dynamic import in `mock` (`vitest/prefer-import-in-mock`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
@@ -13,11 +13,11 @@ This rule enforces using a dynamic import() in vi.mock(), which improves type in
 The following pattern is considered a warning:
 
 ```js
-vi.mock('./path/to/module')
+vi.mock('./path/to/module');
 ```
 
 The following pattern is not considered a warning:
 
 ```js
-vi.mock(import('./path/to/module'))
+vi.mock(import('./path/to/module'));
 ```

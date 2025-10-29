@@ -1,6 +1,4 @@
-# Enforce hoisted APIs to be on top of the file (`vitest/hoisted-apis-on-top`)
-
-⚠️ This rule _warns_ in the 🌐 `all` config.
+# Enforce hoisted APIs to be on top of the file (`@vitest/hoisted-apis-on-top`)
 
 💡 This rule is manually fixable by [editor suggestions](https://eslint.org/docs/latest/use/core-concepts#rule-suggestions).
 

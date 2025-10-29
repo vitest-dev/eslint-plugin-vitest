@@ -1,9 +1,4 @@
+savePrefix: ^
 injectWorkspacePackages: true
-
 onlyBuiltDependencies:
   - esbuild
-
-patchedDependencies:
-  eslint-doc-generator@2.3.0: patches/eslint-doc-generator@2.3.0.patch
-
-savePrefix: ^

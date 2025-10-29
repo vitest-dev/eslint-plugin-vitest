@@ -1,6 +1,4 @@
-# Enforce using `expectTypeOf` instead of `expect(typeof ...)` (`vitest/prefer-expect-type-of`)
-
-⚠️ This rule _warns_ in the 🌐 `all` config.
+# Enforce using `expectTypeOf` instead of `expect(typeof ...)` (`@vitest/prefer-expect-type-of`)
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
