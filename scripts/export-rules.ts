@@ -20,21 +20,16 @@ const imports = []
 const rules = new Map<string, string>()
 
 for (const fileName of ruleFiles) {
-  const fileNameWithoutExtension = fileName.slice(0, -3)
-  const rule = fileNameWithoutExtension.replace(/-./g, (x) =>
-    x[1].toUpperCase(),
-  )
-  const name = `${rule}Name`
-  imports.push(
-    `import { default as ${rule}, RULE_NAME as ${name} } from './${fileNameWithoutExtension}'`,
-  )
-  rules.set(name, rule)
+  const baseName = fileName.slice(0, -3)
+  const importName = baseName.replace(/-./g, (x) => x[1].toUpperCase())
+  imports.push(`import ${importName} from './${baseName}'`)
+  rules.set(baseName, importName)
 }
 
 const rulesProps = []
 
 for (const [name, rule] of rules) {
-  rulesProps.push(`[${name}]: ${rule},`)
+  rulesProps.push(`'${name}': ${rule},`)
 }
 
 const output = `
