@@ -185,9 +185,9 @@ export default defineConfig({
 💭 Requires [type information](https://typescript-eslint.io/linting/typed-linting).\
 ❌ Deprecated.
 
-| Name                                                                                                                     | Description                                                                                     | 💼  | ⚠️  | 🚫  | 🔧  | 💡  | 💭  | ❌  |
+| Name                                                                                                                     | Description                                                                                     | 💼  | ⚠️  | 🚫  | 🔧  | 💡  | 💭  | ❌  |
 | :----------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
-| [consistent-test-filename](docs/rules/consistent-test-filename.md)                                                       | require .spec test file pattern                                                                 |     | 🌐  |     |     |     |     |     |
+| [consistent-test-filename](docs/rules/consistent-test-filename.md)                                                       | require test file pattern                                                                       |     | 🌐  |     |     |     |     |     |
 | [consistent-test-it](docs/rules/consistent-test-it.md)                                                                   | enforce using test or it but not both                                                           |     | 🌐  |     | 🔧  |     |     |     |
 | [consistent-vitest-vi](docs/rules/consistent-vitest-vi.md)                                                               | enforce using vitest or vi but not both                                                         |     | 🌐  |     | 🔧  |     |     |     |
 | [expect-expect](docs/rules/expect-expect.md)                                                                             | enforce having expectation in test body                                                         | ✅  | 🌐  |     |     |     |     |     |
@@ -236,6 +236,7 @@ export default defineConfig({
 | [prefer-expect-type-of](docs/rules/prefer-expect-type-of.md)                                                             | enforce using `expectTypeOf` instead of `expect(typeof ...)`                                    |     | 🌐  |     | 🔧  |     |     |     |
 | [prefer-hooks-in-order](docs/rules/prefer-hooks-in-order.md)                                                             | enforce having hooks in consistent order                                                        |     | 🌐  |     |     |     |     |     |
 | [prefer-hooks-on-top](docs/rules/prefer-hooks-on-top.md)                                                                 | enforce having hooks before any test cases                                                      |     | 🌐  |     |     |     |     |     |
+| [prefer-import-in-mock](docs/rules/prefer-import-in-mock.md)                                                             | prefer dynamic import in mock                                                                   |     | 🌐  |     | 🔧  |     |     |     |
 | [prefer-importing-vitest-globals](docs/rules/prefer-importing-vitest-globals.md)                                         | enforce importing Vitest globals                                                                |     | 🌐  |     | 🔧  |     |     |     |
 | [prefer-lowercase-title](docs/rules/prefer-lowercase-title.md)                                                           | enforce lowercase titles                                                                        |     | 🌐  |     | 🔧  |     |     |     |
 | [prefer-mock-promise-shorthand](docs/rules/prefer-mock-promise-shorthand.md)                                             | enforce mock resolved/rejected shorthands for promises                                          |     | 🌐  |     | 🔧  |     |     |     |
@@ -261,7 +262,6 @@ export default defineConfig({
 | [valid-expect-in-promise](docs/rules/valid-expect-in-promise.md)                                                         | require promises that have expectations in their chain to be valid                              |     | 🌐  |     |     |     |     |     |
 | [valid-title](docs/rules/valid-title.md)                                                                                 | enforce valid titles                                                                            | ✅  | 🌐  |     | 🔧  |     |     |     |
 | [warn-todo](docs/rules/warn-todo.md)                                                                                     | disallow `.todo` usage                                                                          |     |     |     |     |     |     |     |
-| [prefer-import-in-moc](docs/rules/prefer-import-in-moc.md)                                                               | enforce dynamic import in mock                                                                  | ✅  | 🌐  |     | 🔧  |     |     |     |
 
 <!-- end auto-generated rules list -->
 
