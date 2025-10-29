@@ -16,7 +16,6 @@ ruleTester.run(RULE_NAME, rule, {
     'it("an it", () => expect(1).toBe(1))',
     'it.only("an it", () => expect(1).toBe(1))',
     'it.concurrent("an it", () => expect(1).toBe(1))',
-    'it.extend.skip("an it", ()  => expect(1).toBe(1))',
     'test("a test", () => expect(1).toBe(1))',
     'test.skip("a skipped test", () => expect(1).toBe(1))',
     'test.fails("a failing test", () => expect(1).toBe(1))',

@@ -12,13 +12,15 @@ const data = [
   {
     names: ['beforeEach', 'beforeAll', 'afterEach', 'afterAll'],
     first: [],
+    exclusive: [],
     conditions: [],
     methods: [],
     last: [],
   },
   {
     names: ['it', 'test'],
-    first: ['extend'],
+    first: [],
+    exclusive: ['extend', 'scoped'],
     conditions: ['skipIf', 'runIf'],
     methods: ['skip', 'only', 'concurrent', 'sequential', 'todo', 'fails'],
     last: ['each', 'for'],
@@ -26,6 +28,7 @@ const data = [
   {
     names: ['bench'],
     first: [],
+    exclusive: [],
     conditions: ['skipIf', 'runIf'],
     methods: ['skip', 'only', 'todo'],
     last: [],
@@ -33,6 +36,7 @@ const data = [
   {
     names: ['describe', 'suite'],
     first: [],
+    exclusive: [],
     conditions: ['skipIf', 'runIf'],
     methods: ['skip', 'only', 'concurrent', 'sequential', 'shuffle', 'todo'],
     last: ['each', 'for'],
@@ -43,15 +47,15 @@ const DEPTH = 3
 
 const allPermutations: string[] = []
 
-const depths = (maxDepth: number) =>
-  Array.from({ length: maxDepth }, (_, i) => i)
-
 data.forEach((q) => {
   q.names.forEach((name) => {
     allPermutations.push(name)
 
+    allPermutations.push(...q.exclusive.map((p) => [name, p].join('.')))
+
     const maxDepth = Math.min(DEPTH, q.methods.length)
-    const methodPerms = depths(maxDepth).flatMap((i) => [
+    const depths = Array.from({ length: maxDepth }, (_, i) => i)
+    const methodPerms = depths.flatMap((i) => [
       ...per(q.methods, i + 1),
       ...q.first.flatMap((first) =>
         (per(q.methods, i) || ['']).map((p) => [first, ...p]),
@@ -106,8 +110,7 @@ data.forEach((q) => {
           )
         : []),
     ])
-    const allPerms = methodPerms.map((p) => [name, ...p].join('.'))
-    allPermutations.push(...allPerms)
+    allPermutations.push(...methodPerms.map((p) => [name, ...p].join('.')))
   })
 })
 
