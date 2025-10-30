@@ -1,80 +1,6 @@
 import type { ESLint, Linter, Rule } from 'eslint'
 import { version } from '../package.json'
-import lowerCaseTitle, { RULE_NAME as lowerCaseTitleName } from './rules/prefer-lowercase-title'
-import maxNestedDescribe, { RULE_NAME as maxNestedDescribeName } from './rules/max-nested-describe'
-import noIdenticalTitle, { RULE_NAME as noIdenticalTitleName } from './rules/no-identical-title'
-import noFocusedTests, { RULE_NAME as noFocusedTestsName } from './rules/no-focused-tests'
-import noConditionalTest, { RULE_NAME as noConditionalTests } from './rules/no-conditional-tests'
-import expectExpect, { RULE_NAME as expectedExpect } from './rules/expect-expect'
-import hoistedApisOnTop, { RULE_NAME as hoistedApisOnTopName } from './rules/hoisted-apis-on-top';
-import consistentTestIt, { RULE_NAME as useConsistentTestIt } from './rules/consistent-test-it'
-import consistentVitestVi, { RULE_NAME as useConsistentVitestVi } from './rules/consistent-vitest-vi'
-import preferToBe, { RULE_NAME as usePreferToBe } from './rules/prefer-to-be'
-import noHooks, { RULE_NAME as noHooksName } from './rules/no-hooks'
-import noRestrictedViMethods, { RULE_NAME as noRestrictedViMethodsName } from './rules/no-restricted-vi-methods'
-import consistentTestFilename, { RULE_NAME as useConsistentTestFilename } from './rules/consistent-test-filename'
-import maxExpect, { RULE_NAME as maxExpectName } from './rules/max-expects'
-import noAliasMethod, { RULE_NAME as noAliasMethodName } from './rules/no-alias-methods'
-import noCommentedOutTests, { RULE_NAME as noCommentedOutTestsName } from './rules/no-commented-out-tests'
-import noConditionalExpect, { RULE_NAME as noConditionalExpectName } from './rules/no-conditional-expect'
-import noImportNodeTest, { RULE_NAME as noImportNodeTestName } from './rules/no-import-node-test'
-import noImportingVitestGlobals, { RULE_NAME as noImportingVitestGlobalsName } from './rules/no-importing-vitest-globals'
-import preferImportingVitestGlobals, { RULE_NAME as preferImportingVitestGlobalsName } from './rules/prefer-importing-vitest-globals'
-import noConditionalInTest, { RULE_NAME as noConditionalInTestName } from './rules/no-conditional-in-test'
-import noDisabledTests, { RULE_NAME as noDisabledTestsName } from './rules/no-disabled-tests'
-import noDoneCallback, { RULE_NAME as noDoneCallbackName } from './rules/no-done-callback'
-import noDuplicateHooks, { RULE_NAME as noDuplicateHooksName } from './rules/no-duplicate-hooks'
-import noLargeSnapshots, { RULE_NAME as noLargeSnapShotsName } from './rules/no-large-snapshots'
-import nonInterpolationInSnapShots, { RULE_NAME as noInterpolationInSnapshotsName } from './rules/no-interpolation-in-snapshots'
-import noMocksImport, { RULE_NAME as noMocksImportName } from './rules/no-mocks-import'
-import noRestrictedMatchers, { RULE_NAME as noRestrictedMatchersName } from './rules/no-restricted-matchers'
-import noStandaloneExpect, { RULE_NAME as noStandaloneExpectName } from './rules/no-standalone-expect'
-import noTestPrefixes, { RULE_NAME as noTestPrefixesName } from './rules/no-test-prefixes'
-import noTestReturnStatement, { RULE_NAME as noTestReturnStatementName } from './rules/no-test-return-statement'
-import preferCalledWith, { RULE_NAME as preferCalledWithName } from './rules/prefer-called-with'
-import validTitle, { RULE_NAME as validTitleName } from './rules/valid-title'
-import validExpect, { RULE_NAME as validExpectName } from './rules/valid-expect'
-import preferToBeObject, { RULE_NAME as preferToBeObjectName } from './rules/prefer-to-be-object'
-import preferToBeTruthy, { RULE_NAME as preferToBeTruthyName } from './rules/prefer-to-be-truthy'
-import preferToBeFalsy, { RULE_NAME as preferToBeFalsyName } from './rules/prefer-to-be-falsy'
-import preferToHaveLength, { RULE_NAME as preferToHaveLengthName } from './rules/prefer-to-have-length'
-import preferEqualityMatcher, { RULE_NAME as preferEqualityMatcherName } from './rules/prefer-equality-matcher'
-import preferStrictEqual, { RULE_NAME as preferStrictEqualName } from './rules/prefer-strict-equal'
-import preferExpectResolves, { RULE_NAME as preferExpectResolvesName } from './rules/prefer-expect-resolves'
-import preferEach, { RULE_NAME as preferEachName } from './rules/prefer-each'
-import preferHooksOnTop, { RULE_NAME as preferHooksOnTopName } from './rules/prefer-hooks-on-top'
-import preferHooksInOrder, { RULE_NAME as preferHooksInOrderName } from './rules/prefer-hooks-in-order'
-import preferMockPromiseShorthand, { RULE_NAME as preferMockPromiseShortHandName } from './rules/prefer-mock-promise-shorthand'
-import preferViMocked, { RULE_NAME as preferViMockedName } from './rules/prefer-vi-mocked'
-import preferSnapshotHint, { RULE_NAME as preferSnapshotHintName } from './rules/prefer-snapshot-hint'
-import validDescribeCallback, { RULE_NAME as validDescribeCallbackName } from './rules/valid-describe-callback'
-import requireTopLevelDescribe, { RULE_NAME as requireTopLevelDescribeName } from './rules/require-top-level-describe'
-import requireToThrowMessage, { RULE_NAME as requireToThrowMessageName } from './rules/require-to-throw-message'
-import requireHook, { RULE_NAME as requireHookName } from './rules/require-hook'
-import requireLocalTestContextForConcurrentSnapshots, { RULE_NAME as requireLocalTestContextForConcurrentSnapshotsName } from './rules/require-local-test-context-for-concurrent-snapshots'
-import preferTodo, { RULE_NAME as preferTodoName } from './rules/prefer-todo'
-import preferSpyOn, { RULE_NAME as preferSpyOnName } from './rules/prefer-spy-on'
-import preferComparisonMatcher, { RULE_NAME as preferComparisonMatcherName } from './rules/prefer-comparison-matcher'
-import preferDescribeFunctionTitle, { RULE_NAME as preferDescribeFunctionTitleName } from './rules/prefer-describe-function-title'
-import preferToContain, { RULE_NAME as preferToContainName } from './rules/prefer-to-contain'
-import preferExpectAssertions, { RULE_NAME as preferExpectAssertionsName } from './rules/prefer-expect-assertions'
-import paddingAroundAfterAllBlocks, { RULE_NAME as paddingAroundAfterAllBlocksName } from './rules/padding-around-after-all-blocks'
-import paddingAroundAfterEachBlocks, { RULE_NAME as paddingAroundAfterEachBlocksName } from './rules/padding-around-after-each-blocks'
-import paddingAroundAll, { RULE_NAME as paddingAroundAllName } from './rules/padding-around-all'
-import paddingAroundBeforeAllBlocks, { RULE_NAME as paddingAroundBeforeAllBlocksName } from './rules/padding-around-before-all-blocks'
-import paddingAroundBeforeEachBlocks, { RULE_NAME as paddingAroundBeforeEachBlocksName } from './rules/padding-around-before-each-blocks'
-import paddingAroundDescribeBlocks, { RULE_NAME as paddingAroundDescribeBlocksName } from './rules/padding-around-describe-blocks'
-import paddingAroundExpectGroups, { RULE_NAME as paddingAroundExpectGroupsName } from './rules/padding-around-expect-groups'
-import paddingAroundTestBlocks, { RULE_NAME as paddingAroundTestBlocksName } from './rules/padding-around-test-blocks'
-import validExpectInPromise, { RULE_NAME as validExpectInPromiseName } from './rules/valid-expect-in-promise'
-import preferStrictBooleanMatchers, { RULE_NAME as preferStrictBooleanMatchersName } from './rules/prefer-strict-boolean-matchers'
-import requireMockTypeParameters, { RULE_NAME as requireMockTypeParametersName } from './rules/require-mock-type-parameters'
-import preferCalledOnce, { RULE_NAME as preferCalledOnceName } from './rules/prefer-called-once'
-import preferCalledTimes, { RULE_NAME as preferCalledTimesName } from './rules/prefer-called-times'
-import preferExpectTypeOf, { RULE_NAME as preferExpectTypeOfName } from './rules/prefer-expect-type-of'
-import warnTodo, { RULE_NAME as warnTodoName } from './rules/warn-todo'
-import preferImportInMock, { RULE_NAME as preferImportInMockName } from './rules/prefer-import-in-mock'
-import preferCalledExactlyOnceWith, { RULE_NAME as preferCalledExactlyOnceWithName } from './rules/prefer-called-exactly-once-with'
+import { rules, type RuleList } from './rules'
 
 const createConfig = <R extends Linter.RulesRecord>(rules: R) =>
   Object.keys(rules).reduce((acc, ruleName) => {
@@ -97,178 +23,99 @@ const createConfigLegacy = (rules: Record<string, string>) => ({
 })
 
 const allRules = {
-  [lowerCaseTitleName]: 'warn',
-  [maxNestedDescribeName]: 'warn',
-  [noFocusedTestsName]: 'warn',
-  [noConditionalTests]: 'warn',
-  [useConsistentTestIt]: 'warn',
-  [useConsistentVitestVi]: 'warn',
-  [noHooksName]: 'warn',
-  [noRestrictedViMethodsName]: 'warn',
-  [useConsistentTestFilename]: 'warn',
-  [maxExpectName]: 'warn',
-  [noAliasMethodName]: 'warn',
-  [noConditionalExpectName]: 'warn',
-  [noConditionalInTestName]: 'warn',
-  [noDisabledTestsName]: 'warn',
-  [noDuplicateHooksName]: 'warn',
-  [noLargeSnapShotsName]: 'warn',
-  [noInterpolationInSnapshotsName]: 'warn',
-  [noMocksImportName]: 'warn',
-  [noRestrictedMatchersName]: 'warn',
-  [noStandaloneExpectName]: 'warn',
-  [noTestPrefixesName]: 'warn',
-  [noTestReturnStatementName]: 'warn',
-  [preferCalledWithName]: 'warn',
-  [preferToBeFalsyName]: 'off',
-  [preferToBeObjectName]: 'warn',
-  [preferToBeTruthyName]: 'off',
-  [preferToHaveLengthName]: 'warn',
-  [preferEqualityMatcherName]: 'warn',
-  [preferStrictEqualName]: 'warn',
-  [preferExpectResolvesName]: 'warn',
-  [preferEachName]: 'warn',
-  [preferHooksOnTopName]: 'warn',
-  [preferHooksInOrderName]: 'warn',
-  [preferMockPromiseShortHandName]: 'warn',
-  [preferViMockedName]: 'warn',
-  [preferSnapshotHintName]: 'warn',
-  [requireTopLevelDescribeName]: 'warn',
-  [requireToThrowMessageName]: 'warn',
-  [requireHookName]: 'warn',
-  [preferTodoName]: 'warn',
-  [preferSpyOnName]: 'warn',
-  [preferComparisonMatcherName]: 'warn',
-  [preferDescribeFunctionTitleName]: 'warn',
-  [preferToContainName]: 'warn',
-  [preferExpectAssertionsName]: 'warn',
-  [usePreferToBe]: 'warn',
-  [paddingAroundAfterAllBlocksName]: 'warn',
-  [paddingAroundAfterEachBlocksName]: 'warn',
-  [paddingAroundAllName]: 'warn',
-  [paddingAroundBeforeAllBlocksName]: 'warn',
-  [paddingAroundBeforeEachBlocksName]: 'warn',
-  [paddingAroundDescribeBlocksName]: 'warn',
-  [paddingAroundExpectGroupsName]: 'warn',
-  [paddingAroundTestBlocksName]: 'warn',
-  [validExpectInPromiseName]: 'warn',
-  [expectedExpect]: 'warn',
-  [noIdenticalTitleName]: 'warn',
-  [noCommentedOutTestsName]: 'warn',
-  [validTitleName]: 'warn',
-  [validExpectName]: 'warn',
-  [validDescribeCallbackName]: 'warn',
-  [requireLocalTestContextForConcurrentSnapshotsName]: 'warn',
-  [noImportNodeTestName]: 'warn',
-  [preferStrictBooleanMatchersName]: 'warn',
-  [requireMockTypeParametersName]: 'warn',
-  [noImportingVitestGlobalsName]: 'off',
-  [preferImportingVitestGlobalsName]: 'warn',
-  [preferCalledOnceName]: 'off',
-  [preferCalledTimesName]: 'warn',
-  [preferExpectTypeOfName]: 'warn',
-  [hoistedApisOnTopName]: 'warn',
-  [preferImportInMockName]: 'warn',
-  [preferCalledExactlyOnceWithName]: 'warn'
-} as const
+  'consistent-test-filename': 'warn',
+  'consistent-test-it': 'warn',
+  'consistent-vitest-vi': 'warn',
+  'expect-expect': 'warn',
+  'hoisted-apis-on-top': 'warn',
+  'max-expects': 'warn',
+  'max-nested-describe': 'warn',
+  'no-alias-methods': 'warn',
+  'no-commented-out-tests': 'warn',
+  'no-conditional-expect': 'warn',
+  'no-conditional-in-test': 'warn',
+  'no-conditional-tests': 'warn',
+  'no-disabled-tests': 'warn',
+  'no-duplicate-hooks': 'warn',
+  'no-focused-tests': 'warn',
+  'no-hooks': 'warn',
+  'no-identical-title': 'warn',
+  'no-import-node-test': 'warn',
+  'no-importing-vitest-globals': 'off',
+  'no-interpolation-in-snapshots': 'warn',
+  'no-large-snapshots': 'warn',
+  'no-mocks-import': 'warn',
+  'no-restricted-matchers': 'warn',
+  'no-restricted-vi-methods': 'warn',
+  'no-standalone-expect': 'warn',
+  'no-test-prefixes': 'warn',
+  'no-test-return-statement': 'warn',
+  'padding-around-after-all-blocks': 'warn',
+  'padding-around-after-each-blocks': 'warn',
+  'padding-around-all': 'warn',
+  'padding-around-before-all-blocks': 'warn',
+  'padding-around-before-each-blocks': 'warn',
+  'padding-around-describe-blocks': 'warn',
+  'padding-around-expect-groups': 'warn',
+  'padding-around-test-blocks': 'warn',
+  'prefer-called-exactly-once-with': 'warn',
+  'prefer-called-once': 'off',
+  'prefer-called-times': 'warn',
+  'prefer-called-with': 'warn',
+  'prefer-comparison-matcher': 'warn',
+  'prefer-describe-function-title': 'warn',
+  'prefer-each': 'warn',
+  'prefer-equality-matcher': 'warn',
+  'prefer-expect-assertions': 'warn',
+  'prefer-expect-resolves': 'warn',
+  'prefer-expect-type-of': 'warn',
+  'prefer-hooks-in-order': 'warn',
+  'prefer-hooks-on-top': 'warn',
+  'prefer-import-in-mock': 'warn',
+  'prefer-importing-vitest-globals': 'warn',
+  'prefer-lowercase-title': 'warn',
+  'prefer-mock-promise-shorthand': 'warn',
+  'prefer-snapshot-hint': 'warn',
+  'prefer-spy-on': 'warn',
+  'prefer-strict-boolean-matchers': 'warn',
+  'prefer-strict-equal': 'warn',
+  'prefer-to-be-falsy': 'off',
+  'prefer-to-be-object': 'warn',
+  'prefer-to-be-truthy': 'off',
+  'prefer-to-be': 'warn',
+  'prefer-to-contain': 'warn',
+  'prefer-to-have-length': 'warn',
+  'prefer-todo': 'warn',
+  'prefer-vi-mocked': 'warn',
+  'require-hook': 'warn',
+  'require-local-test-context-for-concurrent-snapshots': 'warn',
+  'require-mock-type-parameters': 'warn',
+  'require-to-throw-message': 'warn',
+  'require-top-level-describe': 'warn',
+  'valid-describe-callback': 'warn',
+  'valid-expect-in-promise': 'warn',
+  'valid-expect': 'warn',
+  'valid-title': 'warn',
+} as const satisfies RuleList
 
-const recommended = {
-  [expectedExpect]: 'error',
-  [noIdenticalTitleName]: 'error',
-  [noCommentedOutTestsName]: 'error',
-  [validTitleName]: 'error',
-  [validExpectName]: 'error',
-  [validDescribeCallbackName]: 'error',
-  [requireLocalTestContextForConcurrentSnapshotsName]: 'error',
-  [noImportNodeTestName]: 'error',
-  [preferCalledExactlyOnceWithName]: 'error',
-} as const
-
-const rules = {
-    [lowerCaseTitleName]: lowerCaseTitle,
-    [maxNestedDescribeName]: maxNestedDescribe,
-    [noIdenticalTitleName]: noIdenticalTitle,
-    [noFocusedTestsName]: noFocusedTests,
-    [noConditionalTests]: noConditionalTest,
-    [expectedExpect]: expectExpect,
-    [hoistedApisOnTopName]: hoistedApisOnTop,
-    [useConsistentTestIt]: consistentTestIt,
-    [useConsistentVitestVi]: consistentVitestVi,
-    [usePreferToBe]: preferToBe,
-    [noHooksName]: noHooks,
-    [noRestrictedViMethodsName]: noRestrictedViMethods,
-    [useConsistentTestFilename]: consistentTestFilename,
-    [maxExpectName]: maxExpect,
-    [noAliasMethodName]: noAliasMethod,
-    [noCommentedOutTestsName]: noCommentedOutTests,
-    [noConditionalExpectName]: noConditionalExpect,
-    [noConditionalInTestName]: noConditionalInTest,
-    [noDisabledTestsName]: noDisabledTests,
-    [noDoneCallbackName]: noDoneCallback,
-    [noDuplicateHooksName]: noDuplicateHooks,
-    [noLargeSnapShotsName]: noLargeSnapshots,
-    [noInterpolationInSnapshotsName]: nonInterpolationInSnapShots,
-    [noMocksImportName]: noMocksImport,
-    [noRestrictedMatchersName]: noRestrictedMatchers,
-    [noStandaloneExpectName]: noStandaloneExpect,
-    [noTestPrefixesName]: noTestPrefixes,
-    [noTestReturnStatementName]: noTestReturnStatement,
-    [noImportNodeTestName]: noImportNodeTest,
-    [preferCalledWithName]: preferCalledWith,
-    [validTitleName]: validTitle,
-    [validExpectName]: validExpect,
-    [preferToBeFalsyName]: preferToBeFalsy,
-    [preferToBeObjectName]: preferToBeObject,
-    [preferToBeTruthyName]: preferToBeTruthy,
-    [preferToHaveLengthName]: preferToHaveLength,
-    [preferEqualityMatcherName]: preferEqualityMatcher,
-    [preferStrictEqualName]: preferStrictEqual,
-    [preferExpectResolvesName]: preferExpectResolves,
-    [preferEachName]: preferEach,
-    [preferHooksOnTopName]: preferHooksOnTop,
-    [preferHooksInOrderName]: preferHooksInOrder,
-    [requireLocalTestContextForConcurrentSnapshotsName]:
-    requireLocalTestContextForConcurrentSnapshots,
-    [preferMockPromiseShortHandName]: preferMockPromiseShorthand,
-    [preferViMockedName]: preferViMocked,
-    [preferSnapshotHintName]: preferSnapshotHint,
-    [validDescribeCallbackName]: validDescribeCallback,
-    [requireTopLevelDescribeName]: requireTopLevelDescribe,
-    [requireToThrowMessageName]: requireToThrowMessage,
-    [requireHookName]: requireHook,
-    [preferTodoName]: preferTodo,
-    [preferSpyOnName]: preferSpyOn,
-    [preferComparisonMatcherName]: preferComparisonMatcher,
-    [preferDescribeFunctionTitleName]: preferDescribeFunctionTitle,
-    [preferToContainName]: preferToContain,
-    [preferExpectAssertionsName]: preferExpectAssertions,
-    [paddingAroundAfterAllBlocksName]: paddingAroundAfterAllBlocks,
-    [paddingAroundAfterEachBlocksName]: paddingAroundAfterEachBlocks,
-    [paddingAroundAllName]: paddingAroundAll,
-    [paddingAroundBeforeAllBlocksName]: paddingAroundBeforeAllBlocks,
-    [paddingAroundBeforeEachBlocksName]: paddingAroundBeforeEachBlocks,
-    [paddingAroundDescribeBlocksName]: paddingAroundDescribeBlocks,
-    [paddingAroundExpectGroupsName]: paddingAroundExpectGroups,
-    [paddingAroundTestBlocksName]: paddingAroundTestBlocks,
-    [validExpectInPromiseName]: validExpectInPromise,
-    [preferStrictBooleanMatchersName]: preferStrictBooleanMatchers,
-    [requireMockTypeParametersName]: requireMockTypeParameters,
-    [noImportingVitestGlobalsName]: noImportingVitestGlobals,
-    [preferImportingVitestGlobalsName]: preferImportingVitestGlobals,
-    [preferCalledOnceName]: preferCalledOnce,
-    [preferCalledTimesName]: preferCalledTimes,
-    [preferExpectTypeOfName]: preferExpectTypeOf,
-    [warnTodoName]: warnTodo,
-    [preferImportInMockName]: preferImportInMock,
-    [preferCalledExactlyOnceWithName]: preferCalledExactlyOnceWith
-} as unknown as Record<string, Rule.RuleModule>
+const recommendedRules = {
+  'expect-expect': 'error',
+  'no-commented-out-tests': 'error',
+  'no-identical-title': 'error',
+  'no-import-node-test': 'error',
+  'prefer-called-exactly-once-with': 'error',
+  'require-local-test-context-for-concurrent-snapshots': 'error',
+  'valid-describe-callback': 'error',
+  'valid-expect': 'error',
+  'valid-title': 'error',
+} as const satisfies RuleList
 
 const plugin = {
   meta: {
     name: 'vitest',
     version,
   },
-  rules,
+  rules: rules as unknown as Record<string, Rule.RuleModule>,
   environments: {
     env: {
       globals: {
@@ -293,7 +140,7 @@ const plugin = {
     },
   },
   configs: {
-    'legacy-recommended': createConfigLegacy(recommended),
+    'legacy-recommended': createConfigLegacy(recommendedRules),
     'legacy-all': createConfigLegacy(allRules),
     recommended: {
       name: 'vitest/recommended',
@@ -302,7 +149,7 @@ const plugin = {
           return plugin
         },
       },
-      rules: createConfig(recommended),
+      rules: createConfig(recommendedRules),
     },
     all: {
       name: 'vitest/all',
