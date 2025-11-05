@@ -50,7 +50,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         if (
           comparison?.type !== AST_NODE_TYPES.BinaryExpression ||
           (comparison.operator !== '===' && comparison.operator !== '!==') ||
-          !EqualityMatcher.hasOwnProperty(getAccessorValue(matcher)) ||
+          !Object.prototype.hasOwnProperty.call(
+            EqualityMatcher,
+            getAccessorValue(matcher),
+          ) ||
           !isBooleanLiteral(matcherArg)
         )
           return

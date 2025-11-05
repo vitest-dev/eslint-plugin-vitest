@@ -253,7 +253,10 @@ export default createEslintRule<
             context.report({
               messageId:
                 isSupportedAccessor(reportingNode) &&
-                ModifierName.hasOwnProperty(getAccessorValue(reportingNode))
+                Object.prototype.hasOwnProperty.call(
+                  ModifierName,
+                  getAccessorValue(reportingNode),
+                )
                   ? 'matcherNotFound'
                   : 'matcherNotCalled',
               node: reportingNode,

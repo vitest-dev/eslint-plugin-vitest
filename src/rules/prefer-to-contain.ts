@@ -70,7 +70,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         if (
           !includesCall ||
           matcherArg.type === AST_NODE_TYPES.SpreadElement ||
-          !EqualityMatcher.hasOwnProperty(getAccessorValue(matcher)) ||
+          !Object.prototype.hasOwnProperty.call(
+            EqualityMatcher,
+            getAccessorValue(matcher),
+          ) ||
           !isBooleanLiteral(matcherArg) ||
           !isFixableIncludesCallExpression(includesCall)
         )

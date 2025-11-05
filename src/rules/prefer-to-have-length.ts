@@ -41,7 +41,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         const { matcher } = vitestFnCall
 
         if (
-          !EqualityMatcher.hasOwnProperty(getAccessorValue(matcher)) ||
+          !Object.prototype.hasOwnProperty.call(
+            EqualityMatcher,
+            getAccessorValue(matcher),
+          ) ||
           argument?.type !== AST_NODE_TYPES.MemberExpression ||
           !isSupportedAccessor(argument.property, 'length')
         )
