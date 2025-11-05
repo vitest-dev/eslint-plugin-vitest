@@ -4,7 +4,7 @@ import {
   getPathIgnorePattern,
   getRepositories,
 } from 'eslint-remote-tester-repositories'
-import vitest from '@vitest/eslint-plugin'
+import vitest from './src'
 
 export default {
   repositories: getRepositories(),
