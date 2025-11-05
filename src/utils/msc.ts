@@ -26,7 +26,10 @@ export const isBooleanEqualityMatcher = (
 
   const arg = getFirstMatcherArg(expectFnCall)
 
-  return EqualityMatcher.hasOwnProperty(matcherName) && isBooleanLiteral(arg)
+  return (
+    Object.prototype.hasOwnProperty.call(EqualityMatcher, matcherName) &&
+    isBooleanLiteral(arg)
+  )
 }
 
 export const isInstanceOfBinaryExpression = (

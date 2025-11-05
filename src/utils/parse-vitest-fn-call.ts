@@ -131,11 +131,12 @@ const determineVitestFnType = (name: string): VitestFnType => {
 
   if (name === 'vitest') return 'vitest'
 
-  if (DescribeAlias.hasOwnProperty(name)) return 'describe'
+  if (Object.prototype.hasOwnProperty.call(DescribeAlias, name))
+    return 'describe'
 
-  if (TestCaseName.hasOwnProperty(name)) return 'test'
+  if (Object.prototype.hasOwnProperty.call(TestCaseName, name)) return 'test'
 
-  if (HookName.hasOwnProperty(name)) return 'hook'
+  if (Object.prototype.hasOwnProperty.call(HookName, name)) return 'hook'
 
   return 'unknown'
 }
@@ -164,7 +165,8 @@ const findModifiersAndMatcher = (
 
     if (modifiers.length === 0) {
       // the first modifier can be any of the three modifiers
-      if (!ModifierName.hasOwnProperty(name)) return 'modifier-unknown'
+      if (!Object.prototype.hasOwnProperty.call(ModifierName, name))
+        return 'modifier-unknown'
     } else if (modifiers.length === 1) {
       // the second modifier can only either be "not" or "have"
       if (name !== ModifierName.not && name != ModifierName.have)
@@ -397,7 +399,7 @@ const isAncestorTestCaseCall = ({ parent }: TSESTree.Node) => {
   return (
     parent?.type === AST_NODE_TYPES.CallExpression &&
     parent.callee.type === AST_NODE_TYPES.Identifier &&
-    TestCaseName.hasOwnProperty(parent.callee.name)
+    Object.prototype.hasOwnProperty.call(TestCaseName, parent.callee.name)
   )
 }
 
@@ -433,7 +435,7 @@ export const resolveScope = (
       if (
         def.node.type === AST_NODE_TYPES.VariableDeclarator &&
         def.node.id.type === AST_NODE_TYPES.Identifier &&
-        TestCaseName.hasOwnProperty(def.node.id.name) &&
+        Object.prototype.hasOwnProperty.call(TestCaseName, def.node.id.name) &&
         def.node.init?.type === AST_NODE_TYPES.CallExpression &&
         def.node.init.callee.type === AST_NODE_TYPES.MemberExpression &&
         isIdentifier(def.node.init.callee.property, 'extend')

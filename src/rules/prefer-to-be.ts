@@ -138,7 +138,7 @@ export default createEslintRule<[], MessageId>({
         }
 
         if (
-          !EqualityMatcher.hasOwnProperty(matcherName) ||
+          !Object.prototype.hasOwnProperty.call(EqualityMatcher, matcherName) ||
           vitestFnCall.args.length === 0
         )
           return

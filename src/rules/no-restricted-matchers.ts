@@ -7,7 +7,10 @@ type MESSAGE_IDS = 'restrictedChain' | 'restrictedChainWithMessage'
 type Options = Record<string, string | null>[]
 
 const isChainRestricted = (chain: string, restriction: string): boolean => {
-  if (ModifierName.hasOwnProperty(restriction) || restriction.endsWith('.not'))
+  if (
+    Object.prototype.hasOwnProperty.call(ModifierName, restriction) ||
+    restriction.endsWith('.not')
+  )
     return chain.startsWith(restriction)
 
   return chain === restriction

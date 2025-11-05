@@ -4,9 +4,7 @@ import {
   getPathIgnorePattern,
   getRepositories,
 } from 'eslint-remote-tester-repositories'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore available once package is built
-import vitest from '@vitest/eslint-plugin'
+import vitest from './src'
 
 export default {
   repositories: getRepositories(),

@@ -48,7 +48,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         if (
           vitestFnCall.args.length === 1 &&
           isFalseLiteral(getFirstMatcherArg(vitestFnCall)) &&
-          EqualityMatcher.hasOwnProperty(getAccessorValue(vitestFnCall.matcher))
+          Object.prototype.hasOwnProperty.call(
+            EqualityMatcher,
+            getAccessorValue(vitestFnCall.matcher),
+          )
         ) {
           context.report({
             node: vitestFnCall.matcher,
