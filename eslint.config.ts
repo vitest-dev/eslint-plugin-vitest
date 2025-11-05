@@ -40,5 +40,10 @@ export default defineConfig(
       'no-unsafe-optional-chaining': 'warn',
     },
   },
+  {
+    linterOptions: {
+      reportUnusedDisableDirectives: true,
+    },
+  },
   eslintConfigPrettier,
 )
