@@ -37,7 +37,6 @@ export default defineConfig(
       'eslint-plugin/require-meta-default-options': 'warn',
       'eslint-plugin/require-meta-schema-description': 'warn',
       'eslint-plugin/no-meta-schema-default': 'warn',
-      'no-unsafe-optional-chaining': 'warn',
     },
   },
   {

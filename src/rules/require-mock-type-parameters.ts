@@ -42,7 +42,7 @@ export default createEslintRule<Options[], MESSAGE_IDS>({
         const vitestFnCall = parseVitestFnCall(node, context)
         if (vitestFnCall?.type !== 'vi') return
 
-        for (const member of vitestFnCall?.members) {
+        for (const member of vitestFnCall.members) {
           if (
             !('name' in member) ||
             // @ts-expect-error TS2339
