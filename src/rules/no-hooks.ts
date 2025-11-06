@@ -23,9 +23,19 @@ export default createEslintRule<
         properties: {
           allow: {
             type: 'array',
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
-            contains: ['beforeAll', 'beforeEach', 'afterAll', 'afterEach'],
+            items: {
+              type: 'string',
+              enum: [
+                HookName.beforeAll,
+                HookName.beforeEach,
+                HookName.afterAll,
+                HookName.afterEach,
+              ],
+            },
+            additionalItems: false,
+            uniqueItems: true,
+            description:
+              'This array option controls which Vitest hooks are checked by this rule.',
           },
         },
         additionalProperties: false,
