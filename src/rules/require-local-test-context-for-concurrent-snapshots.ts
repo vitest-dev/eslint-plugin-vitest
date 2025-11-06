@@ -33,15 +33,16 @@ export default createEslintRule({
         )
           return
 
+        if (node.callee.type !== AST_NODE_TYPES.MemberExpression) return
+        if (node.callee.property.type !== AST_NODE_TYPES.Identifier) return
+
         const isNotASnapshotAssertion = ![
           'toMatchSnapshot',
           'toMatchInlineSnapshot',
           'toMatchFileSnapshot',
           'toThrowErrorMatchingSnapshot',
           'toThrowErrorMatchingInlineSnapshot',
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
-        ].includes(node.callee?.property.name)
+        ].includes(node.callee.property.name)
 
         if (isNotASnapshotAssertion) return
 

@@ -131,7 +131,7 @@ export default createEslintRule<
       CallExpression(node: TSESTree.CallExpression) {
         const vitestFnCall = parseVitestFnCall(node, context)
 
-        if (!vitestFnCall || !hasStringAsFirstArgument) return
+        if (!vitestFnCall || !hasStringAsFirstArgument(node)) return
 
         if (vitestFnCall?.type === 'describe') {
           numberOfDescribeBlocks++
@@ -143,8 +143,6 @@ export default createEslintRule<
 
         const [firstArgument] = node.arguments
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
         const description = getStringValue(firstArgument)
 
         if (typeof description !== 'string') return
@@ -173,8 +171,6 @@ export default createEslintRule<
             method: vitestFnCall.name,
           },
           fix: (fixer) => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
             const description = getStringValue(firstArgument)
 
             const rangeIgnoreQuotes: TSESLint.AST.Range = [

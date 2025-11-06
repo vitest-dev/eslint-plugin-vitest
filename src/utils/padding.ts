@@ -258,13 +258,7 @@ const verifyNode = (
 ): void => {
   const { scopeInfo } = paddingContext
 
-  // NOTE: ESLint types use ESTree which provides a Node type, however
-  //  ESTree.Node doesn't support the parent property which is added by
-  //  ESLint during traversal. Our best bet is to ignore the property access
-  //  here as it's the only place that it's checked.
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  if (!astUtils.isValidParent((node as any)?.parent.type)) return
+  if (node.parent && !astUtils.isValidParent(node.parent.type)) return
 
   if (scopeInfo.prevNode) {
     testPadding(scopeInfo.prevNode, node, paddingContext)
