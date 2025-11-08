@@ -45,13 +45,15 @@ export default createEslintRule<Options, MESSAGE_ID>({
           return
         }
 
-        let topMostNode = skipMatchersAndModifiers(vitestFnCall.head.node)
-        topMostNode = skipSequenceExpressions(topMostNode)
+        let topMostNode = skipSequenceExpressions(
+          skipMatchersAndModifiers(vitestFnCall.head.node),
+        )
 
-        if (
+        const isHandled =
           topMostNode.parent?.type === AST_NODE_TYPES.AwaitExpression ||
           topMostNode.parent?.type === AST_NODE_TYPES.ReturnStatement
-        ) {
+
+        if (isHandled) {
           return
         }
 
