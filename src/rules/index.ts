@@ -64,6 +64,7 @@ import preferToContain from './prefer-to-contain'
 import preferToHaveLength from './prefer-to-have-length'
 import preferTodo from './prefer-todo'
 import preferViMocked from './prefer-vi-mocked'
+import requireExpectPollAwait from './require-awaited-expect-poll'
 import requireHook from './require-hook'
 import requireLocalTestContextForConcurrentSnapshots from './require-local-test-context-for-concurrent-snapshots'
 import requireMockTypeParameters from './require-mock-type-parameters'
@@ -141,6 +142,7 @@ export const rules = {
   'prefer-to-have-length': preferToHaveLength,
   'prefer-todo': preferTodo,
   'prefer-vi-mocked': preferViMocked,
+  'require-awaited-expect-poll': requireExpectPollAwait,
   'require-hook': requireHook,
   'require-local-test-context-for-concurrent-snapshots':
     requireLocalTestContextForConcurrentSnapshots,
