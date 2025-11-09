@@ -96,6 +96,7 @@ const allRules = {
   'valid-expect-in-promise': 'warn',
   'valid-expect': 'warn',
   'valid-title': 'warn',
+  'require-awaited-expect-poll': 'warn',
 } as const satisfies RuleList
 
 const recommendedRules = {
