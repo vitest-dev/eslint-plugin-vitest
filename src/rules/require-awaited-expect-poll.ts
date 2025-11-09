@@ -45,7 +45,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
           return
         }
 
-        let topMostNode = skipSequenceExpressions(
+        const topMostNode = skipSequenceExpressions(
           skipMatchersAndModifiers(vitestFnCall.head.node),
         )
 
