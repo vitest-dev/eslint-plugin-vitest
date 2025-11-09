@@ -45,7 +45,7 @@ export interface KnownMemberExpression<Name extends string = string>
   property: AccessorNode<Name>
 }
 
-type KnownMemberExpressionProperty<Specifies extends string = string> =
+export type KnownMemberExpressionProperty<Specifies extends string = string> =
   AccessorNode<Specifies> & { parent: KnownMemberExpression<Specifies> }
 
 interface ModifiersAndMatcher {
