@@ -233,7 +233,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               firstCallExpression.range[0],
             )
             const typesParam = targetArgNode.callExpression.typeArguments
-              ? sourceCode.text.slice(targetArgNode.callExpression.typeArguments.range[0], targetArgNode.callExpression.typeArguments.range[1])
+              ? sourceCode.text.slice(
+                  targetArgNode.callExpression.typeArguments.range[0],
+                  targetArgNode.callExpression.typeArguments.range[1],
+                )
               : ''
 
             const replacement = `${indentation}${expectedText}.toHaveBeenCalledExactlyOnceWith${typesParam}(${argsText})`
