@@ -232,7 +232,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               firstCallExpression.parent.range[0],
               firstCallExpression.range[0],
             )
-            const replacement = `${indentation}${expectedText}.toHaveBeenCalledExactlyOnceWith(${argsText})`
+            const typesParam = targetArgNode.callExpression.typeArguments
+              ? sourceCode.text.slice(targetArgNode.callExpression.typeArguments.range[0], targetArgNode.callExpression.typeArguments.range[1])
+              : ''
+
+            const replacement = `${indentation}${expectedText}.toHaveBeenCalledExactlyOnceWith${typesParam}(${argsText})`
 
             const lineStart = sourceCode.getIndexFromLoc({
               line: secondCallExpression.parent.loc.start.line,
