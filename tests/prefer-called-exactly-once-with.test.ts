@@ -1,6 +1,5 @@
 import rule, { RULE_NAME } from '../src/rules/prefer-called-exactly-once-with'
 import { ruleTester } from './ruleTester'
-import { RuleTester } from '@typescript-eslint/rule-tester'
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
@@ -181,7 +180,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-new RuleTester().run('prefer-called-exactly-once-with: typescript edition', rule, {
+ruleTester.run('prefer-called-exactly-once-with: typescript edition', rule, {
   valid: [
     'expect(fn).toHaveBeenCalledExactlyOnceWith<[{ id: number }]>()',
     'expect(fn).toHaveBeenCalledExactlyOnceWith<[{ id: number }]>({id: 1})',
