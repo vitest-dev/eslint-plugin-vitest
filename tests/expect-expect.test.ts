@@ -5,6 +5,9 @@ import { ruleTester } from './ruleTester'
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     'test.skip("skipped test", () => {})',
+    'it.skip("skipped test", () => {})',
+    'test.scoped({ dependency: "new" })',
+    'it.scoped({ dependency: "new" })',
     'it.todo("will test something eventually")',
     'test.todo("will test something eventually")',
     "['x']();",
