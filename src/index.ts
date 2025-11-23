@@ -25,6 +25,7 @@ const createConfigLegacy = (rules: Record<string, string>) => ({
 const allRules = {
   'consistent-test-filename': 'warn',
   'consistent-test-it': 'warn',
+  'consistent-each-for': 'warn',
   'consistent-vitest-vi': 'warn',
   'expect-expect': 'warn',
   'hoisted-apis-on-top': 'warn',
