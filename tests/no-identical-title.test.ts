@@ -33,6 +33,18 @@ ruleTester.run(RULE_NAME, rule, {
    })
   })
   `,
+    `
+  test.each([1, 2])('%s', () => {
+  })
+  test.each([1, 2])('%s', () => {
+  })
+  `,
+    `
+  test.for([1,2])('%s', () => {
+  })
+  test.for([1,2])('%s', () => {
+  })
+  `,
   ],
   invalid: [
     {
