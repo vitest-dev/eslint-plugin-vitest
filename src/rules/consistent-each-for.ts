@@ -4,8 +4,8 @@ import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'consistent-each-for'
 export type MessageIds = 'consistentMethod'
-export type EachOrFor = 'each' | 'for'
-export type BaseFnName = 'test' | 'it' | 'describe' | 'suite'
+type EachOrFor = 'each' | 'for'
+type BaseFnName = 'test' | 'it' | 'describe' | 'suite'
 
 const BASE_FN_NAMES: readonly BaseFnName[] = [
   'test',

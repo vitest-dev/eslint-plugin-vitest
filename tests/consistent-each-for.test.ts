@@ -21,86 +21,86 @@ ruleTester.run(RULE_NAME, rule, {
     {
       name: 'test.each when configured to prefer each',
       code: 'test.each([1, 2, 3])("test", (n) => { expect(n).toBeDefined() })',
-      options: [{ test: 'each' as const }],
+      options: [{ test: 'each' }],
     },
     {
       name: 'test.skip.each when configured to prefer each',
       code: 'test.skip.each([1, 2, 3])("test", (n) => { expect(n).toBeDefined() })',
-      options: [{ test: 'each' as const }],
+      options: [{ test: 'each' }],
     },
     {
       name: 'test.only.each when configured to prefer each',
       code: 'test.only.each([1, 2, 3])("test", (n) => { expect(n).toBeDefined() })',
-      options: [{ test: 'each' as const }],
+      options: [{ test: 'each' }],
     },
     {
       name: 'test.concurrent.each when configured to prefer each',
       code: 'test.concurrent.each([1, 2, 3])("test", (n) => { expect(n).toBeDefined() })',
-      options: [{ test: 'each' as const }],
+      options: [{ test: 'each' }],
     },
 
     // test.for with preference for 'for'
     {
       name: 'test.for when configured to prefer for',
       code: 'test.for([1, 2, 3])("test", ([n]) => { expect(n).toBeDefined() })',
-      options: [{ test: 'for' as const }],
+      options: [{ test: 'for' }],
     },
     {
       name: 'test.skip.for when configured to prefer for',
       code: 'test.skip.for([1, 2, 3])("test", ([n]) => { expect(n).toBeDefined() })',
-      options: [{ test: 'for' as const }],
+      options: [{ test: 'for' }],
     },
     {
       name: 'test.only.for when configured to prefer for',
       code: 'test.only.for([1, 2, 3])("test", ([n]) => { expect(n).toBeDefined() })',
-      options: [{ test: 'for' as const }],
+      options: [{ test: 'for' }],
     },
 
     // it.each with preference for 'each'
     {
       name: 'it.each when configured to prefer each',
       code: 'it.each([1, 2, 3])("test", (n) => { expect(n).toBeDefined() })',
-      options: [{ it: 'each' as const }],
+      options: [{ it: 'each' }],
     },
 
     // it.for with preference for 'for'
     {
       name: 'it.for when configured to prefer for',
       code: 'it.for([1, 2, 3])("test", ([n]) => { expect(n).toBeDefined() })',
-      options: [{ it: 'for' as const }],
+      options: [{ it: 'for' }],
     },
 
     // describe.each with preference for 'each'
     {
       name: 'describe.each when configured to prefer each',
       code: 'describe.each([1, 2, 3])("suite", (n) => { test("test", () => {}) })',
-      options: [{ describe: 'each' as const }],
+      options: [{ describe: 'each' }],
     },
     {
       name: 'describe.skip.each when configured to prefer each',
       code: 'describe.skip.each([1, 2, 3])("suite", (n) => { test("test", () => {}) })',
-      options: [{ describe: 'each' as const }],
+      options: [{ describe: 'each' }],
     },
 
     // describe.for with preference for 'for'
     {
       name: 'describe.for when configured to prefer for',
       code: 'describe.for([1, 2, 3])("suite", ([n]) => { test("test", () => {}) })',
-      options: [{ describe: 'for' as const }],
+      options: [{ describe: 'for' }],
     },
 
     // suite.each with preference for 'each'
     {
       name: 'suite.each when configured to prefer each',
       code: 'suite.each([1, 2, 3])("suite", (n) => { test("test", () => {}) })',
-      options: [{ suite: 'each' as const }],
+      options: [{ suite: 'each' }],
     },
 
     // suite.for with preference for 'for'
     {
       name: 'suite.for when configured to prefer for',
       code: 'suite.for([1, 2, 3])("suite", ([n]) => { test("test", () => {}) })',
-      options: [{ suite: 'for' as const }],
+      options: [{ suite: 'for' }],
     },
 
     // Mixed configurations - test prefers 'each', describe prefers 'for'
@@ -110,7 +110,7 @@ ruleTester.run(RULE_NAME, rule, {
         test.each([1, 2, 3])("test", (n) => { expect(n).toBeDefined() })
         describe.for([1, 2, 3])("suite", ([n]) => { test("test", () => {}) })
       `,
-      options: [{ test: 'each' as const, describe: 'for' as const }],
+      options: [{ test: 'each', describe: 'for' }],
     },
   ],
   invalid: [
@@ -118,7 +118,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       name: 'test.for when configured to prefer each',
       code: 'test.for([1, 2, 3])("test", ([n]) => { expect(n).toBeDefined() })',
-      options: [{ test: 'each' as const }],
+      options: [{ test: 'each' }],
       errors: [
         {
           messageId: 'consistentMethod',
@@ -131,7 +131,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       name: 'test.skip.for when configured to prefer each',
       code: 'test.skip.for([1, 2, 3])("test", ([n]) => { expect(n).toBeDefined() })',
-      options: [{ test: 'each' as const }],
+      options: [{ test: 'each' }],
       errors: [
         {
           messageId: 'consistentMethod',
@@ -144,7 +144,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       name: 'test.only.for when configured to prefer each',
       code: 'test.only.for([1, 2, 3])("test", ([n]) => { expect(n).toBeDefined() })',
-      options: [{ test: 'each' as const }],
+      options: [{ test: 'each' }],
       errors: [
         {
           messageId: 'consistentMethod',
@@ -159,7 +159,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       name: 'test.each when configured to prefer for',
       code: 'test.each([1, 2, 3])("test", (n) => { expect(n).toBeDefined() })',
-      options: [{ test: 'for' as const }],
+      options: [{ test: 'for' }],
       errors: [
         {
           messageId: 'consistentMethod',
@@ -172,7 +172,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       name: 'test.skip.each when configured to prefer for',
       code: 'test.skip.each([1, 2, 3])("test", (n) => { expect(n).toBeDefined() })',
-      options: [{ test: 'for' as const }],
+      options: [{ test: 'for' }],
       errors: [
         {
           messageId: 'consistentMethod',
@@ -187,7 +187,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       name: 'it.for when configured to prefer each',
       code: 'it.for([1, 2, 3])("test", ([n]) => { expect(n).toBeDefined() })',
-      options: [{ it: 'each' as const }],
+      options: [{ it: 'each' }],
       errors: [
         {
           messageId: 'consistentMethod',
@@ -202,7 +202,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       name: 'it.each when configured to prefer for',
       code: 'it.each([1, 2, 3])("test", (n) => { expect(n).toBeDefined() })',
-      options: [{ it: 'for' as const }],
+      options: [{ it: 'for' }],
       errors: [
         {
           messageId: 'consistentMethod',
@@ -217,7 +217,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       name: 'describe.for when configured to prefer each',
       code: 'describe.for([1, 2, 3])("suite", ([n]) => { test("test", () => {}) })',
-      options: [{ describe: 'each' as const }],
+      options: [{ describe: 'each' }],
       errors: [
         {
           messageId: 'consistentMethod',
@@ -232,7 +232,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       name: 'describe.each when configured to prefer for',
       code: 'describe.each([1, 2, 3])("suite", (n) => { test("test", () => {}) })',
-      options: [{ describe: 'for' as const }],
+      options: [{ describe: 'for' }],
       errors: [
         {
           messageId: 'consistentMethod',
@@ -247,7 +247,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       name: 'suite.for when configured to prefer each',
       code: 'suite.for([1, 2, 3])("suite", ([n]) => { test("test", () => {}) })',
-      options: [{ suite: 'each' as const }],
+      options: [{ suite: 'each' }],
       errors: [
         {
           messageId: 'consistentMethod',
@@ -262,7 +262,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       name: 'suite.each when configured to prefer for',
       code: 'suite.each([1, 2, 3])("suite", (n) => { test("test", () => {}) })',
-      options: [{ suite: 'for' as const }],
+      options: [{ suite: 'for' }],
       errors: [
         {
           messageId: 'consistentMethod',
@@ -280,7 +280,7 @@ ruleTester.run(RULE_NAME, rule, {
         test.for([1, 2])("test1", ([n]) => {})
         test.for([3, 4])("test2", ([n]) => {})
       `,
-      options: [{ test: 'each' as const }],
+      options: [{ test: 'each' }],
       errors: [
         {
           messageId: 'consistentMethod',
