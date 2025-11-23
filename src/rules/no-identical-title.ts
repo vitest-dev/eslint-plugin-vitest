@@ -54,7 +54,13 @@ export default createEslintRule<Options, MESSAGE_ID>({
         if (vitestFnCall.name === 'describe' || vitestFnCall.name === 'suite')
           stack.push(newDescribeContext())
 
-        if (vitestFnCall.members.find((s) => isSupportedAccessor(s, 'each')))
+        if (
+          vitestFnCall.members.some((member) =>
+            ['each', 'for'].some((accessor) =>
+              isSupportedAccessor(member, accessor),
+            ),
+          )
+        )
           return
 
         const [argument] = node.arguments
