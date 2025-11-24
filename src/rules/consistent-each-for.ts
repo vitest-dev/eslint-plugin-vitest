@@ -2,6 +2,7 @@ import { TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
+export const RULE_NAME = 'consistent-each-for'
 export type MessageIds = 'consistentMethod'
 
 type EachOrFor = 'each' | 'for'
@@ -16,7 +17,7 @@ type Options = {
 }
 
 export default createEslintRule<[Partial<Options>], MessageIds>({
-  name: 'consistent-each-for',
+  name: RULE_NAME,
   meta: {
     type: 'suggestion',
     docs: {
@@ -51,6 +52,7 @@ export default createEslintRule<[Partial<Options>], MessageIds>({
         additionalProperties: false,
       },
     ],
+    defaultOptions: [{}],
   },
   defaultOptions: [{}],
   create(context, [options]) {

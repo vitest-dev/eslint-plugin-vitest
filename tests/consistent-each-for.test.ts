@@ -3,7 +3,6 @@ import { ruleTester } from './ruleTester'
 
 ruleTester.run(RULE_NAME, rule, {
   valid: [
-    // No configuration - all usages are valid
     {
       name: 'test.each without configuration',
       code: 'test.each([1, 2, 3])("test", (n) => { expect(n).toBeDefined() })',
@@ -16,8 +15,6 @@ ruleTester.run(RULE_NAME, rule, {
       name: 'describe.each without configuration',
       code: 'describe.each([1, 2, 3])("suite", (n) => { test("test", () => {}) })',
     },
-
-    // test.each with preference for 'each'
     {
       name: 'test.each when configured to prefer each',
       code: 'test.each([1, 2, 3])("test", (n) => { expect(n).toBeDefined() })',
@@ -38,8 +35,6 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'test.concurrent.each([1, 2, 3])("test", (n) => { expect(n).toBeDefined() })',
       options: [{ test: 'each' }],
     },
-
-    // test.for with preference for 'for'
     {
       name: 'test.for when configured to prefer for',
       code: 'test.for([1, 2, 3])("test", ([n]) => { expect(n).toBeDefined() })',
@@ -55,22 +50,16 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'test.only.for([1, 2, 3])("test", ([n]) => { expect(n).toBeDefined() })',
       options: [{ test: 'for' }],
     },
-
-    // it.each with preference for 'each'
     {
       name: 'it.each when configured to prefer each',
       code: 'it.each([1, 2, 3])("test", (n) => { expect(n).toBeDefined() })',
       options: [{ it: 'each' }],
     },
-
-    // it.for with preference for 'for'
     {
       name: 'it.for when configured to prefer for',
       code: 'it.for([1, 2, 3])("test", ([n]) => { expect(n).toBeDefined() })',
       options: [{ it: 'for' }],
     },
-
-    // describe.each with preference for 'each'
     {
       name: 'describe.each when configured to prefer each',
       code: 'describe.each([1, 2, 3])("suite", (n) => { test("test", () => {}) })',
@@ -81,29 +70,21 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'describe.skip.each([1, 2, 3])("suite", (n) => { test("test", () => {}) })',
       options: [{ describe: 'each' }],
     },
-
-    // describe.for with preference for 'for'
     {
       name: 'describe.for when configured to prefer for',
       code: 'describe.for([1, 2, 3])("suite", ([n]) => { test("test", () => {}) })',
       options: [{ describe: 'for' }],
     },
-
-    // suite.each with preference for 'each'
     {
       name: 'suite.each when configured to prefer each',
       code: 'suite.each([1, 2, 3])("suite", (n) => { test("test", () => {}) })',
       options: [{ suite: 'each' }],
     },
-
-    // suite.for with preference for 'for'
     {
       name: 'suite.for when configured to prefer for',
       code: 'suite.for([1, 2, 3])("suite", ([n]) => { test("test", () => {}) })',
       options: [{ suite: 'for' }],
     },
-
-    // Mixed configurations - test prefers 'each', describe prefers 'for'
     {
       name: 'mixed configuration respects individual settings',
       code: `
@@ -114,7 +95,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   invalid: [
-    // test.for when configured to prefer 'each'
     {
       name: 'test.for when configured to prefer each',
       code: 'test.for([1, 2, 3])("test", ([n]) => { expect(n).toBeDefined() })',
@@ -154,8 +134,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-
-    // test.each when configured to prefer 'for'
     {
       name: 'test.each when configured to prefer for',
       code: 'test.each([1, 2, 3])("test", (n) => { expect(n).toBeDefined() })',
@@ -182,8 +160,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-
-    // it.for when configured to prefer 'each'
     {
       name: 'it.for when configured to prefer each',
       code: 'it.for([1, 2, 3])("test", ([n]) => { expect(n).toBeDefined() })',
@@ -197,8 +173,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-
-    // it.each when configured to prefer 'for'
     {
       name: 'it.each when configured to prefer for',
       code: 'it.each([1, 2, 3])("test", (n) => { expect(n).toBeDefined() })',
@@ -212,8 +186,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-
-    // describe.for when configured to prefer 'each'
     {
       name: 'describe.for when configured to prefer each',
       code: 'describe.for([1, 2, 3])("suite", ([n]) => { test("test", () => {}) })',
@@ -227,8 +199,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-
-    // describe.each when configured to prefer 'for'
     {
       name: 'describe.each when configured to prefer for',
       code: 'describe.each([1, 2, 3])("suite", (n) => { test("test", () => {}) })',
@@ -242,8 +212,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-
-    // suite.for when configured to prefer 'each'
     {
       name: 'suite.for when configured to prefer each',
       code: 'suite.for([1, 2, 3])("suite", ([n]) => { test("test", () => {}) })',
@@ -257,8 +225,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-
-    // suite.each when configured to prefer 'for'
     {
       name: 'suite.each when configured to prefer for',
       code: 'suite.each([1, 2, 3])("suite", (n) => { test("test", () => {}) })',
@@ -272,8 +238,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-
-    // Multiple violations in one file
     {
       name: 'multiple violations',
       code: `
