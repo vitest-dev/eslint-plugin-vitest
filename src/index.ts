@@ -103,13 +103,20 @@ const allRules = {
 
 const recommendedRules = {
   'expect-expect': 'error',
+  'no-conditional-expect': 'error',
+  'no-disabled-tests': 'warn',
+  'no-focused-tests': 'error',
   'no-commented-out-tests': 'error',
   'no-identical-title': 'error',
   'no-import-node-test': 'error',
+  'no-interpolation-in-snapshots': 'error',
+  'no-mocks-import': 'error',
+  'no-standalone-expect': 'error',
   'prefer-called-exactly-once-with': 'error',
   'require-local-test-context-for-concurrent-snapshots': 'error',
   'valid-describe-callback': 'error',
   'valid-expect': 'error',
+  'valid-expect-in-promise': 'error',
   'valid-title': 'error',
 } as const satisfies RuleList
 
