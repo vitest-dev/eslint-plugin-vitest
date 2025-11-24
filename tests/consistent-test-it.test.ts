@@ -322,6 +322,9 @@ ruleTester.run(RULE_NAME, rule, {
             testFnKeyWork: TestCaseName.test,
             oppositeTestKeyword: TestCaseName.it,
           },
+          line: 1,
+          column: 10,
+          endColumn: 12,
         },
         {
           messageId: 'consistentMethod',
@@ -329,6 +332,26 @@ ruleTester.run(RULE_NAME, rule, {
             testFnKeyWork: TestCaseName.test,
             oppositeTestKeyword: TestCaseName.it,
           },
+          line: 2,
+          column: 1,
+          endColumn: 3,
+        },
+      ],
+    },
+    {
+      code: 'import { it as baseIt, test } from "vitest"\nbaseIt("foo")',
+      output: 'import { it as baseIt } from "vitest"\nbaseIt("foo")',
+      options: [{ fn: TestCaseName.it }],
+      errors: [
+        {
+          messageId: 'consistentMethod',
+          data: {
+            testFnKeyWork: TestCaseName.it,
+            oppositeTestKeyword: TestCaseName.test,
+          },
+          column: 24,
+          endColumn: 28,
+          line: 1,
         },
       ],
     },
