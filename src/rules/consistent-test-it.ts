@@ -86,6 +86,7 @@ export default createEslintRule<
     const testKeywordWithinDescribe = withinDescribe || fn || TestCaseName.it
     const testFnDisabled =
       testFnKeyWork === testKeywordWithinDescribe ? testFnKeyWork : undefined
+    const { sourceCode } = context
 
     let describeNestingLevel = 0
 
@@ -99,33 +100,43 @@ export default createEslintRule<
         for (const specifier of node.specifiers) {
           if (specifier.type !== 'ImportSpecifier') continue
           if (specifier.imported.type !== 'Identifier') continue
-          if (specifier.local.name !== specifier.imported.name) continue
-          if (specifier.local.name === oppositeTestKeyword) {
-            context.report({
-              node: specifier,
-              data: { testFnKeyWork, oppositeTestKeyword },
-              messageId: 'consistentMethod',
-              fix: (fixer) => {
-                const remainingSpecifiers = node.specifiers.filter(
-                  (spec) => spec.local.name !== oppositeTestKeyword,
-                )
-                if (remainingSpecifiers.length > 0) {
-                  const importText = remainingSpecifiers
-                    .map((spec) => spec.local.name)
-                    .join(', ')
-                  const lastSpecifierRange = node.specifiers.at(-1)?.range
-                  if (!lastSpecifierRange) return null
+          if (specifier.imported.name !== oppositeTestKeyword) continue
 
-                  return fixer.replaceTextRange(
-                    [node.specifiers[0].range[0], lastSpecifierRange[1]],
-                    importText,
-                  )
+          context.report({
+            node: specifier,
+            data: { testFnKeyWork, oppositeTestKeyword },
+            messageId: 'consistentMethod',
+            fix: (fixer) => {
+              const remainingSpecifiers = node.specifiers.filter(
+                (spec) => spec !== specifier,
+              )
+              if (remainingSpecifiers.length > 0) {
+                const hasPreferredSpecifier = remainingSpecifiers.some(
+                  (spec) =>
+                    spec.type === AST_NODE_TYPES.ImportSpecifier &&
+                    spec.imported.type === AST_NODE_TYPES.Identifier &&
+                    spec.imported.name === testFnDisabled,
+                )
+                const importNames = remainingSpecifiers.map((spec) =>
+                  sourceCode.getText(spec),
+                )
+                if (!hasPreferredSpecifier) {
+                  importNames.push(testFnDisabled)
                 }
 
-                return fixer.replaceText(specifier.local, testFnDisabled)
-              },
-            })
-          }
+                const importText = importNames.join(', ')
+                const lastSpecifierRange = node.specifiers.at(-1)?.range
+                if (!lastSpecifierRange) return null
+
+                return fixer.replaceTextRange(
+                  [node.specifiers[0].range[0], lastSpecifierRange[1]],
+                  importText,
+                )
+              }
+
+              return fixer.replaceText(specifier, testFnDisabled)
+            },
+          })
         }
       },
       CallExpression(node: TSESTree.CallExpression) {
