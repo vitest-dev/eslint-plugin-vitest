@@ -1,7 +1,7 @@
 import { Linter } from 'eslint'
+import consistentEachFor from './consistent-each-for'
 import consistentTestFilename from './consistent-test-filename'
 import consistentTestIt from './consistent-test-it'
-import consistentEachFor from './consistent-each-for'
 import consistentVitestVi from './consistent-vitest-vi'
 import expectExpect from './expect-expect'
 import hoistedApisOnTop from './hoisted-apis-on-top'
@@ -79,9 +79,9 @@ import validTitle from './valid-title'
 import warnTodo from './warn-todo'
 
 export const rules = {
+  'consistent-each-for': consistentEachFor,
   'consistent-test-filename': consistentTestFilename,
   'consistent-test-it': consistentTestIt,
-  'consistent-each-for': consistentEachFor,
   'consistent-vitest-vi': consistentVitestVi,
   'expect-expect': expectExpect,
   'hoisted-apis-on-top': hoistedApisOnTop,

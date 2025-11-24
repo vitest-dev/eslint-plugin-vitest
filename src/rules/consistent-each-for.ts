@@ -2,17 +2,11 @@ import { TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'consistent-each-for'
 export type MessageIds = 'consistentMethod'
-type EachOrFor = 'each' | 'for'
-type BaseFnName = 'test' | 'it' | 'describe' | 'suite'
 
-const BASE_FN_NAMES: readonly BaseFnName[] = [
-  'test',
-  'it',
-  'describe',
-  'suite',
-] as const
+type EachOrFor = 'each' | 'for'
+
+const BASE_FN_NAMES = ['test', 'it', 'describe', 'suite']
 
 type Options = {
   test?: EachOrFor
@@ -22,7 +16,7 @@ type Options = {
 }
 
 export default createEslintRule<[Partial<Options>], MessageIds>({
-  name: RULE_NAME,
+  name: 'consistent-each-for',
   meta: {
     type: 'suggestion',
     docs: {
@@ -66,34 +60,26 @@ export default createEslintRule<[Partial<Options>], MessageIds>({
 
         if (!vitestFnCall) return
 
-        // Determine the base function name (test, it, describe, or suite)
-        const baseFunctionName = vitestFnCall.name.replace(
-          /^[fx]/,
-          '',
-        ) as BaseFnName
+        const baseFunctionName = vitestFnCall.name.replace(/^[fx]/, '')
 
-        // Only check test, it, describe, and suite functions
         if (!BASE_FN_NAMES.includes(baseFunctionName)) return
 
-        // Check if the call chain contains .each or .for
         const eachMember = vitestFnCall.members.find(
           (member) => getAccessorValue(member) === 'each',
         )
+
         const forMember = vitestFnCall.members.find(
           (member) => getAccessorValue(member) === 'for',
         )
 
-        // If neither .each nor .for is used, nothing to check
         if (!eachMember && !forMember) return
 
         const preference = options[baseFunctionName as keyof Options]
 
-        // If no preference is configured for this function, skip
         if (!preference) return
 
         const actual: EachOrFor = eachMember ? 'each' : 'for'
 
-        // Report if actual usage doesn't match preference
         if (actual !== preference) {
           context.report({
             node: (eachMember || forMember)!,
