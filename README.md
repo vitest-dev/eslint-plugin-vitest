@@ -275,4 +275,4 @@ export default defineConfig({
 
 ### Licence
 
-[MIT](https://github.com/veritem/eslint-plugin-vitest/blob/main/LICENSE) Licence &copy; 2022 - present [veritem](https://github.com/veritem) and contributors
+[MIT](https://github.com/veritem/eslint-plugin-vitest/blob/main/LICENSE) Licence &copy; 2022 - present by [veritem](https://github.com/veritem) and contributors
