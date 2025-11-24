@@ -1,6 +1,6 @@
 # Disallow string interpolation in snapshots (`vitest/no-interpolation-in-snapshots`)
 
-⚠️ This rule _warns_ in the 🌐 `all` config.
+💼⚠️ This rule is enabled in the ✅ `recommended` config. This rule _warns_ in the 🌐 `all` config.
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
