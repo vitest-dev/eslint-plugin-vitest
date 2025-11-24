@@ -1,4 +1,5 @@
 import { Linter } from 'eslint'
+import consistentEachFor from './consistent-each-for'
 import consistentTestFilename from './consistent-test-filename'
 import consistentTestIt from './consistent-test-it'
 import consistentVitestVi from './consistent-vitest-vi'
@@ -78,6 +79,7 @@ import validTitle from './valid-title'
 import warnTodo from './warn-todo'
 
 export const rules = {
+  'consistent-each-for': consistentEachFor,
   'consistent-test-filename': consistentTestFilename,
   'consistent-test-it': consistentTestIt,
   'consistent-vitest-vi': consistentVitestVi,
