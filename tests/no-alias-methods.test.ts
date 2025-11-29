@@ -13,7 +13,7 @@ ruleTester.run(RULE_NAME, rule, {
     'expect(a).toHaveReturnedWith()',
     'expect(a).toHaveLastReturnedWith()',
     'expect(a).toHaveNthReturnedWith()',
-    'expect(a).toThrow()',
+    'expect(a).toThrowError()',
     'expect(a).rejects;',
     'expect(a);',
   ],
@@ -49,14 +49,14 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: 'expect(a).not["toThrowError"]()',
-      output: "expect(a).not['toThrow']()",
+      code: 'expect(a).not["toThrow"]()',
+      output: "expect(a).not['toThrowError']()",
       errors: [
         {
           messageId: 'noAliasMethods',
           data: {
-            alias: 'toThrowError',
-            canonical: 'toThrow',
+            alias: 'toThrow',
+            canonical: 'toThrowError',
           },
           column: 15,
           line: 1,
