@@ -1,5 +1,8 @@
-import { createEslintRule } from '../utils'
-import { isTypeOfVitestFnCall } from '../utils/parse-vitest-fn-call'
+import { createEslintRule, getAccessorValue } from '../utils'
+import {
+  isTypeOfVitestFnCall,
+  parseVitestFnCall,
+} from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'prefer-hooks-on-top'
 type MessageIds = 'noHookOnTop'
@@ -23,7 +26,17 @@ export default createEslintRule<Options, MessageIds>({
     const hooksContext = [false]
     return {
       CallExpression(node) {
-        if (isTypeOfVitestFnCall(node, context, ['test']))
+        const vitestFnCall = parseVitestFnCall(node, context)
+
+        const hasExemptModifier = vitestFnCall?.members?.some((member) =>
+          ['extend', 'scoped'].includes(getAccessorValue(member)),
+        )
+
+        if (
+          vitestFnCall?.type &&
+          ['test', 'it'].includes(vitestFnCall.type) &&
+          !hasExemptModifier
+        )
           hooksContext[hooksContext.length - 1] = true
 
         if (

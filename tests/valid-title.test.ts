@@ -563,6 +563,8 @@ ruleTester.run(RULE_NAME, rule, {
     'test.concurrent(`foo`, function () {})',
     'test(`${foo}`, function () {})',
     'test.concurrent(`${foo}`, function () {})',
+    'test.scoped({})',
+    'it.scoped({})',
     "it('foo', function () {})",
     'it.each([])()',
     "it.concurrent('foo', function () {})",

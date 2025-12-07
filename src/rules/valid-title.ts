@@ -6,6 +6,7 @@ import {
 } from '@typescript-eslint/utils'
 import {
   createEslintRule,
+  getAccessorValue,
   getStringValue,
   isStringNode,
   StringNode,
@@ -222,12 +223,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           return
 
         // check if extend keyword have been used
-        if (
-          vitestFnCall.members &&
-          vitestFnCall.members[0] &&
-          vitestFnCall.members[0].type === AST_NODE_TYPES.Identifier &&
-          vitestFnCall.members[0].name === 'extend'
-        ) {
+        const hasExemptModifier = vitestFnCall.members.some((member) =>
+          ['extend', 'scoped'].includes(getAccessorValue(member)),
+        )
+        if (hasExemptModifier) {
           return
         }
 
