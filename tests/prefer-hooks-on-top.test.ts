@@ -25,6 +25,44 @@ ruleTester.run(RULE_NAME, rule, {
       });
     });
      `,
+    `
+    describe('foo', () => {
+      test.scoped({});
+      beforeEach(() => {});
+      afterEach(() => {});
+    
+      test('bar', () => {
+     someFn();
+      });
+    });
+     `,
+    `
+    describe('foo', () => {
+      it.scoped({});
+      beforeEach(() => {});
+      afterEach(() => {});
+    
+      test('bar', () => {
+     someFn();
+      });
+    });
+     `,
+    `
+    import { test as baseTest } from 'vitest'
+
+    const test = baseTest.extend({})
+    
+    beforeEach(() => {});
+    afterEach(() => {});
+     `,
+    `
+    import { it as baseIt } from 'vitest'
+
+    const it = baseIt.extend({})
+    
+    beforeEach(() => {});
+    afterEach(() => {});
+     `,
   ],
   invalid: [
     {
