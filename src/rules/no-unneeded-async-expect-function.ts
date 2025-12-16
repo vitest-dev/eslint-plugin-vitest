@@ -89,7 +89,7 @@ export default createEslintRule({
 
             return [
               fixer.replaceTextRange(
-                [awaitNode.range[0], awaitNode.range[1]],
+                awaitNode.range,
                 sourceCode.getText(innerAsyncFuncCall),
               ),
             ]
