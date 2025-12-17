@@ -5,18 +5,18 @@ ruleTester.run(`${RULE_NAME}-logical conditions`, rule, {
   valid: [
     `it('foo', () => {
      process.env.FAIL && setNum(1);
-   
+
      expect(num).toBe(2);
       });`,
     `
       function getValue() {
      let num = 2;
-   
+
      process.env.FAIL && setNum(1);
-   
+
      return num;
       }
-   
+
       it('foo', () => {
      expect(getValue()).toBe(2);
       });
@@ -24,16 +24,28 @@ ruleTester.run(`${RULE_NAME}-logical conditions`, rule, {
     `
     function getValue() {
       let num = 2;
-    
+
       process.env.FAIL || setNum(1);
-    
+
       return num;
     }
-    
+
     it('foo', () => {
       expect(getValue()).toBe(2);
     });
      `,
+    `function myFunc(str: string) {
+        return str;
+      }
+      describe("myTest", () => {
+        it("has expected assertions", () => {
+          expect.assertions(1);
+          if (myFunc) {
+            expect(myFunc("5")).toStrictEqual(5);
+          }
+        })
+      })
+    `,
   ],
   invalid: [
     {
@@ -75,11 +87,52 @@ ruleTester.run(`${RULE_NAME}-logical conditions`, rule, {
     {
       code: `
        function getValue() {
-      something || expect(something).toHaveBeenCalled(); 
+      something || expect(something).toHaveBeenCalled();
        }
-     
+
        it('foo', getValue);
      `,
+      errors: [{ messageId: 'noConditionalExpect' }],
+    },
+    {
+      code: `
+        function getValue() {
+          return 1;
+        }
+
+        describe('test', () => {
+          test('with assertions', () => {
+            expect.assertions(1);
+            expect(getValue()).toStrictEqual(1);
+          })
+
+          test('without assertions', () => {
+            if (getValue) {
+              expect(getValue()).toStrictEqual(1);
+            }
+          })
+        })
+      `,
+      errors: [{ messageId: 'noConditionalExpect' }],
+    },
+    {
+      code: `
+        function getValue() {
+          return 1;
+        }
+
+        describe('test', () => {
+          test('without assertions', () => {
+            if (getValue) {
+              expect(getValue()).toStrictEqual(1);
+            }
+          })
+          test('with assertions', () => {
+            expect.assertions(1);
+            expect(getValue()).toStrictEqual(1);
+          })
+        })
+      `,
       errors: [{ messageId: 'noConditionalExpect' }],
     },
   ],
@@ -118,7 +171,7 @@ ruleTester.run(`${RULE_NAME}-conditional conditions`, rule, {
        function getValue() {
       something ? expect(something).toHaveBeenCalled() : noop();
        }
-     
+
        it('foo', getValue);
      `,
       errors: [{ messageId: 'noConditionalExpect' }],
