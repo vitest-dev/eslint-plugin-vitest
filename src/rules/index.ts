@@ -77,6 +77,7 @@ import validExpectInPromise from './valid-expect-in-promise'
 import validExpect from './valid-expect'
 import validTitle from './valid-title'
 import warnTodo from './warn-todo'
+import noUnneededAsyncExpectFunction from './no-unneeded-async-expect-function'
 
 export const rules = {
   'consistent-each-for': consistentEachFor,
@@ -108,6 +109,7 @@ export const rules = {
   'no-standalone-expect': noStandaloneExpect,
   'no-test-prefixes': noTestPrefixes,
   'no-test-return-statement': noTestReturnStatement,
+  'no-unneeded-async-expect-function': noUnneededAsyncExpectFunction,
   'padding-around-after-all-blocks': paddingAroundAfterAllBlocks,
   'padding-around-after-each-blocks': paddingAroundAfterEachBlocks,
   'padding-around-all': paddingAroundAll,
