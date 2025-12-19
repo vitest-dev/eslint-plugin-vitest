@@ -86,6 +86,7 @@ const allRules = {
   'prefer-to-be-truthy': 'off',
   'prefer-to-be': 'warn',
   'prefer-to-contain': 'warn',
+  'prefer-to-have-been-called-times': 'warn',
   'prefer-to-have-length': 'warn',
   'prefer-todo': 'warn',
   'prefer-vi-mocked': 'warn',

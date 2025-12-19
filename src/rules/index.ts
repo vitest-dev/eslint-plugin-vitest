@@ -78,6 +78,7 @@ import validExpect from './valid-expect'
 import validTitle from './valid-title'
 import warnTodo from './warn-todo'
 import noUnneededAsyncExpectFunction from './no-unneeded-async-expect-function'
+import preferToHaveBeenCalledTimes from './prefer-to-have-been-called-times'
 
 export const rules = {
   'consistent-each-for': consistentEachFor,
@@ -144,6 +145,7 @@ export const rules = {
   'prefer-to-be-truthy': preferToBeTruthy,
   'prefer-to-be': preferToBe,
   'prefer-to-contain': preferToContain,
+  'prefer-to-have-been-called-times': preferToHaveBeenCalledTimes,
   'prefer-to-have-length': preferToHaveLength,
   'prefer-todo': preferTodo,
   'prefer-vi-mocked': preferViMocked,
