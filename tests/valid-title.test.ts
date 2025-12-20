@@ -699,7 +699,10 @@ ruleTester.run(RULE_NAME, rule, {
     'xtest("foo", function () {})',
     'xtest(`foo`, function () {})',
     'someFn("foo", function () {})',
-    `export const myTest = test.extend({
+    `
+    import { test } from 'vitest';
+
+    export const myTest = test.extend({
       archive: []
     })`,
   ],
@@ -757,6 +760,8 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     {
       code: `
+        import { test } from 'vitest';
+
         const it = test.extend({})
         it('passes', () => {})
       `,
