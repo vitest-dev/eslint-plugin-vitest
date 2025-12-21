@@ -4,7 +4,10 @@ import { ruleTester } from './ruleTester'
 ruleTester.run(`${RULE_NAME}: require-top-level-describe`, rule, {
   valid: [
     'it.each()',
-    'it.extend()',
+    `
+    import { it } from 'vitest';
+    it.extend()
+    `,
     'describe("test suite", () => { test("my test") });',
     'describe("test suite", () => { it("my test") });',
     `

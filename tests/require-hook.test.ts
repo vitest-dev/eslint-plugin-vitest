@@ -143,6 +143,19 @@ class MockLogger {
      `,
       options: [{ allowedFunctionCalls: ['enableAutoDestroy'] }],
     },
+    `
+    import { describe, test } from 'vitest';
+
+    interface Context { value: boolean }
+
+    const customTest = test.extend<Context>({ value: true });
+
+    describe.concurrent("extends", () => {
+      customTest("should not trigger lint rules", ({ expect, value }) => {
+        expect(value).toBe(true);
+      });
+    });
+    `,
   ],
   invalid: [
     {
