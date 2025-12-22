@@ -1,5 +1,6 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
+import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'prefer-import-in-mock'
 
@@ -22,25 +23,26 @@ export default createEslintRule<[], MESSAGE_ID>({
   create(context) {
     return {
       CallExpression(node) {
-        // Only consider vi.<api> member calls
+        // Only consider vi.mock() calls
         if (node.callee.type !== AST_NODE_TYPES.MemberExpression) return
 
-        const { object, property } = node.callee
+        const vitestCallFn = parseVitestFnCall(node, context)
+
+        if (vitestCallFn?.type !== 'vi') {
+          return false
+        }
+
+        const { property } = node.callee
+
         if (
-          object.type !== AST_NODE_TYPES.Identifier ||
-          object.name !== 'vi' ||
-          property.type !== AST_NODE_TYPES.Identifier
+          property.type != AST_NODE_TYPES.Identifier ||
+          property.name != 'mock'
         ) {
           return
         }
 
-        const apiName = property.name
         const pathArg = node.arguments[0]
-        if (
-          apiName === 'mock' &&
-          pathArg &&
-          pathArg.type === AST_NODE_TYPES.Literal
-        ) {
+        if (pathArg && pathArg.type === AST_NODE_TYPES.Literal) {
           context.report({
             messageId: 'preferImport',
             data: {
