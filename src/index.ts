@@ -100,7 +100,6 @@ const allRules = {
   'valid-expect': 'warn',
   'valid-title': 'warn',
   'require-awaited-expect-poll': 'warn',
-  'require-import-vi-mock': 'warn',
 } as const satisfies RuleList
 
 const recommendedRules = {
