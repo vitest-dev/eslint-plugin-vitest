@@ -6,13 +6,13 @@
 
 ## Rule Details
 
-This rule aims to prevent conditional expects.
+This rule aims to prevent false positive test results by highlighting conditional expect statements.
 
 Examples of **incorrect** code for this rule:
 
 ```ts
 test('foo', () => {
-  if (true) {
+  if (false) {
     expect(1).toBe(1)
   }
 })
