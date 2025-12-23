@@ -5,8 +5,13 @@ import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 export const RULE_NAME = 'prefer-import-in-mock'
 
 type MESSAGE_ID = 'preferImport'
+type Options = [
+  Partial<{
+    fixable: boolean
+  }>,
+]
 
-export default createEslintRule<[], MESSAGE_ID>({
+export default createEslintRule<Options, MESSAGE_ID>({
   name: RULE_NAME,
   meta: {
     fixable: 'code',
@@ -17,10 +22,23 @@ export default createEslintRule<[], MESSAGE_ID>({
     messages: {
       preferImport: "Replace '{{path}}' with import('{{path}}')",
     },
-    schema: [],
+    schema: [
+      {
+        type: 'object',
+        properties: {
+          fixable: {
+            type: 'boolean',
+            default: true,
+          },
+        },
+        additionalProperties: false,
+      },
+    ],
   },
-  defaultOptions: [],
-  create(context) {
+  defaultOptions: [{ fixable: true }],
+  create(context, options) {
+    const fixable = options[0].fixable!
+
     return {
       CallExpression(node) {
         // Only consider vi.mock() calls
@@ -50,6 +68,8 @@ export default createEslintRule<[], MESSAGE_ID>({
             },
             node: node,
             fix(fixer) {
+              if (!fixable) return null
+
               return fixer.replaceText(pathArg, `import('${pathArg.value}')`)
             },
           })
