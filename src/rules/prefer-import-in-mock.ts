@@ -11,7 +11,6 @@ type Options = [
   }>,
 ]
 
-
 export default createEslintRule<Options, MESSAGE_ID>({
   name: RULE_NAME,
   meta: {
@@ -33,7 +32,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
           },
         },
         additionalProperties: false,
-      }
+      },
     ],
   },
   defaultOptions: [{ fixable: true }],
@@ -69,7 +68,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
             },
             node: node,
             fix(fixer) {
-              if(!fixable) return null;
+              if (!fixable) return null
 
               return fixer.replaceText(pathArg, `import('${pathArg.value}')`)
             },

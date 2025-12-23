@@ -21,9 +21,10 @@ The following pattern is not considered a warning:
 ```js
 vi.mock(import('./path/to/module'))
 ```
+
 ### Options
 
-This rule has a `fixable` option that tells the plugin to automatically fix the imports for you. 
+This rule has a `fixable` option that tells the plugin to automatically fix the imports for you.
 The option is enabled by default. You can disable it in your `eslint.config.js` file using the following configuration.
 
 ```ts
