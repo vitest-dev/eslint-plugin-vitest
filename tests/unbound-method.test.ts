@@ -18,6 +18,117 @@ const ruleTester = new RuleTester({
   },
 })
 
+const ConsoleClassAndVariableCode = `
+  class Console {
+    log(str) {
+      process.stdout.write(str);
+    }
+  }
+
+  const console = new Console();
+`.trim()
+
+const toThrowMatchers = [
+  'toThrow',
+  'toThrowError',
+  'toThrowErrorMatchingSnapshot',
+  'toThrowErrorMatchingInlineSnapshot',
+]
+
+const validTestCases: string[] = [
+  ...[
+    'expect(Console.prototype.log).toHaveBeenCalledTimes(1);',
+    'expect(Console.prototype.log).not.toHaveBeenCalled();',
+    'expect(Console.prototype.log).toStrictEqual(somethingElse);',
+    'vi.mocked(Console.prototype.log).mockImplementation(() => {});',
+    'vitest.mocked(Console.prototype.log).mockImplementation(() => {});',
+  ].map((code) => [ConsoleClassAndVariableCode, code].join('\n')),
+  `
+    expect(() => {
+      ${ConsoleClassAndVariableCode}
+
+      expect(Console.prototype.log).toHaveBeenCalledTimes(1);
+    }).not.toThrow();
+  `,
+  'expect(() => Promise.resolve().then(console.log)).not.toThrow();',
+  ...toThrowMatchers.map((matcher) => `expect(console.log).not.${matcher}();`),
+  ...toThrowMatchers.map((matcher) => `expect(console.log).${matcher}();`),
+]
+
+const invalidTestCases: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [
+  {
+    code: `
+      ${ConsoleClassAndVariableCode}
+
+      expect(Console.prototype.log)
+    `.trim(),
+    errors: [
+      {
+        line: 9,
+        messageId: 'unboundWithoutThisAnnotation',
+      },
+    ],
+  },
+  // todo: figure out why this isn't passing
+  // {
+  //   code: 'expect(Console.prototype.log).toHaveBeenCalledTimes',
+  //   errors: [
+  //     {
+  //       line: 1,
+  //       messageId: 'unboundWithoutThisAnnotation',
+  //     },
+  //   ],
+  // },
+  {
+    code: `
+      expect(() => {
+        ${ConsoleClassAndVariableCode}
+
+        Promise.resolve().then(console.log);
+      }).not.toThrow();
+    `.trim(),
+    errors: [
+      {
+        line: 10,
+        messageId: 'unboundWithoutThisAnnotation',
+      },
+    ],
+  },
+  // toThrow matchers call the expected value (which is expected to be a function)
+  ...toThrowMatchers.map((matcher) => ({
+    code: `
+      ${ConsoleClassAndVariableCode}
+
+      expect(console.log).${matcher}();
+    `.trim(),
+    errors: [
+      {
+        line: 9,
+        messageId: 'unboundWithoutThisAnnotation' as const,
+      },
+    ],
+  })),
+  // toThrow matchers call the expected value (which is expected to be a function)
+  ...toThrowMatchers.map((matcher) => ({
+    code: `
+      ${ConsoleClassAndVariableCode}
+
+      expect(console.log).not.${matcher}();
+    `.trim(),
+    errors: [
+      {
+        line: 9,
+        messageId: 'unboundWithoutThisAnnotation' as const,
+      },
+    ],
+  })),
+]
+
+ruleTester.run('unbound-method vitest edition', unboundMethod, {
+  valid: validTestCases,
+  invalid: invalidTestCases,
+})
+
 function addContainsMethodsClass(code: string): string {
   return `
 class ContainsMethods {
