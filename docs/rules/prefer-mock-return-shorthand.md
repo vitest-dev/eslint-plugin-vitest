@@ -9,10 +9,9 @@ some API sugar functions to reduce the amount of boilerplate you have to write.
 
 These methods should be preferred when possible.
 
-The following patterns are warnings
+The following patterns are **warnings**
 
 ```js
-// bad
 vi.fn().mockImplementation(() => 'hello world')
 
 vi.spyOn(fs.promises, 'readFile').mockImplementationOnce(() =>
@@ -25,7 +24,7 @@ myFunction
   .mockReturnValue(0)
 ```
 
-The following patterns are not warnings
+The following patterns are not **warnings**
 
 ```js
 // good
