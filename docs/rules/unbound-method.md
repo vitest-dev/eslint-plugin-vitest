@@ -15,7 +15,6 @@ to `expect` calls.
 
 This rule is enabled in the `all` config.
 
-
 ```json5
 {
   parser: '@typescript-eslint/parser',
@@ -40,6 +39,6 @@ This rule is enabled in the `all` config.
 }
 ```
 
-### Options 
+### Options
 
-Checkout [@typescript-eslint/unbound-method](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/unbound-method.md)  options. including  `ignoreStatic`
+Checkout [@typescript-eslint/unbound-method](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/unbound-method.md) options. including `ignoreStatic`

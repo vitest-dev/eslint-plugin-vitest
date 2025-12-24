@@ -2,7 +2,6 @@ import rule, { RULE_NAME } from '../src/rules/prefer-import-in-mock'
 import { ruleTester } from './ruleTester'
 
 describe(RULE_NAME, () => {
-
   ruleTester.run(RULE_NAME, rule, {
     valid: [
       'vi.mock(import("foo"))',
