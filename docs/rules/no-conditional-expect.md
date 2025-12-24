@@ -17,10 +17,7 @@ test('foo', () => {
   }
 })
 
-test.for([
-  null,
-  {bar: 'baz'}
-])('quux', (value) => {
+test.for([null, { bar: 'baz' }])('quux', (value) => {
   const expected = value === null ? expected : expect.stringContaining(expected)
   expect(actual).toEqual(expected)
 })
@@ -33,10 +30,10 @@ test('foo', () => {
   expect(1).toBe(1)
 })
 
-test.for([
-  null,
-  expect.objectContaining({bar: 'baz'})
-])('quux', (expected) => {
-  expect(actual).toEqual(expected)
-})
+test.for([null, expect.objectContaining({ bar: 'baz' })])(
+  'quux',
+  (expected) => {
+    expect(actual).toEqual(expected)
+  },
+)
 ```
