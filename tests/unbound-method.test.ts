@@ -6,7 +6,7 @@ import unboundMethod, {
   type Options,
 } from '../src/rules/unbound-method'
 
-const rootPath = path.join(__dirname, './fixtures')
+const rootPath = path.join(__dirname, './fixture')
 
 const ruleTester = new RuleTester({
   languageOptions: {
