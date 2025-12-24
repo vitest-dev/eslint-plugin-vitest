@@ -4,6 +4,13 @@
 
 <!-- end auto-generated rule header -->
 
+When working with mocks of functions that return simple values, vitest provides
+some API sugar functions to reduce the amount of boilerplate you have to write.
+
+These methods should be preferred when possible.
+
+The following patterns are warnings
+
 ```js
 // bad
 vi.fn().mockImplementation(() => 'hello world')
@@ -16,7 +23,11 @@ myFunction
   .mockImplementationOnce(() => 42)
   .mockImplementationOnce(() => Promise.resolve(42))
   .mockReturnValue(0)
+```
 
+The following patterns are not warnings
+
+```js
 // good
 vi.fn().mockResolvedValue(123)
 
