@@ -76,7 +76,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           )
 
           if (
-            vitestFnCall?.type === 'vitest' &&
+            (vitestFnCall?.type === 'vitest' || vitestFnCall?.type === 'vi') &&
             vitestFnCall.members.length >= 1 &&
             isIdentifier(vitestFnCall.members[0], 'mocked')
           )
