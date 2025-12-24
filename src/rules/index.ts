@@ -53,6 +53,7 @@ import preferImportInMock from './prefer-import-in-mock'
 import preferImportingVitestGlobals from './prefer-importing-vitest-globals'
 import preferLowercaseTitle from './prefer-lowercase-title'
 import preferMockPromiseShorthand from './prefer-mock-promise-shorthand'
+import preferMockReturnShorthand from './prefer-mock-return-shorthand'
 import preferSnapshotHint from './prefer-snapshot-hint'
 import preferSpyOn from './prefer-spy-on'
 import preferStrictBooleanMatchers from './prefer-strict-boolean-matchers'
@@ -135,6 +136,7 @@ export const rules = {
   'prefer-importing-vitest-globals': preferImportingVitestGlobals,
   'prefer-lowercase-title': preferLowercaseTitle,
   'prefer-mock-promise-shorthand': preferMockPromiseShorthand,
+  'prefer-mock-return-shorthand': preferMockReturnShorthand,
   'prefer-snapshot-hint': preferSnapshotHint,
   'prefer-spy-on': preferSpyOn,
   'prefer-strict-boolean-matchers': preferStrictBooleanMatchers,
