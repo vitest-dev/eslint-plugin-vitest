@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
-import { createEslintRule } from '../utils'
+import { createEslintRule, isSupportedAccessor } from '../utils'
 import { UtilName } from '../utils/types'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
@@ -95,7 +95,12 @@ export default createEslintRule<[Partial<{ fn: UtilName }>], MESSAGE_ID>({
       },
       CallExpression(node: TSESTree.CallExpression) {
         const vitestFnCall = parseVitestFnCall(node, context)
-        if (vitestFnCall?.type !== oppositeUtilKeyword) {
+
+        if (vitestFnCall?.type !== 'vi') {
+          return
+        }
+
+        if (!isSupportedAccessor(vitestFnCall.head.node, oppositeUtilKeyword)) {
           return
         }
 

@@ -22,7 +22,6 @@ export type VitestFnType =
   | 'unknown'
   | 'hook'
   | 'vi'
-  | 'vitest'
   | 'expectTypeOf'
 
 interface ResolvedVitestFn {
@@ -128,9 +127,7 @@ const determineVitestFnType = (name: string): VitestFnType => {
 
   if (name === 'expectTypeOf') return 'expectTypeOf'
 
-  if (name === 'vi') return 'vi'
-
-  if (name === 'vitest') return 'vitest'
+  if (name === 'vi' || name === 'vitest') return 'vi'
 
   if (Object.prototype.hasOwnProperty.call(DescribeAlias, name))
     return 'describe'
