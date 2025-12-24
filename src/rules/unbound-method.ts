@@ -14,7 +14,7 @@ const toThrowMatchers = [
   'toThrowErrorMatchingInlineSnapshot',
 ]
 
-type MESSAGE_IDS = 'unbound' | 'unboundWithoutThisAnnotation'
+export type MESSAGE_IDS = 'unbound' | 'unboundWithoutThisAnnotation'
 
 const DEFAULT_MESSAGE = 'This rule requires `@typescript-eslint/eslint-plugin`'
 
