@@ -27,7 +27,6 @@ myFunction
 The following patterns are not **warnings**
 
 ```js
-// good
 vi.fn().mockResolvedValue(123)
 
 vi.spyOn(fs.promises, 'readFile').mockReturnValue(
