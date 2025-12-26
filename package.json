@@ -34,7 +34,7 @@
     "lint:eslint-docs": "pnpm build && eslint-doc-generator --check",
     "lint:js": "eslint",
     "release": "bumpp && pnpm build && pnpm publish",
-    "format": "prettier 'src/**/*.{ts,js}' --check",
+    "format": "prettier --check .",
     "test": "vitest",
     "update:chains": "node scripts/chain-permutations.ts",
     "update:rules": "node scripts/export-rules.ts",
