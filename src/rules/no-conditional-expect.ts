@@ -40,6 +40,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     let conditionalDepth = 0
     let inTestCase = false
     let inPromiseCatch = false
+    let expectAssertions = 0
 
     const increaseConditionalDepth = () => inTestCase && conditionalDepth++
     const decreaseConditionalDepth = () => inTestCase && conditionalDepth--
@@ -62,10 +63,32 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
         if (isCatchCall(node)) inPromiseCatch = true
 
+        if (inTestCase) {
+          if (node.callee.type === 'MemberExpression') {
+            if (
+              node.callee.object.type === 'Identifier' &&
+              node.callee.object.name === 'expect'
+            ) {
+              if (
+                node.callee.property.type === 'Identifier' &&
+                node.callee.property.name === 'assertions'
+              ) {
+                if (node.arguments.length === 1) {
+                  const assertions = node.arguments[0]
+                  if (assertions.type === 'Literal') {
+                    expectAssertions = Number(assertions.value)
+                  }
+                }
+              }
+            }
+          }
+        }
+
         if (
           inTestCase &&
           vitestFnCallType === 'expect' &&
-          conditionalDepth > 0
+          conditionalDepth > 0 &&
+          expectAssertions === 0
         ) {
           context.report({
             messageId: 'noConditionalExpect',
@@ -81,7 +104,10 @@ export default createEslintRule<Options, MESSAGE_ID>({
         }
       },
       'CallExpression:exit'(node) {
-        if (isTypeOfVitestFnCall(node, context, ['test'])) inTestCase = false
+        if (isTypeOfVitestFnCall(node, context, ['test'])) {
+          inTestCase = false
+          expectAssertions = 0
+        }
 
         if (isCatchCall(node)) inPromiseCatch = false
       },
