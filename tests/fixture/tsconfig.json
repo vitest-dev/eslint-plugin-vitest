@@ -9,5 +9,5 @@
     "experimentalDecorators": true
   },
   "files": ["estree.ts"],
-  "include": [ "*.ts", "*.tsx" ]
+  "include": ["*.ts", "*.tsx"]
 }
