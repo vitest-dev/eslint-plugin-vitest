@@ -12,7 +12,7 @@ import {
 
 export const RULE_NAME = 'no-conditional-expect'
 export type MESSAGE_ID = 'noConditionalExpect'
-export type Options = []
+export type Options = [{ expectAssertions: boolean }]
 
 const isCatchCall = (
   node: TSESTree.CallExpression,
@@ -33,10 +33,26 @@ export default createEslintRule<Options, MESSAGE_ID>({
       noConditionalExpect:
         'Avoid calling `expect` inside conditional statements',
     },
-    schema: [],
+    schema: [
+      {
+        type: 'object',
+        additionalProperties: false,
+        properties: {
+          expectAssertions: {
+            description:
+              'Enable/disable whether expect.assertions() is taken into account',
+            type: 'boolean',
+          },
+        },
+      },
+    ],
   },
-  defaultOptions: [],
-  create(context) {
+  defaultOptions: [
+    {
+      expectAssertions: false,
+    },
+  ],
+  create(context, [options]) {
     let conditionalDepth = 0
     let inTestCase = false
     let inPromiseCatch = false
@@ -63,7 +79,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
         if (isCatchCall(node)) inPromiseCatch = true
 
-        if (inTestCase) {
+        if (options.expectAssertions && inTestCase) {
           if (node.callee.type === 'MemberExpression') {
             if (
               node.callee.object.type === 'Identifier' &&

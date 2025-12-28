@@ -34,7 +34,9 @@ ruleTester.run(`${RULE_NAME}-logical conditions`, rule, {
       expect(getValue()).toBe(2);
     });
      `,
-    `function myFunc(str: string) {
+    {
+      options: [{ expectAssertions: true }],
+      code: `function myFunc(str: string) {
         return str;
       }
       describe("myTest", () => {
@@ -46,6 +48,7 @@ ruleTester.run(`${RULE_NAME}-logical conditions`, rule, {
         })
       })
     `,
+    },
   ],
   invalid: [
     {
@@ -92,6 +95,22 @@ ruleTester.run(`${RULE_NAME}-logical conditions`, rule, {
 
        it('foo', getValue);
      `,
+      errors: [{ messageId: 'noConditionalExpect' }],
+    },
+    {
+      options: [{ expectAssertions: false }],
+      code: `function myFunc(str: string) {
+        return str;
+      }
+      describe("myTest", () => {
+        it("has expected assertions", () => {
+          expect.assertions(1);
+          if (myFunc) {
+            expect(myFunc("5")).toStrictEqual(5);
+          }
+        })
+      })
+    `,
       errors: [{ messageId: 'noConditionalExpect' }],
     },
     {
