@@ -31,6 +31,28 @@ ruleTester.run(RULE_NAME, rule, {
         return 2;
       });
     `,
+    'aVariable.mockImplementation(() => value++)',
+    'aVariable.mockImplementationOnce(() => --value)',
+    `
+      const aValue = 0;
+      aVariable.mockImplementation(() => {
+        return aValue++;
+      });
+    `,
+    `
+      aVariable.mockImplementation(() => {
+        aValue += 1;
+
+        return aValue;
+      });
+    `,
+    `
+      aVariable.mockImplementation(() => {
+        aValue++;
+
+        return aValue;
+      });
+    `,
     'aVariable.mockReturnValue()',
     'aVariable.mockReturnValue(1)',
     'aVariable.mockReturnValue("hello world")',

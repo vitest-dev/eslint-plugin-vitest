@@ -71,7 +71,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         const returnNode = findSingleReturnArgumentNode(arg)
 
-        if (!returnNode) {
+        if (
+          !returnNode ||
+          returnNode.type === AST_NODE_TYPES.UpdateExpression
+        ) {
           return
         }
 
