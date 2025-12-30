@@ -22,6 +22,22 @@ ruleTester.run(RULE_NAME, rule, {
     'vi.fn(() => ({}))',
     'aVariable.mockImplementation',
     'aVariable.mockImplementation()',
+    {
+      code: 'jest.fn().mockImplementation(async () => 1);',
+      languageOptions: { parserOptions: { ecmaVersion: 2017 } },
+    },
+    {
+      code: 'jest.fn().mockImplementation(async function () {});',
+      languageOptions: { parserOptions: { ecmaVersion: 2017 } },
+    },
+    {
+      code: `
+        jest.fn().mockImplementation(async function () {
+          return 42;
+        });
+      `,
+      languageOptions: { parserOptions: { ecmaVersion: 2017 } },
+    },
     `
       aVariable.mockImplementation(() => {
         if (true) {
@@ -292,12 +308,14 @@ ruleTester.run(RULE_NAME, rule, {
       code: `
         aVariable
           .mockImplementation(() => 42)
+          .mockImplementation(async () => 42)
           .mockImplementation(() => Promise.resolve(42))
           .mockReturnValue("hello world")
       `.trim(),
       output: `
         aVariable
           .mockReturnValue(42)
+          .mockImplementation(async () => 42)
           .mockReturnValue(Promise.resolve(42))
           .mockReturnValue("hello world")
       `.trim(),
@@ -312,7 +330,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: 'useMockShorthand',
           data: { replacement: 'mockReturnValue' },
           column: 12,
-          line: 3,
+          line: 4,
         },
       ],
     },
