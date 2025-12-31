@@ -20,5 +20,5 @@ export default {
         parser,
       },
     },
-  ] as Config['eslintConfig'],
+  ],
 } satisfies Config
