@@ -1,6 +1,13 @@
 {
   "compilerOptions": {
-    "strict": true
+    "jsx": "preserve",
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "lib": ["es2015", "es2017", "esnext"],
+    "experimentalDecorators": true
   },
+  "files": ["estree.ts"],
   "include": ["*.ts", "*.tsx"]
 }
