@@ -63,7 +63,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         const [arg] = node.arguments
 
-        if (!isFunction(arg) || arg.params.length !== 0) {
+        if (!isFunction(arg) || arg.params.length !== 0 || arg.async) {
           return
         }
 
