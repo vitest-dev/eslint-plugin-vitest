@@ -95,6 +95,56 @@ ruleTester.run(RULE_NAME, rule, {
       });
     `,
     'aVariable.mockReturnValue(Promise.all([1, 2, 3]));',
+    `
+      let currentX = 0;
+      jest.spyOn(X, getCount).mockImplementation(() => currentX);
+
+      // stuff happens
+
+      currentX++;
+
+      // more stuff happens
+    `,
+    `
+      let currentX = 0;
+      jest.spyOn(X, getCount).mockImplementation(() => currentX);
+    `,
+    `
+      let currentX = 0;
+      currentX = 0;
+      jest.spyOn(X, getCount).mockImplementation(() => currentX);
+    `,
+    `
+      var currentX = 0;
+      currentX = 0;
+      jest.spyOn(X, getCount).mockImplementation(() => currentX);
+    `,
+    `
+      var currentX = 0;
+      var currentX = 0;
+      jest.spyOn(X, getCount).mockImplementation(() => currentX);
+    `,
+    `
+      let doSomething = () => {};
+
+      jest.spyOn(X, getCount).mockImplementation(() => doSomething);
+    `,
+    `
+      let currentX = 0;
+      jest.spyOn(X, getCount).mockImplementation(() => {
+        currentX += 1;
+
+        return currentX;
+      });
+    `,
+    `
+      const currentX = 0;
+      jest.spyOn(X, getCount).mockImplementation(() => {
+        console.log('returning', currentX);
+
+        return currentX;
+      });
+    `,
   ],
 
   invalid: [
@@ -441,6 +491,112 @@ ruleTester.run(RULE_NAME, rule, {
           data: { replacement: 'mockReturnValue' },
           column: 11,
           line: 1,
+        },
+      ],
+    },
+    {
+      code: `
+        const currentX = 0;
+        jest.spyOn(X, getCount).mockImplementation(() => currentX);
+      `.trim(),
+      output: `
+        const currentX = 0;
+        jest.spyOn(X, getCount).mockReturnValue(currentX);
+      `.trim(),
+      errors: [
+        {
+          messageId: 'useMockShorthand',
+          data: { replacement: 'mockReturnValue' },
+          column: 33,
+          line: 2,
+        },
+      ],
+    },
+    // currently we assume that exported stuff is immutable, since that
+    // is generally considered a bad idea especially when testing
+    {
+      code: `
+        import { currentX } from './elsewhere';
+        jest.spyOn(X, getCount).mockImplementation(() => currentX);
+      `.trim(),
+      output: `
+        import { currentX } from './elsewhere';
+        jest.spyOn(X, getCount).mockReturnValue(currentX);
+      `.trim(),
+      errors: [
+        {
+          messageId: 'useMockShorthand',
+          data: { replacement: 'mockReturnValue' },
+          column: 33,
+          line: 2,
+        },
+      ],
+    },
+    {
+      code: `
+        const currentX = 0;
+
+        describe('some tests', () => {
+          it('works', () => {
+            jest.spyOn(X, getCount).mockImplementation(() => currentX);
+          });
+        });
+      `.trim(),
+      output: `
+        const currentX = 0;
+
+        describe('some tests', () => {
+          it('works', () => {
+            jest.spyOn(X, getCount).mockReturnValue(currentX);
+          });
+        });
+      `.trim(),
+      errors: [
+        {
+          messageId: 'useMockShorthand',
+          data: { replacement: 'mockReturnValue' },
+          column: 37,
+          line: 5,
+        },
+      ],
+    },
+    {
+      code: `
+        function doSomething() {};
+
+        jest.spyOn(X, getCount).mockImplementation(() => doSomething);
+      `.trim(),
+      output: `
+        function doSomething() {};
+
+        jest.spyOn(X, getCount).mockReturnValue(doSomething);
+      `.trim(),
+      errors: [
+        {
+          messageId: 'useMockShorthand',
+          data: { replacement: 'mockReturnValue' },
+          column: 33,
+          line: 3,
+        },
+      ],
+    },
+    {
+      code: `
+        const doSomething = () => {};
+
+        jest.spyOn(X, getCount).mockImplementation(() => doSomething);
+      `.trim(),
+      output: `
+        const doSomething = () => {};
+
+        jest.spyOn(X, getCount).mockReturnValue(doSomething);
+      `.trim(),
+      errors: [
+        {
+          messageId: 'useMockShorthand',
+          data: { replacement: 'mockReturnValue' },
+          column: 33,
+          line: 3,
         },
       ],
     },
