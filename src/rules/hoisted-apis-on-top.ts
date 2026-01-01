@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 
-export const RULE_NAME = 'hoisted-apis-on-top'
+const RULE_NAME = 'hoisted-apis-on-top'
 
 type MESSAGE_ID =
   | 'hoistedApisOnTop'

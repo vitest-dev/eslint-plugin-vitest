@@ -7,7 +7,7 @@ import {
 } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'no-large-snapshots'
+const RULE_NAME = 'no-large-snapshots'
 
 type MESSAGE_IDS = 'noSnapShot' | 'tooLongSnapShot'
 

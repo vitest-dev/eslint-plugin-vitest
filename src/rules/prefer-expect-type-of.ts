@@ -2,7 +2,7 @@ import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'prefer-expect-type-of'
+const RULE_NAME = 'prefer-expect-type-of'
 
 type MessageId = 'preferExpectTypeOf'
 

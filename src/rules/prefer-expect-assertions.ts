@@ -21,7 +21,7 @@ type Options = {
   onlyFunctionsWithExpectInCallback?: boolean
 }
 
-export const RULE_NAME = 'prefer-expect-assertions'
+const RULE_NAME = 'prefer-expect-assertions'
 
 type MessageIds =
   | 'hasAssertionsTakesNoArguments'

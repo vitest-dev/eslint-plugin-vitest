@@ -2,7 +2,7 @@ import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'no-test-prefixes'
+const RULE_NAME = 'no-test-prefixes'
 export type MESSAGE_IDS = 'usePreferredName'
 export type Options = []
 

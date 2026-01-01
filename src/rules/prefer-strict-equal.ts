@@ -6,7 +6,7 @@ import {
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { EqualityMatcher } from '../utils/types'
 
-export const RULE_NAME = 'prefer-strict-equal'
+const RULE_NAME = 'prefer-strict-equal'
 export type MESSAGE_IDS = 'useToStrictEqual' | 'suggestReplaceWithStrictEqual'
 type Options = []
 

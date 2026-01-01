@@ -21,7 +21,7 @@ import type ts from 'typescript'
 import { parsePluginSettings } from '../utils/parse-plugin-settings'
 import { require } from '../utils/require'
 
-export const RULE_NAME = 'valid-title'
+const RULE_NAME = 'valid-title'
 
 const trimFXPrefix = (word: string) =>
   ['f', 'x'].includes(word.charAt(0)) ? word.substring(1) : word

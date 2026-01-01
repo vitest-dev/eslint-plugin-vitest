@@ -15,7 +15,7 @@ import {
   parseVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'valid-expect-in-promise'
+const RULE_NAME = 'valid-expect-in-promise'
 export type MESSAGE_IDS = 'expectInFloatingPromise'
 const defaultAsyncMatchers = ['toRejectWith', 'toResolveWith']
 

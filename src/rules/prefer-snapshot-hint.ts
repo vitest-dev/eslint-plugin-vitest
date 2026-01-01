@@ -10,7 +10,7 @@ import {
   parseVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'prefer-snapshot-hint'
+const RULE_NAME = 'prefer-snapshot-hint'
 type MESSAGE_IDS = 'missingHint'
 type Options = [('always' | 'multi')?]
 

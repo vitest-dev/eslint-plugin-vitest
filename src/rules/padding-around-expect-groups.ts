@@ -5,7 +5,7 @@ import {
   createPaddingRule,
 } from '../utils/padding'
 
-export const RULE_NAME = 'padding-around-expect-groups'
+const RULE_NAME = 'padding-around-expect-groups'
 
 export const config: Config[] = [
   {

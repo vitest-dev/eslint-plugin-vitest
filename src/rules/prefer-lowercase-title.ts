@@ -15,7 +15,7 @@ import {
   TestCaseName,
 } from '../utils/types'
 
-export const RULE_NAME = 'prefer-lowercase-title'
+const RULE_NAME = 'prefer-lowercase-title'
 export type MessageIds = 'lowerCaseTitle' | 'fullyLowerCaseTitle'
 
 type IgnorableFunctionExpressions =

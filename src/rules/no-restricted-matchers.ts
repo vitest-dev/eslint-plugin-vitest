@@ -2,7 +2,7 @@ import { createEslintRule, getAccessorValue } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { ModifierName } from '../utils/types'
 
-export const RULE_NAME = 'no-restricted-matchers'
+const RULE_NAME = 'no-restricted-matchers'
 type MESSAGE_IDS = 'restrictedChain' | 'restrictedChainWithMessage'
 type Options = Record<string, string | null>[]
 

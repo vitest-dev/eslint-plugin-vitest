@@ -10,7 +10,7 @@ const isMockPath = (path: string) =>
 const isMockImportLiteral = (expression: TSESTree.CallExpressionArgument) =>
   isStringNode(expression) && isMockPath(getStringValue(expression))
 
-export const RULE_NAME = 'no-mocks-import'
+const RULE_NAME = 'no-mocks-import'
 type MESSAGE_IDS = 'noMocksImport'
 type Options = []
 

@@ -4,7 +4,7 @@ import {
   parseVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'prefer-hooks-on-top'
+const RULE_NAME = 'prefer-hooks-on-top'
 type MessageIds = 'noHookOnTop'
 type Options = []
 

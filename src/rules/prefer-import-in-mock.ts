@@ -2,7 +2,7 @@ import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'prefer-import-in-mock'
+const RULE_NAME = 'prefer-import-in-mock'
 
 type MESSAGE_ID = 'preferImport'
 type Options = [

@@ -1,7 +1,7 @@
 import { TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 
-export const RULE_NAME = 'no-commented-out-tests'
+const RULE_NAME = 'no-commented-out-tests'
 export type MESSAGE_IDS = 'noCommentedOutTests'
 export type Options = []
 

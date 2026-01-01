@@ -2,7 +2,7 @@ import { TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'consistent-each-for'
+const RULE_NAME = 'consistent-each-for'
 export type MessageIds = 'consistentMethod'
 
 type EachOrFor = 'each' | 'for'

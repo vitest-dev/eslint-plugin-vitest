@@ -2,7 +2,7 @@ import { createEslintRule } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 type MESSAGE_IDS = 'noTypeParameter'
-export const RULE_NAME = 'require-mock-type-parameters'
+const RULE_NAME = 'require-mock-type-parameters'
 type Options = {
   checkImportFunctions?: boolean
 }

@@ -1,6 +1,6 @@
 import { PaddingType, StatementType, createPaddingRule } from '../utils/padding'
 
-export const RULE_NAME = 'padding-around-test-blocks'
+const RULE_NAME = 'padding-around-test-blocks'
 
 export const config = [
   {

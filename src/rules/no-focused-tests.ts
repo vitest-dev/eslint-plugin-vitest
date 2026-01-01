@@ -2,7 +2,7 @@ import { TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 
 export type MessageIds = 'noFocusedTests'
-export const RULE_NAME = 'no-focused-tests'
+const RULE_NAME = 'no-focused-tests'
 export type Options = [
   Partial<{
     fixable: boolean

@@ -6,7 +6,7 @@ import {
 } from '../utils/parse-vitest-fn-call'
 import { TestCaseName } from '../utils/types'
 
-export const RULE_NAME = 'consistent-test-it'
+const RULE_NAME = 'consistent-test-it'
 export type MessageIds = 'consistentMethod' | 'consistentMethodWithinDescribe'
 
 const buildFixer =

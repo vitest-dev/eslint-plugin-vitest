@@ -11,7 +11,7 @@ import {
 } from '../utils/parse-vitest-fn-call'
 import { RuleContext } from '@typescript-eslint/utils/ts-eslint'
 
-export const RULE_NAME = 'valid-describe-callback'
+const RULE_NAME = 'valid-describe-callback'
 type MESSAGE_IDS =
   | 'nameAndCallback'
   | 'secondArgumentMustBeFunction'

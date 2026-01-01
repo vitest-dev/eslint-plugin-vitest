@@ -10,7 +10,7 @@ import {
   parseVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'require-hook'
+const RULE_NAME = 'require-hook'
 type MESSAGE_IDS = 'useHook'
 type Options = [{ allowedFunctionCalls?: readonly string[] }]
 

@@ -2,7 +2,7 @@ import { HookName } from '../utils/types'
 import { createEslintRule } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'no-hooks'
+const RULE_NAME = 'no-hooks'
 export type MESSAGE_ID = 'unexpectedHook'
 export type Options = []
 

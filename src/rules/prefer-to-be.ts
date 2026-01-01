@@ -14,7 +14,7 @@ import {
 } from '../utils/parse-vitest-fn-call'
 import { EqualityMatcher } from '../utils/types'
 
-export const RULE_NAME = 'prefer-to-be'
+const RULE_NAME = 'prefer-to-be'
 
 const isNullLiteral = (node: TSESTree.Node): node is TSESTree.NullLiteral =>
   node.type === AST_NODE_TYPES.Literal && node.value === null

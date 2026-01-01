@@ -5,7 +5,7 @@ import {
   parseVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'require-awaited-expect-poll'
+const RULE_NAME = 'require-awaited-expect-poll'
 export type MESSAGE_ID = 'notAwaited'
 export type Options = []
 

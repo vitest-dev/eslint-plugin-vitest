@@ -1,7 +1,7 @@
 import { TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 
-export const RULE_NAME = 'max-nested-describe'
+const RULE_NAME = 'max-nested-describe'
 export type MESSAGE_ID = 'maxNestedDescribe'
 export type Options = [
   {

@@ -7,7 +7,7 @@ import {
 import { EqualityMatcher } from '../utils/types'
 
 type MESSAGE_IDS = 'preferToBeTruthy'
-export const RULE_NAME = 'prefer-to-be-truthy'
+const RULE_NAME = 'prefer-to-be-truthy'
 type Options = []
 
 interface TrueLiteral extends TSESTree.BooleanLiteral {

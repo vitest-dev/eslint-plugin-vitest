@@ -1,7 +1,7 @@
 import { createEslintRule, getAccessorValue } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'prefer-called-with'
+const RULE_NAME = 'prefer-called-with'
 type MESSAGE_IDS = 'preferCalledWith'
 type Options = []
 

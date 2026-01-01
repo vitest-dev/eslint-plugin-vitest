@@ -1,7 +1,7 @@
 import { TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 
-export const RULE_NAME = 'no-conditional-tests'
+const RULE_NAME = 'no-conditional-tests'
 export type MESSAGE_ID = 'noConditionalTests'
 
 export default createEslintRule<[], MESSAGE_ID>({

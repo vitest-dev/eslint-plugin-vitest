@@ -3,7 +3,7 @@ import { createEslintRule, isSupportedAccessor } from '../utils'
 import { UtilName } from '../utils/types'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'consistent-vitest-vi'
+const RULE_NAME = 'consistent-vitest-vi'
 export type MESSAGE_ID = 'consistentUtil'
 
 const getOppositeVitestUtilKeyword = (util: UtilName) =>

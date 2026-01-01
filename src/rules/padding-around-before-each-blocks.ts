@@ -1,6 +1,6 @@
 import { PaddingType, StatementType, createPaddingRule } from '../utils/padding'
 
-export const RULE_NAME = 'padding-around-before-each-blocks'
+const RULE_NAME = 'padding-around-before-each-blocks'
 
 export const config = [
   {

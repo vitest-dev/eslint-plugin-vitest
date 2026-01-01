@@ -4,7 +4,7 @@ import {
   parseVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'prefer-hooks-in-order'
+const RULE_NAME = 'prefer-hooks-in-order'
 type MESSAGE_IDS = 'reorderHooks'
 type Options = []
 

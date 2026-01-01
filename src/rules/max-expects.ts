@@ -5,7 +5,7 @@ import {
   parseVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'max-expects'
+const RULE_NAME = 'max-expects'
 export type MESSAGE_ID = 'maxExpect'
 export type Options = [
   {

@@ -6,7 +6,7 @@ import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { getModuleScope } from '../utils/scope'
 import { isClassOrFunctionType } from '../utils/types'
 
-export const RULE_NAME = 'prefer-describe-function-title'
+const RULE_NAME = 'prefer-describe-function-title'
 export type MESSAGE_IDS = 'preferFunction'
 export type Options = []
 

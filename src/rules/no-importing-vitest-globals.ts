@@ -12,7 +12,7 @@ import {
   removeVariableDeclarator,
 } from '../utils/fixer-utils'
 
-export const RULE_NAME = 'no-importing-vitest-globals'
+const RULE_NAME = 'no-importing-vitest-globals'
 export type MESSAGE_IDS =
   | 'noImportingVitestGlobals'
   | 'noRequiringVitestGlobals'

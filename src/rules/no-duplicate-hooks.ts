@@ -4,7 +4,7 @@ import {
   parseVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'no-duplicate-hooks'
+const RULE_NAME = 'no-duplicate-hooks'
 export type MESSAGE_IDS = 'noDuplicateHooks'
 export type Options = []
 

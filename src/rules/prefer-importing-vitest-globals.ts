@@ -9,7 +9,7 @@ import {
   isVitestImport,
 } from '../utils/guards'
 
-export const RULE_NAME = 'prefer-importing-vitest-globals'
+const RULE_NAME = 'prefer-importing-vitest-globals'
 export type MESSAGE_IDS = 'preferImportingVitestGlobals'
 export type Options = []
 

@@ -8,7 +8,7 @@ import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { EqualityMatcher } from '../utils/types'
 
 export type MESSAGE_IDS = 'preferToHaveLength'
-export const RULE_NAME = 'prefer-to-have-length'
+const RULE_NAME = 'prefer-to-have-length'
 type Options = []
 
 export default createEslintRule<Options, MESSAGE_IDS>({

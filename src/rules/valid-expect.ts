@@ -10,7 +10,7 @@ import { parseVitestFnCallWithReason } from '../utils/parse-vitest-fn-call'
 import { ModifierName } from '../utils/types'
 import { parsePluginSettings } from '../utils/parse-plugin-settings'
 
-export const RULE_NAME = 'valid-expect'
+const RULE_NAME = 'valid-expect'
 export type MESSAGE_IDS =
   | 'tooManyArgs'
   | 'notEnoughArgs'
