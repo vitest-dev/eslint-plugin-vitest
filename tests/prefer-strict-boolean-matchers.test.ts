@@ -1,10 +1,10 @@
-import rule, { RULE_NAME } from '../src/rules/prefer-strict-boolean-matchers'
+import rule from '../src/rules/prefer-strict-boolean-matchers'
 import { ruleTester } from './ruleTester'
 
 const messageIdTrue = 'preferToBeTrue'
 const messageIdFalse = 'preferToBeFalse'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     '[].push(true)',
     '[].push(false)',

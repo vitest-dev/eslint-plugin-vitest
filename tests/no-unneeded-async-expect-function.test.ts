@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/no-unneeded-async-expect-function'
+import rule from '../src/rules/no-unneeded-async-expect-function'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'expect.hasAssertions()',
     `

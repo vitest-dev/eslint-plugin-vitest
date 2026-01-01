@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/prefer-todo'
+import rule from '../src/rules/prefer-todo'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'test()',
     'test.concurrent()',

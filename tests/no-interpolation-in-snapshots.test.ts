@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/no-interpolation-in-snapshots'
+import rule from '../src/rules/no-interpolation-in-snapshots'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'expect("something").toEqual("else");',
     'expect(something).toMatchInlineSnapshot();',

@@ -1,4 +1,4 @@
-import rule, { RULE_NAME } from '../src/rules/padding-around-all'
+import rule from '../src/rules/padding-around-all'
 import { ruleTester } from './ruleTester'
 import { InvalidTestCase } from '@typescript-eslint/rule-tester'
 
@@ -81,7 +81,7 @@ describe('someText', () => {
   ],
 } satisfies InvalidTestCase<'missingPadding', never>
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     testCase.output,
     `

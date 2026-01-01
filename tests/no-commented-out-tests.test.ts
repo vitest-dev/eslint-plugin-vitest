@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/no-commented-out-tests'
+import rule from '../src/rules/no-commented-out-tests'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     '// foo("bar", function () {})',
     'describe("foo", function () {})',

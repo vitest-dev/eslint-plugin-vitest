@@ -1,5 +1,5 @@
 import { TSESLint } from '@typescript-eslint/utils'
-import rule, { RULE_NAME } from '../src/rules/prefer-equality-matcher'
+import rule from '../src/rules/prefer-equality-matcher'
 import { ruleTester } from './ruleTester'
 
 type RuleMessages<TRuleModule extends TSESLint.RuleModule<string, unknown[]>> =
@@ -21,7 +21,7 @@ const expectSuggestions = (
   )
 }
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'expect.hasAssertions',
     'expect.hasAssertions()',
@@ -181,7 +181,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'expect.hasAssertions',
     'expect.hasAssertions()',

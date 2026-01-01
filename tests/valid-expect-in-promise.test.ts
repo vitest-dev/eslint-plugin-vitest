@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/valid-expect-in-promise'
+import rule from '../src/rules/valid-expect-in-promise'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     "test('something', () => Promise.resolve().then(() => expect(1).toBe(2)));",
     'Promise.resolve().then(() => expect(1).toBe(2))',

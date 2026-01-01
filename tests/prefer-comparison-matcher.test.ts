@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/prefer-comparison-matcher'
+import rule from '../src/rules/prefer-comparison-matcher'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'expect.hasAssertions',
     'expect.hasAssertions()',

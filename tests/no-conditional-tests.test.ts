@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/no-conditional-tests'
+import rule from '../src/rules/no-conditional-tests'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'test("shows error", () => {});',
     'it("foo", function () {})',

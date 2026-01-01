@@ -1,9 +1,9 @@
-import rule, { RULE_NAME } from '../src/rules/prefer-to-be-truthy'
+import rule from '../src/rules/prefer-to-be-truthy'
 import { ruleTester } from './ruleTester'
 
 const messageId = 'preferToBeTruthy'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     '[].push(true)',
     'expect("something");',

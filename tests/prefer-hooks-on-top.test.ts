@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/prefer-hooks-on-top'
+import rule from '../src/rules/prefer-hooks-on-top'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     `
     describe('foo', () => {
@@ -134,7 +134,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     `
       describe.skip('foo', () => {

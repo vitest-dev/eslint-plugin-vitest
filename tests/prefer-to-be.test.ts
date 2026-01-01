@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/prefer-to-be'
+import rule from '../src/rules/prefer-to-be'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'expect(null).toBeNull();',
     'expect(null).not.toBeNull();',
@@ -36,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'expect(NaN).toBeNaN();',
     'expect(true).not.toBeNaN();',
@@ -68,7 +68,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'expect(null).toBeNull();',
     'expect(null).not.toBeNull();',

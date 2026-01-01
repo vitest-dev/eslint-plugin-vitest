@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/require-to-throw-message'
+import rule from '../src/rules/require-to-throw-message'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     "expect(() => { throw new Error('a'); }).toThrow('a');",
     "expect(() => { throw new Error('a'); }).toThrowError('a');",

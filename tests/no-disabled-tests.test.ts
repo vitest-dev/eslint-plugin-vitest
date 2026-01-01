@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/no-disabled-tests'
+import rule from '../src/rules/no-disabled-tests'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'describe("foo", function () {})',
     'it("foo", function () {})',

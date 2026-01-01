@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/require-hook'
+import rule from '../src/rules/require-hook'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'describe()',
     `describe.for([])('%s', (value) => {})`,

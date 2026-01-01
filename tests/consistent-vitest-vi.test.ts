@@ -1,8 +1,8 @@
-import rule, { RULE_NAME } from '../src/rules/consistent-vitest-vi'
+import rule from '../src/rules/consistent-vitest-vi'
 import { UtilName } from '../src/utils/types'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     {
       code: 'import { expect, it } from "vitest";',

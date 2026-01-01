@@ -1,5 +1,5 @@
 import { ruleTester } from './ruleTester'
-import rule, { RULE_NAME } from '../src/rules/padding-around-after-all-blocks'
+import rule from '../src/rules/padding-around-after-all-blocks'
 import { InvalidTestCase } from '@typescript-eslint/rule-tester'
 
 const testCase = {
@@ -81,7 +81,7 @@ describe('someText', () => {
   ],
 } satisfies InvalidTestCase<'missingPadding', never>
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [testCase.output],
   // invalid: ['src/component.test.jsx', 'src/component.test.js'].map(
   //   filename => ({ ...testCase, filename }),

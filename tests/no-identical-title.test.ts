@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/no-identical-title'
+import rule from '../src/rules/no-identical-title'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     `suite('parent', () => {
             suite('child 1', () => {

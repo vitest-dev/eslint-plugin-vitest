@@ -1,7 +1,7 @@
 import rule from '../src/rules/consistent-test-filename'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(`file-name`, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     {
       code: 'export {}',

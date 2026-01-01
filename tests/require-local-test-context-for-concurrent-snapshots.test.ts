@@ -1,9 +1,7 @@
-import rule, {
-  RULE_NAME,
-} from '../src/rules/require-local-test-context-for-concurrent-snapshots'
+import rule from '../src/rules/require-local-test-context-for-concurrent-snapshots'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'it("something", () => { expect(true).toBe(true) })',
     'it.concurrent("something", () => { expect(true).toBe(true) })',

@@ -1,4 +1,4 @@
-import rule, { RULE_NAME } from '../src/rules/valid-title'
+import rule from '../src/rules/valid-title'
 import { RuleTester } from '@typescript-eslint/rule-tester'
 
 export const ruleTester = new RuleTester({
@@ -10,7 +10,7 @@ export const ruleTester = new RuleTester({
   },
 })
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'describe("the correct way to properly handle all the things", () => {});',
     'test("that all is as it should be", () => {});',
@@ -253,7 +253,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     {
       code: 'it(foo, () => {});',
@@ -296,7 +296,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'describe("the correct way to properly handle all the things", () => {});',
     'test("that all is as it should be", () => {});',
@@ -462,7 +462,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'it("is a string", () => {});',
     'it("is" + " a " + " string", () => {});',
@@ -551,7 +551,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'describe()',
     'someFn("", function () {})',
@@ -680,7 +680,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'it()',
     'it.concurrent()',
@@ -756,7 +756,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     {
       code: `

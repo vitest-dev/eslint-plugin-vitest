@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/no-done-callback'
+import rule from '../src/rules/no-done-callback'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'test("something", () => {})',
     'test("something", async () => {})',

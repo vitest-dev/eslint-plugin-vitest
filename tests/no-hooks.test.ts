@@ -1,8 +1,8 @@
-import rule, { RULE_NAME } from '../src/rules//no-hooks'
+import rule from '../src/rules//no-hooks'
 import { HookName } from '../src/utils/types'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'test("foo")',
     'describe("foo", () => { it("bar") })',

@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/no-importing-vitest-globals'
+import rule from '../src/rules/no-importing-vitest-globals'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     "import { describe } from 'jest';",
     "import vitest from 'vitest';",

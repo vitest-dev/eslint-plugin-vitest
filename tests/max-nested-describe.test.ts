@@ -1,4 +1,4 @@
-import rule, { RULE_NAME } from '../src/rules/max-nested-describe'
+import rule from '../src/rules/max-nested-describe'
 import { ruleTester } from './ruleTester'
 
 const valid = [
@@ -63,7 +63,7 @@ const invalid = [
 }) `,
 ]
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid,
   invalid: invalid.map((i) => ({
     code: i,

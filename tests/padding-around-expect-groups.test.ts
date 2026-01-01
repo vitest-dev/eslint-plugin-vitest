@@ -1,4 +1,4 @@
-import rule, { RULE_NAME } from '../src/rules/padding-around-expect-groups'
+import rule from '../src/rules/padding-around-expect-groups'
 import { ruleTester } from './ruleTester'
 import { InvalidTestCase } from '@typescript-eslint/rule-tester'
 
@@ -221,7 +221,7 @@ test('expectTypeOf test', () => {
   ],
 } satisfies InvalidTestCase<'missingPadding', never>
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [testCase.output],
   invalid: ['src/component.test.jsx', 'src/component.test.js'].map(
     (filename) => ({ ...testCase, filename }),
