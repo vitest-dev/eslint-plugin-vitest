@@ -40,20 +40,15 @@ test.for([null, expect.objectContaining({ bar: 'baz' })])(
 
 ## Options
 
+#### expectAssertions
+
 ```json
 {
-  "type": "object",
-  "additionalProperties": false,
-  "properties": {
-    "expectAssertions": {
-      "description": "Enable/disable whether expect.assertions() is taken into account",
-      "type": "boolean"
-    }
+  "rules": {
+    "vitest/no-conditional-expect": ["error", { "expectAssertions": true }]
   }
 }
 ```
-
-### `expectAssertions`
 
 Enable/disable whether to take the usage of `expect.assertions()` into account. Setting this to true will allow conditional expressions only if a call to `expect.assertions()` is also made.
 
