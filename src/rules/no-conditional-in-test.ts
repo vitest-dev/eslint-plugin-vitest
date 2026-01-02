@@ -1,7 +1,7 @@
 import { createEslintRule } from '../utils'
 import { isTypeOfVitestFnCall } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'no-conditional-in-test'
+const RULE_NAME = 'no-conditional-in-test'
 export type MESSAGE_IDS = 'noConditionalInTest'
 export type Options = []
 

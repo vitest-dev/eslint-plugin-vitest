@@ -1,9 +1,9 @@
-import rule, { RULE_NAME } from '../src/rules/prefer-to-have-length'
+import rule from '../src/rules/prefer-to-have-length'
 import { ruleTester } from './ruleTester'
 
 const messageId = 'preferToHaveLength'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'expect.hasAssertions',
     'expect.hasAssertions()',

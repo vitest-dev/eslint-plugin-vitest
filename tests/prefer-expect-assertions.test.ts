@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/prefer-expect-assertions'
+import rule from '../src/rules/prefer-expect-assertions'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'test("it1", () => {expect.assertions(0);})',
     'test("it1", function() {expect.assertions(0);})',

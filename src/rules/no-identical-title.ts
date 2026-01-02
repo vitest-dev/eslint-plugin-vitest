@@ -9,7 +9,7 @@ import {
   parseVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'no-identical-title'
+const RULE_NAME = 'no-identical-title'
 export type MESSAGE_ID = 'multipleTestTitle' | 'multipleDescribeTitle'
 export type Options = []
 

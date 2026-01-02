@@ -1,8 +1,8 @@
-import rule, { RULE_NAME } from '../src/rules/prefer-import-in-mock'
+import rule from '../src/rules/prefer-import-in-mock'
 import { ruleTester } from './ruleTester'
 
-describe(RULE_NAME, () => {
-  ruleTester.run(RULE_NAME, rule, {
+describe(rule.name, () => {
+  ruleTester.run(rule.name, rule, {
     valid: [
       'vi.mock(import("foo"))',
       'vi.mock(import("node:fs/promises"))',
@@ -56,7 +56,7 @@ describe(RULE_NAME, () => {
     ],
   })
 
-  ruleTester.run(RULE_NAME, rule, {
+  ruleTester.run(rule.name, rule, {
     valid: [
       'vi.mock(import("foo"))',
       'vi.mock(import("node:fs/promises"))',

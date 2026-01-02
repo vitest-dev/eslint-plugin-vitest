@@ -16,7 +16,7 @@ import {
   ModifierName,
 } from '../utils/types'
 
-export const RULE_NAME = 'prefer-to-contain'
+const RULE_NAME = 'prefer-to-contain'
 type MESSAGE_IDS = 'useToContain'
 type Options = []
 

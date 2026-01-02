@@ -11,7 +11,7 @@ import {
 } from '../utils/parse-vitest-fn-call'
 import { DescribeAlias } from '../utils/types'
 
-export const RULE_NAME = 'no-standalone-expect'
+const RULE_NAME = 'no-standalone-expect'
 export type MESSAGE_IDS = 'noStandaloneExpect'
 type Options = {
   additionalTestBlockFunctions?: string[]

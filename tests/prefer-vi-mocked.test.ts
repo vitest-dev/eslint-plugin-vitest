@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/prefer-vi-mocked'
+import rule from '../src/rules/prefer-vi-mocked'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'foo();',
     'vi.mocked(foo).mockReturnValue(1);',

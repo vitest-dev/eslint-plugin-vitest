@@ -2,7 +2,7 @@ import { createEslintRule, getAccessorValue } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 type MESSAGE_IDS = 'preferToBeTrue' | 'preferToBeFalse'
-export const RULE_NAME = 'prefer-strict-boolean-matchers'
+const RULE_NAME = 'prefer-strict-boolean-matchers'
 type Options = []
 
 export default createEslintRule<Options, MESSAGE_IDS>({

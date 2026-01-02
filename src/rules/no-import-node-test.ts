@@ -1,6 +1,6 @@
 import { createEslintRule } from '../utils'
 
-export const RULE_NAME = 'no-import-node-test'
+const RULE_NAME = 'no-import-node-test'
 export type MESSAGE_IDS = 'noImportNodeTest'
 export type Options = []
 

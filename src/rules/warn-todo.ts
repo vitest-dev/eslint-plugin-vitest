@@ -1,7 +1,7 @@
 import { createEslintRule } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'warn-todo'
+const RULE_NAME = 'warn-todo'
 
 export default createEslintRule({
   name: RULE_NAME,

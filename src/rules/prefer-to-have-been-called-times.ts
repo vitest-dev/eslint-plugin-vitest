@@ -2,7 +2,7 @@ import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule, isSupportedAccessor } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'prefer-to-have-been-called-times'
+const RULE_NAME = 'prefer-to-have-been-called-times'
 
 export default createEslintRule({
   name: RULE_NAME,

@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/consistent-each-for'
+import rule from '../src/rules/consistent-each-for'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     {
       name: 'test.each without configuration',

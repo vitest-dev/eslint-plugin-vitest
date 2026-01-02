@@ -1,9 +1,9 @@
 import { RuleTester } from '@typescript-eslint/rule-tester'
-import rule, { RULE_NAME } from '../src/rules/prefer-expect-type-of'
+import rule from '../src/rules/prefer-expect-type-of'
 
 const ruleTester = new RuleTester()
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'expectTypeOf("name").toBeString()',
     'expectTypeOf("name").not.toBeString()',

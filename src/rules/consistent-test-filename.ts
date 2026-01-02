@@ -1,6 +1,6 @@
 import { createEslintRule } from '../utils'
 
-export const RULE_NAME = 'consistent-test-filename'
+const RULE_NAME = 'consistent-test-filename'
 
 const defaultPattern = /.*\.test\.[tj]sx?$/
 const defaultTestsPattern = /.*\.(test|spec)\.[tj]sx?$/

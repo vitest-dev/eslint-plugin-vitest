@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/no-conditional-in-test'
+import rule from '../src/rules/no-conditional-in-test'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(`${RULE_NAME}-conditional expressions`, rule, {
+ruleTester.run(`${rule.name}-conditional expressions`, rule, {
   valid: [
     'const x = y ? 1 : 0',
     `const foo = function (bar) {
@@ -28,7 +28,7 @@ ruleTester.run(`${RULE_NAME}-conditional expressions`, rule, {
   ],
 })
 
-ruleTester.run(`${RULE_NAME}-if statements`, rule, {
+ruleTester.run(`${rule.name}-if statements`, rule, {
   valid: [
     'if (foo) {}',
     "it('foo', () => {})",

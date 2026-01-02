@@ -1,5 +1,5 @@
 import { RuleTester } from '@typescript-eslint/rule-tester'
-import rule, { RULE_NAME } from '../src/rules/prefer-describe-function-title'
+import rule from '../src/rules/prefer-describe-function-title'
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -10,7 +10,7 @@ const ruleTester = new RuleTester({
   },
 })
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     {
       code: `

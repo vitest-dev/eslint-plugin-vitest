@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/prefer-each'
+import rule from '../src/rules/prefer-each'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'it("is true", () => { expect(true).toBe(false) });',
     `it.each(getNumbers())("only returns numbers that are greater than seven", number => {

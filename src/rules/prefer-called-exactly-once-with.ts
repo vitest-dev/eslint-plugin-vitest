@@ -7,7 +7,7 @@ import {
 import { SourceCode } from '@typescript-eslint/utils/ts-eslint'
 
 type MESSAGE_IDS = 'preferCalledExactlyOnceWith'
-export const RULE_NAME = 'prefer-called-exactly-once-with'
+const RULE_NAME = 'prefer-called-exactly-once-with'
 type Options = []
 
 const MATCHERS_TO_COMBINE = [

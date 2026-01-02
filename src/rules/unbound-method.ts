@@ -5,7 +5,7 @@ import {
   parseVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'unbound-method'
+const RULE_NAME = 'unbound-method'
 
 const toThrowMatchers = [
   'toThrow',

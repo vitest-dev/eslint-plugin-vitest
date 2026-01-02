@@ -9,7 +9,7 @@ import {
   isSupportedAccessor,
 } from '../utils'
 
-export const RULE_NAME = 'prefer-mock-promise-shorthand'
+const RULE_NAME = 'prefer-mock-promise-shorthand'
 type MESSAGE_IDS = 'useMockShorthand'
 type Options = []
 

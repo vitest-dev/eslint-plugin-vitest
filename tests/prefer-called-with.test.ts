@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/prefer-called-with'
+import rule from '../src/rules/prefer-called-with'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'expect(fn).toBeCalledWith();',
     'expect(fn).toHaveBeenCalledWith();',

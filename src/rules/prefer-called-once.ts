@@ -5,7 +5,7 @@ import {
 } from '../utils/parse-vitest-fn-call'
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 
-export const RULE_NAME = 'prefer-called-once'
+const RULE_NAME = 'prefer-called-once'
 type MESSAGE_IDS = 'preferCalledOnce'
 type Options = []
 

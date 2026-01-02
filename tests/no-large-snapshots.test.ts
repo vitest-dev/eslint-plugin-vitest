@@ -1,4 +1,4 @@
-import rule, { RULE_NAME } from '../src/rules/no-large-snapshots'
+import rule from '../src/rules/no-large-snapshots'
 import { ruleTester } from './ruleTester'
 
 const generateSnaShotLines = (lines: number) =>
@@ -9,7 +9,7 @@ const generateExpectInlineSnapsCode = (
   matcher: 'toMatchInlineSnapshot' | 'toThrowErrorMatchingInlineSnapshot',
 ) => `expect(something).${matcher}(${generateSnaShotLines(lines)});`
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'expect(something)',
     'expect(something).toBe(1)',

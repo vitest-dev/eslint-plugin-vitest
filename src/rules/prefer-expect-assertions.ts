@@ -21,7 +21,7 @@ type Options = {
   onlyFunctionsWithExpectInCallback?: boolean
 }
 
-export const RULE_NAME = 'prefer-expect-assertions'
+const RULE_NAME = 'prefer-expect-assertions'
 
 type MessageIds =
   | 'hasAssertionsTakesNoArguments'
@@ -58,7 +58,7 @@ const suggestRemovingExtraArguments = (
 })
 
 export default createEslintRule<Options[], MessageIds>({
-  name: 'prefer-expect-assertions',
+  name: RULE_NAME,
   meta: {
     docs: {
       description: 'enforce using expect assertions instead of callbacks',

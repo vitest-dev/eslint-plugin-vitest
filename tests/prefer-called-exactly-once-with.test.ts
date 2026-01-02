@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/prefer-called-exactly-once-with'
+import rule from '../src/rules/prefer-called-exactly-once-with'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'expect(fn).toHaveBeenCalledExactlyOnceWith();',
     'expect(x).toHaveBeenCalledExactlyOnceWith(args);',
@@ -180,7 +180,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-ruleTester.run('prefer-called-exactly-once-with: typescript edition', rule, {
+ruleTester.run(`${rule.name}: typescript edition'`, rule, {
   valid: [
     'expect(fn).toHaveBeenCalledExactlyOnceWith<[{ id: number }]>()',
     'expect(fn).toHaveBeenCalledExactlyOnceWith<[{ id: number }]>({id: 1})',

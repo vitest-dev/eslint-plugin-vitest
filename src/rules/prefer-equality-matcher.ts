@@ -7,7 +7,7 @@ import {
 import { EqualityMatcher, ModifierName } from '../utils/types'
 import { isBooleanLiteral } from '../utils/msc'
 
-export const RULE_NAME = 'prefer-equality-matcher'
+const RULE_NAME = 'prefer-equality-matcher'
 type MESSAGE_IDS = 'useEqualityMatcher' | 'suggestEqualityMatcher'
 type Options = []
 

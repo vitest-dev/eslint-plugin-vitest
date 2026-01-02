@@ -4,7 +4,7 @@ import {
   parseVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'require-top-level-describe'
+const RULE_NAME = 'require-top-level-describe'
 
 type MESSAGE_IDS = 'tooManyDescribes' | 'unexpectedTestCase' | 'unexpectedHook'
 

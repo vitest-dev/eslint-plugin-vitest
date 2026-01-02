@@ -5,7 +5,7 @@ import {
 } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'no-alias-methods'
+const RULE_NAME = 'no-alias-methods'
 export type MESSAGE_ID = 'noAliasMethods'
 export type Options = []
 

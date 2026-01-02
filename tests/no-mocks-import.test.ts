@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/no-mocks-import'
+import rule from '../src/rules/no-mocks-import'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'import something from "something"',
     'require("somethingElse")',

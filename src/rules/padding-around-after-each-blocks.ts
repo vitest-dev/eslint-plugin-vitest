@@ -5,7 +5,7 @@ import {
   createPaddingRule,
 } from '../utils/padding'
 
-export const RULE_NAME = 'padding-around-after-each-blocks'
+const RULE_NAME = 'padding-around-after-each-blocks'
 
 export const config: Config[] = [
   {

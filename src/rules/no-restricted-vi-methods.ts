@@ -1,7 +1,7 @@
 import { createEslintRule, getAccessorValue } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'no-restricted-vi-methods'
+const RULE_NAME = 'no-restricted-vi-methods'
 export type MESSAGE_ID = 'restrictedViMethod' | 'restrictedViMethodWithMessage'
 export type Options = [Record<string, string | null>]
 

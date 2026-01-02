@@ -1,8 +1,8 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/utils'
-import rule, { RULE_NAME } from '../src/rules/expect-expect'
+import rule from '../src/rules/expect-expect'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'test.skip("skipped test", () => {})',
     'it.skip("skipped test", () => {})',

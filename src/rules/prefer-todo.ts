@@ -12,7 +12,7 @@ import {
 } from '../utils/parse-vitest-fn-call'
 import { hasOnlyOneArgument } from '../utils/msc'
 
-export const RULE_NAME = 'prefer-todo'
+const RULE_NAME = 'prefer-todo'
 
 type MESSAGE_IDS = 'emptyTest' | 'unimplementedTest'
 

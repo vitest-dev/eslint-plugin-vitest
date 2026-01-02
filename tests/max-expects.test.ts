@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/max-expects'
+import rule from '../src/rules/max-expects'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     "test('should pass')",
     "test('should pass', () => {})",
@@ -100,7 +100,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-ruleTester.run(`${RULE_NAME} (with test context)`, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     `
       import { it as base, describe, expect } from 'vitest'

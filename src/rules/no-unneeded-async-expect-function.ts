@@ -2,7 +2,7 @@ import { AST_NODE_TYPES, type TSESTree } from '@typescript-eslint/utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { createEslintRule, isFunction } from '../utils'
 
-export const RULE_NAME = 'no-unneeded-async-expect-function'
+const RULE_NAME = 'no-unneeded-async-expect-function'
 
 const getAwaitedCallExpression = (
   expression: TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression,

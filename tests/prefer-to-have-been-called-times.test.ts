@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/prefer-to-have-been-called-times'
+import rule from '../src/rules/prefer-to-have-been-called-times'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'expect.assertions(1)',
     'expect(fn).toHaveBeenCalledTimes',

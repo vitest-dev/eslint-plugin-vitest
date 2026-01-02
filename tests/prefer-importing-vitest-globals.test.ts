@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/prefer-importing-vitest-globals'
+import rule from '../src/rules/prefer-importing-vitest-globals'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     "vitest.describe('suite', () => {});",
     "import { describe } from 'vitest'; describe('suite', () => {});",

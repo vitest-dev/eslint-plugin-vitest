@@ -128,7 +128,7 @@ xit('bar foo', () => {});
   ],
 } satisfies TSESLint.InvalidTestCase<'missingPadding', never>
 
-ruleTester.run('padding-around-test-blocks', rule, {
+ruleTester.run(rule.name, rule, {
   valid: [testCase.output],
   invalid: ['src/component.test.jsx', 'src/component.test.js'].map(
     (filename) => ({ ...testCase, filename }),

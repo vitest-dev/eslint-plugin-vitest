@@ -1,9 +1,9 @@
-import rule, { RULE_NAME } from '../src/rules/prefer-expect-resolves'
+import rule from '../src/rules/prefer-expect-resolves'
 import { ruleTester } from './ruleTester'
 
 const messageId = 'expectResolves'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'expect.hasAssertions()',
     `it('passes', async () => {

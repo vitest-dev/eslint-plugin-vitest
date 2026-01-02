@@ -1,7 +1,7 @@
 import { createEslintRule, getAccessorValue } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'prefer-called-times'
+const RULE_NAME = 'prefer-called-times'
 type MESSAGE_IDS = 'preferCalledTimes'
 type Options = []
 

@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/valid-describe-callback'
+import rule from '../src/rules/valid-describe-callback'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'describe.each([1, 2, 3])("%s", (a, b) => {});',
     'describe.for([1, 2, 3])("%s", (a, b) => {});',

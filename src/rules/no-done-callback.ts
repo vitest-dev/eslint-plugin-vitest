@@ -10,7 +10,7 @@ import {
   parseVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'no-done-callback'
+const RULE_NAME = 'no-done-callback'
 export type MessageIds =
   | 'noDoneCallback'
   | 'suggestWrappingInPromise'

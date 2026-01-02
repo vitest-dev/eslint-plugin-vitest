@@ -1,9 +1,9 @@
-import rule, { RULE_NAME } from '../src/rules/require-mock-type-parameters'
+import rule from '../src/rules/require-mock-type-parameters'
 import { ruleTester } from './ruleTester'
 
 const messageId = 'noTypeParameter'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'vi.fn<(...args: any[]) => any>()',
     'vi.fn<(...args: string[]) => any>()',

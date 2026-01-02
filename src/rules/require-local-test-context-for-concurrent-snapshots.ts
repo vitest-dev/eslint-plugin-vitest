@@ -5,7 +5,7 @@ import {
   parseVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'require-local-test-context-for-concurrent-snapshots'
+const RULE_NAME = 'require-local-test-context-for-concurrent-snapshots'
 
 export default createEslintRule({
   name: RULE_NAME,

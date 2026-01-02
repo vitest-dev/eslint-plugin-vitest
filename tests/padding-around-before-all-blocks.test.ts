@@ -1,5 +1,5 @@
 import type { TSESLint } from '@typescript-eslint/utils'
-import rule, { RULE_NAME } from '../src/rules/padding-around-before-all-blocks'
+import rule from '../src/rules/padding-around-before-all-blocks'
 import { ruleTester } from './ruleTester'
 
 const testCase = {
@@ -81,7 +81,7 @@ describe('someText', () => {
   ],
 } satisfies TSESLint.InvalidTestCase<'missingPadding', never>
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [testCase.output],
   invalid: ['src/component.test.jsx', 'src/component.test.js'].map(
     (filename) => ({ ...testCase, filename }),

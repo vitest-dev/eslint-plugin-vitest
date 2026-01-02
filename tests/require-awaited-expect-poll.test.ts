@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/require-awaited-expect-poll'
+import rule from '../src/rules/require-awaited-expect-poll'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     {
       name: 'awaited expect.poll',

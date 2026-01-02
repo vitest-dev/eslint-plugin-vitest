@@ -6,7 +6,7 @@ import {
   isTypeOfVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'expect-expect'
+const RULE_NAME = 'expect-expect'
 export type MESSAGE_ID = 'noAssertions'
 type Options = [
   {

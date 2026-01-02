@@ -13,7 +13,7 @@ import {
   parseVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'prefer-to-be-object'
+const RULE_NAME = 'prefer-to-be-object'
 export type MESSAGE_IDS = 'preferToBeObject'
 export type Options = []
 

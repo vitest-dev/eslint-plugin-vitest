@@ -1,8 +1,8 @@
-import rule, { RULE_NAME } from '../src/rules/consistent-test-it'
+import rule from '../src/rules/consistent-test-it'
 import { TestCaseName } from '../src/utils/types'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     {
       code: `it("shows error", () => {
@@ -119,7 +119,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     {
       code: `test("shows error", () => {
@@ -176,7 +176,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     {
       code: 'describe("suite", () => { it("foo") })',
@@ -219,7 +219,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     {
       code: 'test("shows error", () => {});',
@@ -242,7 +242,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     {
       code: 'test("foo")',
@@ -285,7 +285,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
 })
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     {
       code: 'test("foo")',

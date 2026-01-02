@@ -5,7 +5,7 @@ import {
   createPaddingRule,
 } from '../utils/padding'
 
-export const RULE_NAME = 'padding-around-before-all-blocks'
+const RULE_NAME = 'padding-around-before-all-blocks'
 
 export const config: Config[] = [
   {

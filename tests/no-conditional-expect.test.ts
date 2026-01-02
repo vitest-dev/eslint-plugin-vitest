@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/no-conditional-expect'
+import rule from '../src/rules/no-conditional-expect'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(`${RULE_NAME}-logical conditions`, rule, {
+ruleTester.run(`${rule.name}-logical conditions`, rule, {
   valid: [
     `it('foo', () => {
      process.env.FAIL && setNum(1);
@@ -85,7 +85,7 @@ ruleTester.run(`${RULE_NAME}-logical conditions`, rule, {
   ],
 })
 
-ruleTester.run(`${RULE_NAME}-conditional conditions`, rule, {
+ruleTester.run(`${rule.name}-conditional conditions`, rule, {
   valid: [
     `
       it('foo', () => {

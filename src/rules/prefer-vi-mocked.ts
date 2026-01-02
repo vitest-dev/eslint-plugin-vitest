@@ -2,7 +2,7 @@ import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 import { followTypeAssertionChain } from '../utils/ast-utils'
 
-export const RULE_NAME = 'prefer-vi-mocked'
+const RULE_NAME = 'prefer-vi-mocked'
 type MESSAGE_IDS = 'useViMocked'
 
 const mockTypes = ['Mock', 'MockedFunction', 'MockedClass', 'MockedObject']

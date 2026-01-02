@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/no-alias-methods'
+import rule from '../src/rules/no-alias-methods'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'expect(a).toHaveBeenCalled()',
     'expect(a).toHaveBeenCalledTimes()',

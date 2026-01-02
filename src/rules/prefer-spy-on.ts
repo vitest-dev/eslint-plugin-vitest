@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getNodeName } from '../utils'
 
-export const RULE_NAME = 'prefer-spy-on'
+const RULE_NAME = 'prefer-spy-on'
 type MESSAGE_IDS = 'useViSpayOn'
 type Options = []
 

@@ -1,7 +1,7 @@
-import rule, { RULE_NAME } from '../src/rules/require-top-level-describe'
+import rule from '../src/rules/require-top-level-describe'
 import { ruleTester } from './ruleTester'
 
-ruleTester.run(`${RULE_NAME}: require-top-level-describe`, rule, {
+ruleTester.run(`${rule.name}: require-top-level-describe`, rule, {
   valid: [
     'it.each()',
     `
@@ -108,7 +108,7 @@ ruleTester.run(`${RULE_NAME}: require-top-level-describe`, rule, {
   ],
 })
 
-ruleTester.run(`${RULE_NAME}: (enforce number of describe)`, rule, {
+ruleTester.run(`${rule.name}: (enforce number of describe)`, rule, {
   valid: [
     'describe("test suite", () => { test("my test") });',
     'foo()',

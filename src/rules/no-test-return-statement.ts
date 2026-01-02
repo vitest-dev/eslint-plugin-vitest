@@ -5,7 +5,7 @@ import {
   isTypeOfVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'no-test-return-statement'
+const RULE_NAME = 'no-test-return-statement'
 export type MessageIds = 'noTestReturnStatement'
 type Options = []
 

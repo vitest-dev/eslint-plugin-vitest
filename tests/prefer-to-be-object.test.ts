@@ -1,9 +1,9 @@
-import rule, { RULE_NAME } from '../src/rules/prefer-to-be-object'
+import rule from '../src/rules/prefer-to-be-object'
 import { ruleTester } from './ruleTester'
 
 const messageId = 'preferToBeObject'
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run(rule.name, rule, {
   valid: [
     'expectTypeOf.hasAssertions',
     'expectTypeOf.hasAssertions()',

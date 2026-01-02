@@ -10,7 +10,7 @@ import {
   parseVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'no-conditional-expect'
+const RULE_NAME = 'no-conditional-expect'
 export type MESSAGE_ID = 'noConditionalExpect'
 export type Options = []
 

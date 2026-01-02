@@ -2,7 +2,7 @@ import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
-export const RULE_NAME = 'prefer-expect-resolves'
+const RULE_NAME = 'prefer-expect-resolves'
 type MESSAGE_IDS = 'expectResolves'
 type Options = []
 
