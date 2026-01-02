@@ -53,6 +53,7 @@ import preferImportInMock from './prefer-import-in-mock'
 import preferImportingVitestGlobals from './prefer-importing-vitest-globals'
 import preferLowercaseTitle from './prefer-lowercase-title'
 import preferMockPromiseShorthand from './prefer-mock-promise-shorthand'
+import preferMockReturnShorthand from './prefer-mock-return-shorthand'
 import preferSnapshotHint from './prefer-snapshot-hint'
 import preferSpyOn from './prefer-spy-on'
 import preferStrictBooleanMatchers from './prefer-strict-boolean-matchers'
@@ -67,7 +68,6 @@ import preferTodo from './prefer-todo'
 import preferViMocked from './prefer-vi-mocked'
 import requireAwaitedExpectPoll from './require-awaited-expect-poll'
 import requireHook from './require-hook'
-import requireImportViMock from './require-import-vi-mock'
 import requireLocalTestContextForConcurrentSnapshots from './require-local-test-context-for-concurrent-snapshots'
 import requireMockTypeParameters from './require-mock-type-parameters'
 import requireToThrowMessage from './require-to-throw-message'
@@ -77,6 +77,8 @@ import validExpectInPromise from './valid-expect-in-promise'
 import validExpect from './valid-expect'
 import validTitle from './valid-title'
 import warnTodo from './warn-todo'
+import noUnneededAsyncExpectFunction from './no-unneeded-async-expect-function'
+import preferToHaveBeenCalledTimes from './prefer-to-have-been-called-times'
 
 export const rules = {
   'consistent-each-for': consistentEachFor,
@@ -108,6 +110,7 @@ export const rules = {
   'no-standalone-expect': noStandaloneExpect,
   'no-test-prefixes': noTestPrefixes,
   'no-test-return-statement': noTestReturnStatement,
+  'no-unneeded-async-expect-function': noUnneededAsyncExpectFunction,
   'padding-around-after-all-blocks': paddingAroundAfterAllBlocks,
   'padding-around-after-each-blocks': paddingAroundAfterEachBlocks,
   'padding-around-all': paddingAroundAll,
@@ -133,6 +136,7 @@ export const rules = {
   'prefer-importing-vitest-globals': preferImportingVitestGlobals,
   'prefer-lowercase-title': preferLowercaseTitle,
   'prefer-mock-promise-shorthand': preferMockPromiseShorthand,
+  'prefer-mock-return-shorthand': preferMockReturnShorthand,
   'prefer-snapshot-hint': preferSnapshotHint,
   'prefer-spy-on': preferSpyOn,
   'prefer-strict-boolean-matchers': preferStrictBooleanMatchers,
@@ -142,12 +146,12 @@ export const rules = {
   'prefer-to-be-truthy': preferToBeTruthy,
   'prefer-to-be': preferToBe,
   'prefer-to-contain': preferToContain,
+  'prefer-to-have-been-called-times': preferToHaveBeenCalledTimes,
   'prefer-to-have-length': preferToHaveLength,
   'prefer-todo': preferTodo,
   'prefer-vi-mocked': preferViMocked,
   'require-awaited-expect-poll': requireAwaitedExpectPoll,
   'require-hook': requireHook,
-  'require-import-vi-mock': requireImportViMock,
   'require-local-test-context-for-concurrent-snapshots':
     requireLocalTestContextForConcurrentSnapshots,
   'require-mock-type-parameters': requireMockTypeParameters,

@@ -1,11 +1,17 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
+import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export const RULE_NAME = 'prefer-import-in-mock'
 
 type MESSAGE_ID = 'preferImport'
+type Options = [
+  Partial<{
+    fixable: boolean
+  }>,
+]
 
-export default createEslintRule<[], MESSAGE_ID>({
+export default createEslintRule<Options, MESSAGE_ID>({
   name: RULE_NAME,
   meta: {
     fixable: 'code',
@@ -16,31 +22,45 @@ export default createEslintRule<[], MESSAGE_ID>({
     messages: {
       preferImport: "Replace '{{path}}' with import('{{path}}')",
     },
-    schema: [],
+    schema: [
+      {
+        type: 'object',
+        properties: {
+          fixable: {
+            type: 'boolean',
+            default: true,
+          },
+        },
+        additionalProperties: false,
+      },
+    ],
   },
-  defaultOptions: [],
-  create(context) {
+  defaultOptions: [{ fixable: true }],
+  create(context, options) {
+    const fixable = options[0].fixable!
+
     return {
       CallExpression(node) {
-        // Only consider vi.<api> member calls
+        // Only consider vi.mock() calls
         if (node.callee.type !== AST_NODE_TYPES.MemberExpression) return
 
-        const { object, property } = node.callee
+        const vitestCallFn = parseVitestFnCall(node, context)
+
+        if (vitestCallFn?.type !== 'vi') {
+          return false
+        }
+
+        const { property } = node.callee
+
         if (
-          object.type !== AST_NODE_TYPES.Identifier ||
-          object.name !== 'vi' ||
-          property.type !== AST_NODE_TYPES.Identifier
+          property.type != AST_NODE_TYPES.Identifier ||
+          property.name != 'mock'
         ) {
           return
         }
 
-        const apiName = property.name
         const pathArg = node.arguments[0]
-        if (
-          apiName === 'mock' &&
-          pathArg &&
-          pathArg.type === AST_NODE_TYPES.Literal
-        ) {
+        if (pathArg && pathArg.type === AST_NODE_TYPES.Literal) {
           context.report({
             messageId: 'preferImport',
             data: {
@@ -48,6 +68,8 @@ export default createEslintRule<[], MESSAGE_ID>({
             },
             node: node,
             fix(fixer) {
+              if (!fixable) return null
+
               return fixer.replaceText(pathArg, `import('${pathArg.value}')`)
             },
           })

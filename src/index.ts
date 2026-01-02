@@ -51,6 +51,7 @@ const allRules = {
   'no-standalone-expect': 'warn',
   'no-test-prefixes': 'warn',
   'no-test-return-statement': 'warn',
+  'no-unneeded-async-expect-function': 'warn',
   'padding-around-after-all-blocks': 'warn',
   'padding-around-after-each-blocks': 'warn',
   'padding-around-all': 'warn',
@@ -85,6 +86,7 @@ const allRules = {
   'prefer-to-be-truthy': 'off',
   'prefer-to-be': 'warn',
   'prefer-to-contain': 'warn',
+  'prefer-to-have-been-called-times': 'warn',
   'prefer-to-have-length': 'warn',
   'prefer-todo': 'warn',
   'prefer-vi-mocked': 'warn',
@@ -98,7 +100,6 @@ const allRules = {
   'valid-expect': 'warn',
   'valid-title': 'warn',
   'require-awaited-expect-poll': 'warn',
-  'require-import-vi-mock': 'warn',
 } as const satisfies RuleList
 
 const recommendedRules = {
@@ -112,6 +113,7 @@ const recommendedRules = {
   'no-interpolation-in-snapshots': 'error',
   'no-mocks-import': 'error',
   'no-standalone-expect': 'error',
+  'no-unneeded-async-expect-function': 'error',
   'prefer-called-exactly-once-with': 'error',
   'require-local-test-context-for-concurrent-snapshots': 'error',
   'valid-describe-callback': 'error',

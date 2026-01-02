@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
-import { createEslintRule, getAccessorValue } from '../utils'
+import { createEslintRule, getAccessorValue, isIdentifier } from '../utils'
 import {
   findTopMostCallExpression,
   parseVitestFnCall,
@@ -14,7 +14,7 @@ const toThrowMatchers = [
   'toThrowErrorMatchingInlineSnapshot',
 ]
 
-type MESSAGE_IDS = 'unbound' | 'unboundWithoutThisAnnotation'
+export type MESSAGE_IDS = 'unbound' | 'unboundWithoutThisAnnotation'
 
 const DEFAULT_MESSAGE = 'This rule requires `@typescript-eslint/eslint-plugin`'
 
@@ -74,6 +74,13 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             findTopMostCallExpression(node.parent),
             context,
           )
+
+          if (
+            vitestFnCall?.type === 'vi' &&
+            vitestFnCall.members.length >= 1 &&
+            isIdentifier(vitestFnCall.members[0], 'mocked')
+          )
+            return
 
           if (vitestFnCall?.type === 'expect') {
             const { matcher } = vitestFnCall

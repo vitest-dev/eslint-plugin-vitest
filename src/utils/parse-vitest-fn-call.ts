@@ -4,6 +4,7 @@ import { ValidVitestFnCallChains } from './valid-vitest-fn-call-chains'
 import {
   AccessorNode,
   getAccessorValue,
+  getNodeName,
   getStringValue,
   isFunction,
   isIdentifier,
@@ -21,7 +22,6 @@ export type VitestFnType =
   | 'unknown'
   | 'hook'
   | 'vi'
-  | 'vitest'
   | 'expectTypeOf'
 
 interface ResolvedVitestFn {
@@ -127,9 +127,7 @@ const determineVitestFnType = (name: string): VitestFnType => {
 
   if (name === 'expectTypeOf') return 'expectTypeOf'
 
-  if (name === 'vi') return 'vi'
-
-  if (name === 'vitest') return 'vitest'
+  if (name === 'vi' || name === 'vitest') return 'vi'
 
   if (Object.prototype.hasOwnProperty.call(DescribeAlias, name))
     return 'describe'
@@ -435,12 +433,27 @@ export const resolveScope = (
       if (
         def.node.type === AST_NODE_TYPES.VariableDeclarator &&
         def.node.id.type === AST_NODE_TYPES.Identifier &&
-        Object.prototype.hasOwnProperty.call(TestCaseName, def.node.id.name) &&
         def.node.init?.type === AST_NODE_TYPES.CallExpression &&
         def.node.init.callee.type === AST_NODE_TYPES.MemberExpression &&
         isIdentifier(def.node.init.callee.property, 'extend')
       ) {
-        return 'testContext'
+        const baseName = getNodeName(def.node.init.callee.object)
+        const rootName = baseName?.split('.')[0]
+
+        if (rootName && rootName !== identifier) {
+          const resolved = resolveScope(currentScope, rootName)
+
+          if (
+            resolved &&
+            typeof resolved === 'object' &&
+            Object.hasOwn(TestCaseName, resolved.imported)
+          ) {
+            return {
+              ...resolved,
+              local: identifier,
+            }
+          }
+        }
       }
       const namedParam = isFunction(def.node)
         ? def.node.params.find(
