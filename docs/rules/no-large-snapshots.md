@@ -1,4 +1,6 @@
-# Disallow large snapshots (`vitest/no-large-snapshots`)
+# vitest/no-large-snapshots
+
+📝 Disallow large snapshots.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

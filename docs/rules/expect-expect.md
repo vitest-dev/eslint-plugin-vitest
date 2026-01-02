@@ -1,4 +1,6 @@
-# Enforce having expectation in test body (`vitest/expect-expect`)
+# vitest/expect-expect
+
+📝 Enforce having expectation in test body.
 
 💼⚠️ This rule is enabled in the ✅ `recommended` config. This rule _warns_ in the 🌐 `all` config.
 

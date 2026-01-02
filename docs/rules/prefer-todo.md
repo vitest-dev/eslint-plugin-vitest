@@ -1,4 +1,6 @@
-# Enforce using `test.todo` (`vitest/prefer-todo`)
+# vitest/prefer-todo
+
+📝 Enforce using `test.todo`.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

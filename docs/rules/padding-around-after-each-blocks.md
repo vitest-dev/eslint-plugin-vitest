@@ -1,4 +1,6 @@
-# Enforce padding around `afterEach` blocks (`vitest/padding-around-after-each-blocks`)
+# vitest/padding-around-after-each-blocks
+
+📝 Enforce padding around `afterEach` blocks.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

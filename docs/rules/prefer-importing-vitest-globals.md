@@ -1,4 +1,6 @@
-# Enforce importing Vitest globals (`vitest/prefer-importing-vitest-globals`)
+# vitest/prefer-importing-vitest-globals
+
+📝 Enforce importing Vitest globals.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

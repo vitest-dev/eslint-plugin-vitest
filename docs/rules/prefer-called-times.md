@@ -1,4 +1,6 @@
-# Enforce using `toBeCalledTimes(1)` or `toHaveBeenCalledTimes(1)` (`vitest/prefer-called-times`)
+# vitest/prefer-called-times
+
+📝 Enforce using `toBeCalledTimes(1)` or `toHaveBeenCalledTimes(1)`.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

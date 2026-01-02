@@ -1,4 +1,6 @@
-# Enforce using `each` rather than manual loops (`vitest/prefer-each`)
+# vitest/prefer-each
+
+📝 Enforce using `each` rather than manual loops.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

@@ -1,4 +1,6 @@
-# Enforce using `vi.spyOn` (`vitest/prefer-spy-on`)
+# vitest/prefer-spy-on
+
+📝 Enforce using `vi.spyOn`.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

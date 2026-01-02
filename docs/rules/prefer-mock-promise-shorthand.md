@@ -1,4 +1,6 @@
-# Enforce mock resolved/rejected shorthands for promises (`vitest/prefer-mock-promise-shorthand`)
+# vitest/prefer-mock-promise-shorthand
+
+📝 Enforce mock resolved/rejected shorthands for promises.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
