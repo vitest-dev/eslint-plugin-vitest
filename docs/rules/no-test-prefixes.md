@@ -1,4 +1,6 @@
-# Disallow using the `f` and `x` prefixes in favour of `.only` and `.skip` (`vitest/no-test-prefixes`)
+# vitest/no-test-prefixes
+
+📝 Disallow using the `f` and `x` prefixes in favour of `.only` and `.skip`.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

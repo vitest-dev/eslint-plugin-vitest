@@ -1,4 +1,6 @@
-# Enforce valid `expect()` usage (`vitest/valid-expect`)
+# vitest/valid-expect
+
+📝 Enforce valid `expect()` usage.
 
 💼⚠️ This rule is enabled in the ✅ `recommended` config. This rule _warns_ in the 🌐 `all` config.
 

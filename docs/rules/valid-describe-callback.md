@@ -1,4 +1,6 @@
-# Enforce valid describe callback (`vitest/valid-describe-callback`)
+# vitest/valid-describe-callback
+
+📝 Enforce valid describe callback.
 
 💼⚠️ This rule is enabled in the ✅ `recommended` config. This rule _warns_ in the 🌐 `all` config.
 

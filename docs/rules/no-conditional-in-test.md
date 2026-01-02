@@ -1,4 +1,6 @@
-# Disallow conditional tests (`vitest/no-conditional-in-test`)
+# vitest/no-conditional-in-test
+
+📝 Disallow conditional tests.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

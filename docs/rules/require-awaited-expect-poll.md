@@ -1,4 +1,6 @@
-# Ensure that every `expect.poll` call is awaited (`vitest/require-awaited-expect-poll`)
+# vitest/require-awaited-expect-poll
+
+📝 Ensure that every `expect.poll` call is awaited.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

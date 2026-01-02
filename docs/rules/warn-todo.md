@@ -1,4 +1,6 @@
-# Disallow `.todo` usage (`vitest/warn-todo`)
+# vitest/warn-todo
+
+📝 Disallow `.todo` usage.
 
 <!-- end auto-generated rule header -->
 

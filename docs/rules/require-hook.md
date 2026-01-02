@@ -1,4 +1,6 @@
-# Require setup and teardown to be within a hook (`vitest/require-hook`)
+# vitest/require-hook
+
+📝 Require setup and teardown to be within a hook.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

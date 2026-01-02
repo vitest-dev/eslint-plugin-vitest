@@ -1,4 +1,6 @@
-# Enforce having hooks in consistent order (`vitest/prefer-hooks-in-order`)
+# vitest/prefer-hooks-in-order
+
+📝 Enforce having hooks in consistent order.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

@@ -1,4 +1,6 @@
-# Enforce padding around `beforeAll` blocks (`vitest/padding-around-before-all-blocks`)
+# vitest/padding-around-before-all-blocks
+
+📝 Enforce padding around `beforeAll` blocks.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

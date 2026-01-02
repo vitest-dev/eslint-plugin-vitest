@@ -1,4 +1,6 @@
-# Require test file pattern (`vitest/consistent-test-filename`)
+# vitest/consistent-test-filename
+
+📝 Require test file pattern.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

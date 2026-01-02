@@ -1,4 +1,6 @@
-# Enforce using `toBe(true)` and `toBe(false)` over matchers that coerce types to boolean (`vitest/prefer-strict-boolean-matchers`)
+# vitest/prefer-strict-boolean-matchers
+
+📝 Enforce using `toBe(true)` and `toBe(false)` over matchers that coerce types to boolean.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

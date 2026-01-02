@@ -1,4 +1,6 @@
-# Disallow conditional expects (`vitest/no-conditional-expect`)
+# vitest/no-conditional-expect
+
+📝 Disallow conditional expects.
 
 💼⚠️ This rule is enabled in the ✅ `recommended` config. This rule _warns_ in the 🌐 `all` config.
 

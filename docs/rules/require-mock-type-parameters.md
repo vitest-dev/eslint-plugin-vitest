@@ -1,4 +1,6 @@
-# Enforce using type parameters with vitest mock functions (`vitest/require-mock-type-parameters`)
+# vitest/require-mock-type-parameters
+
+📝 Enforce using type parameters with vitest mock functions.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
