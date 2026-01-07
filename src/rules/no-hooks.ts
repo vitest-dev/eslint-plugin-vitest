@@ -40,7 +40,7 @@ export default createEslintRule<
         },
         additionalProperties: false,
       },
-    ],
+    ], defaultOptions: [],
     messages: {
       unexpectedHook: "Unexpected '{{ hookName }}' hook",
     },

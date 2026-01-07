@@ -171,7 +171,7 @@ export default createEslintRule<
         },
         additionalProperties: false,
       },
-    ],
+    ], defaultOptions: [],
   },
   defaultOptions: [
     {

@@ -1,6 +1,4 @@
-# vitest/prefer-to-have-length
-
-📝 Enforce using toHaveLength().
+# Enforce using toHaveLength() (`vitest/prefer-to-have-length`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

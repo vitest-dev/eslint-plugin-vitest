@@ -1,6 +1,4 @@
-# vitest/prefer-to-be-falsy
-
-📝 Enforce using toBeFalsy().
+# Enforce using toBeFalsy() (`vitest/prefer-to-be-falsy`)
 
 🚫 This rule is _disabled_ in the 🌐 `all` config.
 

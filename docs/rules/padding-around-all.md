@@ -1,6 +1,4 @@
-# vitest/padding-around-all
-
-📝 Enforce padding around vitest functions.
+# Enforce padding around vitest functions (`vitest/padding-around-all`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

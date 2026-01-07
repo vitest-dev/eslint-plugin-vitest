@@ -1,6 +1,4 @@
-# vitest/prefer-called-exactly-once-with
-
-📝 Prefer `toHaveBeenCalledExactlyOnceWith` over `toHaveBeenCalledOnce` and `toHaveBeenCalledWith`.
+# Prefer `toHaveBeenCalledExactlyOnceWith` over `toHaveBeenCalledOnce` and `toHaveBeenCalledWith` (`vitest/prefer-called-exactly-once-with`)
 
 💼⚠️ This rule is enabled in the ✅ `recommended` config. This rule _warns_ in the 🌐 `all` config.
 

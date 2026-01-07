@@ -1,6 +1,4 @@
-# vitest/prefer-vi-mocked
-
-📝 Require `vi.mocked()` over `fn as Mock`.
+# Require `vi.mocked()` over `fn as Mock` (`vitest/prefer-vi-mocked`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

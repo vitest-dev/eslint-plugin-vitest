@@ -1,6 +1,4 @@
-# vitest/prefer-to-have-been-called-times
-
-📝 Suggest using `toHaveBeenCalledTimes()`.
+# Suggest using `toHaveBeenCalledTimes()` (`vitest/prefer-to-have-been-called-times`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

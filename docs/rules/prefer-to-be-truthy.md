@@ -1,6 +1,4 @@
-# vitest/prefer-to-be-truthy
-
-📝 Enforce using `toBeTruthy`.
+# Enforce using `toBeTruthy` (`vitest/prefer-to-be-truthy`)
 
 🚫 This rule is _disabled_ in the 🌐 `all` config.
 

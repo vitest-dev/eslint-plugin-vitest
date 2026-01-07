@@ -1,6 +1,4 @@
-# vitest/padding-around-expect-groups
-
-📝 Enforce padding around `expect` groups.
+# Enforce padding around `expect` groups (`vitest/padding-around-expect-groups`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

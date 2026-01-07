@@ -1,6 +1,4 @@
-# vitest/no-duplicate-hooks
-
-📝 Disallow duplicate hooks and teardown hooks.
+# Disallow duplicate hooks and teardown hooks (`vitest/no-duplicate-hooks`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

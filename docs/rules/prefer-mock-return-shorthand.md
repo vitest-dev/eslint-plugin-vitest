@@ -1,6 +1,4 @@
-# vitest/prefer-mock-return-shorthand
-
-📝 Prefer mock return shorthands.
+# Prefer mock return shorthands (`vitest/prefer-mock-return-shorthand`)
 
 🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 

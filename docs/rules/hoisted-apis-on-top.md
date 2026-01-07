@@ -1,6 +1,4 @@
-# vitest/hoisted-apis-on-top
-
-📝 Enforce hoisted APIs to be on top of the file.
+# Enforce hoisted APIs to be on top of the file (`vitest/hoisted-apis-on-top`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

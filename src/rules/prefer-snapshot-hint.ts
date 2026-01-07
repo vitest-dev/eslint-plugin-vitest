@@ -48,7 +48,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         type: 'string',
         enum: ['always', 'multi'],
       },
-    ],
+    ], defaultOptions: [],
   },
   defaultOptions: ['multi'],
   create(context, [mode]) {

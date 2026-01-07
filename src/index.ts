@@ -100,6 +100,7 @@ const allRules = {
   'valid-expect': 'warn',
   'valid-title': 'warn',
   'require-awaited-expect-poll': 'warn',
+  'require-test-timeout': 'off',
 } as const satisfies RuleList
 
 const recommendedRules = {

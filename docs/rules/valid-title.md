@@ -1,6 +1,4 @@
-# vitest/valid-title
-
-📝 Enforce valid titles.
+# Enforce valid titles (`vitest/valid-title`)
 
 💼⚠️ This rule is enabled in the ✅ `recommended` config. This rule _warns_ in the 🌐 `all` config.
 

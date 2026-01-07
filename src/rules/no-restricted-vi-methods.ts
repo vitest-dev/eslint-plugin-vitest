@@ -18,7 +18,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
         type: 'object',
         additionalProperties: { type: ['string', 'null'] },
       },
-    ],
+    ], defaultOptions: [],
     messages: {
       restrictedViMethod: 'Use of `{{ restriction }}` is disallowed',
       restrictedViMethodWithMessage: '{{ message }}',

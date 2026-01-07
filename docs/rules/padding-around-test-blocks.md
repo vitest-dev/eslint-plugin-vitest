@@ -1,6 +1,4 @@
-# vitest/padding-around-test-blocks
-
-📝 Enforce padding around `test` blocks.
+# Enforce padding around `test` blocks (`vitest/padding-around-test-blocks`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

@@ -42,7 +42,7 @@ export default createEslintRule<
           },
         },
       },
-    ],
+    ], defaultOptions: [],
   },
   defaultOptions: [
     {

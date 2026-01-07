@@ -1,6 +1,4 @@
-# vitest/prefer-expect-type-of
-
-📝 Enforce using `expectTypeOf` instead of `expect(typeof ...)`.
+# Enforce using `expectTypeOf` instead of `expect(typeof ...)` (`vitest/prefer-expect-type-of`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

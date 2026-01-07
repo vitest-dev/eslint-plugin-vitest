@@ -1,6 +1,4 @@
-# vitest/no-alias-methods
-
-📝 Disallow alias methods.
+# Disallow alias methods (`vitest/no-alias-methods`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

@@ -1,6 +1,4 @@
-# vitest/no-unneeded-async-expect-function
-
-📝 Disallow unnecessary async function wrapper for expected promises.
+# Disallow unnecessary async function wrapper for expected promises (`vitest/no-unneeded-async-expect-function`)
 
 💼⚠️ This rule is enabled in the ✅ `recommended` config. This rule _warns_ in the 🌐 `all` config.
 

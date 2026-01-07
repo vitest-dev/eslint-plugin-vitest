@@ -1,6 +1,4 @@
-# vitest/no-interpolation-in-snapshots
-
-📝 Disallow string interpolation in snapshots.
+# Disallow string interpolation in snapshots (`vitest/no-interpolation-in-snapshots`)
 
 💼⚠️ This rule is enabled in the ✅ `recommended` config. This rule _warns_ in the 🌐 `all` config.
 

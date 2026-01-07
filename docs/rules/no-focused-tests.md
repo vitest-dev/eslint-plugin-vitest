@@ -1,6 +1,4 @@
-# vitest/no-focused-tests
-
-📝 Disallow focused tests.
+# Disallow focused tests (`vitest/no-focused-tests`)
 
 💼⚠️ This rule is enabled in the ✅ `recommended` config. This rule _warns_ in the 🌐 `all` config.
 

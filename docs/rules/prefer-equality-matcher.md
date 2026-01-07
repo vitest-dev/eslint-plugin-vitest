@@ -1,6 +1,4 @@
-# vitest/prefer-equality-matcher
-
-📝 Enforce using the built-in equality matchers.
+# Enforce using the built-in equality matchers (`vitest/prefer-equality-matcher`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

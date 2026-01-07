@@ -1,6 +1,4 @@
-# vitest/consistent-vitest-vi
-
-📝 Enforce using vitest or vi but not both.
+# Enforce using vitest or vi but not both (`vitest/consistent-vitest-vi`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

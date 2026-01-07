@@ -1,6 +1,4 @@
-# vitest/prefer-import-in-mock
-
-📝 Prefer dynamic import in mock.
+# Prefer dynamic import in mock (`vitest/prefer-import-in-mock`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

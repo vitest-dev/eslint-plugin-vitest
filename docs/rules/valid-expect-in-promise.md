@@ -1,6 +1,4 @@
-# vitest/valid-expect-in-promise
-
-📝 Require promises that have expectations in their chain to be valid.
+# Require promises that have expectations in their chain to be valid (`vitest/valid-expect-in-promise`)
 
 💼⚠️ This rule is enabled in the ✅ `recommended` config. This rule _warns_ in the 🌐 `all` config.
 

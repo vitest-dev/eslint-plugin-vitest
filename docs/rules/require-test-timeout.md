@@ -1,5 +1,7 @@
 # Require tests to declare a timeout (`vitest/require-test-timeout`)
 
+🚫 This rule is _disabled_ in the 🌐 `all` config.
+
 <!-- end auto-generated rule header -->
 
 This rule ensures tests explicitly declare a timeout so long-running tests don't hang silently.

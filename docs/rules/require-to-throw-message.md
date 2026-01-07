@@ -1,6 +1,4 @@
-# vitest/require-to-throw-message
-
-📝 Require toThrow() to be called with an error message.
+# Require toThrow() to be called with an error message (`vitest/require-to-throw-message`)
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
