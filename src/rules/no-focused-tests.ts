@@ -40,7 +40,6 @@ export default createEslintRule<Options, MessageIds>({
         additionalProperties: false,
       },
     ],
-    defaultOptions: [],
     messages: {
       noFocusedTests: 'Focused tests are not allowed',
     },

@@ -39,7 +39,12 @@ export default createEslintRule<Options, MESSAGE_ID>({
         additionalProperties: false,
       },
     ],
-    defaultOptions: [],
+    defaultOptions: [
+      {
+        assertFunctionNames: ['expect', 'assert'],
+        additionalTestBlockFunctions: [],
+      },
+    ],
     messages: {
       noAssertions: 'Test has no assertions',
     },

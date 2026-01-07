@@ -98,7 +98,6 @@ export default createEslintRule<[RuleOptions], MESSAGE_IDS>({
         additionalProperties: false,
       },
     ],
-    defaultOptions: [],
   },
   defaultOptions: [{}],
   create(context, [options]) {
