@@ -1,4 +1,6 @@
-# Disallow using a callback in asynchronous tests and hooks (`vitest/no-done-callback`)
+# vitest/no-done-callback
+
+📝 Disallow using a callback in asynchronous tests and hooks.
 
 ❌ This rule is deprecated.
 

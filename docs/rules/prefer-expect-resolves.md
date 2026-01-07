@@ -1,4 +1,6 @@
-# Enforce using `expect().resolves` over `expect(await ...)` syntax (`vitest/prefer-expect-resolves`)
+# vitest/prefer-expect-resolves
+
+📝 Enforce using `expect().resolves` over `expect(await ...)` syntax.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

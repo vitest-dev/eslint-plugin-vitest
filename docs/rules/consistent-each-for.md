@@ -1,4 +1,6 @@
-# Enforce using `.each` or `.for` consistently (`vitest/consistent-each-for`)
+# vitest/consistent-each-for
+
+📝 Enforce using `.each` or `.for` consistently.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

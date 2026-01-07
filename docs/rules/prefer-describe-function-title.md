@@ -1,4 +1,6 @@
-# Enforce using a function as a describe title over an equivalent string (`vitest/prefer-describe-function-title`)
+# vitest/prefer-describe-function-title
+
+📝 Enforce using a function as a describe title over an equivalent string.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

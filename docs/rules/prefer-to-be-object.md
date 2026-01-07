@@ -1,4 +1,6 @@
-# Enforce using toBeObject() (`vitest/prefer-to-be-object`)
+# vitest/prefer-to-be-object
+
+📝 Enforce using toBeObject().
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

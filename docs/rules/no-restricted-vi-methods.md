@@ -1,4 +1,6 @@
-# Disallow specific `vi.` methods (`vitest/no-restricted-vi-methods`)
+# vitest/no-restricted-vi-methods
+
+📝 Disallow specific `vi.` methods.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

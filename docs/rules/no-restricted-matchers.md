@@ -1,4 +1,6 @@
-# Disallow the use of certain matchers (`vitest/no-restricted-matchers`)
+# vitest/no-restricted-matchers
+
+📝 Disallow the use of certain matchers.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

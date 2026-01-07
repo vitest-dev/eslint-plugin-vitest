@@ -1,4 +1,6 @@
-# Disallow setup and teardown hooks (`vitest/no-hooks`)
+# vitest/no-hooks
+
+📝 Disallow setup and teardown hooks.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

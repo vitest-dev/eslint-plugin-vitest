@@ -1,4 +1,6 @@
-# Require tests to declare a timeout (`vitest/require-test-timeout`)
+# vitest/require-test-timeout
+
+📝 Require tests to declare a timeout.
 
 🚫 This rule is _disabled_ in the 🌐 `all` config.
 

@@ -1,4 +1,6 @@
-# Enforce that all tests are in a top-level describe (`vitest/require-top-level-describe`)
+# vitest/require-top-level-describe
+
+📝 Enforce that all tests are in a top-level describe.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

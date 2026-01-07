@@ -1,4 +1,6 @@
-# Enforce using `toBeCalledWith()` or `toHaveBeenCalledWith()` (`vitest/prefer-called-with`)
+# vitest/prefer-called-with
+
+📝 Enforce using `toBeCalledWith()` or `toHaveBeenCalledWith()`.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

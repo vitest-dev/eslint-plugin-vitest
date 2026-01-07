@@ -1,4 +1,6 @@
-# Enforce a maximum number of expect per test (`vitest/max-expects`)
+# vitest/max-expects
+
+📝 Enforce a maximum number of expect per test.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

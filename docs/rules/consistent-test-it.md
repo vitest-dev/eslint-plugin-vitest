@@ -1,4 +1,6 @@
-# Enforce using test or it but not both (`vitest/consistent-test-it`)
+# vitest/consistent-test-it
+
+📝 Enforce using test or it but not both.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

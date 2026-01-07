@@ -1,4 +1,6 @@
-# Enforce using `toBeCalledOnce()` or `toHaveBeenCalledOnce()` (`vitest/prefer-called-once`)
+# vitest/prefer-called-once
+
+📝 Enforce using `toBeCalledOnce()` or `toHaveBeenCalledOnce()`.
 
 🚫 This rule is _disabled_ in the 🌐 `all` config.
 

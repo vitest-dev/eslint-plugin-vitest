@@ -1,4 +1,6 @@
-# Enforce padding around `describe` blocks (`vitest/padding-around-describe-blocks`)
+# vitest/padding-around-describe-blocks
+
+📝 Enforce padding around `describe` blocks.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

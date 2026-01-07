@@ -1,4 +1,6 @@
-# Enforce strict equal over equal (`vitest/prefer-strict-equal`)
+# vitest/prefer-strict-equal
+
+📝 Enforce strict equal over equal.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 

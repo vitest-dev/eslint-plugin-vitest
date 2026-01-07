@@ -1,4 +1,6 @@
-# Enforce lowercase titles (`vitest/prefer-lowercase-title`)
+# vitest/prefer-lowercase-title
+
+📝 Enforce lowercase titles.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
