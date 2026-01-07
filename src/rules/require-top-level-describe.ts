@@ -36,7 +36,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         },
         additionalProperties: false,
       },
-    ], defaultOptions: [],
+    ],
+    defaultOptions: [],
   },
   defaultOptions: [{ maxNumberOfTopLevelDescribes: Infinity }],
   create(context, options) {

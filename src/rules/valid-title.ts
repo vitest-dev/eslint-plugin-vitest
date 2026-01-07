@@ -181,7 +181,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         },
         additionalProperties: false,
       },
-    ], defaultOptions: [],
+    ],
+    defaultOptions: [],
     fixable: 'code',
   },
   defaultOptions: [

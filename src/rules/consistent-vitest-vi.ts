@@ -34,7 +34,8 @@ export default createEslintRule<[Partial<{ fn: UtilName }>], MESSAGE_ID>({
         },
         additionalProperties: false,
       },
-    ], defaultOptions: [],
+    ],
+    defaultOptions: [],
   },
   defaultOptions: [{ fn: UtilName.vi }],
   create(context, options) {

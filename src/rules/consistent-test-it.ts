@@ -77,7 +77,8 @@ export default createEslintRule<
         },
         additionalProperties: false,
       },
-    ], defaultOptions: [],
+    ],
+    defaultOptions: [],
   },
   defaultOptions: [{}],
   create(context, options) {

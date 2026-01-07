@@ -89,7 +89,8 @@ export default createEslintRule<Options[], MessageIds>({
         },
         additionalProperties: false,
       },
-    ], defaultOptions: [],
+    ],
+    defaultOptions: [],
   },
   defaultOptions: [
     {
