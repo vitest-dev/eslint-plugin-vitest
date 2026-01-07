@@ -68,6 +68,7 @@ import preferTodo from './prefer-todo'
 import preferViMocked from './prefer-vi-mocked'
 import requireAwaitedExpectPoll from './require-awaited-expect-poll'
 import requireHook from './require-hook'
+import requireTestTimeout from './require-test-timeout'
 import requireLocalTestContextForConcurrentSnapshots from './require-local-test-context-for-concurrent-snapshots'
 import requireMockTypeParameters from './require-mock-type-parameters'
 import requireToThrowMessage from './require-to-throw-message'
@@ -152,6 +153,7 @@ export const rules = {
   'prefer-vi-mocked': preferViMocked,
   'require-awaited-expect-poll': requireAwaitedExpectPoll,
   'require-hook': requireHook,
+  'require-test-timeout': requireTestTimeout,
   'require-local-test-context-for-concurrent-snapshots':
     requireLocalTestContextForConcurrentSnapshots,
   'require-mock-type-parameters': requireMockTypeParameters,

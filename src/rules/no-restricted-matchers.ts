@@ -32,6 +32,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         },
       },
     ],
+    defaultOptions: [],
     messages: {
       restrictedChain: 'use of {{ restriction }} is disallowed',
       restrictedChainWithMessage: '{{ message }}',
