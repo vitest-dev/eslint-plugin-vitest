@@ -33,23 +33,21 @@ export default createEslintRule<
           pattern: {
             type: 'string',
             format: 'regex',
-            default: defaultPattern.source,
           },
           allTestPattern: {
             type: 'string',
             format: 'regex',
-            default: defaultTestsPattern.source,
           },
         },
       },
     ],
+    defaultOptions: [
+      {
+        pattern: defaultPattern.source,
+        allTestPattern: defaultTestsPattern.source,
+      },
+    ],
   },
-  defaultOptions: [
-    {
-      pattern: defaultPattern.source,
-      allTestPattern: defaultTestsPattern.source,
-    },
-  ],
 
   create: (context, options) => {
     const { pattern: patternRaw, allTestPattern: allTestPatternRaw } =

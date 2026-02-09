@@ -54,7 +54,6 @@ export default createEslintRule<Options, MessageIds>({
     },
     hasSuggestions: true,
   },
-  defaultOptions: [],
   create(context) {
     return {
       CallExpression(node) {

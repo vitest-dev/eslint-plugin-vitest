@@ -30,13 +30,12 @@ export default createEslintRule<Options[], MESSAGE_IDS>({
         additionalProperties: false,
       },
     ],
-    defaultOptions: [],
+    defaultOptions: [
+      {
+        checkImportFunctions: false,
+      },
+    ],
   },
-  defaultOptions: [
-    {
-      checkImportFunctions: false,
-    },
-  ],
   create(context, [options]) {
     return {
       CallExpression(node) {

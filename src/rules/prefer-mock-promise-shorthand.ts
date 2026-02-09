@@ -42,7 +42,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     schema: [],
     fixable: 'code',
   },
-  defaultOptions: [],
   create(context) {
     const report = (
       property: AccessorNode,

@@ -17,7 +17,6 @@ export default createEslintRule<[], MESSAGE_ID>({
       noConditionalTests: 'Avoid using if conditions in a test',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       Identifier: function (node: TSESTree.Identifier) {

@@ -20,7 +20,6 @@ export default createEslintRule({
     type: 'problem',
     schema: [],
   },
-  defaultOptions: [],
   create(context) {
     return {
       CallExpression(node) {

@@ -23,8 +23,8 @@ export default createEslintRule<Options, MESSAGE_ID>({
       restrictedViMethod: 'Use of `{{ restriction }}` is disallowed',
       restrictedViMethodWithMessage: '{{ message }}',
     },
+    defaultOptions: [{}],
   },
-  defaultOptions: [{}],
   create(context, [restrictedMethods]) {
     return {
       CallExpression(node) {

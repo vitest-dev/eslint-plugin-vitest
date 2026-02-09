@@ -17,7 +17,7 @@ import {
 
 const RULE_NAME = 'valid-expect-in-promise'
 export type MESSAGE_IDS = 'expectInFloatingPromise'
-const defaultAsyncMatchers = ['toRejectWith', 'toResolveWith']
+type Options = []
 
 type PromiseChainCallExpression = KnownCallExpression<
   'then' | 'catch' | 'finally'
@@ -338,17 +338,7 @@ const isVariableAwaitedOrReturned = (
   return isValueAwaitedOrReturned(variable.id, body, context)
 }
 
-export default createEslintRule<
-  [
-    Partial<{
-      alwaysAwait: boolean
-      asyncMatchers: string[]
-      minArgs: number
-      maxArgs: number
-    }>,
-  ],
-  MESSAGE_IDS
->({
+export default createEslintRule<Options, MESSAGE_IDS>({
   name: RULE_NAME,
   meta: {
     docs: {
@@ -362,14 +352,6 @@ export default createEslintRule<
     type: 'suggestion',
     schema: [],
   },
-  defaultOptions: [
-    {
-      alwaysAwait: false,
-      asyncMatchers: defaultAsyncMatchers,
-      minArgs: 1,
-      maxArgs: 1,
-    },
-  ],
   create(context) {
     let inTestCaseWithDoneCallback = false
     // an array of booleans representing each promise chain we enter, with the

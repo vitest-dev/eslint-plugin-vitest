@@ -148,11 +148,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         properties: {
           ignoreTypeOfDescribeName: {
             type: 'boolean',
-            default: false,
           },
           allowArguments: {
             type: 'boolean',
-            default: false,
           },
           disallowedWords: {
             type: 'array',
@@ -182,16 +180,15 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         additionalProperties: false,
       },
     ],
-    defaultOptions: [],
+    defaultOptions: [
+      {
+        ignoreTypeOfDescribeName: false,
+        allowArguments: false,
+        disallowedWords: [],
+      },
+    ],
     fixable: 'code',
   },
-  defaultOptions: [
-    {
-      ignoreTypeOfDescribeName: false,
-      allowArguments: false,
-      disallowedWords: [],
-    },
-  ],
   create(
     context,
     [

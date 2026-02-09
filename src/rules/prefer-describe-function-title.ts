@@ -25,7 +25,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       preferFunction: 'Enforce using a function over an equivalent string',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       CallExpression(node) {

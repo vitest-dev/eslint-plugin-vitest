@@ -49,9 +49,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         enum: ['always', 'multi'],
       },
     ],
-    defaultOptions: [],
+    defaultOptions: ['multi'],
   },
-  defaultOptions: ['multi'],
   create(context, [mode]) {
     const snapshotMatchers: ParsedExpectVitestFnCall[] = []
     let expressionDepth = 0

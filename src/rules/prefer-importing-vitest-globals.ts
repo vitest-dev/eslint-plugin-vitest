@@ -27,7 +27,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     schema: [],
     fixable: 'code',
   },
-  defaultOptions: [],
   create(context) {
     const importedNames = new Set<string>()
     let vitestImportSpecifiers: TSESTree.ImportClause[]

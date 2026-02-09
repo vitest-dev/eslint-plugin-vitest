@@ -90,15 +90,14 @@ export default createEslintRule<Options[], MessageIds>({
         additionalProperties: false,
       },
     ],
-    defaultOptions: [],
+    defaultOptions: [
+      {
+        onlyFunctionsWithAsyncKeyword: false,
+        onlyFunctionsWithExpectInCallback: false,
+        onlyFunctionsWithExpectInLoop: false,
+      },
+    ],
   },
-  defaultOptions: [
-    {
-      onlyFunctionsWithAsyncKeyword: false,
-      onlyFunctionsWithExpectInCallback: false,
-      onlyFunctionsWithExpectInLoop: false,
-    },
-  ],
   create(context, [options]) {
     let expressionDepth = 0
     let hasExpectInCallBack = false

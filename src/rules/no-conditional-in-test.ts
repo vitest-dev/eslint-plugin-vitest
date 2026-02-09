@@ -19,7 +19,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     schema: [],
     type: 'problem',
   },
-  defaultOptions: [],
   create(context) {
     return {
       IfStatement(node) {

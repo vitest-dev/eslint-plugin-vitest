@@ -67,7 +67,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       useToBeComparison: 'Prefer using `{{ preferredMatcher }}` instead',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       CallExpression(node) {

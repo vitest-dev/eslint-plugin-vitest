@@ -35,7 +35,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     fixable: 'code',
     schema: [],
   },
-  defaultOptions: [],
   create(context) {
     return {
       ImportDeclaration(node: TSESTree.ImportDeclaration) {

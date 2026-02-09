@@ -18,7 +18,6 @@ export default createEslintRule({
       preferEach: 'Prefer using `{{ fn }}.each` rather than a manual loop',
     },
   },
-  defaultOptions: [],
   create(context) {
     const vitestFnCalls: VitestFnType[] = []
     let inTestCaseCall = false

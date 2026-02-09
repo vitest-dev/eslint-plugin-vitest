@@ -21,7 +21,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     },
     schema: [],
   },
-  defaultOptions: [],
   create: (context) => ({
     CallExpression(node) {
       const vitestFnCall = parseVitestFnCall(node, context)

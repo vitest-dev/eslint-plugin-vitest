@@ -23,7 +23,6 @@ export default createEslintRule<Options, MESSAGE_ID>({
     type: 'problem',
     schema: [],
   },
-  defaultOptions: [],
   create(context) {
     const reported = new Set<TSESTree.Node>()
 

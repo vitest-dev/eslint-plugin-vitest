@@ -154,7 +154,6 @@ export default createEslintRule<
         properties: {
           alwaysAwait: {
             type: 'boolean',
-            default: false,
           },
           asyncMatchers: {
             type: 'array',
@@ -172,15 +171,15 @@ export default createEslintRule<
         additionalProperties: false,
       },
     ],
+    defaultOptions: [
+      {
+        alwaysAwait: false,
+        asyncMatchers: defaultAsyncMatchers,
+        minArgs: 1,
+        maxArgs: 1,
+      },
+    ],
   },
-  defaultOptions: [
-    {
-      alwaysAwait: false,
-      asyncMatchers: defaultAsyncMatchers,
-      minArgs: 1,
-      maxArgs: 1,
-    },
-  ],
   create: (
     context,
     [

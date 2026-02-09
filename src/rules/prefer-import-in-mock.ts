@@ -28,14 +28,13 @@ export default createEslintRule<Options, MESSAGE_ID>({
         properties: {
           fixable: {
             type: 'boolean',
-            default: true,
           },
         },
         additionalProperties: false,
       },
     ],
+    defaultOptions: [{ fixable: true }],
   },
-  defaultOptions: [{ fixable: true }],
   create(context, options) {
     const fixable = options[0].fixable!
 

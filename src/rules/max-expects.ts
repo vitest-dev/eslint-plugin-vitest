@@ -37,8 +37,8 @@ export default createEslintRule<Options, MESSAGE_ID>({
         additionalProperties: false,
       },
     ],
+    defaultOptions: [{ max: 5 }],
   },
-  defaultOptions: [{ max: 5 }],
   create(context, [{ max }]) {
     let assertsCount = 0
 

@@ -110,7 +110,6 @@ export default createEslintRule<[], MessageId>({
       useToBeNaN: 'Use `toBeNaN()` instead',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       CallExpression(node) {

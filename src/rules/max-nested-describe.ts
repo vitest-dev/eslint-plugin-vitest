@@ -33,12 +33,12 @@ export default createEslintRule<Options, MESSAGE_ID>({
       maxNestedDescribe:
         'Nested describe block should be less than set max value',
     },
+    defaultOptions: [
+      {
+        max: 5,
+      },
+    ],
   },
-  defaultOptions: [
-    {
-      max: 5,
-    },
-  ],
   create(context, [{ max }]) {
     const stack: number[] = []
 

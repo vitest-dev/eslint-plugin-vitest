@@ -311,8 +311,8 @@ export const createPaddingRule = (
       },
       schema: [],
       type: 'suggestion',
+      defaultOptions: [],
     },
-    defaultOptions: [],
     create(context) {
       const paddingContext = {
         ruleContext: context,

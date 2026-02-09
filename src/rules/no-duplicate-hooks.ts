@@ -22,7 +22,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     schema: [],
     type: 'suggestion',
   },
-  defaultOptions: [],
   create(context) {
     const hooksContexts: Array<Record<string, number>> = [{}]
 

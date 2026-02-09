@@ -17,7 +17,6 @@ export default createEslintRule({
     type: 'suggestion',
     schema: [],
   },
-  defaultOptions: [],
   create(context) {
     return {
       CallExpression(node) {

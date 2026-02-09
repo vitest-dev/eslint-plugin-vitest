@@ -54,7 +54,6 @@ export default createEslintRule<[Partial<Options>], MessageIds>({
     ],
     defaultOptions: [{}],
   },
-  defaultOptions: [{}],
   create(context, [options]) {
     return {
       CallExpression(node: TSESTree.CallExpression) {

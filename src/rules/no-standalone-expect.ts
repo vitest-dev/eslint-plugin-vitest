@@ -69,9 +69,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         additionalProperties: false,
       },
     ],
-    defaultOptions: [],
+    defaultOptions: [{ additionalTestBlockFunctions: [] }],
   },
-  defaultOptions: [{ additionalTestBlockFunctions: [] }],
   create(context, [{ additionalTestBlockFunctions = [] }]) {
     const callStack: BlockType[] = []
 

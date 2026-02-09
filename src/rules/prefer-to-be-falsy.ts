@@ -31,7 +31,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       preferToBeFalsy: 'Prefer using toBeFalsy()',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       CallExpression(node) {

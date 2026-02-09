@@ -34,7 +34,6 @@ export default createEslintRule<Options, MessageIds>({
       noTestReturnStatement: 'Return statements are not allowed in tests',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       CallExpression(node) {

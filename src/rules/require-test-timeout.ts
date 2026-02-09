@@ -17,7 +17,6 @@ export default createEslintRule<Options, MESSAGE_ID>({
     },
     schema: [],
   },
-  defaultOptions: [],
   create(context) {
     /**
      * Track positions (character offsets) of vi.setConfig({ testTimeout })

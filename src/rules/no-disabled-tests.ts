@@ -32,7 +32,6 @@ export default createEslintRule<Options, MESSAGE_ID>({
     },
     schema: [],
   },
-  defaultOptions: [],
   create(context) {
     let suiteDepth = 0
     let testDepth = 0
