@@ -10,11 +10,11 @@ importers:
   .:
     dependencies:
       '@typescript-eslint/scope-manager':
-        specifier: ^8.51.0
-        version: 8.51.0
+        specifier: ^8.55.0
+        version: 8.55.0
       '@typescript-eslint/utils':
-        specifier: ^8.51.0
-        version: 8.51.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
+        specifier: ^8.55.0
+        version: 8.55.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
     devDependencies:
       '@eslint/js':
         specifier: ^9.38.0
@@ -3299,7 +3299,7 @@ snapshots:
 
   eslint-doc-generator@3.0.2(eslint@9.37.0(jiti@2.6.1))(prettier@3.6.2)(typescript@5.9.3):
     dependencies:
-      '@typescript-eslint/utils': 8.51.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
+      '@typescript-eslint/utils': 8.55.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
       ajv: 8.17.1
       change-case: 5.4.4
       commander: 14.0.1
