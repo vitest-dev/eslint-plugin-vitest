@@ -21,7 +21,6 @@ export default createEslintRule<Options, MESSAGE_ID>({
         'Do not use string interpolation in snapshots',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       CallExpression(node) {

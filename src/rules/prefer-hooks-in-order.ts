@@ -24,7 +24,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     },
     schema: [],
   },
-  defaultOptions: [],
   create(context) {
     let previousHookIndex = -1
     let inHook = false

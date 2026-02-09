@@ -34,7 +34,6 @@ export default createEslintRule<Options, MessageIds>({
         properties: {
           fixable: {
             type: 'boolean',
-            default: true,
           },
         },
         additionalProperties: false,
@@ -43,8 +42,8 @@ export default createEslintRule<Options, MessageIds>({
     messages: {
       noFocusedTests: 'Focused tests are not allowed',
     },
+    defaultOptions: [{ fixable: true }],
   },
-  defaultOptions: [{ fixable: true }],
   create: (context, options) => {
     const fixable = options[0].fixable!
 

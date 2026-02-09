@@ -27,7 +27,6 @@ export default createEslintRule<[], MESSAGE_ID>({
     },
     schema: [],
   },
-  defaultOptions: [],
   create(context) {
     let lastImportEnd: null | number = null
     const nodesToReport: Array<TSESTree.CallExpression> = []

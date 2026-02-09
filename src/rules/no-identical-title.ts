@@ -40,7 +40,6 @@ export default createEslintRule<Options, MESSAGE_ID>({
         'Describe is used multiple times in the same describe(suite) block',
     },
   },
-  defaultOptions: [],
   create(context) {
     const stack = [newDescribeContext()]
     return {

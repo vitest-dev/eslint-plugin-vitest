@@ -18,7 +18,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       addErrorMessage: 'Add an error message to {{ matcherName }}()',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       CallExpression(node) {

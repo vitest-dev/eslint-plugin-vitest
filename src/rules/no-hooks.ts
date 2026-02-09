@@ -44,8 +44,8 @@ export default createEslintRule<
     messages: {
       unexpectedHook: "Unexpected '{{ hookName }}' hook",
     },
+    defaultOptions: [{ allow: [] }],
   },
-  defaultOptions: [{ allow: [] }],
   create(context, [{ allow = [] }]) {
     return {
       CallExpression(node) {

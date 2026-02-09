@@ -151,7 +151,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     fixable: 'code',
     schema: [],
   },
-  defaultOptions: [],
   create(context) {
     const { sourceCode } = context
 

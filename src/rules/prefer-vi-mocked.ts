@@ -24,7 +24,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     },
     schema: [],
   },
-  defaultOptions: [],
   create(context) {
     function check(node: TSESTree.TSAsExpression | TSESTree.TSTypeAssertion) {
       const { typeAnnotation } = node

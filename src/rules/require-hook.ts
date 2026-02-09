@@ -78,12 +78,12 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         additionalProperties: false,
       },
     ],
+    defaultOptions: [
+      {
+        allowedFunctionCalls: [],
+      },
+    ],
   },
-  defaultOptions: [
-    {
-      allowedFunctionCalls: [],
-    },
-  ],
   create(context, options) {
     const checkBlockBody = (body: TSESTree.BlockStatement['body']) => {
       for (const statement of body) {

@@ -46,12 +46,12 @@ export default createEslintRule<Options, MESSAGE_ID>({
         },
       },
     ],
+    defaultOptions: [
+      {
+        expectAssertions: false,
+      },
+    ],
   },
-  defaultOptions: [
-    {
-      expectAssertions: false,
-    },
-  ],
   create(context, [options]) {
     let conditionalDepth = 0
     let inTestCase = false

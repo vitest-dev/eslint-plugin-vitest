@@ -98,8 +98,8 @@ export default createEslintRule<[RuleOptions], MESSAGE_IDS>({
         additionalProperties: false,
       },
     ],
+    defaultOptions: [{}],
   },
-  defaultOptions: [{}],
   create(context, [options]) {
     if (context.filename.endsWith('.snap')) {
       return {

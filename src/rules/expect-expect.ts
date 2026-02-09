@@ -49,12 +49,6 @@ export default createEslintRule<Options, MESSAGE_ID>({
       noAssertions: 'Test has no assertions',
     },
   },
-  defaultOptions: [
-    {
-      assertFunctionNames: ['expect', 'assert'],
-      additionalTestBlockFunctions: [],
-    },
-  ],
   create(
     context,
     [{ assertFunctionNames = ['expect'], additionalTestBlockFunctions = [] }],

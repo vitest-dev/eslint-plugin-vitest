@@ -33,7 +33,6 @@ export default createEslintRule<[], MessageId>({
         'Use `expectTypeOf({{ value }}).{{ matcher }}()` instead of `expect(typeof {{ value }}).toBe("{{ type }}")`',
     },
   },
-  defaultOptions: [],
   create(context) {
     return {
       CallExpression(node) {

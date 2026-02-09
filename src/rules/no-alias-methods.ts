@@ -25,7 +25,6 @@ export default createEslintRule<Options, MESSAGE_ID>({
     fixable: 'code',
     schema: [],
   },
-  defaultOptions: [],
   create(context) {
     const methodNames: Record<string, string> = {
       toBeCalled: 'toHaveBeenCalled',

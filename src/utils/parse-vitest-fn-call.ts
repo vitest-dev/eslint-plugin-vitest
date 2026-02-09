@@ -84,7 +84,7 @@ export type ParsedVitestFnCall =
 
 export const isTypeOfVitestFnCall = (
   node: TSESTree.CallExpression,
-  context: TSESLint.RuleContext<string, unknown[]>,
+  context: TSESLint.RuleContext<string, readonly unknown[]>,
   types: VitestFnType[],
 ) => {
   const vitestFnCall = parseVitestFnCall(node, context)
@@ -93,7 +93,7 @@ export const isTypeOfVitestFnCall = (
 
 export const parseVitestFnCall = (
   node: TSESTree.CallExpression,
-  context: TSESLint.RuleContext<string, unknown[]>,
+  context: TSESLint.RuleContext<string, readonly unknown[]>,
 ): ParsedVitestFnCall | null => {
   const vitestFnCall = parseVitestFnCallWithReason(node, context)
 
@@ -109,7 +109,7 @@ const parseVitestFnCallCache = new WeakMap<
 
 export const parseVitestFnCallWithReason = (
   node: TSESTree.CallExpression,
-  context: TSESLint.RuleContext<string, unknown[]>,
+  context: TSESLint.RuleContext<string, readonly unknown[]>,
 ): ParsedVitestFnCall | Reason | null => {
   let parsedVitestFnCall = parseVitestFnCallCache.get(node)
 
@@ -231,7 +231,7 @@ export const findTopMostCallExpression = (
 
 const parseVitestFnCallWithReasonInner = (
   node: TSESTree.CallExpression,
-  context: TSESLint.RuleContext<string, unknown[]>,
+  context: TSESLint.RuleContext<string, readonly unknown[]>,
 ): ParsedVitestFnCall | Reason | null => {
   const chain = getNodeChain(node)
 
@@ -331,7 +331,7 @@ export function getNodeChain(node: TSESTree.Node): AccessorNode[] | null {
 }
 
 const resolveVitestFn = (
-  context: TSESLint.RuleContext<string, unknown[]>,
+  context: TSESLint.RuleContext<string, readonly unknown[]>,
   node: TSESTree.CallExpression,
   identifier: string,
 ): ResolvedVitestFn | null => {
@@ -378,7 +378,7 @@ const resolveVitestFn = (
 
 const resolvePossibleAliasedGlobal = (
   global: string,
-  context: TSESLint.RuleContext<string, unknown[]>,
+  context: TSESLint.RuleContext<string, readonly unknown[]>,
 ) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
@@ -548,7 +548,7 @@ const describeVariableDefAsImport = (
 
 export const getTestCallExpressionsFromDeclaredVariables = (
   declaredVariables: readonly TSESLint.Scope.Variable[],
-  context: TSESLint.RuleContext<string, unknown[]>,
+  context: TSESLint.RuleContext<string, readonly unknown[]>,
 ): TSESTree.CallExpression[] => {
   return declaredVariables.reduce<TSESTree.CallExpression[]>(
     (acc, { references }) =>

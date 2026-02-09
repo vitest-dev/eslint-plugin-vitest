@@ -29,14 +29,13 @@ export default createEslintRule<[Partial<{ fn: UtilName }>], MESSAGE_ID>({
           fn: {
             type: 'string',
             enum: [UtilName.vi, UtilName.vitest],
-            default: UtilName.vi,
           },
         },
         additionalProperties: false,
       },
     ],
+    defaultOptions: [{ fn: UtilName.vi }],
   },
-  defaultOptions: [{ fn: UtilName.vi }],
   create(context, options) {
     const utilKeyword = options[0].fn!
     const oppositeUtilKeyword = getOppositeVitestUtilKeyword(utilKeyword)

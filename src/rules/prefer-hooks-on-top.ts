@@ -21,7 +21,6 @@ export default createEslintRule<Options, MessageIds>({
     },
     schema: [],
   },
-  defaultOptions: [],
   create(context) {
     const hooksContext = [false]
     return {

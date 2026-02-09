@@ -43,14 +43,23 @@ const baseRule = (() => {
 })()
 
 export default createEslintRule<Options, MESSAGE_IDS>({
-  defaultOptions: [{ ignoreStatic: false }],
   name: RULE_NAME,
   meta: {
     messages: {
       unbound: DEFAULT_MESSAGE,
       unboundWithoutThisAnnotation: DEFAULT_MESSAGE,
     },
-    schema: [],
+    schema: [
+      {
+        type: 'object',
+        properties: {
+          ignoreStatic: {
+            type: 'boolean',
+          },
+        },
+        additionalProperties: false,
+      },
+    ],
     type: 'problem',
     ...baseRule?.meta,
     docs: {
@@ -60,6 +69,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       recommended: false,
       requiresTypeChecking: true,
     },
+    defaultOptions: [{ ignoreStatic: false }],
   },
   create(context) {
     const baseSelectors = baseRule?.create(context)

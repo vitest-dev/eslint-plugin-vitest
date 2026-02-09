@@ -26,7 +26,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     hasSuggestions: true,
     schema: [],
   },
-  defaultOptions: [],
   create(context) {
     return {
       CallExpression(node) {

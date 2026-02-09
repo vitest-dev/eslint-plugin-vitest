@@ -53,7 +53,6 @@ export default createEslintRule({
     schema: [],
     type: 'suggestion',
   },
-  defaultOptions: [],
   create(context) {
     return {
       CallExpression(node: TSESTree.CallExpression) {

@@ -78,8 +78,8 @@ export default createEslintRule<
         additionalProperties: false,
       },
     ],
+    defaultOptions: [{}],
   },
-  defaultOptions: [{}],
   create(context, options) {
     const { fn, withinDescribe } = options[0]
     const testFnKeyWork = fn || TestCaseName.test
