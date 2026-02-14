@@ -41,9 +41,10 @@ export const isInstanceOfBinaryExpression = (
   isSupportedAccessor(node.right, className)
 
 export interface CallExpressionWithSingleArgument<
-  Argument extends
-    TSESTree.CallExpression['arguments'][number] = TSESTree.CallExpression['arguments'][number],
-> extends TSESTree.CallExpression {
+  Argument extends TSESTree.CallExpression['arguments'][number] =
+    TSESTree.CallExpression['arguments'][number],
+>
+  extends TSESTree.CallExpression {
   arguments: [Argument]
 }
 

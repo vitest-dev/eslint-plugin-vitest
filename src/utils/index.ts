@@ -188,8 +188,9 @@ export const removeExtraArgumentsFixer = (
   return fixer.removeRange([firstArg.range[0], tokenAfterLastParam.range[0]])
 }
 
-interface CalledKnownMemberExpression<Name extends string = string>
-  extends KnownMemberExpression<Name> {
+interface CalledKnownMemberExpression<
+  Name extends string = string,
+> extends KnownMemberExpression<Name> {
   parent: KnownCallExpression<Name>
 }
 
