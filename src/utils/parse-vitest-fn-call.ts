@@ -73,8 +73,7 @@ interface ParsedGeneralVitestFnCall extends BaseParsedVitestFnCall {
 type Reason = 'matcher-not-called' | 'modifier-unknown' | 'matcher-not-found'
 
 export interface ParsedExpectVitestFnCall
-  extends BaseParsedVitestFnCall,
-    ModifiersAndMatcher {
+  extends BaseParsedVitestFnCall, ModifiersAndMatcher {
   type: 'expect' | 'expectTypeOf'
 }
 
@@ -577,13 +576,15 @@ export const getFirstMatcherArg = (
 
 interface AsExpressionChain<
   Expression extends TSESTree.Expression = TSESTree.Expression,
-> extends TSESTree.TSAsExpression {
+>
+  extends TSESTree.TSAsExpression {
   expression: AsExpressionChain<Expression> | Expression
 }
 
 interface TypeAssertionChain<
   Expression extends TSESTree.Expression = TSESTree.Expression,
-> extends TSESTree.TSTypeAssertion {
+>
+  extends TSESTree.TSTypeAssertion {
   expression: TypeAssertionChain<Expression> | Expression
 }
 
