@@ -34,6 +34,14 @@ vitest.stubEnv('NODE_ENV', 'production')
 
 ## Options
 
+<!-- begin auto-generated rule options list -->
+
+| Name | Description                           | Type   | Choices        |
+| :--- | :------------------------------------ | :----- | :------------- |
+| `fn` | Preferred utility keyword to enforce. | String | `vi`, `vitest` |
+
+<!-- end auto-generated rule options list -->
+
 ```json
 {
   "type": "object",

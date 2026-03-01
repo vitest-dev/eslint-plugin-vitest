@@ -44,6 +44,16 @@ test('assertions first', () => {
 
 ## Options
 
+<!-- begin auto-generated rule options list -->
+
+| Name                                | Description                                                   | Type    |
+| :---------------------------------- | :------------------------------------------------------------ | :------ |
+| `onlyFunctionsWithAsyncKeyword`     | Only check test functions declared with the async keyword.    | Boolean |
+| `onlyFunctionsWithExpectInCallback` | Only check test functions that contain `expect` in callbacks. | Boolean |
+| `onlyFunctionsWithExpectInLoop`     | Only check test functions that contain `expect` inside loops. | Boolean |
+
+<!-- end auto-generated rule options list -->
+
 `onlyFunctionsWithAsyncKeyword` (default: `false`)
 
 When `true`, only functions with the `async` keyword will be checked.

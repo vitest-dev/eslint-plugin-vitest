@@ -90,6 +90,14 @@ describe('foo', () => {
 
 ## Options
 
+<!-- begin auto-generated rule options list -->
+
+| Name    | Description                                                             | Type     |
+| :------ | :---------------------------------------------------------------------- | :------- |
+| `allow` | This array option controls which Vitest hooks are checked by this rule. | String[] |
+
+<!-- end auto-generated rule options list -->
+
 ```json
 {
   "vitest/no-hooks": [

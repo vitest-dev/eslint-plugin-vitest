@@ -10,6 +10,14 @@ This rule triggers warning if a test case (`test` and `it`) or a hook (`beforeAl
 
 ## Options
 
+<!-- begin auto-generated rule options list -->
+
+| Name                           | Description                                                   | Type   |
+| :----------------------------- | :------------------------------------------------------------ | :----- |
+| `maxNumberOfTopLevelDescribes` | Maximum number of `describe` blocks allowed at the top level. | Number |
+
+<!-- end auto-generated rule options list -->
+
 This rule accepts an object with the following properties:
 
 - `maxNumberOfTopLevelDescribes`: The maximum number of top-level tests allowed in a file. Defaults to `Infinity`. Allowing any number of top-level describe blocks.

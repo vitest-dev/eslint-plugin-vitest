@@ -6,9 +6,18 @@
 
 <!-- end auto-generated rule header -->
 
-### Rule Details
+## Rule Details
 
-#### Options
+### Options
+
+<!-- begin auto-generated rule options list -->
+
+| Name             | Description                                              | Type   |
+| :--------------- | :------------------------------------------------------- | :----- |
+| `allTestPattern` | Regex pattern used to identify all possible test files.  | String |
+| `pattern`        | Regex pattern for files that should be treated as tests. | String |
+
+<!-- end auto-generated rule options list -->
 
 ```json
 {

@@ -12,6 +12,16 @@ This rule aims to prevent large snapshots.
 
 ### Options
 
+<!-- begin auto-generated rule options list -->
+
+| Name               | Description                                            | Type   |
+| :----------------- | :----------------------------------------------------- | :----- |
+| `allowedSnapshots` | Allowed snapshot names by absolute snapshot file path. | Object |
+| `inlineMaxSize`    | Maximum number of lines allowed in inline snapshots.   | Number |
+| `maxSize`          | Maximum number of lines allowed in external snapshots. | Number |
+
+<!-- end auto-generated rule options list -->
+
 This rule accepts an object with the following properties:
 
 - `maxSize` (default: `50`): The maximum size of a snapshot.

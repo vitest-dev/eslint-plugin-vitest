@@ -14,6 +14,16 @@ This rule aims to enforce valid titles for `describe`, `it` and `test` titles.
 
 ## Options
 
+<!-- begin auto-generated rule options list -->
+
+| Name                       | Description                                                | Type     |
+| :------------------------- | :--------------------------------------------------------- | :------- |
+| `allowArguments`           | Allow dynamic arguments as titles.                         | Boolean  |
+| `disallowedWords`          | Words that are not allowed in test titles.                 | String[] |
+| `ignoreTypeOfDescribeName` | Skip validating `describe` titles that come from `typeof`. | Boolean  |
+
+<!-- end auto-generated rule options list -->
+
 This rule has an object option:
 
 ```json

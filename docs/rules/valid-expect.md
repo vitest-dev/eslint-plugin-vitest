@@ -12,6 +12,17 @@ This rule triggers a warning if `expect` is called with no argument or with more
 
 ### Options
 
+<!-- begin auto-generated rule options list -->
+
+| Name            | Description                                          | Type     |
+| :-------------- | :--------------------------------------------------- | :------- |
+| `alwaysAwait`   | Require awaiting every async assertion.              | Boolean  |
+| `asyncMatchers` | Matchers that should be considered async assertions. | String[] |
+| `maxArgs`       | Maximum number of arguments allowed for `expect`.    | Number   |
+| `minArgs`       | Minimum number of arguments allowed for `expect`.    | Number   |
+
+<!-- end auto-generated rule options list -->
+
 1. `alwaysAwait`
 
 - Type: `boolean`

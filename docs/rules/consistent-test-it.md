@@ -8,7 +8,7 @@
 
 <!-- end auto-generated rule header -->
 
-### Rule Details
+## Rule Details
 
 Examples of **incorrect** code for this rule:
 
@@ -36,7 +36,16 @@ test('it works', () => {
 })
 ```
 
-#### Options
+### Options
+
+<!-- begin auto-generated rule options list -->
+
+| Name             | Description                                        | Type   | Choices      |
+| :--------------- | :------------------------------------------------- | :----- | :----------- |
+| `fn`             | Preferred global test function keyword.            | String | `test`, `it` |
+| `withinDescribe` | Preferred test function keyword inside `describe`. | String | `test`, `it` |
+
+<!-- end auto-generated rule options list -->
 
 ```json
 {

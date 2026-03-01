@@ -28,6 +28,14 @@ describe('inner', () => {
 
 ## Options
 
+<!-- begin auto-generated rule options list -->
+
+| Name  | Description                                          | Type   |
+| :---- | :--------------------------------------------------- | :----- |
+| `max` | Maximum allowed nesting depth for `describe` blocks. | Number |
+
+<!-- end auto-generated rule options list -->
+
 > Default: `5`
 
 Maximum number of nested `describe` blocks.

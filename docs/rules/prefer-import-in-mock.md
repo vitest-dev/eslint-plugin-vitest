@@ -26,6 +26,14 @@ vi.mock(import('./path/to/module'))
 
 ### Options
 
+<!-- begin auto-generated rule options list -->
+
+| Name      | Description                                 | Type    |
+| :-------- | :------------------------------------------ | :------ |
+| `fixable` | Whether the rule should provide an autofix. | Boolean |
+
+<!-- end auto-generated rule options list -->
+
 This rule has a `fixable` option that tells the plugin to automatically fix the imports for you.
 The option is enabled by default. You can disable it in your `eslint.config.js` file using the following configuration.
 
