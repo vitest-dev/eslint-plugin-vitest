@@ -26,7 +26,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     schema: [
       {
-        description: 'Restricted matcher chains mapped to optional custom messages.',
+        description:
+          'Restricted matcher chains mapped to optional custom messages.',
         type: 'object',
         additionalProperties: {
           type: ['string', 'null'],

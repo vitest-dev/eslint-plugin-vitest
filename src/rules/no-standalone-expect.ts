@@ -62,7 +62,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         type: 'object',
         properties: {
           additionalTestBlockFunctions: {
-            description: 'Additional functions that should be treated as test blocks.',
+            description:
+              'Additional functions that should be treated as test blocks.',
             type: 'array',
             items: { type: 'string' },
           },

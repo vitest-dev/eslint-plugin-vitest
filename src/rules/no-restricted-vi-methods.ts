@@ -15,7 +15,8 @@ export default createEslintRule<Options, MESSAGE_ID>({
     },
     schema: [
       {
-        description: 'Restricted `vi` methods mapped to optional custom messages.',
+        description:
+          'Restricted `vi` methods mapped to optional custom messages.',
         type: 'object',
         additionalProperties: { type: ['string', 'null'] },
       },

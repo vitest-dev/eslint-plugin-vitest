@@ -84,15 +84,18 @@ export default createEslintRule<Options[], MessageIds>({
         type: 'object',
         properties: {
           onlyFunctionsWithAsyncKeyword: {
-            description: 'Only check test functions declared with the async keyword.',
+            description:
+              'Only check test functions declared with the async keyword.',
             type: 'boolean',
           },
           onlyFunctionsWithExpectInLoop: {
-            description: 'Only check test functions that contain `expect` inside loops.',
+            description:
+              'Only check test functions that contain `expect` inside loops.',
             type: 'boolean',
           },
           onlyFunctionsWithExpectInCallback: {
-            description: 'Only check test functions that contain `expect` in callbacks.',
+            description:
+              'Only check test functions that contain `expect` in callbacks.',
             type: 'boolean',
           },
         },

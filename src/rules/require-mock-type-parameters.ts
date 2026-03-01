@@ -24,7 +24,8 @@ export default createEslintRule<Options[], MESSAGE_IDS>({
         type: 'object',
         properties: {
           checkImportFunctions: {
-            description: 'Also require type parameters for `importActual` and `importMock`.',
+            description:
+              'Also require type parameters for `importActual` and `importMock`.',
             type: 'boolean',
           },
         },
