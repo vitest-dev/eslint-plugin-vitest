@@ -71,6 +71,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         type: 'object',
         properties: {
           allowedFunctionCalls: {
+            description:
+              'Function calls that are allowed outside of hooks.',
             type: 'array',
             items: { type: 'string' },
           },

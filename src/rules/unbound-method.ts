@@ -54,6 +54,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         type: 'object',
         properties: {
           ignoreStatic: {
+            description: 'Ignore unbound warnings for static methods.',
             type: 'boolean',
           },
         },

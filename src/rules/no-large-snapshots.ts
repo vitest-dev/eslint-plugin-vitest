@@ -85,12 +85,15 @@ export default createEslintRule<[RuleOptions], MESSAGE_IDS>({
         type: 'object',
         properties: {
           maxSize: {
+            description: 'Maximum number of lines allowed in external snapshots.',
             type: 'number',
           },
           inlineMaxSize: {
+            description: 'Maximum number of lines allowed in inline snapshots.',
             type: 'number',
           },
           allowedSnapshots: {
+            description: 'Allowed snapshot names by absolute snapshot file path.',
             type: 'object',
             additionalProperties: { type: 'array' },
           },

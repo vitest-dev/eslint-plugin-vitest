@@ -147,12 +147,16 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         type: 'object',
         properties: {
           ignoreTypeOfDescribeName: {
+            description:
+              'Skip validating `describe` titles that come from `typeof`.',
             type: 'boolean',
           },
           allowArguments: {
+            description: 'Allow dynamic arguments as titles.',
             type: 'boolean',
           },
           disallowedWords: {
+            description: 'Words that are not allowed in test titles.',
             type: 'array',
             items: { type: 'string' },
           },

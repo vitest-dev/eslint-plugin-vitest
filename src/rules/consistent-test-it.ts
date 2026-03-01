@@ -67,10 +67,12 @@ export default createEslintRule<
         type: 'object',
         properties: {
           fn: {
+            description: 'Preferred global test function keyword.',
             type: 'string',
             enum: [TestCaseName.test, TestCaseName.it],
           },
           withinDescribe: {
+            description: 'Preferred test function keyword inside `describe`.',
             type: 'string',
             enum: [TestCaseName.test, TestCaseName.it],
           },

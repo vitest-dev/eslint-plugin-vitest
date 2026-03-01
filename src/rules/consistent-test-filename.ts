@@ -31,10 +31,12 @@ export default createEslintRule<
         additionalProperties: false,
         properties: {
           pattern: {
+            description: 'Regex pattern for files that should be treated as tests.',
             type: 'string',
             format: 'regex',
           },
           allTestPattern: {
+            description: 'Regex pattern used to identify all possible test files.',
             type: 'string',
             format: 'regex',
           },

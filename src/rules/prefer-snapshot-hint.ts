@@ -45,6 +45,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     },
     schema: [
       {
+        description: 'When to require snapshot hints.',
         type: 'string',
         enum: ['always', 'multi'],
       },

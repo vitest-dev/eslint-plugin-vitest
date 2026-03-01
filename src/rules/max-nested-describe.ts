@@ -23,6 +23,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
         type: 'object',
         properties: {
           max: {
+            description: 'Maximum allowed nesting depth for `describe` blocks.',
             type: 'number',
           },
         },
