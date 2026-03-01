@@ -36,6 +36,14 @@ test('foo', () => {
 
 ## Options
 
+<!-- begin auto-generated rule options list -->
+
+| Name                   | Description                                                       | Type    |
+| :--------------------- | :---------------------------------------------------------------- | :------ |
+| `checkImportFunctions` | Also require type parameters for `importActual` and `importMock`. | Boolean |
+
+<!-- end auto-generated rule options list -->
+
 ```json
 {
   "vitest/require-mock-type-parameters": [

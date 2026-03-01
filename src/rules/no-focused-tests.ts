@@ -33,6 +33,7 @@ export default createEslintRule<Options, MessageIds>({
         type: 'object',
         properties: {
           fixable: {
+            description: 'Whether the rule should provide an autofix.',
             type: 'boolean',
           },
         },

@@ -78,12 +78,12 @@ test.skip.each([[1, 2]])('test', (a, b) => {
 
 <!-- begin auto-generated rule options list -->
 
-| Name       | Type   | Choices       |
-| :--------- | :----- | :------------ |
-| `describe` | String | `each`, `for` |
-| `it`       | String | `each`, `for` |
-| `suite`    | String | `each`, `for` |
-| `test`     | String | `each`, `for` |
+| Name       | Description                      | Type   | Choices       |
+| :--------- | :------------------------------- | :----- | :------------ |
+| `describe` | Preferred method for `describe`. | String | `each`, `for` |
+| `it`       | Preferred method for `it`.       | String | `each`, `for` |
+| `suite`    | Preferred method for `suite`.    | String | `each`, `for` |
+| `test`     | Preferred method for `test`.     | String | `each`, `for` |
 
 <!-- end auto-generated rule options list -->
 

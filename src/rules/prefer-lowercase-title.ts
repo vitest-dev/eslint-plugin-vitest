@@ -77,6 +77,8 @@ export default createEslintRule<
         type: 'object',
         properties: {
           ignore: {
+            description:
+              'Functions whose titles should be ignored when checking case.',
             type: 'array',
             items: {
               type: 'string',
@@ -88,14 +90,17 @@ export default createEslintRule<
             },
           },
           allowedPrefixes: {
+            description: 'Title prefixes that are exempt from this rule.',
             type: 'array',
             items: { type: 'string' },
             additionalItems: false,
           },
           ignoreTopLevelDescribe: {
+            description: 'Ignore the first top-level `describe` title.',
             type: 'boolean',
           },
           lowercaseFirstCharacterOnly: {
+            description: 'Only require the first character to be lowercase.',
             type: 'boolean',
           },
         },

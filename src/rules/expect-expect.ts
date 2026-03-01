@@ -28,10 +28,13 @@ export default createEslintRule<Options, MESSAGE_ID>({
         type: 'object',
         properties: {
           assertFunctionNames: {
+            description: 'List of function names treated as assertions.',
             type: 'array',
             items: { type: 'string' },
           },
           additionalTestBlockFunctions: {
+            description:
+              'Additional functions that should be treated as test blocks.',
             type: 'array',
             items: { type: 'string' },
           },

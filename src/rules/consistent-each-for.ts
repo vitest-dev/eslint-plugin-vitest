@@ -33,18 +33,22 @@ export default createEslintRule<[Partial<Options>], MessageIds>({
         type: 'object',
         properties: {
           test: {
+            description: 'Preferred method for `test`.',
             type: 'string',
             enum: ['each', 'for'],
           },
           it: {
+            description: 'Preferred method for `it`.',
             type: 'string',
             enum: ['each', 'for'],
           },
           describe: {
+            description: 'Preferred method for `describe`.',
             type: 'string',
             enum: ['each', 'for'],
           },
           suite: {
+            description: 'Preferred method for `suite`.',
             type: 'string',
             enum: ['each', 'for'],
           },

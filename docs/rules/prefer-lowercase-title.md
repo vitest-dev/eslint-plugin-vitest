@@ -28,6 +28,17 @@ test('it works', () => {
 
 ### Options
 
+<!-- begin auto-generated rule options list -->
+
+| Name                          | Description                                                  | Type     |
+| :---------------------------- | :----------------------------------------------------------- | :------- |
+| `allowedPrefixes`             | Title prefixes that are exempt from this rule.               | String[] |
+| `ignore`                      | Functions whose titles should be ignored when checking case. | String[] |
+| `ignoreTopLevelDescribe`      | Ignore the first top-level `describe` title.                 | Boolean  |
+| `lowercaseFirstCharacterOnly` | Only require the first character to be lowercase.            | Boolean  |
+
+<!-- end auto-generated rule options list -->
+
 ```json
 {
   "type": "object",

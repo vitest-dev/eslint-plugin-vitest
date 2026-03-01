@@ -29,6 +29,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         type: 'object',
         properties: {
           maxNumberOfTopLevelDescribes: {
+            description:
+              'Maximum number of `describe` blocks allowed at the top level.',
             type: 'number',
             minimum: 1,
           },

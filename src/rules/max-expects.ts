@@ -31,6 +31,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
         type: 'object',
         properties: {
           max: {
+            description: 'Maximum number of `expect` calls allowed in a test.',
             type: 'number',
           },
         },

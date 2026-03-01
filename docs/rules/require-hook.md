@@ -52,6 +52,14 @@ describe('foo', () => {
 
 ## Options
 
+<!-- begin auto-generated rule options list -->
+
+| Name                   | Description                                       | Type     |
+| :--------------------- | :------------------------------------------------ | :------- |
+| `allowedFunctionCalls` | Function calls that are allowed outside of hooks. | String[] |
+
+<!-- end auto-generated rule options list -->
+
 If there are methods that you want to call outside of hooks and tests, you can mark them as allowed using the `allowedFunctionCalls` option.
 
 ```json

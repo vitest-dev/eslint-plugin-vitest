@@ -153,17 +153,21 @@ export default createEslintRule<
         type: 'object',
         properties: {
           alwaysAwait: {
+            description: 'Require awaiting every async assertion.',
             type: 'boolean',
           },
           asyncMatchers: {
+            description: 'Matchers that should be considered async assertions.',
             type: 'array',
             items: { type: 'string' },
           },
           minArgs: {
+            description: 'Minimum number of arguments allowed for `expect`.',
             type: 'number',
             minimum: 1,
           },
           maxArgs: {
+            description: 'Maximum number of arguments allowed for `expect`.',
             type: 'number',
             minimum: 1,
           },

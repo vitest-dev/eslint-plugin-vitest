@@ -27,6 +27,7 @@ export default createEslintRule<[Partial<{ fn: UtilName }>], MESSAGE_ID>({
         type: 'object',
         properties: {
           fn: {
+            description: 'Preferred utility keyword to enforce.',
             type: 'string',
             enum: [UtilName.vi, UtilName.vitest],
           },

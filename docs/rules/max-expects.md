@@ -27,6 +27,14 @@ test('foo', () => {
 
 ### Options
 
+<!-- begin auto-generated rule options list -->
+
+| Name  | Description                                         | Type   |
+| :---- | :-------------------------------------------------- | :----- |
+| `max` | Maximum number of `expect` calls allowed in a test. | Number |
+
+<!-- end auto-generated rule options list -->
+
 > Default: `5`
 
 Maximum number of `expect` per test.
