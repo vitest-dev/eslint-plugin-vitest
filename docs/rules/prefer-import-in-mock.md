@@ -8,20 +8,22 @@
 
 <!-- end auto-generated rule header -->
 
-This rule enforces using a dynamic import() in vi.mock(), which improves type information and IntelliSense for the mocked module.
+This rule enforces using a dynamic `import()` in `vi.mock()` and `vi.doMock()`, which improves type information and IntelliSense for the mocked module.
 
 ### Rule details
 
-The following pattern is considered a warning:
+The following patterns are considered a warning:
 
 ```js
 vi.mock('./path/to/module')
+vi.doMock('./path/to/module')
 ```
 
-The following pattern is not considered a warning:
+The following patterns are not considered a warning:
 
 ```js
 vi.mock(import('./path/to/module'))
+vi.doMock(import('./path/to/module'))
 ```
 
 ### Options

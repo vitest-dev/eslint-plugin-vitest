@@ -4,6 +4,8 @@ import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'prefer-import-in-mock'
 
+const MOCK_METHODS = new Set(['mock', 'doMock'])
+
 type MESSAGE_ID = 'preferImport'
 type Options = [
   Partial<{
@@ -54,7 +56,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
         if (
           property.type != AST_NODE_TYPES.Identifier ||
-          property.name != 'mock'
+          !MOCK_METHODS.has(property.name)
         ) {
           return
         }
