@@ -2,7 +2,19 @@ import rule from '../src/rules/no-focused-tests'
 import { ruleTester } from './ruleTester'
 
 ruleTester.run(rule.name, rule, {
-  valid: ['it("test", () => {});', 'describe("test group", () => {});'],
+  valid: [
+    'it("test", () => {});',
+    'it.each([])("test", () => {});',
+    'it.for([])("test", () => {});',
+
+    'test("test", () => {});',
+    'test.each([])("test", () => {});',
+    'test.for([])("test", () => {});',
+
+    'describe("test group", () => {});',
+    'describe.each([])("test group", () => {});',
+    'describe.for([])("test group", () => {});',
+  ],
   invalid: [
     {
       options: [
@@ -66,6 +78,57 @@ ruleTester.run(rule.name, rule, {
         {
           column: 4,
           endColumn: 8,
+          endLine: 1,
+          line: 1,
+          messageId: 'noFocusedTests',
+        },
+      ],
+    },
+    {
+      options: [
+        {
+          fixable: false,
+        },
+      ],
+      code: 'it.only.for([])("test", () => {});',
+      errors: [
+        {
+          column: 4,
+          endColumn: 8,
+          endLine: 1,
+          line: 1,
+          messageId: 'noFocusedTests',
+        },
+      ],
+    },
+    {
+      options: [
+        {
+          fixable: false,
+        },
+      ],
+      code: 'describe.only.each([])("test", () => {});',
+      errors: [
+        {
+          column: 10,
+          endColumn: 14,
+          endLine: 1,
+          line: 1,
+          messageId: 'noFocusedTests',
+        },
+      ],
+    },
+    {
+      options: [
+        {
+          fixable: false,
+        },
+      ],
+      code: 'describe.only.for([])("test", () => {});',
+      errors: [
+        {
+          column: 10,
+          endColumn: 14,
           endLine: 1,
           line: 1,
           messageId: 'noFocusedTests',
@@ -163,6 +226,45 @@ ruleTester.run(rule.name, rule, {
         },
       ],
       output: 'it.each([])("test", () => {});',
+    },
+    {
+      code: 'it.only.for([])("test", () => {});',
+      output: 'it.for([])("test", () => {});',
+      errors: [
+        {
+          column: 4,
+          endColumn: 8,
+          endLine: 1,
+          line: 1,
+          messageId: 'noFocusedTests',
+        },
+      ],
+    },
+    {
+      code: 'describe.only.each([])("test", () => {});',
+      output: 'describe.each([])("test", () => {});',
+      errors: [
+        {
+          column: 10,
+          endColumn: 14,
+          endLine: 1,
+          line: 1,
+          messageId: 'noFocusedTests',
+        },
+      ],
+    },
+    {
+      code: 'describe.only.for([])("test", () => {});',
+      output: 'describe.for([])("test", () => {});',
+      errors: [
+        {
+          column: 10,
+          endColumn: 14,
+          endLine: 1,
+          line: 1,
+          messageId: 'noFocusedTests',
+        },
+      ],
     },
     {
       code: 'test.only.each``("test", () => {});',
