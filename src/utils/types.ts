@@ -1,6 +1,5 @@
 import { TSESTree } from '@typescript-eslint/utils'
 import type ts from 'typescript'
-import { require } from './require'
 
 export enum UtilName {
   vi = 'vi',
