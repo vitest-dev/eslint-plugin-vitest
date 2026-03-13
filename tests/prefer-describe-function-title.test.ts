@@ -101,6 +101,18 @@ ruleTester.run(rule.name, rule, {
         },
       },
     },
+    {
+      code: `
+        import { foo } from "./myFunction"
+        describe("foo", () => {})
+      `,
+      filename: 'myFunction.test.ts',
+      settings: {
+        vitest: {
+          typecheck: true,
+        },
+      },
+    },
   ],
   invalid: [
     {
@@ -178,6 +190,29 @@ ruleTester.run(rule.name, rule, {
       output: `
         import { myFunction } from "./myFunction"
         describe(myFunction, () => {})
+      `,
+      settings: {
+        vitest: {
+          typecheck: true,
+        },
+      },
+    },
+    {
+      code: `
+        import { validatorFunction } from "./myFunction"
+        describe("validatorFunction", () => {})
+      `,
+      errors: [
+        {
+          column: 18,
+          line: 3,
+          messageId: 'preferFunction',
+        },
+      ],
+      filename: 'myFunction.test.ts',
+      output: `
+        import { validatorFunction } from "./myFunction"
+        describe(validatorFunction, () => {})
       `,
       settings: {
         vitest: {

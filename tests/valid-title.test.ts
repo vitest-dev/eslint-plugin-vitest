@@ -106,6 +106,18 @@ ruleTester.run(rule.name, rule, {
       });`,
       settings: { vitest: { typecheck: true } },
     },
+    {
+      code: `
+        import { validatorFunction } from "./myFunction"
+        describe(validatorFunction, () => {
+          test('item', () => {
+            expect(0).toBe(0)
+          })
+        })
+      `,
+      filename: 'myFunction.test.ts',
+      settings: { vitest: { typecheck: true } },
+    },
   ],
   invalid: [
     {
