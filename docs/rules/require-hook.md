@@ -54,9 +54,9 @@ describe('foo', () => {
 
 <!-- begin auto-generated rule options list -->
 
-| Name                   | Description                                       | Type     |
-| :--------------------- | :------------------------------------------------ | :------- |
-| `allowedFunctionCalls` | Function calls that are allowed outside of hooks. | String[] |
+| Name                   | Description                                       | Type     | Default |
+| :--------------------- | :------------------------------------------------ | :------- | :------ |
+| `allowedFunctionCalls` | Function calls that are allowed outside of hooks. | String[] | `[]`    |
 
 <!-- end auto-generated rule options list -->
 
