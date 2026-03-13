@@ -1,6 +1,5 @@
 import { TSESTree } from '@typescript-eslint/utils'
 import type ts from 'typescript'
-import { require } from './require'
 
 export enum UtilName {
   vi = 'vi',
@@ -86,23 +85,8 @@ interface TypeAssertionChain<
 }
 
 export function isClassOrFunctionType(type: ts.Type): boolean {
-  if (type.getCallSignatures().length > 0) return true
-
-  const ts = require('typescript')
-
   return (
-    type
-      .getSymbol()
-      ?.getDeclarations()
-      ?.some(
-        (declaration) =>
-          ts.isArrowFunction(declaration) ||
-          ts.isClassDeclaration(declaration) ||
-          ts.isClassExpression(declaration) ||
-          ts.isFunctionDeclaration(declaration) ||
-          ts.isFunctionExpression(declaration) ||
-          ts.isMethodDeclaration(declaration) ||
-          ts.isFunctionTypeNode(declaration),
-      ) ?? false
+    type.getCallSignatures().length > 0 ||
+    type.getConstructSignatures().length > 0
   )
 }
