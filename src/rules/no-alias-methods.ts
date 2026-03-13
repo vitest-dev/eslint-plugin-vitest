@@ -37,7 +37,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
       toReturnWith: 'toHaveReturnedWith',
       lastReturnedWith: 'toHaveLastReturnedWith',
       nthReturnedWith: 'toHaveNthReturnedWith',
-      toThrow: 'toThrowError',
+      toThrowError: 'toThrow',
     }
 
     return {
