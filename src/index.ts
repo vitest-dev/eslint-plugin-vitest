@@ -95,6 +95,7 @@ const allRules = {
   'require-mock-type-parameters': 'warn',
   'require-to-throw-message': 'warn',
   'require-top-level-describe': 'warn',
+  'unbound-method': 'warn',
   'valid-describe-callback': 'warn',
   'valid-expect-in-promise': 'warn',
   'valid-expect': 'warn',

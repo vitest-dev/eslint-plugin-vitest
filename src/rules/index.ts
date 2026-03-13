@@ -73,6 +73,7 @@ import requireLocalTestContextForConcurrentSnapshots from './require-local-test-
 import requireMockTypeParameters from './require-mock-type-parameters'
 import requireToThrowMessage from './require-to-throw-message'
 import requireTopLevelDescribe from './require-top-level-describe'
+import unboundMethod from './unbound-method'
 import validDescribeCallback from './valid-describe-callback'
 import validExpectInPromise from './valid-expect-in-promise'
 import validExpect from './valid-expect'
@@ -159,6 +160,7 @@ export const rules = {
   'require-mock-type-parameters': requireMockTypeParameters,
   'require-to-throw-message': requireToThrowMessage,
   'require-top-level-describe': requireTopLevelDescribe,
+  'unbound-method': unboundMethod,
   'valid-describe-callback': validDescribeCallback,
   'valid-expect-in-promise': validExpectInPromise,
   'valid-expect': validExpect,

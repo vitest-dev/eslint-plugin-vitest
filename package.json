@@ -72,6 +72,7 @@
     "vitest": "^4.0.18"
   },
   "peerDependencies": {
+    "@typescript-eslint/eslint-plugin": "*",
     "eslint": ">=8.57.0",
     "typescript": ">=5.0.0",
     "vitest": "*"
@@ -81,6 +82,9 @@
       "optional": true
     },
     "vitest": {
+      "optional": true
+    },
+    "@typescript-eslint/eslint-plugin": {
       "optional": true
     }
   },

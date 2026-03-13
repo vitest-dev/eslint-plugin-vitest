@@ -8,13 +8,9 @@ import path from 'node:path'
 import url from 'node:url'
 import prettier from 'prettier'
 
-const IGNORED_RULE_FILES = ['unbound-method.ts']
-
 const rulesDir = path.resolve(import.meta.dirname, '../src/rules')
 const files = await fs.readdir(rulesDir)
-const ruleFiles = files.filter(
-  (fileName) => !['index.ts', ...IGNORED_RULE_FILES].includes(fileName),
-)
+const ruleFiles = files.filter((fileName) => fileName !== 'index.ts')
 
 const imports = []
 const rules = new Map<string, string>()
