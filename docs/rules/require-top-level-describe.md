@@ -12,9 +12,9 @@ This rule triggers warning if a test case (`test` and `it`) or a hook (`beforeAl
 
 <!-- begin auto-generated rule options list -->
 
-| Name                           | Description                                                   | Type   | Default    |
-| :----------------------------- | :------------------------------------------------------------ | :----- | :--------- |
-| `maxNumberOfTopLevelDescribes` | Maximum number of `describe` blocks allowed at the top level. | Number | `Infinity` |
+| Name                           | Description                                                   | Type   |
+| :----------------------------- | :------------------------------------------------------------ | :----- |
+| `maxNumberOfTopLevelDescribes` | Maximum number of `describe` blocks allowed at the top level. | Number |
 
 <!-- end auto-generated rule options list -->
 

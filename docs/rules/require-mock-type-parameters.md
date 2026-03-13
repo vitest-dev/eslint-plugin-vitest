@@ -38,9 +38,9 @@ test('foo', () => {
 
 <!-- begin auto-generated rule options list -->
 
-| Name                   | Description                                                       | Type    | Default |
-| :--------------------- | :---------------------------------------------------------------- | :------ | :------ |
-| `checkImportFunctions` | Also require type parameters for `importActual` and `importMock`. | Boolean | `false` |
+| Name                   | Description                                                       | Type    |
+| :--------------------- | :---------------------------------------------------------------- | :------ |
+| `checkImportFunctions` | Also require type parameters for `importActual` and `importMock`. | Boolean |
 
 <!-- end auto-generated rule options list -->
 

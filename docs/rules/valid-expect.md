@@ -14,12 +14,12 @@ This rule triggers a warning if `expect` is called with no argument or with more
 
 <!-- begin auto-generated rule options list -->
 
-| Name            | Description                                          | Type     | Default                   |
-| :-------------- | :--------------------------------------------------- | :------- | :------------------------ |
-| `alwaysAwait`   | Require awaiting every async assertion.              | Boolean  | `false`                   |
-| `asyncMatchers` | Matchers that should be considered async assertions. | String[] | [`toReject`, `toResolve`] |
-| `maxArgs`       | Maximum number of arguments allowed for `expect`.    | Number   | `1`                       |
-| `minArgs`       | Minimum number of arguments allowed for `expect`.    | Number   | `1`                       |
+| Name            | Description                                          | Type     |
+| :-------------- | :--------------------------------------------------- | :------- |
+| `alwaysAwait`   | Require awaiting every async assertion.              | Boolean  |
+| `asyncMatchers` | Matchers that should be considered async assertions. | String[] |
+| `maxArgs`       | Maximum number of arguments allowed for `expect`.    | Number   |
+| `minArgs`       | Minimum number of arguments allowed for `expect`.    | Number   |
 
 <!-- end auto-generated rule options list -->
 

@@ -29,9 +29,9 @@ test('foo', () => {
 
 <!-- begin auto-generated rule options list -->
 
-| Name  | Description                                         | Type   | Default |
-| :---- | :-------------------------------------------------- | :----- | :------ |
-| `max` | Maximum number of `expect` calls allowed in a test. | Number | `5`     |
+| Name  | Description                                         | Type   |
+| :---- | :-------------------------------------------------- | :----- |
+| `max` | Maximum number of `expect` calls allowed in a test. | Number |
 
 <!-- end auto-generated rule options list -->
 

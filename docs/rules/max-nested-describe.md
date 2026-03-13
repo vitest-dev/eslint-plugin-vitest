@@ -30,9 +30,9 @@ describe('inner', () => {
 
 <!-- begin auto-generated rule options list -->
 
-| Name  | Description                                          | Type   | Default |
-| :---- | :--------------------------------------------------- | :----- | :------ |
-| `max` | Maximum allowed nesting depth for `describe` blocks. | Number | `5`     |
+| Name  | Description                                          | Type   |
+| :---- | :--------------------------------------------------- | :----- |
+| `max` | Maximum allowed nesting depth for `describe` blocks. | Number |
 
 <!-- end auto-generated rule options list -->
 

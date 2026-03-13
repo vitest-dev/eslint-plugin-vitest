@@ -44,9 +44,9 @@ test.for([null, expect.objectContaining({ bar: 'baz' })])(
 
 <!-- begin auto-generated rule options list -->
 
-| Name               | Description                                                      | Type    | Default |
-| :----------------- | :--------------------------------------------------------------- | :------ | :------ |
-| `expectAssertions` | Enable/disable whether expect.assertions() is taken into account | Boolean | `false` |
+| Name               | Description                                                      | Type    |
+| :----------------- | :--------------------------------------------------------------- | :------ |
+| `expectAssertions` | Enable/disable whether expect.assertions() is taken into account | Boolean |
 
 <!-- end auto-generated rule options list -->
 

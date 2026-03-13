@@ -37,10 +37,10 @@ If you're using Vitest's [type-testing feature](https://vitest.dev/guide/testing
 
 <!-- begin auto-generated rule options list -->
 
-| Name                           | Description                                                 | Type     | Default              |
-| :----------------------------- | :---------------------------------------------------------- | :------- | :------------------- |
-| `additionalTestBlockFunctions` | Additional functions that should be treated as test blocks. | String[] | `[]`                 |
-| `assertFunctionNames`          | List of function names treated as assertions.               | String[] | [`expect`, `assert`] |
+| Name                           | Description                                                 | Type     |
+| :----------------------------- | :---------------------------------------------------------- | :------- |
+| `additionalTestBlockFunctions` | Additional functions that should be treated as test blocks. | String[] |
+| `assertFunctionNames`          | List of function names treated as assertions.               | String[] |
 
 <!-- end auto-generated rule options list -->
 
