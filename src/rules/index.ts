@@ -28,6 +28,7 @@ import noRestrictedViMethods from './no-restricted-vi-methods'
 import noStandaloneExpect from './no-standalone-expect'
 import noTestPrefixes from './no-test-prefixes'
 import noTestReturnStatement from './no-test-return-statement'
+import noUnneededAsyncExpectFunction from './no-unneeded-async-expect-function'
 import paddingAroundAfterAllBlocks from './padding-around-after-all-blocks'
 import paddingAroundAfterEachBlocks from './padding-around-after-each-blocks'
 import paddingAroundAll from './padding-around-all'
@@ -63,23 +64,23 @@ import preferToBeObject from './prefer-to-be-object'
 import preferToBeTruthy from './prefer-to-be-truthy'
 import preferToBe from './prefer-to-be'
 import preferToContain from './prefer-to-contain'
+import preferToHaveBeenCalledTimes from './prefer-to-have-been-called-times'
 import preferToHaveLength from './prefer-to-have-length'
 import preferTodo from './prefer-todo'
 import preferViMocked from './prefer-vi-mocked'
 import requireAwaitedExpectPoll from './require-awaited-expect-poll'
 import requireHook from './require-hook'
-import requireTestTimeout from './require-test-timeout'
 import requireLocalTestContextForConcurrentSnapshots from './require-local-test-context-for-concurrent-snapshots'
 import requireMockTypeParameters from './require-mock-type-parameters'
+import requireTestTimeout from './require-test-timeout'
 import requireToThrowMessage from './require-to-throw-message'
 import requireTopLevelDescribe from './require-top-level-describe'
+import unboundMethod from './unbound-method'
 import validDescribeCallback from './valid-describe-callback'
 import validExpectInPromise from './valid-expect-in-promise'
 import validExpect from './valid-expect'
 import validTitle from './valid-title'
 import warnTodo from './warn-todo'
-import noUnneededAsyncExpectFunction from './no-unneeded-async-expect-function'
-import preferToHaveBeenCalledTimes from './prefer-to-have-been-called-times'
 
 export const rules = {
   'consistent-each-for': consistentEachFor,
@@ -153,12 +154,13 @@ export const rules = {
   'prefer-vi-mocked': preferViMocked,
   'require-awaited-expect-poll': requireAwaitedExpectPoll,
   'require-hook': requireHook,
-  'require-test-timeout': requireTestTimeout,
   'require-local-test-context-for-concurrent-snapshots':
     requireLocalTestContextForConcurrentSnapshots,
   'require-mock-type-parameters': requireMockTypeParameters,
+  'require-test-timeout': requireTestTimeout,
   'require-to-throw-message': requireToThrowMessage,
   'require-top-level-describe': requireTopLevelDescribe,
+  'unbound-method': unboundMethod,
   'valid-describe-callback': validDescribeCallback,
   'valid-expect-in-promise': validExpectInPromise,
   'valid-expect': validExpect,

@@ -23,9 +23,9 @@ const createConfigLegacy = (rules: Record<string, string>) => ({
 })
 
 const allRules = {
+  'consistent-each-for': 'warn',
   'consistent-test-filename': 'warn',
   'consistent-test-it': 'warn',
-  'consistent-each-for': 'warn',
   'consistent-vitest-vi': 'warn',
   'expect-expect': 'warn',
   'hoisted-apis-on-top': 'warn',
@@ -90,25 +90,26 @@ const allRules = {
   'prefer-to-have-length': 'warn',
   'prefer-todo': 'warn',
   'prefer-vi-mocked': 'warn',
+  'require-awaited-expect-poll': 'warn',
   'require-hook': 'warn',
   'require-local-test-context-for-concurrent-snapshots': 'warn',
   'require-mock-type-parameters': 'warn',
+  'require-test-timeout': 'off',
   'require-to-throw-message': 'warn',
   'require-top-level-describe': 'warn',
+  'unbound-method': 'warn',
   'valid-describe-callback': 'warn',
   'valid-expect-in-promise': 'warn',
   'valid-expect': 'warn',
   'valid-title': 'warn',
-  'require-awaited-expect-poll': 'warn',
-  'require-test-timeout': 'off',
 } as const satisfies RuleList
 
 const recommendedRules = {
   'expect-expect': 'error',
+  'no-commented-out-tests': 'error',
   'no-conditional-expect': 'error',
   'no-disabled-tests': 'warn',
   'no-focused-tests': 'error',
-  'no-commented-out-tests': 'error',
   'no-identical-title': 'error',
   'no-import-node-test': 'error',
   'no-interpolation-in-snapshots': 'error',

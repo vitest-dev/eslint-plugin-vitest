@@ -9,6 +9,9 @@ importers:
 
   .:
     dependencies:
+      '@typescript-eslint/eslint-plugin':
+        specifier: '*'
+        version: 8.55.0(@typescript-eslint/parser@8.55.0(eslint@10.0.0(jiti@2.6.1))(typescript@5.9.3))(eslint@10.0.0(jiti@2.6.1))(typescript@5.9.3)
       '@typescript-eslint/scope-manager':
         specifier: ^8.55.0
         version: 8.55.0

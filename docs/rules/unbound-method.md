@@ -1,8 +1,10 @@
-# Enforce unbound methods are called with their expected scope (`vitest/unbound-method`)
+# vitest/unbound-method
+
+📝 Enforce unbound methods are called with their expected scope.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
-💭 This rule requires type information.
+💭 This rule requires [type information](https://typescript-eslint.io/linting/typed-linting).
 
 <!-- end auto-generated rule header -->
 

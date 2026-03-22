@@ -1,9 +1,12 @@
+import { createRequire } from 'node:module'
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue, isIdentifier } from '../utils'
 import {
   findTopMostCallExpression,
   parseVitestFnCall,
 } from '../utils/parse-vitest-fn-call'
+
+const require = createRequire(import.meta.url)
 
 const RULE_NAME = 'unbound-method'
 
@@ -26,17 +29,21 @@ export type Options = [Config]
 
 const baseRule = (() => {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const TSESLintPlugin = require('@typescript-eslint/eslint-plugin')
 
     return TSESLintPlugin.rules['unbound-method'] as TSESLint.RuleModule<
       MESSAGE_IDS,
       Options
     >
-  } catch (e: unknown) {
-    const error = e as { code: string }
+  } catch (error: unknown) {
+    const errorCode =
+      typeof error === 'object' && error !== null && 'code' in error
+        ? error.code
+        : undefined
 
-    if (error.code === 'MODULE_NOT_FOUND') return null
+    if (errorCode === 'MODULE_NOT_FOUND' || errorCode === 'ERR_REQUIRE_ESM') {
+      return null
+    }
 
     throw error
   }
