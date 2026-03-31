@@ -45,15 +45,15 @@
     "update:eslint-docs": "pnpm build && eslint-doc-generator"
   },
   "dependencies": {
-    "@typescript-eslint/scope-manager": "^8.55.0",
-    "@typescript-eslint/utils": "^8.55.0"
+    "@typescript-eslint/scope-manager": "^8.58.0",
+    "@typescript-eslint/utils": "^8.58.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/eslint": "^9.6.1",
     "@types/node": "^25.2.3",
-    "@typescript-eslint/parser": "^8.55.0",
-    "@typescript-eslint/rule-tester": "^8.55.0",
+    "@typescript-eslint/parser": "^8.58.0",
+    "@typescript-eslint/rule-tester": "^8.58.0",
     "bumpp": "^10.4.1",
     "concurrently": "^9.2.1",
     "eslint": "^10.0.0",
@@ -68,7 +68,7 @@
     "tsdown": "^0.20.3",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.55.0",
+    "typescript-eslint": "^8.58.0",
     "vitest": "^4.0.18"
   },
   "peerDependencies": {
