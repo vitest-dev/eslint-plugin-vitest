@@ -17,7 +17,17 @@ ruleTester.run(RULE_NAME, rule, {
     'test.concurrent("a", () => {}, 400)',
     'test("a", () => {}, { timeout: 500 })',
     'test("a", { timeout: 500 }, () => {})',
+    'const t = 500; test("a", { timeout: t }, () => {})',
+    'const t = 500; test("a", () => {}, t)',
+    'const opts = { timeout: 500 }; test("a", opts, () => {})',
+    'const T = 1000; vi.setConfig({ testTimeout: T }); test("a", () => {})',
     'vi.setConfig({ testTimeout: 1000 }); test("a", () => {})',
+    // mirrored `it` variants
+    'const t = 500; it("a", { timeout: t }, () => {})',
+    'const t = 500; it("a", () => {}, t)',
+    'const opts = { timeout: 500 }; it("a", opts, () => {})',
+    'const T = 1000; vi.setConfig({ testTimeout: T }); it("a", () => {})',
+    'vi.setConfig({ testTimeout: 1000 }); it("a", () => {})',
     // multiple object args where one contains timeout
     'test("a", { foo: 1 }, { timeout: 500 }, () => {})',
     // both object and numeric timeout present
@@ -50,7 +60,20 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: 'missingTimeout' }],
     },
     {
-      code: 'const t = 500; test("a", { timeout: t }, () => {})',
+      code: 'let t = 500; test("a", () => {}, t)',
+      errors: [{ messageId: 'missingTimeout' }],
+    },
+    {
+      code: 'const t = getTimeout(); test("a", () => {}, t)',
+      errors: [{ messageId: 'missingTimeout' }],
+    },
+    // mirrored `it` invalid variants
+    {
+      code: 'let t = 500; it("a", () => {}, t)',
+      errors: [{ messageId: 'missingTimeout' }],
+    },
+    {
+      code: 'const t = getTimeout(); it("a", () => {}, t)',
       errors: [{ messageId: 'missingTimeout' }],
     },
     // null/undefined/identifier/negative cases
