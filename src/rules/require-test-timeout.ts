@@ -1,3 +1,4 @@
+import { Scope } from '@typescript-eslint/scope-manager'
 import { createEslintRule, getAccessorValue } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 import { getScope } from '../utils/scope'
@@ -74,8 +75,19 @@ export default createEslintRule<Options, MESSAGE_ID>({
       }
 
       if (node.type === AST_NODE_TYPES.Identifier) {
-        const scope = getScope(context, node)
-        const variable = scope.set.get(node.name)
+        let currentScope: Scope | null = getScope(context, node)
+        let variable
+
+        // Walk parent scopes until we find a definition for this identifier
+        while (currentScope !== null) {
+          const ref = currentScope.set.get(node.name)
+          if (ref && ref.defs && ref.defs.length > 0) {
+            variable = ref
+            break
+          }
+          currentScope = currentScope.upper
+        }
+
         if (!variable || !variable.defs || variable.defs.length === 0)
           return undefined
 

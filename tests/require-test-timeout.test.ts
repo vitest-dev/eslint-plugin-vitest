@@ -33,6 +33,9 @@ ruleTester.run(RULE_NAME, rule, {
     // both object and numeric timeout present
     'test("a", { timeout: 500 }, 1000, () => {})',
     'test("a", () => {}, 1000, { extra: true })',
+    // in-source unit tests
+    'if (import.meta.vitest) { const opts = { timeout: 500 }; describe("outer", () => { it("repro: same-file opts object", opts, () => {}); }); }',
+    'if (import.meta.vitest) { const T = 500; describe("outer", () => { describe("inner", () => { it("repro: same-file const timeout", () => {}, T); }); }); }',
   ],
   invalid: [
     {
