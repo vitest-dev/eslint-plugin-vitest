@@ -67,7 +67,7 @@ interface BaseParsedVitestFnCall {
 }
 
 interface ParsedGeneralVitestFnCall extends BaseParsedVitestFnCall {
-  type: Exclude<VitestFnType, 'expect'> & Exclude<VitestFnType, 'expectTypeOf'>
+  type: Exclude<VitestFnType, 'expect' | 'expectTypeOf'>
 }
 
 type Reason = 'matcher-not-called' | 'modifier-unknown' | 'matcher-not-found'
