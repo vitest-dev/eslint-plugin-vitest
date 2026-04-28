@@ -45,6 +45,8 @@ ruleTester.run(rule.name, rule, {
       });
     });
     `,
+    'vi.defineHelper((x) => expect(x).toEqual(0))',
+    'describe("a test", () => { vi.defineHelper((x) => { expect(x).toEqual(0); }); })',
   ],
   invalid: [
     {

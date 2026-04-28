@@ -44,7 +44,7 @@ const getBlockType = (
   return null
 }
 
-type BlockType = 'test' | 'function' | 'describe' | 'arrow' | 'template'
+type BlockType = 'test' | 'function' | 'describe' | 'arrow' | 'template' | 'helper'
 
 export default createEslintRule<Options, MESSAGE_IDS>({
   name: RULE_NAME,
@@ -80,6 +80,15 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       node: TSESTree.CallExpression,
     ): boolean => additionalTestBlockFunctions.includes(getNodeName(node) || '')
 
+    const isDefineHelperCall = (node: TSESTree.CallExpression): boolean => {
+      const vitestFnCall = parseVitestFnCall(node, context)
+      return (
+        vitestFnCall?.type === 'vi' &&
+        vitestFnCall.members.length === 1 &&
+        getAccessorValue(vitestFnCall.members[0]) === 'defineHelper'
+      )
+    }
+
     return {
       CallExpression(node) {
         const vitestFnCall = parseVitestFnCall(node, context)
@@ -105,6 +114,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         if (vitestFnCall?.type === 'test' || isCustomTestBlockFunction(node))
           callStack.push('test')
+        if (isDefineHelperCall(node))
+          callStack.push('helper')
 
         if (node.callee.type === AST_NODE_TYPES.TaggedTemplateExpression)
           callStack.push('template')
@@ -117,6 +128,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             (isTypeOfVitestFnCall(node, context, ['test']) ||
               isCustomTestBlockFunction(node)) &&
             node.callee.type !== AST_NODE_TYPES.MemberExpression) ||
+          (top === 'helper' && isDefineHelperCall(node)) ||
           (top === 'template' &&
             node.callee.type === AST_NODE_TYPES.TaggedTemplateExpression)
         )
