@@ -44,7 +44,13 @@ const getBlockType = (
   return null
 }
 
-type BlockType = 'test' | 'function' | 'describe' | 'arrow' | 'template' | 'helper'
+type BlockType =
+  | 'test'
+  | 'function'
+  | 'describe'
+  | 'arrow'
+  | 'template'
+  | 'helper'
 
 export default createEslintRule<Options, MESSAGE_IDS>({
   name: RULE_NAME,
@@ -114,8 +120,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         if (vitestFnCall?.type === 'test' || isCustomTestBlockFunction(node))
           callStack.push('test')
-        if (isDefineHelperCall(node))
-          callStack.push('helper')
+        if (isDefineHelperCall(node)) callStack.push('helper')
 
         if (node.callee.type === AST_NODE_TYPES.TaggedTemplateExpression)
           callStack.push('template')
