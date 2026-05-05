@@ -1,6 +1,6 @@
 # vitest/prefer-expect-type-of
 
-📝 Enforce using `expectTypeOf` instead of `expect(typeof ...)`.
+📝 Enforce using `expect(...).toBeTypeOf(...)` instead of `expect(typeof ...).toBe(...)`.
 
 ⚠️ This rule _warns_ in the 🌐 `all` config.
 
@@ -8,11 +8,11 @@
 
 <!-- end auto-generated rule header -->
 
-This rule enforces using Vitest's `expectTypeOf` function instead of `expect(typeof ...)` for type checking in tests.
+This rule enforces using Vitest's `toBeTypeOf` matcher instead of `expect(typeof value).toBe(type)` for runtime type checking.
 
 ## Rule Details
 
-Vitest provides `expectTypeOf` as a more expressive and type-safe way to test types compared to using `expect(typeof ...)`. This rule automatically converts `expect(typeof value).toBe(type)` patterns to use the appropriate `expectTypeOf` matcher.
+`expect(typeof value).toBe(type)` works but is awkward and produces poor failure messages. Vitest's built-in `toBeTypeOf` matcher does the same `typeof` comparison with a clearer API and better error output. This rule rewrites the `typeof`-based pattern to use `toBeTypeOf` automatically.
 
 ### Incorrect
 
@@ -24,7 +24,7 @@ test('type checking', () => {
   expect(typeof 42).toBe('number')
   expect(typeof true).toBe('boolean')
   expect(typeof {}).toBe('object')
-  expect(typeof () => {}).toBe('function')
+  expect(typeof (() => {})).toBe('function')
   expect(typeof Symbol()).toBe('symbol')
   expect(typeof 123n).toBe('bigint')
   expect(typeof undefined).toBe('undefined')
@@ -34,16 +34,16 @@ test('type checking', () => {
 ### Correct
 
 ```ts
-import { test, expectTypeOf } from 'vitest'
+import { test, expect } from 'vitest'
 
 test('type checking', () => {
-  expectTypeOf('hello').toBeString()
-  expectTypeOf(42).toBeNumber()
-  expectTypeOf(true).toBeBoolean()
-  expectTypeOf({}).toBeObject()
-  expectTypeOf(() => {}).toBeFunction()
-  expectTypeOf(Symbol()).toBeSymbol()
-  expectTypeOf(123n).toBeBigInt()
-  expectTypeOf(undefined).toBeUndefined()
+  expect('hello').toBeTypeOf('string')
+  expect(42).toBeTypeOf('number')
+  expect(true).toBeTypeOf('boolean')
+  expect({}).toBeTypeOf('object')
+  expect(() => {}).toBeTypeOf('function')
+  expect(Symbol()).toBeTypeOf('symbol')
+  expect(123n).toBeTypeOf('bigint')
+  expect(undefined).toBeTypeOf('undefined')
 })
 ```

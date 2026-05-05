@@ -6,31 +6,20 @@ const RULE_NAME = 'prefer-expect-type-of'
 
 type MessageId = 'preferExpectTypeOf'
 
-const typeMatchers = {
-  string: 'toBeString',
-  number: 'toBeNumber',
-  boolean: 'toBeBoolean',
-  object: 'toBeObject',
-  function: 'toBeFunction',
-  symbol: 'toBeSymbol',
-  bigint: 'toBeBigInt',
-  undefined: 'toBeUndefined',
-} as const
-
 export default createEslintRule<[], MessageId>({
   name: RULE_NAME,
   meta: {
     type: 'suggestion',
     docs: {
       description:
-        'enforce using `expectTypeOf` instead of `expect(typeof ...)`',
+        'enforce using `expect(...).toBeTypeOf(...)` instead of `expect(typeof ...).toBe(...)`',
       recommended: false,
     },
     schema: [],
     fixable: 'code',
     messages: {
       preferExpectTypeOf:
-        'Use `expectTypeOf({{ value }}).{{ matcher }}()` instead of `expect(typeof {{ value }}).toBe("{{ type }}")`',
+        'Use `expect({{ value }}).toBeTypeOf({{ type }})` instead of `expect(typeof {{ value }}).toBe({{ type }})`',
     },
   },
   create(context) {
@@ -56,15 +45,11 @@ export default createEslintRule<[], MessageId>({
         if (matcherName !== 'toBe' && matcherName !== 'toEqual') return
 
         const [matcherArg] = vitestFnCall.args
-        if (!matcherArg || matcherArg.type !== AST_NODE_TYPES.Literal) return
-        if (typeof matcherArg.value !== 'string') return
-
-        const typeString = matcherArg.value as keyof typeof typeMatchers
-        const expectTypeOfMatcher = typeMatchers[typeString]
-
-        if (!expectTypeOfMatcher) return
+        if (!matcherArg || matcherArg.type === AST_NODE_TYPES.SpreadElement)
+          return
 
         const valueText = context.sourceCode.getText(firstArg.argument)
+        const typeText = context.sourceCode.getText(matcherArg)
         const modifierText = vitestFnCall.modifiers
           .map((mod) => getAccessorValue(mod))
           .join('.')
@@ -75,13 +60,12 @@ export default createEslintRule<[], MessageId>({
           messageId: 'preferExpectTypeOf',
           data: {
             value: valueText,
-            matcher: expectTypeOfMatcher,
-            type: typeString,
+            type: typeText,
           },
           fix(fixer) {
             return fixer.replaceText(
               node,
-              `expectTypeOf(${valueText})${modifierPrefix}.${expectTypeOfMatcher}()`,
+              `expect(${valueText})${modifierPrefix}.toBeTypeOf(${typeText})`,
             )
           },
         })
