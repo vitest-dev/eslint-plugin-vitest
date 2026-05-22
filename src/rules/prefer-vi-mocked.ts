@@ -15,7 +15,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
     docs: {
       description: 'require `vi.mocked()` over `fn as Mock`',
-      requiresTypeChecking: true,
       recommended: false,
     },
     fixable: 'code',

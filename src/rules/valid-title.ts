@@ -128,6 +128,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     docs: {
       description: 'enforce valid titles',
       recommended: false,
+      requiresTypeChecking: true,
     },
     messages: {
       titleMustBeString:
