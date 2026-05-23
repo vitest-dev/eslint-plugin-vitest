@@ -92,6 +92,12 @@ export default createEslintRule<Options, MESSAGE_ID>({
           return undefined
 
         for (const def of variable.defs) {
+          // Imported bindings: we cannot statically resolve a cross-file
+          // initializer, but the developer named the imported identifier in
+          // the timeout position. Treat it as an explicit timeout so the
+          // rule does not flag the test.
+          if (def.type === 'ImportBinding') return 0
+
           if (def.type !== 'Variable') continue
 
           // only accept `const` bindings
