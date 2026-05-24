@@ -16,7 +16,6 @@ jobs:
       - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093
         name: Install pnpm
         with:
-          version: 10
           cache: true
 
       - name: Install
