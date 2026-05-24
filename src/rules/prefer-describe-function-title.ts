@@ -18,7 +18,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       description:
         'enforce using a function as a describe title over an equivalent string',
       recommended: false,
-      requiresTypeChecking: true,
     },
     fixable: 'code',
     schema: [],

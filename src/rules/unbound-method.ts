@@ -75,6 +75,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       description:
         'enforce unbound methods are called with their expected scope',
       recommended: false,
+      requiresTypeChecking: true,
     },
     defaultOptions: [{ ignoreStatic: false }],
   },
