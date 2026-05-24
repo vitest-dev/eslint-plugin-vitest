@@ -20,8 +20,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: Setup
-        uses: ./.github/actions/setup
+      - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093
+        name: Install pnpm
+        with:
+          version: 10
+          cache: true
+
+      - name: Install
+        run: pnpm install
 
       - name: Format
         run: pnpm format
@@ -53,10 +59,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: Setup
-        uses: ./.github/actions/setup
+      - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093
+        name: Install pnpm
         with:
+          version: 10
+          cache: true
           node-version: ${{ matrix.node-version }}
+
+      - name: Install
+        run: pnpm install
 
       - name: Test
         run: pnpm test
