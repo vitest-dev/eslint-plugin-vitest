@@ -22,7 +22,7 @@ jobs:
         run: pnpm build
 
       - name: Smoke test
-        uses: AriPerkkio/eslint-remote-tester-run-action@v5
+        uses: AriPerkkio/eslint-remote-tester-run-action@e148d2ff981856da9b7a2a4527a46842001f8f0c # v4.0.4
         with:
           issue-title: 'Results of weekly scheduled smoke test'
           eslint-remote-tester-config: eslint-remote-tester.config.ts
