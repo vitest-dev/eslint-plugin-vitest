@@ -13,6 +13,24 @@ import foo from 'bar';
 vi.unmock(baz);
     `,
     `const foo = await vi.hoisted(async () => {});`,
+    // Issue #903 valid regressions: top-level placement is always allowed,
+    // regardless of how the Vitest API is imported or aliased.
+    `
+import { vitest } from 'vitest';
+vitest.mock('./foo');
+    `,
+    `
+import { vi as v } from 'vitest';
+v.mock('./foo');
+    `,
+    // Identifier named "vi"/"vitest" imported from a non-vitest module
+    // must not be picked up.
+    `
+import { vi } from 'some-other-module';
+if (foo) {
+  vi.mock('./foo');
+}
+    `,
   ],
   invalid: [
     {
@@ -172,6 +190,181 @@ if (shouldMock) {
 }
 
 import something from 'something';
+      `,
+            },
+          ],
+        },
+      ],
+    },
+    // Issue #903: vitest.mock() in a runtime position is flagged the same way
+    // as vi.mock(). The import binding identifies the namespace regardless of
+    // whether the local name is `vi` or `vitest`.
+    {
+      code: `
+import { vitest } from 'vitest';
+
+if (condition) {
+  vitest.mock('./foo');
+}
+      `,
+      errors: [
+        {
+          messageId: 'hoistedApisOnTop',
+          suggestions: [
+            {
+              messageId: 'suggestMoveHoistedApiToTop',
+              output: `
+import { vitest } from 'vitest';
+vitest.mock('./foo');
+
+if (condition) {
+  ;
+}
+      `,
+            },
+            {
+              messageId: 'suggestReplaceMockWithDoMock',
+              output: `
+import { vitest } from 'vitest';
+
+if (condition) {
+  vitest.doMock('./foo');
+}
+      `,
+            },
+          ],
+        },
+      ],
+    },
+    // Issue #903: aliased vi import (import { vi as v }) is flagged.
+    {
+      code: `
+import { vi as v } from 'vitest';
+
+if (condition) {
+  v.mock('./foo');
+}
+      `,
+      errors: [
+        {
+          messageId: 'hoistedApisOnTop',
+          suggestions: [
+            {
+              messageId: 'suggestMoveHoistedApiToTop',
+              output: `
+import { vi as v } from 'vitest';
+v.mock('./foo');
+
+if (condition) {
+  ;
+}
+      `,
+            },
+            {
+              messageId: 'suggestReplaceMockWithDoMock',
+              output: `
+import { vi as v } from 'vitest';
+
+if (condition) {
+  v.doMock('./foo');
+}
+      `,
+            },
+          ],
+        },
+      ],
+    },
+    // Edge: aliased vi with .hoisted() in a non-top position. Only the
+    // move-to-top suggestion fires because doMock replacement is mock-only.
+    {
+      code: `
+import { vi as v } from 'vitest';
+
+if (condition) {
+  v.hoisted(() => {});
+}
+      `,
+      errors: [
+        {
+          messageId: 'hoistedApisOnTop',
+          suggestions: [
+            {
+              messageId: 'suggestMoveHoistedApiToTop',
+              output: `
+import { vi as v } from 'vitest';
+v.hoisted(() => {});
+
+if (condition) {
+  ;
+}
+      `,
+            },
+          ],
+        },
+      ],
+    },
+    // Edge: aliased vitest with .unmock() in a non-top position. Only the
+    // move-to-top suggestion fires because doMock replacement is mock-only.
+    {
+      code: `
+import { vitest as v } from 'vitest';
+
+if (condition) {
+  v.unmock('./foo');
+}
+      `,
+      errors: [
+        {
+          messageId: 'hoistedApisOnTop',
+          suggestions: [
+            {
+              messageId: 'suggestMoveHoistedApiToTop',
+              output: `
+import { vitest as v } from 'vitest';
+v.unmock('./foo');
+
+if (condition) {
+  ;
+}
+      `,
+            },
+          ],
+        },
+      ],
+    },
+    // Edge: explicit { vi } import (no alias) still flagged identically to
+    // the implicit-global `vi` case already covered above.
+    {
+      code: `
+import { vi } from 'vitest';
+
+if (condition) {
+  vi.mock('./foo');
+}
+      `,
+      errors: [
+        {
+          messageId: 'hoistedApisOnTop',
+          suggestions: [
+            {
+              messageId: 'suggestMoveHoistedApiToTop',
+              output: `
+import { vi } from 'vitest';
+vi.mock('./foo');
+
+if (condition) {
+  ;
+}
+      `,
+            },
+            {
+              messageId: 'suggestReplaceMockWithDoMock',
+              output: `
+import { vi } from 'vitest';
+
+if (condition) {
+  vi.doMock('./foo');
+}
       `,
             },
           ],

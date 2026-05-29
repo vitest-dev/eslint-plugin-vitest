@@ -9,6 +9,7 @@ type MESSAGE_ID =
   | 'suggestReplaceMockWithDoMock'
 
 const hoistedAPIs = ['mock', 'hoisted', 'unmock']
+const vitestNamespaceNames = new Set(['vi', 'vitest'])
 
 export default createEslintRule<[], MESSAGE_ID>({
   name: RULE_NAME,
@@ -30,6 +31,12 @@ export default createEslintRule<[], MESSAGE_ID>({
   create(context) {
     let lastImportEnd: null | number = null
     const nodesToReport: Array<TSESTree.CallExpression> = []
+    // Local names that bind to `vi` or `vitest` from the `vitest` package.
+    // `vi`/`vitest` are seeded so the bare-global usage that ships with the
+    // Vitest auto-imported environment keeps working without an explicit
+    // import declaration. Aliased imports such as `import { vi as v }` add
+    // their local names here.
+    const namespaceLocalNames = new Set<string>(vitestNamespaceNames)
 
     return {
       // for suggestion fixer
@@ -40,16 +47,46 @@ export default createEslintRule<[], MESSAGE_ID>({
           return
         }
         lastImportEnd = node.range[1]
+
+        if (
+          node.source.type !== AST_NODE_TYPES.Literal ||
+          node.source.value !== 'vitest'
+        ) {
+          // Imports from `import { vi } from 'some-other-module'` must not
+          // shadow the Vitest namespace, so we also drop seeded names that
+          // get rebound from a non-vitest source.
+          for (const spec of node.specifiers) {
+            if (
+              spec.type === AST_NODE_TYPES.ImportSpecifier &&
+              spec.local.type === AST_NODE_TYPES.Identifier &&
+              vitestNamespaceNames.has(spec.local.name)
+            ) {
+              namespaceLocalNames.delete(spec.local.name)
+            }
+          }
+          return
+        }
+
+        for (const spec of node.specifiers) {
+          if (
+            spec.type === AST_NODE_TYPES.ImportSpecifier &&
+            spec.imported.type === AST_NODE_TYPES.Identifier &&
+            vitestNamespaceNames.has(spec.imported.name) &&
+            spec.local.type === AST_NODE_TYPES.Identifier
+          ) {
+            namespaceLocalNames.add(spec.local.name)
+          }
+        }
       },
 
       CallExpression(node) {
-        // Only consider vi.<api> member calls
+        // Only consider <vitest namespace>.<api> member calls
         if (node.callee.type !== AST_NODE_TYPES.MemberExpression) return
 
         const { object, property } = node.callee
         if (
           object.type !== AST_NODE_TYPES.Identifier ||
-          object.name !== 'vi' ||
+          !namespaceLocalNames.has(object.name) ||
           property.type !== AST_NODE_TYPES.Identifier
         ) {
           return
