@@ -74,7 +74,9 @@ function getParentIfThenified(node: TSESTree.Node): TSESTree.Node {
     grandParentNode.type === AST_NODE_TYPES.CallExpression &&
     grandParentNode.callee.type === AST_NODE_TYPES.MemberExpression &&
     isSupportedAccessor(grandParentNode.callee.property) &&
-    ['then', 'catch'].includes(
+    // .finally() returns the same promise the chain awaits, so the await still
+    // propagates and the inner expect-call must not be flagged again.
+    ['then', 'catch', 'finally'].includes(
       getAccessorValue(grandParentNode.callee.property),
     ) &&
     grandParentNode.parent

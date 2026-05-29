@@ -41,6 +41,23 @@ ruleTester.run(rule.name, rule, {
     'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().catch(() => console.log("valid-case")); });',
     'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).catch(() => console.log("another valid case")); });',
     'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => { expect(someMock).toHaveBeenCalledTimes(1); }); });',
+    // .finally() in async assertion chains (issue #904)
+    // P1: .finally() directly after an async assertion (return-form)
+    'test("valid-expect", async () => { return expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("valid-case")); });',
+    // P2: .then() then .finally() (return-form)
+    'test("valid-expect", async () => { return expect(Promise.resolve(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).finally(() => console.log("cleanup")); });',
+    // E1: .then(), .finally(), then .then() again (await-form)
+    'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).finally(() => console.log("cleanup")).then(() => console.log("after")); });',
+    // E2: rejects assertion + .finally() (await-form)
+    'test("valid-expect", async () => { await expect(Promise.reject(2)).rejects.not.toBeDefined().finally(() => console.log("cleanup")); });',
+    // E4: .finally() before .catch() (await-form)
+    'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")).catch(() => console.log("recover")); });',
+    // E5: multiple .finally() in a row (await-form)
+    'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup 1")).finally(() => console.log("cleanup 2")); });',
+    // E6: .catch() then .finally() (await-form)
+    'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().catch(() => console.log("recover")).finally(() => console.log("cleanup")); });',
+    // E7: .finally() directly after async assertion (await-form)
+    'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")); });',
     ` test("valid-expect", () => {
            return expect(functionReturningAPromise()).resolves.toEqual(1).then(() => {
              return expect(Promise.resolve(2)).resolves.toBe(1);
@@ -1086,6 +1103,30 @@ ruleTester.run(rule.name, rule, {
        });
      `,
       errors: [{ endColumn: 39, column: 13, messageId: 'matcherNotFound' }],
+    },
+    // N1 (issue #904): unawaited async assertion chained with .finally() is still flagged
+    // after the fix. The chain walker now treats .finally() as part of the chain (same
+    // as .then()/.catch()), so the reported range covers the whole chain instead of
+    // stopping before .finally(). The pair of reports/inserts mirrors the long-standing
+    // behavior on .then()/.catch() chains and is independent of this fix.
+    {
+      code: 'test("valid-expect", async () => { expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")); });',
+      output:
+        'test("valid-expect", async () => { await await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")); });',
+      errors: [
+        {
+          column: 36,
+          endColumn: 127,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+        {
+          column: 36,
+          endColumn: 127,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
     },
   ],
 })
