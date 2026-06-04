@@ -100,7 +100,9 @@ export default createEslintRule<Options, MESSAGE_ID>({
         if (
           node?.callee?.type === AST_NODE_TYPES.MemberExpression &&
           node.callee.property.type === AST_NODE_TYPES.Identifier &&
-          ['skip', 'extend', 'scoped'].includes(node.callee.property.name)
+          ['skip', 'extend', 'scoped', 'override'].includes(
+            node.callee.property.name,
+          )
         )
           return
 
