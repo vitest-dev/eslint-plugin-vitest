@@ -226,7 +226,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         // check if extend keyword have been used
         const hasExemptModifier = vitestFnCall.members.some((member) =>
-          ['extend', 'scoped'].includes(getAccessorValue(member)),
+          ['extend', 'scoped', 'override'].includes(getAccessorValue(member)),
         )
         if (hasExemptModifier) {
           return

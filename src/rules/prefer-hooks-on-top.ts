@@ -28,7 +28,7 @@ export default createEslintRule<Options, MessageIds>({
         const vitestFnCall = parseVitestFnCall(node, context)
 
         const hasExemptModifier = vitestFnCall?.members?.some((member) =>
-          ['extend', 'scoped'].includes(getAccessorValue(member)),
+          ['extend', 'scoped', 'override'].includes(getAccessorValue(member)),
         )
 
         if (
