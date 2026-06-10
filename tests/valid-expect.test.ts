@@ -41,6 +41,14 @@ ruleTester.run(rule.name, rule, {
     'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().catch(() => console.log("valid-case")); });',
     'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).catch(() => console.log("another valid case")); });',
     'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => { expect(someMock).toHaveBeenCalledTimes(1); }); });',
+    'test("valid-expect", async () => { return expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("valid-case")); });',
+    'test("valid-expect", async () => { return expect(Promise.resolve(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).finally(() => console.log("cleanup")); });',
+    'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).finally(() => console.log("cleanup")).then(() => console.log("after")); });',
+    'test("valid-expect", async () => { await expect(Promise.reject(2)).rejects.not.toBeDefined().finally(() => console.log("cleanup")); });',
+    'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")).catch(() => console.log("recover")); });',
+    'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup 1")).finally(() => console.log("cleanup 2")); });',
+    'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().catch(() => console.log("recover")).finally(() => console.log("cleanup")); });',
+    'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")); });',
     ` test("valid-expect", () => {
            return expect(functionReturningAPromise()).resolves.toEqual(1).then(() => {
              return expect(Promise.resolve(2)).resolves.toBe(1);
@@ -1086,6 +1094,25 @@ ruleTester.run(rule.name, rule, {
        });
      `,
       errors: [{ endColumn: 39, column: 13, messageId: 'matcherNotFound' }],
+    },
+    {
+      code: 'test("valid-expect", async () => { expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")); });',
+      output:
+        'test("valid-expect", async () => { await await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")); });',
+      errors: [
+        {
+          column: 36,
+          endColumn: 127,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+        {
+          column: 36,
+          endColumn: 127,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
     },
   ],
 })
