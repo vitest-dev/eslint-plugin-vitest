@@ -13,8 +13,6 @@ import foo from 'bar';
 vi.unmock(baz);
     `,
     `const foo = await vi.hoisted(async () => {});`,
-    // Issue #903 valid regressions: top-level placement is always allowed,
-    // regardless of how the Vitest API is imported or aliased.
     `
 import { vitest } from 'vitest';
 vitest.mock('./foo');
@@ -23,8 +21,6 @@ vitest.mock('./foo');
 import { vi as v } from 'vitest';
 v.mock('./foo');
     `,
-    // Identifier named "vi"/"vitest" imported from a non-vitest module
-    // must not be picked up.
     `
 import { vi } from 'some-other-module';
 if (foo) {
@@ -196,9 +192,6 @@ import something from 'something';
         },
       ],
     },
-    // Issue #903: vitest.mock() in a runtime position is flagged the same way
-    // as vi.mock(). The import binding identifies the namespace regardless of
-    // whether the local name is `vi` or `vitest`.
     {
       code: `
 import { vitest } from 'vitest';
@@ -236,7 +229,6 @@ if (condition) {
         },
       ],
     },
-    // Issue #903: aliased vi import (import { vi as v }) is flagged.
     {
       code: `
 import { vi as v } from 'vitest';
@@ -274,8 +266,6 @@ if (condition) {
         },
       ],
     },
-    // Edge: aliased vi with .hoisted() in a non-top position. Only the
-    // move-to-top suggestion fires because doMock replacement is mock-only.
     {
       code: `
 import { vi as v } from 'vitest';
@@ -303,8 +293,6 @@ if (condition) {
         },
       ],
     },
-    // Edge: aliased vitest with .unmock() in a non-top position. Only the
-    // move-to-top suggestion fires because doMock replacement is mock-only.
     {
       code: `
 import { vitest as v } from 'vitest';
@@ -332,8 +320,6 @@ if (condition) {
         },
       ],
     },
-    // Edge: explicit { vi } import (no alias) still flagged identically to
-    // the implicit-global `vi` case already covered above.
     {
       code: `
 import { vi } from 'vitest';

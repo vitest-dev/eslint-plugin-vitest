@@ -31,30 +31,16 @@ export default createEslintRule<[], MESSAGE_ID>({
   create(context) {
     let lastImportEnd: null | number = null
     const nodesToReport: Array<TSESTree.CallExpression> = []
-    // Local names that bind to `vi` or `vitest` from the `vitest` package.
-    // `vi`/`vitest` are seeded so the bare-global usage that ships with the
-    // Vitest auto-imported environment keeps working without an explicit
-    // import declaration. Aliased imports such as `import { vi as v }` add
-    // their local names here.
     const namespaceLocalNames = new Set<string>(vitestNamespaceNames)
 
     return {
-      // for suggestion fixer
       ImportDeclaration(node) {
-        if (node.parent.type !== AST_NODE_TYPES.Program) {
-          // This shouldn't happen in a valid AST anyway, but we never want to
-          // suggest moving an API to a non-top-level position, so ignore.
-          return
-        }
         lastImportEnd = node.range[1]
 
         if (
           node.source.type !== AST_NODE_TYPES.Literal ||
           node.source.value !== 'vitest'
         ) {
-          // Imports from `import { vi } from 'some-other-module'` must not
-          // shadow the Vitest namespace, so we also drop seeded names that
-          // get rebound from a non-vitest source.
           for (const spec of node.specifiers) {
             if (
               spec.type === AST_NODE_TYPES.ImportSpecifier &&
@@ -94,10 +80,7 @@ export default createEslintRule<[], MESSAGE_ID>({
 
         const apiName = property.name
         if (!hoistedAPIs.includes(apiName)) return
-        // Determine whether this usage is in an allowed top-level position.
         if (apiName === 'hoisted') {
-          // For hoisted: allow top-level ExpressionStatement or VariableDeclaration,
-          // and allow wrapping by await and variable declarator.
           let parent: TSESTree.Node | undefined = node.parent
           if (parent?.type === AST_NODE_TYPES.AwaitExpression)
             parent = parent.parent
@@ -112,7 +95,6 @@ export default createEslintRule<[], MESSAGE_ID>({
             return
           }
         } else {
-          // For mock/unmock: only a bare top-level ExpressionStatement is allowed.
           if (
             node.parent?.type === AST_NODE_TYPES.ExpressionStatement &&
             node.parent.parent?.type === AST_NODE_TYPES.Program
