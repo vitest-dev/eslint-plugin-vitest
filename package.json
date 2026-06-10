@@ -39,6 +39,7 @@
     "lint:js": "eslint",
     "release": "bumpp && pnpm build && pnpm publish",
     "format": "prettier --check .",
+    "format:fix": "prettier --write .",
     "test": "vitest",
     "update:chains": "node scripts/chain-permutations.ts",
     "update:rules": "node scripts/export-rules.ts",

@@ -9,6 +9,7 @@ type MESSAGE_ID =
   | 'suggestReplaceMockWithDoMock'
 
 const hoistedAPIs = ['mock', 'hoisted', 'unmock']
+const vitestNamespaceNames = new Set(['vi', 'vitest'])
 
 export default createEslintRule<[], MESSAGE_ID>({
   name: RULE_NAME,
@@ -30,26 +31,48 @@ export default createEslintRule<[], MESSAGE_ID>({
   create(context) {
     let lastImportEnd: null | number = null
     const nodesToReport: Array<TSESTree.CallExpression> = []
+    const namespaceLocalNames = new Set<string>(vitestNamespaceNames)
 
     return {
-      // for suggestion fixer
       ImportDeclaration(node) {
-        if (node.parent.type !== AST_NODE_TYPES.Program) {
-          // This shouldn't happen in a valid AST anyway, but we never want to
-          // suggest moving an API to a non-top-level position, so ignore.
+        lastImportEnd = node.range[1]
+
+        if (
+          node.source.type !== AST_NODE_TYPES.Literal ||
+          node.source.value !== 'vitest'
+        ) {
+          for (const spec of node.specifiers) {
+            if (
+              spec.type === AST_NODE_TYPES.ImportSpecifier &&
+              spec.local.type === AST_NODE_TYPES.Identifier &&
+              vitestNamespaceNames.has(spec.local.name)
+            ) {
+              namespaceLocalNames.delete(spec.local.name)
+            }
+          }
           return
         }
-        lastImportEnd = node.range[1]
+
+        for (const spec of node.specifiers) {
+          if (
+            spec.type === AST_NODE_TYPES.ImportSpecifier &&
+            spec.imported.type === AST_NODE_TYPES.Identifier &&
+            vitestNamespaceNames.has(spec.imported.name) &&
+            spec.local.type === AST_NODE_TYPES.Identifier
+          ) {
+            namespaceLocalNames.add(spec.local.name)
+          }
+        }
       },
 
       CallExpression(node) {
-        // Only consider vi.<api> member calls
+        // Only consider <vitest namespace>.<api> member calls
         if (node.callee.type !== AST_NODE_TYPES.MemberExpression) return
 
         const { object, property } = node.callee
         if (
           object.type !== AST_NODE_TYPES.Identifier ||
-          object.name !== 'vi' ||
+          !namespaceLocalNames.has(object.name) ||
           property.type !== AST_NODE_TYPES.Identifier
         ) {
           return
@@ -57,10 +80,7 @@ export default createEslintRule<[], MESSAGE_ID>({
 
         const apiName = property.name
         if (!hoistedAPIs.includes(apiName)) return
-        // Determine whether this usage is in an allowed top-level position.
         if (apiName === 'hoisted') {
-          // For hoisted: allow top-level ExpressionStatement or VariableDeclaration,
-          // and allow wrapping by await and variable declarator.
           let parent: TSESTree.Node | undefined = node.parent
           if (parent?.type === AST_NODE_TYPES.AwaitExpression)
             parent = parent.parent
@@ -75,7 +95,6 @@ export default createEslintRule<[], MESSAGE_ID>({
             return
           }
         } else {
-          // For mock/unmock: only a bare top-level ExpressionStatement is allowed.
           if (
             node.parent?.type === AST_NODE_TYPES.ExpressionStatement &&
             node.parent.parent?.type === AST_NODE_TYPES.Program

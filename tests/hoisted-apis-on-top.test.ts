@@ -13,6 +13,20 @@ import foo from 'bar';
 vi.unmock(baz);
     `,
     `const foo = await vi.hoisted(async () => {});`,
+    `
+import { vitest } from 'vitest';
+vitest.mock('./foo');
+    `,
+    `
+import { vi as v } from 'vitest';
+v.mock('./foo');
+    `,
+    `
+import { vi } from 'some-other-module';
+if (foo) {
+  vi.mock('./foo');
+}
+    `,
   ],
   invalid: [
     {
@@ -172,6 +186,171 @@ if (shouldMock) {
 }
 
 import something from 'something';
+      `,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: `
+import { vitest } from 'vitest';
+
+if (condition) {
+  vitest.mock('./foo');
+}
+      `,
+      errors: [
+        {
+          messageId: 'hoistedApisOnTop',
+          suggestions: [
+            {
+              messageId: 'suggestMoveHoistedApiToTop',
+              output: `
+import { vitest } from 'vitest';
+vitest.mock('./foo');
+
+if (condition) {
+  ;
+}
+      `,
+            },
+            {
+              messageId: 'suggestReplaceMockWithDoMock',
+              output: `
+import { vitest } from 'vitest';
+
+if (condition) {
+  vitest.doMock('./foo');
+}
+      `,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: `
+import { vi as v } from 'vitest';
+
+if (condition) {
+  v.mock('./foo');
+}
+      `,
+      errors: [
+        {
+          messageId: 'hoistedApisOnTop',
+          suggestions: [
+            {
+              messageId: 'suggestMoveHoistedApiToTop',
+              output: `
+import { vi as v } from 'vitest';
+v.mock('./foo');
+
+if (condition) {
+  ;
+}
+      `,
+            },
+            {
+              messageId: 'suggestReplaceMockWithDoMock',
+              output: `
+import { vi as v } from 'vitest';
+
+if (condition) {
+  v.doMock('./foo');
+}
+      `,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: `
+import { vi as v } from 'vitest';
+
+if (condition) {
+  v.hoisted(() => {});
+}
+      `,
+      errors: [
+        {
+          messageId: 'hoistedApisOnTop',
+          suggestions: [
+            {
+              messageId: 'suggestMoveHoistedApiToTop',
+              output: `
+import { vi as v } from 'vitest';
+v.hoisted(() => {});
+
+if (condition) {
+  ;
+}
+      `,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: `
+import { vitest as v } from 'vitest';
+
+if (condition) {
+  v.unmock('./foo');
+}
+      `,
+      errors: [
+        {
+          messageId: 'hoistedApisOnTop',
+          suggestions: [
+            {
+              messageId: 'suggestMoveHoistedApiToTop',
+              output: `
+import { vitest as v } from 'vitest';
+v.unmock('./foo');
+
+if (condition) {
+  ;
+}
+      `,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: `
+import { vi } from 'vitest';
+
+if (condition) {
+  vi.mock('./foo');
+}
+      `,
+      errors: [
+        {
+          messageId: 'hoistedApisOnTop',
+          suggestions: [
+            {
+              messageId: 'suggestMoveHoistedApiToTop',
+              output: `
+import { vi } from 'vitest';
+vi.mock('./foo');
+
+if (condition) {
+  ;
+}
+      `,
+            },
+            {
+              messageId: 'suggestReplaceMockWithDoMock',
+              output: `
+import { vi } from 'vitest';
+
+if (condition) {
+  vi.doMock('./foo');
+}
       `,
             },
           ],
