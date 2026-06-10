@@ -2,70 +2,70 @@ import rule from '../src/rules/valid-expect'
 import { ruleTester } from './ruleTester'
 
 ruleTester.run(rule.name, rule, {
-	valid: [
-		'expect.hasAssertions',
-		'expect.hasAssertions()',
-		'expect("something").toEqual("else");',
-		'expect(true).toBeDefined();',
-		'expect([1, 2, 3]).toEqual([1, 2, 3]);',
-		'expect(undefined).not.toBeDefined();',
-		'test("valid-expect", () => { return expect(Promise.resolve(2)).resolves.toBeDefined(); });',
-		'test("valid-expect", () => { return expect(Promise.reject(2)).rejects.toBeDefined(); });',
-		'test("valid-expect", () => { return expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
-		'test("valid-expect", () => { return expect(Promise.resolve(2)).rejects.not.toBeDefined(); });',
-		'test("valid-expect", function () { return expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
-		'test("valid-expect", function () { return expect(Promise.resolve(2)).rejects.not.toBeDefined(); });',
-		'test("valid-expect", function () { return Promise.resolve(expect(Promise.resolve(2)).resolves.not.toBeDefined()); });',
-		'test("valid-expect", function () { return Promise.resolve(expect(Promise.resolve(2)).rejects.not.toBeDefined()); });',
-		'test("valid-expect", () => expect(Promise.resolve(2)).resolves.toBeDefined());',
-		'test("valid-expect", () => expect(Promise.reject(2)).rejects.toBeDefined());',
-		'test("valid-expect", () => expect(Promise.reject(2)).resolves.not.toBeDefined());',
-		'test("valid-expect", () => expect(Promise.reject(2)).rejects.not.toBeDefined());',
-		'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined(); });',
-		'test("valid-expect", async () => { await expect(Promise.reject(2)).rejects.not.toBeDefined(); });',
-		'test("valid-expect", async function () { await expect(Promise.reject(2)).resolves.not.toBeDefined(); });',
-		'test("valid-expect", async function () { await expect(Promise.reject(2)).rejects.not.toBeDefined(); });',
-		'test("valid-expect", async () => { await Promise.resolve(expect(Promise.reject(2)).rejects.not.toBeDefined()); });',
-		'test("valid-expect", async () => { await Promise.reject(expect(Promise.reject(2)).rejects.not.toBeDefined()); });',
-		'test("valid-expect", async () => { await Promise.all([expect(Promise.reject(2)).rejects.not.toBeDefined(), expect(Promise.reject(2)).rejects.not.toBeDefined()]); });',
-		'test("valid-expect", async () => { await Promise.race([expect(Promise.reject(2)).rejects.not.toBeDefined(), expect(Promise.reject(2)).rejects.not.toBeDefined()]); });',
-		'test("valid-expect", async () => { await Promise.allSettled([expect(Promise.reject(2)).rejects.not.toBeDefined(), expect(Promise.reject(2)).rejects.not.toBeDefined()]); });',
-		'test("valid-expect", async () => { await Promise.any([expect(Promise.reject(2)).rejects.not.toBeDefined(), expect(Promise.reject(2)).rejects.not.toBeDefined()]); });',
-		'test("valid-expect", async () => { return expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")); });',
-		'test("valid-expect", async () => { return expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).then(() => console.log("another valid case")); });',
-		'test("valid-expect", async () => { return expect(Promise.reject(2)).resolves.not.toBeDefined().catch(() => console.log("valid-case")); });',
-		'test("valid-expect", async () => { return expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).catch(() => console.log("another valid case")); });',
-		'test("valid-expect", async () => { return expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => { expect(someMock).toHaveBeenCalledTimes(1); }); });',
-		'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")); });',
-		'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).then(() => console.log("another valid case")); });',
-		'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().catch(() => console.log("valid-case")); });',
-		'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).catch(() => console.log("another valid case")); });',
-		'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => { expect(someMock).toHaveBeenCalledTimes(1); }); });',
-		'test("valid-expect", async () => { return expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("valid-case")); });',
-		'test("valid-expect", async () => { return expect(Promise.resolve(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).finally(() => console.log("cleanup")); });',
-		'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).finally(() => console.log("cleanup")).then(() => console.log("after")); });',
-		'test("valid-expect", async () => { await expect(Promise.reject(2)).rejects.not.toBeDefined().finally(() => console.log("cleanup")); });',
-		'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")).catch(() => console.log("recover")); });',
-		'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup 1")).finally(() => console.log("cleanup 2")); });',
-		'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().catch(() => console.log("recover")).finally(() => console.log("cleanup")); });',
-		'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")); });',
-		` test("valid-expect", () => {
+  valid: [
+    'expect.hasAssertions',
+    'expect.hasAssertions()',
+    'expect("something").toEqual("else");',
+    'expect(true).toBeDefined();',
+    'expect([1, 2, 3]).toEqual([1, 2, 3]);',
+    'expect(undefined).not.toBeDefined();',
+    'test("valid-expect", () => { return expect(Promise.resolve(2)).resolves.toBeDefined(); });',
+    'test("valid-expect", () => { return expect(Promise.reject(2)).rejects.toBeDefined(); });',
+    'test("valid-expect", () => { return expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
+    'test("valid-expect", () => { return expect(Promise.resolve(2)).rejects.not.toBeDefined(); });',
+    'test("valid-expect", function () { return expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
+    'test("valid-expect", function () { return expect(Promise.resolve(2)).rejects.not.toBeDefined(); });',
+    'test("valid-expect", function () { return Promise.resolve(expect(Promise.resolve(2)).resolves.not.toBeDefined()); });',
+    'test("valid-expect", function () { return Promise.resolve(expect(Promise.resolve(2)).rejects.not.toBeDefined()); });',
+    'test("valid-expect", () => expect(Promise.resolve(2)).resolves.toBeDefined());',
+    'test("valid-expect", () => expect(Promise.reject(2)).rejects.toBeDefined());',
+    'test("valid-expect", () => expect(Promise.reject(2)).resolves.not.toBeDefined());',
+    'test("valid-expect", () => expect(Promise.reject(2)).rejects.not.toBeDefined());',
+    'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined(); });',
+    'test("valid-expect", async () => { await expect(Promise.reject(2)).rejects.not.toBeDefined(); });',
+    'test("valid-expect", async function () { await expect(Promise.reject(2)).resolves.not.toBeDefined(); });',
+    'test("valid-expect", async function () { await expect(Promise.reject(2)).rejects.not.toBeDefined(); });',
+    'test("valid-expect", async () => { await Promise.resolve(expect(Promise.reject(2)).rejects.not.toBeDefined()); });',
+    'test("valid-expect", async () => { await Promise.reject(expect(Promise.reject(2)).rejects.not.toBeDefined()); });',
+    'test("valid-expect", async () => { await Promise.all([expect(Promise.reject(2)).rejects.not.toBeDefined(), expect(Promise.reject(2)).rejects.not.toBeDefined()]); });',
+    'test("valid-expect", async () => { await Promise.race([expect(Promise.reject(2)).rejects.not.toBeDefined(), expect(Promise.reject(2)).rejects.not.toBeDefined()]); });',
+    'test("valid-expect", async () => { await Promise.allSettled([expect(Promise.reject(2)).rejects.not.toBeDefined(), expect(Promise.reject(2)).rejects.not.toBeDefined()]); });',
+    'test("valid-expect", async () => { await Promise.any([expect(Promise.reject(2)).rejects.not.toBeDefined(), expect(Promise.reject(2)).rejects.not.toBeDefined()]); });',
+    'test("valid-expect", async () => { return expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")); });',
+    'test("valid-expect", async () => { return expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).then(() => console.log("another valid case")); });',
+    'test("valid-expect", async () => { return expect(Promise.reject(2)).resolves.not.toBeDefined().catch(() => console.log("valid-case")); });',
+    'test("valid-expect", async () => { return expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).catch(() => console.log("another valid case")); });',
+    'test("valid-expect", async () => { return expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => { expect(someMock).toHaveBeenCalledTimes(1); }); });',
+    'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")); });',
+    'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).then(() => console.log("another valid case")); });',
+    'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().catch(() => console.log("valid-case")); });',
+    'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).catch(() => console.log("another valid case")); });',
+    'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().then(() => { expect(someMock).toHaveBeenCalledTimes(1); }); });',
+    'test("valid-expect", async () => { return expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("valid-case")); });',
+    'test("valid-expect", async () => { return expect(Promise.resolve(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).finally(() => console.log("cleanup")); });',
+    'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined().then(() => console.log("valid-case")).finally(() => console.log("cleanup")).then(() => console.log("after")); });',
+    'test("valid-expect", async () => { await expect(Promise.reject(2)).rejects.not.toBeDefined().finally(() => console.log("cleanup")); });',
+    'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")).catch(() => console.log("recover")); });',
+    'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup 1")).finally(() => console.log("cleanup 2")); });',
+    'test("valid-expect", async () => { await expect(Promise.reject(2)).resolves.not.toBeDefined().catch(() => console.log("recover")).finally(() => console.log("cleanup")); });',
+    'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")); });',
+    ` test("valid-expect", () => {
            return expect(functionReturningAPromise()).resolves.toEqual(1).then(() => {
              return expect(Promise.resolve(2)).resolves.toBe(1);
            });
          });
        `,
-		` test("valid-expect", () => {
+    ` test("valid-expect", () => {
            return expect(functionReturningAPromise()).resolves.toEqual(1).then(async () => {
              await expect(Promise.resolve(2)).resolves.toBe(1);
            });
          });
     `,
-		` test("valid-expect", () => {
+    ` test("valid-expect", () => {
            return expect(functionReturningAPromise()).resolves.toEqual(1).then(() => expect(Promise.resolve(2)).resolves.toBe(1));
          });
        `,
-		` expect.extend({
+    ` expect.extend({
            toResolve(obj) {
              return this.isNot
                ? expect(obj).toBe(true)
@@ -73,7 +73,7 @@ ruleTester.run(rule.name, rule, {
            }
          });
        `,
-		` expect.extend({
+    ` expect.extend({
           toResolve(obj) {
             return this.isNot
               ? expect(obj).resolves.not.toThrow()
@@ -81,7 +81,7 @@ ruleTester.run(rule.name, rule, {
           }
         });
       `,
-		` expect.extend({
+    ` expect.extend({
       toResolve(obj) {
      return this.isNot
        ? expect(obj).toBe(true)
@@ -91,428 +91,428 @@ ruleTester.run(rule.name, rule, {
       }
     });
      `,
-		'expect(value, "message").toBe(1);',
-		'expect(value, `message`).toBe(1);',
-		'const message = "message"; expect(value, `${message}`).toBe(1);',
-		`it('example', () => {
+    'expect(value, "message").toBe(1);',
+    'expect(value, `message`).toBe(1);',
+    'const message = "message"; expect(value, `${message}`).toBe(1);',
+    `it('example', () => {
    expect("foo bar").to.include("foo");
 });
 `,
-		`it('example', () => {
+    `it('example', () => {
    expect("hey").to.have.property("foo", "bar")
 });
 `,
-		{
-			code: 'expect(1).toBe(2);',
-			options: [{ maxArgs: 2 }],
-		},
-		{
-			code: 'expect(1, "1 !== 2").toBe(2);',
-			options: [{ maxArgs: 2 }],
-		},
-		{
-			code: 'test("valid-expect", () => { expect(2).not.toBe(2); });',
-			options: [{ asyncMatchers: ['toRejectWith'] }],
-		},
-		{
-			code: 'test("valid-expect", () => { expect(Promise.reject(2)).toRejectWith(2); });',
-			options: [{ asyncMatchers: ['toResolveWith'] }],
-		},
-		{
-			code: 'test("valid-expect", async () => { await expect(Promise.resolve(2)).toResolve(); });',
-			options: [{ asyncMatchers: ['toResolveWith'] }],
-		},
-		{
-			code: 'test("valid-expect", async () => { expect(Promise.resolve(2)).toResolve(); });',
-			options: [{ asyncMatchers: ['toResolveWith'] }],
-		},
-		{
-			code: `expectTypeOf().returns.toMatchTypeOf();`,
-			settings: {
-				vitest: {
-					typecheck: true,
-				},
-			},
-		},
-		{
-			code: `expectTypeOf().branded.toMatchTypeOf();`,
-			settings: {
-				vitest: {
-					typecheck: true,
-				},
-			},
-		},
-		{
-			code: `expectTypeOf().asserts.toMatchTypeOf();`,
-			settings: {
-				vitest: {
-					typecheck: true,
-				},
-			},
-		},
-		{
-			code: `expectTypeOf().constructorParameters.toMatchTypeOf();`,
-			settings: {
-				vitest: {
-					typecheck: true,
-				},
-			},
-		},
-		{
-			code: `expectTypeOf().parameters.toMatchTypeOf();`,
-			settings: {
-				vitest: {
-					typecheck: true,
-				},
-			},
-		},
-		{
-			code: `expectTypeOf().thisParameter.toMatchTypeOf();`,
-			settings: {
-				vitest: {
-					typecheck: true,
-				},
-			},
-		},
-		{
-			code: `expectTypeOf().guards.toMatchTypeOf();`,
-			settings: {
-				vitest: {
-					typecheck: true,
-				},
-			},
-		},
-		{
-			code: `expectTypeOf().instance.toMatchTypeOf();`,
-			settings: {
-				vitest: {
-					typecheck: true,
-				},
-			},
-		},
-		{
-			code: `expectTypeOf().items.toMatchTypeOf();`,
-			settings: {
-				vitest: {
-					typecheck: true,
-				},
-			},
-		},
-	],
-	invalid: [
-		{
-			code: 'expect().toBe(2);',
-			options: [{ minArgs: undefined, maxArgs: undefined }],
-			errors: [
-				{
-					messageId: 'notEnoughArgs',
-					data: {
-						s: '',
-						amount: 1,
-					},
-				},
-			],
-		},
-		{
-			code: 'expect().toBe(true);',
-			errors: [
-				{
-					endColumn: 8,
-					column: 7,
-					messageId: 'notEnoughArgs',
-					data: {
-						s: '',
-						amount: 1,
-					},
-				},
-			],
-		},
-		{
-			code: 'expect().toEqual("something");',
-			errors: [
-				{
-					endColumn: 8,
-					column: 7,
-					messageId: 'notEnoughArgs',
-					data: {
-						s: '',
-						amount: 1,
-					},
-				},
-			],
-		},
-		{
-			code: 'expect("something", "else", "entirely").toEqual("something");',
-			options: [{ maxArgs: 2 }],
-			errors: [
-				{
-					endColumn: 40,
-					column: 29,
-					messageId: 'tooManyArgs',
-					data: {
-						s: 's',
-						amount: 2,
-					},
-				},
-			],
-		},
-		{
-			code: 'expect("something", "else", "entirely").toEqual("something");',
-			options: [{ maxArgs: 2, minArgs: 2 }],
-			errors: [
-				{
-					endColumn: 40,
-					column: 29,
-					messageId: 'tooManyArgs',
-					data: {
-						s: 's',
-						amount: 2,
-					},
-				},
-			],
-		},
-		{
-			code: 'expect("something", "else", "entirely").toEqual("something");',
-			options: [{ maxArgs: 2, minArgs: 1 }],
-			errors: [
-				{
-					endColumn: 40,
-					column: 29,
-					messageId: 'tooManyArgs',
-					data: {
-						s: 's',
-						amount: 2,
-					},
-				},
-			],
-		},
-		{
-			code: 'expect("something").toEqual("something");',
-			options: [{ minArgs: 2 }],
-			errors: [
-				{
-					endColumn: 8,
-					column: 7,
-					messageId: 'notEnoughArgs',
-					data: {
-						s: 's',
-						amount: 2,
-					},
-				},
-			],
-		},
-		{
-			code: 'expect("something", "else").toEqual("something");',
-			options: [{ maxArgs: 1, minArgs: 3 }],
-			errors: [
-				{
-					endColumn: 8,
-					column: 7,
-					messageId: 'notEnoughArgs',
-					data: {
-						s: 's',
-						amount: 3,
-					},
-				},
-			],
-		},
-		// expect() 2nd argument to be a string literal
-		{
-			code: 'expect("something", true).toEqual("something");',
-			errors: [
-				{
-					endColumn: 26,
-					column: 21,
-					messageId: 'tooManyArgs',
-				},
-			],
-		},
-		{
-			code: 'expect("something", 12).toEqual("something");',
-			errors: [
-				{
-					endColumn: 24,
-					column: 21,
-					messageId: 'tooManyArgs',
-				},
-			],
-		},
-		{
-			code: 'expect("something", {}).toEqual("something");',
-			errors: [
-				{
-					endColumn: 24,
-					column: 21,
-					messageId: 'tooManyArgs',
-				},
-			],
-		},
-		{
-			code: 'expect("something", []).toEqual("something");',
-			errors: [
-				{
-					endColumn: 24,
-					column: 21,
-					messageId: 'tooManyArgs',
-				},
-			],
-		},
-		// expect(value, "string literal") is valid, but expect(value, variable) is not
-		// because the AST does not have type information for variables
-		{
-			code: `const message = "message";
+    {
+      code: 'expect(1).toBe(2);',
+      options: [{ maxArgs: 2 }],
+    },
+    {
+      code: 'expect(1, "1 !== 2").toBe(2);',
+      options: [{ maxArgs: 2 }],
+    },
+    {
+      code: 'test("valid-expect", () => { expect(2).not.toBe(2); });',
+      options: [{ asyncMatchers: ['toRejectWith'] }],
+    },
+    {
+      code: 'test("valid-expect", () => { expect(Promise.reject(2)).toRejectWith(2); });',
+      options: [{ asyncMatchers: ['toResolveWith'] }],
+    },
+    {
+      code: 'test("valid-expect", async () => { await expect(Promise.resolve(2)).toResolve(); });',
+      options: [{ asyncMatchers: ['toResolveWith'] }],
+    },
+    {
+      code: 'test("valid-expect", async () => { expect(Promise.resolve(2)).toResolve(); });',
+      options: [{ asyncMatchers: ['toResolveWith'] }],
+    },
+    {
+      code: `expectTypeOf().returns.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true,
+        },
+      },
+    },
+    {
+      code: `expectTypeOf().branded.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true,
+        },
+      },
+    },
+    {
+      code: `expectTypeOf().asserts.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true,
+        },
+      },
+    },
+    {
+      code: `expectTypeOf().constructorParameters.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true,
+        },
+      },
+    },
+    {
+      code: `expectTypeOf().parameters.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true,
+        },
+      },
+    },
+    {
+      code: `expectTypeOf().thisParameter.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true,
+        },
+      },
+    },
+    {
+      code: `expectTypeOf().guards.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true,
+        },
+      },
+    },
+    {
+      code: `expectTypeOf().instance.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true,
+        },
+      },
+    },
+    {
+      code: `expectTypeOf().items.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true,
+        },
+      },
+    },
+  ],
+  invalid: [
+    {
+      code: 'expect().toBe(2);',
+      options: [{ minArgs: undefined, maxArgs: undefined }],
+      errors: [
+        {
+          messageId: 'notEnoughArgs',
+          data: {
+            s: '',
+            amount: 1,
+          },
+        },
+      ],
+    },
+    {
+      code: 'expect().toBe(true);',
+      errors: [
+        {
+          endColumn: 8,
+          column: 7,
+          messageId: 'notEnoughArgs',
+          data: {
+            s: '',
+            amount: 1,
+          },
+        },
+      ],
+    },
+    {
+      code: 'expect().toEqual("something");',
+      errors: [
+        {
+          endColumn: 8,
+          column: 7,
+          messageId: 'notEnoughArgs',
+          data: {
+            s: '',
+            amount: 1,
+          },
+        },
+      ],
+    },
+    {
+      code: 'expect("something", "else", "entirely").toEqual("something");',
+      options: [{ maxArgs: 2 }],
+      errors: [
+        {
+          endColumn: 40,
+          column: 29,
+          messageId: 'tooManyArgs',
+          data: {
+            s: 's',
+            amount: 2,
+          },
+        },
+      ],
+    },
+    {
+      code: 'expect("something", "else", "entirely").toEqual("something");',
+      options: [{ maxArgs: 2, minArgs: 2 }],
+      errors: [
+        {
+          endColumn: 40,
+          column: 29,
+          messageId: 'tooManyArgs',
+          data: {
+            s: 's',
+            amount: 2,
+          },
+        },
+      ],
+    },
+    {
+      code: 'expect("something", "else", "entirely").toEqual("something");',
+      options: [{ maxArgs: 2, minArgs: 1 }],
+      errors: [
+        {
+          endColumn: 40,
+          column: 29,
+          messageId: 'tooManyArgs',
+          data: {
+            s: 's',
+            amount: 2,
+          },
+        },
+      ],
+    },
+    {
+      code: 'expect("something").toEqual("something");',
+      options: [{ minArgs: 2 }],
+      errors: [
+        {
+          endColumn: 8,
+          column: 7,
+          messageId: 'notEnoughArgs',
+          data: {
+            s: 's',
+            amount: 2,
+          },
+        },
+      ],
+    },
+    {
+      code: 'expect("something", "else").toEqual("something");',
+      options: [{ maxArgs: 1, minArgs: 3 }],
+      errors: [
+        {
+          endColumn: 8,
+          column: 7,
+          messageId: 'notEnoughArgs',
+          data: {
+            s: 's',
+            amount: 3,
+          },
+        },
+      ],
+    },
+    // expect() 2nd argument to be a string literal
+    {
+      code: 'expect("something", true).toEqual("something");',
+      errors: [
+        {
+          endColumn: 26,
+          column: 21,
+          messageId: 'tooManyArgs',
+        },
+      ],
+    },
+    {
+      code: 'expect("something", 12).toEqual("something");',
+      errors: [
+        {
+          endColumn: 24,
+          column: 21,
+          messageId: 'tooManyArgs',
+        },
+      ],
+    },
+    {
+      code: 'expect("something", {}).toEqual("something");',
+      errors: [
+        {
+          endColumn: 24,
+          column: 21,
+          messageId: 'tooManyArgs',
+        },
+      ],
+    },
+    {
+      code: 'expect("something", []).toEqual("something");',
+      errors: [
+        {
+          endColumn: 24,
+          column: 21,
+          messageId: 'tooManyArgs',
+        },
+      ],
+    },
+    // expect(value, "string literal") is valid, but expect(value, variable) is not
+    // because the AST does not have type information for variables
+    {
+      code: `const message = "message";
       expect(1, message).toBe(2);`,
-			errors: [
-				{
-					endColumn: 25,
-					column: 17,
-					messageId: 'tooManyArgs',
-				},
-			],
-		},
-		{
-			code: 'expect("something");',
-			errors: [{ endColumn: 20, column: 1, messageId: 'matcherNotFound' }],
-		},
-		{
-			code: 'expect();',
-			errors: [{ endColumn: 9, column: 1, messageId: 'matcherNotFound' }],
-		},
-		{
-			code: 'expect(true).toBeDefined;',
-			errors: [
-				{
-					endColumn: 25,
-					column: 14,
-					messageId: 'matcherNotCalled',
-				},
-			],
-		},
-		{
-			code: 'expect(true).not.toBeDefined;',
-			errors: [
-				{
-					endColumn: 29,
-					column: 18,
-					messageId: 'matcherNotCalled',
-				},
-			],
-		},
-		{
-			code: 'expect(true).nope.toBeDefined;',
-			errors: [
-				{
-					endColumn: 30,
-					column: 19,
-					messageId: 'matcherNotCalled',
-				},
-			],
-		},
-		{
-			code: 'expect(true).nope.toBeDefined();',
-			errors: [
-				{
-					endColumn: 32,
-					column: 1,
-					messageId: 'modifierUnknown',
-				},
-			],
-		},
-		{
-			code: 'expect(true).not.resolves.toBeDefined();',
-			errors: [
-				{
-					endColumn: 40,
-					column: 1,
-					messageId: 'modifierUnknown',
-				},
-			],
-		},
-		{
-			code: 'expect(true).not.not.toBeDefined();',
-			errors: [
-				{
-					endColumn: 35,
-					column: 1,
-					messageId: 'modifierUnknown',
-				},
-			],
-		},
-		{
-			code: 'expect(true).resolves.not.exactly.toBeDefined();',
-			errors: [
-				{
-					endColumn: 48,
-					column: 1,
-					messageId: 'modifierUnknown',
-				},
-			],
-		},
-		{
-			code: 'expect(true).resolves;',
-			errors: [
-				{
-					endColumn: 22,
-					column: 14,
-					messageId: 'matcherNotFound',
-				},
-			],
-		},
-		{
-			code: 'expect(true).rejects;',
-			errors: [
-				{
-					endColumn: 21,
-					column: 14,
-					messageId: 'matcherNotFound',
-				},
-			],
-		},
-		{
-			code: 'expect(true).not;',
-			errors: [
-				{
-					endColumn: 17,
-					column: 14,
-					messageId: 'matcherNotFound',
-				},
-			],
-		},
-		{
-			code: 'expect(Promise.resolve(2)).resolves.toBeDefined();',
-			errors: [
-				{
-					column: 1,
-					endColumn: 50,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-		{
-			code: 'expect(Promise.resolve(2)).rejects.toBeDefined();',
-			errors: [
-				{
-					column: 1,
-					endColumn: 49,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-		{
-			code: 'expect(Promise.resolve(2)).resolves.toBeDefined();',
-			options: [{ alwaysAwait: true }],
-			errors: [
-				{
-					column: 1,
-					endColumn: 50,
-					messageId: 'asyncMustBeAwaited',
-				},
-			],
-		},
-		{
-			code: `
+      errors: [
+        {
+          endColumn: 25,
+          column: 17,
+          messageId: 'tooManyArgs',
+        },
+      ],
+    },
+    {
+      code: 'expect("something");',
+      errors: [{ endColumn: 20, column: 1, messageId: 'matcherNotFound' }],
+    },
+    {
+      code: 'expect();',
+      errors: [{ endColumn: 9, column: 1, messageId: 'matcherNotFound' }],
+    },
+    {
+      code: 'expect(true).toBeDefined;',
+      errors: [
+        {
+          endColumn: 25,
+          column: 14,
+          messageId: 'matcherNotCalled',
+        },
+      ],
+    },
+    {
+      code: 'expect(true).not.toBeDefined;',
+      errors: [
+        {
+          endColumn: 29,
+          column: 18,
+          messageId: 'matcherNotCalled',
+        },
+      ],
+    },
+    {
+      code: 'expect(true).nope.toBeDefined;',
+      errors: [
+        {
+          endColumn: 30,
+          column: 19,
+          messageId: 'matcherNotCalled',
+        },
+      ],
+    },
+    {
+      code: 'expect(true).nope.toBeDefined();',
+      errors: [
+        {
+          endColumn: 32,
+          column: 1,
+          messageId: 'modifierUnknown',
+        },
+      ],
+    },
+    {
+      code: 'expect(true).not.resolves.toBeDefined();',
+      errors: [
+        {
+          endColumn: 40,
+          column: 1,
+          messageId: 'modifierUnknown',
+        },
+      ],
+    },
+    {
+      code: 'expect(true).not.not.toBeDefined();',
+      errors: [
+        {
+          endColumn: 35,
+          column: 1,
+          messageId: 'modifierUnknown',
+        },
+      ],
+    },
+    {
+      code: 'expect(true).resolves.not.exactly.toBeDefined();',
+      errors: [
+        {
+          endColumn: 48,
+          column: 1,
+          messageId: 'modifierUnknown',
+        },
+      ],
+    },
+    {
+      code: 'expect(true).resolves;',
+      errors: [
+        {
+          endColumn: 22,
+          column: 14,
+          messageId: 'matcherNotFound',
+        },
+      ],
+    },
+    {
+      code: 'expect(true).rejects;',
+      errors: [
+        {
+          endColumn: 21,
+          column: 14,
+          messageId: 'matcherNotFound',
+        },
+      ],
+    },
+    {
+      code: 'expect(true).not;',
+      errors: [
+        {
+          endColumn: 17,
+          column: 14,
+          messageId: 'matcherNotFound',
+        },
+      ],
+    },
+    {
+      code: 'expect(Promise.resolve(2)).resolves.toBeDefined();',
+      errors: [
+        {
+          column: 1,
+          endColumn: 50,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+    {
+      code: 'expect(Promise.resolve(2)).rejects.toBeDefined();',
+      errors: [
+        {
+          column: 1,
+          endColumn: 49,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+    {
+      code: 'expect(Promise.resolve(2)).resolves.toBeDefined();',
+      options: [{ alwaysAwait: true }],
+      errors: [
+        {
+          column: 1,
+          endColumn: 50,
+          messageId: 'asyncMustBeAwaited',
+        },
+      ],
+    },
+    {
+      code: `
      expect.extend({
        toResolve(obj) {
       this.isNot
@@ -521,7 +521,7 @@ ruleTester.run(rule.name, rule, {
        }
      });
       `,
-			output: `
+      output: `
      expect.extend({
        async toResolve(obj) {
       this.isNot
@@ -530,16 +530,16 @@ ruleTester.run(rule.name, rule, {
        }
      });
       `,
-			errors: [
-				{
-					column: 11,
-					endColumn: 45,
-					messageId: 'asyncMustBeAwaited',
-				},
-			],
-		},
-		{
-			code: `
+      errors: [
+        {
+          column: 11,
+          endColumn: 45,
+          messageId: 'asyncMustBeAwaited',
+        },
+      ],
+    },
+    {
+      code: `
      expect.extend({
        toResolve(obj) {
       this.isNot
@@ -548,7 +548,7 @@ ruleTester.run(rule.name, rule, {
        }
      });
       `,
-			output: `
+      output: `
      expect.extend({
        async toResolve(obj) {
       this.isNot
@@ -557,320 +557,320 @@ ruleTester.run(rule.name, rule, {
        }
      });
       `,
-			errors: [
-				{
-					column: 11,
-					endColumn: 45,
-					messageId: 'asyncMustBeAwaited',
-				},
-			],
-		},
-		{
-			code: 'test("valid-expect", () => { expect(Promise.resolve(2)).resolves.toBeDefined(); });',
-			output:
-				'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.toBeDefined(); });',
-			errors: [
-				{
-					column: 30,
-					endColumn: 79,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-		{
-			code: 'test("valid-expect", () => { expect(Promise.resolve(2)).toResolve(); });',
-			output:
-				'test("valid-expect", async () => { await expect(Promise.resolve(2)).toResolve(); });',
-			errors: [
-				{
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-					column: 30,
-					line: 1,
-				},
-			],
-		},
-		{
-			code: 'test("valid-expect", () => { expect(Promise.resolve(2)).toResolve(); });',
-			output:
-				'test("valid-expect", async () => { await expect(Promise.resolve(2)).toResolve(); });',
-			options: [{ asyncMatchers: undefined }],
-			errors: [
-				{
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-					column: 30,
-					line: 1,
-				},
-			],
-		},
-		{
-			code: 'test("valid-expect", () => { expect(Promise.resolve(2)).toReject(); });',
-			output:
-				'test("valid-expect", async () => { await expect(Promise.resolve(2)).toReject(); });',
-			errors: [
-				{
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-					column: 30,
-					line: 1,
-				},
-			],
-		},
-		{
-			code: 'test("valid-expect", () => { expect(Promise.resolve(2)).not.toReject(); });',
-			output:
-				'test("valid-expect", async () => { await expect(Promise.resolve(2)).not.toReject(); });',
-			errors: [
-				{
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-					column: 30,
-					line: 1,
-				},
-			],
-		},
-		{
-			code: 'test("valid-expect", () => { expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
-			output:
-				'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
-			errors: [
-				{
-					column: 30,
-					endColumn: 83,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-		{
-			code: 'test("valid-expect", () => { expect(Promise.resolve(2)).rejects.toBeDefined(); });',
-			output:
-				'test("valid-expect", async () => { await expect(Promise.resolve(2)).rejects.toBeDefined(); });',
-			errors: [
-				{
-					column: 30,
-					endColumn: 78,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-		{
-			code: 'test("valid-expect", () => { expect(Promise.resolve(2)).rejects.not.toBeDefined(); });',
-			output:
-				'test("valid-expect", async () => { await expect(Promise.resolve(2)).rejects.not.toBeDefined(); });',
-			errors: [
-				{
-					column: 30,
-					endColumn: 82,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-		{
-			code: 'test("valid-expect", async () => { expect(Promise.resolve(2)).resolves.toBeDefined(); });',
-			output:
-				'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.toBeDefined(); });',
-			errors: [
-				{
-					column: 36,
-					endColumn: 85,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-		{
-			code: 'test("valid-expect", async () => { expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
-			output:
-				'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
-			errors: [
-				{
-					column: 36,
-					endColumn: 89,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-		{
-			code: 'test("valid-expect", () => { expect(Promise.reject(2)).toRejectWith(2); });',
-			output:
-				'test("valid-expect", async () => { await expect(Promise.reject(2)).toRejectWith(2); });',
-			options: [{ asyncMatchers: ['toRejectWith'] }],
-			errors: [
-				{
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-					column: 30,
-				},
-			],
-		},
-		{
-			code: 'test("valid-expect", () => { expect(Promise.reject(2)).rejects.toBe(2); });',
-			output:
-				'test("valid-expect", async () => { await expect(Promise.reject(2)).rejects.toBe(2); });',
-			options: [{ asyncMatchers: ['toRejectWith'] }],
-			errors: [
-				{
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-					column: 30,
-				},
-			],
-		},
-		{
-			code: `
+      errors: [
+        {
+          column: 11,
+          endColumn: 45,
+          messageId: 'asyncMustBeAwaited',
+        },
+      ],
+    },
+    {
+      code: 'test("valid-expect", () => { expect(Promise.resolve(2)).resolves.toBeDefined(); });',
+      output:
+        'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.toBeDefined(); });',
+      errors: [
+        {
+          column: 30,
+          endColumn: 79,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+    {
+      code: 'test("valid-expect", () => { expect(Promise.resolve(2)).toResolve(); });',
+      output:
+        'test("valid-expect", async () => { await expect(Promise.resolve(2)).toResolve(); });',
+      errors: [
+        {
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+          column: 30,
+          line: 1,
+        },
+      ],
+    },
+    {
+      code: 'test("valid-expect", () => { expect(Promise.resolve(2)).toResolve(); });',
+      output:
+        'test("valid-expect", async () => { await expect(Promise.resolve(2)).toResolve(); });',
+      options: [{ asyncMatchers: undefined }],
+      errors: [
+        {
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+          column: 30,
+          line: 1,
+        },
+      ],
+    },
+    {
+      code: 'test("valid-expect", () => { expect(Promise.resolve(2)).toReject(); });',
+      output:
+        'test("valid-expect", async () => { await expect(Promise.resolve(2)).toReject(); });',
+      errors: [
+        {
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+          column: 30,
+          line: 1,
+        },
+      ],
+    },
+    {
+      code: 'test("valid-expect", () => { expect(Promise.resolve(2)).not.toReject(); });',
+      output:
+        'test("valid-expect", async () => { await expect(Promise.resolve(2)).not.toReject(); });',
+      errors: [
+        {
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+          column: 30,
+          line: 1,
+        },
+      ],
+    },
+    {
+      code: 'test("valid-expect", () => { expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
+      output:
+        'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
+      errors: [
+        {
+          column: 30,
+          endColumn: 83,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+    {
+      code: 'test("valid-expect", () => { expect(Promise.resolve(2)).rejects.toBeDefined(); });',
+      output:
+        'test("valid-expect", async () => { await expect(Promise.resolve(2)).rejects.toBeDefined(); });',
+      errors: [
+        {
+          column: 30,
+          endColumn: 78,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+    {
+      code: 'test("valid-expect", () => { expect(Promise.resolve(2)).rejects.not.toBeDefined(); });',
+      output:
+        'test("valid-expect", async () => { await expect(Promise.resolve(2)).rejects.not.toBeDefined(); });',
+      errors: [
+        {
+          column: 30,
+          endColumn: 82,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+    {
+      code: 'test("valid-expect", async () => { expect(Promise.resolve(2)).resolves.toBeDefined(); });',
+      output:
+        'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.toBeDefined(); });',
+      errors: [
+        {
+          column: 36,
+          endColumn: 85,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+    {
+      code: 'test("valid-expect", async () => { expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
+      output:
+        'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
+      errors: [
+        {
+          column: 36,
+          endColumn: 89,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+    {
+      code: 'test("valid-expect", () => { expect(Promise.reject(2)).toRejectWith(2); });',
+      output:
+        'test("valid-expect", async () => { await expect(Promise.reject(2)).toRejectWith(2); });',
+      options: [{ asyncMatchers: ['toRejectWith'] }],
+      errors: [
+        {
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+          column: 30,
+        },
+      ],
+    },
+    {
+      code: 'test("valid-expect", () => { expect(Promise.reject(2)).rejects.toBe(2); });',
+      output:
+        'test("valid-expect", async () => { await expect(Promise.reject(2)).rejects.toBe(2); });',
+      options: [{ asyncMatchers: ['toRejectWith'] }],
+      errors: [
+        {
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+          column: 30,
+        },
+      ],
+    },
+    {
+      code: `
        test("valid-expect", async () => {
       expect(Promise.resolve(2)).resolves.not.toBeDefined();
       expect(Promise.resolve(1)).rejects.toBeDefined();
        });
      `,
-			output: `
+      output: `
        test("valid-expect", async () => {
       await expect(Promise.resolve(2)).resolves.not.toBeDefined();
       await expect(Promise.resolve(1)).rejects.toBeDefined();
        });
      `,
-			errors: [
-				{
-					line: 3,
-					column: 7,
-					endColumn: 60,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-				{
-					line: 4,
-					column: 7,
-					endColumn: 55,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-		{
-			code: `
+      errors: [
+        {
+          line: 3,
+          column: 7,
+          endColumn: 60,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+        {
+          line: 4,
+          column: 7,
+          endColumn: 55,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+    {
+      code: `
        test("valid-expect", async () => {
       await expect(Promise.resolve(2)).resolves.not.toBeDefined();
       expect(Promise.resolve(1)).rejects.toBeDefined();
        });
      `,
-			output: `
+      output: `
        test("valid-expect", async () => {
       await expect(Promise.resolve(2)).resolves.not.toBeDefined();
       await expect(Promise.resolve(1)).rejects.toBeDefined();
        });
      `,
-			errors: [
-				{
-					line: 4,
-					column: 7,
-					endColumn: 55,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-		{
-			code: `
+      errors: [
+        {
+          line: 4,
+          column: 7,
+          endColumn: 55,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+    {
+      code: `
        test("valid-expect", async () => {
       expect(Promise.resolve(2)).resolves.not.toBeDefined();
       return expect(Promise.resolve(1)).rejects.toBeDefined();
        });
      `,
-			output: `
+      output: `
        test("valid-expect", async () => {
       await expect(Promise.resolve(2)).resolves.not.toBeDefined();
       await expect(Promise.resolve(1)).rejects.toBeDefined();
        });
      `,
-			options: [{ alwaysAwait: true }],
-			errors: [
-				{
-					line: 3,
-					column: 7,
-					endColumn: 60,
-					messageId: 'asyncMustBeAwaited',
-				},
-				{
-					line: 4,
-					column: 14,
-					endColumn: 62,
-					messageId: 'asyncMustBeAwaited',
-				},
-			],
-		},
-		{
-			code: `
+      options: [{ alwaysAwait: true }],
+      errors: [
+        {
+          line: 3,
+          column: 7,
+          endColumn: 60,
+          messageId: 'asyncMustBeAwaited',
+        },
+        {
+          line: 4,
+          column: 14,
+          endColumn: 62,
+          messageId: 'asyncMustBeAwaited',
+        },
+      ],
+    },
+    {
+      code: `
        test("valid-expect", async () => {
       expect(Promise.resolve(2)).resolves.not.toBeDefined();
       return expect(Promise.resolve(1)).rejects.toBeDefined();
        });
      `,
-			output: `
+      output: `
        test("valid-expect", async () => {
       await expect(Promise.resolve(2)).resolves.not.toBeDefined();
       return expect(Promise.resolve(1)).rejects.toBeDefined();
        });
      `,
-			errors: [
-				{
-					line: 3,
-					column: 7,
-					endColumn: 60,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-		{
-			code: `
+      errors: [
+        {
+          line: 3,
+          column: 7,
+          endColumn: 60,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+    {
+      code: `
        test("valid-expect", () => {
       Promise.x(expect(Promise.resolve(2)).resolves.not.toBeDefined());
        });
      `,
-			output: `
+      output: `
        test("valid-expect", async () => {
       await Promise.x(expect(Promise.resolve(2)).resolves.not.toBeDefined());
        });
      `,
-			errors: [
-				{
-					line: 3,
-					column: 7,
-					endColumn: 71,
-					messageId: 'promisesWithAsyncAssertionsMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-		{
-			code: `
+      errors: [
+        {
+          line: 3,
+          column: 7,
+          endColumn: 71,
+          messageId: 'promisesWithAsyncAssertionsMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+    {
+      code: `
      test("valid-expect", () => {
        Promise.resolve(expect(Promise.resolve(2)).resolves.not.toBeDefined());
      });
       `,
-			output: `
+      output: `
      test("valid-expect", async () => {
        await Promise.resolve(expect(Promise.resolve(2)).resolves.not.toBeDefined());
      });
       `,
-			options: [{ alwaysAwait: true }],
-			errors: [
-				{
-					line: 3,
-					column: 8,
-					endColumn: 78,
-					messageId: 'promisesWithAsyncAssertionsMustBeAwaited',
-				},
-			],
-		},
-		{
-			code: `
+      options: [{ alwaysAwait: true }],
+      errors: [
+        {
+          line: 3,
+          column: 8,
+          endColumn: 78,
+          messageId: 'promisesWithAsyncAssertionsMustBeAwaited',
+        },
+      ],
+    },
+    {
+      code: `
      test("valid-expect", () => {
       Promise.all([
         expect(Promise.resolve(2)).resolves.not.toBeDefined(),
@@ -878,7 +878,7 @@ ruleTester.run(rule.name, rule, {
       ]);
        });
        `,
-			output: `
+      output: `
      test("valid-expect", async () => {
       await Promise.all([
         expect(Promise.resolve(2)).resolves.not.toBeDefined(),
@@ -886,45 +886,45 @@ ruleTester.run(rule.name, rule, {
       ]);
        });
        `,
-			errors: [
-				{
-					line: 3,
-					column: 7,
-					endLine: 6,
-					endColumn: 9,
-					messageId: 'promisesWithAsyncAssertionsMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-		{
-			code: `
+      errors: [
+        {
+          line: 3,
+          column: 7,
+          endLine: 6,
+          endColumn: 9,
+          messageId: 'promisesWithAsyncAssertionsMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+    {
+      code: `
      test("valid-expect", () => {
       Promise.x([
         expect(Promise.resolve(2)).resolves.not.toBeDefined(),
         expect(Promise.resolve(3)).resolves.not.toBeDefined(),
       ]);
        });`,
-			output: `
+      output: `
      test("valid-expect", async () => {
       await Promise.x([
         expect(Promise.resolve(2)).resolves.not.toBeDefined(),
         expect(Promise.resolve(3)).resolves.not.toBeDefined(),
       ]);
        });`,
-			errors: [
-				{
-					line: 3,
-					column: 7,
-					endLine: 6,
-					endColumn: 9,
-					messageId: 'promisesWithAsyncAssertionsMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-		{
-			code: `
+      errors: [
+        {
+          line: 3,
+          column: 7,
+          endLine: 6,
+          endColumn: 9,
+          messageId: 'promisesWithAsyncAssertionsMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+    {
+      code: `
        test("valid-expect", () => {
       const assertions = [
         expect(Promise.resolve(2)).resolves.not.toBeDefined(),
@@ -932,7 +932,7 @@ ruleTester.run(rule.name, rule, {
       ]
        });
      `,
-			output: `
+      output: `
        test("valid-expect", async () => {
       const assertions = [
         await expect(Promise.resolve(2)).resolves.not.toBeDefined(),
@@ -940,27 +940,27 @@ ruleTester.run(rule.name, rule, {
       ]
        });
      `,
-			errors: [
-				{
-					line: 4,
-					column: 9,
-					endLine: 4,
-					endColumn: 62,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-				{
-					line: 5,
-					column: 9,
-					endLine: 5,
-					endColumn: 62,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-		{
-			code: `
+      errors: [
+        {
+          line: 4,
+          column: 9,
+          endLine: 4,
+          endColumn: 62,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+        {
+          line: 5,
+          column: 9,
+          endLine: 5,
+          endColumn: 62,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+    {
+      code: `
      test("valid-expect", () => {
        const assertions = [
       expect(Promise.resolve(2)).toResolve(),
@@ -968,7 +968,7 @@ ruleTester.run(rule.name, rule, {
        ]
      });
       `,
-			output: `
+      output: `
      test("valid-expect", async () => {
        const assertions = [
       await expect(Promise.resolve(2)).toResolve(),
@@ -976,23 +976,23 @@ ruleTester.run(rule.name, rule, {
        ]
      });
       `,
-			errors: [
-				{
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-					column: 7,
-					line: 4,
-				},
-				{
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-					column: 7,
-					line: 5,
-				},
-			],
-		},
-		{
-			code: `
+      errors: [
+        {
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+          column: 7,
+          line: 4,
+        },
+        {
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+          column: 7,
+          line: 5,
+        },
+      ],
+    },
+    {
+      code: `
        test("valid-expect", () => {
       const assertions = [
         expect(Promise.resolve(2)).not.toResolve(),
@@ -1000,7 +1000,7 @@ ruleTester.run(rule.name, rule, {
       ]
        });
      `,
-			output: `
+      output: `
        test("valid-expect", async () => {
       const assertions = [
         await expect(Promise.resolve(2)).not.toResolve(),
@@ -1008,59 +1008,59 @@ ruleTester.run(rule.name, rule, {
       ]
        });
      `,
-			errors: [
-				{
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-					column: 9,
-					line: 4,
-				},
-				{
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-					column: 9,
-					line: 5,
-				},
-			],
-		},
-		{
-			code: 'expect(Promise.resolve(2)).resolves.toBe;',
-			errors: [
-				{
-					column: 37,
-					endColumn: 41,
-					messageId: 'matcherNotCalled',
-				},
-			],
-		},
-		{
-			code: `
+      errors: [
+        {
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+          column: 9,
+          line: 4,
+        },
+        {
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+          column: 9,
+          line: 5,
+        },
+      ],
+    },
+    {
+      code: 'expect(Promise.resolve(2)).resolves.toBe;',
+      errors: [
+        {
+          column: 37,
+          endColumn: 41,
+          messageId: 'matcherNotCalled',
+        },
+      ],
+    },
+    {
+      code: `
        test("valid-expect", () => {
       return expect(functionReturningAPromise()).resolves.toEqual(1).then(() => {
         expect(Promise.resolve(2)).resolves.toBe(1);
       });
        });
      `,
-			output: `
+      output: `
        test("valid-expect", () => {
       return expect(functionReturningAPromise()).resolves.toEqual(1).then(async () => {
         await expect(Promise.resolve(2)).resolves.toBe(1);
       });
        });
      `,
-			errors: [
-				{
-					line: 4,
-					column: 9,
-					endLine: 4,
-					endColumn: 52,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-		{
-			code: `
+      errors: [
+        {
+          line: 4,
+          column: 9,
+          endLine: 4,
+          endColumn: 52,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+    {
+      code: `
        test("valid-expect", () => {
       return expect(functionReturningAPromise()).resolves.toEqual(1).then(async () => {
         await expect(Promise.resolve(2)).resolves.toBe(1);
@@ -1068,7 +1068,7 @@ ruleTester.run(rule.name, rule, {
       });
        });
      `,
-			output: `
+      output: `
        test("valid-expect", () => {
       return expect(functionReturningAPromise()).resolves.toEqual(1).then(async () => {
         await expect(Promise.resolve(2)).resolves.toBe(1);
@@ -1076,43 +1076,43 @@ ruleTester.run(rule.name, rule, {
       });
        });
      `,
-			errors: [
-				{
-					line: 5,
-					column: 9,
-					endLine: 5,
-					endColumn: 52,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-		{
-			code: `
+      errors: [
+        {
+          line: 5,
+          column: 9,
+          endLine: 5,
+          endColumn: 52,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+    {
+      code: `
        test("valid-expect", async () => {
       await expect(Promise.resolve(1));
        });
      `,
-			errors: [{ endColumn: 39, column: 13, messageId: 'matcherNotFound' }],
-		},
-		{
-			code: 'test("valid-expect", async () => { expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")); });',
-			output:
-				'test("valid-expect", async () => { await await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")); });',
-			errors: [
-				{
-					column: 36,
-					endColumn: 127,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-				{
-					column: 36,
-					endColumn: 127,
-					messageId: 'asyncMustBeAwaited',
-					data: { orReturned: ' or returned' },
-				},
-			],
-		},
-	],
+      errors: [{ endColumn: 39, column: 13, messageId: 'matcherNotFound' }],
+    },
+    {
+      code: 'test("valid-expect", async () => { expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")); });',
+      output:
+        'test("valid-expect", async () => { await await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")); });',
+      errors: [
+        {
+          column: 36,
+          endColumn: 127,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+        {
+          column: 36,
+          endColumn: 127,
+          messageId: 'asyncMustBeAwaited',
+          data: { orReturned: ' or returned' },
+        },
+      ],
+    },
+  ],
 })
