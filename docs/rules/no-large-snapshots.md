@@ -14,11 +14,11 @@ This rule aims to prevent large snapshots.
 
 <!-- begin auto-generated rule options list -->
 
-| Name               | Description                                            | Type   |
-| :----------------- | :----------------------------------------------------- | :----- |
-| `allowedSnapshots` | Allowed snapshot names by absolute snapshot file path. | Object |
-| `inlineMaxSize`    | Maximum number of lines allowed in inline snapshots.   | Number |
-| `maxSize`          | Maximum number of lines allowed in external snapshots. | Number |
+| Name               | Description                                                                                                                                                          | Type   |
+| :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----- |
+| `allowedSnapshots` | A map of snapshot absolute file paths to arrays of snapshot names that are allowed to exceed the size limit. Snapshot names can be specified as regular expressions. | Object |
+| `inlineMaxSize`    | Maximum number of lines allowed in inline snapshots.                                                                                                                 | Number |
+| `maxSize`          | Maximum number of lines allowed in external snapshots.                                                                                                               | Number |
 
 <!-- end auto-generated rule options list -->
 
@@ -26,7 +26,7 @@ This rule accepts an object with the following properties:
 
 - `maxSize` (default: `50`): The maximum size of a snapshot.
 - `inlineMaxSize` (default: `0`): The maximum size of a snapshot when it is inline.
-- `allowedSnapshots` (default: `[]`): The list of allowed snapshots.
+- `allowedSnapshots` (default: `{}`): The list of allowed snapshots.
 
 ### For example:
 
@@ -37,7 +37,7 @@ This rule accepts an object with the following properties:
     {
       "maxSize": 50,
       "inlineMaxSize": 0,
-      "allowedSnapshots": []
+      "allowedSnapshots": {}
     }
   ]
 }

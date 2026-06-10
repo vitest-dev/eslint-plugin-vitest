@@ -1,5 +1,5 @@
-import { isAbsolute } from 'node:path'
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
+import { isAbsolute } from 'node:path'
 import {
   createEslintRule,
   getAccessorValue,
@@ -95,7 +95,7 @@ export default createEslintRule<[RuleOptions], MESSAGE_IDS>({
           },
           allowedSnapshots: {
             description:
-              'Allowed snapshot names by absolute snapshot file path.',
+              'A map of snapshot absolute file paths to arrays of snapshot names that are allowed to exceed the size limit. Snapshot names can be specified as regular expressions.',
             type: 'object',
             additionalProperties: { type: 'array' },
           },

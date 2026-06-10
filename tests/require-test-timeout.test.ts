@@ -36,6 +36,13 @@ ruleTester.run(RULE_NAME, rule, {
     // in-source unit tests
     'if (import.meta.vitest) { const opts = { timeout: 500 }; describe("outer", () => { it("repro: same-file opts object", opts, () => {}); }); }',
     'if (import.meta.vitest) { const T = 500; describe("outer", () => { describe("inner", () => { it("repro: same-file const timeout", () => {}, T); }); }); }',
+    // imported const used as the timeout argument (#892)
+    'import { TIMEOUT } from "./test-constants"; test("a", () => {}, TIMEOUT)',
+    'import { TIMEOUT } from "./test-constants"; it("a", () => {}, TIMEOUT)',
+    'import { TIMEOUT } from "./test-constants"; test("a", () => {}, { timeout: TIMEOUT })',
+    'import { TIMEOUT } from "./test-constants"; test("a", { timeout: TIMEOUT }, () => {})',
+    'import { OPTS } from "./test-constants"; test("a", OPTS, () => {})',
+    'import T from "./test-constants"; test("a", () => {}, T)',
   ],
   invalid: [
     {
@@ -133,6 +140,12 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'test("a", () => {}, 1000, { timeout: -1 })',
+      errors: [{ messageId: 'missingTimeout' }],
+    },
+    // importing a binding does not bypass the rule when the import is not in
+    // the timeout position
+    {
+      code: 'import { TIMEOUT } from "./test-constants"; test("a", () => {})',
       errors: [{ messageId: 'missingTimeout' }],
     },
   ],
