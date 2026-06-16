@@ -24,7 +24,7 @@ ruleTester.run(rule.name, rule, {
       errors: [
         {
           messageId: 'preferCalledWith',
-          data: { matcherName: 'toBeCalled' },
+          data: { matcherName: 'toBeCalledWith' },
           column: 12,
           line: 1,
         },
@@ -36,7 +36,7 @@ ruleTester.run(rule.name, rule, {
       errors: [
         {
           messageId: 'preferCalledWith',
-          data: { matcherName: 'toBeCalled' },
+          data: { matcherName: 'toBeCalledWith' },
           column: 21,
           line: 1,
         },
@@ -48,7 +48,7 @@ ruleTester.run(rule.name, rule, {
       errors: [
         {
           messageId: 'preferCalledWith',
-          data: { matcherName: 'toHaveBeenCalled' },
+          data: { matcherName: 'toHaveBeenCalledWith' },
           column: 12,
           line: 1,
         },
@@ -60,13 +60,13 @@ ruleTester.run(rule.name, rule, {
       errors: [
         {
           messageId: 'preferCalledWith',
-          data: { matcherName: 'toHaveBeenCalledOnce' },
+          data: { matcherName: 'toHaveBeenCalledExactlyOnceWith' },
           column: 40,
           line: 1,
         },
       ],
       output:
-        'it("some test", () => {expect(mockApi).toHaveBeenCalledOnceWith();});',
+        'it("some test", () => {expect(mockApi).toHaveBeenCalledExactlyOnceWith();});',
     },
   ],
 })
