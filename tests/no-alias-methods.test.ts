@@ -16,6 +16,7 @@ ruleTester.run(rule.name, rule, {
     'expect(a).toThrow()',
     'expect(a).rejects;',
     'expect(a);',
+    'expect(a).to.be.a("string");',
   ],
   invalid: [
     {

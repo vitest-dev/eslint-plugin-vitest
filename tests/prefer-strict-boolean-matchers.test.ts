@@ -28,6 +28,7 @@ ruleTester.run(rule.name, rule, {
     'expect("a string").not.toMatchSnapshot();',
     "expect(something).toEqual('a string');",
     'expect(true).toBe',
+    'expect(value).to.be.a("boolean");',
     'expectTypeOf(true).toBe()',
   ],
   invalid: [

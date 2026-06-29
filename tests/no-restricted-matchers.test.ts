@@ -41,6 +41,10 @@ ruleTester.run(rule.name, rule, {
       code: 'expect(a).resolves.not.toBe(b)',
       options: [{ 'not.toBe': null }],
     },
+    {
+      code: 'expect(a).to.be.a("string").and.contain("hell")',
+      options: [{ contain: null }],
+    },
   ],
   invalid: [
     {
@@ -55,6 +59,45 @@ ruleTester.run(rule.name, rule, {
           },
           column: 11,
           line: 1,
+        },
+      ],
+    },
+    {
+      code: 'expect(a).not.to.be.a("string")',
+      options: [{ not: null }],
+      errors: [
+        {
+          messageId: 'restrictedChain',
+          data: {
+            message: null,
+            restriction: 'not',
+          },
+        },
+      ],
+    },
+    {
+      code: 'expect(a).to.be.a("string")',
+      options: [{ 'to.be.a': null }],
+      errors: [
+        {
+          messageId: 'restrictedChain',
+          data: {
+            message: null,
+            restriction: 'to.be.a',
+          },
+        },
+      ],
+    },
+    {
+      code: 'expect(a).to.be.a("string").and.contain("hell")',
+      options: [{ 'to.be.a': null }],
+      errors: [
+        {
+          messageId: 'restrictedChain',
+          data: {
+            message: null,
+            restriction: 'to.be.a',
+          },
         },
       ],
     },

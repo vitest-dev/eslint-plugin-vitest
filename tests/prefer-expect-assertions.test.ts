@@ -173,6 +173,32 @@ it('my test description', (context) => {context.expect.assertions();
       ],
     },
     {
+      code: `it('checks value', () => {
+  expect(value).to.be.a("string")
+})`,
+      errors: [
+        {
+          messageId: 'haveExpectAssertions',
+          column: 1,
+          line: 1,
+          suggestions: [
+            {
+              messageId: 'suggestAddingHasAssertions',
+              output: `it('checks value', () => {expect.hasAssertions();
+  expect(value).to.be.a("string")
+})`,
+            },
+            {
+              messageId: 'suggestAddingAssertions',
+              output: `it('checks value', () => {expect.assertions();
+  expect(value).to.be.a("string")
+})`,
+            },
+          ],
+        },
+      ],
+    },
+    {
       code: 'it("it1", () => {})',
       errors: [
         {

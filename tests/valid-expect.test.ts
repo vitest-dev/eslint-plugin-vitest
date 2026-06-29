@@ -11,6 +11,8 @@ ruleTester.run(rule.name, rule, {
     'expect(undefined).not.toBeDefined();',
     'test("valid-expect", () => { return expect(Promise.resolve(2)).resolves.toBeDefined(); });',
     'test("valid-expect", () => { return expect(Promise.reject(2)).rejects.toBeDefined(); });',
+    'test("valid-expect", async () => { await expect(Promise.resolve(2)).not.resolves.toBeDefined(); });',
+    'test("valid-expect", async () => { await expect(Promise.reject(2)).not.rejects.toBeDefined(); });',
     'test("valid-expect", () => { return expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
     'test("valid-expect", () => { return expect(Promise.resolve(2)).rejects.not.toBeDefined(); });',
     'test("valid-expect", function () { return expect(Promise.resolve(2)).resolves.not.toBeDefined(); });',
@@ -100,6 +102,66 @@ ruleTester.run(rule.name, rule, {
 `,
     `it('example', () => {
    expect("hey").to.have.property("foo", "bar")
+});
+`,
+    `it('example', () => {
+   expect("hey").to.be.a("string")
+});
+`,
+    `it('example', () => {
+   expect("hello").to.be.a("string").and.contain("hell")
+});
+`,
+    `it('example', () => {
+   expect([1, 2, 3]).to.include.members([1, 2])
+});
+`,
+    `it('example', () => {
+   expect([1, 2, 3]).to.have.lengthOf.above(2)
+});
+`,
+    `it('example', () => {
+   expect([1, 2, 3]).to.have.lengthOf(3)
+});
+`,
+    `it('example', () => {
+   expect([1, 2, 3]).to.have.length.above(2)
+});
+`,
+    `it('example', () => {
+   expect(Foo).itself.to.respondTo("bar")
+});
+`,
+    `it('example', () => {
+   expect("hello").to.be.a("string").that.does.not.contain("world")
+});
+`,
+    `it('example', async () => {
+   await expect(Promise.resolve("hello")).resolves.to.be.a("string")
+});
+`,
+    `it('example', async () => {
+   await expect(Promise.resolve("hello")).resolves.to.be.a("string").and.contain("hell")
+});
+`,
+    `it('example', () => {
+   return expect(Promise.resolve("hello")).resolves.to.be.a("string").and.contain("hell")
+});
+`,
+    `it('example', () => {
+   expect("hello").not.to.be.an("array")
+});
+`,
+    `it('example', () => {
+   expect("hello").to.not.contain("world")
+});
+`,
+    `it('example', () => {
+   expect("hello").not.to.contain("world")
+});
+`,
+    `it('example', () => {
+   expect({ a: 1 }).to.deep.equal({ a: 1 })
 });
 `,
     {
@@ -192,6 +254,22 @@ ruleTester.run(rule.name, rule, {
     },
     {
       code: `expectTypeOf().items.toMatchTypeOf();`,
+      settings: {
+        vitest: {
+          typecheck: true,
+        },
+      },
+    },
+    {
+      code: `expectTypeOf(Promise.resolve(1)).resolves.toEqualTypeOf<number>();`,
+      settings: {
+        vitest: {
+          typecheck: true,
+        },
+      },
+    },
+    {
+      code: `expectTypeOf(Promise.resolve({ a: 1 })).resolves.not.toEqualTypeOf<string>();`,
       settings: {
         vitest: {
           typecheck: true,
@@ -420,13 +498,19 @@ ruleTester.run(rule.name, rule, {
     },
     {
       code: 'expect(true).not.resolves.toBeDefined();',
-      errors: [
-        {
-          endColumn: 40,
-          column: 1,
-          messageId: 'modifierUnknown',
-        },
-      ],
+      errors: [{ messageId: 'asyncMustBeAwaited' }],
+    },
+    {
+      code: 'expect(true).not.rejects.toBeDefined();',
+      errors: [{ messageId: 'asyncMustBeAwaited' }],
+    },
+    {
+      code: 'expect(Promise.resolve(1)).to.resolves.toBe(1);',
+      errors: [{ messageId: 'asyncMustBeAwaited' }],
+    },
+    {
+      code: 'expect(Promise.reject(1)).to.rejects.toBe(1);',
+      errors: [{ messageId: 'asyncMustBeAwaited' }],
     },
     {
       code: 'expect(true).not.not.toBeDefined();',
@@ -439,12 +523,45 @@ ruleTester.run(rule.name, rule, {
       ],
     },
     {
+      code: 'expectTypeOf(value).to.toMatchTypeOf();',
+      settings: {
+        vitest: {
+          typecheck: true,
+        },
+      },
+      errors: [{ messageId: 'modifierUnknown' }],
+    },
+    {
       code: 'expect(true).resolves.not.exactly.toBeDefined();',
       errors: [
         {
           endColumn: 48,
           column: 1,
           messageId: 'modifierUnknown',
+        },
+      ],
+    },
+    {
+      code: 'expect("hello").to.be("string").that.does.not.contain("world");',
+      errors: [{ messageId: 'modifierUnknown' }],
+    },
+    {
+      code: 'expect("hello").to.be.a("string").that.foo.not.contain("world");',
+      errors: [{ messageId: 'modifierUnknown' }],
+    },
+    {
+      code: 'expect().to.be.a("string");',
+      errors: [
+        {
+          messageId: 'notEnoughArgs',
+        },
+      ],
+    },
+    {
+      code: 'expect(value, badSecondArg).to.be.a("string");',
+      errors: [
+        {
+          messageId: 'tooManyArgs',
         },
       ],
     },
@@ -499,6 +616,14 @@ ruleTester.run(rule.name, rule, {
           data: { orReturned: ' or returned' },
         },
       ],
+    },
+    {
+      code: `expect(Promise.resolve("hey")).resolves.to.be.a("string")`,
+      errors: [{ messageId: 'asyncMustBeAwaited' }],
+    },
+    {
+      code: `expect(Promise.resolve("hello")).resolves.to.be.a("string").and.contain("hell")`,
+      errors: [{ messageId: 'asyncMustBeAwaited' }],
     },
     {
       code: 'expect(Promise.resolve(2)).resolves.toBeDefined();',
@@ -1098,14 +1223,8 @@ ruleTester.run(rule.name, rule, {
     {
       code: 'test("valid-expect", async () => { expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")); });',
       output:
-        'test("valid-expect", async () => { await await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")); });',
+        'test("valid-expect", async () => { await expect(Promise.resolve(2)).resolves.not.toBeDefined().finally(() => console.log("cleanup")); });',
       errors: [
-        {
-          column: 36,
-          endColumn: 127,
-          messageId: 'asyncMustBeAwaited',
-          data: { orReturned: ' or returned' },
-        },
         {
           column: 36,
           endColumn: 127,

@@ -9,6 +9,7 @@ ruleTester.run(rule.name, rule, {
     'expect(true).toBe(...true)',
     'expect()',
     'expect({}).toStrictEqual({})',
+    'expect(a).to.be.a("string");',
     'expect(a === b).toBe(true)',
     'expect(a !== 2).toStrictEqual(true)',
     'expect(a === b).not.toEqual(true)',

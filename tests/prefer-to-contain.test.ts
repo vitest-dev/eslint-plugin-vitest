@@ -28,6 +28,7 @@ ruleTester.run(rule.name, rule, {
     'expect(a.includes(...[])).toBe(true)',
     'expect(a.includes(b)).toBe(...true)',
     'expect(a);',
+    'expect(a).to.be.a("string");',
   ],
   invalid: [
     {

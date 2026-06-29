@@ -27,6 +27,7 @@ ruleTester.run(rule.name, rule, {
     'expect.hasAssertions()',
     'expect.assertions(1)',
     'expect(true).toBe(...true)',
+    'expect(a).to.be.a("string");',
     'expect(a == 1).toBe(true)',
     'expect(1 == a).toBe(true)',
     'expect(a == b).toBe(true)',

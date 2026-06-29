@@ -13,6 +13,7 @@ ruleTester.run(rule.name, rule, {
     'expect(value).toMatchSnapshot();',
     "expect(catchError()).toStrictEqual({ message: 'oh noes!' })",
     'expect("something");',
+    'expect("hey").to.be.a("string");',
     'expect(token).toStrictEqual(/[abc]+/g);',
     "expect(token).toStrictEqual(new RegExp('[abc]+', 'g'));",
     'expect(0.1 + 0.2).toEqual(0.3);',

@@ -63,6 +63,16 @@ ruleTester.run(`${rule.name}-logical conditions`, rule, {
     },
     {
       code: ` it('foo', () => {
+      something && expect(something).to.be.a("string");
+       })`,
+      errors: [
+        {
+          messageId: 'noConditionalExpect',
+        },
+      ],
+    },
+    {
+      code: ` it('foo', () => {
       a || (b && expect(something).toHaveBeenCalled());
        })`,
       errors: [
