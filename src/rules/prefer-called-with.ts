@@ -1,9 +1,19 @@
-import { createEslintRule, getAccessorValue } from '../utils'
+import {
+  createEslintRule,
+  getAccessorValue,
+  replaceAccessorFixer,
+} from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'prefer-called-with'
 type MESSAGE_IDS = 'preferCalledWith'
 type Options = []
+
+const PREFERRED_MATCHERS = {
+  toBeCalled: 'toBeCalledWith',
+  toHaveBeenCalled: 'toHaveBeenCalledWith',
+  toHaveBeenCalledOnce: 'toHaveBeenCalledExactlyOnceWith',
+} as const
 
 export default createEslintRule<Options, MESSAGE_IDS>({
   name: RULE_NAME,
@@ -14,7 +24,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       recommended: false,
     },
     messages: {
-      preferCalledWith: 'Prefer {{ matcherName }}With(/* expected args */)',
+      preferCalledWith: 'Prefer {{ matcherName }}(/* expected args */)',
     },
     type: 'suggestion',
     fixable: 'code',
@@ -37,18 +47,19 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         const { matcher } = vitestFnCall
         const matcherName = getAccessorValue(matcher)
 
-        if (
-          ['toBeCalled', 'toHaveBeenCalled', 'toHaveBeenCalledOnce'].includes(
-            matcherName,
-          )
-        ) {
-          context.report({
-            data: { matcherName },
-            messageId: 'preferCalledWith',
-            node: matcher,
-            fix: (fixer) => [fixer.replaceText(matcher, `${matcherName}With`)],
-          })
-        }
+        if (!Object.hasOwn(PREFERRED_MATCHERS, matcherName)) return
+
+        const preferredMatcher =
+          PREFERRED_MATCHERS[matcherName as keyof typeof PREFERRED_MATCHERS]
+
+        context.report({
+          data: { matcherName: preferredMatcher },
+          messageId: 'preferCalledWith',
+          node: matcher,
+          fix: (fixer) => [
+            replaceAccessorFixer(fixer, matcher, preferredMatcher),
+          ],
+        })
       },
     }
   },
