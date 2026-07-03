@@ -98,6 +98,10 @@ ruleTester.run(rule.name, rule, {
       errors: [{ endColumn: 19, column: 2, messageId: 'noStandaloneExpect' }],
     },
     {
+      code: 'expect("hey").to.be.a("string");',
+      errors: [{ messageId: 'noStandaloneExpect' }],
+    },
+    {
       code: `
      each([
        [1, 1, 2],

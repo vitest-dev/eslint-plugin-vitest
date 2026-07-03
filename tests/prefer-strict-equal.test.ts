@@ -4,6 +4,7 @@ import { ruleTester } from './ruleTester'
 ruleTester.run(rule.name, rule, {
   valid: [
     'expect(something).toStrictEqual(somethingElse);',
+    'expect(something).to.be.a("string");',
     "a().toEqual('b')",
     'expect(a);',
   ],

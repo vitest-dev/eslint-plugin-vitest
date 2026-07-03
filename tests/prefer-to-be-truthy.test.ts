@@ -7,6 +7,7 @@ ruleTester.run(rule.name, rule, {
   valid: [
     '[].push(true)',
     'expect("something");',
+    'expect(value).to.be.a("boolean");',
     'expect(true).toBeTrue();',
     'expect(false).toBeTrue();',
     'expect(fal,se).toBeFalse();',

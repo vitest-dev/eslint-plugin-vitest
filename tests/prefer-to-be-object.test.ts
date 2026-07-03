@@ -16,6 +16,7 @@ ruleTester.run(rule.name, rule, {
     'expectTypeOf({}).not.toBeObject()',
     'expectTypeOf([] instanceof Array).not.toBeObject()',
     'expectTypeOf({}).not.toBeInstanceOf(Array)',
+    'expect({}).to.be.a("object");',
   ],
   invalid: [
     {

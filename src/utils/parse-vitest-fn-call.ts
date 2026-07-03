@@ -55,6 +55,14 @@ interface ModifiersAndMatcher {
   args: TSESTree.CallExpression['arguments']
 }
 
+type ExpectChainKind = 'language-chain' | 'modifier' | 'matcher' | 'unknown'
+
+interface ExpectChain {
+  kind: ExpectChainKind
+  member: KnownMemberExpressionProperty
+  callExpression: TSESTree.CallExpression | null
+}
+
 interface BaseParsedVitestFnCall {
   /**
    * The name of the underlying Vitest function that is being called.
@@ -138,70 +146,241 @@ const determineVitestFnType = (name: string): VitestFnType => {
   return 'unknown'
 }
 
-const findModifiersAndMatcher = (
-  members: KnownMemberExpressionProperty[],
-): ModifiersAndMatcher | Reason => {
-  const modifiers: KnownMemberExpressionProperty[] = []
+const hasInvalidExpectChain = (
+  chains: ExpectChain[],
+  matcherIndex: number,
+): boolean => {
+  const modifierChains =
+    matcherIndex === -1 ? chains : chains.slice(0, matcherIndex)
 
-  for (const member of members) {
-    // check if the member is being called, which means it is the matcher
-    // (and also the end of the entire "expect" call chain)
-    if (
-      member.parent?.type === AST_NODE_TYPES.MemberExpression &&
-      member.parent.parent?.type === AST_NODE_TYPES.CallExpression
-    ) {
-      return {
-        matcher: member,
-        args: member.parent.parent.arguments,
-        modifiers,
-      }
-    }
+  if (
+    modifierChains.some(
+      (chain) =>
+        chain.kind === 'unknown' ||
+        (chain.kind !== 'matcher' && chain.callExpression),
+    )
+  )
+    return true
 
-    // otherwise, it should be a modifier
-    const name = getAccessorValue(member)
+  const modifierNames = modifierChains
+    .filter((chain) => chain.kind === 'modifier')
+    .map((chain) => getAccessorValue(chain.member))
 
-    if (modifiers.length === 0) {
-      // the first modifier can be any of the three modifiers
-      if (!Object.prototype.hasOwnProperty.call(ModifierName, name))
-        return 'modifier-unknown'
-    } else if (modifiers.length === 1) {
-      // the second modifier can only either be "not" or "have"
-      if (name !== ModifierName.not && name != ModifierName.have)
-        return 'modifier-unknown'
+  if (modifierNames.filter((name) => name === ModifierName.not).length > 1)
+    return true
 
-      const firstModifier = getAccessorValue(modifiers[0])
-
-      // and the first modifier has to be either "resolves" or "rejects" or "to"
-      if (
-        firstModifier !== ModifierName.resolves &&
-        firstModifier !== ModifierName.rejects &&
-        firstModifier !== ModifierName.to
-      )
-        return 'modifier-unknown'
-    } else {
-      return 'modifier-unknown'
-    }
-    modifiers.push(member)
-  }
-
-  // this will only really happen if there are no members
-  return 'matcher-not-found'
-}
-
-const parseVitestExpectCall = (
-  typelessParsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'>,
-  type: 'expect' | 'expectTypeOf',
-): ParsedExpectVitestFnCall | Reason => {
-  const modifiersMatcher = findModifiersAndMatcher(
-    typelessParsedVitestFnCall.members,
+  const promiseModifierNames = modifierNames.filter((name) =>
+    promiseExpectModifiers.has(name),
   )
 
-  if (typeof modifiersMatcher === 'string') return modifiersMatcher
+  if (promiseModifierNames.length > 1) return true
+
+  return !chains
+    .slice(matcherIndex + 1)
+    .every(
+      (chain) =>
+        chain.kind !== 'unknown' &&
+        (chain.kind === 'matcher' || !chain.callExpression),
+    )
+}
+
+const chaiLanguageChainProperties = new Set([
+  'also',
+  'and',
+  'at',
+  'be',
+  'been',
+  'but',
+  'does',
+  'has',
+  'have',
+  'is',
+  'itself',
+  'of',
+  'same',
+  'still',
+  'that',
+  'to',
+  'which',
+  'with',
+])
+
+const chaiFlagChainProperties = new Set([
+  'all',
+  'any',
+  'deep',
+  'nested',
+  'ordered',
+  'own',
+])
+
+const chaiDualRoleChainProperties = new Set([
+  'a',
+  'an',
+  'contain',
+  'contains',
+  'include',
+  'includes',
+  'length',
+  'lengthOf',
+  'respondTo',
+])
+
+const chaiChainableProperties = new Set([
+  ...chaiLanguageChainProperties,
+  ...chaiFlagChainProperties,
+  ...chaiDualRoleChainProperties,
+])
+
+const expectModifiers = new Set<string>([
+  ModifierName.not,
+  ModifierName.rejects,
+  ModifierName.resolves,
+])
+
+const promiseExpectModifiers = new Set<string>([
+  ModifierName.rejects,
+  ModifierName.resolves,
+])
+
+const expectTypeOfModifiers = new Set<string>([
+  ModifierName.not,
+  ModifierName.resolves,
+  ModifierName.returns,
+  ModifierName.branded,
+  ModifierName.asserts,
+  ModifierName.constructorParameters,
+  ModifierName.parameters,
+  ModifierName.thisParameter,
+  ModifierName.guards,
+  ModifierName.instance,
+  ModifierName.items,
+])
+
+const getCallExpression = (
+  member: KnownMemberExpressionProperty,
+): TSESTree.CallExpression | null =>
+  member.parent?.type === AST_NODE_TYPES.MemberExpression &&
+  member.parent.parent?.type === AST_NODE_TYPES.CallExpression &&
+  member.parent.parent.callee === member.parent
+    ? member.parent.parent
+    : null
+
+const classifyExpectChain = (
+  member: KnownMemberExpressionProperty,
+): ExpectChain => {
+  const name = getAccessorValue(member)
+  const callExpression = getCallExpression(member)
+
+  if (callExpression) {
+    if (
+      expectModifiers.has(name) ||
+      (chaiChainableProperties.has(name) &&
+        !chaiDualRoleChainProperties.has(name))
+    )
+      return { kind: 'language-chain', member, callExpression }
+
+    return { kind: 'matcher', member, callExpression }
+  }
+
+  if (chaiChainableProperties.has(name))
+    return { kind: 'language-chain', member, callExpression }
+
+  if (!expectModifiers.has(name))
+    return { kind: 'unknown', member, callExpression }
+
+  return { kind: 'modifier', member, callExpression }
+}
+
+const parseExpectCallExpression = (
+  node: TSESTree.CallExpression,
+  topMostCallExpression: TSESTree.CallExpression,
+  typeLessParsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'>,
+): ParsedExpectVitestFnCall | Reason | null => {
+  const chains = typeLessParsedVitestFnCall.members.map(classifyExpectChain)
+  const matcherIndex = chains.findIndex((chain) => chain.kind === 'matcher')
+
+  if (
+    node.parent?.type === AST_NODE_TYPES.MemberExpression &&
+    topMostCallExpression !== node
+  )
+    return null
+
+  if (hasInvalidExpectChain(chains, matcherIndex)) return 'modifier-unknown'
+
+  if (matcherIndex === -1) {
+    if (node.parent?.type === AST_NODE_TYPES.MemberExpression)
+      return 'matcher-not-called'
+
+    return 'matcher-not-found'
+  }
+
+  const modifierChains = chains.slice(0, matcherIndex)
+  const matcher = chains[matcherIndex]
 
   return {
-    ...typelessParsedVitestFnCall,
-    type,
-    ...modifiersMatcher,
+    ...typeLessParsedVitestFnCall,
+    type: 'expect',
+    members: typeLessParsedVitestFnCall.members.slice(0, matcherIndex + 1),
+    matcher: matcher.member,
+    args: matcher.callExpression?.arguments ?? [],
+    modifiers: modifierChains
+      .filter((chain) => chain.kind === 'modifier')
+      .map((chain) => chain.member),
+  }
+}
+
+const parseExpectTypeOfCallExpression = (
+  node: TSESTree.CallExpression,
+  topMostCallExpression: TSESTree.CallExpression,
+  typeLessParsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'>,
+): ParsedExpectVitestFnCall | Reason | null => {
+  const matcherIndex = typeLessParsedVitestFnCall.members.findIndex((member) =>
+    getCallExpression(member),
+  )
+  const modifierMembers =
+    matcherIndex === -1
+      ? typeLessParsedVitestFnCall.members
+      : typeLessParsedVitestFnCall.members.slice(0, matcherIndex)
+  const modifierNames = modifierMembers.map(getAccessorValue)
+
+  if (
+    node.parent?.type === AST_NODE_TYPES.MemberExpression &&
+    topMostCallExpression !== node
+  )
+    return null
+
+  if (
+    modifierMembers.some(
+      (member) => !expectTypeOfModifiers.has(getAccessorValue(member)),
+    ) ||
+    modifierNames.filter((name) => name === ModifierName.not).length > 1 ||
+    (matcherIndex !== -1 &&
+      expectTypeOfModifiers.has(
+        getAccessorValue(typeLessParsedVitestFnCall.members[matcherIndex]),
+      ))
+  ) {
+    return 'modifier-unknown'
+  }
+
+  if (matcherIndex === -1) {
+    if (node.parent?.type === AST_NODE_TYPES.MemberExpression)
+      return 'matcher-not-called'
+
+    return 'matcher-not-found'
+  }
+
+  const matcher = typeLessParsedVitestFnCall.members[matcherIndex]
+  const callExpression = getCallExpression(matcher)
+
+  if (!callExpression) return null
+
+  return {
+    ...typeLessParsedVitestFnCall,
+    type: 'expectTypeOf',
+    matcher,
+    args: callExpression.arguments,
+    modifiers: modifierMembers,
   }
 }
 
@@ -281,16 +460,19 @@ const parseVitestFnCallWithReasonInner = (
   const type = determineVitestFnType(name)
 
   if (type === 'expect' || type === 'expectTypeOf') {
-    const result = parseVitestExpectCall(parsedVitestFnCall, type)
+    const topMostCallExpression = findTopMostCallExpression(node)
 
-    if (typeof result === 'string' && findTopMostCallExpression(node) !== node)
-      return null
-
-    if (result === 'matcher-not-found') {
-      if (node.parent?.type === AST_NODE_TYPES.MemberExpression)
-        return 'matcher-not-called'
-    }
-    return result
+    return type === 'expect'
+      ? parseExpectCallExpression(
+          node,
+          topMostCallExpression,
+          parsedVitestFnCall,
+        )
+      : parseExpectTypeOfCallExpression(
+          node,
+          topMostCallExpression,
+          parsedVitestFnCall,
+        )
   }
 
   if (

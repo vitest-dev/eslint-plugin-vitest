@@ -66,6 +66,36 @@ const getNormalizeFunctionExpression = (
   return functionExpression
 }
 
+const promiseChainMethods = new Set(['catch', 'finally', 'then'])
+
+const findTopMostMatcherCallExpression = (
+  node: TSESTree.CallExpression,
+): TSESTree.CallExpression => {
+  let currentNode: TSESTree.Node = node
+  let topMostMatcherCallExpression = node
+
+  while (
+    currentNode.parent?.type === AST_NODE_TYPES.MemberExpression &&
+    currentNode.parent.object === currentNode &&
+    isSupportedAccessor(currentNode.parent.property)
+  ) {
+    if (promiseChainMethods.has(getAccessorValue(currentNode.parent.property)))
+      break
+
+    currentNode = currentNode.parent
+
+    if (
+      currentNode.parent?.type === AST_NODE_TYPES.CallExpression &&
+      currentNode.parent.callee === currentNode
+    ) {
+      topMostMatcherCallExpression = currentNode.parent
+      currentNode = currentNode.parent
+    }
+  }
+
+  return topMostMatcherCallExpression
+}
+
 function getParentIfThenified(node: TSESTree.Node): TSESTree.Node {
   const grandParentNode = node.parent?.parent
 
@@ -74,7 +104,7 @@ function getParentIfThenified(node: TSESTree.Node): TSESTree.Node {
     grandParentNode.type === AST_NODE_TYPES.CallExpression &&
     grandParentNode.callee.type === AST_NODE_TYPES.MemberExpression &&
     isSupportedAccessor(grandParentNode.callee.property) &&
-    ['then', 'catch', 'finally'].includes(
+    promiseChainMethods.has(
       getAccessorValue(grandParentNode.callee.property),
     ) &&
     grandParentNode.parent
@@ -281,12 +311,6 @@ export default createEslintRule<
           return
         } else if (vitestFnCall?.type !== 'expect') {
           return
-        } else if (
-          vitestFnCall.modifiers.some(
-            (mod) => mod.type === AST_NODE_TYPES.Identifier && mod.name == 'to',
-          )
-        ) {
-          return
         }
 
         const { parent: expect } = vitestFnCall.head.node
@@ -352,11 +376,21 @@ export default createEslintRule<
 
         const { matcher } = vitestFnCall
 
-        const parentNode = matcher.parent.parent
+        const matcherCallExpression = matcher.parent.parent
+
+        if (matcherCallExpression.type !== AST_NODE_TYPES.CallExpression) return
+
+        const parentNode = findTopMostMatcherCallExpression(
+          matcherCallExpression,
+        )
         const shouldBeAwaited =
-          vitestFnCall.modifiers.some(
-            (nod) => getAccessorValue(nod) !== 'not',
-          ) || asyncMatchers.includes(getAccessorValue(matcher))
+          vitestFnCall.modifiers.some((modifier) => {
+            const value = getAccessorValue(modifier)
+
+            return (
+              value === ModifierName.resolves || value === ModifierName.rejects
+            )
+          }) || asyncMatchers.includes(getAccessorValue(matcher))
 
         if (!parentNode?.parent || !shouldBeAwaited) return
 

@@ -8,6 +8,7 @@ ruleTester.run(rule.name, rule, {
     'expect.hasAssertions',
     'expect.hasAssertions()',
     'expect(files).toHaveLength(1);',
+    'expect(files).to.be.a("array");',
     "expect(files.name).toBe('file');",
     "expect(files[`name`]).toBe('file');",
     'expect(users[0]?.permissions?.length).toBe(1);',

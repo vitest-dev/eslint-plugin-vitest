@@ -97,6 +97,22 @@ ruleTester.run(rule.name, rule, {
         },
       ],
     },
+    {
+      code: `test('should not pass', () => {
+      expect(true).toBeDefined();
+      expect("hey").to.be.a("string");
+       });`,
+      options: [
+        {
+          max: 1,
+        },
+      ],
+      errors: [
+        {
+          messageId: 'maxExpect',
+        },
+      ],
+    },
   ],
 })
 
