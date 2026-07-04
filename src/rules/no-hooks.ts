@@ -30,8 +30,8 @@ export default createEslintRule<
                 HookName.beforeEach,
                 HookName.afterAll,
                 HookName.afterEach,
-		HookName.aroundAll,
-		HookName.aroundEach
+                HookName.aroundAll,
+                HookName.aroundEach,
               ],
             },
             additionalItems: false,
