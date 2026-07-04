@@ -26,6 +26,8 @@ export enum HookName {
   beforeEach = 'beforeEach',
   afterAll = 'afterAll',
   afterEach = 'afterEach',
+  aroundEach = 'aroundEach',
+  aroundAll = 'aroundAll',
 }
 
 export enum ModifierName {

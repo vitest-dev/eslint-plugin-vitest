@@ -25,14 +25,14 @@ expect(myFn()).toBe(1);
 class MockLogger {
   log() {}
      }
-     
+
      test('myFn', () => {
        expect(myFn()).toBe(1);
      });
       `,
     `
      const { myFn } = require('../functions');
-     
+
      describe('myFn', () => {
        it('returns one', () => {
       expect(myFn()).toBe(1);
@@ -51,7 +51,7 @@ class MockLogger {
        it('is true', () => {
       expect(true).toBe(true);
        });
-     
+
        describe('more tests', () => {
       it('is false', () => {
         expect(true).toBe(false);
@@ -62,28 +62,28 @@ class MockLogger {
     `
      describe('some tests', () => {
        let consoleLogSpy;
-     
+
        beforeEach(() => {
-      consoleLogSpy = vi.spyOn(console, 'log'); 
+      consoleLogSpy = vi.spyOn(console, 'log');
        });
-     
+
        it('prints a message', () => {
       printMessage('hello world');
-     
+
       expect(consoleLogSpy).toHaveBeenCalledWith('hello world');
        });
      });
       `,
     `
-     let consoleErrorSpy = null; 
-     
+     let consoleErrorSpy = null;
+
      beforeEach(() => {
        consoleErrorSpy = vi.spyOn(console, 'error');
      });
       `,
     `
-     let consoleErrorSpy = undefined; 
-     
+     let consoleErrorSpy = undefined;
+
      beforeEach(() => {
        consoleErrorSpy = vi.spyOn(console, 'error');
      });
@@ -99,15 +99,15 @@ class MockLogger {
      beforeEach(() => {
        initializeCityDatabase();
      });
-     
+
      afterEach(() => {
        clearCityDatabase();
      });
-     
+
      test('city database has Vienna', () => {
        expect(isCity('Vienna')).toBeTruthy();
      });
-     
+
      test('city database has San Juan', () => {
        expect(isCity('San Juan')).toBeTruthy();
      });
@@ -117,15 +117,15 @@ class MockLogger {
        beforeEach(() => {
       initializeCityDatabase();
        });
-     
+
        test('city database has Vienna', () => {
       expect(isCity('Vienna')).toBeTruthy();
        });
-     
+
        test('city database has San Juan', () => {
       expect(isCity('San Juan')).toBeTruthy();
        });
-     
+
        afterEach(() => {
       clearCityDatabase();
        });
@@ -134,7 +134,7 @@ class MockLogger {
     {
       code: `
        enableAutoDestroy(afterEach);
-       
+
        describe('some tests', () => {
       it('is false', () => {
         expect(true).toBe(true);
@@ -185,7 +185,7 @@ class MockLogger {
     {
       code: `
        let { setup } = require('./test-utils');
-     
+
        describe('some tests', () => {
       setup();
        });
@@ -207,14 +207,14 @@ class MockLogger {
       code: `
      describe('some tests', () => {
        setup();
-   
+
        it('is true', () => {
       expect(true).toBe(true);
        });
-   
+
        describe('more tests', () => {
       setup();
-   
+
       it('is false', () => {
         expect(true).toBe(false);
       });
@@ -237,7 +237,7 @@ class MockLogger {
     {
       code: `
        let consoleErrorSpy = vi.spyOn(console, 'error');
-     
+
        describe('when loading cities from the api', () => {
       let consoleWarnSpy = vi.spyOn(console, 'warn');
        });
@@ -258,7 +258,7 @@ class MockLogger {
     {
       code: `
        let consoleErrorSpy = null;
-     
+
        describe('when loading cities from the api', () => {
       let consoleWarnSpy = vi.spyOn(console, 'warn');
        });
@@ -305,53 +305,53 @@ class MockLogger {
       code: `
        import { database, isCity } from '../database';
        import { loadCities } from '../api';
-     
+
        vi.mock('../api');
-     
+
        const initializeCityDatabase = () => {
       database.addCity('Vienna');
       database.addCity('San Juan');
       database.addCity('Wellington');
        };
-     
+
        const clearCityDatabase = () => {
       database.clear();
        };
-     
+
        initializeCityDatabase();
-     
+
        test('that persists cities', () => {
       expect(database.cities.length).toHaveLength(3);
        });
-     
+
        test('city database has Vienna', () => {
       expect(isCity('Vienna')).toBeTruthy();
        });
-     
+
        test('city database has San Juan', () => {
       expect(isCity('San Juan')).toBeTruthy();
        });
-     
+
        describe('when loading cities from the api', () => {
       let consoleWarnSpy = vi.spyOn(console, 'warn');
-     
+
       loadCities.mockResolvedValue(['Wellington', 'London']);
-     
+
       it('does not duplicate cities', async () => {
         await database.loadCities();
-     
+
         expect(database.cities).toHaveLength(4);
       });
-     
+
       it('logs any duplicates', async () => {
         await database.loadCities();
-     
+
         expect(consoleWarnSpy).toHaveBeenCalledWith(
        'Ignored duplicate cities: Wellington',
         );
       });
        });
-     
+
        clearCityDatabase();
      `,
       languageOptions: { parserOptions: { sourceType: 'module' } },
