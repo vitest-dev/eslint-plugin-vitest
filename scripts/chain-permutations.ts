@@ -12,7 +12,14 @@ import prettier from 'prettier'
 
 const data = [
   {
-    names: ['beforeEach', 'beforeAll', 'afterEach', 'afterAll'],
+    names: [
+      'beforeEach',
+      'beforeAll',
+      'afterEach',
+      'afterAll',
+      'aroundEach',
+      'aroundAll',
+    ],
     first: [],
     exclusive: [],
     conditions: [],

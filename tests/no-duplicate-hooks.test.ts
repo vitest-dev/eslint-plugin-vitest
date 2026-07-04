@@ -18,7 +18,9 @@ ruleTester.run(rule.name, rule, {
     beforeEach(() => {})
     afterEach(() => {})
     afterAll(() => {})
-  
+    aroundEach(() => {})
+    aroundAll(() => {})
+
     test("bar", () => {
       someFn();
     })
@@ -158,12 +160,12 @@ ruleTester.run(rule.name, rule, {
   valid: [
     ` describe.each(['hello'])('%s', () => {
      beforeEach(() => {});
-   
+
      it('is fine', () => {});
       });`,
     `describe.each(['hello'])('%s', () => {
      beforeEach(() => {});
-   
+
      it('is fine', () => {});
       });`,
   ],
@@ -172,7 +174,7 @@ ruleTester.run(rule.name, rule, {
       code: `describe.each(['hello'])('%s', () => {
       beforeEach(() => {});
       beforeEach(() => {});
-    
+
       it('is not fine', () => {});
        });`,
       errors: [
@@ -188,14 +190,14 @@ ruleTester.run(rule.name, rule, {
       code: ` describe('something', () => {
       describe.each(['hello'])('%s', () => {
         beforeEach(() => {});
-    
+
         it('is fine', () => {});
       });
-    
+
       describe.each(['world'])('%s', () => {
         beforeEach(() => {});
         beforeEach(() => {});
-    
+
         it('is not fine', () => {});
       });
        });`,

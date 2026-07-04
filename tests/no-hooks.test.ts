@@ -12,6 +12,10 @@ ruleTester.run(rule.name, rule, {
       options: [{ allow: [HookName.afterEach, HookName.afterAll] }],
     },
     { code: 'test("foo")', options: [{ allow: undefined }] },
+    {
+      code: 'aroundEach(() => {});',
+      options: [{ allow: [HookName.aroundEach] }],
+    },
   ],
   invalid: [
     {
@@ -20,6 +24,24 @@ ruleTester.run(rule.name, rule, {
         {
           messageId: 'unexpectedHook',
           data: { hookName: HookName.beforeAll },
+        },
+      ],
+    },
+    {
+      code: 'aroundAll(() => {})',
+      errors: [
+        {
+          messageId: 'unexpectedHook',
+          data: { hookName: HookName.aroundAll },
+        },
+      ],
+    },
+    {
+      code: 'aroundEach(() => {})',
+      errors: [
+        {
+          messageId: 'unexpectedHook',
+          data: { hookName: HookName.aroundEach },
         },
       ],
     },

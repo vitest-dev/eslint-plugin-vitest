@@ -3,6 +3,8 @@ export const ValidVitestFnCallChains = new Set([
   'beforeAll',
   'afterEach',
   'afterAll',
+  'aroundEach',
+  'aroundAll',
   'it',
   'it.extend',
   'it.scoped',
