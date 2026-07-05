@@ -268,11 +268,17 @@ const getCallExpression = (
 
 const classifyExpectChain = (
   member: KnownMemberExpressionProperty,
+  isFirstMemberOfStaticExpectCall = false,
 ): ExpectChain => {
   const name = getAccessorValue(member)
   const callExpression = getCallExpression(member)
 
   if (callExpression) {
+    // `expect.any(...)` is a static asymmetric matcher factory, not Chai's
+    // `.any` flag. Keep uncalled `.any` in Chai chains as a language chain.
+    if (isFirstMemberOfStaticExpectCall && name === 'any')
+      return { kind: 'matcher', member, callExpression }
+
     if (
       expectModifiers.has(name) ||
       (chaiChainableProperties.has(name) &&
@@ -297,7 +303,14 @@ const parseExpectCallExpression = (
   topMostCallExpression: TSESTree.CallExpression,
   typeLessParsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'>,
 ): ParsedExpectVitestFnCall | Reason | null => {
-  const chains = typeLessParsedVitestFnCall.members.map(classifyExpectChain)
+  const chains = typeLessParsedVitestFnCall.members.map((member, index) =>
+    classifyExpectChain(
+      member,
+      index === 0 &&
+        typeLessParsedVitestFnCall.head.node.parent?.type ===
+          AST_NODE_TYPES.MemberExpression,
+    ),
+  )
   const matcherIndex = chains.findIndex((chain) => chain.kind === 'matcher')
 
   if (
