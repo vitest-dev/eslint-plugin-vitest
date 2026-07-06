@@ -5,6 +5,24 @@ ruleTester.run(rule.name, rule, {
   valid: [
     'expect.hasAssertions',
     'expect.hasAssertions()',
+    'expect.any(String)',
+    'expect.anything()',
+    'expect.arrayContaining([1])',
+    'expect.closeTo(1, 2)',
+    'expect.objectContaining({ id: 1 })',
+    'expect.schemaMatching(schema)',
+    'expect.stringContaining("value")',
+    'expect.stringMatching(/value/)',
+    'expect.toBeOneOf([1, 2])',
+    'expect.toSatisfy(value => value > 0)',
+    'expect.not.arrayContaining([1])',
+    'expect.not.closeTo(1, 2)',
+    'expect.not.objectContaining({ id: 1 })',
+    'expect.not.schemaMatching(schema)',
+    'expect.not.stringContaining("value")',
+    'expect.not.stringMatching(/value/)',
+    'expect.not.toBeOneOf([1, 2])',
+    'expect.not.toSatisfy(value => value > 0)',
     'expect("something").toEqual("else");',
     'expect(true).toBeDefined();',
     'expect([1, 2, 3]).toEqual([1, 2, 3]);',
@@ -162,6 +180,10 @@ ruleTester.run(rule.name, rule, {
 `,
     `it('example', () => {
    expect({ a: 1 }).to.deep.equal({ a: 1 })
+});
+`,
+    `it('example', () => {
+   expect({ a: 1 }).to.have.any.keys("a", "b")
 });
 `,
     {
