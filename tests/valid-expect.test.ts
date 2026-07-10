@@ -23,6 +23,10 @@ ruleTester.run(rule.name, rule, {
     'expect.not.stringMatching(/value/)',
     'expect.not.toBeOneOf([1, 2])',
     'expect.not.toSatisfy(value => value > 0)',
+    'expect.soft("something").toEqual("else");',
+    'expect.soft("something").not.toEqual("else");',
+    'expect.poll(() => "something").toEqual("else");',
+    'expect.element(element).toBeInTheDocument();',
     'expect("something").toEqual("else");',
     'expect(true).toBeDefined();',
     'expect([1, 2, 3]).toEqual([1, 2, 3]);',
@@ -314,6 +318,20 @@ ruleTester.run(rule.name, rule, {
       ],
     },
     {
+      code: 'expect.soft().toBe(2);',
+      errors: [
+        {
+          endColumn: 13,
+          column: 12,
+          messageId: 'notEnoughArgs',
+        },
+      ],
+    },
+    {
+      code: 'expect.soft(1, 2).toBe(2);',
+      errors: [{ messageId: 'tooManyArgs' }],
+    },
+    {
       code: 'expect().toBe(true);',
       errors: [
         {
@@ -473,6 +491,18 @@ ruleTester.run(rule.name, rule, {
     {
       code: 'expect("something");',
       errors: [{ endColumn: 20, column: 1, messageId: 'matcherNotFound' }],
+    },
+    {
+      code: 'expect.soft("something");',
+      errors: [{ endColumn: 25, column: 1, messageId: 'matcherNotFound' }],
+    },
+    {
+      code: 'expect.poll(() => value);',
+      errors: [{ messageId: 'matcherNotFound' }],
+    },
+    {
+      code: 'expect.element(element);',
+      errors: [{ messageId: 'matcherNotFound' }],
     },
     {
       code: 'expect();',
