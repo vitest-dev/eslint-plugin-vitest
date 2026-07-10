@@ -292,13 +292,15 @@ export default createEslintRule<Options[], MessageIds>({
         if (secondArg.body.type === AST_NODE_TYPES.BlockStatement) {
           const prefix = testContextName ? `${testContextName}.` : ''
           if (!options.disallowHasAssertions) {
-            suggestions.push(
-              ['suggestAddingHasAssertions', `${prefix}expect.hasAssertions();`],
-            )
+            suggestions.push([
+              'suggestAddingHasAssertions',
+              `${prefix}expect.hasAssertions();`,
+            ])
           }
-          suggestions.push(
-            ['suggestAddingAssertions', `${prefix}expect.assertions();`],
-          )
+          suggestions.push([
+            'suggestAddingAssertions',
+            `${prefix}expect.assertions();`,
+          ])
         }
 
         context.report({
