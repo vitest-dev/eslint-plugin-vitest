@@ -313,12 +313,13 @@ export default createEslintRule<
           return
         }
 
-        const { parent: expect } = vitestFnCall.head.node
+        const expect = vitestFnCall.expectCall
 
-        if (expect?.type !== AST_NODE_TYPES.CallExpression) return
+        if (!expect) return
 
         if (expect.arguments.length < minArgs) {
-          const expectLength = getAccessorValue(vitestFnCall.head.node).length
+          const expectLength =
+            expect.callee.loc.end.column - expect.loc.start.column
 
           const loc: TSESTree.SourceLocation = {
             start: {

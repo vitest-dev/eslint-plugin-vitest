@@ -51,11 +51,17 @@ export type KnownMemberExpressionProperty<Specifies extends string = string> =
 interface ModifiersAndMatcher {
   modifiers: KnownMemberExpressionProperty[]
   matcher: KnownMemberExpressionProperty
+  expectCall: TSESTree.CallExpression | null
   /** The arguments that are being passed to the `matcher` */
   args: TSESTree.CallExpression['arguments']
 }
 
-type ExpectChainKind = 'language-chain' | 'modifier' | 'matcher' | 'unknown'
+type ExpectChainKind =
+  | 'expect-api'
+  | 'language-chain'
+  | 'modifier'
+  | 'matcher'
+  | 'unknown'
 
 interface ExpectChain {
   kind: ExpectChainKind
@@ -157,7 +163,8 @@ const hasInvalidExpectChain = (
     modifierChains.some(
       (chain) =>
         chain.kind === 'unknown' ||
-        (chain.kind !== 'matcher' && chain.callExpression),
+        (!['expect-api', 'matcher'].includes(chain.kind) &&
+          chain.callExpression),
     )
   )
     return true
@@ -180,7 +187,9 @@ const hasInvalidExpectChain = (
     .every(
       (chain) =>
         chain.kind !== 'unknown' &&
-        (chain.kind === 'matcher' || !chain.callExpression),
+        (chain.kind === 'expect-api' ||
+          chain.kind === 'matcher' ||
+          !chain.callExpression),
     )
 }
 
@@ -238,6 +247,8 @@ const expectModifiers = new Set<string>([
   ModifierName.resolves,
 ])
 
+const expectApiMethods = new Set(['element', 'poll', 'soft'])
+
 const promiseExpectModifiers = new Set<string>([
   ModifierName.rejects,
   ModifierName.resolves,
@@ -274,6 +285,9 @@ const classifyExpectChain = (
   const callExpression = getCallExpression(member)
 
   if (callExpression) {
+    if (isFirstMemberOfStaticExpectCall && expectApiMethods.has(name))
+      return { kind: 'expect-api', member, callExpression }
+
     // `expect.any(...)` is a static asymmetric matcher factory, not Chai's
     // `.any` flag. Keep uncalled `.any` in Chai chains as a language chain.
     if (isFirstMemberOfStaticExpectCall && name === 'any')
@@ -330,12 +344,19 @@ const parseExpectCallExpression = (
 
   const modifierChains = chains.slice(0, matcherIndex)
   const matcher = chains[matcherIndex]
+  const expectApi = chains.find((chain) => chain.kind === 'expect-api')
 
   return {
     ...typeLessParsedVitestFnCall,
     type: 'expect',
     members: typeLessParsedVitestFnCall.members.slice(0, matcherIndex + 1),
     matcher: matcher.member,
+    expectCall:
+      expectApi?.callExpression ??
+      (typeLessParsedVitestFnCall.head.node.parent?.type ===
+      AST_NODE_TYPES.CallExpression
+        ? typeLessParsedVitestFnCall.head.node.parent
+        : null),
     args: matcher.callExpression?.arguments ?? [],
     modifiers: modifierChains
       .filter((chain) => chain.kind === 'modifier')
@@ -392,6 +413,11 @@ const parseExpectTypeOfCallExpression = (
     ...typeLessParsedVitestFnCall,
     type: 'expectTypeOf',
     matcher,
+    expectCall:
+      typeLessParsedVitestFnCall.head.node.parent?.type ===
+      AST_NODE_TYPES.CallExpression
+        ? typeLessParsedVitestFnCall.head.node.parent
+        : null,
     args: callExpression.arguments,
     modifiers: modifierMembers,
   }
