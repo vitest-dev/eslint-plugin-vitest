@@ -19,6 +19,7 @@ type Options = {
   onlyFunctionsWithAsyncKeyword?: boolean
   onlyFunctionsWithExpectInLoop?: boolean
   onlyFunctionsWithExpectInCallback?: boolean
+  disallowHasAssertions?: boolean
 }
 
 const RULE_NAME = 'prefer-expect-assertions'
@@ -28,8 +29,10 @@ type MessageIds =
   | 'assertionsRequiresOneArgument'
   | 'assertionsRequiresNumberArgument'
   | 'haveExpectAssertions'
+  | 'preferAssertionsOverHasAssertions'
   | 'suggestAddingHasAssertions'
   | 'suggestAddingAssertions'
+  | 'suggestReplacingWithAssertions'
   | 'suggestRemovingExtraArguments'
 
 const isFirstStatement = (node: TSESTree.CallExpression): boolean => {
@@ -72,9 +75,13 @@ export default createEslintRule<Options[], MessageIds>({
       assertionsRequiresNumberArgument: 'This argument should be a number',
       haveExpectAssertions:
         'Every test should have either `expect.assertions(<number of assertions>)` or `expect.hasAssertions()` as its first expression',
+      preferAssertionsOverHasAssertions:
+        'Prefer `expect.assertions(<number of assertions>)` over `expect.hasAssertions()`',
       suggestAddingHasAssertions: 'Add `expect.hasAssertions()`',
       suggestAddingAssertions:
         'Add `expect.assertions(<number of assertions>)`',
+      suggestReplacingWithAssertions:
+        'Replace with `expect.assertions(<number of assertions>)`',
       suggestRemovingExtraArguments: 'Remove extra arguments',
     },
     type: 'suggestion',
@@ -98,6 +105,11 @@ export default createEslintRule<Options[], MessageIds>({
               'Only check test functions that contain `expect` in callbacks.',
             type: 'boolean',
           },
+          disallowHasAssertions: {
+            description:
+              'Warn when `expect.hasAssertions()` is used instead of `expect.assertions()`.',
+            type: 'boolean',
+          },
         },
         additionalProperties: false,
       },
@@ -107,6 +119,7 @@ export default createEslintRule<Options[], MessageIds>({
         onlyFunctionsWithAsyncKeyword: false,
         onlyFunctionsWithExpectInCallback: false,
         onlyFunctionsWithExpectInLoop: false,
+        disallowHasAssertions: false,
       },
     ],
   },
@@ -152,6 +165,18 @@ export default createEslintRule<Options[], MessageIds>({
             messageId: 'hasAssertionsTakesNoArguments',
             node: expectFnCall.matcher,
             suggest: [suggestRemovingExtraArguments(context, func, 0)],
+          })
+        } else if (options.disallowHasAssertions) {
+          context.report({
+            messageId: 'preferAssertionsOverHasAssertions',
+            node: expectFnCall.matcher,
+            suggest: [
+              {
+                messageId: 'suggestReplacingWithAssertions',
+                fix: (fixer) =>
+                  fixer.replaceText(expectFnCall.members[0], 'assertions'),
+              },
+            ],
           })
         }
         return
@@ -266,10 +291,16 @@ export default createEslintRule<Options[], MessageIds>({
 
         if (secondArg.body.type === AST_NODE_TYPES.BlockStatement) {
           const prefix = testContextName ? `${testContextName}.` : ''
-          suggestions.push(
-            ['suggestAddingHasAssertions', `${prefix}expect.hasAssertions();`],
-            ['suggestAddingAssertions', `${prefix}expect.assertions();`],
-          )
+          if (!options.disallowHasAssertions) {
+            suggestions.push([
+              'suggestAddingHasAssertions',
+              `${prefix}expect.hasAssertions();`,
+            ])
+          }
+          suggestions.push([
+            'suggestAddingAssertions',
+            `${prefix}expect.assertions();`,
+          ])
         }
 
         context.report({

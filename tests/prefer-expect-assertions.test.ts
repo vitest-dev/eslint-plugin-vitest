@@ -536,5 +536,64 @@ it('my test description', (context) => {context.expect.assertions();
         },
       ],
     },
+    {
+      code: 'it("it1", function() {expect.hasAssertions();})',
+      options: [{ disallowHasAssertions: true }],
+      errors: [
+        {
+          messageId: 'preferAssertionsOverHasAssertions',
+          column: 30,
+          line: 1,
+          suggestions: [
+            {
+              messageId: 'suggestReplacingWithAssertions',
+              output: 'it("it1", function() {expect.assertions();})',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: `it('my test description', ({ expect }) => {
+  expect.hasAssertions();
+  const a = 1;
+  expect(a).toBe(1);
+})`,
+      options: [{ disallowHasAssertions: true }],
+      errors: [
+        {
+          messageId: 'preferAssertionsOverHasAssertions',
+          column: 10,
+          line: 2,
+          suggestions: [
+            {
+              messageId: 'suggestReplacingWithAssertions',
+              output: `it('my test description', ({ expect }) => {
+  expect.assertions();
+  const a = 1;
+  expect(a).toBe(1);
+})`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: 'it("it1", () => {})',
+      options: [{ disallowHasAssertions: true }],
+      errors: [
+        {
+          messageId: 'haveExpectAssertions',
+          column: 1,
+          line: 1,
+          suggestions: [
+            {
+              messageId: 'suggestAddingAssertions',
+              output: 'it("it1", () => {expect.assertions();})',
+            },
+          ],
+        },
+      ],
+    },
   ],
 })

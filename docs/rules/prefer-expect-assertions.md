@@ -46,11 +46,12 @@ test('assertions first', () => {
 
 <!-- begin auto-generated rule options list -->
 
-| Name                                | Description                                                   | Type    |
-| :---------------------------------- | :------------------------------------------------------------ | :------ |
-| `onlyFunctionsWithAsyncKeyword`     | Only check test functions declared with the async keyword.    | Boolean |
-| `onlyFunctionsWithExpectInCallback` | Only check test functions that contain `expect` in callbacks. | Boolean |
-| `onlyFunctionsWithExpectInLoop`     | Only check test functions that contain `expect` inside loops. | Boolean |
+| Name                                | Description                                                                  | Type    |
+| :---------------------------------- | :--------------------------------------------------------------------------- | :------ |
+| `disallowHasAssertions`             | Warn when `expect.hasAssertions()` is used instead of `expect.assertions()`. | Boolean |
+| `onlyFunctionsWithAsyncKeyword`     | Only check test functions declared with the async keyword.                   | Boolean |
+| `onlyFunctionsWithExpectInCallback` | Only check test functions that contain `expect` in callbacks.                | Boolean |
+| `onlyFunctionsWithExpectInLoop`     | Only check test functions that contain `expect` inside loops.                | Boolean |
 
 <!-- end auto-generated rule options list -->
 
@@ -124,5 +125,28 @@ test('assertions first', () => {
   fetchData((data) => {
     expect(data).toBe('peanut butter')
   })
+})
+```
+
+`disallowHasAssertions` (default: `false`)
+
+When `true`, `expect.hasAssertions()` will be reported in favor of `expect.assertions()`.
+Suggestions for missing assertions will only include `expect.assertions()`.
+
+when this option is enabled the following code will be considered incorrect:
+
+```js
+test('has assertions', () => {
+  expect.hasAssertions()
+  expect(value).toBe(1)
+})
+```
+
+To fix this, use `expect.assertions(<number of assertions>)` instead:
+
+```js
+test('has assertions', () => {
+  expect.assertions(1)
+  expect(value).toBe(1)
 })
 ```
