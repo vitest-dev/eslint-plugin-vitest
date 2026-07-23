@@ -52,6 +52,11 @@ interface ModifiersAndMatcher {
   modifiers: KnownMemberExpressionProperty[]
   matcher: KnownMemberExpressionProperty
   expectCall: TSESTree.CallExpression | null
+  /**
+   * The name of the static expect API being called (`poll`, `element` or
+   * `soft`), or `null` for a plain `expect(...)` call.
+   */
+  expectApiName: string | null
   /** The arguments that are being passed to the `matcher` */
   args: TSESTree.CallExpression['arguments']
 }
@@ -351,6 +356,7 @@ const parseExpectCallExpression = (
     type: 'expect',
     members: typeLessParsedVitestFnCall.members.slice(0, matcherIndex + 1),
     matcher: matcher.member,
+    expectApiName: expectApi ? getAccessorValue(expectApi.member) : null,
     expectCall:
       expectApi?.callExpression ??
       (typeLessParsedVitestFnCall.head.node.parent?.type ===
@@ -413,6 +419,7 @@ const parseExpectTypeOfCallExpression = (
     ...typeLessParsedVitestFnCall,
     type: 'expectTypeOf',
     matcher,
+    expectApiName: null,
     expectCall:
       typeLessParsedVitestFnCall.head.node.parent?.type ===
       AST_NODE_TYPES.CallExpression
