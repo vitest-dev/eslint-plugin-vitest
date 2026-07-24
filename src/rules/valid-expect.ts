@@ -351,7 +351,16 @@ export default createEslintRule<
             // expect(value, `template literal`)
             const isSecondArgTemplateLiteral =
               expect.arguments[1].type === AST_NODE_TYPES.TemplateLiteral
-            if (isSecondArgString || isSecondArgTemplateLiteral) {
+            // expect.poll(fn, { timeout }) and expect.element(el, { timeout })
+            // accept an options object as their second argument
+            const takesOptionsArg =
+              vitestFnCall.expectApiName === 'poll' ||
+              vitestFnCall.expectApiName === 'element'
+            if (
+              isSecondArgString ||
+              isSecondArgTemplateLiteral ||
+              takesOptionsArg
+            ) {
               return
             }
           }
