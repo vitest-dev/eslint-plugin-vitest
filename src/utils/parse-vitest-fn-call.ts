@@ -308,6 +308,9 @@ const classifyExpectChain = (
     return { kind: 'matcher', member, callExpression }
   }
 
+  if (isFirstMemberOfStaticExpectCall && name === 'assert')
+    return { kind: 'expect-api', member, callExpression }
+
   if (chaiChainableProperties.has(name))
     return { kind: 'language-chain', member, callExpression }
 
