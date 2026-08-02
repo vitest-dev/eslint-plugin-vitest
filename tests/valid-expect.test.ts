@@ -5,6 +5,9 @@ ruleTester.run(rule.name, rule, {
   valid: [
     'expect.hasAssertions',
     'expect.hasAssertions()',
+    'expect.assert(value)',
+    'expect.assert.isDefined(value)',
+    'expect.assert.exists(value)',
     'expect.any(String)',
     'expect.anything()',
     'expect.arrayContaining([1])',
