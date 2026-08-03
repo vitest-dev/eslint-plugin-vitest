@@ -10,6 +10,7 @@ ruleTester.run(rule.name, rule, {
     'it.each("foo", () => {})',
     'it.concurrent("foo", function () {})',
     'test("foo", function () {})',
+    'test("foo", { skip: false }, function () {})',
     'test.only("foo", function () {})',
     'test.concurrent("foo", function () {})',
     'describe[`${"skip"}`]("foo", function () {})',
@@ -50,6 +51,30 @@ ruleTester.run(rule.name, rule, {
           endLine: 1,
           line: 1,
           messageId: 'disabledSuite',
+        },
+      ],
+    },
+    {
+      code: 'describe("foo", { skip: true }, function () {})',
+      errors: [
+        {
+          column: 19,
+          endColumn: 23,
+          endLine: 1,
+          line: 1,
+          messageId: 'disabledSuite',
+        },
+      ],
+    },
+    {
+      code: 'test("foo", { skip: true }, function () {})',
+      errors: [
+        {
+          column: 15,
+          endColumn: 19,
+          endLine: 1,
+          line: 1,
+          messageId: 'disabledTest',
         },
       ],
     },

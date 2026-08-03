@@ -7,6 +7,7 @@ ruleTester.run(rule.name, rule, {
     'it("foo", function () {})',
     'it.concurrent("foo", function () {})',
     'test("foo", function () {})',
+    'test("foo", { todo: false }, function () {})',
     'test.concurrent("foo", function () {})',
     'describe.only("foo", function () {})',
     'it.only("foo", function () {})',
@@ -24,6 +25,10 @@ ruleTester.run(rule.name, rule, {
     {
       code: 'test.todo("foo", function () {})',
       errors: [{ messageId: 'warnTodo', column: 6, line: 1 }],
+    },
+    {
+      code: 'test("foo", { todo: true }, function () {})',
+      errors: [{ messageId: 'warnTodo', column: 15, line: 1 }],
     },
     {
       code: 'describe.todo.each([])("foo", function () {})',

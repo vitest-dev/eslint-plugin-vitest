@@ -147,6 +147,29 @@ export const getAccessorValue = <S extends string = string>(
     ? accessor.name
     : getStringValue(accessor)
 
+export const findVitestModeProperty = (
+  node: TSESTree.CallExpression,
+  mode: 'only' | 'skip' | 'todo',
+): TSESTree.Property | null => {
+  const options = node.arguments[1]
+
+  if (options?.type !== AST_NODE_TYPES.ObjectExpression) return null
+
+  const property = options.properties.findLast(
+    (property): property is TSESTree.Property =>
+      property.type === AST_NODE_TYPES.Property &&
+      isSupportedAccessor(property.key, mode),
+  )
+
+  if (
+    property?.value.type !== AST_NODE_TYPES.Literal ||
+    property.value.value !== true
+  )
+    return null
+
+  return property
+}
+
 /**
  * Gets the value of the given `StringNode`.
  *

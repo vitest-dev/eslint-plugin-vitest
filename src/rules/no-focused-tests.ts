@@ -1,4 +1,8 @@
-import { createEslintRule, getAccessorValue } from '../utils'
+import {
+  createEslintRule,
+  findVitestModeProperty,
+  getAccessorValue,
+} from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 export type MessageIds = 'noFocusedTests'
@@ -54,14 +58,27 @@ export default createEslintRule<Options, MessageIds>({
           (m) => getAccessorValue(m) === 'only',
         )
 
-        if (isTestOrDescribe && onlyNode) {
+        const onlyProperty = findVitestModeProperty(node, 'only')
+        const focusedNode = onlyNode ?? onlyProperty?.key
+
+        if (isTestOrDescribe && focusedNode) {
           context.report({
-            node: onlyNode,
+            node: focusedNode,
             messageId: 'noFocusedTests',
-            fix: (fixer) =>
-              fixable
-                ? fixer.removeRange([onlyNode.range[0] - 1, onlyNode.range[1]])
-                : null,
+            fix: (fixer) => {
+              if (!fixable) return null
+
+              if (onlyNode)
+                return fixer.removeRange([
+                  onlyNode.range[0] - 1,
+                  onlyNode.range[1],
+                ])
+
+              if (onlyProperty)
+                return fixer.replaceText(onlyProperty.value, 'false')
+
+              return null
+            },
           })
         }
       },

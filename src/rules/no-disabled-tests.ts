@@ -1,4 +1,8 @@
-import { createEslintRule, getAccessorValue } from '../utils'
+import {
+  createEslintRule,
+  findVitestModeProperty,
+  getAccessorValue,
+} from '../utils'
 import { parseVitestFnCall, resolveScope } from '../utils/parse-vitest-fn-call'
 import { getScope } from '../utils/scope'
 
@@ -61,13 +65,19 @@ export default createEslintRule<Options, MESSAGE_ID>({
         const skipMember = vitestFnCall.members.find(
           (s) => getAccessorValue(s) === 'skip',
         )
-        if (vitestFnCall.name.startsWith('x') || skipMember !== undefined) {
+        const skipProperty =
+          vitestFnCall.type === 'describe' || vitestFnCall.type === 'test'
+            ? findVitestModeProperty(node, 'skip')
+            : null
+        const skipNode = skipMember ?? skipProperty?.key
+
+        if (vitestFnCall.name.startsWith('x') || skipNode) {
           context.report({
             messageId:
               vitestFnCall.type === 'describe'
                 ? 'disabledSuite'
                 : 'disabledTest',
-            node: skipMember ?? vitestFnCall.head.node,
+            node: skipNode ?? vitestFnCall.head.node,
           })
         }
       },
