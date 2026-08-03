@@ -8,6 +8,7 @@ ruleTester.run(rule.name, rule, {
     'it.for([])("test", () => {});',
 
     'test("test", () => {});',
+    'test("test", { only: false }, () => {});',
     'test.each([])("test", () => {});',
     'test.for([])("test", () => {});',
 
@@ -78,6 +79,23 @@ ruleTester.run(rule.name, rule, {
         {
           column: 4,
           endColumn: 8,
+          endLine: 1,
+          line: 1,
+          messageId: 'noFocusedTests',
+        },
+      ],
+    },
+    {
+      options: [
+        {
+          fixable: false,
+        },
+      ],
+      code: 'test("test", { only: true }, () => {});',
+      errors: [
+        {
+          column: 16,
+          endColumn: 20,
           endLine: 1,
           line: 1,
           messageId: 'noFocusedTests',
@@ -213,6 +231,19 @@ ruleTester.run(rule.name, rule, {
         },
       ],
       output: 'test("test", () => {});',
+    },
+    {
+      code: 'test("test", { only: true }, () => {});',
+      errors: [
+        {
+          column: 16,
+          endColumn: 20,
+          endLine: 1,
+          line: 1,
+          messageId: 'noFocusedTests',
+        },
+      ],
+      output: 'test("test", { only: false }, () => {});',
     },
     {
       code: 'it.only.each([])("test", () => {});',

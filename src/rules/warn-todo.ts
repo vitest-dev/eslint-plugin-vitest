@@ -1,4 +1,4 @@
-import { createEslintRule } from '../utils'
+import { createEslintRule, findVitestModeProperty } from '../utils'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'warn-todo'
@@ -32,11 +32,14 @@ export default createEslintRule({
           (m) => m.type === 'Identifier' && m.name === 'todo',
         )
 
-        if (!todoMember) return
+        const todoProperty = findVitestModeProperty(node, 'todo')
+        const todoNode = todoMember ?? todoProperty?.key
+
+        if (!todoNode) return
 
         context.report({
           messageId: 'warnTodo',
-          node: todoMember,
+          node: todoNode,
         })
       },
     }
