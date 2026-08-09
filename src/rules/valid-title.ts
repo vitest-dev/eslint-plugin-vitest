@@ -239,9 +239,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               functionName:
                 vitestFnCall.type === 'describe'
                   ? DescribeAlias.describe
-                  : vitestFnCall.type === 'test'
-                    ? TestCaseName.test
-                    : TestCaseName.it,
+                  : trimFXPrefix(vitestFnCall.name) === TestCaseName.it
+                    ? TestCaseName.it
+                    : TestCaseName.test,
             },
             node,
           })
