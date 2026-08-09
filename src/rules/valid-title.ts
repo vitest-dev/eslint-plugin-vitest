@@ -239,7 +239,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               functionName:
                 vitestFnCall.type === 'describe'
                   ? DescribeAlias.describe
-                  : TestCaseName.test,
+                  : vitestFnCall.type === 'test'
+                    ? TestCaseName.test
+                    : TestCaseName.it,
             },
             node,
           })

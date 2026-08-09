@@ -607,6 +607,21 @@ ruleTester.run(rule.name, rule, {
           messageId: 'emptyTitle',
           column: 7,
           line: 3,
+          data: { functionName: 'it' },
+        },
+      ],
+    },
+    {
+      code: `
+       describe('foo', () => {
+      test('', () => {});
+       });
+     `,
+      errors: [
+        {
+          messageId: 'emptyTitle',
+          column: 7,
+          line: 3,
           data: { functionName: 'test' },
         },
       ],
@@ -618,7 +633,7 @@ ruleTester.run(rule.name, rule, {
           messageId: 'emptyTitle',
           column: 1,
           line: 1,
-          data: { functionName: 'test' },
+          data: { functionName: 'it' },
         },
       ],
     },
@@ -630,7 +645,7 @@ ruleTester.run(rule.name, rule, {
           messageId: 'emptyTitle',
           column: 1,
           line: 1,
-          data: { functionName: 'test' },
+          data: { functionName: 'it' },
         },
       ],
     },
@@ -641,7 +656,7 @@ ruleTester.run(rule.name, rule, {
           messageId: 'emptyTitle',
           column: 1,
           line: 1,
-          data: { functionName: 'test' },
+          data: { functionName: 'it' },
         },
       ],
     },
