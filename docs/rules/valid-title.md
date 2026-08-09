@@ -95,9 +95,9 @@ Examples of **incorrect** code for this rule with the `{ "disallowedWords": ["Ba
 
 ```js
 describe('foo', () => {
-  it("Includes ng keyword Bar", () => {
-    expect(1).toBe(1);
-  });
+  it('Includes ng keyword Bar', () => {
+    expect(1).toBe(1)
+  })
 })
 ```
 
