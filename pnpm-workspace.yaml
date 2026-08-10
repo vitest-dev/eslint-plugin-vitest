@@ -1,6 +1,8 @@
+allowBuilds:
+  esbuild: true
+
 injectWorkspacePackages: true
 
-onlyBuiltDependencies:
-  - esbuild
+minimumReleaseAge: 10080 # 7 days
 
 savePrefix: ^
