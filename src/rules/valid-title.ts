@@ -248,6 +248,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         }
 
         const [argument] = node.arguments
+        if (!argument) {
+          return
+        }
 
         const getArgumentType = () => {
           if (!settings.typecheck) return null
@@ -259,10 +262,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         const type = getArgumentType()
         if (type && isClassOrFunctionType(type)) return
 
-        if (
-          !argument ||
-          (allowArguments && argument.type === AST_NODE_TYPES.Identifier)
-        )
+        if (allowArguments && argument.type === AST_NODE_TYPES.Identifier)
           return
 
         if (!isStringNode(argument)) {
