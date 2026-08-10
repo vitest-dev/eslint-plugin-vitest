@@ -69,6 +69,8 @@ describe('1', () => {
 
 If `true`, the rule ignores the arguments of the `describe`, `test`, and `it` functions.
 
+However, function calls and property accesses are not included in this skip and are detected as errors.
+
 Examples of **correct** code for this rule with the `{ "allowArguments": false }` option:
 
 ```js
@@ -89,21 +91,21 @@ describe(foo, () => {
 
 An array of words that are not allowed in the test title.
 
-Examples of **incorrect** code for this rule with the `{ "disallowedWords": ["skip", "only"] }` option:
+Examples of **incorrect** code for this rule with the `{ "disallowedWords": ["Bar"] }` option:
 
 ```js
 describe('foo', () => {
-  it.skip('should be skipped', () => {
+  it('Includes ng keyword Bar', () => {
     expect(1).toBe(1)
   })
 })
 ```
 
-Examples of **correct** code for this rule with the `{ "disallowedWords": ["skip", "only"] }` option:
+Examples of **correct** code for this rule with the `{ "disallowedWords": ["Bar"] }` option:
 
 ```js
 describe('foo', () => {
-  it('should be skipped', () => {
+  it('Not includes ng keyword', () => {
     expect(1).toBe(1)
   })
 })
