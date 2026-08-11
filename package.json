@@ -53,6 +53,7 @@
     "@eslint/js": "^10.0.1",
     "@types/eslint": "^9.6.1",
     "@types/node": "^25.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.58.0",
     "@typescript-eslint/parser": "^8.58.0",
     "@typescript-eslint/rule-tester": "^8.58.0",
     "bumpp": "^10.4.1",
@@ -68,14 +69,14 @@
     "prettier": "^3.8.1",
     "tsdown": "^0.20.3",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.2",
     "typescript-eslint": "^8.58.0",
     "vitest": "^4.1.10"
   },
   "peerDependencies": {
     "@typescript-eslint/eslint-plugin": "*",
     "eslint": ">=8.57.0",
-    "typescript": ">=5.0.0",
+    "typescript": ">=6.0.0",
     "vitest": "*"
   },
   "peerDependenciesMeta": {
