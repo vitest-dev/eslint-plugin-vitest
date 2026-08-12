@@ -10,14 +10,17 @@
 
 ## Rule Details
 
+By default, this rule enforces `test` at the top level, and `it` inside a `describe` block.
+
 Examples of **incorrect** code for this rule:
 
 ```js
-test('it works', () => {
+test('using test function', () => {
   // ...
 })
 
-it('it works', () => {
+// Invalid: the top level keyword defaults to `test`
+it('using it function', () => {
   // ...
 })
 ```
@@ -25,13 +28,11 @@ it('it works', () => {
 Examples of **correct** code for this rule:
 
 ```js
-test('it works', () => {
+test('using test function', () => {
   // ...
 })
-```
 
-```js
-test('it works', () => {
+test('using only test function', () => {
   // ...
 })
 ```
@@ -64,11 +65,7 @@ test('it works', () => {
 
 ##### `fn`
 
-Decides whether to prefer `test` or `it`.
-
-##### `withinDescribe`
-
-Decides whether to prefer `test` or `it` when used within a `describe` block.
+Decides whether to prefer `test` or `it`. Defaults to `test`.
 
 ```js
 /*eslint vitest/consistent-test-it: ["error", {"fn": "test"}]*/
@@ -91,6 +88,36 @@ it('it works', () => {
 it.only('it works', () => {
   // <-- Invalid
   // ...
+})
+```
+
+##### `withinDescribe`
+
+Decides whether to prefer `test` or `it` when used within a `describe` block. Defaults to the value of `fn` when it is set, otherwise `it`.
+
+```js
+/*eslint vitest/consistent-test-it: ["error", {"withinDescribe": "it"}]*/
+
+describe('suite', () => {
+  it('it works', () => {
+    // <-- Valid
+    // ...
+  })
+
+  it.only('it works', () => {
+    // <-- Valid
+    // ...
+  })
+
+  test('it works', () => {
+    // <-- Invalid
+    // ...
+  })
+
+  test.only('it works', () => {
+    // <-- Invalid
+    // ...
+  })
 })
 ```
 
