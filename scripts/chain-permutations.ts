@@ -10,16 +10,18 @@ import path from 'node:path'
 import url from 'node:url'
 import prettier from 'prettier'
 
+const hookNames = [
+  'beforeEach',
+  'beforeAll',
+  'afterEach',
+  'afterAll',
+  'aroundEach',
+  'aroundAll',
+]
+
 const data = [
   {
-    names: [
-      'beforeEach',
-      'beforeAll',
-      'afterEach',
-      'afterAll',
-      'aroundEach',
-      'aroundAll',
-    ],
+    names: hookNames,
     first: [],
     exclusive: [],
     conditions: [],
@@ -29,7 +31,7 @@ const data = [
   {
     names: ['it', 'test'],
     first: [],
-    exclusive: ['extend', 'scoped'],
+    exclusive: ['extend', 'scoped', ...hookNames],
     conditions: ['skipIf', 'runIf'],
     methods: ['skip', 'only', 'concurrent', 'sequential', 'todo', 'fails'],
     last: ['each', 'for'],
