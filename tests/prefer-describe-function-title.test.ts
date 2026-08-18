@@ -113,6 +113,29 @@ ruleTester.run(rule.name, rule, {
         },
       },
     },
+    // Type-only imports are erased at runtime, so the identifier cannot be used
+    // as a value: the "fix" would not compile.
+    {
+      code: `
+        import type { myFunction } from "./myFunction"
+        describe("myFunction", () => {})
+      `,
+      filename: 'myFunction.test.ts',
+    },
+    {
+      code: `
+        import { type myFunction } from "./myFunction"
+        describe("myFunction", () => {})
+      `,
+      filename: 'myFunction.test.ts',
+    },
+    {
+      code: `
+        import type myFunction from "./myFunction"
+        describe("myFunction", () => {})
+      `,
+      filename: 'myFunction.test.ts',
+    },
   ],
   invalid: [
     {
