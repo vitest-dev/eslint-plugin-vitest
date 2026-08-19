@@ -109,6 +109,16 @@ export default createEslintRule<
             data: { testFnKeyWork, oppositeTestKeyword },
             messageId: 'consistentMethod',
             fix: (fixer) => {
+              const isAliased = specifier.local.name !== oppositeTestKeyword
+
+              const preferredLocalName = isAliased
+                ? specifier.local.name
+                : testFnDisabled
+              const preferredSpecifierText =
+                preferredLocalName === testFnDisabled
+                  ? testFnDisabled
+                  : `${testFnDisabled} as ${preferredLocalName}`
+
               const remainingSpecifiers = node.specifiers.filter(
                 (spec) => spec !== specifier,
               )
@@ -117,13 +127,14 @@ export default createEslintRule<
                   (spec) =>
                     spec.type === AST_NODE_TYPES.ImportSpecifier &&
                     spec.imported.type === AST_NODE_TYPES.Identifier &&
-                    spec.imported.name === testFnDisabled,
+                    spec.imported.name === testFnDisabled &&
+                    spec.local.name === preferredLocalName,
                 )
                 const importNames = remainingSpecifiers.map((spec) =>
                   sourceCode.getText(spec),
                 )
                 if (!hasPreferredSpecifier) {
-                  importNames.push(testFnDisabled)
+                  importNames.push(preferredSpecifierText)
                 }
 
                 const importText = importNames.join(', ')
@@ -136,7 +147,7 @@ export default createEslintRule<
                 )
               }
 
-              return fixer.replaceText(specifier, testFnDisabled)
+              return fixer.replaceText(specifier, preferredSpecifierText)
             },
           })
         }
@@ -162,6 +173,15 @@ export default createEslintRule<
             : node.callee.type === AST_NODE_TYPES.CallExpression
               ? node.callee.callee
               : node.callee
+
+        const renameTarget =
+          funcNode.type === AST_NODE_TYPES.MemberExpression
+            ? funcNode.object
+            : funcNode
+        const isAliasedCall =
+          renameTarget.type === AST_NODE_TYPES.Identifier &&
+          renameTarget.name !== vitestFnCall.name
+
         if (
           vitestFnCall.type === 'test' &&
           describeNestingLevel === 0 &&
@@ -173,7 +193,9 @@ export default createEslintRule<
             node: node.callee,
             data: { testFnKeyWork, oppositeTestKeyword },
             messageId: 'consistentMethod',
-            fix: buildFixer(funcNode, vitestFnCall.name, testFnKeyWork),
+            fix: isAliasedCall
+              ? null
+              : buildFixer(funcNode, vitestFnCall.name, testFnKeyWork),
           })
         } else if (
           vitestFnCall.type === 'test' &&
@@ -188,11 +210,13 @@ export default createEslintRule<
             messageId: 'consistentMethodWithinDescribe',
             node: node.callee,
             data: { testKeywordWithinDescribe, oppositeTestKeyword },
-            fix: buildFixer(
-              funcNode,
-              vitestFnCall.name,
-              testKeywordWithinDescribe,
-            ),
+            fix: isAliasedCall
+              ? null
+              : buildFixer(
+                  funcNode,
+                  vitestFnCall.name,
+                  testKeywordWithinDescribe,
+                ),
           })
         }
       },
