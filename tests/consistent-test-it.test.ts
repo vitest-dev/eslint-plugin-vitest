@@ -151,6 +151,19 @@ ruleTester.run(rule.name, rule, {
       code: 'describe("suite", () => { test("foo") })',
       options: [{ fn: TestCaseName.test }],
     },
+    // https://github.com/vitest-dev/eslint-plugin-vitest/issues/956
+    {
+      code: `import { describe, test } from 'vitest';
+const it = test.extend({});
+describe("suite", () => { it("foo") })`,
+      options: [{ fn: TestCaseName.test, withinDescribe: TestCaseName.it }],
+    },
+    {
+      code: `import { describe, it } from 'vitest';
+const test = it.extend({});
+describe("suite", () => { test("foo") })`,
+      options: [{ fn: TestCaseName.it, withinDescribe: TestCaseName.test }],
+    },
   ],
   invalid: [
     {
@@ -158,6 +171,25 @@ ruleTester.run(rule.name, rule, {
       options: [{ fn: TestCaseName.test }],
       output: 'test("shows error", () => {});',
       errors: [{ messageId: 'consistentMethod' }],
+    },
+    // https://github.com/vitest-dev/eslint-plugin-vitest/issues/956
+    // still reported, but not auto-fixed: `it` is the extended binding, so
+    // rewriting it to `test` would call a different function.
+    {
+      code: `import { test } from 'vitest';
+const it = test.extend({});
+it("foo")`,
+      options: [{ fn: TestCaseName.test }],
+      output: null,
+      errors: [{ messageId: 'consistentMethod' }],
+    },
+    {
+      code: `import { describe, test } from 'vitest';
+const myTest = test.extend({});
+describe("suite", () => { myTest("foo") })`,
+      options: [{ fn: TestCaseName.test, withinDescribe: TestCaseName.it }],
+      output: null,
+      errors: [{ messageId: 'consistentMethodWithinDescribe' }],
     },
     {
       code: 'describe("suite", () => { it("foo") })',
