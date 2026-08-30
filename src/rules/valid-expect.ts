@@ -32,7 +32,6 @@ const defaultAsyncMatchers = ['toReject', 'toResolve']
 const getPromiseCallExpressionNode = (node: TSESTree.Node) => {
   if (
     node.type === AST_NODE_TYPES.ArrayExpression &&
-    node.parent &&
     node.parent.type === AST_NODE_TYPES.CallExpression
   )
     node = node.parent
@@ -40,8 +39,7 @@ const getPromiseCallExpressionNode = (node: TSESTree.Node) => {
   if (
     node.type === AST_NODE_TYPES.CallExpression &&
     node.callee.type === AST_NODE_TYPES.MemberExpression &&
-    isSupportedAccessor(node.callee.object, 'Promise') &&
-    node.parent
+    isSupportedAccessor(node.callee.object, 'Promise')
   )
     return node
 
@@ -100,14 +98,12 @@ function getParentIfThenified(node: TSESTree.Node): TSESTree.Node {
   const grandParentNode = node.parent?.parent
 
   if (
-    grandParentNode &&
-    grandParentNode.type === AST_NODE_TYPES.CallExpression &&
+    grandParentNode?.type === AST_NODE_TYPES.CallExpression &&
     grandParentNode.callee.type === AST_NODE_TYPES.MemberExpression &&
     isSupportedAccessor(grandParentNode.callee.property) &&
     promiseChainMethods.has(
       getAccessorValue(grandParentNode.callee.property),
-    ) &&
-    grandParentNode.parent
+    )
   )
     return getParentIfThenified(grandParentNode)
 
@@ -140,7 +136,7 @@ const isAcceptableReturnNode = (
   | TSESTree.ReturnStatement => {
   if (allowReturn && node.type === AST_NODE_TYPES.ReturnStatement) return true
 
-  if (node.type === AST_NODE_TYPES.ConditionalExpression && node.parent)
+  if (node.type === AST_NODE_TYPES.ConditionalExpression)
     return isAcceptableReturnNode(node.parent, allowReturn)
 
   return [
@@ -269,7 +265,7 @@ export default createEslintRule<
 
         if (typeof vitestFnCall === 'string') {
           const reportingNode =
-            node.parent?.type === AST_NODE_TYPES.MemberExpression
+            node.parent.type === AST_NODE_TYPES.MemberExpression
               ? findTopMostMemberExpression(node.parent).property
               : node
 
