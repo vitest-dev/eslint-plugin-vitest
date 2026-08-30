@@ -101,9 +101,7 @@ function getParentIfThenified(node: TSESTree.Node): TSESTree.Node {
     grandParentNode?.type === AST_NODE_TYPES.CallExpression &&
     grandParentNode.callee.type === AST_NODE_TYPES.MemberExpression &&
     isSupportedAccessor(grandParentNode.callee.property) &&
-    promiseChainMethods.has(
-      getAccessorValue(grandParentNode.callee.property),
-    )
+    promiseChainMethods.has(getAccessorValue(grandParentNode.callee.property))
   )
     return getParentIfThenified(grandParentNode)
 
