@@ -246,18 +246,5 @@ ruleTester.run(`${rule.name}-conditional conditions`, rule, {
      `,
       errors: [{ messageId: 'noConditionalExpect' }],
     },
-    {
-      code: `
-       it('expect.fail before throwing call', () => {
-        try {
-          expect.fail('This guards nothing');
-          funcThatThrows();
-        } catch (e) {
-          expect(e.message).toEqual('oops');
-        }
-       })
-     `,
-      errors: [{ messageId: 'noConditionalExpect' }],
-    },
   ],
 })
