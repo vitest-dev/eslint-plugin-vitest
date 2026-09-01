@@ -20,36 +20,22 @@ const isCatchCall = (
   node.callee.type === AST_NODE_TYPES.MemberExpression &&
   isSupportedAccessor(node.callee.property, 'catch')
 
-const hasExpectFail = (node: TSESTree.Node): boolean => {
-  if (node.type === AST_NODE_TYPES.CallExpression) {
-    if (
-      node.callee.type === AST_NODE_TYPES.MemberExpression &&
-      node.callee.object.type === AST_NODE_TYPES.Identifier &&
-      node.callee.object.name === 'expect' &&
-      isSupportedAccessor(node.callee.property, 'fail')
-    ) {
-      return true
-    }
-  }
-
-  if ('body' in node && Array.isArray(node.body)) {
-    return node.body.some((child: TSESTree.Node) => hasExpectFail(child))
-  }
-
-  if ('body' in node && node.body && typeof node.body === 'object') {
-    return hasExpectFail(node.body as TSESTree.Node)
-  }
-
-  return false
+const isExpectFailCall = (node: TSESTree.Node): boolean => {
+  return (
+    node.type === AST_NODE_TYPES.ExpressionStatement &&
+    node.expression.type === AST_NODE_TYPES.CallExpression &&
+    node.expression.callee.type === AST_NODE_TYPES.MemberExpression &&
+    node.expression.callee.object.type === AST_NODE_TYPES.Identifier &&
+    node.expression.callee.object.name === 'expect' &&
+    isSupportedAccessor(node.expression.callee.property, 'fail')
+  )
 }
 
 const tryBlockHasExpectFail = (catchClause: TSESTree.CatchClause): boolean => {
   const parent = catchClause.parent
   if (parent && parent.type === AST_NODE_TYPES.TryStatement) {
     const tryBlock = parent.block
-    if (tryBlock.body.length > 0) {
-      return tryBlock.body.some(stmt => hasExpectFail(stmt))
-    }
+    return tryBlock.body.some(stmt => isExpectFailCall(stmt))
   }
   return false
 }
