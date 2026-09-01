@@ -185,6 +185,27 @@ ruleTester.run(`${rule.name}-conditional conditions`, rule, {
         expect(getValue()).toBe(2);
       });
     `,
+    `
+      it('throws with specific message', () => {
+        try {
+          funcThatThrows();
+          expect.fail('Error should have been thrown');
+        } catch (e) {
+          expect(e.message).toEqual('oops');
+        }
+      });
+    `,
+    `
+      it('throws with specific message and code', () => {
+        try {
+          funcThatThrows();
+          expect.fail('Error should have been thrown');
+        } catch (e) {
+          expect(e.message).toEqual('oops');
+          expect(e.code).toEqual(123);
+        }
+      });
+    `,
   ],
   invalid: [
     {
@@ -209,6 +230,31 @@ ruleTester.run(`${rule.name}-conditional conditions`, rule, {
       code: `
        it('foo', () => {
       something ? noop() : expect(something).toHaveBeenCalled();
+       })
+     `,
+      errors: [{ messageId: 'noConditionalExpect' }],
+    },
+    {
+      code: `
+       it('might throw', () => {
+        try {
+          funcThatMightThrow();
+        } catch (e) {
+          expect(e.message).toEqual('oops');
+        }
+       })
+     `,
+      errors: [{ messageId: 'noConditionalExpect' }],
+    },
+    {
+      code: `
+       it('expect.fail before throwing call', () => {
+        try {
+          expect.fail('This guards nothing');
+          funcThatThrows();
+        } catch (e) {
+          expect(e.message).toEqual('oops');
+        }
        })
      `,
       errors: [{ messageId: 'noConditionalExpect' }],

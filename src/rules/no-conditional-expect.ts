@@ -20,6 +20,40 @@ const isCatchCall = (
   node.callee.type === AST_NODE_TYPES.MemberExpression &&
   isSupportedAccessor(node.callee.property, 'catch')
 
+const hasExpectFail = (node: TSESTree.Node): boolean => {
+  if (node.type === AST_NODE_TYPES.CallExpression) {
+    if (
+      node.callee.type === AST_NODE_TYPES.MemberExpression &&
+      node.callee.object.type === AST_NODE_TYPES.Identifier &&
+      node.callee.object.name === 'expect' &&
+      isSupportedAccessor(node.callee.property, 'fail')
+    ) {
+      return true
+    }
+  }
+
+  if ('body' in node && Array.isArray(node.body)) {
+    return node.body.some((child: TSESTree.Node) => hasExpectFail(child))
+  }
+
+  if ('body' in node && node.body && typeof node.body === 'object') {
+    return hasExpectFail(node.body as TSESTree.Node)
+  }
+
+  return false
+}
+
+const tryBlockHasExpectFail = (catchClause: TSESTree.CatchClause): boolean => {
+  const parent = catchClause.parent
+  if (parent && parent.type === AST_NODE_TYPES.TryStatement) {
+    const tryBlock = parent.block
+    if (tryBlock.body.length > 0) {
+      return tryBlock.body.some(stmt => hasExpectFail(stmt))
+    }
+  }
+  return false
+}
+
 export default createEslintRule<Options, MESSAGE_ID>({
   name: RULE_NAME,
   meta: {
@@ -57,6 +91,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     let inTestCase = false
     let inPromiseCatch = false
     let expectAssertions = 0
+    const guardedCatchClauses = new WeakSet<TSESTree.CatchClause>()
 
     const increaseConditionalDepth = () => inTestCase && conditionalDepth++
     const decreaseConditionalDepth = () => inTestCase && conditionalDepth--
@@ -127,8 +162,18 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
         if (isCatchCall(node)) inPromiseCatch = false
       },
-      CatchClause: increaseConditionalDepth,
-      'CatchClause:exit': decreaseConditionalDepth,
+      CatchClause(node: TSESTree.CatchClause) {
+        if (tryBlockHasExpectFail(node)) {
+          guardedCatchClauses.add(node)
+        } else {
+          increaseConditionalDepth()
+        }
+      },
+      'CatchClause:exit'(node: TSESTree.CatchClause) {
+        if (!guardedCatchClauses.has(node)) {
+          decreaseConditionalDepth()
+        }
+      },
       IfStatement: increaseConditionalDepth,
       'IfStatement:exit': decreaseConditionalDepth,
       SwitchStatement: increaseConditionalDepth,
