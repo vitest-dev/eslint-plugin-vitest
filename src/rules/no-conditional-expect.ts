@@ -20,6 +20,26 @@ const isCatchCall = (
   node.callee.type === AST_NODE_TYPES.MemberExpression &&
   isSupportedAccessor(node.callee.property, 'catch')
 
+const isExpectFailCall = (node: TSESTree.Node): boolean => {
+  return (
+    node.type === AST_NODE_TYPES.ExpressionStatement &&
+    node.expression.type === AST_NODE_TYPES.CallExpression &&
+    node.expression.callee.type === AST_NODE_TYPES.MemberExpression &&
+    node.expression.callee.object.type === AST_NODE_TYPES.Identifier &&
+    node.expression.callee.object.name === 'expect' &&
+    isSupportedAccessor(node.expression.callee.property, 'fail')
+  )
+}
+
+const tryBlockHasExpectFail = (catchClause: TSESTree.CatchClause): boolean => {
+  const parent = catchClause.parent
+  if (parent && parent.type === AST_NODE_TYPES.TryStatement) {
+    const tryBlock = parent.block
+    return tryBlock.body.some(stmt => isExpectFailCall(stmt))
+  }
+  return false
+}
+
 export default createEslintRule<Options, MESSAGE_ID>({
   name: RULE_NAME,
   meta: {
@@ -57,6 +77,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     let inTestCase = false
     let inPromiseCatch = false
     let expectAssertions = 0
+    const guardedCatchClauses = new WeakSet<TSESTree.CatchClause>()
 
     const increaseConditionalDepth = () => inTestCase && conditionalDepth++
     const decreaseConditionalDepth = () => inTestCase && conditionalDepth--
@@ -127,8 +148,18 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
         if (isCatchCall(node)) inPromiseCatch = false
       },
-      CatchClause: increaseConditionalDepth,
-      'CatchClause:exit': decreaseConditionalDepth,
+      CatchClause(node: TSESTree.CatchClause) {
+        if (tryBlockHasExpectFail(node)) {
+          guardedCatchClauses.add(node)
+        } else {
+          increaseConditionalDepth()
+        }
+      },
+      'CatchClause:exit'(node: TSESTree.CatchClause) {
+        if (!guardedCatchClauses.has(node)) {
+          decreaseConditionalDepth()
+        }
+      },
       IfStatement: increaseConditionalDepth,
       'IfStatement:exit': decreaseConditionalDepth,
       SwitchStatement: increaseConditionalDepth,
