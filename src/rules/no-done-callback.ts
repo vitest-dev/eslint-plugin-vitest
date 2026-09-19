@@ -2,6 +2,7 @@ import { TSESLint, AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import {
   createEslintRule,
   getNodeName,
+  getTestCallbackArg,
   isFunction,
   isSupportedAccessor,
 } from '../utils'
@@ -30,7 +31,7 @@ const findCallbackArg = (
     return node.arguments[0]
 
   if (vitestFnCall?.type === 'test' && node.arguments.length >= 2)
-    return node.arguments[1]
+    return getTestCallbackArg(node) ?? null
 
   return null
 }
