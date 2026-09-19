@@ -12,6 +12,28 @@ test('something', () => {
     `describe('scoped', () => {
       test.scoped({ example: 'value' });
     });`,
+    // Hooks are also exposed as members of the test API.
+    // https://github.com/vitest-dev/eslint-plugin-vitest/issues/955
+    {
+      code: `
+import { test } from 'vitest';
+
+const it = test.extend({
+  fixture: async ({}, use) => {
+    await use('hello');
+  },
+});
+
+it.aroundAll(async (runSuite) => {
+  await runSuite();
+});
+
+it.beforeEach(({ fixture }) => {
+  console.log(fixture);
+});
+`,
+      languageOptions: { parserOptions: { sourceType: 'module' } },
+    },
     {
       code: `
 import { myFn } from '../functions';
