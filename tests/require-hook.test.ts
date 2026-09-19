@@ -156,6 +156,22 @@ class MockLogger {
       });
     });
     `,
+    {
+      code: `
+    import { test } from 'vitest';
+
+    const it = test.extend({
+      fixture: async ({}, use) => {
+        await use('hello');
+      },
+    });
+
+    it.aroundAll(async (runSuite) => {
+      await runSuite();
+    });
+    `,
+      languageOptions: { parserOptions: { sourceType: 'module' } },
+    },
   ],
   invalid: [
     {
