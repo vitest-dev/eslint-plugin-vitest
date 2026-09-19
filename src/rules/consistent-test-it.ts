@@ -39,6 +39,33 @@ function getOppositeTestKeyword(test: TestCaseName.test | TestCaseName.it) {
   return TestCaseName.test
 }
 
+/**
+ * `parseVitestFnCall` reports the name the call *resolves* to, which is not
+ * always the name that is written in the source: a binding created with
+ * `test.extend()` resolves back to `test`, and an aliased import resolves back
+ * to what it imports.
+ *
+ * This rule is about how the call is *spelled*, so a local name that is itself
+ * a test keyword is what should be checked — `it(...)` already uses `it`, no
+ * matter what it resolves to.
+ */
+const getWrittenName = (vitestFnCall: {
+  name: string
+  head: { local: string }
+}) =>
+  Object.hasOwn(TestCaseName, vitestFnCall.head.local)
+    ? vitestFnCall.head.local
+    : vitestFnCall.name
+
+/**
+ * The fixer rewrites the callee in place, which is only safe when the call
+ * goes straight to the vitest export. Renaming an alias or a binding created
+ * with `test.extend()` would point the call at a different function (or at no
+ * binding at all), so those are reported without a fix.
+ */
+const isRenamable = (vitestFnCall: { name: string; head: { local: string } }) =>
+  vitestFnCall.name === vitestFnCall.head.local
+
 export default createEslintRule<
   [
     Partial<{
@@ -162,10 +189,13 @@ export default createEslintRule<
             : node.callee.type === AST_NODE_TYPES.CallExpression
               ? node.callee.callee
               : node.callee
+        const writtenName = getWrittenName(vitestFnCall)
+        const renamable = isRenamable(vitestFnCall)
+
         if (
           vitestFnCall.type === 'test' &&
           describeNestingLevel === 0 &&
-          !vitestFnCall.name.endsWith(testFnKeyWork)
+          !writtenName.endsWith(testFnKeyWork)
         ) {
           const oppositeTestKeyword = getOppositeTestKeyword(testFnKeyWork)
 
@@ -173,12 +203,14 @@ export default createEslintRule<
             node: node.callee,
             data: { testFnKeyWork, oppositeTestKeyword },
             messageId: 'consistentMethod',
-            fix: buildFixer(funcNode, vitestFnCall.name, testFnKeyWork),
+            fix: renamable
+              ? buildFixer(funcNode, writtenName, testFnKeyWork)
+              : undefined,
           })
         } else if (
           vitestFnCall.type === 'test' &&
           describeNestingLevel > 0 &&
-          !vitestFnCall.name.endsWith(testKeywordWithinDescribe)
+          !writtenName.endsWith(testKeywordWithinDescribe)
         ) {
           const oppositeTestKeyword = getOppositeTestKeyword(
             testKeywordWithinDescribe,
@@ -188,11 +220,9 @@ export default createEslintRule<
             messageId: 'consistentMethodWithinDescribe',
             node: node.callee,
             data: { testKeywordWithinDescribe, oppositeTestKeyword },
-            fix: buildFixer(
-              funcNode,
-              vitestFnCall.name,
-              testKeywordWithinDescribe,
-            ),
+            fix: renamable
+              ? buildFixer(funcNode, writtenName, testKeywordWithinDescribe)
+              : undefined,
           })
         }
       },
