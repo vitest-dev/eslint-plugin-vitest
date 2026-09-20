@@ -126,7 +126,7 @@ export class VitestFnCallParser {
 
     if (parsedVitestFnCall) return parsedVitestFnCall
 
-    parsedVitestFnCall = parseVitestFnCallWithReasonInner(node, this.#context)
+    parsedVitestFnCall = this.#parseVitestFnCallWithReasonInner(node)
 
     parseVitestFnCallCache.set(node, parsedVitestFnCall)
 
@@ -149,6 +149,93 @@ export class VitestFnCallParser {
         ),
       [],
     )
+  }
+
+  #parseVitestFnCallWithReasonInner(
+    node: TSESTree.CallExpression,
+  ): ParsedVitestFnCall | Reason | null {
+    const chain = getNodeChain(node)
+
+    if (!chain?.length) return null
+
+    const [first, ...rest] = chain
+
+    const lastLink = getAccessorValue(chain[chain.length - 1])
+
+    if (lastLink === 'each') {
+      if (
+        node.callee.type !== AST_NODE_TYPES.CallExpression &&
+        node.callee.type !== AST_NODE_TYPES.TaggedTemplateExpression
+      )
+        return null
+    }
+
+    if (
+      node.callee.type === AST_NODE_TYPES.TaggedTemplateExpression &&
+      lastLink !== 'each'
+    )
+      return null
+
+    const resolved = resolveVitestFn(
+      this.#context,
+      node,
+      getAccessorValue(first),
+    )
+
+    if (!resolved) return null
+
+    const name = resolved.original ?? resolved.local
+
+    const links = [name, ...rest.map(getAccessorValue)]
+
+    if (
+      resolved.type !== 'testContext' &&
+      name !== 'vi' &&
+      name !== 'vitest' &&
+      name !== 'expect' &&
+      name !== 'expectTypeOf' &&
+      !ValidVitestFnCallChains.has(links.join('.'))
+    )
+      return null
+
+    const parsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'> = {
+      name,
+      head: { ...resolved, node: first },
+      members: rest as KnownMemberExpressionProperty[],
+    }
+
+    const type = determineVitestFnType(name)
+
+    if (type === 'expect' || type === 'expectTypeOf') {
+      const topMostCallExpression = findTopMostCallExpression(node)
+
+      return type === 'expect'
+        ? parseExpectCallExpression(
+            node,
+            topMostCallExpression,
+            parsedVitestFnCall,
+          )
+        : parseExpectTypeOfCallExpression(
+            node,
+            topMostCallExpression,
+            parsedVitestFnCall,
+          )
+    }
+
+    if (
+      chain
+        .slice(0, chain.length - 1)
+        .some((node) => node.parent?.type !== AST_NODE_TYPES.MemberExpression)
+    )
+      return null
+
+    if (
+      node.parent?.type === AST_NODE_TYPES.CallExpression ||
+      node.parent?.type === AST_NODE_TYPES.MemberExpression
+    )
+      return null
+
+    return { ...parsedVitestFnCall, type }
   }
 }
 
@@ -471,90 +558,6 @@ export const findTopMostCallExpression = (
   }
 
   return topMostCallExpression
-}
-
-const parseVitestFnCallWithReasonInner = (
-  node: TSESTree.CallExpression,
-  context: TSESLint.RuleContext<string, readonly unknown[]>,
-): ParsedVitestFnCall | Reason | null => {
-  const chain = getNodeChain(node)
-
-  if (!chain?.length) return null
-
-  const [first, ...rest] = chain
-
-  const lastLink = getAccessorValue(chain[chain.length - 1])
-
-  if (lastLink === 'each') {
-    if (
-      node.callee.type !== AST_NODE_TYPES.CallExpression &&
-      node.callee.type !== AST_NODE_TYPES.TaggedTemplateExpression
-    )
-      return null
-  }
-
-  if (
-    node.callee.type === AST_NODE_TYPES.TaggedTemplateExpression &&
-    lastLink !== 'each'
-  )
-    return null
-
-  const resolved = resolveVitestFn(context, node, getAccessorValue(first))
-
-  if (!resolved) return null
-
-  const name = resolved.original ?? resolved.local
-
-  const links = [name, ...rest.map(getAccessorValue)]
-
-  if (
-    resolved.type !== 'testContext' &&
-    name !== 'vi' &&
-    name !== 'vitest' &&
-    name !== 'expect' &&
-    name !== 'expectTypeOf' &&
-    !ValidVitestFnCallChains.has(links.join('.'))
-  )
-    return null
-
-  const parsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'> = {
-    name,
-    head: { ...resolved, node: first },
-    members: rest as KnownMemberExpressionProperty[],
-  }
-
-  const type = determineVitestFnType(name)
-
-  if (type === 'expect' || type === 'expectTypeOf') {
-    const topMostCallExpression = findTopMostCallExpression(node)
-
-    return type === 'expect'
-      ? parseExpectCallExpression(
-          node,
-          topMostCallExpression,
-          parsedVitestFnCall,
-        )
-      : parseExpectTypeOfCallExpression(
-          node,
-          topMostCallExpression,
-          parsedVitestFnCall,
-        )
-  }
-
-  if (
-    chain
-      .slice(0, chain.length - 1)
-      .some((node) => node.parent?.type !== AST_NODE_TYPES.MemberExpression)
-  )
-    return null
-
-  if (
-    node.parent?.type === AST_NODE_TYPES.CallExpression ||
-    node.parent?.type === AST_NODE_TYPES.MemberExpression
-  )
-    return null
-
-  return { ...parsedVitestFnCall, type }
 }
 
 const joinChains = (
