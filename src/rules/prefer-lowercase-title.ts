@@ -9,6 +9,7 @@ import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 import {
   CallExpressionWithSingleArgument,
   DescribeAlias,
+  LegacyTestCaseName,
   TestCaseName,
 } from '../utils/types'
 
@@ -18,7 +19,7 @@ export type MessageIds = 'lowerCaseTitle' | 'fullyLowerCaseTitle'
 type IgnorableFunctionExpressions =
   | (typeof TestCaseName)['it']
   | (typeof TestCaseName)['test']
-  | (typeof TestCaseName)['bench']
+  | (typeof LegacyTestCaseName)['bench']
   | DescribeAlias.describe
 
 const hasStringAsFirstArgument = (

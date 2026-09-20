@@ -1,5 +1,11 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
-import { DescribeAlias, HookName, ModifierName, TestCaseName } from './types'
+import {
+  DescribeAlias,
+  HookName,
+  LegacyTestCaseName,
+  ModifierName,
+  TestCaseName,
+} from './types'
 import { ValidVitestFnCallChains } from './valid-vitest-fn-call-chains'
 import {
   AccessorNode,
@@ -12,6 +18,10 @@ import {
   isSupportedAccessor,
 } from '.'
 import { getScope } from './scope'
+import {
+  BENCHMARK_API_REWRITE_VERSION,
+  determineVitestMajorVersion,
+} from './vitest-version'
 
 export type VitestFnType =
   | 'test'
@@ -102,8 +112,19 @@ export type ParsedVitestFnCall =
 
 export class VitestFnCallParser {
   readonly #context: TSESLint.RuleContext<string, readonly unknown[]>
+  readonly #testCaseNames: Readonly<
+    typeof TestCaseName | typeof LegacyTestCaseName
+  >
+
   constructor(context: TSESLint.RuleContext<string, readonly unknown[]>) {
     this.#context = context
+    const vitestMajorVersion = determineVitestMajorVersion(
+      context.physicalFilename,
+    )
+    this.#testCaseNames =
+      vitestMajorVersion < BENCHMARK_API_REWRITE_VERSION
+        ? Object.freeze({ ...TestCaseName, ...LegacyTestCaseName })
+        : TestCaseName
   }
 
   isTypeOfVitestFnCall(node: TSESTree.CallExpression, types: VitestFnType[]) {
@@ -320,7 +341,8 @@ export class VitestFnCallParser {
     if (Object.prototype.hasOwnProperty.call(DescribeAlias, name))
       return 'describe'
 
-    if (Object.prototype.hasOwnProperty.call(TestCaseName, name)) return 'test'
+    if (Object.prototype.hasOwnProperty.call(this.#testCaseNames, name))
+      return 'test'
 
     if (Object.prototype.hasOwnProperty.call(HookName, name)) return 'hook'
 
@@ -377,7 +399,10 @@ export class VitestFnCallParser {
     return (
       parent?.type === AST_NODE_TYPES.CallExpression &&
       parent.callee.type === AST_NODE_TYPES.Identifier &&
-      Object.prototype.hasOwnProperty.call(TestCaseName, parent.callee.name)
+      Object.prototype.hasOwnProperty.call(
+        this.#testCaseNames,
+        parent.callee.name,
+      )
     )
   }
 }
