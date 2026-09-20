@@ -204,7 +204,7 @@ export class VitestFnCallParser {
       members: rest as KnownMemberExpressionProperty[],
     }
 
-    const type = determineVitestFnType(name)
+    const type = this.#determineVitestFnType(name)
 
     if (type === 'expect' || type === 'expectTypeOf') {
       const topMostCallExpression = findTopMostCallExpression(node)
@@ -237,29 +237,29 @@ export class VitestFnCallParser {
 
     return { ...parsedVitestFnCall, type }
   }
+
+  #determineVitestFnType(name: string): VitestFnType {
+    if (name === 'expect') return 'expect'
+
+    if (name === 'expectTypeOf') return 'expectTypeOf'
+
+    if (name === 'vi' || name === 'vitest') return 'vi'
+
+    if (Object.prototype.hasOwnProperty.call(DescribeAlias, name))
+      return 'describe'
+
+    if (Object.prototype.hasOwnProperty.call(TestCaseName, name)) return 'test'
+
+    if (Object.prototype.hasOwnProperty.call(HookName, name)) return 'hook'
+
+    return 'unknown'
+  }
 }
 
 const parseVitestFnCallCache = new WeakMap<
   TSESTree.CallExpression,
   ParsedVitestFnCall | Reason | null
 >()
-
-const determineVitestFnType = (name: string): VitestFnType => {
-  if (name === 'expect') return 'expect'
-
-  if (name === 'expectTypeOf') return 'expectTypeOf'
-
-  if (name === 'vi' || name === 'vitest') return 'vi'
-
-  if (Object.prototype.hasOwnProperty.call(DescribeAlias, name))
-    return 'describe'
-
-  if (Object.prototype.hasOwnProperty.call(TestCaseName, name)) return 'test'
-
-  if (Object.prototype.hasOwnProperty.call(HookName, name)) return 'hook'
-
-  return 'unknown'
-}
 
 const hasInvalidExpectChain = (
   chains: ExpectChain[],
