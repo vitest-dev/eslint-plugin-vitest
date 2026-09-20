@@ -3,7 +3,7 @@ import {
   findVitestModeProperty,
   getAccessorValue,
 } from '../utils'
-import { resolveScope, VitestFnCallParser } from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 import { getScope } from '../utils/scope'
 
 const RULE_NAME = 'no-disabled-tests'
@@ -94,7 +94,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
       'CallExpression[callee.name="pending"]'(node) {
         const scope = getScope(context, node)
 
-        if (resolveScope(scope, 'pending')) return
+        if (vitestFnCallParser.resolveScope(scope, 'pending')) return
 
         if (testDepth > 0) context.report({ messageId: 'pendingTest', node })
         else if (suiteDepth > 0)

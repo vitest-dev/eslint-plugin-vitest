@@ -151,6 +151,78 @@ export class VitestFnCallParser {
     )
   }
 
+  resolveScope(
+    scope: TSESLint.Scope.Scope,
+    identifier: string,
+  ): ImportDetails | 'local' | 'testContext' | null {
+    let currentScope: TSESLint.Scope.Scope | null = scope
+
+    while (currentScope !== null) {
+      const ref = currentScope.set.get(identifier)
+
+      if (ref && ref.defs.length > 0) {
+        const def = ref.defs[ref.defs.length - 1]
+
+        const objectParam = isFunction(def.node)
+          ? def.node.params.find(
+              (params) => params.type === AST_NODE_TYPES.ObjectPattern,
+            )
+          : undefined
+        if (objectParam) {
+          const property = objectParam.properties.find(
+            (property) => property.type === AST_NODE_TYPES.Property,
+          )
+          const key =
+            property?.key.type === AST_NODE_TYPES.Identifier
+              ? property.key
+              : undefined
+          if (key?.name === identifier) return 'testContext'
+        }
+
+        /** if detect test function is created with `.extend()` */
+        if (
+          def.node.type === AST_NODE_TYPES.VariableDeclarator &&
+          def.node.id.type === AST_NODE_TYPES.Identifier &&
+          def.node.init?.type === AST_NODE_TYPES.CallExpression &&
+          def.node.init.callee.type === AST_NODE_TYPES.MemberExpression &&
+          isIdentifier(def.node.init.callee.property, 'extend')
+        ) {
+          const baseName = getNodeName(def.node.init.callee.object)
+          const rootName = baseName?.split('.')[0]
+
+          if (rootName && rootName !== identifier) {
+            const resolved = this.resolveScope(currentScope, rootName)
+
+            if (
+              resolved &&
+              typeof resolved === 'object' &&
+              Object.hasOwn(TestCaseName, resolved.imported)
+            ) {
+              return {
+                ...resolved,
+                local: identifier,
+              }
+            }
+          }
+        }
+        const namedParam = isFunction(def.node)
+          ? def.node.params.find(
+              (params) => params.type === AST_NODE_TYPES.Identifier,
+            )
+          : undefined
+        if (namedParam && isAncestorTestCaseCall(namedParam.parent))
+          return 'testContext'
+
+        const importDetails = describePossibleImportDef(def)
+
+        if (importDetails?.local === identifier) return importDetails
+        return 'local'
+      }
+      currentScope = currentScope.upper
+    }
+    return null
+  }
+
   #parseVitestFnCallWithReasonInner(
     node: TSESTree.CallExpression,
   ): ParsedVitestFnCall | Reason | null {
@@ -176,7 +248,7 @@ export class VitestFnCallParser {
     )
       return null
 
-    const resolved = resolveVitestFn(
+    const resolved = this.#resolveVitestFn(
       this.#context,
       node,
       getAccessorValue(first),
@@ -253,6 +325,52 @@ export class VitestFnCallParser {
     if (Object.prototype.hasOwnProperty.call(HookName, name)) return 'hook'
 
     return 'unknown'
+  }
+
+  #resolveVitestFn(
+    context: TSESLint.RuleContext<string, readonly unknown[]>,
+    node: TSESTree.CallExpression,
+    identifier: string,
+  ): ResolvedVitestFn | null {
+    const scope = getScope(context, node)
+    const maybeImport = this.resolveScope(scope, identifier)
+
+    if (maybeImport === 'local') return null
+
+    if (maybeImport === 'testContext')
+      return {
+        local: identifier,
+        original: null,
+        type: 'testContext',
+      }
+
+    if (maybeImport) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      const vitestImports = context.settings.vitest?.vitestImports ?? []
+      const isVitestImport =
+        maybeImport.source === 'vitest' ||
+        vitestImports.some((importName: unknown) =>
+          importName instanceof RegExp
+            ? importName.test(maybeImport.source)
+            : maybeImport.source === importName,
+        )
+
+      if (isVitestImport) {
+        return {
+          original: maybeImport.imported,
+          local: maybeImport.local,
+          type: 'import',
+        }
+      }
+      return null
+    }
+
+    return {
+      original: resolvePossibleAliasedGlobal(identifier, context),
+      local: identifier,
+      type: 'global',
+    }
   }
 }
 
@@ -580,52 +698,6 @@ export function getNodeChain(node: TSESTree.Node): AccessorNode[] | null {
   return null
 }
 
-const resolveVitestFn = (
-  context: TSESLint.RuleContext<string, readonly unknown[]>,
-  node: TSESTree.CallExpression,
-  identifier: string,
-): ResolvedVitestFn | null => {
-  const scope = getScope(context, node)
-  const maybeImport = resolveScope(scope, identifier)
-
-  if (maybeImport === 'local') return null
-
-  if (maybeImport === 'testContext')
-    return {
-      local: identifier,
-      original: null,
-      type: 'testContext',
-    }
-
-  if (maybeImport) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    const vitestImports = context.settings.vitest?.vitestImports ?? []
-    const isVitestImport =
-      maybeImport.source === 'vitest' ||
-      vitestImports.some((importName: unknown) =>
-        importName instanceof RegExp
-          ? importName.test(maybeImport.source)
-          : maybeImport.source === importName,
-      )
-
-    if (isVitestImport) {
-      return {
-        original: maybeImport.imported,
-        local: maybeImport.local,
-        type: 'import',
-      }
-    }
-    return null
-  }
-
-  return {
-    original: resolvePossibleAliasedGlobal(identifier, context),
-    local: identifier,
-    type: 'global',
-  }
-}
-
 const resolvePossibleAliasedGlobal = (
   global: string,
   context: TSESLint.RuleContext<string, readonly unknown[]>,
@@ -649,78 +721,6 @@ const isAncestorTestCaseCall = ({ parent }: TSESTree.Node) => {
     parent.callee.type === AST_NODE_TYPES.Identifier &&
     Object.prototype.hasOwnProperty.call(TestCaseName, parent.callee.name)
   )
-}
-
-export const resolveScope = (
-  scope: TSESLint.Scope.Scope,
-  identifier: string,
-): ImportDetails | 'local' | 'testContext' | null => {
-  let currentScope: TSESLint.Scope.Scope | null = scope
-
-  while (currentScope !== null) {
-    const ref = currentScope.set.get(identifier)
-
-    if (ref && ref.defs.length > 0) {
-      const def = ref.defs[ref.defs.length - 1]
-
-      const objectParam = isFunction(def.node)
-        ? def.node.params.find(
-            (params) => params.type === AST_NODE_TYPES.ObjectPattern,
-          )
-        : undefined
-      if (objectParam) {
-        const property = objectParam.properties.find(
-          (property) => property.type === AST_NODE_TYPES.Property,
-        )
-        const key =
-          property?.key.type === AST_NODE_TYPES.Identifier
-            ? property.key
-            : undefined
-        if (key?.name === identifier) return 'testContext'
-      }
-
-      /** if detect test function is created with `.extend()` */
-      if (
-        def.node.type === AST_NODE_TYPES.VariableDeclarator &&
-        def.node.id.type === AST_NODE_TYPES.Identifier &&
-        def.node.init?.type === AST_NODE_TYPES.CallExpression &&
-        def.node.init.callee.type === AST_NODE_TYPES.MemberExpression &&
-        isIdentifier(def.node.init.callee.property, 'extend')
-      ) {
-        const baseName = getNodeName(def.node.init.callee.object)
-        const rootName = baseName?.split('.')[0]
-
-        if (rootName && rootName !== identifier) {
-          const resolved = resolveScope(currentScope, rootName)
-
-          if (
-            resolved &&
-            typeof resolved === 'object' &&
-            Object.hasOwn(TestCaseName, resolved.imported)
-          ) {
-            return {
-              ...resolved,
-              local: identifier,
-            }
-          }
-        }
-      }
-      const namedParam = isFunction(def.node)
-        ? def.node.params.find(
-            (params) => params.type === AST_NODE_TYPES.Identifier,
-          )
-        : undefined
-      if (namedParam && isAncestorTestCaseCall(namedParam.parent))
-        return 'testContext'
-
-      const importDetails = describePossibleImportDef(def)
-
-      if (importDetails?.local === identifier) return importDetails
-      return 'local'
-    }
-    currentScope = currentScope.upper
-  }
-  return null
 }
 
 /**
