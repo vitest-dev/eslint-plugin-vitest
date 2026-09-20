@@ -26,7 +26,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     schema: [],
   },
   create(context) {
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
     const methodNames: Record<string, string> = {
       toBeCalled: 'toHaveBeenCalled',
       toBeCalledTimes: 'toHaveBeenCalledTimes',
@@ -43,7 +43,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
     return {
       CallExpression(node) {
-        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (vitestFnCall?.type !== 'expect') return
 

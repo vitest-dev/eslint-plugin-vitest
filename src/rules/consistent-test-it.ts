@@ -1,8 +1,6 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
-import {
-  VitestFnCallParser,
-} from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 import { TestCaseName } from '../utils/types'
 
 const RULE_NAME = 'consistent-test-it'
@@ -12,7 +10,9 @@ const buildFixer =
   (
     callee: TSESTree.Expression,
     nodeName: string,
-    preferredTestKeyword: typeof TestCaseName['test'] | typeof TestCaseName['it'],
+    preferredTestKeyword:
+      | (typeof TestCaseName)['test']
+      | (typeof TestCaseName)['it'],
   ) =>
   (fixer: TSESLint.RuleFixer) => [
     fixer.replaceText(
@@ -23,7 +23,9 @@ const buildFixer =
 
 function getPreferredNodeName(
   nodeName: string,
-  preferredTestKeyword: typeof TestCaseName['test'] | typeof TestCaseName['it'],
+  preferredTestKeyword:
+    | (typeof TestCaseName)['test']
+    | (typeof TestCaseName)['it'],
 ) {
   if (nodeName === TestCaseName.fit) return 'test.only'
 
@@ -32,7 +34,9 @@ function getPreferredNodeName(
     : preferredTestKeyword
 }
 
-function getOppositeTestKeyword(test: typeof TestCaseName['test'] | typeof TestCaseName['it']) {
+function getOppositeTestKeyword(
+  test: (typeof TestCaseName)['test'] | (typeof TestCaseName)['it'],
+) {
   if (test === TestCaseName.test) return TestCaseName.it
 
   return TestCaseName.test
@@ -41,8 +45,10 @@ function getOppositeTestKeyword(test: typeof TestCaseName['test'] | typeof TestC
 export default createEslintRule<
   [
     Partial<{
-      fn: typeof TestCaseName['it'] | typeof TestCaseName['test'],
-      withinDescribe: typeof TestCaseName['it'] | typeof TestCaseName['test']
+      fn: (typeof TestCaseName)['it'] | (typeof TestCaseName)['test']
+      withinDescribe:
+        | (typeof TestCaseName)['it']
+        | (typeof TestCaseName)['test']
     }>,
   ],
   MessageIds
@@ -83,7 +89,7 @@ export default createEslintRule<
   },
   create(context, options) {
     const { fn, withinDescribe } = options[0]
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
     const testFnKeyWork = fn || TestCaseName.test
     const testKeywordWithinDescribe = withinDescribe || fn || TestCaseName.it
     const testFnDisabled =
@@ -147,7 +153,7 @@ export default createEslintRule<
           node.callee.name === 'bench'
         )
           return
-        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (!vitestFnCall) return
 
@@ -197,7 +203,7 @@ export default createEslintRule<
         }
       },
       'CallExpression:exit'(node) {
-        if (vitestFnCallParser.isTypeOfVitestFnCall(node, context, ['describe']))
+        if (vitestFnCallParser.isTypeOfVitestFnCall(node, ['describe']))
           describeNestingLevel--
       },
     }

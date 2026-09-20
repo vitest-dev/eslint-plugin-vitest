@@ -26,7 +26,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     },
   },
   create(context) {
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
     return {
       CallExpression(node) {
         if (node.arguments.length < 2) {
@@ -71,7 +71,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         //   return
         // }
 
-        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
         if (vitestFnCall?.type !== 'describe') {
           return
         }

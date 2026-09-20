@@ -1,7 +1,5 @@
 import { createEslintRule } from '../utils/index'
-import {
-  VitestFnCallParser,
-} from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'prefer-hooks-in-order'
 type MESSAGE_IDS = 'reorderHooks'
@@ -24,7 +22,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     schema: [],
   },
   create(context) {
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
     let previousHookIndex = -1
     let inHook = false
 
@@ -32,7 +30,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       CallExpression(node) {
         if (inHook) return
 
-        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (vitestFnCall?.type !== 'hook') {
           previousHookIndex = -1
@@ -59,7 +57,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         previousHookIndex = currentHookIndex
       },
       'CallExpression:exit'(node) {
-        if (vitestFnCallParser.isTypeOfVitestFnCall(node, context, ['hook'])) {
+        if (vitestFnCallParser.isTypeOfVitestFnCall(node, ['hook'])) {
           inHook = false
           return
         }

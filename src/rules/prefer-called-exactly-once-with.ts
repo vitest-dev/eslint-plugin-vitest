@@ -159,7 +159,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   },
   create(context) {
     const { sourceCode } = context
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
 
     const getCallExpressions = (
       body: TSESTree.Statement[],
@@ -178,7 +178,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
       for (const callExpression of callExpressions) {
         const matcherName = getMatcherName(
-          vitestFnCallParser.parseVitestFnCall(callExpression, context),
+          vitestFnCallParser.parseVitestFnCall(callExpression),
         )
         const expectedText = getExpectText(callExpression.callee, sourceCode)
         if (!matcherName || !hasMatchersToCombine(matcherName) || !expectedText)

@@ -40,14 +40,14 @@ export default createEslintRule<Options, MESSAGE_ID>({
   },
   create(context, options) {
     const fixable = options[0].fixable!
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
 
     return {
       CallExpression(node) {
         // Only consider vi.mock() calls
         if (node.callee.type !== AST_NODE_TYPES.MemberExpression) return
 
-        const vitestCallFn = vitestFnCallParser.parseVitestFnCall(node, context)
+        const vitestCallFn = vitestFnCallParser.parseVitestFnCall(node)
 
         if (vitestCallFn?.type !== 'vi') {
           return false

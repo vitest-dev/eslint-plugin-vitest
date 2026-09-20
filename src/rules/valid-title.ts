@@ -11,9 +11,7 @@ import {
   isStringNode,
   StringNode,
 } from '../utils'
-import {
-  VitestFnCallParser,
-} from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 import {
   DescribeAlias,
   isClassOrFunctionType,
@@ -207,7 +205,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       },
     ],
   ) {
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
     const disallowedWordsRegexp = new RegExp(
       `\\b(${disallowedWords.join('|')})\\b`,
       'iu',
@@ -218,7 +216,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
     return {
       CallExpression(node: TSESTree.CallExpression) {
-        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (
           vitestFnCall?.type !== 'describe' &&
