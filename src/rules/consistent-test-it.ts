@@ -13,7 +13,7 @@ const buildFixer =
   (
     callee: TSESTree.Expression,
     nodeName: string,
-    preferredTestKeyword: TestCaseName.test | TestCaseName.it,
+    preferredTestKeyword: typeof TestCaseName['test'] | typeof TestCaseName['it'],
   ) =>
   (fixer: TSESLint.RuleFixer) => [
     fixer.replaceText(
@@ -24,7 +24,7 @@ const buildFixer =
 
 function getPreferredNodeName(
   nodeName: string,
-  preferredTestKeyword: TestCaseName.test | TestCaseName.it,
+  preferredTestKeyword: typeof TestCaseName['test'] | typeof TestCaseName['it'],
 ) {
   if (nodeName === TestCaseName.fit) return 'test.only'
 
@@ -33,7 +33,7 @@ function getPreferredNodeName(
     : preferredTestKeyword
 }
 
-function getOppositeTestKeyword(test: TestCaseName.test | TestCaseName.it) {
+function getOppositeTestKeyword(test: typeof TestCaseName['test'] | typeof TestCaseName['it']) {
   if (test === TestCaseName.test) return TestCaseName.it
 
   return TestCaseName.test
@@ -42,8 +42,8 @@ function getOppositeTestKeyword(test: TestCaseName.test | TestCaseName.it) {
 export default createEslintRule<
   [
     Partial<{
-      fn: TestCaseName.it | TestCaseName.test
-      withinDescribe: TestCaseName.it | TestCaseName.test
+      fn: typeof TestCaseName['it'] | typeof TestCaseName['test'],
+      withinDescribe: typeof TestCaseName['it'] | typeof TestCaseName['test']
     }>,
   ],
   MessageIds
