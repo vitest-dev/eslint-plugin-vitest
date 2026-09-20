@@ -1,8 +1,7 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 import {
-  isTypeOfVitestFnCall,
-  parseVitestFnCall,
+  VitestFnCallParser,
 } from '../utils/parse-vitest-fn-call'
 import { TestCaseName } from '../utils/types'
 
@@ -84,6 +83,7 @@ export default createEslintRule<
   },
   create(context, options) {
     const { fn, withinDescribe } = options[0]
+    const vitestFnCallParser = new VitestFnCallParser()
     const testFnKeyWork = fn || TestCaseName.test
     const testKeywordWithinDescribe = withinDescribe || fn || TestCaseName.it
     const testFnDisabled =
@@ -147,7 +147,7 @@ export default createEslintRule<
           node.callee.name === 'bench'
         )
           return
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
 
         if (!vitestFnCall) return
 
@@ -197,7 +197,7 @@ export default createEslintRule<
         }
       },
       'CallExpression:exit'(node) {
-        if (isTypeOfVitestFnCall(node, context, ['describe']))
+        if (vitestFnCallParser.isTypeOfVitestFnCall(node, context, ['describe']))
           describeNestingLevel--
       },
     }

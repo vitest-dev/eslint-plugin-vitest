@@ -5,7 +5,9 @@ import {
   getAccessorValue,
   isSupportedAccessor,
 } from '../utils'
-import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  VitestFnCallParser,
+} from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'no-large-snapshots'
 
@@ -106,6 +108,7 @@ export default createEslintRule<[RuleOptions], MESSAGE_IDS>({
     defaultOptions: [{}],
   },
   create(context, [options]) {
+    const vitestFnCallParser = new VitestFnCallParser()
     if (context.filename.endsWith('.snap')) {
       return {
         ExpressionStatement(node) {
@@ -116,7 +119,7 @@ export default createEslintRule<[RuleOptions], MESSAGE_IDS>({
 
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
 
         if (vitestFnCall?.type !== 'expect') return
 

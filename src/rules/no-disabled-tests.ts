@@ -3,7 +3,7 @@ import {
   findVitestModeProperty,
   getAccessorValue,
 } from '../utils'
-import { parseVitestFnCall, resolveScope } from '../utils/parse-vitest-fn-call'
+import { resolveScope, VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 import { getScope } from '../utils/scope'
 
 const RULE_NAME = 'no-disabled-tests'
@@ -37,12 +37,13 @@ export default createEslintRule<Options, MESSAGE_ID>({
     schema: [],
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser()
     let suiteDepth = 0
     let testDepth = 0
 
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
 
         if (!vitestFnCall) return
 
@@ -82,7 +83,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
         }
       },
       'CallExpression:exit'(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
 
         if (!vitestFnCall) return
 

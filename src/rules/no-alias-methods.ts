@@ -3,7 +3,7 @@ import {
   getAccessorValue,
   replaceAccessorFixer,
 } from '../utils'
-import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'no-alias-methods'
 export type MESSAGE_ID = 'noAliasMethods'
@@ -26,6 +26,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     schema: [],
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser()
     const methodNames: Record<string, string> = {
       toBeCalled: 'toHaveBeenCalled',
       toBeCalledTimes: 'toHaveBeenCalledTimes',
@@ -42,7 +43,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
 
         if (vitestFnCall?.type !== 'expect') return
 

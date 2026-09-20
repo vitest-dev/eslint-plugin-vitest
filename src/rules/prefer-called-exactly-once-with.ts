@@ -2,7 +2,7 @@ import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue } from '../utils'
 import {
   ParsedExpectVitestFnCall,
-  parseVitestFnCall,
+  VitestFnCallParser,
 } from '../utils/parse-vitest-fn-call'
 import { SourceCode } from '@typescript-eslint/utils/ts-eslint'
 
@@ -46,7 +46,9 @@ const getArgumentsText = (
 ) => callExpression.arguments.map((arg) => source.getText(arg)).join(', ')
 
 const getValidExpectCall = (
-  vitestFnCall: ReturnType<typeof parseVitestFnCall>,
+  vitestFnCall: ReturnType<
+    InstanceType<typeof VitestFnCallParser>['parseVitestFnCall']
+  >,
 ): ParsedExpectVitestFnCall | null => {
   if (vitestFnCall?.type !== 'expect') return null
   if (
@@ -59,7 +61,11 @@ const getValidExpectCall = (
   return vitestFnCall
 }
 
-const getMatcherName = (vitestFnCall: ReturnType<typeof parseVitestFnCall>) => {
+const getMatcherName = (
+  vitestFnCall: ReturnType<
+    InstanceType<typeof VitestFnCallParser>['parseVitestFnCall']
+  >,
+) => {
   const validExpectCall = getValidExpectCall(vitestFnCall)
   return validExpectCall ? getAccessorValue(validExpectCall.matcher) : null
 }
@@ -153,6 +159,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   },
   create(context) {
     const { sourceCode } = context
+    const vitestFnCallParser = new VitestFnCallParser()
 
     const getCallExpressions = (
       body: TSESTree.Statement[],
@@ -171,7 +178,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
       for (const callExpression of callExpressions) {
         const matcherName = getMatcherName(
-          parseVitestFnCall(callExpression, context),
+          vitestFnCallParser.parseVitestFnCall(callExpression, context),
         )
         const expectedText = getExpectText(callExpression.callee, sourceCode)
         if (!matcherName || !hasMatchersToCombine(matcherName) || !expectedText)

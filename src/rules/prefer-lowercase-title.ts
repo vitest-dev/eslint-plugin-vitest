@@ -6,8 +6,7 @@ import {
   StringNode,
 } from '../utils'
 import {
-  isTypeOfVitestFnCall,
-  parseVitestFnCall,
+  VitestFnCallParser,
 } from '../utils/parse-vitest-fn-call'
 import {
   CallExpressionWithSingleArgument,
@@ -127,12 +126,13 @@ export default createEslintRule<
       },
     ],
   ) => {
+    const vitestFnCallParser = new VitestFnCallParser()
     const ignores = populateIgnores(ignore)
     let numberOfDescribeBlocks = 0
 
     return {
       CallExpression(node: TSESTree.CallExpression) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
 
         if (!vitestFnCall || !hasStringAsFirstArgument(node)) return
 
@@ -191,7 +191,9 @@ export default createEslintRule<
         })
       },
       'CallExpression:exit'(node: TSESTree.CallExpression) {
-        if (isTypeOfVitestFnCall(node, context, ['describe']))
+        if (
+          vitestFnCallParser.isTypeOfVitestFnCall(node, context, ['describe'])
+        )
           numberOfDescribeBlocks--
       },
     }

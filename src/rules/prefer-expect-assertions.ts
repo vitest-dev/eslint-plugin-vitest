@@ -11,8 +11,7 @@ import {
 } from '../utils'
 import {
   ParsedExpectVitestFnCall,
-  isTypeOfVitestFnCall,
-  parseVitestFnCall,
+  VitestFnCallParser,
 } from '../utils/parse-vitest-fn-call'
 
 type Options = {
@@ -124,6 +123,7 @@ export default createEslintRule<Options[], MessageIds>({
     ],
   },
   create(context, [options]) {
+    const vitestFnCallParser = new VitestFnCallParser()
     let expressionDepth = 0
     let hasExpectInCallBack = false
     let hasExpectInLoop = false
@@ -230,7 +230,7 @@ export default createEslintRule<Options[], MessageIds>({
       ForOfStatement: enterForLoop,
       'ForOfStatement:exit': exitForLoop,
       CallExpression(node: TSESTree.CallExpression) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
 
         if (vitestFnCall?.type === 'test') {
           inTestCaseCall = true
@@ -268,7 +268,8 @@ export default createEslintRule<Options[], MessageIds>({
       },
 
       'CallExpression:exit'(node: TSESTree.CallExpression) {
-        if (!isTypeOfVitestFnCall(node, context, ['test'])) return
+        if (!vitestFnCallParser.isTypeOfVitestFnCall(node, context, ['test']))
+          return
 
         inTestCaseCall = false
 

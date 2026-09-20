@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES, type TSESTree } from '@typescript-eslint/utils'
-import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 import { createEslintRule, isFunction } from '../utils'
 
 const RULE_NAME = 'no-unneeded-async-expect-function'
@@ -54,9 +54,10 @@ export default createEslintRule({
     type: 'suggestion',
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser()
     return {
       CallExpression(node: TSESTree.CallExpression) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
 
         if (vitestFnCall?.type !== 'expect') {
           return

@@ -8,7 +8,7 @@ import {
 } from '../utils'
 import {
   ParsedVitestFnCall,
-  parseVitestFnCall,
+  VitestFnCallParser,
 } from '../utils/parse-vitest-fn-call'
 import { hasOnlyOneArgument } from '../utils/msc'
 
@@ -64,11 +64,12 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     schema: [],
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser()
     return {
       CallExpression(node) {
         const [title, callback] = node.arguments
 
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
 
         if (
           !title ||

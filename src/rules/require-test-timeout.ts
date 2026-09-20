@@ -1,6 +1,6 @@
 import { Scope } from '@typescript-eslint/scope-manager'
 import { createEslintRule, getAccessorValue } from '../utils'
-import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 import { getScope } from '../utils/scope'
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 export const RULE_NAME = 'require-test-timeout'
@@ -20,6 +20,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     schema: [],
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser()
     function resolveConstTimeout(
       node: TSESTree.Node | undefined,
       propName = 'timeout',
@@ -157,7 +158,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
     return {
       CallExpression(node: TSESTree.CallExpression) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
 
         // detect vi.setConfig({ testTimeout: ... })
         if (vitestFnCall && vitestFnCall.type === 'vi') {

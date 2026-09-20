@@ -1,6 +1,8 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue } from '../utils'
-import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  VitestFnCallParser,
+} from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'no-interpolation-in-snapshots'
 export type MESSAGE_ID = 'noInterpolationInSnapshots'
@@ -22,9 +24,10 @@ export default createEslintRule<Options, MESSAGE_ID>({
     },
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser()
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
 
         if (vitestFnCall?.type !== 'expect') return
 
