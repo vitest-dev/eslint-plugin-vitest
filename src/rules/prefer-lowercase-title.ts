@@ -19,9 +19,9 @@ const RULE_NAME = 'prefer-lowercase-title'
 export type MessageIds = 'lowerCaseTitle' | 'fullyLowerCaseTitle'
 
 type IgnorableFunctionExpressions =
-  | TestCaseName.it
-  | TestCaseName.test
-  | TestCaseName.bench
+  | typeof TestCaseName['it']
+  | typeof TestCaseName['test']
+  | typeof TestCaseName['bench']
   | DescribeAlias.describe
 
 const hasStringAsFirstArgument = (
