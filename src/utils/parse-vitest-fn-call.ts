@@ -205,7 +205,7 @@ export class VitestFnCallParser {
               (params) => params.type === AST_NODE_TYPES.Identifier,
             )
           : undefined
-        if (namedParam && isAncestorTestCaseCall(namedParam.parent))
+        if (namedParam && this.#isAncestorTestCaseCall(namedParam.parent))
           return 'testContext'
 
         const importDetails = describePossibleImportDef(def)
@@ -368,6 +368,14 @@ export class VitestFnCallParser {
       local: identifier,
       type: 'global',
     }
+  }
+
+  #isAncestorTestCaseCall({ parent }: TSESTree.Node) {
+    return (
+      parent?.type === AST_NODE_TYPES.CallExpression &&
+      parent.callee.type === AST_NODE_TYPES.Identifier &&
+      Object.prototype.hasOwnProperty.call(TestCaseName, parent.callee.name)
+    )
   }
 }
 
@@ -727,14 +735,6 @@ const resolvePossibleAliasedGlobal = (
   if (alias) return alias[0]
 
   return null
-}
-
-const isAncestorTestCaseCall = ({ parent }: TSESTree.Node) => {
-  return (
-    parent?.type === AST_NODE_TYPES.CallExpression &&
-    parent.callee.type === AST_NODE_TYPES.Identifier &&
-    Object.prototype.hasOwnProperty.call(TestCaseName, parent.callee.name)
-  )
 }
 
 /**
