@@ -3,7 +3,7 @@ import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue, isIdentifier } from '../utils'
 import {
   findTopMostCallExpression,
-  parseVitestFnCall,
+  VitestFnCallParser,
 } from '../utils/parse-vitest-fn-call'
 
 const require = createRequire(import.meta.url)
@@ -80,6 +80,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     defaultOptions: [{ ignoreStatic: false }],
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser()
     const baseSelectors = baseRule?.create(context)
 
     if (!baseSelectors) return {}
@@ -88,7 +89,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       ...baseSelectors,
       MemberExpression(node: TSESTree.MemberExpression) {
         if (node.parent?.type === AST_NODE_TYPES.CallExpression) {
-          const vitestFnCall = parseVitestFnCall(
+          const vitestFnCall = vitestFnCallParser.parseVitestFnCall(
             findTopMostCallExpression(node.parent),
             context,
           )

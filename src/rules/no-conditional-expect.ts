@@ -4,11 +4,7 @@ import {
   isSupportedAccessor,
   KnownCallExpression,
 } from '../utils'
-import {
-  getTestCallExpressionsFromDeclaredVariables,
-  isTypeOfVitestFnCall,
-  parseVitestFnCall,
-} from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'no-conditional-expect'
 export type MESSAGE_ID = 'noConditionalExpect'
@@ -53,6 +49,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     ],
   },
   create(context, [options]) {
+    const vitestFnCallParser = new VitestFnCallParser()
     let conditionalDepth = 0
     let inTestCase = false
     let inPromiseCatch = false
@@ -64,16 +61,17 @@ export default createEslintRule<Options, MESSAGE_ID>({
     return {
       FunctionDeclaration(node) {
         const declaredVariables = context.sourceCode.getDeclaredVariables(node)
-        const testCallExpressions = getTestCallExpressionsFromDeclaredVariables(
-          declaredVariables,
-          context,
-        )
+        const testCallExpressions =
+          vitestFnCallParser.getTestCallExpressionsFromDeclaredVariables(
+            declaredVariables,
+            context,
+          )
 
         if (testCallExpressions.length > 0) inTestCase = true
       },
       CallExpression(node: TSESTree.CallExpression) {
         const { type: vitestFnCallType } =
-          parseVitestFnCall(node, context) ?? {}
+          vitestFnCallParser.parseVitestFnCall(node, context) ?? {}
 
         if (vitestFnCallType === 'test') inTestCase = true
 
@@ -120,7 +118,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
         }
       },
       'CallExpression:exit'(node) {
-        if (isTypeOfVitestFnCall(node, context, ['test'])) {
+        if (vitestFnCallParser.isTypeOfVitestFnCall(node, context, ['test'])) {
           inTestCase = false
           expectAssertions = 0
         }

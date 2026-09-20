@@ -1,7 +1,6 @@
 import { createEslintRule } from '../utils'
 import {
-  isTypeOfVitestFnCall,
-  parseVitestFnCall,
+  VitestFnCallParser,
 } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'no-duplicate-hooks'
@@ -23,11 +22,12 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'suggestion',
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser()
     const hooksContexts: Array<Record<string, number>> = [{}]
 
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
 
         if (vitestFnCall?.type === 'describe') hooksContexts.push({})
 
@@ -47,7 +47,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         }
       },
       'CallExpression:exit'(node) {
-        if (isTypeOfVitestFnCall(node, context, ['describe']))
+        if (
+          vitestFnCallParser.isTypeOfVitestFnCall(node, context, ['describe'])
+        )
           hooksContexts.pop()
       },
     }

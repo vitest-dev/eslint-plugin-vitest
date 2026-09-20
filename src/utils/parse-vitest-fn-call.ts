@@ -100,45 +100,66 @@ export type ParsedVitestFnCall =
   | ParsedGeneralVitestFnCall
   | ParsedExpectVitestFnCall
 
-export const isTypeOfVitestFnCall = (
-  node: TSESTree.CallExpression,
-  context: TSESLint.RuleContext<string, readonly unknown[]>,
-  types: VitestFnType[],
-) => {
-  const vitestFnCall = parseVitestFnCall(node, context)
-  return vitestFnCall !== null && types.includes(vitestFnCall.type)
-}
+export class VitestFnCallParser {
+  isTypeOfVitestFnCall(
+    node: TSESTree.CallExpression,
+    context: TSESLint.RuleContext<string, readonly unknown[]>,
+    types: VitestFnType[],
+  ) {
+    const vitestFnCall = this.parseVitestFnCall(node, context)
+    return vitestFnCall !== null && types.includes(vitestFnCall.type)
+  }
 
-export const parseVitestFnCall = (
-  node: TSESTree.CallExpression,
-  context: TSESLint.RuleContext<string, readonly unknown[]>,
-): ParsedVitestFnCall | null => {
-  const vitestFnCall = parseVitestFnCallWithReason(node, context)
+  parseVitestFnCall(
+    node: TSESTree.CallExpression,
+    context: TSESLint.RuleContext<string, readonly unknown[]>,
+  ): ParsedVitestFnCall | null {
+    const vitestFnCall = this.parseVitestFnCallWithReason(node, context)
 
-  if (typeof vitestFnCall === 'string') return null
+    if (typeof vitestFnCall === 'string') return null
 
-  return vitestFnCall
+    return vitestFnCall
+  }
+
+  parseVitestFnCallWithReason(
+    node: TSESTree.CallExpression,
+    context: TSESLint.RuleContext<string, readonly unknown[]>,
+  ): ParsedVitestFnCall | Reason | null {
+    let parsedVitestFnCall = parseVitestFnCallCache.get(node)
+
+    if (parsedVitestFnCall) return parsedVitestFnCall
+
+    parsedVitestFnCall = parseVitestFnCallWithReasonInner(node, context)
+
+    parseVitestFnCallCache.set(node, parsedVitestFnCall)
+
+    return parsedVitestFnCall
+  }
+
+  getTestCallExpressionsFromDeclaredVariables(
+    declaredVariables: readonly TSESLint.Scope.Variable[],
+    context: TSESLint.RuleContext<string, readonly unknown[]>,
+  ): TSESTree.CallExpression[] {
+    return declaredVariables.reduce<TSESTree.CallExpression[]>(
+      (acc, { references }) =>
+        acc.concat(
+          references
+            .map(({ identifier }) => identifier.parent)
+            .filter(
+              (node): node is TSESTree.CallExpression =>
+                node?.type === AST_NODE_TYPES.CallExpression &&
+                this.isTypeOfVitestFnCall(node, context, ['test']),
+            ),
+        ),
+      [],
+    )
+  }
 }
 
 const parseVitestFnCallCache = new WeakMap<
   TSESTree.CallExpression,
   ParsedVitestFnCall | Reason | null
 >()
-
-export const parseVitestFnCallWithReason = (
-  node: TSESTree.CallExpression,
-  context: TSESLint.RuleContext<string, readonly unknown[]>,
-): ParsedVitestFnCall | Reason | null => {
-  let parsedVitestFnCall = parseVitestFnCallCache.get(node)
-
-  if (parsedVitestFnCall) return parsedVitestFnCall
-
-  parsedVitestFnCall = parseVitestFnCallWithReasonInner(node, context)
-
-  parseVitestFnCallCache.set(node, parsedVitestFnCall)
-
-  return parsedVitestFnCall
-}
 
 const determineVitestFnType = (name: string): VitestFnType => {
   if (name === 'expect') return 'expect'
@@ -774,25 +795,6 @@ const describeVariableDefAsImport = (
     imported: getAccessorValue(def.name.parent.key),
     local: def.name.name,
   }
-}
-
-export const getTestCallExpressionsFromDeclaredVariables = (
-  declaredVariables: readonly TSESLint.Scope.Variable[],
-  context: TSESLint.RuleContext<string, readonly unknown[]>,
-): TSESTree.CallExpression[] => {
-  return declaredVariables.reduce<TSESTree.CallExpression[]>(
-    (acc, { references }) =>
-      acc.concat(
-        references
-          .map(({ identifier }) => identifier.parent)
-          .filter(
-            (node): node is TSESTree.CallExpression =>
-              node?.type === AST_NODE_TYPES.CallExpression &&
-              isTypeOfVitestFnCall(node, context, ['test']),
-          ),
-      ),
-    [],
-  )
 }
 
 export const getFirstMatcherArg = (

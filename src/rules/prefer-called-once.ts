@@ -1,7 +1,7 @@
 import { createEslintRule, getAccessorValue } from '../utils'
 import {
   getFirstMatcherArg,
-  parseVitestFnCall,
+  VitestFnCallParser,
 } from '../utils/parse-vitest-fn-call'
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 
@@ -32,9 +32,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     schema: [],
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser()
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
 
         if (vitestFnCall?.type !== 'expect') return
 

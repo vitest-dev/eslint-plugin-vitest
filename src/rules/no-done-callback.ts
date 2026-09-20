@@ -1,4 +1,4 @@
-import { TSESLint, AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
+import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
 import {
   createEslintRule,
   getNodeName,
@@ -6,8 +6,7 @@ import {
   isSupportedAccessor,
 } from '../utils'
 import {
-  isTypeOfVitestFnCall,
-  parseVitestFnCall,
+  VitestFnCallParser,
 } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'no-done-callback'
@@ -21,10 +20,11 @@ const findCallbackArg = (
   node: TSESTree.CallExpression,
   isVitestEach: boolean,
   context: TSESLint.RuleContext<string, unknown[]>,
+  vitestFnCallParser: VitestFnCallParser
 ): TSESTree.CallExpression['arguments'][0] | null => {
   if (isVitestEach) return node.arguments[1]
 
-  const vitestFnCall = parseVitestFnCall(node, context)
+  const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
 
   if (vitestFnCall?.type === 'hook' && node.arguments.length >= 1)
     return node.arguments[0]
@@ -55,6 +55,7 @@ export default createEslintRule<Options, MessageIds>({
     hasSuggestions: true,
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser()
     return {
       CallExpression(node) {
         const isVitestEach = /\.each$|\.for$|\.concurrent$/.test(
@@ -72,11 +73,11 @@ export default createEslintRule<Options, MessageIds>({
           .some((ancestor) => {
             if (ancestor.type !== AST_NODE_TYPES.CallExpression) return false
 
-            const isNotInsideDescribeOrTest = !isTypeOfVitestFnCall(
-              ancestor,
-              context,
-              ['describe', 'test'],
-            )
+            const isNotInsideDescribeOrTest =
+              !vitestFnCallParser.isTypeOfVitestFnCall(ancestor, context, [
+                'describe',
+                'test',
+              ])
             if (isNotInsideDescribeOrTest) return false
 
             const isTestRunningConcurrently =
@@ -88,7 +89,7 @@ export default createEslintRule<Options, MessageIds>({
 
         if (isInsideConcurrentTestOrDescribe) return
 
-        const callback = findCallbackArg(node, isVitestEach, context)
+        const callback = findCallbackArg(node, isVitestEach, context, vitestFnCallParser)
         const callbackArgIndex = Number(isVitestEach)
 
         if (

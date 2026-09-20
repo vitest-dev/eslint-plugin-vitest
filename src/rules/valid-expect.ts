@@ -6,7 +6,7 @@ import {
   isFunction,
   isSupportedAccessor,
 } from '../utils'
-import { parseVitestFnCallWithReason } from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 import { ModifierName } from '../utils/types'
 import { parsePluginSettings } from '../utils/parse-plugin-settings'
 
@@ -219,6 +219,7 @@ export default createEslintRule<
       },
     ],
   ) => {
+    const vitestFnCallParser = new VitestFnCallParser()
     const arrayExceptions = new Set<string>()
     const descriptors: Array<{
       node: TSESTree.Node
@@ -258,7 +259,10 @@ export default createEslintRule<
 
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCallWithReason(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCallWithReason(
+          node,
+          context,
+        )
         const settings = parsePluginSettings(context.settings)
 
         if (typeof vitestFnCall === 'string') {

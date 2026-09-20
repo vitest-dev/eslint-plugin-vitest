@@ -10,7 +10,7 @@ import {
 import {
   getFirstMatcherArg,
   ParsedExpectVitestFnCall,
-  parseVitestFnCall,
+  VitestFnCallParser,
 } from '../utils/parse-vitest-fn-call'
 import { EqualityMatcher } from '../utils/types'
 
@@ -111,9 +111,10 @@ export default createEslintRule<[], MessageId>({
     },
   },
   create(context) {
+        const vitestFnCallParser = new VitestFnCallParser()
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
 
         if (vitestFnCall?.type !== 'expect') return
 

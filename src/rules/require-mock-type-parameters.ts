@@ -1,5 +1,5 @@
 import { createEslintRule } from '../utils'
-import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 type MESSAGE_IDS = 'noTypeParameter'
 const RULE_NAME = 'require-mock-type-parameters'
@@ -39,9 +39,10 @@ export default createEslintRule<Options[], MESSAGE_IDS>({
     ],
   },
   create(context, [options]) {
+    const vitestFnCallParser = new VitestFnCallParser()
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
         if (vitestFnCall?.type !== 'vi') return
 
         for (const member of vitestFnCall.members) {

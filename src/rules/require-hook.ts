@@ -6,8 +6,7 @@ import {
   isIdentifier,
 } from '../utils'
 import {
-  isTypeOfVitestFnCall,
-  parseVitestFnCall,
+  VitestFnCallParser,
 } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'require-hook'
@@ -17,8 +16,9 @@ type Options = [{ allowedFunctionCalls?: readonly string[] }]
 const isVitestFnCall = (
   node: TSESTree.CallExpression,
   context: TSESLint.RuleContext<string, unknown[]>,
+  vitestFnCallParser: VitestFnCallParser
 ) => {
-  if (parseVitestFnCall(node, context)) return true
+  if (vitestFnCallParser.parseVitestFnCall(node, context)) return true
 
   return !!getNodeName(node)?.startsWith('vi')
 }
@@ -34,13 +34,14 @@ const shouldBeInHook = (
   node: TSESTree.Node,
   context: TSESLint.RuleContext<string, unknown[]>,
   allowedFunctionCalls: readonly string[] = [],
+  vitestFnCallParser: VitestFnCallParser
 ): boolean => {
   switch (node.type) {
     case AST_NODE_TYPES.ExpressionStatement:
-      return shouldBeInHook(node.expression, context, allowedFunctionCalls)
+      return shouldBeInHook(node.expression, context, allowedFunctionCalls, vitestFnCallParser)
     case AST_NODE_TYPES.CallExpression:
       return !(
-        isVitestFnCall(node, context) ||
+        isVitestFnCall(node, context, vitestFnCallParser) ||
         allowedFunctionCalls.includes(getNodeName(node) as string)
       )
     case AST_NODE_TYPES.VariableDeclaration: {
@@ -86,10 +87,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     ],
   },
   create(context, options) {
+    const vitestFnCallParser = new VitestFnCallParser()
     const checkBlockBody = (body: TSESTree.BlockStatement['body']) => {
       for (const statement of body) {
         if (
-          shouldBeInHook(statement, context, options[0].allowedFunctionCalls)
+          shouldBeInHook(statement, context, options[0].allowedFunctionCalls, vitestFnCallParser)
         ) {
           context.report({
             node: statement,
@@ -105,7 +107,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       },
       CallExpression(node) {
         if (
-          !isTypeOfVitestFnCall(node, context, ['describe']) ||
+          !vitestFnCallParser.isTypeOfVitestFnCall(node, context, [
+            'describe',
+          ]) ||
           node.arguments.length < 2
         )
           return

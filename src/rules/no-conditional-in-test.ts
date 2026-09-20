@@ -1,5 +1,7 @@
 import { createEslintRule } from '../utils'
-import { isTypeOfVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  VitestFnCallParser,
+} from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'no-conditional-in-test'
 export type MESSAGE_IDS = 'noConditionalInTest'
@@ -20,14 +22,16 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     type: 'problem',
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser()
     return {
       IfStatement(node) {
         if (
           node.parent?.parent?.parent?.type === 'CallExpression' &&
-          isTypeOfVitestFnCall(node.parent?.parent?.parent, context, [
-            'test',
-            'it',
-          ])
+          vitestFnCallParser.isTypeOfVitestFnCall(
+            node.parent?.parent?.parent,
+            context,
+            ['test', 'it'],
+          )
         ) {
           context.report({
             messageId: 'noConditionalInTest',
