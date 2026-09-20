@@ -32,11 +32,10 @@ export default createEslintRule<Options, MessageIds>({
     },
   },
   create(context) {
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
     return {
       CallExpression(node) {
-        if (!vitestFnCallParser.isTypeOfVitestFnCall(node, context, ['test']))
-          return
+        if (!vitestFnCallParser.isTypeOfVitestFnCall(node, ['test'])) return
 
         const body = getBody(node.arguments)
         const returnStmt = body.find(
@@ -55,7 +54,6 @@ export default createEslintRule<Options, MessageIds>({
         const testCallExpressions =
           vitestFnCallParser.getTestCallExpressionsFromDeclaredVariables(
             declaredVariables,
-            context,
           )
 
         if (testCallExpressions.length === 0) return

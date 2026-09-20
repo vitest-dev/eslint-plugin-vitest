@@ -1,8 +1,6 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue } from '../utils'
-import {
-  VitestFnCallParser,
-} from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'no-test-prefixes'
 export type MESSAGE_IDS = 'usePreferredName'
@@ -24,10 +22,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     schema: [],
   },
   create(context) {
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
     return {
       CallExpression(node) {
-        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (vitestFnCall?.type !== 'describe' && vitestFnCall?.type !== 'test')
           return

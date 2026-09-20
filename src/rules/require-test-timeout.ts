@@ -20,7 +20,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     schema: [],
   },
   create(context) {
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
     function resolveConstTimeout(
       node: TSESTree.Node | undefined,
       propName = 'timeout',
@@ -158,7 +158,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
 
     return {
       CallExpression(node: TSESTree.CallExpression) {
-        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         // detect vi.setConfig({ testTimeout: ... })
         if (vitestFnCall && vitestFnCall.type === 'vi') {

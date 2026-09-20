@@ -219,7 +219,7 @@ export default createEslintRule<
       },
     ],
   ) => {
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
     const arrayExceptions = new Set<string>()
     const descriptors: Array<{
       node: TSESTree.Node
@@ -259,10 +259,8 @@ export default createEslintRule<
 
     return {
       CallExpression(node) {
-        const vitestFnCall = vitestFnCallParser.parseVitestFnCallWithReason(
-          node,
-          context,
-        )
+        const vitestFnCall =
+          vitestFnCallParser.parseVitestFnCallWithReason(node)
         const settings = parsePluginSettings(context.settings)
 
         if (typeof vitestFnCall === 'string') {

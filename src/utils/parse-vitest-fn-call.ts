@@ -96,20 +96,18 @@ export type ParsedVitestFnCall =
   ParsedGeneralVitestFnCall | ParsedExpectVitestFnCall
 
 export class VitestFnCallParser {
-  isTypeOfVitestFnCall(
-    node: TSESTree.CallExpression,
-    context: TSESLint.RuleContext<string, readonly unknown[]>,
-    types: VitestFnType[],
-  ) {
-    const vitestFnCall = this.parseVitestFnCall(node, context)
+  readonly #context: TSESLint.RuleContext<string, readonly unknown[]>
+  constructor(context: TSESLint.RuleContext<string, readonly unknown[]>) {
+    this.#context = context
+  }
+
+  isTypeOfVitestFnCall(node: TSESTree.CallExpression, types: VitestFnType[]) {
+    const vitestFnCall = this.parseVitestFnCall(node)
     return vitestFnCall !== null && types.includes(vitestFnCall.type)
   }
 
-  parseVitestFnCall(
-    node: TSESTree.CallExpression,
-    context: TSESLint.RuleContext<string, readonly unknown[]>,
-  ): ParsedVitestFnCall | null {
-    const vitestFnCall = this.parseVitestFnCallWithReason(node, context)
+  parseVitestFnCall(node: TSESTree.CallExpression): ParsedVitestFnCall | null {
+    const vitestFnCall = this.parseVitestFnCallWithReason(node)
 
     if (typeof vitestFnCall === 'string') return null
 
@@ -118,13 +116,12 @@ export class VitestFnCallParser {
 
   parseVitestFnCallWithReason(
     node: TSESTree.CallExpression,
-    context: TSESLint.RuleContext<string, readonly unknown[]>,
   ): ParsedVitestFnCall | Reason | null {
     let parsedVitestFnCall = parseVitestFnCallCache.get(node)
 
     if (parsedVitestFnCall) return parsedVitestFnCall
 
-    parsedVitestFnCall = parseVitestFnCallWithReasonInner(node, context)
+    parsedVitestFnCall = parseVitestFnCallWithReasonInner(node, this.#context)
 
     parseVitestFnCallCache.set(node, parsedVitestFnCall)
 
@@ -133,7 +130,6 @@ export class VitestFnCallParser {
 
   getTestCallExpressionsFromDeclaredVariables(
     declaredVariables: readonly TSESLint.Scope.Variable[],
-    context: TSESLint.RuleContext<string, readonly unknown[]>,
   ): TSESTree.CallExpression[] {
     return declaredVariables.reduce<TSESTree.CallExpression[]>(
       (acc, { references }) =>
@@ -143,7 +139,7 @@ export class VitestFnCallParser {
             .filter(
               (node): node is TSESTree.CallExpression =>
                 node?.type === AST_NODE_TYPES.CallExpression &&
-                this.isTypeOfVitestFnCall(node, context, ['test']),
+                this.isTypeOfVitestFnCall(node, ['test']),
             ),
         ),
       [],

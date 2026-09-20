@@ -28,10 +28,10 @@ export default createEslintRule<Options, MESSAGE_ID>({
     defaultOptions: [{}],
   },
   create(context, [restrictedMethods]) {
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
     return {
       CallExpression(node) {
-        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (vitestFnCall?.type !== 'vi' || vitestFnCall.members.length === 0)
           return

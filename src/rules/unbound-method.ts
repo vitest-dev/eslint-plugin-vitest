@@ -80,7 +80,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     defaultOptions: [{ ignoreStatic: false }],
   },
   create(context) {
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
     const baseSelectors = baseRule?.create(context)
 
     if (!baseSelectors) return {}
@@ -97,7 +97,6 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         if (parent.type === AST_NODE_TYPES.CallExpression) {
           const vitestFnCall = vitestFnCallParser.parseVitestFnCall(
             findTopMostCallExpression(parent),
-            context,
           )
 
           if (

@@ -1,8 +1,6 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule, FunctionExpression } from '../utils'
-import {
-  VitestFnCallParser,
-} from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'max-expects'
 export type MESSAGE_ID = 'maxExpect'
@@ -40,13 +38,13 @@ export default createEslintRule<Options, MESSAGE_ID>({
     defaultOptions: [{ max: 5 }],
   },
   create(context, [{ max }]) {
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
     let assertsCount = 0
 
     const resetAssertCount = (node: FunctionExpression) => {
       const isFunctionTest =
         node.parent?.type !== AST_NODE_TYPES.CallExpression ||
-        vitestFnCallParser.isTypeOfVitestFnCall(node.parent, context, ['test'])
+        vitestFnCallParser.isTypeOfVitestFnCall(node.parent, ['test'])
 
       if (isFunctionTest) assertsCount = 0
     }
@@ -57,7 +55,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
       ArrowFunctionExpression: resetAssertCount,
       'ArrowFunctionExpression:exit': resetAssertCount,
       CallExpression(node) {
-        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (
           vitestFnCall?.type !== 'expect' ||

@@ -1,7 +1,5 @@
 import { createEslintRule } from '../utils'
-import {
-  VitestFnCallParser,
-} from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'require-top-level-describe'
 
@@ -40,7 +38,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     defaultOptions: [{ maxNumberOfTopLevelDescribes: Infinity }],
   },
   create(context, options) {
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
     const maxNumberOfTopLevelDescribes =
       options[0].maxNumberOfTopLevelDescribes!
 
@@ -48,7 +46,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     let numberOfDescribeBlocks = 0
     return {
       CallExpression(node) {
-        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (!vitestFnCall) return
 
@@ -88,9 +86,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         }
       },
       'CallExpression:exit'(node) {
-        if (
-          vitestFnCallParser.isTypeOfVitestFnCall(node, context, ['describe'])
-        )
+        if (vitestFnCallParser.isTypeOfVitestFnCall(node, ['describe']))
           numberOfDescribeBlocks--
       },
     }

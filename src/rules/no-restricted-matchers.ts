@@ -1,7 +1,5 @@
 import { createEslintRule, getAccessorValue } from '../utils'
-import {
-  VitestFnCallParser,
-} from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 import { ModifierName } from '../utils/types'
 
 const RULE_NAME = 'no-restricted-matchers'
@@ -43,10 +41,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     },
   },
   create(context, [restrictedChains]) {
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
     return {
       CallExpression(node) {
-        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (vitestFnCall?.type !== 'expect') return
 

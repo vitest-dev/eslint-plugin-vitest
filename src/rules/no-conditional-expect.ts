@@ -49,7 +49,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     ],
   },
   create(context, [options]) {
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
     let conditionalDepth = 0
     let inTestCase = false
     let inPromiseCatch = false
@@ -64,14 +64,13 @@ export default createEslintRule<Options, MESSAGE_ID>({
         const testCallExpressions =
           vitestFnCallParser.getTestCallExpressionsFromDeclaredVariables(
             declaredVariables,
-            context,
           )
 
         if (testCallExpressions.length > 0) inTestCase = true
       },
       CallExpression(node: TSESTree.CallExpression) {
         const { type: vitestFnCallType } =
-          vitestFnCallParser.parseVitestFnCall(node, context) ?? {}
+          vitestFnCallParser.parseVitestFnCall(node) ?? {}
 
         if (vitestFnCallType === 'test') inTestCase = true
 
@@ -118,7 +117,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
         }
       },
       'CallExpression:exit'(node) {
-        if (vitestFnCallParser.isTypeOfVitestFnCall(node, context, ['test'])) {
+        if (vitestFnCallParser.isTypeOfVitestFnCall(node, ['test'])) {
           inTestCase = false
           expectAssertions = 0
         }

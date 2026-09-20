@@ -52,7 +52,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     defaultOptions: ['multi'],
   },
   create(context, [mode]) {
-    const vitestFnCallParser = new VitestFnCallParser()
+    const vitestFnCallParser = new VitestFnCallParser(context)
     const snapshotMatchers: ParsedExpectVitestFnCall[] = []
     let expressionDepth = 0
     const depths: number[] = []
@@ -97,16 +97,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       ArrowFunctionExpression: enterExpression,
       'ArrowFunctionExpression:exit': exitExpression,
       'CallExpression:exit'(node) {
-        if (
-          vitestFnCallParser.isTypeOfVitestFnCall(node, context, [
-            'describe',
-            'test',
-          ])
-        )
+        if (vitestFnCallParser.isTypeOfVitestFnCall(node, ['describe', 'test']))
           expressionDepth = depths.pop() ?? 0
       },
       CallExpression(node) {
-        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (vitestFnCall?.type !== 'expect') {
           if (
