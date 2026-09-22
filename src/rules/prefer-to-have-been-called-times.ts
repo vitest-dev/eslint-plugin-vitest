@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule, isSupportedAccessor } from '../utils'
-import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'prefer-to-have-been-called-times'
 
@@ -18,9 +18,10 @@ export default createEslintRule({
     schema: [],
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (vitestFnCall?.type !== 'expect') {
           return

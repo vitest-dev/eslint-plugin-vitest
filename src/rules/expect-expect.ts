@@ -1,10 +1,7 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getNodeName, isSupportedAccessor } from '../utils'
 import { parsePluginSettings } from '../utils/parse-plugin-settings'
-import {
-  getTestCallExpressionsFromDeclaredVariables,
-  isTypeOfVitestFnCall,
-} from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'expect-expect'
 export type MESSAGE_ID = 'noAssertions'
@@ -56,6 +53,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
     context,
     [{ assertFunctionNames = ['expect'], additionalTestBlockFunctions = [] }],
   ) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     const unchecked: TSESTree.CallExpression[] = []
     const settings = parsePluginSettings(context.settings)
 
@@ -74,9 +72,8 @@ export default createEslintRule<Options, MESSAGE_ID>({
           const declaredVariables =
             context.sourceCode.getDeclaredVariables(node)
           const testCallExpressions =
-            getTestCallExpressionsFromDeclaredVariables(
+            vitestFnCallParser.getTestCallExpressionsFromDeclaredVariables(
               declaredVariables,
-              context,
             )
 
           checkCallExpression(testCallExpressions)
@@ -107,7 +104,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
         const name = getNodeName(node) ?? ''
 
         if (
-          isTypeOfVitestFnCall(node, context, ['test']) ||
+          vitestFnCallParser.isTypeOfVitestFnCall(node, ['test']) ||
           additionalTestBlockFunctions.includes(name)
         ) {
           if (

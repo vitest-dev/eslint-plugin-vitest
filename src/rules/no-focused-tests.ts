@@ -3,7 +3,7 @@ import {
   findVitestModeProperty,
   getAccessorValue,
 } from '../utils'
-import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 export type MessageIds = 'noFocusedTests'
 const RULE_NAME = 'no-focused-tests'
@@ -40,11 +40,12 @@ export default createEslintRule<Options, MessageIds>({
     defaultOptions: [{ fixable: true }],
   },
   create: (context, options) => {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     const fixable = options[0].fixable!
 
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (!vitestFnCall) {
           return

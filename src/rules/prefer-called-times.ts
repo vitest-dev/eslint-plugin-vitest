@@ -1,5 +1,5 @@
 import { createEslintRule, getAccessorValue } from '../utils'
-import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'prefer-called-times'
 type MESSAGE_IDS = 'preferCalledTimes'
@@ -21,9 +21,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     schema: [],
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (vitestFnCall?.type !== 'expect') return
 

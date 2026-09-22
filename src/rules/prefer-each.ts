@@ -1,6 +1,6 @@
 import { TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
-import { parseVitestFnCall, VitestFnType } from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser, VitestFnType } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'prefer-each'
 export type MESSAGE_IDS = 'preferEach'
@@ -19,6 +19,7 @@ export default createEslintRule({
     },
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     const vitestFnCalls: VitestFnType[] = []
     let inTestCaseCall = false
 
@@ -59,7 +60,7 @@ export default createEslintRule({
       'ForOfStatement:exit': exitForLoop,
       CallExpression(node) {
         const { type: vitestFnCallType } =
-          parseVitestFnCall(node, context) ?? {}
+          vitestFnCallParser.parseVitestFnCall(node) ?? {}
 
         if (
           vitestFnCallType === 'hook' ||
@@ -72,7 +73,7 @@ export default createEslintRule({
       },
       'CallExpression:exit'(node) {
         const { type: vitestFnCallType } =
-          parseVitestFnCall(node, context) ?? {}
+          vitestFnCallParser.parseVitestFnCall(node) ?? {}
         if (vitestFnCallType === 'test') inTestCaseCall = false
       },
     }

@@ -1,5 +1,11 @@
 import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
-import { DescribeAlias, HookName, ModifierName, TestCaseName } from './types'
+import {
+  DescribeAlias,
+  HookName,
+  LegacyTestCaseName,
+  ModifierName,
+  TestCaseName,
+} from './types'
 import { ValidVitestFnCallChains } from './valid-vitest-fn-call-chains'
 import {
   AccessorNode,
@@ -12,6 +18,10 @@ import {
   isSupportedAccessor,
 } from '.'
 import { getScope } from './scope'
+import {
+  BENCHMARK_API_REWRITE_VERSION,
+  determineVitestMajorVersion,
+} from './vitest-version'
 
 export type VitestFnType =
   | 'test'
@@ -100,62 +110,307 @@ export type ParsedVitestFnCall =
   | ParsedGeneralVitestFnCall
   | ParsedExpectVitestFnCall
 
-export const isTypeOfVitestFnCall = (
-  node: TSESTree.CallExpression,
-  context: TSESLint.RuleContext<string, readonly unknown[]>,
-  types: VitestFnType[],
-) => {
-  const vitestFnCall = parseVitestFnCall(node, context)
-  return vitestFnCall !== null && types.includes(vitestFnCall.type)
-}
+export class VitestFnCallParser {
+  readonly #context: TSESLint.RuleContext<string, readonly unknown[]>
+  readonly #testCaseNames: Readonly<
+    typeof TestCaseName | typeof LegacyTestCaseName
+  >
 
-export const parseVitestFnCall = (
-  node: TSESTree.CallExpression,
-  context: TSESLint.RuleContext<string, readonly unknown[]>,
-): ParsedVitestFnCall | null => {
-  const vitestFnCall = parseVitestFnCallWithReason(node, context)
+  constructor(context: TSESLint.RuleContext<string, readonly unknown[]>) {
+    this.#context = context
+    const vitestMajorVersion = determineVitestMajorVersion(
+      context.physicalFilename,
+    )
+    this.#testCaseNames =
+      vitestMajorVersion < BENCHMARK_API_REWRITE_VERSION
+        ? Object.freeze({ ...TestCaseName, ...LegacyTestCaseName })
+        : TestCaseName
+  }
 
-  if (typeof vitestFnCall === 'string') return null
+  isTypeOfVitestFnCall(node: TSESTree.CallExpression, types: VitestFnType[]) {
+    const vitestFnCall = this.parseVitestFnCall(node)
+    return vitestFnCall !== null && types.includes(vitestFnCall.type)
+  }
 
-  return vitestFnCall
+  parseVitestFnCall(node: TSESTree.CallExpression): ParsedVitestFnCall | null {
+    const vitestFnCall = this.parseVitestFnCallWithReason(node)
+
+    if (typeof vitestFnCall === 'string') return null
+
+    return vitestFnCall
+  }
+
+  parseVitestFnCallWithReason(
+    node: TSESTree.CallExpression,
+  ): ParsedVitestFnCall | Reason | null {
+    let parsedVitestFnCall = parseVitestFnCallCache.get(node)
+
+    if (parsedVitestFnCall) return parsedVitestFnCall
+
+    parsedVitestFnCall = this.#parseVitestFnCallWithReasonInner(node)
+
+    parseVitestFnCallCache.set(node, parsedVitestFnCall)
+
+    return parsedVitestFnCall
+  }
+
+  getTestCallExpressionsFromDeclaredVariables(
+    declaredVariables: readonly TSESLint.Scope.Variable[],
+  ): TSESTree.CallExpression[] {
+    return declaredVariables.reduce<TSESTree.CallExpression[]>(
+      (acc, { references }) =>
+        acc.concat(
+          references
+            .map(({ identifier }) => identifier.parent)
+            .filter(
+              (node): node is TSESTree.CallExpression =>
+                node?.type === AST_NODE_TYPES.CallExpression &&
+                this.isTypeOfVitestFnCall(node, ['test']),
+            ),
+        ),
+      [],
+    )
+  }
+
+  resolveScope(
+    scope: TSESLint.Scope.Scope,
+    identifier: string,
+  ): ImportDetails | 'local' | 'testContext' | null {
+    let currentScope: TSESLint.Scope.Scope | null = scope
+
+    while (currentScope !== null) {
+      const ref = currentScope.set.get(identifier)
+
+      if (ref && ref.defs.length > 0) {
+        const def = ref.defs[ref.defs.length - 1]
+
+        const objectParam = isFunction(def.node)
+          ? def.node.params.find(
+              (params) => params.type === AST_NODE_TYPES.ObjectPattern,
+            )
+          : undefined
+        if (objectParam) {
+          const property = objectParam.properties.find(
+            (property) => property.type === AST_NODE_TYPES.Property,
+          )
+          const key =
+            property?.key.type === AST_NODE_TYPES.Identifier
+              ? property.key
+              : undefined
+          if (key?.name === identifier) return 'testContext'
+        }
+
+        /** if detect test function is created with `.extend()` */
+        if (
+          def.node.type === AST_NODE_TYPES.VariableDeclarator &&
+          def.node.id.type === AST_NODE_TYPES.Identifier &&
+          def.node.init?.type === AST_NODE_TYPES.CallExpression &&
+          def.node.init.callee.type === AST_NODE_TYPES.MemberExpression &&
+          isIdentifier(def.node.init.callee.property, 'extend')
+        ) {
+          const baseName = getNodeName(def.node.init.callee.object)
+          const rootName = baseName?.split('.')[0]
+
+          if (rootName && rootName !== identifier) {
+            const resolved = this.resolveScope(currentScope, rootName)
+
+            if (
+              resolved &&
+              typeof resolved === 'object' &&
+              Object.hasOwn(TestCaseName, resolved.imported)
+            ) {
+              return {
+                ...resolved,
+                local: identifier,
+              }
+            }
+          }
+        }
+        const namedParam = isFunction(def.node)
+          ? def.node.params.find(
+              (params) => params.type === AST_NODE_TYPES.Identifier,
+            )
+          : undefined
+        if (namedParam && this.#isAncestorTestCaseCall(namedParam.parent))
+          return 'testContext'
+
+        const importDetails = describePossibleImportDef(def)
+
+        if (importDetails?.local === identifier) return importDetails
+        return 'local'
+      }
+      currentScope = currentScope.upper
+    }
+    return null
+  }
+
+  #parseVitestFnCallWithReasonInner(
+    node: TSESTree.CallExpression,
+  ): ParsedVitestFnCall | Reason | null {
+    const chain = getNodeChain(node)
+
+    if (!chain?.length) return null
+
+    const [first, ...rest] = chain
+
+    const lastLink = getAccessorValue(chain[chain.length - 1])
+
+    if (lastLink === 'each') {
+      if (
+        node.callee.type !== AST_NODE_TYPES.CallExpression &&
+        node.callee.type !== AST_NODE_TYPES.TaggedTemplateExpression
+      )
+        return null
+    }
+
+    if (
+      node.callee.type === AST_NODE_TYPES.TaggedTemplateExpression &&
+      lastLink !== 'each'
+    )
+      return null
+
+    const resolved = this.#resolveVitestFn(
+      this.#context,
+      node,
+      getAccessorValue(first),
+    )
+
+    if (!resolved) return null
+
+    const name = resolved.original ?? resolved.local
+
+    const links = [name, ...rest.map(getAccessorValue)]
+
+    if (
+      resolved.type !== 'testContext' &&
+      name !== 'vi' &&
+      name !== 'vitest' &&
+      name !== 'expect' &&
+      name !== 'expectTypeOf' &&
+      !ValidVitestFnCallChains.has(links.join('.'))
+    )
+      return null
+
+    const parsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'> = {
+      name,
+      head: { ...resolved, node: first },
+      members: rest as KnownMemberExpressionProperty[],
+    }
+
+    const type = this.#determineVitestFnType(name)
+
+    if (type === 'expect' || type === 'expectTypeOf') {
+      const topMostCallExpression = findTopMostCallExpression(node)
+
+      return type === 'expect'
+        ? parseExpectCallExpression(
+            node,
+            topMostCallExpression,
+            parsedVitestFnCall,
+          )
+        : parseExpectTypeOfCallExpression(
+            node,
+            topMostCallExpression,
+            parsedVitestFnCall,
+          )
+    }
+
+    if (
+      chain
+        .slice(0, chain.length - 1)
+        .some((node) => node.parent?.type !== AST_NODE_TYPES.MemberExpression)
+    )
+      return null
+
+    if (
+      node.parent?.type === AST_NODE_TYPES.CallExpression ||
+      node.parent?.type === AST_NODE_TYPES.MemberExpression
+    )
+      return null
+
+    return { ...parsedVitestFnCall, type }
+  }
+
+  #determineVitestFnType(name: string): VitestFnType {
+    if (name === 'expect') return 'expect'
+
+    if (name === 'expectTypeOf') return 'expectTypeOf'
+
+    if (name === 'vi' || name === 'vitest') return 'vi'
+
+    if (Object.prototype.hasOwnProperty.call(DescribeAlias, name))
+      return 'describe'
+
+    if (Object.prototype.hasOwnProperty.call(this.#testCaseNames, name))
+      return 'test'
+
+    if (Object.prototype.hasOwnProperty.call(HookName, name)) return 'hook'
+
+    return 'unknown'
+  }
+
+  #resolveVitestFn(
+    context: TSESLint.RuleContext<string, readonly unknown[]>,
+    node: TSESTree.CallExpression,
+    identifier: string,
+  ): ResolvedVitestFn | null {
+    const scope = getScope(context, node)
+    const maybeImport = this.resolveScope(scope, identifier)
+
+    if (maybeImport === 'local') return null
+
+    if (maybeImport === 'testContext')
+      return {
+        local: identifier,
+        original: null,
+        type: 'testContext',
+      }
+
+    if (maybeImport) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      const vitestImports = context.settings.vitest?.vitestImports ?? []
+      const isVitestImport =
+        maybeImport.source === 'vitest' ||
+        vitestImports.some((importName: unknown) =>
+          importName instanceof RegExp
+            ? importName.test(maybeImport.source)
+            : maybeImport.source === importName,
+        )
+
+      if (isVitestImport) {
+        return {
+          original: maybeImport.imported,
+          local: maybeImport.local,
+          type: 'import',
+        }
+      }
+      return null
+    }
+
+    return {
+      original: resolvePossibleAliasedGlobal(identifier, context),
+      local: identifier,
+      type: 'global',
+    }
+  }
+
+  #isAncestorTestCaseCall({ parent }: TSESTree.Node) {
+    return (
+      parent?.type === AST_NODE_TYPES.CallExpression &&
+      parent.callee.type === AST_NODE_TYPES.Identifier &&
+      Object.prototype.hasOwnProperty.call(
+        this.#testCaseNames,
+        parent.callee.name,
+      )
+    )
+  }
 }
 
 const parseVitestFnCallCache = new WeakMap<
   TSESTree.CallExpression,
   ParsedVitestFnCall | Reason | null
 >()
-
-export const parseVitestFnCallWithReason = (
-  node: TSESTree.CallExpression,
-  context: TSESLint.RuleContext<string, readonly unknown[]>,
-): ParsedVitestFnCall | Reason | null => {
-  let parsedVitestFnCall = parseVitestFnCallCache.get(node)
-
-  if (parsedVitestFnCall) return parsedVitestFnCall
-
-  parsedVitestFnCall = parseVitestFnCallWithReasonInner(node, context)
-
-  parseVitestFnCallCache.set(node, parsedVitestFnCall)
-
-  return parsedVitestFnCall
-}
-
-const determineVitestFnType = (name: string): VitestFnType => {
-  if (name === 'expect') return 'expect'
-
-  if (name === 'expectTypeOf') return 'expectTypeOf'
-
-  if (name === 'vi' || name === 'vitest') return 'vi'
-
-  if (Object.prototype.hasOwnProperty.call(DescribeAlias, name))
-    return 'describe'
-
-  if (Object.prototype.hasOwnProperty.call(TestCaseName, name)) return 'test'
-
-  if (Object.prototype.hasOwnProperty.call(HookName, name)) return 'hook'
-
-  return 'unknown'
-}
 
 const hasInvalidExpectChain = (
   chains: ExpectChain[],
@@ -456,90 +711,6 @@ export const findTopMostCallExpression = (
   return topMostCallExpression
 }
 
-const parseVitestFnCallWithReasonInner = (
-  node: TSESTree.CallExpression,
-  context: TSESLint.RuleContext<string, readonly unknown[]>,
-): ParsedVitestFnCall | Reason | null => {
-  const chain = getNodeChain(node)
-
-  if (!chain?.length) return null
-
-  const [first, ...rest] = chain
-
-  const lastLink = getAccessorValue(chain[chain.length - 1])
-
-  if (lastLink === 'each') {
-    if (
-      node.callee.type !== AST_NODE_TYPES.CallExpression &&
-      node.callee.type !== AST_NODE_TYPES.TaggedTemplateExpression
-    )
-      return null
-  }
-
-  if (
-    node.callee.type === AST_NODE_TYPES.TaggedTemplateExpression &&
-    lastLink !== 'each'
-  )
-    return null
-
-  const resolved = resolveVitestFn(context, node, getAccessorValue(first))
-
-  if (!resolved) return null
-
-  const name = resolved.original ?? resolved.local
-
-  const links = [name, ...rest.map(getAccessorValue)]
-
-  if (
-    resolved.type !== 'testContext' &&
-    name !== 'vi' &&
-    name !== 'vitest' &&
-    name !== 'expect' &&
-    name !== 'expectTypeOf' &&
-    !ValidVitestFnCallChains.has(links.join('.'))
-  )
-    return null
-
-  const parsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'> = {
-    name,
-    head: { ...resolved, node: first },
-    members: rest as KnownMemberExpressionProperty[],
-  }
-
-  const type = determineVitestFnType(name)
-
-  if (type === 'expect' || type === 'expectTypeOf') {
-    const topMostCallExpression = findTopMostCallExpression(node)
-
-    return type === 'expect'
-      ? parseExpectCallExpression(
-          node,
-          topMostCallExpression,
-          parsedVitestFnCall,
-        )
-      : parseExpectTypeOfCallExpression(
-          node,
-          topMostCallExpression,
-          parsedVitestFnCall,
-        )
-  }
-
-  if (
-    chain
-      .slice(0, chain.length - 1)
-      .some((node) => node.parent?.type !== AST_NODE_TYPES.MemberExpression)
-  )
-    return null
-
-  if (
-    node.parent?.type === AST_NODE_TYPES.CallExpression ||
-    node.parent?.type === AST_NODE_TYPES.MemberExpression
-  )
-    return null
-
-  return { ...parsedVitestFnCall, type }
-}
-
 const joinChains = (
   a: AccessorNode[] | null,
   b: AccessorNode[] | null,
@@ -560,52 +731,6 @@ export function getNodeChain(node: TSESTree.Node): AccessorNode[] | null {
   return null
 }
 
-const resolveVitestFn = (
-  context: TSESLint.RuleContext<string, readonly unknown[]>,
-  node: TSESTree.CallExpression,
-  identifier: string,
-): ResolvedVitestFn | null => {
-  const scope = getScope(context, node)
-  const maybeImport = resolveScope(scope, identifier)
-
-  if (maybeImport === 'local') return null
-
-  if (maybeImport === 'testContext')
-    return {
-      local: identifier,
-      original: null,
-      type: 'testContext',
-    }
-
-  if (maybeImport) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    const vitestImports = context.settings.vitest?.vitestImports ?? []
-    const isVitestImport =
-      maybeImport.source === 'vitest' ||
-      vitestImports.some((importName: unknown) =>
-        importName instanceof RegExp
-          ? importName.test(maybeImport.source)
-          : maybeImport.source === importName,
-      )
-
-    if (isVitestImport) {
-      return {
-        original: maybeImport.imported,
-        local: maybeImport.local,
-        type: 'import',
-      }
-    }
-    return null
-  }
-
-  return {
-    original: resolvePossibleAliasedGlobal(identifier, context),
-    local: identifier,
-    type: 'global',
-  }
-}
-
 const resolvePossibleAliasedGlobal = (
   global: string,
   context: TSESLint.RuleContext<string, readonly unknown[]>,
@@ -620,86 +745,6 @@ const resolvePossibleAliasedGlobal = (
 
   if (alias) return alias[0]
 
-  return null
-}
-
-const isAncestorTestCaseCall = ({ parent }: TSESTree.Node) => {
-  return (
-    parent?.type === AST_NODE_TYPES.CallExpression &&
-    parent.callee.type === AST_NODE_TYPES.Identifier &&
-    Object.prototype.hasOwnProperty.call(TestCaseName, parent.callee.name)
-  )
-}
-
-export const resolveScope = (
-  scope: TSESLint.Scope.Scope,
-  identifier: string,
-): ImportDetails | 'local' | 'testContext' | null => {
-  let currentScope: TSESLint.Scope.Scope | null = scope
-
-  while (currentScope !== null) {
-    const ref = currentScope.set.get(identifier)
-
-    if (ref && ref.defs.length > 0) {
-      const def = ref.defs[ref.defs.length - 1]
-
-      const objectParam = isFunction(def.node)
-        ? def.node.params.find(
-            (params) => params.type === AST_NODE_TYPES.ObjectPattern,
-          )
-        : undefined
-      if (objectParam) {
-        const property = objectParam.properties.find(
-          (property) => property.type === AST_NODE_TYPES.Property,
-        )
-        const key =
-          property?.key.type === AST_NODE_TYPES.Identifier
-            ? property.key
-            : undefined
-        if (key?.name === identifier) return 'testContext'
-      }
-
-      /** if detect test function is created with `.extend()` */
-      if (
-        def.node.type === AST_NODE_TYPES.VariableDeclarator &&
-        def.node.id.type === AST_NODE_TYPES.Identifier &&
-        def.node.init?.type === AST_NODE_TYPES.CallExpression &&
-        def.node.init.callee.type === AST_NODE_TYPES.MemberExpression &&
-        isIdentifier(def.node.init.callee.property, 'extend')
-      ) {
-        const baseName = getNodeName(def.node.init.callee.object)
-        const rootName = baseName?.split('.')[0]
-
-        if (rootName && rootName !== identifier) {
-          const resolved = resolveScope(currentScope, rootName)
-
-          if (
-            resolved &&
-            typeof resolved === 'object' &&
-            Object.hasOwn(TestCaseName, resolved.imported)
-          ) {
-            return {
-              ...resolved,
-              local: identifier,
-            }
-          }
-        }
-      }
-      const namedParam = isFunction(def.node)
-        ? def.node.params.find(
-            (params) => params.type === AST_NODE_TYPES.Identifier,
-          )
-        : undefined
-      if (namedParam && isAncestorTestCaseCall(namedParam.parent))
-        return 'testContext'
-
-      const importDetails = describePossibleImportDef(def)
-
-      if (importDetails?.local === identifier) return importDetails
-      return 'local'
-    }
-    currentScope = currentScope.upper
-  }
   return null
 }
 
@@ -774,25 +819,6 @@ const describeVariableDefAsImport = (
     imported: getAccessorValue(def.name.parent.key),
     local: def.name.name,
   }
-}
-
-export const getTestCallExpressionsFromDeclaredVariables = (
-  declaredVariables: readonly TSESLint.Scope.Variable[],
-  context: TSESLint.RuleContext<string, readonly unknown[]>,
-): TSESTree.CallExpression[] => {
-  return declaredVariables.reduce<TSESTree.CallExpression[]>(
-    (acc, { references }) =>
-      acc.concat(
-        references
-          .map(({ identifier }) => identifier.parent)
-          .filter(
-            (node): node is TSESTree.CallExpression =>
-              node?.type === AST_NODE_TYPES.CallExpression &&
-              isTypeOfVitestFnCall(node, context, ['test']),
-          ),
-      ),
-    [],
-  )
 }
 
 export const getFirstMatcherArg = (

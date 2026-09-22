@@ -1,14 +1,11 @@
-import { AST_NODE_TYPES, TSESLint, TSESTree } from '@typescript-eslint/utils'
+import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import {
   createEslintRule,
   getNodeName,
   isFunction,
   isIdentifier,
 } from '../utils'
-import {
-  isTypeOfVitestFnCall,
-  parseVitestFnCall,
-} from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'require-hook'
 type MESSAGE_IDS = 'useHook'
@@ -16,9 +13,9 @@ type Options = [{ allowedFunctionCalls?: readonly string[] }]
 
 const isVitestFnCall = (
   node: TSESTree.CallExpression,
-  context: TSESLint.RuleContext<string, unknown[]>,
+  vitestFnCallParser: VitestFnCallParser,
 ) => {
-  if (parseVitestFnCall(node, context)) return true
+  if (vitestFnCallParser.parseVitestFnCall(node)) return true
 
   return !!getNodeName(node)?.startsWith('vi')
 }
@@ -32,15 +29,19 @@ const isNullOrUndefined = (node: TSESTree.Expression) => {
 
 const shouldBeInHook = (
   node: TSESTree.Node,
-  context: TSESLint.RuleContext<string, unknown[]>,
   allowedFunctionCalls: readonly string[] = [],
+  vitestFnCallParser: VitestFnCallParser,
 ): boolean => {
   switch (node.type) {
     case AST_NODE_TYPES.ExpressionStatement:
-      return shouldBeInHook(node.expression, context, allowedFunctionCalls)
+      return shouldBeInHook(
+        node.expression,
+        allowedFunctionCalls,
+        vitestFnCallParser,
+      )
     case AST_NODE_TYPES.CallExpression:
       return !(
-        isVitestFnCall(node, context) ||
+        isVitestFnCall(node, vitestFnCallParser) ||
         allowedFunctionCalls.includes(getNodeName(node) as string)
       )
     case AST_NODE_TYPES.VariableDeclaration: {
@@ -86,10 +87,15 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     ],
   },
   create(context, options) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     const checkBlockBody = (body: TSESTree.BlockStatement['body']) => {
       for (const statement of body) {
         if (
-          shouldBeInHook(statement, context, options[0].allowedFunctionCalls)
+          shouldBeInHook(
+            statement,
+            options[0].allowedFunctionCalls,
+            vitestFnCallParser,
+          )
         ) {
           context.report({
             node: statement,
@@ -105,7 +111,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       },
       CallExpression(node) {
         if (
-          !isTypeOfVitestFnCall(node, context, ['describe']) ||
+          !vitestFnCallParser.isTypeOfVitestFnCall(node, ['describe']) ||
           node.arguments.length < 2
         )
           return

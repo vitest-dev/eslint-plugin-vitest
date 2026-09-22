@@ -5,9 +5,8 @@ import {
   isSupportedAccessor,
 } from '../utils'
 import {
-  isTypeOfVitestFnCall,
   ParsedExpectVitestFnCall,
-  parseVitestFnCall,
+  VitestFnCallParser,
 } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'prefer-snapshot-hint'
@@ -53,6 +52,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     defaultOptions: ['multi'],
   },
   create(context, [mode]) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     const snapshotMatchers: ParsedExpectVitestFnCall[] = []
     let expressionDepth = 0
     const depths: number[] = []
@@ -97,11 +97,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       ArrowFunctionExpression: enterExpression,
       'ArrowFunctionExpression:exit': exitExpression,
       'CallExpression:exit'(node) {
-        if (isTypeOfVitestFnCall(node, context, ['describe', 'test']))
+        if (vitestFnCallParser.isTypeOfVitestFnCall(node, ['describe', 'test']))
           expressionDepth = depths.pop() ?? 0
       },
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (vitestFnCall?.type !== 'expect') {
           if (

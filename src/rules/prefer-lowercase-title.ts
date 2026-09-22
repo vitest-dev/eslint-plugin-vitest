@@ -5,13 +5,11 @@ import {
   isStringNode,
   StringNode,
 } from '../utils'
-import {
-  isTypeOfVitestFnCall,
-  parseVitestFnCall,
-} from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 import {
   CallExpressionWithSingleArgument,
   DescribeAlias,
+  LegacyTestCaseName,
   TestCaseName,
 } from '../utils/types'
 
@@ -19,9 +17,9 @@ const RULE_NAME = 'prefer-lowercase-title'
 export type MessageIds = 'lowerCaseTitle' | 'fullyLowerCaseTitle'
 
 type IgnorableFunctionExpressions =
-  | TestCaseName.it
-  | TestCaseName.test
-  | TestCaseName.bench
+  | (typeof TestCaseName)['it']
+  | (typeof TestCaseName)['test']
+  | (typeof LegacyTestCaseName)['bench']
   | DescribeAlias.describe
 
 const hasStringAsFirstArgument = (
@@ -127,12 +125,13 @@ export default createEslintRule<
       },
     ],
   ) => {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     const ignores = populateIgnores(ignore)
     let numberOfDescribeBlocks = 0
 
     return {
       CallExpression(node: TSESTree.CallExpression) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (!vitestFnCall || !hasStringAsFirstArgument(node)) return
 
@@ -191,7 +190,7 @@ export default createEslintRule<
         })
       },
       'CallExpression:exit'(node: TSESTree.CallExpression) {
-        if (isTypeOfVitestFnCall(node, context, ['describe']))
+        if (vitestFnCallParser.isTypeOfVitestFnCall(node, ['describe']))
           numberOfDescribeBlocks--
       },
     }

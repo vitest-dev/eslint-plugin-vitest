@@ -2,7 +2,7 @@ import { TSESLint, AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue } from '../utils'
 import {
   getFirstMatcherArg,
-  parseVitestFnCall,
+  VitestFnCallParser,
 } from '../utils/parse-vitest-fn-call'
 import { EqualityMatcher, ModifierName } from '../utils/types'
 import { isBooleanLiteral } from '../utils/msc'
@@ -27,9 +27,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     schema: [],
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (vitestFnCall?.type !== 'expect' || vitestFnCall.args.length === 0)
           return
