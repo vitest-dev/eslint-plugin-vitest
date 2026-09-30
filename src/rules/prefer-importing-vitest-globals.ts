@@ -1,4 +1,3 @@
-import { Scope } from '@typescript-eslint/scope-manager'
 import { TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 import {
@@ -69,17 +68,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         const name = node.callee.name
         if (importedNames.has(name)) return
 
-        let currentScope: Scope | null = context.sourceCode.getScope(node)
-        let variable
-
-        while (currentScope !== null) {
-          const ref = currentScope.set.get(name)
-          if (ref && ref.defs.length > 0) {
-            variable = ref
-            break
-          }
-          currentScope = currentScope.upper
-        }
+        const scope = context.sourceCode.getScope(node)
+        const variable = scope.references.find(
+          (ref) => ref.identifier === node.callee,
+        )?.resolved
 
         if (variable && variable.defs.length > 0) {
           const hasTrueLocalBinding = variable.defs.some((def) => {

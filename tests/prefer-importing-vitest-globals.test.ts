@@ -160,5 +160,16 @@ ruleTester.run(rule.name, rule, {
       output:
         "import { it, expect } from 'vitest';\nit('test', () => { [1].forEach((n) => { expect(n).toBe(1); }); });",
     },
+    {
+      code: "import { it } from 'vitest';\ntype expect = number;\nit('test', () => { [1].forEach((n) => { expect(n).toBe(1); }); });",
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'expect' },
+        },
+      ],
+      output:
+        "import { it, expect } from 'vitest';\ntype expect = number;\nit('test', () => { [1].forEach((n) => { expect(n).toBe(1); }); });",
+    },
   ],
 })
