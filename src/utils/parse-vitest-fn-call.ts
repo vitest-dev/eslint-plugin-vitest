@@ -643,21 +643,18 @@ export const resolveScope = (
     if (ref && ref.defs.length > 0) {
       const def = ref.defs[ref.defs.length - 1]
 
-      const objectParam = isFunction(def.node)
-        ? def.node.params.find(
-            (params) => params.type === AST_NODE_TYPES.ObjectPattern,
-          )
-        : undefined
-      if (objectParam) {
-        const property = objectParam.properties.find(
-          (property) => property.type === AST_NODE_TYPES.Property,
+      const isTestContextParam =
+        isFunction(def.node) &&
+        def.node.params.some(
+          (param) =>
+            param.type === AST_NODE_TYPES.ObjectPattern &&
+            param.properties.some(
+              (property) =>
+                property.type === AST_NODE_TYPES.Property &&
+                isIdentifier(property.key, identifier),
+            ),
         )
-        const key =
-          property?.key.type === AST_NODE_TYPES.Identifier
-            ? property.key
-            : undefined
-        if (key?.name === identifier) return 'testContext'
-      }
+      if (isTestContextParam) return 'testContext'
 
       /** if detect test function is created with `.extend()` */
       if (
