@@ -13,6 +13,8 @@ ruleTester.run(rule.name, rule, {
     "import { describe, expect, it } from 'vitest'; describe('suite', () => { it('test', () => { let test = 5; expect(test).toBe(5); }); });",
     "import { describe, expect, it } from 'vitest'; describe('suite', () => { it('test', () => { const test = () => true; expect(test()).toBe(true); }); });",
     "import { describe, expect, it } from 'vitest'; describe('suite', () => { it('test', () => { function fn(test) { return test; } expect(fn(5)).toBe(5); }); });",
+    "import { it } from 'vitest'; it('test', ({ expect }) => { [1].forEach((n) => { expect(n).toBe(1); }); });",
+    "import { it } from 'vitest'; it('test', ({ expect }) => { try { expect(1).toBe(1); } catch {} });",
   ],
   invalid: [
     {
@@ -146,6 +148,17 @@ ruleTester.run(rule.name, rule, {
       ],
       output:
         "const { it, describe } = require('vitest');\ndescribe('suite', () => {});",
+    },
+    {
+      code: "import { it } from 'vitest';\nit('test', () => { [1].forEach((n) => { expect(n).toBe(1); }); });",
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'expect' },
+        },
+      ],
+      output:
+        "import { it, expect } from 'vitest';\nit('test', () => { [1].forEach((n) => { expect(n).toBe(1); }); });",
     },
   ],
 })
