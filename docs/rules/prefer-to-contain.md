@@ -8,7 +8,7 @@
 
 <!-- end auto-generated rule header -->
 
-This rule triggers a warning if `toBe()`, `toEqual()` or `toStrickEqual()` is used to assert object inclusion in an array.
+This rule triggers a warning if `toBe()`, `toEqual()` or `toStrictEqual()` is used to assert object inclusion in an array.
 
 The following patterns are considered warnings:
 
