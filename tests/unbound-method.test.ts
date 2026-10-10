@@ -38,10 +38,17 @@ const toThrowMatchers = [
 const validTestCases: string[] = [
   ...[
     'expect(Console.prototype.log).toHaveBeenCalledTimes(1);',
+    'expect(Console?.prototype.log).toHaveBeenCalledTimes(1);',
+    'expect(Console?.prototype?.log).toHaveBeenCalledTimes(1);',
+    'expect(Console.prototype?.log).toHaveBeenCalledTimes(1);',
     'expect(Console.prototype.log).not.toHaveBeenCalled();',
     'expect(Console.prototype.log).toStrictEqual(somethingElse);',
+    'expect(Console?.prototype.log).toStrictEqual(somethingElse);',
+    'expect(Console?.prototype?.log).toStrictEqual(somethingElse);',
     'vi.mocked(Console.prototype.log).mockImplementation(() => {});',
     'vitest.mocked(Console.prototype.log).mockImplementation(() => {});',
+    'vitest.mocked(Console?.prototype.log).mockImplementation(() => {});',
+    'vitest.mocked(Console?.prototype?.log).mockImplementation(() => {});',
   ].map((code) => [ConsoleClassAndVariableCode, code].join('\n')),
   `
     expect(() => {
@@ -114,6 +121,19 @@ const invalidTestCases: Array<TSESLint.InvalidTestCase<MessageIds, Options>> = [
       ${ConsoleClassAndVariableCode}
 
       expect(console.log).not.${matcher}();
+    `.trim(),
+    errors: [
+      {
+        line: 9,
+        messageId: 'unboundWithoutThisAnnotation' as const,
+      },
+    ],
+  })),
+  ...toThrowMatchers.map((matcher) => ({
+    code: `
+      ${ConsoleClassAndVariableCode}
+
+      expect(console?.log).not.${matcher}();
     `.trim(),
     errors: [
       {
