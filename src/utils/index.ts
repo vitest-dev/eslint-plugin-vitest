@@ -147,6 +147,21 @@ export const getAccessorValue = <S extends string = string>(
     ? accessor.name
     : getStringValue(accessor)
 
+/**
+ * Gets the callback argument of a test call, supporting both the
+ * `test(name, fn)` and the `test(name, options, fn)` signatures.
+ */
+export const getTestCallbackArg = (
+  node: TSESTree.CallExpression,
+): TSESTree.CallExpressionArgument | undefined => {
+  const [, secondArg, thirdArg] = node.arguments
+
+  if (secondArg && !isFunction(secondArg) && thirdArg && isFunction(thirdArg))
+    return thirdArg
+
+  return secondArg
+}
+
 export const findVitestModeProperty = (
   node: TSESTree.CallExpression,
   mode: 'only' | 'skip' | 'todo',
