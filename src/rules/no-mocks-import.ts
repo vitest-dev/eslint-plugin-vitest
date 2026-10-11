@@ -29,7 +29,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   },
   create(context) {
     return {
-      ImportDeclaration(node: TSESTree.ImportDeclaration) {
+      ImportExpression(node) {
+        if (isMockImportLiteral(node.source))
+          context.report({ node, messageId: 'noMocksImport' })
+      },
+      ImportDeclaration(node) {
         if (isMockImportLiteral(node.source))
           context.report({ node, messageId: 'noMocksImport' })
       },
