@@ -87,9 +87,15 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     return {
       ...baseSelectors,
       MemberExpression(node: TSESTree.MemberExpression) {
-        if (node.parent?.type === AST_NODE_TYPES.CallExpression) {
+        // if we're in an optional chain, use the chain's parent
+        const parent =
+          node.parent.type === AST_NODE_TYPES.ChainExpression
+            ? node.parent.parent
+            : node.parent
+
+        if (parent.type === AST_NODE_TYPES.CallExpression) {
           const vitestFnCall = parseVitestFnCall(
-            findTopMostCallExpression(node.parent),
+            findTopMostCallExpression(parent),
             context,
           )
 
