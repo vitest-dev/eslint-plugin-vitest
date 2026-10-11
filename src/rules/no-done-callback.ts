@@ -1,6 +1,7 @@
 import { TSESLint, AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import {
   createEslintRule,
+  findVitestModeProperty,
   getNodeName,
   isFunction,
   isSupportedAccessor,
@@ -80,8 +81,9 @@ export default createEslintRule<Options, MessageIds>({
             if (isNotInsideDescribeOrTest) return false
 
             const isTestRunningConcurrently =
-              ancestor.callee.type === AST_NODE_TYPES.MemberExpression &&
-              isSupportedAccessor(ancestor.callee.property, 'concurrent')
+              (ancestor.callee.type === AST_NODE_TYPES.MemberExpression &&
+                isSupportedAccessor(ancestor.callee.property, 'concurrent')) ||
+              findVitestModeProperty(ancestor, 'concurrent') !== null
 
             return isTestRunningConcurrently
           })
