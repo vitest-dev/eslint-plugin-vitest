@@ -22,6 +22,7 @@ import noImportNodeTest from './no-import-node-test'
 import noImportingVitestGlobals from './no-importing-vitest-globals'
 import noInterpolationInSnapshots from './no-interpolation-in-snapshots'
 import noLargeSnapshots from './no-large-snapshots'
+import noMockImplementationThrow from './no-mock-implementation-throw'
 import noMocksImport from './no-mocks-import'
 import noRestrictedMatchers from './no-restricted-matchers'
 import noRestrictedViMethods from './no-restricted-vi-methods'
@@ -106,6 +107,7 @@ export const rules = {
   'no-importing-vitest-globals': noImportingVitestGlobals,
   'no-interpolation-in-snapshots': noInterpolationInSnapshots,
   'no-large-snapshots': noLargeSnapshots,
+  'no-mock-implementation-throw': noMockImplementationThrow,
   'no-mocks-import': noMocksImport,
   'no-restricted-matchers': noRestrictedMatchers,
   'no-restricted-vi-methods': noRestrictedViMethods,
