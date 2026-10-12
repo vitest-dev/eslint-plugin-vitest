@@ -77,6 +77,7 @@ const allRules = {
   'prefer-importing-vitest-globals': 'warn',
   'prefer-lowercase-title': 'warn',
   'prefer-mock-promise-shorthand': 'warn',
+  'prefer-mock-return-shorthand': 'warn',
   'prefer-snapshot-hint': 'warn',
   'prefer-spy-on': 'warn',
   'prefer-strict-boolean-matchers': 'warn',
