@@ -1,5 +1,8 @@
 import { AST_NODE_TYPES, ESLintUtils } from '@typescript-eslint/utils'
-import { DefinitionType } from '@typescript-eslint/scope-manager'
+import {
+  DefinitionType,
+  type Definition,
+} from '@typescript-eslint/scope-manager'
 import { createEslintRule } from '../utils'
 import { parsePluginSettings } from '../utils/parse-plugin-settings'
 import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
@@ -9,6 +12,24 @@ import { isClassOrFunctionType } from '../utils/types'
 const RULE_NAME = 'prefer-describe-function-title'
 export type MESSAGE_IDS = 'preferFunction'
 export type Options = []
+
+/**
+ * Is this import binding type-only (`import type { x }` / `import { type x }`)?
+ *
+ * Such a binding is erased at compile time, so the identifier does not exist as a
+ * value at runtime and cannot be passed to `describe`.
+ */
+function isTypeOnlyImport(definition: Definition): boolean {
+  if (definition.type !== DefinitionType.ImportBinding) {
+    return false
+  }
+
+  return (
+    definition.parent.importKind === 'type' ||
+    (definition.node.type === AST_NODE_TYPES.ImportSpecifier &&
+      definition.node.importKind === 'type')
+  )
+}
 
 export default createEslintRule<Options, MESSAGE_IDS>({
   name: RULE_NAME,
@@ -43,7 +64,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           const scopedFunction = scope?.set.get(identifierName)?.defs[0]
           if (
             scopedFunction?.type !== DefinitionType.ImportBinding ||
-            argument.property.name !== 'name'
+            argument.property.name !== 'name' ||
+            isTypeOnlyImport(scopedFunction)
           ) {
             return
           }
@@ -76,7 +98,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         }
 
         const scopedFunction = scope?.set.get(describedTitle)?.defs[0]
-        if (scopedFunction?.type !== DefinitionType.ImportBinding) {
+        if (
+          scopedFunction?.type !== DefinitionType.ImportBinding ||
+          isTypeOnlyImport(scopedFunction)
+        ) {
           return
         }
 
