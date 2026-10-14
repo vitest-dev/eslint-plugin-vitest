@@ -1,4 +1,4 @@
-import { TSESTree } from '@typescript-eslint/utils'
+import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 import {
   isObjectPattern,
@@ -69,12 +69,17 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         if (importedNames.has(name)) return
 
         const scope = context.sourceCode.getScope(node)
-        const variable = scope.set.get(name)
+        const variable = scope.references.find(
+          (ref) => ref.identifier === node.callee,
+        )?.resolved
 
         if (variable && variable.defs.length > 0) {
           const hasTrueLocalBinding = variable.defs.some((def) => {
             if (def.type === 'ImportBinding') {
-              return false
+              return !(
+                def.parent.type === AST_NODE_TYPES.ImportDeclaration &&
+                isVitestImport(def.parent)
+              )
             }
             if (
               def.type === 'Variable' &&
