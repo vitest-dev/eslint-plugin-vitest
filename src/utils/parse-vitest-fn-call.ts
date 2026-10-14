@@ -157,6 +157,23 @@ const determineVitestFnType = (name: string): VitestFnType => {
   return 'unknown'
 }
 
+/**
+ * The hook name of a member-form hook registration such as `test.beforeAll(...)`,
+ * or `null` if the chain is not one.
+ *
+ * Vitest exposes every lifecycle hook as a member of the test API, which is how
+ * a suite gets typed access to the fixtures of an extended test.
+ */
+const getMemberHookName = (links: string[]): string | null => {
+  if (links.length !== 2) return null
+
+  const [head, member] = links
+
+  if (!Object.prototype.hasOwnProperty.call(TestCaseName, head)) return null
+
+  return Object.prototype.hasOwnProperty.call(HookName, member) ? member : null
+}
+
 const hasInvalidExpectChain = (
   chains: ExpectChain[],
   matcherIndex: number,
@@ -500,13 +517,17 @@ const parseVitestFnCallWithReasonInner = (
   )
     return null
 
+  // Vitest exposes the lifecycle hooks as members of the test API as well, so
+  // `test.beforeAll(...)` registers a hook just like a bare `beforeAll(...)`.
+  const memberHookName = getMemberHookName(links)
+
   const parsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'> = {
-    name,
+    name: memberHookName ?? name,
     head: { ...resolved, node: first },
     members: rest as KnownMemberExpressionProperty[],
   }
 
-  const type = determineVitestFnType(name)
+  const type = determineVitestFnType(memberHookName ?? name)
 
   if (type === 'expect' || type === 'expectTypeOf') {
     const topMostCallExpression = findTopMostCallExpression(node)
