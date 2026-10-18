@@ -437,12 +437,16 @@ export default createEslintRule<
 
               if (!functionExpression) return null
 
-              const foundAsyncFixer = fixes.some((fix) => fix.text === 'async ')
+              const targetFunction =
+                getNormalizeFunctionExpression(functionExpression)
+
+              const foundAsyncFixer = fixes.some(
+                (fix) =>
+                  fix.text === 'async ' &&
+                  fix.range[0] === targetFunction.range[0],
+              )
 
               if (!functionExpression.async && !foundAsyncFixer) {
-                const targetFunction =
-                  getNormalizeFunctionExpression(functionExpression)
-
                 fixes.push(fixer.insertTextBefore(targetFunction, 'async '))
               }
 
