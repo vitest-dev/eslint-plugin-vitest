@@ -55,7 +55,7 @@ const getAutoFixMockImplementation = (
 
   return argSource
     ? `.mockImplementation(${argSource})`
-    : '.mockImplementation()'
+    : '.mockImplementation(() => undefined)'
 }
 
 export default createEslintRule<Options, MESSAGE_IDS>({
