@@ -99,7 +99,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           data: { replacement },
           fix(fixer) {
             // the call would read or create the value once, not on every call
-            if (!isStableValue(returnNode)) return null
+            if (!isStableValue(returnNode, context.sourceCode)) return null
 
             return [
               fixer.replaceText(property, replacement),

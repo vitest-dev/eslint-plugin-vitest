@@ -47,10 +47,14 @@ export const isFunction = (node: TSESTree.Node): node is FunctionExpression =>
   node.type === AST_NODE_TYPES.ArrowFunctionExpression
 
 /**
- * Whether evaluating `node` always gives the same primitive value, so it can
- * be moved out of a mock implementation without changing what the mock returns.
+ * Whether evaluating `node` always gives the same value, so it can be moved
+ * out of a mock implementation without changing what the mock returns.
+ * Identifiers only count when they are not `let`/`var` variables.
  */
-export const isStableValue = (node: TSESTree.Node): boolean => {
+export const isStableValue = (
+  node: TSESTree.Node,
+  sourceCode: TSESLint.SourceCode,
+): boolean => {
   switch (node.type) {
     case AST_NODE_TYPES.Literal:
       return !('regex' in node)
@@ -59,10 +63,17 @@ export const isStableValue = (node: TSESTree.Node): boolean => {
     case AST_NODE_TYPES.UnaryExpression:
       return (
         ['-', '+', '!', '~'].includes(node.operator) &&
-        isStableValue(node.argument)
+        isStableValue(node.argument, sourceCode)
       )
-    case AST_NODE_TYPES.Identifier:
-      return true
+    case AST_NODE_TYPES.Identifier: {
+      const variable = sourceCode
+        .getScope(node)
+        .references.find((ref) => ref.identifier === node)?.resolved
+
+      return !variable?.defs.some(
+        (def) => def.type === 'Variable' && def.parent.kind !== 'const',
+      )
+    }
     default:
       return false
   }

@@ -338,6 +338,30 @@ ruleTester.run(rule.name, rule, {
         },
       ],
     })),
+    ...['let', 'var'].map((kind) => ({
+      code: `${kind} value = 1; aVariable.mockImplementation(() => Promise.resolve(value))`,
+      output: null,
+      errors: [
+        {
+          messageId: 'useMockShorthand' as const,
+          data: { replacement: 'mockResolvedValue' },
+          column: 26,
+          line: 1,
+        },
+      ],
+    })),
+    {
+      code: 'const value = 1; aVariable.mockImplementation(() => Promise.resolve(value))',
+      output: 'const value = 1; aVariable.mockResolvedValue(value)',
+      errors: [
+        {
+          messageId: 'useMockShorthand',
+          data: { replacement: 'mockResolvedValue' },
+          column: 28,
+          line: 1,
+        },
+      ],
+    },
     {
       code: 'aVariable.mockReturnValue(Promise.resolve(createUser()))',
       output: 'aVariable.mockResolvedValue(createUser())',

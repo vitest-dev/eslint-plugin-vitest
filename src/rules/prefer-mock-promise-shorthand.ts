@@ -75,7 +75,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           // must not be read or created once up front
           if (
             isImplementation &&
-            !innerArgNode.arguments.every((arg) => isStableValue(arg))
+            !innerArgNode.arguments.every((arg) =>
+              isStableValue(arg, sourceCode),
+            )
           )
             return null
 

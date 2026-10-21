@@ -148,6 +148,31 @@ ruleTester.run(rule.name, rule, {
   ],
 
   invalid: [
+    // a `let`/`var` variable inside a larger expression is still read too early
+    ...['!flag', '-flag'].map((value) => ({
+      code: `let flag = true; vi.fn().mockImplementation(() => ${value})`,
+      output: null,
+      errors: [
+        {
+          messageId: 'useMockShorthand' as const,
+          data: { replacement: 'mockReturnValue' },
+          column: 26,
+          line: 1,
+        },
+      ],
+    })),
+    {
+      code: 'const flag = true; vi.fn().mockImplementation(() => !flag)',
+      output: 'const flag = true; vi.fn().mockReturnValue(!flag)',
+      errors: [
+        {
+          messageId: 'useMockShorthand',
+          data: { replacement: 'mockReturnValue' },
+          column: 28,
+          line: 1,
+        },
+      ],
+    },
     {
       code: 'vi.fn().mockImplementation(() => "hello sunshine")',
       output: 'vi.fn().mockReturnValue("hello sunshine")',
