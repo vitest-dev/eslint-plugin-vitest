@@ -47,6 +47,28 @@ export const isFunction = (node: TSESTree.Node): node is FunctionExpression =>
   node.type === AST_NODE_TYPES.ArrowFunctionExpression
 
 /**
+ * Whether evaluating `node` always gives the same primitive value, so it can
+ * be moved out of a mock implementation without changing what the mock returns.
+ */
+export const isStableValue = (node: TSESTree.Node): boolean => {
+  switch (node.type) {
+    case AST_NODE_TYPES.Literal:
+      return !('regex' in node)
+    case AST_NODE_TYPES.TemplateLiteral:
+      return node.expressions.length === 0
+    case AST_NODE_TYPES.UnaryExpression:
+      return (
+        ['-', '+', '!', '~'].includes(node.operator) &&
+        isStableValue(node.argument)
+      )
+    case AST_NODE_TYPES.Identifier:
+      return true
+    default:
+      return false
+  }
+}
+
+/**
  * An `Identifier` with a known `name` value - i.e `expect`.
  */
 interface KnownIdentifier<Name extends string> extends TSESTree.Identifier {

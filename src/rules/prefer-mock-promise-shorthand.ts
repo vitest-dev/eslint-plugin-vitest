@@ -6,6 +6,7 @@ import {
   getAccessorValue,
   getNodeName,
   isFunction,
+  isStableValue,
   isSupportedAccessor,
 } from '../utils'
 
@@ -48,6 +49,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       isOnce: boolean,
       outerArgNode: TSESTree.Node,
       innerArgNode: TSESTree.Node | null = outerArgNode,
+      isImplementation = false,
     ) => {
       if (innerArgNode?.type !== AST_NODE_TYPES.CallExpression) return
 
@@ -68,6 +70,14 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           const { sourceCode } = context
 
           if (innerArgNode.arguments.length > 1) return null
+
+          // a mockImplementation callback runs on every call, so its argument
+          // must not be read or created once up front
+          if (
+            isImplementation &&
+            !innerArgNode.arguments.every((arg) => isStableValue(arg))
+          )
+            return null
 
           return [
             fixer.replaceText(property, replacement),
@@ -106,6 +116,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
             isOnce,
             arg,
             findSingleReturnArgumentNode(arg),
+            true,
           )
         }
       },

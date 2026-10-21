@@ -11,6 +11,9 @@ some API sugar functions to reduce the amount of boilerplate you have to write.
 
 These methods should be preferred when possible.
 
+The autofix only applies when the returned value is a literal or an identifier,
+because any other expression would be evaluated once instead of on every call.
+
 The following patterns are **warnings**
 
 ```js
