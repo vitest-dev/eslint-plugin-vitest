@@ -1,4 +1,5 @@
-import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
+import { AST_NODE_TYPES, ESLintUtils, TSESTree } from '@typescript-eslint/utils'
+import type ts from 'typescript'
 import { createEslintRule, getAccessorValue, isStringNode } from '../utils'
 import {
   getFirstMatcherArg,
@@ -6,6 +7,8 @@ import {
 } from '../utils/parse-vitest-fn-call'
 import { EqualityMatcher } from '../utils/types'
 import { isBooleanLiteral } from '../utils/msc'
+import { parsePluginSettings } from '../utils/parse-plugin-settings'
+import { require } from '../utils/require'
 
 const RULE_NAME = 'prefer-comparison-matcher'
 type MESSAGE_IDS = 'useToBeComparison'
@@ -17,6 +20,18 @@ const isString = (node: TSESTree.Node) => {
 
 const isComparingToString = (expression: TSESTree.BinaryExpression) => {
   return isString(expression.left) || isString(expression.right)
+}
+
+// The comparison matchers only accept numbers and bigints, so `any` is let
+// through as it may be either.
+const isNumericType = (type: ts.Type): boolean => {
+  const ts = require('typescript')
+  return type.isUnion()
+    ? type.types.every(isNumericType)
+    : !!(
+        type.flags &
+        (ts.TypeFlags.NumberLike | ts.TypeFlags.BigIntLike | ts.TypeFlags.Any)
+      )
 }
 
 const invertOperator = (operator: string) => {
@@ -68,6 +83,19 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     },
   },
   create(context) {
+    const settings = parsePluginSettings(context.settings)
+
+    const isComparingNonNumericTypes = (
+      expression: TSESTree.BinaryExpression,
+    ) => {
+      if (!settings.typecheck) return false
+
+      const services = ESLintUtils.getParserServices(context)
+      return [expression.left, expression.right].some(
+        (operand) => !isNumericType(services.getTypeAtLocation(operand)),
+      )
+    }
+
     return {
       CallExpression(node) {
         const vitestFnCall = parseVitestFnCall(node, context)
@@ -108,7 +136,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           matcherArg.value === hasNot,
         )
 
-        if (!preferredMatcher) return
+        if (!preferredMatcher || isComparingNonNumericTypes(comparison)) return
 
         context.report({
           fix(fixer) {
