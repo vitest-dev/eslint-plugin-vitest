@@ -52,12 +52,12 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/eslint": "^9.6.1",
-    "@types/node": "^25.9.9",
+    "@types/node": "^26.6.5",
     "@typescript-eslint/eslint-plugin": "^8.71.2",
     "@typescript-eslint/parser": "^8.71.2",
     "@typescript-eslint/rule-tester": "^8.71.2",
-    "bumpp": "^10.4.1",
-    "concurrently": "^9.2.5",
+    "bumpp": "^12.3.0",
+    "concurrently": "^10.0.6",
     "eslint": "^10.12.0",
     "eslint-config-flat-gitignore": "^2.4.0",
     "eslint-config-prettier": "^10.1.8",
@@ -67,11 +67,11 @@
     "eslint-remote-tester-repositories": "^2.0.2",
     "jiti": "^2.7.0",
     "prettier": "^3.9.10",
-    "tsdown": "^0.20.3",
+    "tsdown": "^0.23.1",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.71.2",
-    "vitest": "^4.1.12"
+    "vitest": "^5.0.5"
   },
   "peerDependencies": {
     "@typescript-eslint/eslint-plugin": "*",
@@ -90,7 +90,7 @@
       "optional": true
     }
   },
-  "packageManager": "pnpm@11.28.6+sha512.55d90390c3b39042f1505a2697789f0256c6d95bb28bdd7cb731af1887c9f2629ef581acb9f4e4ec772024c8203c2aed22a03299b97103fdcf32668e905d0024",
+  "packageManager": "pnpm@12.14.0+sha512.c18ba6d87993d3d164cb5e8948f32b2c06ee854487e06cd8d86781342fb3e5bb4634367034711e86802baa9c37bea906ce1929ad08d70884c97d801df13389a6",
   "engines": {
     "node": ">=22"
   },
