@@ -45,12 +45,7 @@ const getBlockType = (
 }
 
 type BlockType =
-  | 'test'
-  | 'function'
-  | 'describe'
-  | 'arrow'
-  | 'template'
-  | 'helper'
+  'test' | 'function' | 'describe' | 'arrow' | 'template' | 'helper'
 
 export default createEslintRule<Options, MESSAGE_IDS>({
   name: RULE_NAME,

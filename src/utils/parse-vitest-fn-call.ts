@@ -62,11 +62,7 @@ interface ModifiersAndMatcher {
 }
 
 type ExpectChainKind =
-  | 'expect-api'
-  | 'language-chain'
-  | 'modifier'
-  | 'matcher'
-  | 'unknown'
+  'expect-api' | 'language-chain' | 'modifier' | 'matcher' | 'unknown'
 
 interface ExpectChain {
   kind: ExpectChainKind
@@ -97,8 +93,7 @@ export interface ParsedExpectVitestFnCall
 }
 
 export type ParsedVitestFnCall =
-  | ParsedGeneralVitestFnCall
-  | ParsedExpectVitestFnCall
+  ParsedGeneralVitestFnCall | ParsedExpectVitestFnCall
 
 export const isTypeOfVitestFnCall = (
   node: TSESTree.CallExpression,
@@ -843,8 +838,7 @@ type TSTypeCastExpression<
 > = AsExpressionChain<Expression> | TypeAssertionChain<Expression>
 
 export type MaybeTypeCast<Expression extends TSESTree.Expression> =
-  | TSTypeCastExpression<Expression>
-  | Expression
+  TSTypeCastExpression<Expression> | Expression
 
 const isTypeCastExpression = <Expression extends TSESTree.Expression>(
   node: MaybeTypeCast<Expression>,

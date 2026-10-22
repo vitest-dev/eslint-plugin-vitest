@@ -14,8 +14,7 @@ import {
 
 const RULE_NAME = 'no-importing-vitest-globals'
 export type MESSAGE_IDS =
-  | 'noImportingVitestGlobals'
-  | 'noRequiringVitestGlobals'
+  'noImportingVitestGlobals' | 'noRequiringVitestGlobals'
 export type Options = []
 
 export default createEslintRule<Options, MESSAGE_IDS>({

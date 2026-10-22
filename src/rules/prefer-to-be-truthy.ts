@@ -36,12 +36,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       CallExpression(node) {
         const vitestFnCall = parseVitestFnCall(node, context)
 
-        if (
-          !(
-            vitestFnCall?.type === 'expect' ||
-            vitestFnCall?.type === 'expectTypeOf'
-          )
-        )
+        if (!(
+          vitestFnCall?.type === 'expect' ||
+          vitestFnCall?.type === 'expectTypeOf'
+        ))
           return
 
         if (

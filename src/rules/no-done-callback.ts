@@ -12,9 +12,7 @@ import {
 
 const RULE_NAME = 'no-done-callback'
 export type MessageIds =
-  | 'noDoneCallback'
-  | 'suggestWrappingInPromise'
-  | 'useAwaitInsteadOfCallback'
+  'noDoneCallback' | 'suggestWrappingInPromise' | 'useAwaitInsteadOfCallback'
 export type Options = []
 
 const findCallbackArg = (

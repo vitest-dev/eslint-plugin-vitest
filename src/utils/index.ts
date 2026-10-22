@@ -35,12 +35,10 @@ interface StringLiteral<Value extends string = string>
 }
 
 export type StringNode<S extends string = string> =
-  | StringLiteral<S>
-  | TemplateLiteral<S>
+  StringLiteral<S> | TemplateLiteral<S>
 
 export type FunctionExpression =
-  | TSESTree.ArrowFunctionExpression
-  | TSESTree.FunctionExpression
+  TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression
 
 export const isFunction = (node: TSESTree.Node): node is FunctionExpression =>
   node.type === AST_NODE_TYPES.FunctionExpression ||
@@ -69,8 +67,7 @@ export function getNodeName(node: TSESTree.Node): string | null {
 }
 
 export type AccessorNode<Specifics extends string = string> =
-  | StringNode<Specifics>
-  | KnownIdentifier<Specifics>
+  StringNode<Specifics> | KnownIdentifier<Specifics>
 
 export const isSupportedAccessor = <V extends string>(
   node: TSESTree.Node,
