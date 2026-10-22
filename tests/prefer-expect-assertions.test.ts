@@ -21,6 +21,16 @@ ruleTester.run(rule.name, rule, {
     const foo = { bar({ baz }) { baz(); } };
   });
     `,
+    `it.for([{ a: 1 }])("it1", ({ a }, { expect }) => {
+    expect.assertions(1);
+    expect(a).toBe(1);
+  });
+    `,
+    `it("it1", ({ task, expect }) => {
+    expect.assertions(1);
+    expect(task.name).toBe("it1");
+  });
+    `,
     {
       code: `
    const expectNumbersToBeGreaterThan = (numbers, value) => {
@@ -590,6 +600,32 @@ it('my test description', (context) => {context.expect.assertions();
             {
               messageId: 'suggestAddingAssertions',
               output: 'it("it1", () => {expect.assertions();})',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: `it.for([{ a: 1 }])("it1", ({ a }, { expect }) => {
+    expect(a).toBe(1);
+  });`,
+      errors: [
+        {
+          messageId: 'haveExpectAssertions',
+          column: 1,
+          line: 1,
+          suggestions: [
+            {
+              messageId: 'suggestAddingHasAssertions',
+              output: `it.for([{ a: 1 }])("it1", ({ a }, { expect }) => {expect.hasAssertions();
+    expect(a).toBe(1);
+  });`,
+            },
+            {
+              messageId: 'suggestAddingAssertions',
+              output: `it.for([{ a: 1 }])("it1", ({ a }, { expect }) => {expect.assertions();
+    expect(a).toBe(1);
+  });`,
             },
           ],
         },
