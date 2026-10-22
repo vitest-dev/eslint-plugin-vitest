@@ -340,7 +340,9 @@ ruleTester.run(rule.name, rule, {
     },
     {
       code: 'import { it as baseIt, test } from "vitest"\nbaseIt("foo")',
-      output: 'import { it as baseIt } from "vitest"\nbaseIt("foo")',
+      // `it as baseIt` does not provide an `it` binding, so the replacement
+      // specifier must still be added for renamed `test` call sites.
+      output: 'import { it as baseIt, it } from "vitest"\nbaseIt("foo")',
       options: [{ fn: TestCaseName.it }],
       errors: [
         {
@@ -352,6 +354,119 @@ ruleTester.run(rule.name, rule, {
           column: 24,
           endColumn: 28,
           line: 1,
+        },
+      ],
+    },
+    {
+      // The local alias must be preserved so the call site keeps resolving.
+      code: 'import { test as t } from "vitest"\nt("foo")',
+      output: 'import { it as t } from "vitest"\nt("foo")',
+      options: [{ fn: TestCaseName.it }],
+      errors: [
+        {
+          messageId: 'consistentMethod',
+          data: {
+            testFnKeyWork: TestCaseName.it,
+            oppositeTestKeyword: TestCaseName.test,
+          },
+          line: 1,
+          column: 10,
+          endColumn: 19,
+        },
+        {
+          messageId: 'consistentMethod',
+          data: {
+            testFnKeyWork: TestCaseName.it,
+            oppositeTestKeyword: TestCaseName.test,
+          },
+          line: 2,
+          column: 1,
+          endColumn: 2,
+        },
+      ],
+    },
+    {
+      // An existing `it` binding must not swallow the aliased specifier.
+      code: 'import { test as t, it } from "vitest"\nt("foo")\nit("bar")',
+      output: 'import { it, it as t } from "vitest"\nt("foo")\nit("bar")',
+      options: [{ fn: TestCaseName.it }],
+      errors: [
+        {
+          messageId: 'consistentMethod',
+          data: {
+            testFnKeyWork: TestCaseName.it,
+            oppositeTestKeyword: TestCaseName.test,
+          },
+          line: 1,
+          column: 10,
+          endColumn: 19,
+        },
+        {
+          messageId: 'consistentMethod',
+          data: {
+            testFnKeyWork: TestCaseName.it,
+            oppositeTestKeyword: TestCaseName.test,
+          },
+          line: 2,
+          column: 1,
+          endColumn: 2,
+        },
+      ],
+    },
+    {
+      // `.each` tagged templates go through the same aliased-callee guard.
+      code: 'import { test as t } from "vitest"\nt.each`a`("foo", () => {})',
+      output: 'import { it as t } from "vitest"\nt.each`a`("foo", () => {})',
+      options: [{ fn: TestCaseName.it }],
+      errors: [
+        {
+          messageId: 'consistentMethod',
+          data: {
+            testFnKeyWork: TestCaseName.it,
+            oppositeTestKeyword: TestCaseName.test,
+          },
+          line: 1,
+          column: 10,
+          endColumn: 19,
+        },
+        {
+          messageId: 'consistentMethod',
+          data: {
+            testFnKeyWork: TestCaseName.it,
+            oppositeTestKeyword: TestCaseName.test,
+          },
+          line: 2,
+          column: 1,
+          endColumn: 10,
+        },
+      ],
+    },
+    {
+      // The alias already matches the preferred name, so no `as` is needed.
+      code: 'import { it as test } from "vitest"\ntest("foo")',
+      output: 'import { test } from "vitest"\ntest("foo")',
+      options: [{ fn: TestCaseName.test }],
+      errors: [
+        {
+          messageId: 'consistentMethod',
+          data: {
+            testFnKeyWork: TestCaseName.test,
+            oppositeTestKeyword: TestCaseName.it,
+          },
+          line: 1,
+          column: 10,
+          endColumn: 20,
+        },
+        {
+          // Reported but not fixed; the import fix alone resolves it.
+          messageId: 'consistentMethod',
+          data: {
+            testFnKeyWork: TestCaseName.test,
+            oppositeTestKeyword: TestCaseName.it,
+          },
+          line: 2,
+          column: 1,
+          endColumn: 5,
         },
       ],
     },
