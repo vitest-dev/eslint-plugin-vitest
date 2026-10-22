@@ -25,12 +25,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     return {
       CallExpression(node) {
         const vitestFnCall = parseVitestFnCall(node, context)
-        if (
-          !(
-            vitestFnCall?.type === 'expect' ||
-            vitestFnCall?.type === 'expectTypeOf'
-          )
-        )
+        if (!(
+          vitestFnCall?.type === 'expect' ||
+          vitestFnCall?.type === 'expectTypeOf'
+        ))
           return
 
         const accessor = getAccessorValue(vitestFnCall.matcher)

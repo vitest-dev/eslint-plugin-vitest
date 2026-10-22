@@ -36,9 +36,9 @@ vitest.stubEnv('NODE_ENV', 'production')
 
 <!-- begin auto-generated rule options list -->
 
-| Name | Description                           | Type   | Choices        |
-| :--- | :------------------------------------ | :----- | :------------- |
-| `fn` | Preferred utility keyword to enforce. | String | `vi`, `vitest` |
+| Name | Description                           | Type   | Choices        | Default |
+| :--- | :------------------------------------ | :----- | :------------- | :------ |
+| `fn` | Preferred utility keyword to enforce. | String | `vi`, `vitest` | `vi`    |
 
 <!-- end auto-generated rule options list -->
 

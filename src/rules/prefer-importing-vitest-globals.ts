@@ -31,8 +31,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     const importedNames = new Set<string>()
     let vitestImportSpecifiers: TSESTree.ImportClause[]
     let vitestRequireProperties:
-      | TSESTree.ObjectPattern['properties']
-      | undefined
+      TSESTree.ObjectPattern['properties'] | undefined
 
     return {
       ImportDeclaration(node: TSESTree.ImportDeclaration) {

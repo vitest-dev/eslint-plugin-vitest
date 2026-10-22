@@ -62,11 +62,7 @@ interface ModifiersAndMatcher {
 }
 
 type ExpectChainKind =
-  | 'expect-api'
-  | 'language-chain'
-  | 'modifier'
-  | 'matcher'
-  | 'unknown'
+  'expect-api' | 'language-chain' | 'modifier' | 'matcher' | 'unknown'
 
 interface ExpectChain {
   kind: ExpectChainKind
@@ -97,8 +93,7 @@ export interface ParsedExpectVitestFnCall
 }
 
 export type ParsedVitestFnCall =
-  | ParsedGeneralVitestFnCall
-  | ParsedExpectVitestFnCall
+  ParsedGeneralVitestFnCall | ParsedExpectVitestFnCall
 
 export const isTypeOfVitestFnCall = (
   node: TSESTree.CallExpression,
@@ -155,6 +150,23 @@ const determineVitestFnType = (name: string): VitestFnType => {
   if (Object.prototype.hasOwnProperty.call(HookName, name)) return 'hook'
 
   return 'unknown'
+}
+
+/**
+ * The hook name of a member-form hook registration such as `test.beforeAll(...)`,
+ * or `null` if the chain is not one.
+ *
+ * Vitest exposes every lifecycle hook as a member of the test API, which is how
+ * a suite gets typed access to the fixtures of an extended test.
+ */
+const getMemberHookName = (links: string[]): string | null => {
+  if (links.length !== 2) return null
+
+  const [head, member] = links
+
+  if (!Object.prototype.hasOwnProperty.call(TestCaseName, head)) return null
+
+  return Object.prototype.hasOwnProperty.call(HookName, member) ? member : null
 }
 
 const hasInvalidExpectChain = (
@@ -500,13 +512,15 @@ const parseVitestFnCallWithReasonInner = (
   )
     return null
 
+  const memberHookName = getMemberHookName(links)
+
   const parsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'> = {
-    name,
+    name: memberHookName ?? name,
     head: { ...resolved, node: first },
     members: rest as KnownMemberExpressionProperty[],
   }
 
-  const type = determineVitestFnType(name)
+  const type = determineVitestFnType(memberHookName ?? name)
 
   if (type === 'expect' || type === 'expectTypeOf') {
     const topMostCallExpression = findTopMostCallExpression(node)
@@ -824,8 +838,7 @@ type TSTypeCastExpression<
 > = AsExpressionChain<Expression> | TypeAssertionChain<Expression>
 
 export type MaybeTypeCast<Expression extends TSESTree.Expression> =
-  | TSTypeCastExpression<Expression>
-  | Expression
+  TSTypeCastExpression<Expression> | Expression
 
 const isTypeCastExpression = <Expression extends TSESTree.Expression>(
   node: MaybeTypeCast<Expression>,

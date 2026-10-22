@@ -16,6 +16,10 @@ ruleTester.run(rule.name, rule, {
       code: 'aroundEach(() => {});',
       options: [{ allow: [HookName.aroundEach] }],
     },
+    {
+      code: 'test.aroundAll(() => {});',
+      options: [{ allow: [HookName.aroundAll] }],
+    },
   ],
   invalid: [
     {
@@ -24,6 +28,15 @@ ruleTester.run(rule.name, rule, {
         {
           messageId: 'unexpectedHook',
           data: { hookName: HookName.beforeAll },
+        },
+      ],
+    },
+    {
+      code: 'it.aroundAll(() => {})',
+      errors: [
+        {
+          messageId: 'unexpectedHook',
+          data: { hookName: HookName.aroundAll },
         },
       ],
     },

@@ -38,9 +38,9 @@ test('it', () => {
 
 <!-- begin auto-generated rule options list -->
 
-| Name      | Description                                 | Type    |
-| :-------- | :------------------------------------------ | :------ |
-| `fixable` | Whether the rule should provide an autofix. | Boolean |
+| Name      | Description                                 | Type    | Default |
+| :-------- | :------------------------------------------ | :------ | :------ |
+| `fixable` | Whether the rule should provide an autofix. | Boolean | `true`  |
 
 <!-- end auto-generated rule options list -->
 

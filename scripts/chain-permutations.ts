@@ -29,7 +29,16 @@ const data = [
   {
     names: ['it', 'test'],
     first: [],
-    exclusive: ['extend', 'scoped'],
+    exclusive: [
+      'extend',
+      'scoped',
+      'beforeEach',
+      'beforeAll',
+      'afterEach',
+      'afterAll',
+      'aroundEach',
+      'aroundAll',
+    ],
     conditions: ['skipIf', 'runIf'],
     methods: ['skip', 'only', 'concurrent', 'sequential', 'todo', 'fails'],
     last: ['each', 'for'],

@@ -46,12 +46,12 @@ test('assertions first', () => {
 
 <!-- begin auto-generated rule options list -->
 
-| Name                                | Description                                                                  | Type    |
-| :---------------------------------- | :--------------------------------------------------------------------------- | :------ |
-| `disallowHasAssertions`             | Warn when `expect.hasAssertions()` is used instead of `expect.assertions()`. | Boolean |
-| `onlyFunctionsWithAsyncKeyword`     | Only check test functions declared with the async keyword.                   | Boolean |
-| `onlyFunctionsWithExpectInCallback` | Only check test functions that contain `expect` in callbacks.                | Boolean |
-| `onlyFunctionsWithExpectInLoop`     | Only check test functions that contain `expect` inside loops.                | Boolean |
+| Name                                | Description                                                                  | Type    | Default |
+| :---------------------------------- | :--------------------------------------------------------------------------- | :------ | :------ |
+| `disallowHasAssertions`             | Warn when `expect.hasAssertions()` is used instead of `expect.assertions()`. | Boolean | `false` |
+| `onlyFunctionsWithAsyncKeyword`     | Only check test functions declared with the async keyword.                   | Boolean | `false` |
+| `onlyFunctionsWithExpectInCallback` | Only check test functions that contain `expect` in callbacks.                | Boolean | `false` |
+| `onlyFunctionsWithExpectInLoop`     | Only check test functions that contain `expect` inside loops.                | Boolean | `false` |
 
 <!-- end auto-generated rule options list -->
 

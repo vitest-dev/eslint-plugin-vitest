@@ -2,7 +2,8 @@ name: Smoke Test
 
 on:
   workflow_dispatch: # Manual trigger
-  schedule: # Every sunday at 00:00
+  schedule:
+    # Every sunday at 00:00
     - cron: '0 00 * * SUN'
 
 jobs:
@@ -13,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
         name: Install pnpm
         with:
           cache: true
@@ -25,7 +26,7 @@ jobs:
         run: pnpm build
 
       - name: Smoke test
-        uses: AriPerkkio/eslint-remote-tester-run-action@e148d2ff981856da9b7a2a4527a46842001f8f0c # v4.0.4
+        uses: AriPerkkio/eslint-remote-tester-run-action@212a4b725efb5ffce2e15f9ade8c43e252b09ce2 # v6
         with:
           issue-title: 'Results of weekly scheduled smoke test'
           eslint-remote-tester-config: eslint-remote-tester.config.ts

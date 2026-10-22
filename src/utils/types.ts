@@ -65,8 +65,7 @@ export enum EqualityMatcher {
 }
 
 export type MaybeTypeCast<Expression extends TSESTree.Expression> =
-  | TSTypeCastExpression<Expression>
-  | Expression
+  TSTypeCastExpression<Expression> | Expression
 
 export type TSTypeCastExpression<
   Expression extends TSESTree.Expression = TSESTree.Expression,

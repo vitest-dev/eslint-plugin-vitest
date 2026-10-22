@@ -14,9 +14,9 @@ This rule aims to prevent the use of `expect` outside of `it` or `test` blocks.
 
 <!-- begin auto-generated rule options list -->
 
-| Name                           | Description                                                 | Type     |
-| :----------------------------- | :---------------------------------------------------------- | :------- |
-| `additionalTestBlockFunctions` | Additional functions that should be treated as test blocks. | String[] |
+| Name                           | Description                                                 | Type     | Default |
+| :----------------------------- | :---------------------------------------------------------- | :------- | :------ |
+| `additionalTestBlockFunctions` | Additional functions that should be treated as test blocks. | String[] | `[]`    |
 
 <!-- end auto-generated rule options list -->
 

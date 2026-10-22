@@ -14,6 +14,26 @@ test('something', () => {
     });`,
     {
       code: `
+import { test } from 'vitest';
+
+const it = test.extend({
+  fixture: async ({}, use) => {
+    await use('hello');
+  },
+});
+
+it.aroundAll(async (runSuite) => {
+  await runSuite();
+});
+
+it.beforeEach(({ fixture }) => {
+  console.log(fixture);
+});
+`,
+      languageOptions: { parserOptions: { sourceType: 'module' } },
+    },
+    {
+      code: `
 import { myFn } from '../functions';
 test('myFn', () => {
 expect(myFn()).toBe(1);
