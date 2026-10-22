@@ -517,8 +517,6 @@ const parseVitestFnCallWithReasonInner = (
   )
     return null
 
-  // Vitest exposes the lifecycle hooks as members of the test API as well, so
-  // `test.beforeAll(...)` registers a hook just like a bare `beforeAll(...)`.
   const memberHookName = getMemberHookName(links)
 
   const parsedVitestFnCall: Omit<ParsedVitestFnCall, 'type'> = {

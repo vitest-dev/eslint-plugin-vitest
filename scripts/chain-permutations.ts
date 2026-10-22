@@ -29,8 +29,6 @@ const data = [
   {
     names: ['it', 'test'],
     first: [],
-    // Vitest exposes every lifecycle hook as a member of the test API, so
-    // `test.beforeAll(...)` and friends are hook registrations too.
     exclusive: [
       'extend',
       'scoped',

@@ -16,8 +16,6 @@ ruleTester.run(rule.name, rule, {
       code: 'aroundEach(() => {});',
       options: [{ allow: [HookName.aroundEach] }],
     },
-    // Member-form hooks are hooks too, and `allow` applies to them as well.
-    // https://github.com/vitest-dev/eslint-plugin-vitest/issues/955
     {
       code: 'test.aroundAll(() => {});',
       options: [{ allow: [HookName.aroundAll] }],

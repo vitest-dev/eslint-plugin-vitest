@@ -12,8 +12,6 @@ test('something', () => {
     `describe('scoped', () => {
       test.scoped({ example: 'value' });
     });`,
-    // Hooks are also exposed as members of the test API.
-    // https://github.com/vitest-dev/eslint-plugin-vitest/issues/955
     {
       code: `
 import { test } from 'vitest';
