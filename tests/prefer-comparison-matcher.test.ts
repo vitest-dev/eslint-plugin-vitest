@@ -1,5 +1,15 @@
 import rule from '../src/rules/prefer-comparison-matcher'
+import { RuleTester } from '@typescript-eslint/rule-tester'
 import { ruleTester } from './ruleTester'
+
+const typedRuleTester = new RuleTester({
+  languageOptions: {
+    parserOptions: {
+      tsconfigRootDir: `${import.meta.dirname}/fixture`,
+      project: `./tsconfig.json`,
+    },
+  },
+})
 
 ruleTester.run(rule.name, rule, {
   valid: [
@@ -91,6 +101,78 @@ ruleTester.run(rule.name, rule, {
           messageId: 'useToBeComparison',
         },
       ],
+    },
+  ],
+})
+
+typedRuleTester.run(rule.name, rule, {
+  valid: [
+    {
+      code: `
+      declare const start: string;
+      declare const end: string;
+      expect(start < end).toBe(true)
+      `,
+      settings: { vitest: { typecheck: true } },
+    },
+    {
+      code: `
+      declare const a: { at: Date };
+      declare const b: { at: Date };
+      expect(a.at >= b.at).toBe(true)
+      `,
+      settings: { vitest: { typecheck: true } },
+    },
+    {
+      code: `
+      declare const a: number | undefined;
+      declare const b: number;
+      expect(a > b).toBe(true)
+      `,
+      settings: { vitest: { typecheck: true } },
+    },
+  ],
+  invalid: [
+    {
+      code: `
+      declare const start: string;
+      declare const end: string;
+      expect(start < end).toBe(true)
+      `,
+      output: `
+      declare const start: string;
+      declare const end: string;
+      expect(start).toBeLessThan(end)
+      `,
+      errors: [{ messageId: 'useToBeComparison' }],
+    },
+    {
+      code: `
+      declare const a: number;
+      declare const b: 1 | 2;
+      expect(a > b).toBe(true)
+      `,
+      output: `
+      declare const a: number;
+      declare const b: 1 | 2;
+      expect(a).toBeGreaterThan(b)
+      `,
+      errors: [{ messageId: 'useToBeComparison' }],
+      settings: { vitest: { typecheck: true } },
+    },
+    {
+      code: `
+      declare const a: bigint;
+      declare const b: any;
+      expect(a <= b).not.toBe(true)
+      `,
+      output: `
+      declare const a: bigint;
+      declare const b: any;
+      expect(a).toBeGreaterThan(b)
+      `,
+      errors: [{ messageId: 'useToBeComparison' }],
+      settings: { vitest: { typecheck: true } },
     },
   ],
 })

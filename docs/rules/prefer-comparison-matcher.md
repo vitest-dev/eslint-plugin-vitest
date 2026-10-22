@@ -34,3 +34,17 @@ expect(x).toBeLessThanOrEqual(y)
 expect(x < 'Carl').toBe(true)
 // Rule only works on inters and big integers
 ```
+
+Without type information, comparisons of string variables such as `expect(start < end).toBe(true)` are still reported, and the fix gives a matcher that throws for strings. Enable the plugin's `typecheck` setting so that comparisons are only reported when both operands are numbers or bigints:
+
+```js
+export default [
+  {
+    settings: {
+      vitest: {
+        typecheck: true,
+      },
+    },
+  },
+]
+```
