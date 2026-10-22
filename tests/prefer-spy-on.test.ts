@@ -18,7 +18,8 @@ ruleTester.run(rule.name, rule, {
   invalid: [
     {
       code: 'obj.a = vi.fn(); const test = 10;',
-      output: "vi.spyOn(obj, 'a').mockImplementation(); const test = 10;",
+      output:
+        "vi.spyOn(obj, 'a').mockImplementation(() => undefined); const test = 10;",
       errors: [
         {
           messageId: 'useViSpayOn',
@@ -28,7 +29,7 @@ ruleTester.run(rule.name, rule, {
     },
     {
       code: "Date['now'] = vi['fn']()",
-      output: "vi.spyOn(Date, 'now').mockImplementation()",
+      output: "vi.spyOn(Date, 'now').mockImplementation(() => undefined)",
       errors: [
         {
           messageId: 'useViSpayOn',
@@ -39,7 +40,7 @@ ruleTester.run(rule.name, rule, {
     {
       code: 'window[`${name}`] = vi[`fn`]()',
 
-      output: 'vi.spyOn(window, `${name}`).mockImplementation()',
+      output: 'vi.spyOn(window, `${name}`).mockImplementation(() => undefined)',
       errors: [
         {
           messageId: 'useViSpayOn',
@@ -49,7 +50,7 @@ ruleTester.run(rule.name, rule, {
     },
     {
       code: "obj['prop' + 1] = vi['fn']()",
-      output: "vi.spyOn(obj, 'prop' + 1).mockImplementation()",
+      output: "vi.spyOn(obj, 'prop' + 1).mockImplementation(() => undefined)",
       errors: [
         {
           messageId: 'useViSpayOn',
@@ -59,7 +60,8 @@ ruleTester.run(rule.name, rule, {
     },
     {
       code: 'obj.one.two = vi.fn(); const test = 10;',
-      output: "vi.spyOn(obj.one, 'two').mockImplementation(); const test = 10;",
+      output:
+        "vi.spyOn(obj.one, 'two').mockImplementation(() => undefined); const test = 10;",
       errors: [
         {
           messageId: 'useViSpayOn',
@@ -103,7 +105,7 @@ ruleTester.run(rule.name, rule, {
     {
       code: 'foo[bar] = vi.fn().mockReturnValue(undefined)',
       output:
-        'vi.spyOn(foo, bar).mockImplementation().mockReturnValue(undefined)',
+        'vi.spyOn(foo, bar).mockImplementation(() => undefined).mockReturnValue(undefined)',
       errors: [
         {
           messageId: 'useViSpayOn',
