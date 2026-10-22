@@ -325,5 +325,54 @@ ruleTester.run(rule.name, rule, {
         },
       ],
     },
+    // the callback runs on every call, so its argument must not be evaluated once up front
+    ...['createUser()', 'state.current', '{ id: 1 }'].map((value) => ({
+      code: `aVariable.mockImplementation(() => Promise.resolve(${value}))`,
+      output: null,
+      errors: [
+        {
+          messageId: 'useMockShorthand' as const,
+          data: { replacement: 'mockResolvedValue' },
+          column: 11,
+          line: 1,
+        },
+      ],
+    })),
+    ...['let', 'var'].map((kind) => ({
+      code: `${kind} value = 1; aVariable.mockImplementation(() => Promise.resolve(value))`,
+      output: null,
+      errors: [
+        {
+          messageId: 'useMockShorthand' as const,
+          data: { replacement: 'mockResolvedValue' },
+          column: 26,
+          line: 1,
+        },
+      ],
+    })),
+    {
+      code: 'const value = 1; aVariable.mockImplementation(() => Promise.resolve(value))',
+      output: 'const value = 1; aVariable.mockResolvedValue(value)',
+      errors: [
+        {
+          messageId: 'useMockShorthand',
+          data: { replacement: 'mockResolvedValue' },
+          column: 28,
+          line: 1,
+        },
+      ],
+    },
+    {
+      code: 'aVariable.mockReturnValue(Promise.resolve(createUser()))',
+      output: 'aVariable.mockResolvedValue(createUser())',
+      errors: [
+        {
+          messageId: 'useMockShorthand',
+          data: { replacement: 'mockResolvedValue' },
+          column: 11,
+          line: 1,
+        },
+      ],
+    },
   ],
 })

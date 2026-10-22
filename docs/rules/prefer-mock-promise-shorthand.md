@@ -17,3 +17,7 @@ vi.fn().mockImplementation(() => Promise.resolve(42))
 vi.fn().mockRejectedValue(42)
 vi.fn().mockResolvedValue(42)
 ```
+
+For `mockImplementation`, the autofix only applies when the promise value is a
+literal or an identifier that is not a `let`/`var` variable, because any other
+expression would be evaluated once instead of on every call.

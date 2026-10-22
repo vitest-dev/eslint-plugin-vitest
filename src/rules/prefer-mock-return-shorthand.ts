@@ -4,6 +4,7 @@ import {
   createEslintRule,
   getAccessorValue,
   isFunction,
+  isStableValue,
   isSupportedAccessor,
 } from '../utils'
 
@@ -97,6 +98,9 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           messageId: 'useMockShorthand',
           data: { replacement },
           fix(fixer) {
+            // the call would read or create the value once, not on every call
+            if (!isStableValue(returnNode, context.sourceCode)) return null
+
             return [
               fixer.replaceText(property, replacement),
               fixer.replaceText(arg, context.sourceCode.getText(returnNode)),

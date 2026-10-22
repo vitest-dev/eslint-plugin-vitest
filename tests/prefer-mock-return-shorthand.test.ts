@@ -148,6 +148,31 @@ ruleTester.run(rule.name, rule, {
   ],
 
   invalid: [
+    // a `let`/`var` variable inside a larger expression is still read too early
+    ...['!flag', '-flag'].map((value) => ({
+      code: `let flag = true; vi.fn().mockImplementation(() => ${value})`,
+      output: null,
+      errors: [
+        {
+          messageId: 'useMockShorthand' as const,
+          data: { replacement: 'mockReturnValue' },
+          column: 26,
+          line: 1,
+        },
+      ],
+    })),
+    {
+      code: 'const flag = true; vi.fn().mockImplementation(() => !flag)',
+      output: 'const flag = true; vi.fn().mockReturnValue(!flag)',
+      errors: [
+        {
+          messageId: 'useMockShorthand',
+          data: { replacement: 'mockReturnValue' },
+          column: 28,
+          line: 1,
+        },
+      ],
+    },
     {
       code: 'vi.fn().mockImplementation(() => "hello sunshine")',
       output: 'vi.fn().mockReturnValue("hello sunshine")',
@@ -160,70 +185,135 @@ ruleTester.run(rule.name, rule, {
         },
       ],
     },
-    ...['null', '0', 'Promise.resolve(42)', 'Promise.reject(13)', '[]'].flatMap(
-      (value) => [
-        {
-          code: `vi.fn().mockImplementation(() => ${value})`,
-          output: `vi.fn().mockReturnValue(${value})`,
-          errors: [
-            {
-              messageId: 'useMockShorthand' as const,
-              data: { replacement: 'mockReturnValue' },
-              column: 9,
-              line: 1,
-            },
-          ],
-        },
-        {
-          code: `
+    ...['null', '0', '-1', '`text`'].flatMap((value) => [
+      {
+        code: `vi.fn().mockImplementation(() => ${value})`,
+        output: `vi.fn().mockReturnValue(${value})`,
+        errors: [
+          {
+            messageId: 'useMockShorthand' as const,
+            data: { replacement: 'mockReturnValue' },
+            column: 9,
+            line: 1,
+          },
+        ],
+      },
+      {
+        code: `
             vi.fn().mockImplementation(() => {
               return ${value};
             })
           `.trim(),
-          output: `vi.fn().mockReturnValue(${value})`,
-          errors: [
-            {
-              messageId: 'useMockShorthand' as const,
-              data: { replacement: 'mockReturnValue' },
-              column: 9,
-              line: 1,
-            },
-          ],
-        },
-        {
-          code: `aVariable.mockImplementation(() => ${value})`,
-          output: `aVariable.mockReturnValue(${value})`,
-          errors: [
-            {
-              messageId: 'useMockShorthand' as const,
-              data: { replacement: 'mockReturnValue' },
-              column: 11,
-              line: 1,
-            },
-          ],
-        },
-        {
-          code: `
+        output: `vi.fn().mockReturnValue(${value})`,
+        errors: [
+          {
+            messageId: 'useMockShorthand' as const,
+            data: { replacement: 'mockReturnValue' },
+            column: 9,
+            line: 1,
+          },
+        ],
+      },
+      {
+        code: `aVariable.mockImplementation(() => ${value})`,
+        output: `aVariable.mockReturnValue(${value})`,
+        errors: [
+          {
+            messageId: 'useMockShorthand' as const,
+            data: { replacement: 'mockReturnValue' },
+            column: 11,
+            line: 1,
+          },
+        ],
+      },
+      {
+        code: `
             aVariable.mockImplementation(() => {
               return ${value};
             })
           `.trim(),
-          output: `aVariable.mockReturnValue(${value})`,
-          errors: [
-            {
-              messageId: 'useMockShorthand' as const,
-              data: { replacement: 'mockReturnValue' },
-              column: 11,
-              line: 1,
-            },
-          ],
-        },
-      ],
-    ),
+        output: `aVariable.mockReturnValue(${value})`,
+        errors: [
+          {
+            messageId: 'useMockShorthand' as const,
+            data: { replacement: 'mockReturnValue' },
+            column: 11,
+            line: 1,
+          },
+        ],
+      },
+    ]),
+
+    // moving these out of the callback would change what the mock returns
+    ...[
+      'Promise.resolve(42)',
+      'Promise.reject(13)',
+      '[]',
+      'state.current',
+      'createUser()',
+      '`${a}`',
+    ].flatMap((value) => [
+      {
+        code: `vi.fn().mockImplementation(() => ${value})`,
+        output: null,
+        errors: [
+          {
+            messageId: 'useMockShorthand' as const,
+            data: { replacement: 'mockReturnValue' },
+            column: 9,
+            line: 1,
+          },
+        ],
+      },
+      {
+        code: `
+            vi.fn().mockImplementation(() => {
+              return ${value};
+            })
+          `.trim(),
+        output: null,
+        errors: [
+          {
+            messageId: 'useMockShorthand' as const,
+            data: { replacement: 'mockReturnValue' },
+            column: 9,
+            line: 1,
+          },
+        ],
+      },
+      {
+        code: `aVariable.mockImplementation(() => ${value})`,
+        output: null,
+        errors: [
+          {
+            messageId: 'useMockShorthand' as const,
+            data: { replacement: 'mockReturnValue' },
+            column: 11,
+            line: 1,
+          },
+        ],
+      },
+      {
+        code: `
+            aVariable.mockImplementation(() => {
+              return ${value};
+            })
+          `.trim(),
+        output: null,
+        errors: [
+          {
+            messageId: 'useMockShorthand' as const,
+            data: { replacement: 'mockReturnValue' },
+            column: 11,
+            line: 1,
+          },
+        ],
+      },
+    ]),
 
     {
       code: 'vi.fn().mockImplementation(() => ({}))',
-      output: `vi.fn().mockReturnValue({})`,
+      output: null,
       errors: [
         {
           messageId: 'useMockShorthand',
@@ -247,7 +337,7 @@ ruleTester.run(rule.name, rule, {
     },
     {
       code: 'vi.fn().mockImplementation(() => true ? x : y)',
-      output: `vi.fn().mockReturnValue(true ? x : y)`,
+      output: null,
       errors: [
         {
           messageId: 'useMockShorthand',
@@ -361,12 +451,7 @@ ruleTester.run(rule.name, rule, {
           message: 'hello'
         }))
       `.trim(),
-      output: `
-        aVariable.mockReturnValue({
-          target: 'world',
-          message: 'hello'
-        })
-      `.trim(),
+      output: null,
       errors: [
         {
           messageId: 'useMockShorthand',
@@ -388,7 +473,7 @@ ruleTester.run(rule.name, rule, {
         aVariable
           .mockReturnValue(42)
           .mockImplementation(async () => 42)
-          .mockReturnValue(Promise.resolve(42))
+          .mockImplementation(() => Promise.resolve(42))
           .mockReturnValue("hello world")
       `.trim(),
       errors: [
@@ -415,7 +500,7 @@ ruleTester.run(rule.name, rule, {
       `.trim(),
       output: `
         aVariable
-          .mockReturnValueOnce(Promise.reject(42))
+          .mockImplementationOnce(() => Promise.reject(42))
           .mockReturnValue("hello sunshine")
           .mockReturnValueOnce(Promise.reject(42))
       `.trim(),
@@ -436,7 +521,7 @@ ruleTester.run(rule.name, rule, {
     },
     {
       code: 'vi.fn().mockImplementation(() => [], xyz)',
-      output: 'vi.fn().mockReturnValue([], xyz)',
+      output: null,
       errors: [
         {
           messageId: 'useMockShorthand',
@@ -448,7 +533,7 @@ ruleTester.run(rule.name, rule, {
     },
     {
       code: 'vi.spyOn(fs, "readFile").mockImplementation(() => new Error("oh noes!"))',
-      output: `vi.spyOn(fs, "readFile").mockReturnValue(new Error("oh noes!"))`,
+      output: null,
       errors: [
         {
           messageId: 'useMockShorthand',
@@ -465,10 +550,7 @@ ruleTester.run(rule.name, rule, {
             .then(value => value + 1);
         });
       `.trim(),
-      output: `
-        aVariable.mockReturnValue(Promise.resolve(value)
-            .then(value => value + 1));
-      `.trim(),
+      output: null,
       errors: [
         {
           messageId: 'useMockShorthand',
@@ -484,7 +566,7 @@ ruleTester.run(rule.name, rule, {
           return Promise.all([1, 2, 3]);
         });
       `.trim(),
-      output: 'aVariable.mockReturnValue(Promise.all([1, 2, 3]));',
+      output: null,
       errors: [
         {
           messageId: 'useMockShorthand',
