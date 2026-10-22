@@ -1291,5 +1291,45 @@ ruleTester.run(rule.name, rule, {
         },
       ],
     },
+    {
+      code: `
+       test("first", () => {
+      expect(Promise.resolve(1)).resolves.toBe(1);
+       });
+       test("second", () => {
+      expect(Promise.resolve(2)).resolves.toBe(2);
+       });
+     `,
+      output: `
+       test("first", async () => {
+      await expect(Promise.resolve(1)).resolves.toBe(1);
+       });
+       test("second", async () => {
+      await expect(Promise.resolve(2)).resolves.toBe(2);
+       });
+     `,
+      errors: [
+        { messageId: 'asyncMustBeAwaited' },
+        { messageId: 'asyncMustBeAwaited' },
+      ],
+    },
+    {
+      code: `
+       test("valid-expect", () => {
+      expect(Promise.resolve(1)).resolves.toBe(1);
+      expect(Promise.resolve(2)).resolves.toBe(2);
+       });
+     `,
+      output: `
+       test("valid-expect", async () => {
+      await expect(Promise.resolve(1)).resolves.toBe(1);
+      await expect(Promise.resolve(2)).resolves.toBe(2);
+       });
+     `,
+      errors: [
+        { messageId: 'asyncMustBeAwaited' },
+        { messageId: 'asyncMustBeAwaited' },
+      ],
+    },
   ],
 })
