@@ -14,6 +14,10 @@ ruleTester.run(rule.name, rule, {
     'describe("something", () => { it("something", (context) => { context.expect(1).toMatchInlineSnapshot() }) })',
     'describe("something", () => { it("something", (context) => { expect(1).toMatchInlineSnapshot() }) })',
     'it.concurrent("something", (context) => { context.expect(1).toMatchSnapshot() })',
+    'it("something", { concurrent: true }, ({ expect }) => { expect(1).toMatchSnapshot() })',
+    'it("something", { concurrent: true }, (context) => { context.expect(1).toMatchSnapshot() })',
+    'it("something", { concurrent: false }, () => { expect(1).toMatchSnapshot() })',
+    'it("something", { concurrent: someCondition }, () => { expect(1).toMatchSnapshot() })',
   ],
   invalid: [
     {
@@ -65,6 +69,22 @@ ruleTester.run(rule.name, rule, {
     },
     {
       code: 'it.concurrent("should fail", () => { expect(foo()).toThrowErrorMatchingInlineSnapshot("bar") })',
+      errors: [{ messageId: 'requireLocalTestContext' }],
+    },
+    {
+      code: 'it("snapshot test", { concurrent: true }, () => { expect(1).toMatchSnapshot() })',
+      errors: [{ messageId: 'requireLocalTestContext' }],
+    },
+    {
+      code: 'test("snapshot test", { concurrent: true }, () => { expect(1).toMatchInlineSnapshot("1") })',
+      errors: [{ messageId: 'requireLocalTestContext' }],
+    },
+    {
+      code: 'describe("something", { concurrent: true }, () => { it("something", () => { expect(1).toMatchSnapshot() }) })',
+      errors: [{ messageId: 'requireLocalTestContext' }],
+    },
+    {
+      code: 'it.each([[1]])("snapshot test", { concurrent: true }, () => { expect(1).toMatchSnapshot() })',
       errors: [{ messageId: 'requireLocalTestContext' }],
     },
   ],

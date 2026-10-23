@@ -146,7 +146,7 @@ export const getAccessorValue = <S extends string = string>(
 
 export const findVitestModeProperty = (
   node: TSESTree.CallExpression,
-  mode: 'only' | 'skip' | 'todo',
+  mode: 'concurrent' | 'only' | 'skip' | 'todo',
 ): TSESTree.Property | null => {
   const options = node.arguments[1]
 

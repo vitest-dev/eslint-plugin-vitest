@@ -25,6 +25,7 @@ ruleTester.run(rule.name, rule, {
     'afterAll(async function () {}, 5)',
     'describe.concurrent("something", () => { it("something", ({ expect }) => { }) })',
     'describe.concurrent("something", () => { it("something", context => { }) })',
+    'describe("something", { concurrent: true }, () => { it("something", context => { }) })',
   ],
   invalid: [
     {
