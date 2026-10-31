@@ -1,6 +1,6 @@
 import { HookName } from '../utils/types'
 import { createEslintRule } from '../utils'
-import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'no-hooks'
 export type MESSAGE_ID = 'unexpectedHook'
@@ -49,9 +49,10 @@ export default createEslintRule<
     defaultOptions: [{ allow: [] }],
   },
   create(context, [{ allow = [] }]) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (
           vitestFnCall?.type === 'hook' &&

@@ -1,14 +1,11 @@
-import { TSESLint, AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
+import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import {
   createEslintRule,
   getAccessorValue,
   getNodeName,
   isFunction,
 } from '../utils'
-import {
-  isTypeOfVitestFnCall,
-  parseVitestFnCall,
-} from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 import { DescribeAlias } from '../utils/types'
 
 const RULE_NAME = 'no-standalone-expect'
@@ -19,7 +16,7 @@ type Options = {
 
 const getBlockType = (
   statement: TSESTree.BlockStatement,
-  context: TSESLint.RuleContext<string, unknown[]>,
+  vitestFnCallParser: VitestFnCallParser,
 ): 'function' | 'describe' | null => {
   const func = statement.parent
 
@@ -37,7 +34,7 @@ const getBlockType = (
 
     if (
       expr.type === AST_NODE_TYPES.CallExpression &&
-      isTypeOfVitestFnCall(expr, context, ['describe'])
+      vitestFnCallParser.isTypeOfVitestFnCall(expr, ['describe'])
     )
       return 'describe'
   }
@@ -75,6 +72,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     defaultOptions: [{ additionalTestBlockFunctions: [] }],
   },
   create(context, [{ additionalTestBlockFunctions = [] }]) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     const callStack: BlockType[] = []
 
     const isCustomTestBlockFunction = (
@@ -82,7 +80,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     ): boolean => additionalTestBlockFunctions.includes(getNodeName(node) || '')
 
     const isDefineHelperCall = (node: TSESTree.CallExpression): boolean => {
-      const vitestFnCall = parseVitestFnCall(node, context)
+      const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
       return (
         vitestFnCall?.type === 'vi' &&
         vitestFnCall.members.length === 1 &&
@@ -92,7 +90,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (vitestFnCall?.type === 'expect') {
           if (
@@ -125,7 +123,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
         if (
           (top === 'test' &&
-            (isTypeOfVitestFnCall(node, context, ['test']) ||
+            (vitestFnCallParser.isTypeOfVitestFnCall(node, ['test']) ||
               isCustomTestBlockFunction(node)) &&
             node.callee.type !== AST_NODE_TYPES.MemberExpression) ||
           (top === 'helper' && isDefineHelperCall(node)) ||
@@ -135,11 +133,11 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           callStack.pop()
       },
       BlockStatement(statement) {
-        const blockType = getBlockType(statement, context)
+        const blockType = getBlockType(statement, vitestFnCallParser)
         if (blockType) callStack.push(blockType)
       },
       'BlockStatement:exit'(statement) {
-        const blockType = getBlockType(statement, context)
+        const blockType = getBlockType(statement, vitestFnCallParser)
         if (blockType) callStack.pop()
       },
       ArrowFunctionExpression(node) {

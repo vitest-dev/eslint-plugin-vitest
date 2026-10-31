@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, isSupportedAccessor } from '../utils'
 import { UtilName } from '../utils/types'
-import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'consistent-vitest-vi'
 export type MESSAGE_ID = 'consistentUtil'
@@ -38,6 +38,7 @@ export default createEslintRule<[Partial<{ fn: UtilName }>], MESSAGE_ID>({
     defaultOptions: [{ fn: UtilName.vi }],
   },
   create(context, options) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     const utilKeyword = options[0].fn!
     const oppositeUtilKeyword = getOppositeVitestUtilKeyword(utilKeyword)
 
@@ -94,7 +95,7 @@ export default createEslintRule<[Partial<{ fn: UtilName }>], MESSAGE_ID>({
         }
       },
       CallExpression(node: TSESTree.CallExpression) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (vitestFnCall?.type !== 'vi') {
           return

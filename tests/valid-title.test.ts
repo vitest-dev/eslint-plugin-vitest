@@ -1,5 +1,9 @@
 import rule from '../src/rules/valid-title'
 import { RuleTester } from '@typescript-eslint/rule-tester'
+import {
+  determineVitestMajorVersion,
+  LEGACY_BENCHMARK_VERSION,
+} from '../src/utils/vitest-version'
 
 export const ruleTester = new RuleTester({
   languageOptions: {
@@ -14,6 +18,7 @@ ruleTester.run(rule.name, rule, {
   valid: [
     'describe("the correct way to properly handle all the things", () => {});',
     'test("that all is as it should be", () => {});',
+    'test("benchmarks are fine", async ({ bench }) => { await bench.compare(bench("some benchmark", () => {})) });',
     {
       code: 'it("correctly sets the value", () => {});',
       options: [
@@ -259,6 +264,23 @@ ruleTester.run(rule.name, rule, {
           data: { word: 'correct' },
           column: 12,
           line: 2,
+        },
+      ],
+    },
+    {
+      before() {
+        vitest
+          .mocked(determineVitestMajorVersion)
+          .mockReturnValueOnce(LEGACY_BENCHMARK_VERSION)
+      },
+      code: 'bench("benchmark ALL the things", () => {});',
+      options: [{ disallowedWords: ['all'] }],
+      errors: [
+        {
+          messageId: 'disallowedWord',
+          data: { word: 'ALL' },
+          column: 7,
+          line: 1,
         },
       ],
     },

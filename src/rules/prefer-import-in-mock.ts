@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
-import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'prefer-import-in-mock'
 
@@ -40,13 +40,14 @@ export default createEslintRule<Options, MESSAGE_ID>({
   },
   create(context, options) {
     const fixable = options[0].fixable!
+    const vitestFnCallParser = new VitestFnCallParser(context)
 
     return {
       CallExpression(node) {
         // Only consider vi.mock() calls
         if (node.callee.type !== AST_NODE_TYPES.MemberExpression) return
 
-        const vitestCallFn = parseVitestFnCall(node, context)
+        const vitestCallFn = vitestFnCallParser.parseVitestFnCall(node)
 
         if (vitestCallFn?.type !== 'vi') {
           return false

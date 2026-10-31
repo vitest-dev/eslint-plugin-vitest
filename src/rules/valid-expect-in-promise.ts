@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES, TSESTree, TSESLint } from '@typescript-eslint/utils'
+import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import {
   createEslintRule,
   getAccessorValue,
@@ -11,8 +11,7 @@ import {
 import { ModifierName } from '../utils/types'
 import {
   findTopMostCallExpression,
-  isTypeOfVitestFnCall,
-  parseVitestFnCall,
+  VitestFnCallParser,
 } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'valid-expect-in-promise'
@@ -50,9 +49,9 @@ const isPromiseChainCall = (
 
 const isTestCaseCallWithCallbackArg = (
   node: TSESTree.CallExpression,
-  context: TSESLint.RuleContext<string, unknown[]>,
+  vitestFnCallParser: VitestFnCallParser,
 ): boolean => {
-  const vitestCallFn = parseVitestFnCall(node, context)
+  const vitestCallFn = vitestFnCallParser.parseVitestFnCall(node)
 
   if (vitestCallFn?.type !== 'test') {
     return false
@@ -204,7 +203,7 @@ const getLeftMostCallExpression = (
 const isValueAwaitedOrReturned = (
   identifier: TSESTree.Identifier,
   body: TSESTree.Statement[],
-  context: TSESLint.RuleContext<string, unknown[]>,
+  vitestFnCallParser: VitestFnCallParser,
 ): boolean => {
   const { name } = identifier
 
@@ -227,7 +226,9 @@ const isValueAwaitedOrReturned = (
         }
 
         const leftMostCall = getLeftMostCallExpression(node.expression)
-        const vitestFnCall = parseVitestFnCall(node.expression, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(
+          node.expression,
+        )
 
         if (
           vitestFnCall?.type === 'expect' &&
@@ -272,7 +273,7 @@ const isValueAwaitedOrReturned = (
 
     if (
       node.type === AST_NODE_TYPES.BlockStatement &&
-      isValueAwaitedOrReturned(identifier, node.body, context)
+      isValueAwaitedOrReturned(identifier, node.body, vitestFnCallParser)
     ) {
       return true
     }
@@ -302,7 +303,7 @@ const findFirstBlockBodyUp = (
 
 const isDirectlyWithinTestCaseCall = (
   node: TSESTree.Node,
-  context: TSESLint.RuleContext<string, unknown[]>,
+  vitestFnCallParser: VitestFnCallParser,
 ): boolean => {
   let parent: TSESTree.Node['parent'] = node
 
@@ -312,7 +313,7 @@ const isDirectlyWithinTestCaseCall = (
 
       return (
         parent?.type === AST_NODE_TYPES.CallExpression &&
-        isTypeOfVitestFnCall(parent, context, ['test'])
+        vitestFnCallParser.isTypeOfVitestFnCall(parent, ['test'])
       )
     }
 
@@ -324,7 +325,7 @@ const isDirectlyWithinTestCaseCall = (
 
 const isVariableAwaitedOrReturned = (
   variable: TSESTree.VariableDeclarator,
-  context: TSESLint.RuleContext<string, unknown[]>,
+  vitestFnCallParser: VitestFnCallParser,
 ): boolean => {
   const body = findFirstBlockBodyUp(variable)
 
@@ -334,7 +335,7 @@ const isVariableAwaitedOrReturned = (
     return true
   }
 
-  return isValueAwaitedOrReturned(variable.id, body, context)
+  return isValueAwaitedOrReturned(variable.id, body, vitestFnCallParser)
 }
 
 export default createEslintRule<Options, MESSAGE_IDS>({
@@ -352,6 +353,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     schema: [],
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     let inTestCaseWithDoneCallback = false
     // an array of booleans representing each promise chain we enter, with the
     // boolean value representing if we think a given chain contains an expect
@@ -366,7 +368,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       CallExpression(node: TSESTree.CallExpression) {
         // there are too many ways that the done argument could be used with
         // promises that contain expect that would make the promise safe for us
-        if (isTestCaseCallWithCallbackArg(node, context)) {
+        if (isTestCaseCallWithCallbackArg(node, vitestFnCallParser)) {
           inTestCaseWithDoneCallback = true
 
           return
@@ -384,7 +386,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         // an expect call, mark the deepest chain as having an expect call
         if (
           chains.length > 0 &&
-          isTypeOfVitestFnCall(node, context, ['expect'])
+          vitestFnCallParser.isTypeOfVitestFnCall(node, ['expect'])
         ) {
           chains[0] = true
         }
@@ -394,7 +396,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         // make promises containing expects safe in a test for us to be able to
         // accurately check, so we just bail out completely if it's present
         if (inTestCaseWithDoneCallback) {
-          if (isTypeOfVitestFnCall(node, context, ['test'])) {
+          if (vitestFnCallParser.isTypeOfVitestFnCall(node, ['test'])) {
             inTestCaseWithDoneCallback = false
           }
 
@@ -421,13 +423,16 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         // or our parent is not directly within the test case, we stop checking
         // because we're most likely in the body of a function being defined
         // within the test, which we can't track
-        if (!parent || !isDirectlyWithinTestCaseCall(parent, context)) {
+        if (
+          !parent ||
+          !isDirectlyWithinTestCaseCall(parent, vitestFnCallParser)
+        ) {
           return
         }
 
         switch (parent.type) {
           case AST_NODE_TYPES.VariableDeclarator: {
-            if (isVariableAwaitedOrReturned(parent, context)) {
+            if (isVariableAwaitedOrReturned(parent, vitestFnCallParser)) {
               return
             }
 
@@ -440,7 +445,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
               isValueAwaitedOrReturned(
                 parent.left,
                 findFirstBlockBodyUp(parent),
-                context,
+                vitestFnCallParser,
               )
             ) {
               return

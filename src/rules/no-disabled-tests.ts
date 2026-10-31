@@ -3,7 +3,7 @@ import {
   findVitestModeProperty,
   getAccessorValue,
 } from '../utils'
-import { parseVitestFnCall, resolveScope } from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 import { getScope } from '../utils/scope'
 
 const RULE_NAME = 'no-disabled-tests'
@@ -37,12 +37,13 @@ export default createEslintRule<Options, MESSAGE_ID>({
     schema: [],
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     let suiteDepth = 0
     let testDepth = 0
 
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (!vitestFnCall) return
 
@@ -82,7 +83,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
         }
       },
       'CallExpression:exit'(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (!vitestFnCall) return
 
@@ -93,7 +94,7 @@ export default createEslintRule<Options, MESSAGE_ID>({
       'CallExpression[callee.name="pending"]'(node) {
         const scope = getScope(context, node)
 
-        if (resolveScope(scope, 'pending')) return
+        if (vitestFnCallParser.resolveScope(scope, 'pending')) return
 
         if (testDepth > 0) context.report({ messageId: 'pendingTest', node })
         else if (suiteDepth > 0)

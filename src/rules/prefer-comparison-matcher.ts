@@ -3,7 +3,7 @@ import type ts from 'typescript'
 import { createEslintRule, getAccessorValue, isStringNode } from '../utils'
 import {
   getFirstMatcherArg,
-  parseVitestFnCall,
+  VitestFnCallParser,
 } from '../utils/parse-vitest-fn-call'
 import { EqualityMatcher } from '../utils/types'
 import { isBooleanLiteral } from '../utils/msc'
@@ -96,9 +96,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
       )
     }
 
+    const vitestFnCallParser = new VitestFnCallParser(context)
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (vitestFnCall?.type !== 'expect' || vitestFnCall.args.length === 0)
           return

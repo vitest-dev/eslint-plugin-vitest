@@ -1,6 +1,6 @@
 import { TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, getAccessorValue } from '../utils'
-import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'consistent-each-for'
 export type MessageIds = 'consistentMethod'
@@ -59,9 +59,10 @@ export default createEslintRule<[Partial<Options>], MessageIds>({
     defaultOptions: [{}],
   },
   create(context, [options]) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     return {
       CallExpression(node: TSESTree.CallExpression) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (!vitestFnCall) return
 

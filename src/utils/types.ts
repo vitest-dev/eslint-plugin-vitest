@@ -12,14 +12,14 @@ export enum DescribeAlias {
   xdescribe = 'xdescribe',
 }
 
-export enum TestCaseName {
-  fit = 'fit',
-  it = 'it',
-  test = 'test',
-  xit = 'xit',
-  xtest = 'xtest',
-  bench = 'bench',
-}
+export const LegacyTestCaseName = Object.freeze({ bench: 'bench' })
+export const TestCaseName = Object.freeze({
+  fit: 'fit',
+  it: 'it',
+  test: 'test',
+  xit: 'xit',
+  xtest: 'xtest',
+})
 
 export enum HookName {
   beforeAll = 'beforeAll',

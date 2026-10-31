@@ -5,7 +5,7 @@ import {
 } from '@typescript-eslint/scope-manager'
 import { createEslintRule } from '../utils'
 import { parsePluginSettings } from '../utils/parse-plugin-settings'
-import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 import { getModuleScope } from '../utils/scope'
 import { isClassOrFunctionType } from '../utils/types'
 
@@ -47,6 +47,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     },
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     return {
       CallExpression(node) {
         if (node.arguments.length < 2) {
@@ -92,7 +93,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         //   return
         // }
 
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
         if (vitestFnCall?.type !== 'describe') {
           return
         }

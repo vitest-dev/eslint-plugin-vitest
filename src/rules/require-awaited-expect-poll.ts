@@ -2,7 +2,7 @@ import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { AccessorNode, createEslintRule, getAccessorValue } from '../utils'
 import {
   KnownMemberExpressionProperty,
-  parseVitestFnCall,
+  VitestFnCallParser,
 } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'require-awaited-expect-poll'
@@ -24,11 +24,12 @@ export default createEslintRule<Options, MESSAGE_ID>({
     schema: [],
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     const reported = new Set<TSESTree.Node>()
 
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (
           vitestFnCall?.type !== 'expect' ||

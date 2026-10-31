@@ -1,9 +1,6 @@
 import { AST_NODE_TYPES } from '@typescript-eslint/utils'
 import { createEslintRule, isSupportedAccessor } from '../utils'
-import {
-  isTypeOfVitestFnCall,
-  parseVitestFnCall,
-} from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'require-local-test-context-for-concurrent-snapshots'
 
@@ -21,9 +18,10 @@ export default createEslintRule({
     schema: [],
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
         if (vitestFnCall === null) return
         if (vitestFnCall.type !== 'expect') return
         if (
@@ -50,11 +48,11 @@ export default createEslintRule({
           .some((ancestor) => {
             if (ancestor.type !== AST_NODE_TYPES.CallExpression) return false
 
-            const isNotInsideDescribeOrTest = !isTypeOfVitestFnCall(
-              ancestor,
-              context,
-              ['describe', 'test'],
-            )
+            const isNotInsideDescribeOrTest =
+              !vitestFnCallParser.isTypeOfVitestFnCall(ancestor, [
+                'describe',
+                'test',
+              ])
             if (isNotInsideDescribeOrTest) return false
 
             const isTestRunningConcurrently =

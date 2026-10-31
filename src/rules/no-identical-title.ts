@@ -4,10 +4,7 @@ import {
   isStringNode,
   isSupportedAccessor,
 } from '../utils'
-import {
-  isTypeOfVitestFnCall,
-  parseVitestFnCall,
-} from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'no-identical-title'
 export type MESSAGE_ID = 'multipleTestTitle' | 'multipleDescribeTitle'
@@ -41,12 +38,13 @@ export default createEslintRule<Options, MESSAGE_ID>({
     },
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     const stack = [newDescribeContext()]
     return {
       CallExpression(node) {
         const currentStack = stack[stack.length - 1]
 
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (!vitestFnCall) return
 
@@ -89,7 +87,8 @@ export default createEslintRule<Options, MESSAGE_ID>({
         currentStack?.describeTitles.push(title)
       },
       'CallExpression:exit'(node) {
-        if (isTypeOfVitestFnCall(node, context, ['describe'])) stack.pop()
+        if (vitestFnCallParser.isTypeOfVitestFnCall(node, ['describe']))
+          stack.pop()
       },
     }
   },

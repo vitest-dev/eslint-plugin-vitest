@@ -10,7 +10,7 @@ import {
 } from '../utils/msc'
 import {
   followTypeAssertionChain,
-  parseVitestFnCall,
+  VitestFnCallParser,
 } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'prefer-to-be-object'
@@ -32,9 +32,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
     schema: [],
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     return {
       CallExpression(node) {
-        const vitestFnCall = parseVitestFnCall(node, context)
+        const vitestFnCall = vitestFnCallParser.parseVitestFnCall(node)
 
         if (vitestFnCall?.type !== 'expectTypeOf') return
 

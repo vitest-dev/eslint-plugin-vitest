@@ -1,6 +1,10 @@
 import rule from '../src/rules/prefer-lowercase-title'
-import { TestCaseName } from '../src/utils/types'
+import { LegacyTestCaseName, TestCaseName } from '../src/utils/types'
 import { ruleTester } from './ruleTester'
+import {
+  determineVitestMajorVersion,
+  LEGACY_BENCHMARK_VERSION,
+} from '../src/utils/vitest-version'
 
 ruleTester.run(rule.name, rule, {
   valid: [
@@ -54,13 +58,18 @@ ruleTester.run(rule.name, rule, {
       ],
     },
     {
+      before() {
+        vitest
+          .mocked(determineVitestMajorVersion)
+          .mockReturnValueOnce(LEGACY_BENCHMARK_VERSION)
+      },
       code: 'bench(`Foo MM mm`, function () {})',
       output: 'bench(`foo MM mm`, function () {})',
       errors: [
         {
           messageId: 'lowerCaseTitle',
           data: {
-            method: TestCaseName.bench,
+            method: LegacyTestCaseName.bench,
           },
         },
       ],

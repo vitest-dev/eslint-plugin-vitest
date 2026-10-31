@@ -1,9 +1,6 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule, isFunction } from '../utils'
-import {
-  getTestCallExpressionsFromDeclaredVariables,
-  isTypeOfVitestFnCall,
-} from '../utils/parse-vitest-fn-call'
+import { VitestFnCallParser } from '../utils/parse-vitest-fn-call'
 
 const RULE_NAME = 'no-test-return-statement'
 export type MessageIds = 'noTestReturnStatement'
@@ -35,9 +32,10 @@ export default createEslintRule<Options, MessageIds>({
     },
   },
   create(context) {
+    const vitestFnCallParser = new VitestFnCallParser(context)
     return {
       CallExpression(node) {
-        if (!isTypeOfVitestFnCall(node, context, ['test'])) return
+        if (!vitestFnCallParser.isTypeOfVitestFnCall(node, ['test'])) return
 
         const body = getBody(node.arguments)
         const returnStmt = body.find(
@@ -53,10 +51,10 @@ export default createEslintRule<Options, MessageIds>({
       },
       FunctionDeclaration(node) {
         const declaredVariables = context.sourceCode.getDeclaredVariables(node)
-        const testCallExpressions = getTestCallExpressionsFromDeclaredVariables(
-          declaredVariables,
-          context,
-        )
+        const testCallExpressions =
+          vitestFnCallParser.getTestCallExpressionsFromDeclaredVariables(
+            declaredVariables,
+          )
 
         if (testCallExpressions.length === 0) return
 
