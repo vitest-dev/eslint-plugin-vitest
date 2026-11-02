@@ -4,6 +4,7 @@ import { ruleTester } from './ruleTester'
 ruleTester.run(rule.name, rule, {
   valid: [
     "vitest.describe('suite', () => {});",
+    'vitest.fn().mockReturnValue(1);',
     "import { describe } from 'vitest'; describe('suite', () => {});",
     "import { describe, it } from 'vitest'; describe('suite', () => {});",
     "import { describe, desccribe } from 'vitest'; describe('suite', () => {});",
@@ -13,6 +14,14 @@ ruleTester.run(rule.name, rule, {
     "import { describe, expect, it } from 'vitest'; describe('suite', () => { it('test', () => { let test = 5; expect(test).toBe(5); }); });",
     "import { describe, expect, it } from 'vitest'; describe('suite', () => { it('test', () => { const test = () => true; expect(test()).toBe(true); }); });",
     "import { describe, expect, it } from 'vitest'; describe('suite', () => { it('test', () => { function fn(test) { return test; } expect(fn(5)).toBe(5); }); });",
+    "import { vi } from 'vitest'; vi.spyOn(console, 'log');",
+    "import { it } from 'vitest'; it.each([1, 2])('test %i', (n) => {});",
+    "import { describe } from 'vitest'; describe.skip.each([1])('suite %i', () => {});",
+    "const { vi } = require('vitest'); vi.fn();",
+    "import { expect } from 'vitest'; expect.soft(1).toBe(1);",
+    "const vi = { spyOn() {} }; vi.spyOn(console, 'log');",
+    'function it() {} it.each([1]);',
+    "foo.describe.skip('suite', () => {});",
   ],
   invalid: [
     {
@@ -146,6 +155,81 @@ ruleTester.run(rule.name, rule, {
       ],
       output:
         "const { it, describe } = require('vitest');\ndescribe('suite', () => {});",
+    },
+    {
+      code: "vi.spyOn(console, 'log');",
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'vi' },
+        },
+      ],
+      output: "import { vi } from 'vitest';\nvi.spyOn(console, 'log');",
+    },
+    {
+      code: "it.each([1, 2])('test %i', (n) => {});",
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'it' },
+        },
+      ],
+      output:
+        "import { it } from 'vitest';\nit.each([1, 2])('test %i', (n) => {});",
+    },
+    {
+      code: "describe.skip('suite', () => {});",
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'describe' },
+        },
+      ],
+      output:
+        "import { describe } from 'vitest';\ndescribe.skip('suite', () => {});",
+    },
+    {
+      code: "describe.skip.each([1])('suite %i', () => {});",
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'describe' },
+        },
+      ],
+      output:
+        "import { describe } from 'vitest';\ndescribe.skip.each([1])('suite %i', () => {});",
+    },
+    {
+      code: 'expect.soft(1).toBe(1);',
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'expect' },
+        },
+      ],
+      output: "import { expect } from 'vitest';\nexpect.soft(1).toBe(1);",
+    },
+    {
+      code: "import { it } from 'vitest';\nit('test', () => { vi.spyOn(console, 'log'); });",
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'vi' },
+        },
+      ],
+      output:
+        "import { it, vi } from 'vitest';\nit('test', () => { vi.spyOn(console, 'log'); });",
+    },
+    {
+      code: "const { it } = require('vitest');\nit.skip('test', () => { vi.fn().mockReturnValue(1); });",
+      errors: [
+        {
+          messageId: 'preferImportingVitestGlobals',
+          data: { name: 'vi' },
+        },
+      ],
+      output:
+        "const { it, vi } = require('vitest');\nit.skip('test', () => { vi.fn().mockReturnValue(1); });",
     },
   ],
 })

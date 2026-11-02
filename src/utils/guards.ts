@@ -27,13 +27,30 @@ export const isVitestGlobalsProperty = (
   )
 }
 
-export const isVitestGlobalsFunction = (
+/**
+ * Returns the Vitest global identifier a call is made on, if any. Handles
+ * both direct calls (`it()`) and calls on a member of the global
+ * (`vi.spyOn()`, `describe.skip.each()`).
+ */
+export const getVitestGlobalsCallee = (
   node: TSESTree.CallExpression,
-): node is TSESTree.CallExpression & { callee: TSESTree.Identifier } => {
-  return (
-    node.callee.type === AST_NODE_TYPES.Identifier &&
-    VITEST_GLOBALS.has(node.callee.name)
-  )
+): TSESTree.Identifier | null => {
+  let callee: TSESTree.Expression = node.callee
+  while (callee.type === AST_NODE_TYPES.MemberExpression) {
+    callee = callee.object
+  }
+
+  if (
+    callee.type !== AST_NODE_TYPES.Identifier ||
+    !VITEST_GLOBALS.has(callee.name)
+  ) {
+    return null
+  }
+
+  // `vitest.describe()` and similar namespace-style calls are left alone.
+  if (callee !== node.callee && callee.name === 'vitest') return null
+
+  return callee
 }
 
 export const isRequireVitestCall = (
