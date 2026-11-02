@@ -3,6 +3,8 @@ import { ruleTester } from './ruleTester'
 
 ruleTester.run(rule.name, rule, {
   valid: [
+    "vitest.describe('suite', () => {});",
+    'vitest.fn().mockReturnValue(1);',
     "import { describe } from 'vitest'; describe('suite', () => {});",
     "import { describe, it } from 'vitest'; describe('suite', () => {});",
     "import { describe, desccribe } from 'vitest'; describe('suite', () => {});",
@@ -153,17 +155,6 @@ ruleTester.run(rule.name, rule, {
       ],
       output:
         "const { it, describe } = require('vitest');\ndescribe('suite', () => {});",
-    },
-    {
-      code: "vitest.describe('suite', () => {});",
-      errors: [
-        {
-          messageId: 'preferImportingVitestGlobals',
-          data: { name: 'vitest' },
-        },
-      ],
-      output:
-        "import { vitest } from 'vitest';\nvitest.describe('suite', () => {});",
     },
     {
       code: "vi.spyOn(console, 'log');",

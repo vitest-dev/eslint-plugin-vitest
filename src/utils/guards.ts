@@ -40,10 +40,17 @@ export const getVitestGlobalsCallee = (
     callee = callee.object
   }
 
-  return callee.type === AST_NODE_TYPES.Identifier &&
-    VITEST_GLOBALS.has(callee.name)
-    ? callee
-    : null
+  if (
+    callee.type !== AST_NODE_TYPES.Identifier ||
+    !VITEST_GLOBALS.has(callee.name)
+  ) {
+    return null
+  }
+
+  // `vitest.describe()` and similar namespace-style calls are left alone.
+  if (callee !== node.callee && callee.name === 'vitest') return null
+
+  return callee
 }
 
 export const isRequireVitestCall = (
