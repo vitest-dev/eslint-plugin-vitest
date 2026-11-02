@@ -1,9 +1,9 @@
 import { TSESTree } from '@typescript-eslint/utils'
 import { createEslintRule } from '../utils'
 import {
+  getVitestGlobalsCallee,
   isObjectPattern,
   isRequireVitestCall,
-  isVitestGlobalsFunction,
   isVitestGlobalsImportSpecifier,
   isVitestGlobalsProperty,
   isVitestImport,
@@ -62,9 +62,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         vitestRequireProperties = properties
       },
       CallExpression(node: TSESTree.CallExpression) {
-        if (!isVitestGlobalsFunction(node)) return
+        const callee = getVitestGlobalsCallee(node)
+        if (!callee) return
 
-        const name = node.callee.name
+        const name = callee.name
         if (importedNames.has(name)) return
 
         const scope = context.sourceCode.getScope(node)
@@ -91,7 +92,7 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         }
 
         context.report({
-          node: node.callee,
+          node: callee,
           messageId: 'preferImportingVitestGlobals',
           data: { name },
           fix(fixer) {
