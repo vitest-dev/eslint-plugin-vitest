@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
-import { createEslintRule, isFunction } from '../utils'
+import { createEslintRule, getTestCallbackArg, isFunction } from '../utils'
 import {
   getTestCallExpressionsFromDeclaredVariables,
   isTypeOfVitestFnCall,
@@ -9,15 +9,15 @@ const RULE_NAME = 'no-test-return-statement'
 export type MessageIds = 'noTestReturnStatement'
 type Options = []
 
-const getBody = (args: TSESTree.CallExpressionArgument[]) => {
-  const [, secondArg] = args
+const getBody = (node: TSESTree.CallExpression) => {
+  const callback = getTestCallbackArg(node)
 
   if (
-    secondArg &&
-    isFunction(secondArg) &&
-    secondArg.body.type === AST_NODE_TYPES.BlockStatement
+    callback &&
+    isFunction(callback) &&
+    callback.body.type === AST_NODE_TYPES.BlockStatement
   )
-    return secondArg.body.body
+    return callback.body.body
   return []
 }
 
@@ -39,7 +39,7 @@ export default createEslintRule<Options, MessageIds>({
       CallExpression(node) {
         if (!isTypeOfVitestFnCall(node, context, ['test'])) return
 
-        const body = getBody(node.arguments)
+        const body = getBody(node)
         const returnStmt = body.find(
           (stmt) => stmt.type === AST_NODE_TYPES.ReturnStatement,
         )

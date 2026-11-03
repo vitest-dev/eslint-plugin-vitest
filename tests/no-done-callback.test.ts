@@ -25,6 +25,9 @@ ruleTester.run(rule.name, rule, {
     'afterAll(async function () {}, 5)',
     'describe.concurrent("something", () => { it("something", ({ expect }) => { }) })',
     'describe.concurrent("something", () => { it("something", context => { }) })',
+    'test("something", { timeout: 1000 }, () => {})',
+    'test("something", { retry: 2 }, async () => {})',
+    'test("something", { timeout: 1000 }, someArg)',
   ],
   invalid: [
     {
@@ -66,6 +69,28 @@ ruleTester.run(rule.name, rule, {
           ],
         },
       ],
+    },
+    {
+      code: "test('uses done', { timeout: 1000 }, (done) => { done() })",
+      errors: [
+        {
+          messageId: 'noDoneCallback',
+          line: 1,
+          column: 1,
+          suggestions: [
+            {
+              messageId: 'suggestWrappingInPromise',
+              data: { callback: 'done' },
+              output:
+                "test('uses done', { timeout: 1000 }, () => {return new Promise(done => { done() })})",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: 'test("something", { timeout: 1000 }, async done => {done();})',
+      errors: [{ messageId: 'useAwaitInsteadOfCallback', line: 1, column: 44 }],
     },
     {
       code: 'beforeAll(async done => {done();})',
