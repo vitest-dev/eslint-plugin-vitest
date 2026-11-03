@@ -105,5 +105,40 @@ ruleTester.run(rule.name, rule, {
       output: 'expect("a string").toBeUndefined();',
       errors: [{ messageId: 'useToBeUndefined', column: 20, line: 1 }],
     },
+    {
+      code: 'expect("a string").not.toBe(undefined);',
+      output: 'expect("a string").toBeDefined();',
+      errors: [{ messageId: 'useToBeDefined', column: 24, line: 1 }],
+    },
+    {
+      code: 'expect("a string").rejects.not.toBe(undefined);',
+      output: 'expect("a string").rejects.toBeDefined();',
+      errors: [{ messageId: 'useToBeDefined', column: 32, line: 1 }],
+    },
+    {
+      code: 'expect("a string").rejects.not["toBe"](undefined);',
+      output: 'expect("a string").rejects[\'toBeDefined\']();',
+      errors: [{ messageId: 'useToBeDefined', column: 32, line: 1 }],
+    },
+    {
+      code: 'expect("a string").not.toEqual(undefined);',
+      output: 'expect("a string").toBeDefined();',
+      errors: [{ messageId: 'useToBeDefined', column: 24, line: 1 }],
+    },
+    {
+      code: 'expect("a string").not.toStrictEqual(undefined);',
+      output: 'expect("a string").toBeDefined();',
+      errors: [{ messageId: 'useToBeDefined', column: 24, line: 1 }],
+    },
+    {
+      code: 'expect("a string").not.toBeUndefined();',
+      output: 'expect("a string").toBeDefined();',
+      errors: [{ messageId: 'useToBeDefined', column: 24, line: 1 }],
+    },
+    {
+      code: 'expect("a string").not.toBeDefined();',
+      output: 'expect("a string").toBeUndefined();',
+      errors: [{ messageId: 'useToBeUndefined', column: 24, line: 1 }],
+    },
   ],
 })
