@@ -23,6 +23,14 @@ test.for([null, { bar: 'baz' }])('quux', (value) => {
   const expected = value === null ? expected : expect.stringContaining(expected)
   expect(actual).toEqual(expected)
 })
+
+test('might throw', () => {
+  try {
+    funcThatMightThrow()
+  } catch (e) {
+    expect(e.message).toEqual('oops')
+  }
+})
 ```
 
 Examples of **correct** code for this rule:
@@ -38,6 +46,15 @@ test.for([null, expect.objectContaining({ bar: 'baz' })])(
     expect(actual).toEqual(expected)
   },
 )
+
+test('throws with specific message', () => {
+  try {
+    funcThatThrows()
+    expect.fail('Error should have been thrown')
+  } catch (e) {
+    expect(e.message).toEqual('oops')
+  }
+})
 ```
 
 ## Options
