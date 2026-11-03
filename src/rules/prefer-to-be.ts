@@ -149,7 +149,7 @@ export default createEslintRule<[], MessageId>({
 
         if (isFirstArgumentIdentifier(vitestFnCall, 'undefined')) {
           const name = notModifier ? 'Defined' : 'Undefined'
-          reportPreferToBe(context, name, vitestFnCall, node)
+          reportPreferToBe(context, name, vitestFnCall, node, notModifier)
           return
         }
 
