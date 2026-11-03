@@ -4,6 +4,10 @@ import { ruleTester } from './ruleTester'
 ruleTester.run(rule.name, rule, {
   valid: [
     'import something from "something"',
+    {
+      code: 'import("something")',
+      parserOptions: { sourceType: 'module', ecmaVersion: 2020 },
+    },
     'require("somethingElse")',
     'require("./__mocks__.js")',
     'require("./__mocks__x")',
@@ -43,6 +47,13 @@ ruleTester.run(rule.name, rule, {
       code: 'import thing from "./__mocks__/index"',
       languageOptions: { parserOptions: { sourceType: 'module' } },
       errors: [{ endColumn: 38, column: 1, messageId: 'noMocksImport' }],
+    },
+    {
+      code: 'import("./__mocks__/index")',
+      languageOptions: {
+        parserOptions: { sourceType: 'module', ecmaVersion: 2020 },
+      },
+      errors: [{ endColumn: 28, column: 1, messageId: 'noMocksImport' }],
     },
   ],
 })
