@@ -330,13 +330,17 @@ const additionalTestBlockFunctionsSchema = {
   type: 'object',
   properties: {
     additionalTestBlockFunctions: {
-      description: 'Additional functions that should be treated as test blocks.',
+      description:
+        'Additional functions that should be treated as test blocks.',
       type: 'array',
       items: { type: 'string' },
     },
   },
   additionalProperties: false,
 } as const
+
+// Rules built without the option simply never receive it, as their schema is empty.
+export type PaddingRuleOptions = [{ additionalTestBlockFunctions?: string[] }?]
 
 export const createPaddingRule = (
   name: string,
@@ -346,7 +350,7 @@ export const createPaddingRule = (
 ) => {
   const supportsCustomTestFunctions = usesCustomTestToken(configs)
 
-  return createEslintRule({
+  return createEslintRule<PaddingRuleOptions, 'missingPadding'>({
     name,
     meta: {
       docs: { description },
@@ -359,14 +363,12 @@ export const createPaddingRule = (
         ? [additionalTestBlockFunctionsSchema]
         : [],
       type: 'suggestion',
-      defaultOptions: supportsCustomTestFunctions
+      defaultOptions: (supportsCustomTestFunctions
         ? [{ additionalTestBlockFunctions: [] }]
-        : [],
+        : []) as PaddingRuleOptions,
     },
     create(context) {
-      const [options] = context.options as
-        | [{ additionalTestBlockFunctions?: string[] }?]
-        | []
+      const [options] = context.options
 
       const paddingContext = {
         ruleContext: context,
