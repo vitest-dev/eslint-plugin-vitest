@@ -134,3 +134,62 @@ ruleTester.run(rule.name, rule, {
     (filename) => ({ ...testCase, filename }),
   ),
 })
+
+ruleTester.run(`${rule.name} (additionalTestBlockFunctions)`, rule, {
+  valid: [
+    // Padded, so there is nothing to report.
+    {
+      code: `
+const foo = 'bar';
+
+myCustomTest('foo', () => {});
+
+myCustomTest('bar', () => {});
+`,
+      options: [{ additionalTestBlockFunctions: ['myCustomTest'] }],
+    },
+    // A name that is not listed keeps the previous behaviour.
+    {
+      code: `
+const foo = 'bar';
+myCustomTest('foo', () => {});
+myCustomTest('bar', () => {});
+`,
+      options: [{ additionalTestBlockFunctions: ['someOtherTest'] }],
+    },
+    // Without the option the rule ignores custom names, as before.
+    `
+const foo = 'bar';
+myCustomTest('foo', () => {});
+`,
+  ],
+  invalid: [
+    {
+      code: `
+const foo = 'bar';
+myCustomTest('foo', () => {});
+myCustomTest('bar', () => {});
+await myCustomTest('baz', () => {});
+test('builtin', () => {});
+`,
+      output: `
+const foo = 'bar';
+
+myCustomTest('foo', () => {});
+
+myCustomTest('bar', () => {});
+
+await myCustomTest('baz', () => {});
+
+test('builtin', () => {});
+`,
+      options: [{ additionalTestBlockFunctions: ['myCustomTest'] }],
+      errors: [
+        { messageId: 'missingPadding', line: 3, column: 1 },
+        { messageId: 'missingPadding', line: 4, column: 1 },
+        { messageId: 'missingPadding', line: 5, column: 1 },
+        { messageId: 'missingPadding', line: 6, column: 1 },
+      ],
+    },
+  ],
+})
