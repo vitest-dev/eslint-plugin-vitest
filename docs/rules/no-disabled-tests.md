@@ -22,8 +22,26 @@ The rule reports:
 Examples of **incorrect** code for this rule:
 
 ```ts
+describe.skip('foo', () => {
+  // ...
+})
+
 test.skip('foo', () => {
   // ...
+})
+
+test('foo', { skip: true }, () => {
+  // ...
+})
+
+xit('foo', () => {
+  // ...
+})
+
+it('has a title but no callback')
+
+it('contains a call to pending', () => {
+  pending()
 })
 ```
 
@@ -31,6 +49,12 @@ Examples of **correct** code for this rule:
 
 ```ts
 test('foo', () => {
+  // ...
+})
+
+test.todo('fill this in later')
+
+test('foo', { skip: false }, () => {
   // ...
 })
 ```
