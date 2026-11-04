@@ -19,3 +19,17 @@ This is a meta rule that simply enables all of the following rules:
 - [padding-around-expect-groups](padding-around-expect-groups.md)
 - [padding-around-describe-blocks](padding-around-describe-blocks.md)
 - [padding-around-test-blocks](padding-around-test-blocks.md)
+
+### Options
+
+<!-- begin auto-generated rule options list -->
+
+| Name                           | Description                                                 | Type     | Default |
+| :----------------------------- | :---------------------------------------------------------- | :------- | :------ |
+| `additionalTestBlockFunctions` | Additional functions that should be treated as test blocks. | String[] | `[]`    |
+
+<!-- end auto-generated rule options list -->
+
+This rule includes `padding-around-test-blocks`, so it takes the same
+`additionalTestBlockFunctions` option. See
+[padding-around-test-blocks](padding-around-test-blocks.md) for details.
