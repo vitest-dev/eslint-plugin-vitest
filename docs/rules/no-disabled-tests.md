@@ -58,3 +58,14 @@ test('foo', { skip: false }, () => {
   // ...
 })
 ```
+
+## When Not To Use It
+
+If your workflow relies on leaving tests skipped — for example while quarantining a flaky test that you track elsewhere — you can turn this rule off. To keep it on and allow a single case, disable it for that line:
+
+```ts
+// eslint-disable-next-line vitest/no-disabled-tests -- quarantined, see #1234
+test.skip('flaky under CI load', () => {
+  // ...
+})
+```
