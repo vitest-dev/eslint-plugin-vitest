@@ -31,6 +31,8 @@ export const enum StatementType {
   XdescribeToken,
   XitToken,
   XtestToken,
+  // Matches the names given in the `additionalTestBlockFunctions` option.
+  CustomTestToken,
 }
 
 export interface Config {
@@ -64,6 +66,7 @@ interface PaddingContext {
   sourceCode: TSESLint.SourceCode
   scopeInfo: ScopeInfo
   configs: Config[]
+  additionalTestBlockFunctions: string[]
 }
 
 const paddingAlwaysTester = (
@@ -150,30 +153,45 @@ const createScopeInfo = (): ScopeInfo => {
   }
 }
 
-const createTokenTester = (tokenName: string): StatementTester => {
-  return (node: TSESTree.Node, sourceCode: TSESLint.SourceCode): boolean => {
-    let activeNode = node
+// The leading identifier of a statement, which is the vitest function being called.
+const getStatementToken = (
+  node: TSESTree.Node,
+  sourceCode: TSESLint.SourceCode,
+): string | null => {
+  let activeNode = node
 
-    if (activeNode.type === AST_NODE_TYPES.ExpressionStatement) {
-      // In the case of `await`, we actually care about its argument
-      if (activeNode.expression.type === AST_NODE_TYPES.AwaitExpression) {
-        activeNode = activeNode.expression.argument
-      }
+  if (activeNode.type !== AST_NODE_TYPES.ExpressionStatement) return null
 
-      const token = sourceCode.getFirstToken(activeNode)
-
-      return (
-        token?.type === AST_TOKEN_TYPES.Identifier && token.value === tokenName
-      )
-    }
-
-    return false
+  // In the case of `await`, we actually care about its argument
+  if (activeNode.expression.type === AST_NODE_TYPES.AwaitExpression) {
+    activeNode = activeNode.expression.argument
   }
+
+  const token = sourceCode.getFirstToken(activeNode)
+
+  return token?.type === AST_TOKEN_TYPES.Identifier ? token.value : null
+}
+
+const createTokenTester = (tokenName: string): StatementTester => {
+  return (node: TSESTree.Node, sourceCode: TSESLint.SourceCode): boolean =>
+    getStatementToken(node, sourceCode) === tokenName
+}
+
+// Unlike the fixed testers, this one depends on the rule's options.
+const customTestTokenTester: StatementTester = (
+  node,
+  sourceCode,
+  additionalTestBlockFunctions,
+): boolean => {
+  const token = getStatementToken(node, sourceCode)
+
+  return token !== null && additionalTestBlockFunctions.includes(token)
 }
 
 type StatementTester = (
   node: TSESTree.Node,
   sourceCode: TSESLint.SourceCode,
+  additionalTestBlockFunctions: string[],
 ) => boolean
 
 type StatementTypes = StatementType | StatementType[]
@@ -195,6 +213,7 @@ const statementTesters: { [T in StatementType]: StatementTester } = {
   [StatementType.XdescribeToken]: createTokenTester('xdescribe'),
   [StatementType.XitToken]: createTokenTester('xit'),
   [StatementType.XtestToken]: createTokenTester('xtest'),
+  [StatementType.CustomTestToken]: customTestTokenTester,
 }
 
 /**
@@ -221,7 +240,11 @@ const nodeMatchesType = (
     )
   }
 
-  return statementTesters[statementType](innerStatementNode, sourceCode)
+  return statementTesters[statementType](
+    innerStatementNode,
+    sourceCode,
+    paddingContext.additionalTestBlockFunctions,
+  )
 }
 
 const testPadding = (
@@ -294,12 +317,35 @@ const verifyNode = (
  * statement types. If they match then the specified padding type is
  * tested/enforced.
  */
+// Only the rules whose configs can match a custom test function take the option,
+// so a rule such as `padding-around-before-all-blocks` keeps an empty schema.
+const usesCustomTestToken = (configs: Config[]): boolean =>
+  configs.some(({ prevStatementType, nextStatementType }) =>
+    [prevStatementType, nextStatementType]
+      .flat()
+      .includes(StatementType.CustomTestToken),
+  )
+
+const additionalTestBlockFunctionsSchema = {
+  type: 'object',
+  properties: {
+    additionalTestBlockFunctions: {
+      description: 'Additional functions that should be treated as test blocks.',
+      type: 'array',
+      items: { type: 'string' },
+    },
+  },
+  additionalProperties: false,
+} as const
+
 export const createPaddingRule = (
   name: string,
   description: string,
   configs: Config[],
   deprecated = false,
 ) => {
+  const supportsCustomTestFunctions = usesCustomTestToken(configs)
+
   return createEslintRule({
     name,
     meta: {
@@ -309,16 +355,26 @@ export const createPaddingRule = (
       messages: {
         missingPadding: 'expect blank line before this statement',
       },
-      schema: [],
+      schema: supportsCustomTestFunctions
+        ? [additionalTestBlockFunctionsSchema]
+        : [],
       type: 'suggestion',
-      defaultOptions: [],
+      defaultOptions: supportsCustomTestFunctions
+        ? [{ additionalTestBlockFunctions: [] }]
+        : [],
     },
     create(context) {
+      const [options] = context.options as
+        | [{ additionalTestBlockFunctions?: string[] }?]
+        | []
+
       const paddingContext = {
         ruleContext: context,
         sourceCode: context.sourceCode ?? context.getSourceCode(),
         scopeInfo: createScopeInfo(),
         configs,
+        additionalTestBlockFunctions:
+          options?.additionalTestBlockFunctions ?? [],
       }
 
       const { scopeInfo } = paddingContext
