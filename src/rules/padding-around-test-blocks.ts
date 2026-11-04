@@ -12,6 +12,7 @@ export const config = [
       StatementType.FitToken,
       StatementType.XitToken,
       StatementType.XtestToken,
+      StatementType.CustomTestToken,
     ],
   },
   {
@@ -22,6 +23,7 @@ export const config = [
       StatementType.FitToken,
       StatementType.XitToken,
       StatementType.XtestToken,
+      StatementType.CustomTestToken,
     ],
     nextStatementType: StatementType.Any,
   },
