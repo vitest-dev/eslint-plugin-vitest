@@ -290,6 +290,31 @@ const verifyNode = (
   scopeInfo.prevNode = node
 }
 
+// Only the rules whose configs can match a custom test function take the option,
+// so a rule such as `padding-around-before-all-blocks` keeps an empty schema.
+const usesCustomTestToken = (configs: Config[]): boolean =>
+  configs.some(({ prevStatementType, nextStatementType }) =>
+    [prevStatementType, nextStatementType]
+      .flat()
+      .includes(StatementType.CustomTestToken),
+  )
+
+const additionalTestBlockFunctionsSchema = {
+  type: 'object',
+  properties: {
+    additionalTestBlockFunctions: {
+      description:
+        'Additional functions that should be treated as test blocks.',
+      type: 'array',
+      items: { type: 'string' },
+    },
+  },
+  additionalProperties: false,
+} as const
+
+// Rules built without the option simply never receive it, as their schema is empty.
+export type PaddingRuleOptions = [{ additionalTestBlockFunctions?: string[] }?]
+
 /**
  * Creates an ESLint rule for a given set of padding Config objects.
  *
@@ -317,31 +342,6 @@ const verifyNode = (
  * statement types. If they match then the specified padding type is
  * tested/enforced.
  */
-// Only the rules whose configs can match a custom test function take the option,
-// so a rule such as `padding-around-before-all-blocks` keeps an empty schema.
-const usesCustomTestToken = (configs: Config[]): boolean =>
-  configs.some(({ prevStatementType, nextStatementType }) =>
-    [prevStatementType, nextStatementType]
-      .flat()
-      .includes(StatementType.CustomTestToken),
-  )
-
-const additionalTestBlockFunctionsSchema = {
-  type: 'object',
-  properties: {
-    additionalTestBlockFunctions: {
-      description:
-        'Additional functions that should be treated as test blocks.',
-      type: 'array',
-      items: { type: 'string' },
-    },
-  },
-  additionalProperties: false,
-} as const
-
-// Rules built without the option simply never receive it, as their schema is empty.
-export type PaddingRuleOptions = [{ additionalTestBlockFunctions?: string[] }?]
-
 export const createPaddingRule = (
   name: string,
   description: string,
