@@ -320,5 +320,45 @@ ruleTester.run(`${rule.name}: typescript edition'`, rule, {
       y.mockClear();
       `,
     },
+    {
+      code: `expect(x).toHaveBeenCalledWith('hoge');
+g(); expect(x).toHaveBeenCalledOnce();`,
+      errors: [
+        { messageId: 'preferCalledExactlyOnceWith', column: 16, line: 2 },
+      ],
+      output: `expect(x).toHaveBeenCalledExactlyOnceWith('hoge');
+g();`,
+    },
+    {
+      code: `expect(x).toHaveBeenCalledWith('hoge');
+expect(x).toHaveBeenCalledOnce(); g();`,
+      errors: [
+        { messageId: 'preferCalledExactlyOnceWith', column: 11, line: 2 },
+      ],
+      output: `expect(x).toHaveBeenCalledExactlyOnceWith('hoge');
+g();`,
+    },
+    {
+      code: `expect(x).toHaveBeenCalledWith('hoge'); expect(x).toHaveBeenCalledOnce();`,
+      errors: [
+        { messageId: 'preferCalledExactlyOnceWith', column: 51, line: 1 },
+      ],
+      output: `expect(x).toHaveBeenCalledExactlyOnceWith('hoge');`,
+    },
+    {
+      code: `expect(x).toHaveBeenCalledWith('hoge');
+expect(x).toHaveBeenCalledOnce();`,
+      errors: [
+        { messageId: 'preferCalledExactlyOnceWith', column: 11, line: 2 },
+      ],
+      output: `expect(x).toHaveBeenCalledExactlyOnceWith('hoge');`,
+    },
+    {
+      code: `expect(x).toHaveBeenCalledWith('hoge');\r\nexpect(x).toHaveBeenCalledOnce();`,
+      errors: [
+        { messageId: 'preferCalledExactlyOnceWith', column: 11, line: 2 },
+      ],
+      output: `expect(x).toHaveBeenCalledExactlyOnceWith('hoge');`,
+    },
   ],
 })

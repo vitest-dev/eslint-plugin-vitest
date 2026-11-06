@@ -136,6 +136,38 @@ const getMemberProperty = (expression: TSESTree.CallExpression) =>
     ? expression.callee.property
     : null
 
+const isBlank = (text: string) => text.trim() === ''
+
+const countTrailingWhitespace = (text: string) =>
+  text.length - text.trimEnd().length
+
+const countLeadingWhitespace = (text: string) =>
+  text.length - text.trimStart().length
+
+// Removes the whole line when the statement is alone on it, otherwise only
+// the statement and the whitespace that separates it from its neighbours
+const getStatementRemovalRange = (
+  statement: TSESTree.Node,
+  text: string,
+): TSESTree.Range => {
+  const [start, end] = statement.range
+  const lineStart = text.lastIndexOf('\n', start - 1) + 1
+  const nextNewline = text.indexOf('\n', end)
+  const lineEnd = nextNewline === -1 ? text.length : nextNewline
+  const textBefore = text.slice(lineStart, start)
+  const textAfter = text.slice(end, lineEnd)
+
+  if (isBlank(textBefore) && isBlank(textAfter)) {
+    if (nextNewline !== -1) return [lineStart, nextNewline + 1]
+    const previousLineEnd = text[lineStart - 2] === '\r' ? 2 : 1
+    return [Math.max(lineStart - previousLineEnd, 0), lineEnd]
+  }
+
+  return isBlank(textAfter)
+    ? [start - countTrailingWhitespace(textBefore), end]
+    : [start, end + countLeadingWhitespace(textAfter)]
+}
+
 export default createEslintRule<Options, MESSAGE_IDS>({
   name: RULE_NAME,
   meta: {
@@ -240,17 +272,14 @@ export default createEslintRule<Options, MESSAGE_IDS>({
 
             const replacement = `${indentation}${expectedText}.toHaveBeenCalledExactlyOnceWith${typesParam}(${argsText})`
 
-            const lineStart = sourceCode.getIndexFromLoc({
-              line: secondCallExpression.parent.loc.start.line,
-              column: 0,
-            })
-            const lineEnd = sourceCode.getIndexFromLoc({
-              line: secondCallExpression.parent.loc.end.line + 1,
-              column: 0,
-            })
             return [
               fixer.replaceText(firstCallExpression, replacement),
-              fixer.removeRange([lineStart, lineEnd]),
+              fixer.removeRange(
+                getStatementRemovalRange(
+                  secondCallExpression.parent,
+                  sourceCode.text,
+                ),
+              ),
             ]
           },
         })
