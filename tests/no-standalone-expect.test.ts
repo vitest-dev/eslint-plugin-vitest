@@ -113,5 +113,25 @@ ruleTester.run(rule.name, rule, {
       options: [{ additionalTestBlockFunctions: ['test'] }],
       errors: [{ endColumn: 36, column: 8, messageId: 'noStandaloneExpect' }],
     },
+    {
+      code: 'test.concurrent("a test", () => {}); expect(1).toBe(1);',
+      errors: [{ endColumn: 55, column: 38, messageId: 'noStandaloneExpect' }],
+    },
+    {
+      code: 'test.skip("a test", () => {}); expect(1).toBe(1);',
+      errors: [{ endColumn: 49, column: 32, messageId: 'noStandaloneExpect' }],
+    },
+    {
+      code: 'it.only("an it", () => {}); expect(1).toBe(1);',
+      errors: [{ endColumn: 46, column: 29, messageId: 'noStandaloneExpect' }],
+    },
+    {
+      code: 'test.each([1])("a test", () => {}); expect(1).toBe(1);',
+      errors: [{ endColumn: 54, column: 37, messageId: 'noStandaloneExpect' }],
+    },
+    {
+      code: 'describe("a test", () => { it.skip("an it", () => {}); expect(1).toBe(1); });',
+      errors: [{ endColumn: 73, column: 56, messageId: 'noStandaloneExpect' }],
+    },
   ],
 })
