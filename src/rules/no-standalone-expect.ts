@@ -76,6 +76,8 @@ export default createEslintRule<Options, MESSAGE_IDS>({
   },
   create(context, [{ additionalTestBlockFunctions = [] }]) {
     const callStack: BlockType[] = []
+    // The calls that pushed a 'test' entry, so each one pops its own entry
+    const testCalls: TSESTree.CallExpression[] = []
 
     const isCustomTestBlockFunction = (
       node: TSESTree.CallExpression,
@@ -113,8 +115,10 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           return
         }
 
-        if (vitestFnCall?.type === 'test' || isCustomTestBlockFunction(node))
+        if (vitestFnCall?.type === 'test' || isCustomTestBlockFunction(node)) {
           callStack.push('test')
+          testCalls.push(node)
+        }
         if (isDefineHelperCall(node)) callStack.push('helper')
 
         if (node.callee.type === AST_NODE_TYPES.TaggedTemplateExpression)
@@ -124,15 +128,14 @@ export default createEslintRule<Options, MESSAGE_IDS>({
         const top = callStack[callStack.length - 1]
 
         if (
-          (top === 'test' &&
-            (isTypeOfVitestFnCall(node, context, ['test']) ||
-              isCustomTestBlockFunction(node)) &&
-            node.callee.type !== AST_NODE_TYPES.MemberExpression) ||
+          (top === 'test' && testCalls[testCalls.length - 1] === node) ||
           (top === 'helper' && isDefineHelperCall(node)) ||
           (top === 'template' &&
             node.callee.type === AST_NODE_TYPES.TaggedTemplateExpression)
-        )
+        ) {
+          if (top === 'test') testCalls.pop()
           callStack.pop()
+        }
       },
       BlockStatement(statement) {
         const blockType = getBlockType(statement, context)
