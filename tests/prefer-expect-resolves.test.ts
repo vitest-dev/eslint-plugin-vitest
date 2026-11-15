@@ -45,5 +45,55 @@ ruleTester.run(rule.name, rule, {
         },
       ],
     },
+    {
+      code: "it('resolves', async () => { expect(await (cond ? p1 : p2)).toBe(1); });",
+      output:
+        "it('resolves', async () => { await expect(cond ? p1 : p2).resolves.toBe(1); });",
+      errors: [
+        {
+          messageId,
+        },
+      ],
+    },
+    {
+      code: "it('resolves', async () => { expect(await (p1 ?? p2)).toBe(1); });",
+      output:
+        "it('resolves', async () => { await expect(p1 ?? p2).resolves.toBe(1); });",
+      errors: [
+        {
+          messageId,
+        },
+      ],
+    },
+    {
+      code: "it('resolves', async () => { expect(await (p as Promise<number>)).toBe(1); });",
+      output:
+        "it('resolves', async () => { await expect(p as Promise<number>).resolves.toBe(1); });",
+      errors: [
+        {
+          messageId,
+        },
+      ],
+    },
+    {
+      code: "it('resolves', async () => { expect(await ((p))).toBe(1); });",
+      output:
+        "it('resolves', async () => { await expect(p).resolves.toBe(1); });",
+      errors: [
+        {
+          messageId,
+        },
+      ],
+    },
+    {
+      code: "it('resolves', async () => { expect(await (setup(), p)).toBe(1); });",
+      output:
+        "it('resolves', async () => { await expect((setup(), p)).resolves.toBe(1); });",
+      errors: [
+        {
+          messageId,
+        },
+      ],
+    },
   ],
 })

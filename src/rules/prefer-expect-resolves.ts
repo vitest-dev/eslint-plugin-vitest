@@ -38,12 +38,17 @@ export default createEslintRule<Options, MESSAGE_IDS>({
           node: awaitNode,
           messageId: 'expectResolves',
           fix(fixer) {
+            const { argument } = awaitNode
+            const argumentText = context.sourceCode.getText(argument)
+
             return [
               fixer.insertTextBefore(parent, 'await '),
-              fixer.removeRange([
-                awaitNode.range[0],
-                awaitNode.argument.range[0],
-              ]),
+              fixer.replaceText(
+                awaitNode,
+                argument.type === AST_NODE_TYPES.SequenceExpression
+                  ? `(${argumentText})`
+                  : argumentText,
+              ),
               fixer.insertTextAfter(parent, '.resolves'),
             ]
           },
