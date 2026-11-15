@@ -1,9 +1,13 @@
+import { TSESLint, TSESTree } from '@typescript-eslint/utils'
 import {
   createEslintRule,
   findVitestModeProperty,
   getAccessorValue,
 } from '../utils'
-import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
+import {
+  KnownMemberExpressionProperty,
+  parseVitestFnCall,
+} from '../utils/parse-vitest-fn-call'
 
 export type MessageIds = 'noFocusedTests'
 const RULE_NAME = 'no-focused-tests'
@@ -12,6 +16,29 @@ export type Options = [
     fixable: boolean
   }>,
 ]
+
+const isMemberAccessToken = (token: TSESTree.Token) =>
+  token.type === 'Punctuator' && ['.', '?.', '['].includes(token.value)
+
+/**
+ * Removes the `.only`, `?.only` or `["only"]` access, keeping the object it
+ * is accessed on.
+ */
+const removeMemberAccess = (
+  fixer: TSESLint.RuleFixer,
+  sourceCode: Readonly<TSESLint.SourceCode>,
+  property: KnownMemberExpressionProperty,
+) => {
+  const memberExpression = property.parent
+  const accessToken = sourceCode.getTokenAfter(
+    memberExpression.object,
+    isMemberAccessToken,
+  )
+
+  if (!accessToken) return null
+
+  return fixer.removeRange([accessToken.range[0], memberExpression.range[1]])
+}
 
 export default createEslintRule<Options, MessageIds>({
   name: RULE_NAME,
@@ -69,10 +96,7 @@ export default createEslintRule<Options, MessageIds>({
               if (!fixable) return null
 
               if (onlyNode)
-                return fixer.removeRange([
-                  onlyNode.range[0] - 1,
-                  onlyNode.range[1],
-                ])
+                return removeMemberAccess(fixer, context.sourceCode, onlyNode)
 
               if (onlyProperty)
                 return fixer.replaceText(onlyProperty.value, 'false')
