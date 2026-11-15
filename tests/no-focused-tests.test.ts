@@ -323,5 +323,122 @@ ruleTester.run(rule.name, rule, {
       ],
       output: 'it.each``("test", () => {});',
     },
+    {
+      code: 'it["only"]("test", () => {});',
+      errors: [
+        {
+          column: 4,
+          endColumn: 10,
+          endLine: 1,
+          line: 1,
+          messageId: 'noFocusedTests',
+        },
+      ],
+      output: 'it("test", () => {});',
+    },
+    {
+      code: 'it[\'only\']("test", () => {});',
+      errors: [
+        {
+          column: 4,
+          endColumn: 10,
+          endLine: 1,
+          line: 1,
+          messageId: 'noFocusedTests',
+        },
+      ],
+      output: 'it("test", () => {});',
+    },
+    {
+      code: 'it[`only`]("test", () => {});',
+      errors: [
+        {
+          column: 4,
+          endColumn: 10,
+          endLine: 1,
+          line: 1,
+          messageId: 'noFocusedTests',
+        },
+      ],
+      output: 'it("test", () => {});',
+    },
+    {
+      code: 'describe["only"]("test", () => {});',
+      errors: [
+        {
+          column: 10,
+          endColumn: 16,
+          endLine: 1,
+          line: 1,
+          messageId: 'noFocusedTests',
+        },
+      ],
+      output: 'describe("test", () => {});',
+    },
+    {
+      code: 'test["only"].each([])("test", () => {});',
+      errors: [
+        {
+          column: 6,
+          endColumn: 12,
+          endLine: 1,
+          line: 1,
+          messageId: 'noFocusedTests',
+        },
+      ],
+      output: 'test.each([])("test", () => {});',
+    },
+    {
+      code: 'it?.only("test", () => {});',
+      errors: [
+        {
+          column: 5,
+          endColumn: 9,
+          endLine: 1,
+          line: 1,
+          messageId: 'noFocusedTests',
+        },
+      ],
+      output: 'it("test", () => {});',
+    },
+    {
+      code: '(it).only("test", () => {});',
+      errors: [
+        {
+          column: 6,
+          endColumn: 10,
+          endLine: 1,
+          line: 1,
+          messageId: 'noFocusedTests',
+        },
+      ],
+      output: '(it)("test", () => {});',
+    },
+    {
+      code: 'it.\n  only("test", () => {});',
+      errors: [
+        {
+          column: 3,
+          endColumn: 7,
+          endLine: 2,
+          line: 2,
+          messageId: 'noFocusedTests',
+        },
+      ],
+      output: 'it("test", () => {});',
+    },
+    {
+      code: 'it /* focus */ . only("test", () => {});',
+      errors: [
+        {
+          column: 18,
+          endColumn: 22,
+          endLine: 1,
+          line: 1,
+          messageId: 'noFocusedTests',
+        },
+      ],
+      output: 'it /* focus */ ("test", () => {});',
+    },
   ],
 })
