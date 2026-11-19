@@ -26,6 +26,8 @@ vi.mock(import('./path/to/module'))
 vi.doMock(import('./path/to/module'))
 ```
 
+Calls on an aliased `vi` (for example `import { vi as renamedVi } from 'vitest'`) are not reported, because Vitest only transforms `vi.mock()` and `vitest.mock()` calls and an `import()` argument would fail at runtime.
+
 ### Options
 
 <!-- begin auto-generated rule options list -->
