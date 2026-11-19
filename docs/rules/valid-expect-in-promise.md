@@ -10,6 +10,8 @@
 
 If a promise containing `expect` calls is neither awaited nor returned, the test can finish before the promise settles. The assertions then run too late to fail the test, or not at all, so the test passes even when the expectations are wrong.
 
+## Rule Details
+
 This rule flags any promises within the body of a test that include expectations that have either not been returned or awaited.
 
 The following patterns is considered warning:

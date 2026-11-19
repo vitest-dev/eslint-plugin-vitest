@@ -12,6 +12,8 @@
 
 `toHaveBeenCalledExactlyOnceWith()` checks the number of calls and the arguments in a single assertion. It is shorter than pairing `toHaveBeenCalledOnce()` with `toHaveBeenCalledWith()`, and keeps both checks together so they cannot drift apart when the test is edited.
 
+## Rule Details
+
 Examples of **incorrect** code for this rule:
 
 ```js
