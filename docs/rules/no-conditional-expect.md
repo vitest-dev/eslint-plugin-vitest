@@ -6,6 +6,12 @@
 
 <!-- end auto-generated rule header -->
 
+## Rationale
+
+An `expect` inside a condition only runs when that condition is met. When the branch is not taken, the assertion is silently skipped and the test still passes, which hides bugs. Asserting unconditionally makes every run check the same thing.
+
+Instead, write a separate test for each case, or use `test.each` / `test.for` with the expected value as part of the test data, so each case asserts unconditionally (see the examples below). If the condition is intentional, enable the `expectAssertions` option and call `expect.assertions()` so the test fails when the expected assertions do not run.
+
 ## Rule Details
 
 This rule aims to prevent false positive test results by highlighting conditional expect statements.

@@ -6,6 +6,10 @@
 
 <!-- end auto-generated rule header -->
 
+## Rationale
+
+A test without any assertion passes as long as it does not throw, so it can give a false sense of coverage. Requiring at least one assertion makes sure the test actually checks something.
+
 ## Rule Details
 
 This rule aims to enforce having at least one expectation in test body to ensure that the test is actually testing something.

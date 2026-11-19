@@ -6,6 +6,10 @@
 
 <!-- end auto-generated rule header -->
 
+## Rationale
+
+Commented-out tests do not run and do not show up in the test report, so the behavior they covered is silently left untested and they are easily forgotten. Delete the test, fix it, or mark it with `test.skip()` or `test.todo()` so it stays visible.
+
 ## Rule Details
 
 This rule aims to prevent commented out tests.

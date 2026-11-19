@@ -8,6 +8,10 @@
 
 <!-- end auto-generated rule header -->
 
+## Rationale
+
+`node:test` also exports `test`, `describe` and `it`, so an editor auto-import can easily pick it instead of `vitest`. Tests registered through `node:test` are not collected and reported by Vitest, so they silently stop being part of your test run.
+
 ## Rule Details
 
 This rule warns when `node:test` is imported (usually accidentally). With `--fix`, it will replace the import with `vitest`.

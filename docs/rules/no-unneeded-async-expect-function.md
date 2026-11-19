@@ -8,6 +8,10 @@
 
 <!-- end auto-generated rule header -->
 
+## Rationale
+
+Wrapping a single awaited call in an `async` function adds noise without changing what is asserted: passing the call to `expect` directly is shorter and easier to read.
+
 ## Rule Details
 
 Disallow wrapping `expect` calls with unnecessary `async` functions when the awaited call can be passed directly. If the only statement inside the `async` wrapper is `await someCall()`, pass `someCall()` straight to `expect` instead.

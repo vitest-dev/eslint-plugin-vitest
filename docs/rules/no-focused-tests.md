@@ -8,6 +8,10 @@
 
 <!-- end auto-generated rule header -->
 
+## Rationale
+
+Focusing a test with `.only` makes Vitest skip the other tests in the file. It is handy while debugging, but once committed, the rest of the file is no longer tested locally, and runs where `allowOnly` is disabled (the default in CI) fail. Catching it at lint time avoids both.
+
 ## Rule Details
 
 Examples of **incorrect** code for this rule:
