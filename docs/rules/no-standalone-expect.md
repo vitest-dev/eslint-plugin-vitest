@@ -6,6 +6,10 @@
 
 <!-- end auto-generated rule header -->
 
+## Rationale
+
+An `expect` outside of a test block is not part of any test. It runs while Vitest collects the tests, so a failure is reported as an error for the whole file rather than as a failing test, and a passing one does not count as an assertion for any test.
+
 ## Rule Details
 
 This rule aims to prevent the use of `expect` outside of `it` or `test` blocks.

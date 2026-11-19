@@ -8,6 +8,10 @@
 
 <!-- end auto-generated rule header -->
 
+## Rationale
+
+`toHaveBeenCalledExactlyOnceWith()` checks the number of calls and the arguments in a single assertion. It is shorter than pairing `toHaveBeenCalledOnce()` with `toHaveBeenCalledWith()`, and keeps both checks together so they cannot drift apart when the test is edited.
+
 Examples of **incorrect** code for this rule:
 
 ```js

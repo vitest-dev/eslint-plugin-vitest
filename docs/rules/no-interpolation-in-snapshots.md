@@ -8,6 +8,10 @@
 
 <!-- end auto-generated rule header -->
 
+## Rationale
+
+Inline snapshots are written and updated by Vitest itself. Interpolating values into them makes the expected output depend on runtime values, which defeats the purpose of a snapshot, and updating snapshots replaces the interpolation with a literal value.
+
 ## Rule Details
 
 This rule aims to prevent the use of string interpolation in snapshots.

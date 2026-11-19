@@ -6,6 +6,10 @@
 
 <!-- end auto-generated rule header -->
 
+## Rationale
+
+An `expect` inside a condition only runs when that condition is met. When the branch is not taken, the assertion is silently skipped and the test still passes, which hides bugs. Asserting unconditionally makes every run check the same thing.
+
 ## Rule Details
 
 This rule aims to prevent false positive test results by highlighting conditional expect statements.

@@ -8,6 +8,10 @@
 
 <!-- end auto-generated rule header -->
 
+## Rationale
+
+A malformed `expect` usually passes silently instead of failing: `expect(value)` without a matcher, or a matcher that is referenced but not called, asserts nothing, and an async assertion (`.resolves` / `.rejects`) that is neither awaited nor returned can settle after the test has already finished. This rule catches these mistakes.
+
 This rule triggers a warning if `expect` is called with no argument or with more than one argument. You change that behavior by setting the `minArgs` and `maxArgs` options.
 
 ### Options

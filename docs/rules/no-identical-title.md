@@ -8,6 +8,10 @@
 
 <!-- end auto-generated rule header -->
 
+## Rationale
+
+Tests or suites with the same title in the same scope are hard to tell apart in reports and failure messages, and the duplicate is often a copy-paste mistake where one of them was meant to test something else. Snapshot names are also derived from test titles, so duplicates make snapshots depend on test order.
+
 ## Rule Details
 
 Examples of **incorrect** code for this rule:

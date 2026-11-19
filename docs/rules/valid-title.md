@@ -8,6 +8,10 @@
 
 <!-- end auto-generated rule header -->
 
+## Rationale
+
+Titles are how tests appear in reports, failure messages, snapshot names and `-t` filters. Empty or non-string titles, leading or trailing spaces and duplicated prefixes make tests harder to identify and filter.
+
 # Rule Details
 
 This rule aims to enforce valid titles for `describe`, `it` and `test` titles.
