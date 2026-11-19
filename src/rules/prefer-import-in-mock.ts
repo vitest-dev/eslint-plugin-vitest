@@ -5,6 +5,7 @@ import { parseVitestFnCall } from '../utils/parse-vitest-fn-call'
 const RULE_NAME = 'prefer-import-in-mock'
 
 const MOCK_METHODS = new Set(['mock', 'doMock'])
+const VITEST_OBJECTS = new Set(['vi', 'vitest'])
 
 type MESSAGE_ID = 'preferImport'
 type Options = [
@@ -52,7 +53,16 @@ export default createEslintRule<Options, MESSAGE_ID>({
           return false
         }
 
-        const { property } = node.callee
+        const { object, property } = node.callee
+
+        // Vitest only rewrites `import()` paths for calls on `vi` or `vitest`,
+        // so an aliased call such as `renamedVi.mock(import('./foo'))` fails at runtime
+        if (
+          object.type !== AST_NODE_TYPES.Identifier ||
+          !VITEST_OBJECTS.has(object.name)
+        ) {
+          return
+        }
 
         if (
           property.type != AST_NODE_TYPES.Identifier ||
@@ -62,7 +72,11 @@ export default createEslintRule<Options, MESSAGE_ID>({
         }
 
         const pathArg = node.arguments[0]
-        if (pathArg && pathArg.type === AST_NODE_TYPES.Literal) {
+        if (
+          pathArg &&
+          pathArg.type === AST_NODE_TYPES.Literal &&
+          typeof pathArg.value === 'string'
+        ) {
           context.report({
             messageId: 'preferImport',
             data: {
@@ -72,7 +86,11 @@ export default createEslintRule<Options, MESSAGE_ID>({
             fix(fixer) {
               if (!fixable) return null
 
-              return fixer.replaceText(pathArg, `import('${pathArg.value}')`)
+              // keep the literal as written so quotes and escapes stay valid
+              return fixer.replaceText(
+                pathArg,
+                `import(${context.sourceCode.getText(pathArg)})`,
+              )
             },
           })
         }
