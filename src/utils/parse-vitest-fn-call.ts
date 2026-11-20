@@ -124,11 +124,10 @@ export const parseVitestFnCallWithReason = (
   node: TSESTree.CallExpression,
   context: TSESLint.RuleContext<string, readonly unknown[]>,
 ): ParsedVitestFnCall | Reason | null => {
-  let parsedVitestFnCall = parseVitestFnCallCache.get(node)
+  // `has` rather than a truthy check: `null` (not a vitest call) is the most common result and must be cached too
+  if (parseVitestFnCallCache.has(node)) return parseVitestFnCallCache.get(node)!
 
-  if (parsedVitestFnCall) return parsedVitestFnCall
-
-  parsedVitestFnCall = parseVitestFnCallWithReasonInner(node, context)
+  const parsedVitestFnCall = parseVitestFnCallWithReasonInner(node, context)
 
   parseVitestFnCallCache.set(node, parsedVitestFnCall)
 
